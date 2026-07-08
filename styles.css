@@ -1146,3 +1146,136 @@ body.ccmv-splash-active{overflow:hidden}
 #ccmvSplash .splash-logo{width:min(82vw,440px);margin-bottom:24px}
 #ccmvSplash .splash-destination{margin-top:22px}}
 @media (prefers-reduced-motion: reduce){#ccmvSplash .splash-glow,#ccmvSplash .splash-logo,#ccmvSplash .splash-line,#ccmvSplash .splash-destination,#ccmvSplash .splash-fadeout{animation:none;opacity:1}}
+
+/* ===== PATCH 2026-07: Splash opacity + mobile one-screen home ===== */
+/* Keep the front page fully hidden while splash is active, so the loader never looks translucent. */
+body.ccmv-splash-active > :not(#ccmvSplash){
+  visibility:hidden!important;
+}
+body.ccmv-splash-active #ccmvSplash,
+body.ccmv-splash-active #ccmvSplash *{
+  visibility:visible!important;
+}
+#ccmvSplash{
+  background:#f7efe3!important;
+  background-image:
+    radial-gradient(circle at 50% 42%, #fffdf4 0%, #f8efdf 44%, #ead8c2 100%)!important;
+}
+#ccmvSplash .splash-fadeout{
+  background:#f7efe3!important;
+}
+#ccmvSplash .splash-logo{
+  object-fit:contain!important;
+  height:auto!important;
+  max-height:42vh!important;
+}
+
+/* Mobile front page: keep the whole dashboard in one screen without vertical scrolling. */
+@media(max-width:520px){
+  body.home-bg{
+    min-height:100dvh!important;
+    overflow:hidden!important;
+  }
+  body.home-bg .site-nav{
+    min-height:52px!important;
+    padding:7px 12px!important;
+  }
+  body.home-bg .brand{
+    font-size:15px!important;
+  }
+  body.home-bg .brand img{
+    width:30px!important;
+    height:30px!important;
+  }
+  body.home-bg .friend-pill{
+    min-height:34px!important;
+    padding:6px 10px!important;
+    font-size:13px!important;
+  }
+  body.home-bg .dashboard.home-premium.home-v37{
+    height:calc(100dvh - 52px)!important;
+    min-height:0!important;
+    padding:6px 10px 78px!important;
+    align-items:center!important;
+    overflow:hidden!important;
+  }
+  body.home-bg .home-brand-card.v37-dashboard-home{
+    width:100%!important;
+    max-height:calc(100dvh - 142px)!important;
+    padding:13px 11px 13px!important;
+    border-radius:28px!important;
+    transform:translateY(-2px);
+  }
+  body.home-bg .v37-dashboard-home .home-since{
+    font-size:9px!important;
+    margin-bottom:5px!important;
+    letter-spacing:.20em!important;
+  }
+  body.home-bg .v37-dashboard-home h1{
+    font-size:clamp(31px,9.2vw,38px)!important;
+    line-height:.88!important;
+    margin-bottom:5px!important;
+  }
+  body.home-bg .v37-dashboard-home .home-tagline{
+    font-size:9px!important;
+    margin-bottom:6px!important;
+    letter-spacing:.10em!important;
+  }
+  body.home-bg .v37-dashboard-home .home-trip-line{
+    gap:5px!important;
+    margin:4px 0 8px!important;
+  }
+  body.home-bg .v37-dashboard-home .home-trip-line span{
+    padding:5px 8px!important;
+    font-size:10px!important;
+  }
+  body.home-bg .home-live-grid{
+    gap:6px!important;
+    margin:2px auto 8px!important;
+  }
+  body.home-bg .live-card{
+    min-height:64px!important;
+    border-radius:17px!important;
+    padding:7px 8px!important;
+  }
+  body.home-bg .live-icon{
+    font-size:14px!important;
+    margin-bottom:0!important;
+  }
+  body.home-bg .live-card small{
+    font-size:8px!important;
+    margin-bottom:1px!important;
+  }
+  body.home-bg .live-card strong{
+    font-size:12px!important;
+    line-height:1.05!important;
+  }
+  body.home-bg .live-card em{
+    font-size:9px!important;
+    margin-top:1px!important;
+  }
+  body.home-bg .home-day-button{
+    min-height:38px!important;
+    padding:9px 14px!important;
+    font-size:13px!important;
+  }
+  body.home-bg .app-nav{
+    bottom:8px!important;
+  }
+}
+@media(max-height:700px) and (max-width:520px){
+  body.home-bg .home-brand-card.v37-dashboard-home{
+    padding:10px 10px 10px!important;
+  }
+  body.home-bg .v37-dashboard-home h1{
+    font-size:30px!important;
+  }
+  body.home-bg .live-card{
+    min-height:58px!important;
+    padding:6px 7px!important;
+  }
+  body.home-bg .home-day-button{
+    min-height:34px!important;
+    padding:7px 12px!important;
+  }
+}

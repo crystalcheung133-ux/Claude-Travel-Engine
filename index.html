@@ -1,14 +1,46 @@
 <!DOCTYPE html>
 
-<html lang="zh-Hant"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>Home · Saigon Companion</title><link href="manifest.json" rel="manifest"/><meta content="#8A4F2D" name="theme-color"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="Saigon" name="apple-mobile-web-app-title"/><link href="icon-192.png" rel="apple-touch-icon"/><link href="styles.css" rel="stylesheet"/></head><body class="home-bg ccmv-splash-active"><div aria-hidden="true" id="ccmvSplash" role="presentation"><div class="splash-paper"></div><div class="splash-glow"></div><div class="splash-content"><img alt="" class="splash-logo" src="splash-logo.png"/><h1 class="splash-line">Plan together ·<br/>Travel together</h1><div class="splash-destination">VIETNAM 2026</div></div><div class="splash-fadeout"></div></div><script>(function(){
+<html lang="zh-Hant"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>Home · Saigon Companion</title><link href="manifest.json" rel="manifest"/><meta content="#8A4F2D" name="theme-color"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="Saigon" name="apple-mobile-web-app-title"/><link href="icon-192.png" rel="apple-touch-icon"/><link href="styles.css" rel="stylesheet"/></head><body class="home-bg"><div aria-hidden="true" id="ccmvSplash" role="presentation"><div class="splash-paper"></div><div class="splash-glow"></div><div class="splash-content"><img alt="" class="splash-logo" src="splash-logo.png"/><h1 class="splash-line">Plan together ·<br/>Travel together</h1><div class="splash-destination">VIETNAM 2026</div></div><div class="splash-fadeout"></div></div><script>(function(){
   var splash=document.getElementById('ccmvSplash');
   if(!splash) return;
+
+  var navType='navigate';
+  try{
+    var nav=performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    if(nav && nav.type) navType=nav.type;
+    else if(performance.navigation && performance.navigation.type===1) navType='reload';
+  }catch(e){}
+
+  var sameOriginRef=false;
+  try{
+    sameOriginRef=!!document.referrer && new URL(document.referrer).origin===location.origin;
+  }catch(e){}
+
+  // Show the loading screen on fresh app open / direct visit / refresh.
+  // Skip it when coming back to the front page from another page inside the app.
+  var shouldShow = navType==='reload' || !sameOriginRef;
+
+  function removeSplashNow(){
+    if(splash && splash.parentNode) splash.parentNode.removeChild(splash);
+    document.body.classList.remove('ccmv-splash-active');
+  }
+
+  if(!shouldShow){
+    removeSplashNow();
+    return;
+  }
+
+  document.body.classList.add('ccmv-splash-active');
+
   function dismiss(){
     if(!splash || splash.classList.contains('ccmv-splash-hide')) return;
     splash.classList.add('ccmv-splash-hide');
-    document.body.classList.remove('ccmv-splash-active');
-    setTimeout(function(){ splash.remove(); }, 550);
+    setTimeout(function(){
+      document.body.classList.remove('ccmv-splash-active');
+      if(splash && splash.parentNode) splash.parentNode.removeChild(splash);
+    }, 650);
   }
+
   splash.addEventListener('click', dismiss);
   setTimeout(dismiss, 8000);
 })();</script><nav class="site-nav"><a class="brand" href="index.html"><img alt="" src="icon-192.png"/>Saigon Companion</a><button class="friend-pill" onclick="openFriendModal()"><span data-friend-label="">👓 Crystal</span></button></nav><main class="dashboard home-premium home-v37">
