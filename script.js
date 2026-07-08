@@ -276,13 +276,9 @@ function clearAllSplit() {
   document.querySelectorAll('#expenseModal input[data-split]').forEach(x => x.checked = false);
 }
 
-function toggleFab(){
-  const box=document.querySelector('.floating-tools');
-  if(box) box.classList.toggle('open');
-}
 const MOODS=[
-  ["🤩","Wow"],["😋","Delicious"],["😌","Relaxed"],["😶","Speechless"],
-  ["😵","Lost"],["😤","Annoyed"],["🥲","仆街了"],["🤬","Damn"]
+  ["🤩","Wow"],["😋","Delicious"],["😵","Exhausted"],["🔥","正到爆"],
+  ["🤯","估你唔到"],["😶","Speechless"],["🥲","仆街了"],["🤬","Damn"]
 ];
 let currentMood=[];
 let editingExpenseIndex=null;
@@ -387,9 +383,6 @@ openGuideCategory = function(cat){
 /* v3.0 Premium Experience overrides */
 try{
   PLACES.general = {title:'Moments', emoji:'✨', cat:'MOMENTS', sub:'Every place has a story', desc:'每一個地方都可以留底 rating、something to say 同相片。', categoryLabel:'✨ Moments', price:'Memory', hours:'Anytime', maps:'#', address:'Saigon Companion'};
-  MOODS.splice(0, MOODS.length, ['🤩','Wow'], ['😋','Delicious'], ['😵','Exhausted'], ['🔥','正到爆'], ['🤯','估你唔到'], ['😶','Speechless'], ['🥲','仆街了'], ['🤬','Damn']);
-  TRIP_DATA.city = {title:'🇻🇳 City', body:`<p>Ho Chi Minh City 仍然被很多人親切稱為 Saigon。它是越南最有城市能量的地方：法式殖民建築、摩托車河流、咖啡文化、設計師小店同現代餐廳全部混在一起。</p><div class='fact-grid city-facts'><div class='fact'><strong>Currency</strong>Vietnamese Dong · VND</div><div class='fact'><strong>Time zone</strong>UTC +7</div><div class='fact'><strong>Transport</strong>Grab 最方便</div><div class='fact'><strong>Late Oct</strong>Hot · humid · showers possible</div></div><h3>Useful to Know</h3><ul><li>短程交通以 Grab 為主，4 人通常叫 6-seater 會舒服啲。</li><li>現金留俾小店、tips、街邊食物同 Spa。</li><li>下午戶外行程要留冷氣位；中午至下午最熱。</li><li>Saigon 同 Ho Chi Minh City 兩個名稱都會見到。</li><li>過馬路保持穩定步速，唔好突然停低。</li></ul>`};
-  TRIP_DATA.stay = {title:'🏨 Stay', body:`<p><strong>Fusion Original Saigon Centre</strong><br>下樓連住 Saigon Centre / Takashimaya，熱、雨、夜晚返酒店都方便。</p><div class='hotel-card'><p class='kicker'>Hotel Address</p><p><strong>Fusion Original Saigon Centre</strong><br>65 Lê Lợi, Bến Nghé, District 1, Ho Chi Minh City, Vietnam</p><div class='guide-next-row'><button class='pill' onclick="copyText('Fusion Original Saigon Centre, 65 Lê Lợi, Bến Nghé, District 1, Ho Chi Minh City, Vietnam')">📋 Copy Address</button><a class='pill' href='https://maps.google.com/?q=Fusion+Original+Saigon+Centre' target='_blank'>🗺 Open Maps</a></div></div><div class='fact-grid'><div class='fact'><strong>Room</strong>2 Bedroom Suite</div><div class='fact'><strong>Bathrooms</strong>2 bathrooms</div><div class='fact'><strong>Check-in</strong>Confirm with hotel</div><div class='fact'><strong>Check-out</strong>Before airport spa</div><div class='fact'><strong>Best for</strong>Midday reset</div><div class='fact'><strong>Nearby</strong>Maison Marou · Takashimaya</div></div>`};
 }catch(e){}
 // Renders a full place detail page (page-hero + quick-info-card + prose blocks)
 // from PLACES data. Used by every standalone place page (bakes.html, lune.html, etc.)
@@ -680,11 +673,6 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 /* v3.6 production polish: stay details, checklist sizing hooks, expense CTA wording, save returns to summary */
 (function(){
-  const stayBody = `<p><strong>Fusion Original Saigon Centre</strong><br>今次四人行的城市 base。位置連住 Saigon Centre / Takashimaya，落雨、太熱或者夜晚返酒店都方便。</p><div class='hotel-card'><p class='kicker'>Hotel Address</p><p><strong>Fusion Original Saigon Centre</strong><br>65 Đường Lê Lợi<br>Takashimaya Saigon Centre<br>District 1, Ho Chi Minh City, Vietnam</p><div class='guide-next-row'><button class='pill' onclick="copyText('Fusion Original Saigon Centre, 65 Đường Lê Lợi, Takashimaya Saigon Centre, District 1, Ho Chi Minh City, Vietnam')">📋 Copy Address</button><a class='pill' href='https://maps.google.com/?q=Fusion+Original+Saigon+Centre+65+Le+Loi' target='_blank'>🗺 Open Maps</a></div></div><div class='fact-grid hotel-facts'><div class='fact'><strong>Phone</strong><a href='tel:+842836222265'>+84 28 3622 2265</a></div><div class='fact'><strong>Check-in</strong>2:00 pm – 12:00 am</div><div class='fact'><strong>Check-out</strong>Before 12:00 pm</div><div class='fact'><strong>Room</strong>2 Bedroom Suite</div></div>`;
-  if (typeof TRIP_DATA !== 'undefined') {
-    TRIP_DATA.stay = {title:'🏨 Stay', body: stayBody};
-    if (TRIP_DATA.emergency) TRIP_DATA.emergency.body = TRIP_DATA.emergency.body.replace(/Hotel Phone：[^<]+/,'Hotel Phone：+84 28 3622 2265');
-  }
   function polishExpenseCopy(){
     document.querySelectorAll('button,a').forEach(el=>{
       if((el.textContent||'').includes('Add Expense') || (el.textContent||'').includes('Split Bill')){
