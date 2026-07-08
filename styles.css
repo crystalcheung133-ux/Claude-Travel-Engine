@@ -1146,136 +1146,93 @@ body.ccmv-splash-active{overflow:hidden}
 #ccmvSplash .splash-logo{width:min(82vw,440px);margin-bottom:24px}
 #ccmvSplash .splash-destination{margin-top:22px}}
 @media (prefers-reduced-motion: reduce){#ccmvSplash .splash-glow,#ccmvSplash .splash-logo,#ccmvSplash .splash-line,#ccmvSplash .splash-destination,#ccmvSplash .splash-fadeout{animation:none;opacity:1}}
-
-/* ===== PATCH 2026-07: Splash opacity + mobile one-screen home ===== */
-/* Keep the front page fully hidden while splash is active, so the loader never looks translucent. */
-body.ccmv-splash-active > :not(#ccmvSplash){
-  visibility:hidden!important;
+/* ===== CCMV Home One-Screen Layout Fix (2026-07-08) =====
+   Scope: front page only. Keeps current card size language, removes page scroll by
+   making the shell calculate around the header + fixed bottom nav. */
+body.home-bg{
+  min-height:100dvh!important;
+  overflow:hidden!important;
 }
-body.ccmv-splash-active #ccmvSplash,
-body.ccmv-splash-active #ccmvSplash *{
-  visibility:visible!important;
+body.home-bg .site-nav{
+  min-height:66px!important;
+  padding-top:max(10px,env(safe-area-inset-top))!important;
+  padding-bottom:10px!important;
 }
-#ccmvSplash{
-  background:#f7efe3!important;
-  background-image:
-    radial-gradient(circle at 50% 42%, #fffdf4 0%, #f8efdf 44%, #ead8c2 100%)!important;
+body.home-bg .home-premium.home-v37{
+  box-sizing:border-box!important;
+  min-height:0!important;
+  height:calc(100dvh - 66px)!important;
+  width:100%!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding:8px 16px calc(92px + env(safe-area-inset-bottom))!important;
+  overflow:hidden!important;
 }
-#ccmvSplash .splash-fadeout{
-  background:#f7efe3!important;
+body.home-bg .home-brand-card.v37-dashboard-home{
+  width:min(720px,100%)!important;
+  max-height:100%!important;
+  overflow:hidden!important;
+  padding:clamp(18px,2.6vh,28px) 18px clamp(18px,2.2vh,24px)!important;
+  border-radius:clamp(28px,4vw,36px)!important;
 }
-#ccmvSplash .splash-logo{
-  object-fit:contain!important;
-  height:auto!important;
-  max-height:42vh!important;
+body.home-bg .v37-dashboard-home .home-since{
+  margin:0 0 clamp(6px,1.1vh,10px)!important;
 }
-
-/* Mobile front page: keep the whole dashboard in one screen without vertical scrolling. */
+body.home-bg .v37-dashboard-home h1{
+  font-size:clamp(42px,8.2vh,76px)!important;
+  margin:0 0 clamp(5px,.9vh,8px)!important;
+}
+body.home-bg .v37-dashboard-home .home-tagline{
+  margin:0 0 clamp(8px,1.2vh,12px)!important;
+}
+body.home-bg .v37-dashboard-home .home-trip-line{
+  margin:clamp(4px,.8vh,6px) 0 clamp(8px,1.5vh,14px)!important;
+}
+body.home-bg .home-live-grid{
+  gap:clamp(7px,1.3vh,10px)!important;
+  margin:2px auto clamp(8px,1.5vh,14px)!important;
+}
+body.home-bg .live-card{
+  min-height:clamp(72px,11.5vh,92px)!important;
+  padding:clamp(9px,1.5vh,13px) 12px!important;
+}
+body.home-bg .home-day-button{
+  min-height:clamp(40px,5.8vh,46px)!important;
+  padding:10px 18px!important;
+}
+@media(max-height:760px){
+  body.home-bg .site-nav{min-height:60px!important;padding-top:8px!important;padding-bottom:8px!important}
+  body.home-bg .home-premium.home-v37{height:calc(100dvh - 60px)!important;padding-top:4px!important;padding-bottom:calc(84px + env(safe-area-inset-bottom))!important}
+  body.home-bg .home-brand-card.v37-dashboard-home{padding:16px 16px 18px!important}
+  body.home-bg .v37-dashboard-home h1{font-size:clamp(38px,7.5vh,66px)!important}
+  body.home-bg .live-card{min-height:68px!important}
+}
 @media(max-width:520px){
-  body.home-bg{
-    min-height:100dvh!important;
-    overflow:hidden!important;
-  }
-  body.home-bg .site-nav{
-    min-height:52px!important;
-    padding:7px 12px!important;
-  }
-  body.home-bg .brand{
-    font-size:15px!important;
-  }
-  body.home-bg .brand img{
-    width:30px!important;
-    height:30px!important;
-  }
-  body.home-bg .friend-pill{
-    min-height:34px!important;
-    padding:6px 10px!important;
-    font-size:13px!important;
-  }
-  body.home-bg .dashboard.home-premium.home-v37{
-    height:calc(100dvh - 52px)!important;
-    min-height:0!important;
-    padding:6px 10px 78px!important;
+  body.home-bg .site-nav{min-height:64px!important;padding:10px 12px!important}
+  body.home-bg .home-premium.home-v37{
+    height:calc(100dvh - 64px)!important;
     align-items:center!important;
-    overflow:hidden!important;
+    justify-content:center!important;
+    padding:6px 12px calc(88px + env(safe-area-inset-bottom))!important;
   }
   body.home-bg .home-brand-card.v37-dashboard-home{
-    width:100%!important;
-    max-height:calc(100dvh - 142px)!important;
-    padding:13px 11px 13px!important;
-    border-radius:28px!important;
-    transform:translateY(-2px);
+    padding:18px 13px 18px!important;
+    border-radius:30px!important;
   }
-  body.home-bg .v37-dashboard-home .home-since{
-    font-size:9px!important;
-    margin-bottom:5px!important;
-    letter-spacing:.20em!important;
-  }
-  body.home-bg .v37-dashboard-home h1{
-    font-size:clamp(31px,9.2vw,38px)!important;
-    line-height:.88!important;
-    margin-bottom:5px!important;
-  }
-  body.home-bg .v37-dashboard-home .home-tagline{
-    font-size:9px!important;
-    margin-bottom:6px!important;
-    letter-spacing:.10em!important;
-  }
-  body.home-bg .v37-dashboard-home .home-trip-line{
-    gap:5px!important;
-    margin:4px 0 8px!important;
-  }
-  body.home-bg .v37-dashboard-home .home-trip-line span{
-    padding:5px 8px!important;
-    font-size:10px!important;
-  }
-  body.home-bg .home-live-grid{
-    gap:6px!important;
-    margin:2px auto 8px!important;
-  }
-  body.home-bg .live-card{
-    min-height:64px!important;
-    border-radius:17px!important;
-    padding:7px 8px!important;
-  }
-  body.home-bg .live-icon{
-    font-size:14px!important;
-    margin-bottom:0!important;
-  }
-  body.home-bg .live-card small{
-    font-size:8px!important;
-    margin-bottom:1px!important;
-  }
-  body.home-bg .live-card strong{
-    font-size:12px!important;
-    line-height:1.05!important;
-  }
-  body.home-bg .live-card em{
-    font-size:9px!important;
-    margin-top:1px!important;
-  }
-  body.home-bg .home-day-button{
-    min-height:38px!important;
-    padding:9px 14px!important;
-    font-size:13px!important;
-  }
-  body.home-bg .app-nav{
-    bottom:8px!important;
-  }
+  body.home-bg .v37-dashboard-home h1{font-size:40px!important;margin-bottom:6px!important}
+  body.home-bg .v37-dashboard-home .home-since{font-size:10.5px!important;margin-bottom:7px!important}
+  body.home-bg .v37-dashboard-home .home-tagline{font-size:11px!important;margin-bottom:8px!important}
+  body.home-bg .v37-dashboard-home .home-trip-line{margin:5px 0 10px!important}
+  body.home-bg .home-live-grid{gap:7px!important;margin-bottom:10px!important}
+  body.home-bg .live-card{min-height:76px!important;padding:9px!important}
+  body.home-bg .home-day-button{min-height:42px!important}
 }
-@media(max-height:700px) and (max-width:520px){
-  body.home-bg .home-brand-card.v37-dashboard-home{
-    padding:10px 10px 10px!important;
-  }
-  body.home-bg .v37-dashboard-home h1{
-    font-size:30px!important;
-  }
-  body.home-bg .live-card{
-    min-height:58px!important;
-    padding:6px 7px!important;
-  }
-  body.home-bg .home-day-button{
-    min-height:34px!important;
-    padding:7px 12px!important;
-  }
+@media(max-width:390px), (max-height:700px){
+  body.home-bg .home-brand-card.v37-dashboard-home{padding-top:14px!important;padding-bottom:14px!important}
+  body.home-bg .v37-dashboard-home h1{font-size:36px!important}
+  body.home-bg .live-card{min-height:68px!important}
+  body.home-bg .live-icon{font-size:16px!important}
+  body.home-bg .live-card strong{font-size:13px!important}
+  body.home-bg .home-day-button{min-height:40px!important;padding:8px 16px!important}
 }
