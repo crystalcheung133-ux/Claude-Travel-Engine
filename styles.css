@@ -1268,3 +1268,267 @@ body.home-bg .home-day-button{
   body.home-bg .live-card{min-height:72px!important;padding:8px!important;}
   body.home-bg .home-day-button{min-height:38px!important;padding:8px 16px!important;}
 }
+
+/* =========================================================
+   Stage 1.1 — CCMV Product Family visual alignment
+   Scope: visual layer only. No data/render/navigation logic changed.
+   Reference: Journey Planner 11.43 calm cream / gold editorial system.
+   ========================================================= */
+:root{
+  --bg:#f7f0e6;
+  --paper:#fffaf3;
+  --card:#fffaf3;
+  --ink:#2f2923;
+  --muted:#7e7164;
+  --line:rgba(142,111,63,.24);
+  --accent:#8e6f3f;
+  --gold:#b8965e;
+  --gold-deep:#8e6f3f;
+  --shadow-soft:0 18px 50px rgba(77,55,30,.10);
+  --shadow-card:0 8px 26px rgba(77,55,30,.06);
+  --font-serif:ui-serif,Georgia,"Times New Roman","Noto Serif TC",serif;
+  --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+}
+html,body{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font-sans)!important;
+  background:radial-gradient(circle at 50% 12%,rgba(255,255,255,.55),transparent 26rem),linear-gradient(135deg,#f7f0e6,#f3eadb)!important;
+  color:var(--ink)!important;
+  line-height:1.55!important;
+  font-size:16px!important;
+}
+body::before,
+body::after{display:none!important;background-image:none!important;content:none!important;}
+body.home-bg{
+  background:radial-gradient(circle at 50% 10%,rgba(255,255,255,.58),transparent 24rem),linear-gradient(135deg,#f7f0e6,#f3eadb)!important;
+}
+.site-nav{
+  background:rgba(247,240,230,.82)!important;
+  border-bottom:1px solid var(--line)!important;
+  backdrop-filter:blur(18px)!important;
+  box-shadow:none!important;
+}
+.site-nav .brand,
+.brand{
+  font-family:var(--font-sans)!important;
+  color:var(--ink)!important;
+  font-weight:750!important;
+  letter-spacing:.01em!important;
+}
+.site-nav .brand img{background:rgba(255,250,243,.62)!important;border:1px solid rgba(142,111,63,.14)!important;box-shadow:0 8px 22px rgba(77,55,30,.05)!important;}
+.friend-pill,.start-link,.btn,.pill,.mini-btn,.timeline-actions button,.timeline-actions a,.home-day-button,
+.guide-close,.moments-close,.unexpected-close,.tools-close,.mama-close,.trip-close{
+  border:1px solid var(--line)!important;
+  background:rgba(255,250,243,.72)!important;
+  color:var(--ink)!important;
+  border-radius:999px!important;
+  box-shadow:none!important;
+  font-weight:750!important;
+}
+.btn,.home-day-button,.start-link.primary{
+  background:var(--gold-deep)!important;
+  border-color:var(--gold-deep)!important;
+  color:#fff!important;
+}
+.dashboard{max-width:820px!important;padding:22px 18px 106px!important;}
+.home-bg .dashboard{padding-top:18px!important;}
+.home-brand-card.v37-dashboard-home,
+.home-brand-card,
+.dash-hero,
+.page-hero,.section-head,.module-hero,
+.dash-card,.prose-block,.trip-card,.timeline-item,.quick-info-card,.guide-list-card,
+.expense-card,.moments-entry,.expense-total-card,.expense-focus-card,
+.guide-sheet,.moments-sheet,.unexpected-sheet,.tools-sheet,.trip-sheet,
+.mini-menu{
+  background:rgba(255,250,243,.86)!important;
+  border:1px solid var(--line)!important;
+  box-shadow:var(--shadow-card)!important;
+  background-image:none!important;
+}
+.home-brand-card.v37-dashboard-home,
+.home-brand-card{
+  width:min(92vw,620px)!important;
+  min-height:auto!important;
+  aspect-ratio:auto!important;
+  margin:0 auto!important;
+  padding:clamp(28px,7vw,54px)!important;
+  border-radius:40px!important;
+  text-align:left!important;
+  isolation:isolate!important;
+}
+.home-single-watermark{
+  width:min(360px,72vw)!important;
+  height:min(360px,72vw)!important;
+  left:auto!important;
+  right:-92px!important;
+  top:auto!important;
+  bottom:-112px!important;
+  transform:none!important;
+  opacity:.055!important;
+  filter:saturate(.85) contrast(1)!important;
+  mix-blend-mode:multiply!important;
+  background-size:contain!important;
+}
+.home-since,.kicker,.page-hero .kicker,.section-head .kicker,.module-hero .kicker,
+.quick-info-label,.timestamp,.menu-sub{
+  color:var(--gold-deep)!important;
+  letter-spacing:.16em!important;
+  text-transform:uppercase!important;
+  font-weight:800!important;
+}
+.home-since{font-size:12px!important;margin:0 0 18px!important;}
+h1,h2,.home-brand-card h1,.page-hero h1,.section-head h1,.module-hero h1{
+  font-family:var(--font-serif)!important;
+  color:var(--ink)!important;
+  font-weight:500!important;
+  letter-spacing:-.04em!important;
+}
+.home-brand-card h1{
+  font-size:clamp(52px,13vw,88px)!important;
+  line-height:.9!important;
+  margin:0 0 16px!important;
+}
+.home-brand-card h1 em{font-style:italic!important;color:var(--ink)!important;}
+.home-tagline,.home-trip-line,.lead,.page-hero .lead,.section-head .lead,.module-hero .lead,p,li,
+.timeline-main p,.guide-list-sub,.quick-info-value{
+  color:var(--muted)!important;
+  font-weight:560!important;
+}
+.home-tagline{font-size:17px!important;margin:0 0 18px!important;}
+.home-trip-line{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:8px!important;
+  margin:18px 0 22px!important;
+}
+.home-trip-line span{
+  border:1px solid var(--line)!important;
+  background:rgba(255,255,255,.45)!important;
+  color:var(--muted)!important;
+  border-radius:999px!important;
+  padding:8px 12px!important;
+  font-size:13px!important;
+  font-weight:800!important;
+}
+.home-live-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:12px!important;
+  margin:18px 0 24px!important;
+}
+.live-card,
+.live-countdown,.live-time,.live-weather,.live-rate{
+  background:rgba(255,255,255,.48)!important;
+  background-image:none!important;
+  border:1px solid var(--line)!important;
+  border-radius:22px!important;
+  padding:16px!important;
+  min-height:108px!important;
+  box-shadow:0 8px 22px rgba(77,55,30,.045)!important;
+  color:var(--ink)!important;
+}
+.live-icon{
+  display:block!important;
+  width:24px!important;
+  height:24px!important;
+  line-height:24px!important;
+  font-size:17px!important;
+  opacity:.58!important;
+  filter:saturate(.65)!important;
+  margin-bottom:8px!important;
+}
+.live-card small{
+  display:block!important;
+  color:var(--gold-deep)!important;
+  font-size:11px!important;
+  letter-spacing:.14em!important;
+  text-transform:uppercase!important;
+  font-weight:850!important;
+  margin:0 0 5px!important;
+}
+.live-card strong{
+  display:block!important;
+  color:var(--ink)!important;
+  font-size:clamp(18px,4.8vw,24px)!important;
+  line-height:1.08!important;
+  font-weight:800!important;
+}
+.live-card em{display:block!important;margin-top:5px!important;color:var(--muted)!important;font-style:normal!important;font-size:13px!important;}
+.home-day-button{display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:46px!important;padding:12px 18px!important;text-decoration:none!important;}
+/* Remove repeated decorative watermark systems; keep only the single subtle home mark above. */
+.cardmark::after,.quick-info-card::after,.guide-modal .quick-info-card::after,
+.page-hero::after,.section-head::after,.module-hero::after,.trip-sheet::after,
+.timeline-item::after,.dash-card::after,.prose-block::after,.trip-card::after,
+.expense-card::after,.moments-entry::after{display:none!important;content:none!important;}
+.page-hero,.section-head,.module-hero{
+  border-radius:34px!important;
+  padding:28px 28px 26px!important;
+  margin:18px 0 24px!important;
+}
+.page-hero h1,.section-head h1,.module-hero h1{font-size:clamp(44px,8vw,76px)!important;line-height:.95!important;margin:0 0 12px!important;}
+.timeline-item,.day-summary a,.quick-info-card,.dash-card,.prose-block,.trip-card,.expense-card,.moments-entry{border-radius:26px!important;}
+.app-nav{
+  background:rgba(47,41,35,.92)!important;
+  border:1px solid rgba(255,250,243,.16)!important;
+  box-shadow:0 18px 46px rgba(47,41,35,.18)!important;
+  backdrop-filter:blur(18px)!important;
+}
+.app-nav a,.app-nav button{color:#fffaf3!important;}
+.app-nav a span,.app-nav button span{font-size:20px!important;opacity:.86!important;filter:saturate(.7)!important;}
+.app-nav small{font-size:11px!important;letter-spacing:.02em!important;}
+.mini-menu{border-radius:24px!important;padding:8px!important;}
+.mini-menu a,.mini-menu button{border-radius:16px!important;}
+.menu-title{font-weight:800!important;color:var(--ink)!important;font-size:15px!important;}
+.menu-sub{font-size:11px!important;letter-spacing:.1em!important;color:var(--muted)!important;}
+#ccmvSplash{
+  background:radial-gradient(circle at 50% 14%,rgba(255,255,255,.62),transparent 24rem),linear-gradient(135deg,#f7f0e6,#f3eadb)!important;
+}
+#ccmvSplash .splash-paper,#ccmvSplash .splash-glow,#ccmvSplash .splash-fadeout{display:none!important;}
+.splash-content{
+  width:min(88vw,520px)!important;
+  aspect-ratio:1/1!important;
+  border-radius:40px!important;
+  padding:clamp(28px,7vw,54px)!important;
+  background:rgba(255,250,243,.86)!important;
+  border:1px solid var(--line)!important;
+  box-shadow:var(--shadow-soft)!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  align-items:flex-start!important;
+  text-align:left!important;
+}
+.splash-logo{
+  width:92px!important;
+  height:92px!important;
+  object-fit:contain!important;
+  border-radius:24px!important;
+  box-shadow:none!important;
+  margin:0 0 28px!important;
+  opacity:.92!important;
+}
+.splash-line{
+  font-family:var(--font-serif)!important;
+  color:var(--ink)!important;
+  font-size:clamp(42px,10vw,68px)!important;
+  line-height:.95!important;
+  letter-spacing:-.04em!important;
+  font-weight:500!important;
+  margin:0 0 18px!important;
+}
+.splash-destination{
+  color:var(--gold-deep)!important;
+  font-size:12px!important;
+  letter-spacing:.18em!important;
+  text-transform:uppercase!important;
+  font-weight:850!important;
+}
+@media(max-width:520px){
+  .dashboard{padding-left:14px!important;padding-right:14px!important;}
+  .home-brand-card.v37-dashboard-home,.home-brand-card{border-radius:34px!important;padding:30px 22px!important;}
+  .home-live-grid{grid-template-columns:1fr 1fr!important;gap:9px!important;}
+  .live-card{border-radius:20px!important;padding:13px!important;min-height:100px!important;}
+  .live-card strong{font-size:17px!important;line-height:1.12!important;}
+  .splash-content{border-radius:34px!important;padding:32px 26px!important;}
+  .splash-logo{width:78px!important;height:78px!important;margin-bottom:24px!important;}
+}
