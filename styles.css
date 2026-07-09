@@ -2062,3 +2062,103 @@ body.home-bg nav.site-nav a.brand img{
 }
 
 /* 1143h: source surface cleanup — cards made opaque; no new visual override block. */
+
+/* ===== 1143i TRUE OPAQUE SURFACES =====
+   Fix remaining see-through cards on Trip / Guide / Moments / Expenses.
+   This targets the actual card containers AND their pseudo-watermark layers, not only generic card rules. */
+.trip-card,
+.prose-block,
+.dash-card,
+.page-hero,
+.module-hero,
+.hotel-card,
+.exchange-card,
+.quick-info-card,
+.directory-card,
+.expense-card,
+.expense-total-card,
+.expense-focus-card,
+.expense-history-block,
+.moments-entry,
+.guide-sheet,
+.moments-sheet,
+.unexpected-sheet,
+.tools-sheet,
+.trip-sheet,
+.expense-form,
+#momentsModal .moments-form,
+#unexpectedModal .unexpected-form,
+#expenseModal .expense-form,
+.category-pop-list,
+.fact,
+.fact-grid > div,
+.check-row,
+.ready-box{
+  background-color:#fffaf2!important;
+  background-image:none!important;
+  opacity:1!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  mix-blend-mode:normal!important;
+  isolation:isolate!important;
+}
+
+/* Keep Moments/Expenses hero page colour, but make it fully solid rather than glassy. */
+body.moments-page .page-hero,
+body.moments-page .module-hero{
+  background:#f8dfe3!important;
+  background-image:none!important;
+  opacity:1!important;
+}
+body.expenses-page .page-hero,
+body.expenses-page .module-hero{
+  background:#eef4e8!important;
+  background-image:none!important;
+  opacity:1!important;
+}
+
+/* Remove decorative pseudo layers that made opaque cards still look see-through / dirty. */
+.trip-card::before,.trip-card::after,
+.prose-block::before,.prose-block::after,
+.dash-card::before,.dash-card::after,
+.page-hero::before,.page-hero::after,
+.module-hero::before,.module-hero::after,
+.hotel-card::before,.hotel-card::after,
+.exchange-card::before,.exchange-card::after,
+.quick-info-card::before,.quick-info-card::after,
+.directory-card::before,.directory-card::after,
+.expense-card::before,.expense-card::after,
+.expense-total-card::before,.expense-total-card::after,
+.expense-focus-card::before,.expense-focus-card::after,
+.expense-history-block::before,.expense-history-block::after,
+.moments-entry::before,.moments-entry::after,
+.guide-sheet::before,.guide-sheet::after,
+.moments-sheet::before,.moments-sheet::after,
+.unexpected-sheet::before,.unexpected-sheet::after,
+.tools-sheet::before,.tools-sheet::after,
+.trip-sheet::before,.trip-sheet::after,
+.expense-form::before,.expense-form::after,
+#momentsModal .moments-form::before,#momentsModal .moments-form::after,
+#unexpectedModal .unexpected-form::before,#unexpectedModal .unexpected-form::after,
+#expenseModal .expense-form::before,#expenseModal .expense-form::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  background-image:none!important;
+  opacity:0!important;
+}
+
+/* Inputs inside the modal forms also need solid surfaces. */
+#momentsModal textarea,
+#unexpectedModal textarea,
+#expenseModal input,
+#expenseModal select,
+#expenseModal textarea,
+.expense-form input,
+.expense-form select,
+.moments-form textarea,
+.unexpected-form textarea{
+  background:#fffdf8!important;
+  background-image:none!important;
+  opacity:1!important;
+}
