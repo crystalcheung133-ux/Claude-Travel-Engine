@@ -2021,6 +2021,30 @@ body.expenses-page .page-hero::after,body.expenses-page .module-hero::after,
   background:#f4eadc!important;
 }
 
-/* 1143e front-page logo cleanup: keep header logo, remove hero logo + hero watermark only */
-.home-brand-card.v37-dashboard-home::before{display:none!important;content:none!important;background:none!important;box-shadow:none!important;margin:0!important;width:0!important;height:0!important;}
-.home-brand-card.v37-dashboard-home .home-single-watermark{display:none!important;background:none!important;opacity:0!important;}
+
+/* ===== 1143f REAL cleanup: keep top nav logo, remove front hero logo artwork + large watermark =====
+   Added after all previous visual overrides so it cannot be overwritten. */
+body.home-bg .home-brand-card.v37-dashboard-home::before{
+  content:none!important;
+  display:none!important;
+  width:0!important;
+  height:0!important;
+  margin:0!important;
+  padding:0!important;
+  background:none!important;
+  box-shadow:none!important;
+  filter:none!important;
+}
+body.home-bg .home-brand-card.v37-dashboard-home .home-single-watermark{
+  content:none!important;
+  display:none!important;
+  width:0!important;
+  height:0!important;
+  opacity:0!important;
+  background:none!important;
+}
+/* Keep the clear header logo in the site nav only. */
+body.home-bg .site-nav .brand img{
+  content:url('ccmv-logo-calibrated.png')!important;
+  display:block!important;
+}
