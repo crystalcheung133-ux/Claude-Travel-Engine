@@ -2162,3 +2162,81 @@ body.expenses-page .module-hero{
   background-image:none!important;
   opacity:1!important;
 }
+
+/* ===== 1143j WATERMARK CLEANUP =====
+   - Delete watermarks from Guide popup list rows.
+   - Delete Moments / Expenses hero-card watermarks.
+   - Keep Trip Total watermark.
+   - Delete Personal Spend / Settlement watermarks.
+*/
+.guide-sheet .category-pop-list button::before,
+.guide-sheet .category-pop-list button::after,
+.guide-modal .category-pop-list button::before,
+.guide-modal .category-pop-list button::after,
+.mama-modal .category-pop-list button::before,
+.mama-modal .category-pop-list button::after,
+.category-pop-list.friend-choice-list button::before,
+.category-pop-list.friend-choice-list button::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  background-image:none!important;
+  opacity:0!important;
+}
+
+body.moments-page .page-hero::before,
+body.moments-page .page-hero::after,
+body.moments-page .module-hero::before,
+body.moments-page .module-hero::after,
+body.expenses-page .page-hero::before,
+body.expenses-page .page-hero::after,
+body.expenses-page .module-hero::before,
+body.expenses-page .module-hero::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  background-image:none!important;
+  opacity:0!important;
+}
+
+.expense-focus-card::before,
+.expense-focus-card::after,
+.expense-dashboard-v33 .expense-focus-card::before,
+.expense-dashboard-v33 .expense-focus-card::after,
+.expense-dashboard-v32 .expense-focus-card::before,
+.expense-dashboard-v32 .expense-focus-card::after,
+.expense-dashboard-v31 .expense-focus-card::before,
+.expense-dashboard-v31 .expense-focus-card::after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  background-image:none!important;
+  opacity:0!important;
+}
+
+.expense-total-card::after,
+.expense-dashboard-v33 .expense-total-card::after,
+.expense-dashboard-v32 .expense-total-card::after,
+.expense-dashboard-v31 .expense-total-card::after{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  width:96px!important;
+  height:96px!important;
+  right:18px!important;
+  bottom:18px!important;
+  inset:auto 18px 18px auto!important;
+  background:url('logo-watermark-monogram.png') center/contain no-repeat!important;
+  opacity:.075!important;
+  mix-blend-mode:multiply!important;
+  pointer-events:none!important;
+  z-index:0!important;
+  transform:none!important;
+}
+.expense-total-card > *,
+.expense-dashboard-v33 .expense-total-card > *,
+.expense-dashboard-v32 .expense-total-card > *,
+.expense-dashboard-v31 .expense-total-card > *{
+  position:relative!important;
+  z-index:1!important;
+}
