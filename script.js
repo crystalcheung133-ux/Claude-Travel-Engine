@@ -1080,3 +1080,48 @@ document.addEventListener('DOMContentLoaded',()=>{
   };
   document.addEventListener('DOMContentLoaded',()=>{ ensurePaidByUI(); resetPaidByToCurrentUser(); });
 })();
+
+/* ============================================================================
+   STAGE 1.5 — INFORMATION MIGRATION TEMPLATE: optional read-only helpers
+   ----------------------------------------------------------------------------
+   Added: 2026-07-09. See STAGE_1_5_INFORMATION_MIGRATION.md.
+
+   These read BOOKINGS_DATA (data.js) and return plain data/strings. None of
+   them are called anywhere else in this file, none are attached to any
+   button/onclick, and none write to the DOM or localStorage. They exist so a
+   future stage can wire a real booking-status UI without first inventing
+   this lookup logic. Safe to delete if a future stage designs different
+   helpers instead — nothing else in the app depends on these.
+   ============================================================================ */
+
+/** Returns an array of BOOKINGS_DATA entries whose dayId matches the given
+ *  day id (e.g. 'day1'). Returns [] if BOOKINGS_DATA is missing/empty or
+ *  no bookings match — never throws. */
+function getBookingsForDay(dayId){
+  try{
+    if (typeof BOOKINGS_DATA === 'undefined' || !BOOKINGS_DATA) return [];
+    return Object.values(BOOKINGS_DATA).filter(b => b && b.dayId === dayId);
+  }catch(e){ return []; }
+}
+
+/** Returns an array of BOOKINGS_DATA entries whose placeId matches the given
+ *  PLACES key. Returns [] if none match or BOOKINGS_DATA is missing. */
+function getBookingsForPlace(placeId){
+  try{
+    if (typeof BOOKINGS_DATA === 'undefined' || !BOOKINGS_DATA) return [];
+    return Object.values(BOOKINGS_DATA).filter(b => b && b.placeId === placeId);
+  }catch(e){ return []; }
+}
+
+/** Maps a booking status code to a short display label + emoji. Falls back
+ *  to the raw status string (or 'Unknown') for any value not in the map,
+ *  so this never throws on unexpected data. Not currently rendered anywhere. */
+function getBookingStatusLabel(status){
+  const map = {
+    confirmed: '✅ Confirmed',
+    pending:   '🕒 Pending',
+    toBook:    '📌 To Book',
+    cancelled: '✖️ Cancelled'
+  };
+  return map[status] || (status || 'Unknown');
+}

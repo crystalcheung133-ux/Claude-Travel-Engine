@@ -52,3 +52,315 @@ const TRIP_DATA = {"checklist":{"title":"✅ Checklist","body":"<div class='chec
 
 const TRIP_ORDER = ["checklist", "city", "emergency", "flights", "money", "stay", "tips", "weather"];
 
+
+/* ============================================================================
+   STAGE 1.5 — INFORMATION MIGRATION TEMPLATE
+   ----------------------------------------------------------------------------
+   Added: 2026-07-09. See STAGE_1_5_INFORMATION_MIGRATION.md for full detail.
+
+   Purpose: prepare a data shape for final itinerary / booking details so that
+   filling in real confirmations later is a data-entry task, not a rebuild.
+
+   IMPORTANT — nothing below is wired into any current render path.
+   PLACES, CATEGORIES, DAY_LINKS, GUIDE_ORDER, FRIENDS, TRIP_DATA, TRIP_ORDER
+   (all defined above this block) are UNCHANGED and remain exactly what Trip,
+   Guide, Days, Moments, Expenses, Comments and Emoji reactions read from.
+   Everything below is new, additive, and inert until a future stage
+   deliberately calls the helper functions in script.js and adds markup.
+   ============================================================================ */
+
+/* ----------------------------------------------------------------------
+   1. BOOKINGS_DATA
+   ----------------------------------------------------------------------
+   One entry per booking (restaurant / spa / cooking class / airport
+   transfer / hotel / ticket-experience). Keyed by booking id.
+
+   Field reference (every booking SHOULD carry these; use null/'' when a
+   real value isn't known yet rather than omitting the key, so future
+   renderers can rely on the key existing):
+
+     id                    string   unique booking id, same as the object key
+     type                  string   'restaurant' | 'spa' | 'cookingClass' |
+                                     'airportTransfer' | 'hotel' | 'ticket'
+     title                 string   display name for the booking
+     status                string   'confirmed' | 'pending' | 'toBook' | 'cancelled'
+     date                  string   'YYYY-MM-DD' or null if not yet fixed
+     time                  string   'HH:mm' (24h) or a range string, or null
+     placeId               string|null  key into PLACES, when the booking maps
+                                          to an existing place; null if it doesn't
+                                          (e.g. airport transfer has no PLACES entry)
+     dayId                 string|null  'day1'..'day5' or null if not yet assigned
+     guests                number   party size, defaults to 4 for this trip
+     reference             string|null  confirmation / booking reference number
+     contact               string|null  phone or contact person for the venue
+     address               string|null  street address (mirror PLACES.address
+                                          when placeId is set, so this still
+                                          works standalone if placeId is null)
+     mapUrl                string|null  Google Maps link
+     paymentStatus         string   'unpaid' | 'deposit' | 'paid' | 'payOnSite'
+     notes                 string   free text, Cantonese/English mixed is fine
+     reminders             array    list of {label, whenISO} reminder objects;
+                                     empty array if none set yet
+     attachmentsPlaceholder array   list of {label, url} placeholders for future
+                                     confirmation emails / PDFs / screenshots;
+                                     empty array if none yet — this is a
+                                     placeholder shape only, no file upload
+                                     mechanism exists yet in this codebase
+   ------------------------------------------------------------------- */
+const BOOKINGS_DATA = {
+
+  /* --- Sample 1: restaurant booking, linked to an existing PLACES entry --- */
+  "omakase-tiger-booking": {
+    id: "omakase-tiger-booking",
+    type: "restaurant",
+    title: "Omakase Tiger — Dinner",
+    status: "toBook",
+    date: "2026-10-30",
+    time: "17:30",
+    placeId: "omakase-tiger",
+    dayId: "day1",
+    guests: 4,
+    reference: null,
+    contact: null,
+    address: "85/9 Phạm Viết Chánh, Thạnh Mỹ Tây, Hồ Chí Minh 700000, Vietnam",
+    mapUrl: "https://maps.google.com/?q=Omakase+Tiger+The+Penthouse+Ho+Chi+Minh",
+    paymentStatus: "unpaid",
+    notes: "17:30 日落場，出發前需再確認營業狀態（IG 曾顯示 temporarily closed）。",
+    reminders: [],
+    attachmentsPlaceholder: []
+  },
+
+  /* --- Sample 2: pre-booked experience, linked to an existing PLACES entry --- */
+  "cooking-class-booking": {
+    id: "cooking-class-booking",
+    type: "cookingClass",
+    title: "Saigon Cooking Class",
+    status: "confirmed",
+    date: "2026-10-31",
+    time: "10:00–13:00",
+    placeId: "cooking",
+    dayId: "day2",
+    guests: 4,
+    reference: null,
+    contact: null,
+    address: "Saigon Cooking Class, 74 Hai Bà Trưng, Bến Nghé, District 1, Ho Chi Minh City",
+    mapUrl: "https://maps.google.com/?q=Saigon+Cooking+Class",
+    paymentStatus: "deposit",
+    notes: "課程時間固定 10:00–13:00，Day 2 早上行程唔好排太緊；早餐食輕食，留肚食自己煮嘅午餐。",
+    reminders: [],
+    attachmentsPlaceholder: []
+  },
+
+  /* --- Sample 3: logistics booking with no PLACES entry (placeId stays null
+         on purpose — this demonstrates the "no matching place" case) --- */
+  "airport-transfer-booking": {
+    id: "airport-transfer-booking",
+    type: "airportTransfer",
+    title: "SGN Airport → Fusion Original Saigon Centre",
+    status: "pending",
+    date: "2026-10-30",
+    time: "06:30",
+    placeId: null,
+    dayId: "day1",
+    guests: 4,
+    reference: null,
+    contact: null,
+    address: "Tan Son Nhat International Airport (SGN)",
+    mapUrl: "https://maps.google.com/?q=Tan+Son+Nhat+International+Airport",
+    paymentStatus: "unpaid",
+    notes: "未落實用酒店接送定係 Grab；4人連行李，建議 6-seater。",
+    reminders: [],
+    attachmentsPlaceholder: []
+  }
+
+};
+
+/* ----------------------------------------------------------------------
+   2. ITINERARY_SCHEMA — allowed activity types + one worked example each
+   ----------------------------------------------------------------------
+   This is documentation-as-data, not a validator (no schema-validation
+   library is loaded in this project). Its job is to fix the vocabulary so
+   a future day-page renderer (or a rewritten day1.html–day5.html) has one
+   agreed shape to target, instead of every day inventing its own markup.
+
+   Every itinerary activity, regardless of type, SHOULD eventually carry:
+     id, type, dayId, time, title, placeId (nullable), bookingId (nullable),
+     notes
+
+   ITINERARY_ACTIVITY_TYPES lists every allowed value of `type`.
+   ITINERARY_SCHEMA_EXAMPLES has one fully-filled-in example per type, built
+   from real trip content already in PLACES/BOOKINGS_DATA where possible, so
+   these aren't invented placeholder values.
+   ------------------------------------------------------------------- */
+const ITINERARY_ACTIVITY_TYPES = [
+  "meal", "transport", "experience", "spa", "shoppingWindow",
+  "buffer", "rest", "ticket", "booking", "note"
+];
+
+const ITINERARY_SCHEMA_EXAMPLES = {
+  meal: {
+    id: "example-meal-omakase-tiger",
+    type: "meal",
+    dayId: "day1",
+    time: "17:30",
+    title: "Omakase Tiger — Dinner",
+    placeId: "omakase-tiger",
+    bookingId: "omakase-tiger-booking",
+    notes: "日落場，8 座板前。"
+  },
+  transport: {
+    id: "example-transport-airport",
+    type: "transport",
+    dayId: "day1",
+    time: "06:30",
+    title: "SGN Airport → Fusion Original Saigon Centre",
+    placeId: null,
+    bookingId: "airport-transfer-booking",
+    notes: "4 人連行李，建議 6-seater。"
+  },
+  experience: {
+    id: "example-experience-cooking",
+    type: "experience",
+    dayId: "day2",
+    time: "10:00–13:00",
+    title: "Saigon Cooking Class",
+    placeId: "cooking",
+    bookingId: "cooking-class-booking",
+    notes: "3 小時越菜體驗，親手做菜即場享用。"
+  },
+  spa: {
+    id: "example-spa-placeholder",
+    type: "spa",
+    dayId: "day5",
+    time: null,
+    title: "Ha Spa",
+    placeId: "ha-spa",
+    bookingId: null,
+    notes: "未落實時段，5 場 spa 之一，見 DAY_LINKS['ha-spa']。"
+  },
+  shoppingWindow: {
+    id: "example-shopping-takashimaya",
+    type: "shoppingWindow",
+    dayId: "day5",
+    time: null,
+    title: "Takashimaya window",
+    placeId: "marou",
+    bookingId: null,
+    notes: "Day 5 亦有 Marou 分店喺 Takashimaya，見 DAY_LINKS['marou']。"
+  },
+  buffer: {
+    id: "example-buffer-day1-afternoon",
+    type: "buffer",
+    dayId: "day1",
+    time: null,
+    title: "Buffer / flexible time",
+    placeId: null,
+    bookingId: null,
+    notes: "落地後彈性時間，視乎航班/海關時間調整。"
+  },
+  rest: {
+    id: "example-rest-midday",
+    type: "rest",
+    dayId: "day3",
+    time: null,
+    title: "Hotel rest / cool down",
+    placeId: "fusion",
+    bookingId: null,
+    notes: "中午最熱時段留返酒店房或附近咖啡店。"
+  },
+  ticket: {
+    id: "example-ticket-placeholder",
+    type: "ticket",
+    dayId: null,
+    time: null,
+    title: "Ticketed experience (placeholder)",
+    placeId: null,
+    bookingId: null,
+    notes: "未有需要預先買票嘅項目；呢個係型別範例，非真實行程。"
+  },
+  booking: {
+    id: "example-booking-reference",
+    type: "booking",
+    dayId: "day2",
+    time: "10:00–13:00",
+    title: "Saigon Cooking Class (booking reference)",
+    placeId: "cooking",
+    bookingId: "cooking-class-booking",
+    notes: "呢個type用嚟喺timeline度標示「呢個時段有booking」，唔重複返個活動本身嘅細節。"
+  },
+  note: {
+    id: "example-note-general",
+    type: "note",
+    dayId: "day1",
+    time: null,
+    title: "General reminder",
+    placeId: null,
+    bookingId: null,
+    notes: "例如：出發前落實 Omakase Tiger 營業狀態。"
+  }
+};
+
+/* ----------------------------------------------------------------------
+   3. PLACE_SCHEMA — forward-looking unified place shape + examples
+   ----------------------------------------------------------------------
+   IMPORTANT: this does NOT replace PLACES above. PLACES keeps its current
+   field names (title/cat/maps/etc.) because Guide/Trip/Days/Moments all
+   read those field names today — changing them would be exactly the kind
+   of UI-breaking rewrite Stage 1.5 is explicitly not meant to do.
+
+   PLACE_SCHEMA_EXAMPLE below is a *preview* of a possible future unified
+   shape (id/name/category/district/... /bookingId), built by mapping two
+   real PLACES entries into the new field names, so a future migration can
+   compare old vs new side-by-side before touching any renderer.
+   ------------------------------------------------------------------- */
+const PLACE_SCHEMA_FIELDS = [
+  "id", "name", "category", "district", "address", "hours", "mapUrl",
+  "phone", "website", "price", "style", "whyGo", "routeFit", "bookingId", "notes"
+];
+
+const PLACE_SCHEMA_EXAMPLES = {
+  "omakase-tiger": {
+    id: "omakase-tiger",
+    name: "Omakase Tiger",
+    category: "RESTAURANTS",
+    district: "Thạnh Mỹ Tây",
+    address: "85/9 Phạm Viết Chánh, Thạnh Mỹ Tây, Hồ Chí Minh 700000, Vietnam",
+    hours: "Tue–Sun 17:30 / 20:00；Monday closed",
+    mapUrl: "https://maps.google.com/?q=Omakase+Tiger+The+Penthouse+Ho+Chi+Minh",
+    phone: null,
+    website: null,
+    price: null,
+    style: "Modern omakase, rooftop atmosphere",
+    whyGo: "西貢景觀 + 8 座板前 + 價格相對友善；17:30 日落場最有記憶點。",
+    routeFit: "Day 1 晚市，食完步行返阮惠步行街影 The Cafe Apartments 夜景。",
+    bookingId: "omakase-tiger-booking",
+    notes: "出發前必須再確認營業狀態（IG 曾顯示 temporarily closed）。"
+  },
+  "cooking": {
+    id: "cooking",
+    name: "Saigon Cooking Class",
+    category: "EXPERIENCE",
+    district: "Bến Nghé, District 1",
+    address: "Saigon Cooking Class, 74 Hai Bà Trưng, Bến Nghé, District 1, Ho Chi Minh City",
+    hours: "10:00–13:00（固定課程）",
+    mapUrl: "https://maps.google.com/?q=Saigon+Cooking+Class",
+    phone: null,
+    website: null,
+    price: "Pre-booked",
+    style: "Hands-on Vietnamese cooking class",
+    whyGo: "透過市場／食材／實作理解越南菜；一齊完成一餐比純景點更易成為回憶。",
+    routeFit: "Day 2 主活動，早上行程唔好排太緊。",
+    bookingId: "cooking-class-booking",
+    notes: "早餐食輕食，留肚食自己煮嘅午餐。"
+  }
+};
+
+/* ----------------------------------------------------------------------
+   4. Optional read-only helper functions (see script.js)
+   ----------------------------------------------------------------------
+   getBookingsForDay(dayId), getBookingsForPlace(placeId), and
+   getBookingStatusLabel(status) live in script.js, appended at the very
+   end of the file. They are pure/read-only, not called by any existing
+   render path, and safe to delete if a future stage designs different
+   helpers instead.
+   ------------------------------------------------------------------- */
