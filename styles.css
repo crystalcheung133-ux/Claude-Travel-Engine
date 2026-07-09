@@ -1778,3 +1778,23 @@ body.expenses-page .module-hero > *{position:relative!important;z-index:1!import
   body.expenses-page .page-hero::after,
   body.expenses-page .module-hero::after{width:96px!important;height:96px!important;right:10px!important;bottom:10px!important;opacity:.17!important;}
 }
+
+/* ===== CCMV Family Visual 11.43c: calibrated logo + blush splash + stronger hero ===== */
+#ccmvSplash{background:linear-gradient(180deg,#fff9f7 0%,#f9e9e5 58%,#f3ded8 100%)!important;}
+#ccmvSplash .splash-paper{opacity:.12!important;}
+#ccmvSplash .splash-logo{content:url('ccmv-logo-calibrated.png')!important;width:min(72vw,380px)!important;aspect-ratio:1/1!important;object-fit:contain!important;border-radius:28px!important;filter:drop-shadow(0 18px 34px rgba(115,79,52,.12))!important;}
+#ccmvSplash .splash-line{font-family:'Baskerville','Iowan Old Style','Palatino Linotype','Book Antiqua',Georgia,serif!important;font-style:normal!important;font-weight:400!important;letter-spacing:.015em!important;color:#9b7443!important;}
+.home-brand-card.v37-dashboard-home h1{font-family:'Baskerville','Iowan Old Style','Palatino Linotype','Book Antiqua',Georgia,serif!important;font-size:clamp(54px,13vw,90px)!important;line-height:.86!important;font-weight:700!important;letter-spacing:-.035em!important;color:#3b2b22!important;text-shadow:0 2px 0 rgba(255,255,255,.45),0 10px 24px rgba(91,61,39,.10)!important;}
+.home-brand-card.v37-dashboard-home h1 em{font-family:inherit!important;font-weight:700!important;}
+.home-brand-card.v37-dashboard-home::before{content:""!important;display:block!important;width:104px!important;height:104px!important;margin:0 auto 16px!important;background:url('ccmv-logo-calibrated.png') center/contain no-repeat!important;border-radius:24px!important;box-shadow:0 10px 26px rgba(102,72,47,.10)!important;position:relative!important;z-index:2!important;}
+.home-brand-card.v37-dashboard-home .home-single-watermark,
+body.moments-page .page-hero::after,body.moments-page .module-hero::after,
+body.expenses-page .page-hero::after,body.expenses-page .module-hero::after,
+.home-live-grid .live-card:nth-child(1)::after,.home-live-grid .live-card:nth-child(3)::after,
+.quick-info-card:nth-of-type(1)::after,.trip-card:nth-of-type(1)::after,
+.expense-card:nth-of-type(1)::after,.moments-entry:nth-of-type(1)::after{background-image:url('ccmv-logo-calibrated.png')!important;background-size:contain!important;background-repeat:no-repeat!important;background-position:center!important;transform:none!important;}
+.home-brand-card.v37-dashboard-home .home-single-watermark{width:132px!important;height:132px!important;right:14px!important;bottom:12px!important;opacity:.20!important;}
+.home-live-grid .live-card:nth-child(1)::after,.home-live-grid .live-card:nth-child(3)::after,
+.quick-info-card:nth-of-type(1)::after,.trip-card:nth-of-type(1)::after,
+.expense-card:nth-of-type(1)::after,.moments-entry:nth-of-type(1)::after{width:64px!important;height:64px!important;right:10px!important;bottom:9px!important;opacity:.12!important;}
+@media(max-width:520px){#ccmvSplash .splash-logo{width:min(76vw,330px)!important}.home-brand-card.v37-dashboard-home::before{width:92px!important;height:92px!important}.home-brand-card.v37-dashboard-home h1{font-size:clamp(52px,14vw,66px)!important}.home-brand-card.v37-dashboard-home .home-single-watermark{width:118px!important;height:118px!important;}}
