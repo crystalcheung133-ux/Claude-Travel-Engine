@@ -2020,3 +2020,7 @@ body.expenses-page .page-hero::after,body.expenses-page .module-hero::after,
 .mini-menu a:hover,.mini-menu button:hover{
   background:#f4eadc!important;
 }
+
+/* 1143e front-page logo cleanup: keep header logo, remove hero logo + hero watermark only */
+.home-brand-card.v37-dashboard-home::before{display:none!important;content:none!important;background:none!important;box-shadow:none!important;margin:0!important;width:0!important;height:0!important;}
+.home-brand-card.v37-dashboard-home .home-single-watermark{display:none!important;background:none!important;opacity:0!important;}
