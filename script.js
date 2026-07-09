@@ -1,5 +1,23 @@
 
 
+/* ============================================================================
+   STAGE 1 CLEANUP NOTE (see CHANGELOG.md / DEFERRED_CLEANUP.md for full detail)
+   ----------------------------------------------------------------------------
+   data.js is the canonical source for PLACES, CATEGORIES, DAY_LINKS,
+   GUIDE_ORDER, FRIENDS, TRIP_DATA and TRIP_ORDER. This file should render from
+   that data, not silently replace it. As of this cleanup pass there are no
+   remaining canonical-data mutations in this file.
+
+   This file still contains several later-version function wrappers/overrides,
+   especially around Moments and Expenses (e.g. openMomentsModal, saveMoments,
+   renderMoments, saveExpense, renderExpenses, openExpenseModal,
+   resetExpenseForm, editExpense, setFriend). Each later reassignment wraps and
+   calls the previous version, so the FINAL assignment in file order is what
+   actually runs. These were deliberately left untouched in Stage 1 because
+   they carry legacy localStorage-format compatibility and have not been
+   individually regression-tested — see DEFERRED_CLEANUP.md before touching them.
+   ============================================================================ */
+
 function visitDayHTML(key){
   const days=DAY_LINKS[key]||[];
   if(!days.length) return '';
@@ -349,9 +367,9 @@ function renderLatestExpenseMini(){
 /* v2.1.9 alphabetical guide wrapper */
 const _originalOpenGuideCategory = openGuideCategory;
 openGuideCategory = function(cat){
-  if (CATEGORIES && CATEGORIES[cat]) {
-    CATEGORIES[cat] = CATEGORIES[cat].slice().sort((a,b)=>String(a.title||'').localeCompare(String(b.title||'')));
-  }
+  /* Stage 1 cleanup note: this used to reassign CATEGORIES[cat] to a sorted copy,
+     permanently mutating canonical data on every call. Removed — _originalOpenGuideCategory()
+     already sorts a copy internally (see line ~19), so behaviour is unchanged. */
   return _originalOpenGuideCategory(cat);
 };
 
@@ -380,10 +398,8 @@ openGuideCategory = function(cat){
   return _shopDirectoryOpenGuideCategory(cat);
 };
 
-/* v3.0 Premium Experience overrides */
-try{
-  PLACES.general = {title:'Moments', emoji:'✨', cat:'MOMENTS', sub:'Every place has a story', desc:'每一個地方都可以留底 rating、something to say 同相片。', categoryLabel:'✨ Moments', price:'Memory', hours:'Anytime', maps:'#', address:'Saigon Companion'};
-}catch(e){}
+/* Stage 1 cleanup note: PLACES.general (the fallback "Moments" place card) used to be
+   injected here at runtime. It is now defined canonically in data.js, so nothing to do here. */
 // Renders a full place detail page (page-hero + quick-info-card + prose blocks)
 // from PLACES data. Used by every standalone place page (bakes.html, lune.html, etc.)
 // so page content lives in ONE place (data.js) instead of being duplicated per file.
