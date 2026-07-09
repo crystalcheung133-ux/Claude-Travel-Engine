@@ -1614,3 +1614,167 @@ h1,h2,.home-brand-card h1,.page-hero h1,.section-head h1,.module-hero h1{
   #ccmvSplash .splash-line{font-size:clamp(34px,9.4vw,46px)!important;}
   #ccmvSplash .splash-destination{font-size:13px!important;letter-spacing:.28em!important;margin-top:22px!important;}
 }
+
+/* ===== CCMV Family Visual 11.43b: elegant splash + hero watermark system =====
+   Scope: visual alignment only. No data/render/navigation logic changed. */
+:root{
+  --ccmv-fashion-serif: 'Cormorant Garamond','Playfair Display','Baskerville','Didot','Georgia',serif;
+  --ccmv-script-serif: 'Cormorant Garamond','Baskerville','Georgia',serif;
+  --ccmv-watermark-deep: .18;
+  --ccmv-watermark-feature: .105;
+  --ccmv-gold-soft: #9b7443;
+  --ccmv-gold-muted: #b18a56;
+}
+
+/* Loading slogan: more feminine/editorial, softer muted gold. */
+#ccmvSplash .splash-line{
+  font-family:var(--ccmv-script-serif)!important;
+  color:var(--ccmv-gold-muted)!important;
+  font-size:clamp(36px,8.4vw,62px)!important;
+  line-height:1.02!important;
+  letter-spacing:.005em!important;
+  font-weight:500!important;
+  font-style:italic!important;
+  text-shadow:0 14px 30px rgba(126,92,48,.10)!important;
+}
+#ccmvSplash .splash-destination{
+  color:rgba(93,67,39,.82)!important;
+  letter-spacing:.38em!important;
+}
+#ccmvSplash .splash-logo{
+  width:min(78vw,430px)!important;
+  margin-bottom:30px!important;
+}
+
+/* Front hero typography: centred, symmetrical, a little girly/fancy but still premium. */
+.home-brand-card.v37-dashboard-home{
+  align-items:center!important;
+  text-align:center!important;
+  overflow:hidden!important;
+}
+.home-brand-card.v37-dashboard-home .home-since,
+.home-brand-card.v37-dashboard-home .home-tagline,
+.home-brand-card.v37-dashboard-home .home-trip-line{
+  align-self:center!important;
+  text-align:center!important;
+  justify-content:center!important;
+}
+.home-brand-card.v37-dashboard-home h1{
+  font-family:var(--ccmv-fashion-serif)!important;
+  font-size:clamp(50px,12vw,84px)!important;
+  line-height:.88!important;
+  letter-spacing:-.025em!important;
+  font-weight:500!important;
+  text-align:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+.home-brand-card.v37-dashboard-home h1 em{
+  font-family:var(--ccmv-fashion-serif)!important;
+  font-style:italic!important;
+  font-weight:500!important;
+}
+.home-brand-card.v37-dashboard-home .home-tagline{
+  letter-spacing:.08em!important;
+  font-weight:650!important;
+}
+
+/* Hero watermark: one premium signature, bottom-right, not background noise. */
+.home-brand-card.v37-dashboard-home .home-single-watermark{
+  display:block!important;
+  width:min(48%,190px)!important;
+  height:auto!important;
+  aspect-ratio:1/1!important;
+  left:auto!important;
+  top:auto!important;
+  right:16px!important;
+  bottom:14px!important;
+  transform:none!important;
+  background:url('logo-watermark-monogram.png') center/contain no-repeat!important;
+  opacity:var(--ccmv-watermark-deep)!important;
+  mix-blend-mode:multiply!important;
+  filter:saturate(1.04) contrast(1.05)!important;
+  z-index:0!important;
+  pointer-events:none!important;
+}
+.home-brand-card.v37-dashboard-home > *:not(.home-single-watermark){position:relative!important;z-index:1!important;}
+
+/* Moments + Expenses page hero cards get the same bottom-right brand mark. */
+body.moments-page .page-hero,
+body.moments-page .module-hero,
+body.expenses-page .page-hero,
+body.expenses-page .module-hero{
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate!important;
+}
+body.moments-page .page-hero::after,
+body.moments-page .module-hero::after,
+body.expenses-page .page-hero::after,
+body.expenses-page .module-hero::after{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  width:118px!important;
+  height:118px!important;
+  right:14px!important;
+  bottom:12px!important;
+  background:url('logo-watermark-monogram.png') center/contain no-repeat!important;
+  opacity:var(--ccmv-watermark-deep)!important;
+  mix-blend-mode:multiply!important;
+  filter:saturate(1.02) contrast(1.06)!important;
+  pointer-events:none!important;
+  z-index:0!important;
+}
+body.moments-page .page-hero > *,
+body.moments-page .module-hero > *,
+body.expenses-page .page-hero > *,
+body.expenses-page .module-hero > *{position:relative!important;z-index:1!important;}
+
+/* Feature cards: only selective premium watermarks, not every card. */
+.home-live-grid .live-card:nth-child(1),
+.home-live-grid .live-card:nth-child(3),
+.quick-info-card:nth-of-type(1),
+.trip-card:nth-of-type(1),
+.expense-card:nth-of-type(1),
+.moments-entry:nth-of-type(1){
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate!important;
+}
+.home-live-grid .live-card:nth-child(1)::after,
+.home-live-grid .live-card:nth-child(3)::after,
+.quick-info-card:nth-of-type(1)::after,
+.trip-card:nth-of-type(1)::after,
+.expense-card:nth-of-type(1)::after,
+.moments-entry:nth-of-type(1)::after{
+  content:""!important;
+  display:block!important;
+  position:absolute!important;
+  width:72px!important;
+  height:72px!important;
+  right:10px!important;
+  bottom:8px!important;
+  background:url('logo-watermark-monogram.png') center/contain no-repeat!important;
+  opacity:var(--ccmv-watermark-feature)!important;
+  mix-blend-mode:multiply!important;
+  filter:saturate(.98) contrast(1.03)!important;
+  pointer-events:none!important;
+  z-index:0!important;
+}
+.home-live-grid .live-card > *,
+.quick-info-card > *,
+.trip-card > *,
+.expense-card > *,
+.moments-entry > *{position:relative!important;z-index:1!important;}
+
+@media(max-width:520px){
+  #ccmvSplash .splash-logo{width:min(86vw,365px)!important;}
+  #ccmvSplash .splash-line{font-size:clamp(36px,9.6vw,48px)!important;}
+  .home-brand-card.v37-dashboard-home h1{font-size:clamp(48px,13vw,62px)!important;}
+  .home-brand-card.v37-dashboard-home .home-single-watermark{width:150px!important;right:10px!important;bottom:10px!important;opacity:.17!important;}
+  body.moments-page .page-hero::after,
+  body.moments-page .module-hero::after,
+  body.expenses-page .page-hero::after,
+  body.expenses-page .module-hero::after{width:96px!important;height:96px!important;right:10px!important;bottom:10px!important;opacity:.17!important;}
+}
