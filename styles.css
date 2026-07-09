@@ -189,7 +189,7 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 .home-since{margin:0 0 6px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#9a5a2e;font-weight:800}
 .home-brand-card h1{font-size:clamp(40px,12vw,74px);line-height:.86;margin:4px 0 8px}
 .home-trip-line{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:10px auto 12px;color:#4a3b2f;font-weight:750}
-.home-trip-line span{border:1px solid rgba(138,79,45,.22);border-radius:999px;padding:8px 12px;background:rgba(255,255,255,.58)}
+.home-trip-line span{border:1px solid rgba(138,79,45,.22);border-radius:999px;padding:8px 12px;background:#fffaf2}
 .home-countdown{font-size:22px;margin-top:10px}
 .home-launch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
 .home-launch-grid a{background:#fffaf2;border:1px solid var(--line);border-radius:22px;padding:14px 10px;text-align:center;box-shadow:0 10px 30px rgba(54,39,24,.05)}
@@ -264,7 +264,7 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 .home-brand-card.v3-hero-logo h1,.home-brand-card.v3-hero-logo p,.home-brand-card.v3-hero-logo div{position:relative;z-index:1}
 .home-brand-card.v3-hero-logo h1{font-size:clamp(42px,11vw,78px)!important}
 .home-tagline{font-size:13px;letter-spacing:.19em!important;text-transform:uppercase;color:var(--muted);font-weight:800;margin:0 0 14px}
-.home-stats-panel div{border:1px solid rgba(138,79,45,.18);background:rgba(255,250,242,.78);border-radius:20px;padding:12px 8px;text-align:center;box-shadow:0 10px 28px rgba(54,39,24,.06)}
+.home-stats-panel div{border:1px solid rgba(138,79,45,.18);background:#fffaf2;border-radius:20px;padding:12px 8px;text-align:center;box-shadow:0 10px 28px rgba(54,39,24,.06)}
 .home-stats-panel strong{display:block;font-size:24px;line-height:1;color:#5c3924;font-family:Georgia,serif}
 .home-stats-panel span{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:800;margin-top:5px}
 .directory-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
@@ -351,8 +351,8 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 .home-brand-card.v32-watermark-home h1{font-size:clamp(46px,12vw,82px)!important;line-height:.86;margin:0 0 14px;color:#3a2619}
 .home-brand-card.v32-watermark-home .home-tagline{font-size:14px;letter-spacing:.08em;margin:0 0 18px;color:#6d5140;font-weight:700}
 .home-brand-card.v32-watermark-home .home-trip-line{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:8px 0 12px}
-.home-brand-card.v32-watermark-home .home-trip-line span{border:1px solid rgba(138,79,45,.22);background:rgba(255,250,242,.62);border-radius:999px;padding:8px 12px;font-size:13px;font-weight:800;color:#5e3c27}
-.home-brand-card.v32-watermark-home .home-countdown{margin-top:10px;background:rgba(255,250,242,.72)}
+.home-brand-card.v32-watermark-home .home-trip-line span{border:1px solid rgba(138,79,45,.22);background:#fffaf2;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:800;color:#5e3c27}
+.home-brand-card.v32-watermark-home .home-countdown{margin-top:10px;background:#fffaf2}
 .home-logo-cameo,.home-logo-mark,.home-logo-watermark{display:none!important}
 /* Remove unwanted toolbar text labels */
 /* Tool modals: fit on one mobile screen as much as possible */
@@ -498,7 +498,7 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 .primary-action,.secondary-action{width:100%}}
 /* v3.6 production polish */
 /* Home watermark: fill the square cleanly without pasted-image feeling */
-.home-brand-card.v32-watermark-home{min-height:0!important;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;isolation:isolate;overflow:hidden!important;border-radius:38px;padding:clamp(20px,5vw,38px)!important;background:linear-gradient(180deg,rgba(255,253,248,.99),rgba(255,247,237,.96))!important;width:min(88vw,520px)!important;aspect-ratio:1/1!important;height:auto!important;margin-inline:auto!important}
+.home-brand-card.v32-watermark-home{min-height:0!important;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;isolation:isolate;overflow:hidden!important;border-radius:38px;padding:clamp(20px,5vw,38px)!important;background:linear-gradient(180deg,#fffdf8,#fff7ed)!important;width:min(88vw,520px)!important;aspect-ratio:1/1!important;height:auto!important;margin-inline:auto!important}
 .home-single-watermark{position:absolute;width:138%!important;aspect-ratio:1/1;left:50%!important;top:50%!important;transform:translate(-50%,-50%);background:url('logo-monogram-transparent.png') center/cover no-repeat!important;mix-blend-mode:multiply!important;z-index:0;pointer-events:none;max-width:none!important;height:138%!important;max-height:none!important;background-size:cover!important}
 @media(max-width:480px){.home-single-watermark{width:142%!important;height:142%!important;opacity:.11!important}}
 /* Trip checklist: larger, still compact */
@@ -531,7 +531,7 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 .tools-sheet .modal-intro{font-size:13px!important;line-height:1.32!important}
 #expenseSaveButton{font-size:15px!important;min-height:42px!important}
 /* v3.7 Design System + Home Live Dashboard */
-.site-nav{top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:rgba(247,239,228,.9)!important;backdrop-filter:blur(18px);border-bottom:1px solid rgba(224,210,195,.65)}
+.site-nav{top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:#f7efe4!important;backdrop-filter:none;border-bottom:1px solid rgba(224,210,195,.65)}
 .home-premium.home-v37{min-height:calc(100dvh - 92px);display:flex;align-items:center;justify-content:center;padding:16px 16px 98px!important}
 .home-brand-card.v37-dashboard-home{width:min(720px,100%);min-height:auto!important;aspect-ratio:auto!important;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;isolation:isolate;overflow:hidden;border-radius:36px!important;padding:30px 18px 26px!important;background:radial-gradient(circle at 50% 18%, rgba(240,206,142,.32), transparent 26%),
     linear-gradient(180deg,rgba(255,253,248,.99),rgba(255,247,237,.96))!important;border:1px solid rgba(170,126,79,.25)!important;box-shadow:0 24px 82px rgba(70,45,28,.13)!important}
@@ -541,10 +541,10 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 .v37-dashboard-home h1{font-size:clamp(42px,11vw,76px)!important;line-height:.86;margin:0 0 8px;color:#35261c}
 .v37-dashboard-home .home-tagline{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#6d5a4c;margin:0 0 12px;font-weight:850}
 .v37-dashboard-home .home-trip-line{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:6px 0 14px}
-.v37-dashboard-home .home-trip-line span{background:rgba(255,250,242,.76);border:1px solid rgba(170,126,79,.22);border-radius:999px;padding:7px 11px;font-size:12px;font-weight:850;color:#5d432e}
+.v37-dashboard-home .home-trip-line span{background:#fffaf2;border:1px solid rgba(170,126,79,.22);border-radius:999px;padding:7px 11px;font-size:12px;font-weight:850;color:#5d432e}
 .home-live-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;width:100%;max-width:540px;margin:4px auto 14px}
 .live-card{min-height:92px;border:1px solid rgba(170,126,79,.18);border-radius:24px;padding:13px 12px;text-align:left;box-shadow:0 10px 28px rgba(54,39,24,.055);position:relative;overflow:hidden}
-.live-card:after{content:"";position:absolute;right:-22px;bottom:-28px;width:86px;height:86px;border-radius:50%;background:rgba(255,255,255,.36)}
+.live-card:after{content:"";position:absolute;right:-22px;bottom:-28px;width:86px;height:86px;border-radius:50%;background:#fffdf8}
 .live-icon{font-size:20px;display:block;margin-bottom:2px}
 .live-card small{display:block;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.09em;color:#6a5849;margin-bottom:3px}
 .live-card strong{display:block;font-size:17px;line-height:1.12;color:#30251d}
@@ -555,7 +555,7 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 .live-rate{background:linear-gradient(180deg,#e3f0df,#fbfff7)}
 .home-day-button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;border-radius:999px;padding:12px 18px;background:#3a2a20;color:#fffaf2!important;font-weight:850;box-shadow:0 12px 30px rgba(58,42,32,.18)}
 /* Module accent language */
-.page-hero{border-radius:28px;padding:16px 16px 14px;background:rgba(255,250,242,.52);border:1px solid rgba(224,210,195,.55)}
+.page-hero{border-radius:28px;padding:16px 16px 14px;background:#fffaf2;border:1px solid #d2bea9}
 body:has(#tripModal) .trip-card,.trip-sheet{border-color:rgba(112,133,91,.28)!important}
 .timeline-item:before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--sky)!important}
 .timeline-item:nth-child(3n+2):before{background:var(--olive)!important}
@@ -581,7 +581,7 @@ body:has(#tripModal) .trip-card,.trip-sheet{border-color:rgba(112,133,91,.28)!im
 .home-single-watermark{opacity:.145!important;filter:saturate(1.05) contrast(1.08)!important}
 @media(max-width:520px){.v37-dashboard-home .home-single-watermark,
   .home-single-watermark{opacity:.155!important}}
-.moments-entry{border:1px solid rgba(183,107,82,.22)!important;background:linear-gradient(180deg,rgba(255,248,244,.96),rgba(255,252,248,.92))!important;border-radius:22px;padding:16px;margin:12px 0}
+.moments-entry{border:1px solid rgba(183,107,82,.22)!important;background:linear-gradient(180deg,#fff8f4,#fffcf8)!important;border-radius:22px;padding:16px;margin:12px 0}
 .moments-entry strong{display:block;font-size:18px!important;line-height:1.22;font-weight:950!important;color:#38261f!important;margin-bottom:4px}
 .moments-entry .timestamp{font-weight:800!important;color:#7a5f50!important}
 .moment-copy{font-size:16px!important;line-height:1.42;font-weight:750!important;color:#2f251f!important;margin-top:6px!important}
@@ -658,14 +658,14 @@ main,.content-page,.section,.dashboard{position:relative;z-index:1}
 .page-hero .lead,.section-head .lead,.module-hero .lead{margin:0!important;font-size:18px!important;line-height:1.58!important;font-weight:720!important;color:#46392f!important}
 .page-action-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:18px!important}
 /* Module colour accents remain subtle but consistent. */
-body:has(#momentsTimeline) .page-hero{background:linear-gradient(180deg,rgba(244,204,190,.82),rgba(255,250,242,.74))!important}
-body:has(.expense-page-shell) .page-hero{background:linear-gradient(180deg,rgba(214,232,211,.86),rgba(255,250,242,.76))!important}
-body:has(#tripModal) .page-hero,body:has(.trip-grid) .page-hero{background:linear-gradient(180deg,rgba(222,229,207,.82),rgba(255,250,242,.74))!important}
+body:has(#momentsTimeline) .page-hero{background:linear-gradient(180deg,#f6d6cc,#fffaf2)!important}
+body:has(.expense-page-shell) .page-hero{background:linear-gradient(180deg,#d6e8d3,#fffaf2)!important}
+body:has(#tripModal) .page-hero,body:has(.trip-grid) .page-hero{background:linear-gradient(180deg,#dbe6cf,#fffaf2)!important}
 /* Days note: formal copy only, no development/update wording. */
-.day-lite-note{font-size:16px!important;color:#3d3028!important;margin-top:4px;margin:8px 0 18px!important;border:1px solid rgba(138,79,45,.22)!important;background:rgba(255,250,242,.78)!important;border-radius:18px!important;padding:12px 14px!important;line-height:1.5!important;font-weight:760!important}
+.day-lite-note{font-size:16px!important;color:#3d3028!important;margin-top:4px;margin:8px 0 18px!important;border:1px solid rgba(138,79,45,.22)!important;background:#fffaf2!important;border-radius:18px!important;padding:12px 14px!important;line-height:1.5!important;font-weight:760!important}
 /* Full-height iPhone sheet style for Moments and Expenses input. */
 .moments-modal.show,.tools-modal.show{display:flex!important;align-items:flex-end!important;justify-content:center!important;padding:8px 8px calc(8px + env(safe-area-inset-bottom))!important;overflow:hidden!important}
-.moments-sheet,.tools-sheet{width:min(760px,calc(100vw - 16px))!important;height:min(94svh,760px)!important;max-height:min(94svh,760px)!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;border-radius:32px 32px 24px 24px!important;padding:22px 22px 18px!important;background:linear-gradient(180deg,rgba(255,253,249,.98),rgba(255,249,241,.98))!important}
+.moments-sheet,.tools-sheet{width:min(760px,calc(100vw - 16px))!important;height:min(94svh,760px)!important;max-height:min(94svh,760px)!important;overflow:hidden!important;display:flex!important;flex-direction:column!important;border-radius:32px 32px 24px 24px!important;padding:22px 22px 18px!important;background:linear-gradient(180deg,#fffdf9,#fff9f1)!important}
 .moments-sheet .moments-form,.tools-sheet .expense-form{min-height:0!important;display:flex!important;flex-direction:column!important;gap:8px!important;overflow:hidden!important}
 .moments-sheet h2,.tools-sheet h2{font-size:34px!important;line-height:1!important;margin:0 48px 6px 0!important;font-weight:950!important}
 .moments-sheet .kicker,.tools-sheet .kicker{font-size:13px!important;letter-spacing:.16em!important;margin:0 0 6px!important}
@@ -698,7 +698,7 @@ input,select,textarea{font-size:16px!important;-webkit-text-size-adjust:100%}
 .moments-form textarea,#unexpectedText{min-height:82px!important}}
 /* v3.9.3 Navigation & Branding Fix */
 /* Bottom menu popups: JS positions each menu under its own nav button; keep them visible and above nav. */
-.mini-menu{position:fixed!important;bottom:82px!important;z-index:150!important;width:min(230px, calc(100vw - 24px))!important;background:rgba(255,250,242,.98);border:1px solid var(--line);border-radius:22px;box-shadow:0 18px 50px rgba(43,37,31,.2);padding:8px;opacity:0;pointer-events:none;transform:translateX(-50%) translateY(8px)!important;transition:.16s ease;left:50%!important;right:auto!important;max-height:min(64svh, 520px)!important;overflow:auto!important}
+.mini-menu{position:fixed!important;bottom:82px!important;z-index:150!important;width:min(230px, calc(100vw - 24px))!important;background:#fffaf2;border:1px solid var(--line);border-radius:22px;box-shadow:0 18px 50px rgba(43,37,31,.2);padding:8px;opacity:0;pointer-events:none;transform:translateX(-50%) translateY(8px)!important;transition:.16s ease;left:50%!important;right:auto!important;max-height:min(64svh, 520px)!important;overflow:auto!important}
 .mini-menu.show{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)!important}
 #tripMenu,#guideMenu,#daysMenu{left:50%!important;right:auto!important}
 /* Guide place-card watermark: card-level, right bottom, not page background. */
@@ -715,30 +715,30 @@ input,select,textarea{font-size:16px!important;-webkit-text-size-adjust:100%}
 .section .category-pop-list button::after{width:88px;height:88px;right:-20px;bottom:-26px;opacity:.10}
 /* Moments returns to its pink theme; Expenses stays sage. */
 body:has(.page-action-row[data-v35="moment-action"]) .page-hero,
-body:has(.page-action-row[data-v35="moment-action"]) .module-hero{background:linear-gradient(180deg, rgba(255,244,246,.98), rgba(253,235,239,.96))!important;border-color:rgba(202,117,132,.28)!important}
+body:has(.page-action-row[data-v35="moment-action"]) .module-hero{background:linear-gradient(180deg,#fff4f6,#fdebef)!important;border-color:rgba(202,117,132,.28)!important}
 body:has(.page-action-row[data-v35="moment-action"]) .page-hero .kicker,
 body:has(.page-action-row[data-v35="moment-action"]) .module-hero .kicker{color:#9a5361!important}
 body:has(.page-action-row[data-v35="moment-action"]) .primary-action,
 .moments-sheet .btn{background:#b76c78!important;color:#fffaf7!important;border-color:#b76c78!important}
 body:has(.page-action-row[data-v35="expense-action"]) .page-hero,
-body:has(.page-action-row[data-v35="expense-action"]) .module-hero{background:linear-gradient(180deg, rgba(242,249,244,.98), rgba(231,242,234,.96))!important;border-color:rgba(100,139,113,.30)!important}
+body:has(.page-action-row[data-v35="expense-action"]) .module-hero{background:linear-gradient(180deg,#f2f9f4,#e7f2ea)!important;border-color:rgba(100,139,113,.30)!important}
 body:has(.page-action-row[data-v35="expense-action"]) .page-hero .kicker,
 body:has(.page-action-row[data-v35="expense-action"]) .module-hero .kicker{color:#527a5d!important}
 body:has(.page-action-row[data-v35="expense-action"]) .primary-action,
 .tools-sheet .btn{background:#678f72!important;color:#fffaf7!important;border-color:#678f72!important}
 /* Swipe affordance for day pages */
 .day-swipe-hint{font-size:12px;color:#6e6258;font-weight:800;text-align:center;letter-spacing:.05em;margin:6px 0 0;opacity:.78}
-body.moments-page .page-hero, body.moments-page .module-hero{background:linear-gradient(180deg, rgba(255,244,246,.98), rgba(253,235,239,.96))!important;border-color:rgba(202,117,132,.28)!important}
+body.moments-page .page-hero, body.moments-page .module-hero{background:linear-gradient(180deg,#fff4f6,#fdebef)!important;border-color:rgba(202,117,132,.28)!important}
 body.moments-page .page-hero .kicker, body.moments-page .module-hero .kicker{color:#9a5361!important}
 body.moments-page .primary-action{background:#b76c78!important;color:#fffaf7!important;border-color:#b76c78!important}
-body.expenses-page .page-hero, body.expenses-page .module-hero{background:linear-gradient(180deg, rgba(242,249,244,.98), rgba(231,242,234,.96))!important;border-color:rgba(100,139,113,.30)!important}
+body.expenses-page .page-hero, body.expenses-page .module-hero{background:linear-gradient(180deg,#f2f9f4,#e7f2ea)!important;border-color:rgba(100,139,113,.30)!important}
 body.expenses-page .page-hero .kicker, body.expenses-page .module-hero .kicker{color:#527a5d!important}
 body.expenses-page .primary-action{background:#678f72!important;color:#fffaf7!important;border-color:#678f72!important}
 /* v3.9.4 hotfix: restore guide modal scrolling, force Moments pink theme */
 .guide-modal .guide-sheet{overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;max-height:calc(100dvh - 20px)!important}
 html body.moments-page main .page-hero.module-hero,
 html body.moments-page .page-hero,
-html body.moments-page .module-hero{background:linear-gradient(180deg, rgba(255,244,246,.99), rgba(253,235,239,.97))!important;border-color:rgba(202,117,132,.36)!important}
+html body.moments-page .module-hero{background:linear-gradient(180deg,#fff4f6,#fdebef)!important;border-color:rgba(202,117,132,.36)!important}
 html body.moments-page .page-hero .kicker,
 html body.moments-page .module-hero .kicker{color:#9a5361!important}
 html body.moments-page .primary-action,
@@ -863,7 +863,7 @@ html body.moments-page .btn.primary-action,
 .tools-close{position:absolute!important;top:16px!important;right:16px!important;left:auto!important;bottom:auto!important;z-index:9999!important;pointer-events:auto!important;display:flex!important;align-items:center!important;justify-content:center!important;width:44px!important;height:44px!important;border-radius:999px!important;background:#fffaf2!important;border:1px solid var(--line)!important;color:var(--ink)!important;line-height:1!important}
 /* Strong explicit Moments pink theme: no :has dependency, no Expenses green bleed */
 body.moments-page .page-hero,
-body.moments-page .page-hero.module-hero{background:linear-gradient(180deg,rgba(246,214,204,.92),rgba(255,250,242,.70))!important;border-color:var(--moments-pink-border)!important}
+body.moments-page .page-hero.module-hero{background:linear-gradient(180deg,#f6d6cc,#fffaf2)!important;border-color:var(--moments-pink-border)!important}
 body.moments-page .page-hero .kicker,
 body.moments-page .page-hero h1{color:var(--moments-pink-ink)!important}
 body.moments-page .primary-action,
@@ -2022,29 +2022,43 @@ body.expenses-page .page-hero::after,body.expenses-page .module-hero::after,
 }
 
 
-/* ===== 1143f REAL cleanup: keep top nav logo, remove front hero logo artwork + large watermark =====
-   Added after all previous visual overrides so it cannot be overwritten. */
-body.home-bg .home-brand-card.v37-dashboard-home::before{
+/* ===== 1143h REAL Front hero cleanup =====
+   Keep the top navigation/header logo only. Remove ONLY the logo inside the Front Page hero card
+   and the large bottom-right hero-card watermark that overlapped the four small info cards. */
+body.home-bg section.home-brand-card.v37-dashboard-home::before,
+body.home-bg section.home-brand-card.v37-dashboard-home::after{
   content:none!important;
   display:none!important;
+  background:none!important;
+  background-image:none!important;
   width:0!important;
   height:0!important;
   margin:0!important;
   padding:0!important;
-  background:none!important;
+  border:0!important;
   box-shadow:none!important;
   filter:none!important;
 }
-body.home-bg .home-brand-card.v37-dashboard-home .home-single-watermark{
+body.home-bg section.home-brand-card.v37-dashboard-home > .home-single-watermark,
+body.home-bg section.home-brand-card.v37-dashboard-home .home-single-watermark{
   content:none!important;
   display:none!important;
-  width:0!important;
-  height:0!important;
+  visibility:hidden!important;
   opacity:0!important;
   background:none!important;
+  background-image:none!important;
+  width:0!important;
+  height:0!important;
+  max-width:0!important;
+  max-height:0!important;
+  inset:auto!important;
+  transform:none!important;
+  pointer-events:none!important;
 }
-/* Keep the clear header logo in the site nav only. */
-body.home-bg .site-nav .brand img{
+/* Header logo remains visible. */
+body.home-bg nav.site-nav a.brand img{
   content:url('ccmv-logo-calibrated.png')!important;
   display:block!important;
 }
+
+/* 1143h: source surface cleanup — cards made opaque; no new visual override block. */
