@@ -1,1 +1,75 @@
-const CACHE_NAME = 'ccmv-travel-engine-1143j';const ASSETS=["./", "./index.html", "./styles.css", "./script.js", "./manifest.json", "./offline.html", "./icon-192.png", "./icon-512.png", "./logo-watermark-monogram.png", "./logo-monogram-transparent.png", "./splash-logo.png", "./bakes.html", "./bep-me-in.html", "./book-street.html", "./cafe-apartments.html", "./com-tam-moc.html", "./cong.html", "./cooking.html", "./dauple.html", "./day1.html", "./day2.html", "./day3.html", "./day4.html", "./day5.html", "./fine-arts.html", "./fusion.html", "./garmentory.html", "./guide.html", "./ha-spa.html", "./itinerary.html", "./libe.html", "./little-bear.html", "./lune.html", "./marou.html", "./memory.html", "./moc-huong.html", "./moc-kim.html", "./moments.html", "./expenses.html", "./new-playground.html", "./nha-suga.html", "./nosbyn.html", "./notre-dame.html", "./ohquao.html", "./omakase-tiger.html", "./pho-sol.html", "./pho-vietnam.html", "./pink-church.html", "./pizza4ps.html", "./post-office.html", "./push-push.html", "./quan-thuy.html", "./quince.html", "./running-bean.html", "./saigon-concept.html", "./temple-leaf.html", "./trip.html", "./war-museum.html"];self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE_NAME).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()))});self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE_NAME).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(caches.match(e.request).then(c=>c||fetch(e.request).then(r=>{let copy=r.clone();caches.open(CACHE_NAME).then(cache=>cache.put(e.request,copy));return r}).catch(()=>caches.match('./offline.html'))))});
+const CACHE_NAME = 'ccmv-travel-engine-stage4g-ui-polish-fixes';
+const ASSETS = [
+  './',
+  './index.html',
+  './styles.css',
+  './script.js',
+  './data.js',
+  './manifest.json',
+  './place.html',
+  './day.html',
+  './offline.html',
+  './icon-192.png',
+  './icon-512.png',
+  './logo-watermark-monogram.png',
+  './logo-monogram-transparent.png',
+  './ccmv-logo-calibrated.png',
+  './guide.html',
+  './itinerary.html',
+  './memory.html',
+  './moments.html',
+  './expenses.html',
+  './trip.html'
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(ASSETS))
+      .then(() => self.skipWaiting())
+  );
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys()
+      .then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
+      .then(() => self.clients.claim())
+  );
+});
+
+async function networkFirst(request) {
+  const cache = await caches.open(CACHE_NAME);
+  try {
+    const response = await fetch(request);
+    if (response && response.ok) cache.put(request, response.clone());
+    return response;
+  } catch (error) {
+    const cached = await caches.match(request);
+    return cached || caches.match('./offline.html');
+  }
+}
+
+async function staleWhileRevalidate(request) {
+  const cache = await caches.open(CACHE_NAME);
+  const cached = await caches.match(request);
+  const fetched = fetch(request).then(response => {
+    if (response && response.ok) cache.put(request, response.clone());
+    return response;
+  }).catch(() => null);
+  return cached || fetched || caches.match('./offline.html');
+}
+
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
+
+  const url = new URL(event.request.url);
+  if (url.origin !== self.location.origin) return;
+
+  const acceptsHtml = event.request.headers.get('accept')?.includes('text/html');
+  if (event.request.mode === 'navigate' || acceptsHtml) {
+    event.respondWith(networkFirst(event.request));
+  } else {
+    event.respondWith(staleWhileRevalidate(event.request));
+  }
+});

@@ -6,42 +6,42 @@ const PLACES={"fusion":{"title":"Fusion Original Saigon Centre","emoji":"🏨","
 const CATEGORIES={"STAY": [{"key": "fusion", "title": "Fusion Original Saigon Centre", "emoji": "🏨", "sub": "酒店據點"}], "CAFÉS": [{"key": "bakes", "title": "Bakes Thảo Điền", "emoji": "🥐", "sub": "法式甜點"}, {"key": "cong", "title": "Cộng Cà Phê Tân Định", "emoji": "🥥", "sub": "粉紅教堂景觀咖啡"}, {"key": "marou", "title": "Maison Marou Saigon", "emoji": "🍫", "sub": "朱古力甜點"}, {"key": "cafe-apartments", "title": "The Cafe Apartments", "emoji": "🌃", "sub": "老公寓咖啡樓"}, {"key": "running-bean", "title": "The Running Bean", "emoji": "☕", "sub": "晨間咖啡"}], "RESTAURANTS": [{"key": "bep-me-in", "title": "Bếp Mẹ Ỉn", "emoji": "🏡", "sub": "越式家常菜"}, {"key": "com-tam-moc", "title": "Cơm Tấm Mộc", "emoji": "🍚", "sub": "炭烤豬排碎米飯"}, {"key": "little-bear", "title": "Little Bear", "emoji": "🐻", "sub": "Michelin Guide 餐酒館"}, {"key": "lune", "title": "LÚNE Restaurant & Bar", "emoji": "🍷", "sub": "現代越式餐廳"}, {"key": "omakase-tiger", "title": "Omakase Tiger", "emoji": "🍣", "sub": "Omakase"}, {"key": "pho-sol", "title": "Phở SOL", "emoji": "🍜", "sub": "石鍋牛肉河粉"}, {"key": "pho-vietnam", "title": "Phở Việt Nam Bến Thành", "emoji": "🥣", "sub": "石鍋河粉"}, {"key": "pizza4ps", "title": "Pizza 4P’s Võ Văn Tần", "emoji": "🍕", "sub": "自家製芝士 Pizza"}, {"key": "quince", "title": "Quince Saigon", "emoji": "🔥", "sub": "木火料理"}, {"key": "quan-thuy", "title": "Quán Thuý 94", "emoji": "🦀", "sub": "蟹肉粉絲"}], "SHOP": [{"key": "garmentory", "title": "11 Garmentory", "emoji": "🧥", "sub": "Day 4 設計師選物"}, {"key": "dauple", "title": "Dauple by Ka's", "emoji": "🧵", "sub": "Day 2 亞麻真絲"}, {"key": "libe", "title": "LIBÉ", "emoji": "👗", "sub": "Day 2 女裝"}, {"key": "nosbyn", "title": "NOSBYN", "emoji": "🤎", "sub": "Day 2 極簡女裝"}, {"key": "ohquao", "title": "OHQUAO", "emoji": "🎁", "sub": "Day 3 手信選物"}, {"key": "push-push", "title": "Push Push Official", "emoji": "👖", "sub": "Day 4 Streetwear"}, {"key": "saigon-concept", "title": "Saigon Concept", "emoji": "🌿", "sub": "Day 3 Thảo Điền 選物"}, {"key": "new-playground", "title": "The New Playground", "emoji": "🛍", "sub": "Day 2 本地品牌集合"}], "SPA": [{"key": "ha-spa", "title": "Hạ Spa", "emoji": "✈️", "sub": "Day 5 機場前 Spa"}, {"key": "moc-huong", "title": "Mộc Hương Wellness", "emoji": "🏡", "sub": "Day 3 Villa Wellness"}, {"key": "moc-kim", "title": "Mộc Kim Spa & Beauty", "emoji": "🌿", "sub": "Day 2 足底＋草本洗頭"}, {"key": "nha-suga", "title": "Spa Nhà Suga Premium", "emoji": "💆", "sub": "Day 1 Head Spa"}, {"key": "temple-leaf", "title": "Temple Leaf Spa Land", "emoji": "🦶", "sub": "Day 4 足底按摩"}], "ATTRACTIONS": [{"key": "fine-arts", "title": "Fine Arts Museum", "emoji": "🖼", "sub": "黃色法式美術館"}, {"key": "book-street", "title": "Nguyễn Văn Bình Book Street", "emoji": "📚", "sub": "書街散步"}, {"key": "notre-dame", "title": "Notre-Dame Cathedral", "emoji": "⛪", "sub": "紅磚教堂"}, {"key": "post-office", "title": "Saigon Central Post Office", "emoji": "📮", "sub": "法式郵局"}, {"key": "pink-church", "title": "Tân Định Church", "emoji": "🌸", "sub": "粉紅教堂"}, {"key": "war-museum", "title": "War Remnants Museum", "emoji": "🏛", "sub": "戰爭遺跡博物館"}], "EXPERIENCE": [{"key": "cooking", "title": "Saigon Cooking Class", "emoji": "👩🏻‍🍳", "sub": "越式廚藝課"}]};
 
 const DAY_LINKS={
-  fusion:[['Day 1','day1.html#fusion']],
-  'pho-sol':[['Day 1','day1.html#pho-sol']],
-  'post-office':[['Day 1','day1.html#post-office']],
-  'notre-dame':[['Day 1','day1.html#post-office']],
-  'book-street':[['Day 1','day1.html#post-office']],
-  'nha-suga':[['Day 1','day1.html#nha-suga']],
-  'omakase-tiger':[['Day 1','day1.html#omakase-tiger']],
-  'cafe-apartments':[['Day 1','day1.html#cafe-apartments']],
-  'com-tam-moc':[['Day 2','day2.html#com-tam-moc']],
-  cooking:[['Day 2','day2.html#cooking']],
-  libe:[['Day 2','day2.html#libe']],
-  dauple:[['Day 2','day2.html#libe']],
-  nosbyn:[['Day 2','day2.html#libe']],
-  'new-playground':[['Day 2','day2.html#libe']],
-  'moc-kim':[['Day 2','day2.html#moc-kim']],
-  lune:[['Day 2','day2.html#lune']],
-  'quan-thuy':[['Day 3','day3.html#quan-thuy']],
-  'pink-church':[['Day 3','day3.html#pink-church']],
-  cong:[['Day 3','day3.html#pink-church']],
-  'push-push':[['Day 3','day3.html#push-push']],
-  'saigon-concept':[['Day 3','day3.html#saigon-concept']],
-  bakes:[['Day 3','day3.html#bakes']],
-  ohquao:[['Day 3','day3.html#ohquao']],
-  'moc-huong':[['Day 3','day3.html#moc-huong']],
-  'little-bear':[['Day 3','day3.html#little-bear']],
-  marou:[['Day 3','day3.html#marou'],['Day 5','day5.html#takashimaya']],
-  'running-bean':[['Day 4','day4.html#running-bean']],
-  'war-museum':[['Day 4','day4.html#war-museum']],
-  pizza4ps:[['Day 4','day4.html#pizza4ps']],
-  garmentory:[['Day 4','day4.html#garmentory']],
-  'temple-leaf':[['Day 4','day4.html#temple-leaf']],
-  quince:[['Day 4','day4.html#quince']],
-  'pho-vietnam':[['Day 5','day5.html#pho-vietnam']],
-  'fine-arts':[['Day 5','day5.html#fine-arts']],
-  'bep-me-in':[['Day 5','day5.html#bep-me-in']],
-  'ha-spa':[['Day 5','day5.html#ha-spa']]
+  fusion:[['Day 1','day.html?day=1#fusion']],
+  'pho-sol':[['Day 1','day.html?day=1#pho-sol']],
+  'post-office':[['Day 1','day.html?day=1#post-office']],
+  'notre-dame':[['Day 1','day.html?day=1#post-office']],
+  'book-street':[['Day 1','day.html?day=1#post-office']],
+  'nha-suga':[['Day 1','day.html?day=1#nha-suga']],
+  'omakase-tiger':[['Day 1','day.html?day=1#omakase-tiger']],
+  'cafe-apartments':[['Day 1','day.html?day=1#cafe-apartments']],
+  'com-tam-moc':[['Day 2','day.html?day=2#com-tam-moc']],
+  cooking:[['Day 2','day.html?day=2#cooking']],
+  libe:[['Day 2','day.html?day=2#libe']],
+  dauple:[['Day 2','day.html?day=2#libe']],
+  nosbyn:[['Day 2','day.html?day=2#libe']],
+  'new-playground':[['Day 2','day.html?day=2#libe']],
+  'moc-kim':[['Day 2','day.html?day=2#moc-kim']],
+  lune:[['Day 2','day.html?day=2#lune']],
+  'quan-thuy':[['Day 3','day.html?day=3#quan-thuy']],
+  'pink-church':[['Day 3','day.html?day=3#pink-church']],
+  cong:[['Day 3','day.html?day=3#pink-church']],
+  'push-push':[['Day 3','day.html?day=3#push-push']],
+  'saigon-concept':[['Day 3','day.html?day=3#saigon-concept']],
+  bakes:[['Day 3','day.html?day=3#bakes']],
+  ohquao:[['Day 3','day.html?day=3#ohquao']],
+  'moc-huong':[['Day 3','day.html?day=3#moc-huong']],
+  'little-bear':[['Day 3','day.html?day=3#little-bear']],
+  marou:[['Day 3','day.html?day=3#marou'],['Day 5','day.html?day=5#takashimaya']],
+  'running-bean':[['Day 4','day.html?day=4#running-bean']],
+  'war-museum':[['Day 4','day.html?day=4#war-museum']],
+  pizza4ps:[['Day 4','day.html?day=4#pizza4ps']],
+  garmentory:[['Day 4','day.html?day=4#garmentory']],
+  'temple-leaf':[['Day 4','day.html?day=4#temple-leaf']],
+  quince:[['Day 4','day.html?day=4#quince']],
+  'pho-vietnam':[['Day 5','day.html?day=5#pho-vietnam']],
+  'fine-arts':[['Day 5','day.html?day=5#fine-arts']],
+  'bep-me-in':[['Day 5','day.html?day=5#bep-me-in']],
+  'ha-spa':[['Day 5','day.html?day=5#ha-spa']]
 };
 
 const GUIDE_ORDER=["fusion", "bakes", "cong", "marou", "cafe-apartments", "running-bean", "bep-me-in", "com-tam-moc", "little-bear", "lune", "omakase-tiger", "pho-sol", "pho-vietnam", "pizza4ps", "quince", "quan-thuy", "garmentory", "dauple", "libe", "nosbyn", "ohquao", "push-push", "saigon-concept", "new-playground", "ha-spa", "moc-huong", "moc-kim", "nha-suga", "temple-leaf", "fine-arts", "book-street", "notre-dame", "post-office", "pink-church", "war-museum", "cooking"];
@@ -180,7 +180,7 @@ const BOOKINGS_DATA = {
    ----------------------------------------------------------------------
    This is documentation-as-data, not a validator (no schema-validation
    library is loaded in this project). Its job is to fix the vocabulary so
-   a future day-page renderer (or a rewritten day1.html–day5.html) has one
+   the shared dynamic day renderer has one
    agreed shape to target, instead of every day inventing its own markup.
 
    Every itinerary activity, regardless of type, SHOULD eventually carry:
@@ -364,3 +364,30 @@ const PLACE_SCHEMA_EXAMPLES = {
    render path, and safe to delete if a future stage designs different
    helpers instead.
    ------------------------------------------------------------------- */
+
+/* ============================================================================
+   ITINERARY_DATA — canonical Day timeline data (moved here from day.html)
+   ----------------------------------------------------------------------------
+   Added: 2026-07-09, as part of consolidating Companion itinerary data into
+   data.js alongside PLACES/BOOKINGS_DATA, so a future itinerary-import
+   pipeline only ever needs to replace one file, not edit HTML.
+
+   Rendered by day.html (see the inline script there) via:
+     ITINERARY_DATA[dayNumber] -> { title, kicker, heading, legend, dayId, items[] }
+   Each item keeps its original rendering fields (id, time, title, details,
+   route, map) UNCHANGED, and adds three new fields aligned with the
+   ITINERARY_SCHEMA_EXAMPLES vocabulary defined above:
+     type      one of ITINERARY_ACTIVITY_TYPES (meal/transport/experience/
+               spa/shoppingWindow/buffer/rest/ticket/booking/note), inferred
+               from the matching PLACES[item.id].cat where a place exists
+     placeId   item.id when it matches a real PLACES key, otherwise null
+               (three items — takashimaya, airport — have no PLACES entry;
+               hotel-luggage maps to placeId:'fusion' since it is a return
+               trip to the hotel)
+     bookingId links to BOOKINGS_DATA where a real booking exists for that
+               placeId (currently: omakase-tiger -> omakase-tiger-booking,
+               cooking -> cooking-class-booking). Everything else is null
+               because no booking has been made yet — this is intentionally
+               NOT invented data; see STAGE_3E_ITINERARY_CONSOLIDATION.md.
+   ------------------------------------------------------------------------- */
+const ITINERARY_DATA = {"1":{"title":"Day 1 · Saigon Companion","kicker":"Day 1 · 30 Oct • Friday","heading":"Hello Saigon","legend":["☀️ Morning","🍜 Midday","🌙 Evening"],"items":[{"id":"fusion","time":"09:30","title":"🏨 Fusion Original Saigon Centre","details":["Drop luggage and settle in.","🕘 24 Hours"],"route":"Next: walk / Grab to Phở SOL — approx. 8–10 min walk or 3 min Grab.","map":"https://maps.google.com/?q=Fusion+Original+Saigon+Centre","type":"rest","dayId":"day1","placeId":"fusion","bookingId":null},{"id":"pho-sol","time":"12:00","title":"🍜 Phở SOL","details":["石鍋牛肉河粉，第一餐。約 150k–200k VND/人。","🕘 出發前再確認"],"route":"Next: Grab to Central Post Office — approx. 5 min / ~40k–60k VND.","map":"https://maps.google.com/?q=Phở+SOL+Bến+Thành","type":"meal","dayId":"day1","placeId":"pho-sol","bookingId":null},{"id":"post-office","time":"13:30–15:00","title":"📮 Post Office · ⛪ Cathedral · 📚 Book Street","details":["法式郵局、紅教堂、書街，第一日下午輕鬆散步。","🕘 Mon–Fri 07:00–17:00；Sat 07:00–18:00；Sun 08:00–18:00"],"route":"Next: Grab to The Cafe Apartments / Nhà Suga — approx. 5 min / ~40k–60k VND.","map":"https://maps.google.com/?q=Saigon+Central+Post+Office","type":"experience","dayId":"day1","placeId":"post-office","bookingId":null},{"id":"nha-suga","time":"16:00","title":"💆 Spa Nhà Suga Premium","details":["韓式 head spa，落機後 reset。","🕘 出發前再確認"],"route":"Next: Grab to Omakase Tiger — approx. 15 min / ~60k–90k VND.","map":"https://maps.google.com/?q=Spa+Nhà+Suga+Premium","type":"spa","dayId":"day1","placeId":"nha-suga","bookingId":null},{"id":"omakase-tiger","time":"17:30","title":"🍣 Omakase Tiger","details":["首晚日落 Omakase，建議提早訂位。","🕘 Tue–Sun 17:30 / 20:00；Monday closed"],"route":"Next: Grab to Nguyễn Huệ / The Cafe Apartments night photo — approx. 15–20 min / ~60k–90k VND.","map":"https://maps.google.com/?q=Omakase+Tiger+The+Penthouse+Ho+Chi+Minh","type":"meal","dayId":"day1","placeId":"omakase-tiger","bookingId":"omakase-tiger-booking"},{"id":"cafe-apartments","time":"19:45","title":"🌃 The Cafe Apartments","details":["Optional night photo stop。","🕘 各店不同；大多約 09:00–22:00"],"route":"Next: walk back to hotel — approx. 5 min.","map":"https://maps.google.com/?q=The+Cafe+Apartments+42+Nguyễn+Huệ","type":"meal","dayId":"day1","placeId":"cafe-apartments","bookingId":null}],"dayId":"day1"},"2":{"title":"Day 2 · Saigon Companion","kicker":"Day 2 · 31 Oct • Saturday","heading":"Made in Saigon","legend":["☀️ Morning","🍜 Midday","🌙 Evening"],"items":[{"id":"com-tam-moc","time":"08:30–09:30","title":"🍚 Cơm Tấm Mộc - Lý Tự Trọng","details":["在地特色早餐 · 老字號碎米飯，先試一口地道早餐再去 Cooking Class。","📍 Lý Tự Trọng 街，距酒店步行約 8 分鐘","🕐 06:00–22:00 · 💰 約 60,000–100,000 VND / 人","⭐ 必點：炭烤厚切豬排碎米飯（Cơm Tấm Sườn）；4 人點 2–3 份分食。"],"route":"Cơm Tấm Mộc → Saigon Cooking Class：Grab 約 5 分鐘 ／ ~40,000–60,000 VND。","map":"https://maps.google.com/?q=Cơm+Tấm+Mộc+Lý+Tự+Trọng+Ho+Chi+Minh","type":"meal","dayId":"day2","placeId":"com-tam-moc","bookingId":null},{"id":"cooking","time":"10:00–13:00","title":"👩🏻‍🍳 Saigon Cooking Class","details":["濱城市場導覽 + 散步廚藝課，完成後即場午餐。","📍 39B Trần Cao Vân, Phường Đa Kao, Quận 1"],"route":"Cooking Class → Mộc Kim Spa & Beauty：Grab 約 10–12 分鐘。","map":"https://maps.google.com/?q=Saigon+Cooking+Class+39B+Trần+Cao+Vân","type":"experience","dayId":"day2","placeId":"cooking","bookingId":"cooking-class-booking"},{"id":"moc-kim","time":"13:15–15:15","title":"🌿 Mộc Kim Spa & Beauty","details":["經典放鬆療程，讓身心徹底舒緩。","📍 143 Lê Thị Hồng Gấm, Phường Nguyễn Thái Bình, Quận 1","☎️ +84 968 459 618 · 🕘 08:30–21:00"],"route":"Spa → LIBÉ：Grab 約 10 分鐘，開始 Nguyễn Trãi shopping flow。","map":"https://maps.google.com/?q=Mộc+Kim+Spa+Beauty+143+Lê+Thị+Hồng+Gấm","type":"spa","dayId":"day2","placeId":"moc-kim","bookingId":null},{"id":"libe","time":"15:30–18:45","title":"🛍 Shopping Flow","details":["精品小店、設計師品牌、潮流選物店。時間夠就慢慢行，唔夠就 skip optional。"],"route":"🚕 To dinner\nVincom / The New Playground → LÚNE：Grab 約 5 分鐘。","map":"https://maps.google.com/?q=LIBÉ+52+Nguyễn+Trãi","type":"shoppingWindow","dayId":"day2","placeId":"libe","guideIds":["libe","dauple","nosbyn"],"showShoppingDirectory":true,"bookingId":null},{"id":"lune","time":"19:00–21:00","title":"🍷 LÚNE Restaurant & Bar","details":["Shopping 後直接去的法式／現代越式晚餐。","📍 17/14 Lê Thánh Tôn, Bến Nghé, Quận 1"],"route":"🚕 To hotel\nDinner 後按體力決定 Grab / walk 回 Fusion；Grab 約 5 分鐘。","map":"https://maps.google.com/?q=LÚNE+Restaurant+Bar+17/14+Lê+Thánh+Tôn","type":"meal","dayId":"day2","placeId":"lune","bookingId":null}],"dayId":"day2"},"3":{"title":"Day 3 · Saigon Companion","kicker":"Day 3 · 1 Nov • Sunday","heading":"A Slower Side","legend":["☀️ Morning","🍜 Midday","🌙 Evening"],"items":[{"id":"quan-thuy","time":"09:00–10:00","title":"🦀 Quán Thuý 94 - Miến Cua 老字號蟹肉粉絲","details":["必點：蟹肉炒粉絲湯 + 外酥內軟炸蟹肉春捲。約 80,000–120,000 VND / 人。","🕘 06:00–14:00"],"route":"吃完步行約 5 分鐘即達粉紅教堂（同一個 Tân Định 街區）。","map":"https://maps.google.com/?q=Quán+Thuý+94+Đinh+Tiên+Hoàng","type":"meal","dayId":"day3","placeId":"quan-thuy","bookingId":null},{"id":"pink-church","time":"10:00–10:45","title":"🌸 新定教堂（粉紅教堂）快閃打卡 · ☕ Cộng Cà Phê","details":["正面廣場拍教堂全景 → 對面 Cộng Cà Phê 三樓景觀陽台可俯瞰教堂，點一杯椰子冰沙咖啡邊喝邊拍。"],"route":"Next: Push Push Official（教堂附近則順路，否則略過）。","map":"https://maps.google.com/?q=Tân+Định+Church","type":"experience","dayId":"day3","placeId":"pink-church","bookingId":null},{"id":"push-push","time":"10:45–11:30","title":"👗 Push Push Official 服飾","details":["主打 streetwear。備註：此品牌之前未能確認有實體店；建議出發前先查閱 Instagram @pusspussofficial 確認地址。如有實體店就在教堂附近則可順路，否則略過。"],"route":"叫 Grab 出發跨橋去草田區 Thảo Điền，約 15 分鐘 ／ ~80,000–120,000 VND。","map":"","type":"shoppingWindow","dayId":"day3","placeId":"push-push","bookingId":null},{"id":"saigon-concept","time":"11:45–13:30","title":"🌿 草田街區漫步・選物店掃街","details":["第一站 Saigon Concept（14 Trần Ngọc Diện）：複合式紅磚庭園，棉麻女裝 DESIGNED BY SISI + 北歐風選物 LYKKE Studios（順路：In the Mood，32 Trần Ngọc Diện，手信家居小物）。第二站 Soo Kafe（23A Trần Ngọc Diện，正隔壁）：順路外帶手工蛋撻。第三站 YouOn Boutique（29 Thảo Điền）：高端輕熟度假風棉麻女裝。"],"route":"Next: 法式下午茶（步行可達）。","map":"https://maps.google.com/?q=Saigon+Concept+Thảo+Điền","type":"shoppingWindow","dayId":"day3","placeId":"saigon-concept","guideIds":["saigon-concept","ohquao"],"showShoppingDirectory":true,"bookingId":null},{"id":"bakes","time":"13:30–14:30","title":"🥐 精緻法式下午茶（二選一）","details":["Bakes Thảo Điền — 精緻法式甜點與多口味千層可頌；或 The Dreamers Bakery — 冷氣雅座，招牌蛋撻與大叻鮮牛奶（兩店相距僅 50 米）。約 80,000–150,000 VND / 人，4 人點 2–3 件分食。"],"route":"Next: 文創家居繼續逛（步行可達）。","map":"https://maps.google.com/?q=Bakes+Thảo+Điền","type":"meal","dayId":"day3","placeId":"bakes","bookingId":null},{"id":"ohquao","time":"14:30–15:30","title":"🎨 文創家居","details":["OHQUAO Living（19 Đường Số 38）— 在地藝術家明信片、香氛、手工藝品；Louh × Alouane（61 Nguyễn Bá Huân）— 高級棉織品家居服，親膚柔軟。"],"route":"Next: 從 Louh × Alouane 步行 2–3 分鐘到 Mộc Hương Wellness。","map":"https://maps.google.com/?q=OHQUAO+Living+Thảo+Điền","type":"shoppingWindow","dayId":"day3","placeId":"ohquao","bookingId":null},{"id":"moc-huong","time":"15:45–17:45","title":"🌿 Mộc Hương Wellness Thảo Điền","details":["白色法式別墅，附蒸氣房，寄存戰利品無憂。草本熱石按摩約 700,000–1,100,000 VND / 人。","🕘 09:00–21:00"],"route":"Next: Grab to Little Bear — approx. 3 min / ~30k–50k VND.","map":"https://maps.google.com/?q=Mộc+Hương+Wellness+Thảo+Điền","type":"spa","dayId":"day3","placeId":"moc-huong","bookingId":null},{"id":"little-bear","time":"19:00–21:00","title":"🐻 Little Bear","details":["Michelin Guide 餐酒館，留甜品空間。","🕘 18:00–22:00；Monday closed"],"route":"Next: Grab back to hotel — approx. 15 min / ~80k–120k VND.","map":"https://maps.google.com/?q=Little+Bear+Thảo+Điền","type":"meal","dayId":"day3","placeId":"little-bear","bookingId":null},{"id":"marou","time":"21:00","title":"🍫 Maison Marou @ Fusion Original","details":["返回酒店後，到大廈內的 Maison Marou 嚐一杯濃郁熱朱古力。"],"route":"","map":"https://maps.google.com/?q=Maison+Marou+Saigon","type":"meal","dayId":"day3","placeId":"marou","bookingId":null}],"dayId":"day3"},"4":{"title":"Day 4 · Saigon Companion","kicker":"Day 4 · 2 Nov • Monday","heading":"City Contrast","legend":["☀️ Morning","🍜 Midday","🌙 Evening"],"items":[{"id":"running-bean","time":"08:30","title":"☕ The Running Bean","details":["晨間咖啡，慢慢開始一日。","🕘 07:30–22:00"],"route":"Next: Grab to War Remnants Museum — approx. 8–10 min / ~60k–90k VND.","map":"https://maps.google.com/?q=The+Running+Bean+Ho+Chi+Minh","type":"meal","dayId":"day4","placeId":"running-bean","bookingId":null},{"id":"war-museum","time":"09:45","title":"🏛 War Remnants Museum","details":["內容沉重但重要，預留 60–90 分鐘。","🕘 07:30–17:30"],"route":"Next: Grab to Pizza 4P’s Hai Bà Trưng — approx. 8 min / ~60k–90k VND.","map":"https://maps.google.com/?q=War+Remnants+Museum","type":"experience","dayId":"day4","placeId":"war-museum","bookingId":null},{"id":"pizza4ps","time":"12:00","title":"🍕 Pizza 4P’s Võ Văn Tần","details":["自家製芝士 Pizza，轉口味午餐。","🕘 出發前再確認"],"route":"Next: Grab to 11 Garmentory / Trần Quang Diệu area — approx. 15 min.","map":"https://maps.google.com/?q=Pizza+4P's+Võ+Văn+Tần","type":"meal","dayId":"day4","placeId":"pizza4ps","bookingId":null},{"id":"garmentory","time":"13:30–16:30","title":"🛍 Shopping Block","details":["11 Garmentory、Push Push 設計師選物。","🕘 出發前再確認"],"route":"Next: walk the Trần Quang Diệu shopping line — mostly 1–5 min between stores.","map":"https://maps.google.com/?q=11+Garmentory+Ho+Chi+Minh","type":"shoppingWindow","dayId":"day4","placeId":"garmentory","bookingId":null},{"id":"temple-leaf","time":"17:30","title":"🦶 Temple Leaf Spa Land","details":["足底按摩，晚餐前放鬆雙腳。","🕘 10:00–23:30"],"route":"Next: Grab back to hotel — approx. 8–10 min / ~60k–90k VND.","map":"https://maps.google.com/?q=Temple+Leaf+Spa+Land+Ho+Chi+Minh","type":"spa","dayId":"day4","placeId":"temple-leaf","bookingId":null},{"id":"quince","time":"19:30","title":"🔥 Quince Saigon","details":["木火料理，旅程最後正式晚餐。","🕘 17:30–22:30"],"route":"Next: optional Social Club Rooftop Bar — approx. 5 min Grab / ~40k–60k VND.","map":"https://maps.google.com/?q=Quince+Saigon","type":"meal","dayId":"day4","placeId":"quince","bookingId":null}],"dayId":"day4"},"5":{"title":"Day 5 · Saigon Companion","kicker":"Day 5 · 3 Nov • Tuesday","heading":"Until Next Time","legend":["☀️ Morning","🍜 Midday","🌙 Evening"],"items":[{"id":"pho-vietnam","time":"09:30–10:30","title":"🥣 Phở Việt Nam Bến Thành 早餐","details":["Michelin 推介 2024 & 2025。招牌石鍋牛肉河粉，滾燙石鍋現場燙生和牛片，湯頭極香。約 100,000–150,000 VND / 人。","🕘 06:00–22:00"],"route":"Next: walk to Fine Arts Museum — approx. 4 min.","map":"https://maps.google.com/?q=Phở+Việt+Nam+Bến+Thành","type":"meal","dayId":"day5","placeId":"pho-vietnam","bookingId":null},{"id":"fine-arts","time":"10:30–11:45","title":"🖼 胡志明市美術館復古人文街拍","details":["全西貢最古老木製手拉升降電梯、彩色玻璃窗斜射光，王家衛風格大片首選。","🕘 09:00–17:00（週二至週日，週一休息）· 入場費 30,000 VND / 人"],"route":"Next: Grab to Bếp Mẹ Ỉn — approx. 4 min / ~35k–50k VND.","map":"https://maps.google.com/?q=Ho+Chi+Minh+City+Museum+of+Fine+Arts","type":"experience","dayId":"day5","placeId":"fine-arts","bookingId":null},{"id":"bep-me-in","time":"11:45–13:00","title":"🏡 Bếp Mẹ Ỉn 午餐","details":["Michelin Bib Gourmand（多年連續）。必點：黃金巨大煎餅（Bánh Xèo）外皮酥脆 + 整顆椰子炒飯 + 越式拼盤。約 150,000–250,000 VND / 人。","🕘 10:00–21:00"],"route":"Next: Grab to Takashimaya — approx. 3 min / ~30k–50k VND.","map":"https://maps.google.com/?q=Bếp+Mẹ+Ỉn+Ho+Chi+Minh","type":"meal","dayId":"day5","placeId":"bep-me-in","bookingId":null},{"id":"takashimaya","time":"13:00–14:15","title":"🏬 Takashimaya · 🍫 Maison Marou","details":["高島屋手信快閃 + Maison Marou 朱古力。必購 Marou 朱古力磚、滴漏咖啡豆、大叻乾果、特色茶葉（可退稅）。地庫專櫃必買一杯招牌冰/熱朱古力。","🕘 10:00–22:00"],"route":"回到 Fusion Original 酒店提取寄存行李，迅速塞箱打包。","map":"https://maps.google.com/?q=Takashimaya+Saigon","type":"shoppingWindow","dayId":"day5","placeId":null,"bookingId":null},{"id":"hotel-luggage","time":"14:15–14:45","title":"🧳 回酒店提行李與最後整理","details":["回到 Fusion Original 酒店提取寄存行李，迅速塞箱打包，準備出發。"],"route":"提早 14:45 出發，完美避開 17:00 後第一郡下班塞車潮。Grab 酒店 → Hạ Spa（Tân Bình）約 20–25 分鐘 ／ ~100,000–150,000 VND。","map":"","type":"buffer","dayId":"day5","placeId":"fusion","bookingId":null},{"id":"ha-spa","time":"15:30–17:30","title":"🌿 Hạ Spa 120 分鐘「草本洗頭 + 全身熱石按摩」","details":["越式草本洗頭 + 全身熱石精油按摩，免費大行李寄存，備有吹風機。約 800,000–1,200,000 VND / 人。⚠️ 預約時必須備註「當晚 21:00 航班，療程必須 17:30 完成」。","🕘 09:00–21:00（距新山一機場僅 2 分鐘車程）"],"route":"Next: Grab to airport international terminal — approx. 2 min / ~20k–30k VND.","map":"https://maps.google.com/?q=Hạ+Spa+Ho+Chi+Minh","type":"spa","dayId":"day5","placeId":"ha-spa","bookingId":null},{"id":"airport","time":"18:00–21:10","title":"✈️ 機場 Check-in → 免稅店 → 登機","details":["18:00 準時在國際線櫃檯辦理 Check-in，國際線建議提早 3 小時。過關後在登機閘口旁嚐一份清爽鮮蝦米紙捲，為五天塗上最後一口西貢色彩。"],"route":"","map":"","type":"transport","dayId":"day5","placeId":null,"bookingId":null}],"dayId":"day5"}};
