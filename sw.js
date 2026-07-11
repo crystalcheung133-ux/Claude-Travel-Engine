@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ccmv-travel-engine-stage4e-17c-expenses-watermark-reset-rebuild';
+const CACHE_NAME = 'ccmv-travel-engine-stage4e-17e-expenses-dashboard-canonical-rebuild';
 const ASSETS = [
   './',
   './index.html',
