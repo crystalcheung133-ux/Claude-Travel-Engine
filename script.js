@@ -173,7 +173,7 @@ function openTripCard(key) {
   const content = document.getElementById('tripModalContent');
   const modal = document.getElementById('tripModal');
   if (!content || !modal) return;
-  content.innerHTML = `<div class="trip-onepage"><p class="kicker">Trip</p><h2>${t.title}</h2>${t.body}<div class="guide-next-row"><button class="pill" onclick="openTripCard('${prev}')">‹ Previous</button><button class="pill" onclick="openTripCard('${next}')">Next ›</button></div><p class="timestamp">Build · Stage 4E-16D · GUIDE PLACE DETAIL BACK CONTROL</p></div>`;
+  content.innerHTML = `<div class="trip-onepage"><p class="kicker">Trip</p><h2>${t.title}</h2>${t.body}<div class="guide-next-row"><button class="pill" onclick="openTripCard('${prev}')">‹ Previous</button><button class="pill" onclick="openTripCard('${next}')">Next ›</button></div><p class="timestamp">Build · Stage 4E-16D1 · GUIDE DETAIL CLOSE CONTROL UNIFICATION</p></div>`;
   modal.classList.add('show');
   const sheet=document.querySelector('#tripModal .trip-sheet');
   if(sheet) sheet.scrollTop=0;
@@ -264,9 +264,15 @@ document.addEventListener('keydown', function(e){
 // Renders a full place detail page (page-hero + quick-info-card + prose blocks)
 // from PLACES data. Used by the shared place.html?id=... renderer and legacy standalone place pages
 // so page content lives in ONE place (data.js) instead of being duplicated per file.
-function backToGuide(){
-  const fromGuide = document.referrer && new URL(document.referrer).origin === window.location.origin;
-  if(fromGuide && window.history.length > 1){ window.history.back(); return; }
+function closePlaceDetail(){
+  try{
+    const ref = document.referrer ? new URL(document.referrer) : null;
+    const sameOriginGuide = ref && ref.origin === window.location.origin && /\/guide\.html$/.test(ref.pathname);
+    if(sameOriginGuide && window.history.length > 1){
+      window.history.back();
+      return;
+    }
+  }catch(e){}
   window.location.href = 'guide.html';
 }
 
@@ -277,7 +283,8 @@ function renderPlacePage(key){
   const sig = (g.signature||g.highlights||[]).map(x=>`<li>${x}</li>`).join('');
   const worth = (g.worth||g.tips||[]).map(x=>`<li>${x}</li>`).join('');
   mount.innerHTML = `
-<div class="page-hero"><p class="kicker">Guide</p><h1>${g.emoji} ${g.title}</h1><p class="lead">${g.sub||''}</p><p><button class="btn" type="button" onclick="backToGuide()">‹ Back to Guide</button></p></div>
+<button class="place-detail-close" onclick="closePlaceDetail()" type="button" aria-label="Close place details">×</button>
+<div class="page-hero"><p class="kicker">Guide</p><h1>${g.emoji} ${g.title}</h1><p class="lead">${g.sub||''}</p></div>
 <section aria-label="Quick Info" class="quick-info-card">${quickInfoInnerHTML(g,key)}</section>
 <section class="prose-block guide-overview"><h2>Overview</h2><p>${g.desc||''}</p></section>
 <section class="prose-block"><h2>Highlights</h2><ul>${sig}</ul></section>

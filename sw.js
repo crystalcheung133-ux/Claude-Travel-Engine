@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ccmv-travel-engine-stage4e-16d-guide-place-detail-back-control';
+const CACHE_NAME = 'ccmv-travel-engine-stage4e-16d1-guide-detail-close-control-unification';
 const ASSETS = [
   './',
   './index.html',
