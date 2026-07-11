@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ccmv-travel-engine-stage4h-gradient-tile-fixes';
+const CACHE_NAME = 'ccmv-travel-engine-stage4e-9-selector-cleanup';
 const ASSETS = [
   './',
   './index.html',

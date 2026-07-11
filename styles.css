@@ -2,8 +2,7 @@
 :root{--bg:#f4ede3;--paper:#fffaf2;--card:#fffdf8;--ink:#2b251f;--muted:#4f463f;--line:#e0d2c3;--accent:#8a4f2d;--green:#315f4e;--lav:#6b4a7a;--blue:#455f86}
 *{box-sizing:border-box}
 a{color:inherit;text-decoration:none}
-.brand{display:flex;align-items:center;gap:9px;font-weight:750;font-size:17px}
-.brand img{width:34px;height:34px;border-radius:10px;object-fit:cover}
+.brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:21px}
 .friend-pill{border:1px solid var(--line);background:var(--card);border-radius:999px;min-height:42px;padding:9px 13px;font-size:15px}
 .content-page,.section{max-width:860px;margin:0 auto;padding:30px 18px 112px}
 .page-hero{margin:18px 0 22px}
@@ -13,7 +12,8 @@ h1,h2{font-family:"Cormorant Garamond",serif;line-height:.95;margin:8px 0 14px}.
 #guideMenu{left:50%;transform:translateX(-50%) translateY(8px)}
 #guideMenu.show{transform:translateX(-50%) translateY(0)}
 #daysMenu{right:12px}
-.mini-menu a,.mini-menu button{display:grid;grid-template-columns:1fr auto;gap:10px;width:100%;border:0;background:transparent;border-radius:15px;padding:12px 11px;font:inherit;color:var(--ink);text-align:left;min-height:48px}
+.mini-menu a,.mini-menu button{display:grid;grid-template-columns:1fr auto;gap:10px;width:100%;border:0;background:#fffaf2!important;border-radius:16px!important;padding:12px 11px;font:inherit;color:var(--ink);text-align:left;min-height:48px}
+.mini-menu a:hover,.mini-menu button:hover{background:#f4eadc!important}
 .menu-title,.guide-list-title{display:block;font-weight:700;font-size:15px}
 .menu-sub,.guide-list-sub{display:block;font-size:13px;color:var(--muted);margin-top:2px}
 .category-pop-list{display:grid;gap:0;margin-top:10px}
@@ -885,8 +885,7 @@ body.moments-page .moments-sheet button.btn{background:linear-gradient(180deg,#f
    value below was verified against the file's actual final computed cascade
    before this rewrite — nothing here changes what renders, it just removes
    the ~50 dead/superseded fragments that were making every future edit a
-   guessing game. See STAGE_4F_DEAD_OVERRIDE_CLEANUP.md for the full method
-   and verification.
+   guessing game. The active splash sequence is now maintained in this block.
 
    Sequence: logo fades in first (0–16% of the 8s cycle), then the slogan
    (30–44%), then "VIETNAM 2026" (64–76%). See the three ccmv*421 keyframes.
@@ -960,7 +959,7 @@ body::before,
 body::after{display:none!important;background-image:none!important;content:none!important}
 body.home-bg{padding-bottom:0!important;background:radial-gradient(circle at 50% 10%,rgba(255,255,255,.58),transparent 24rem),linear-gradient(135deg,#f7f0e6,#f3eadb)!important}
 .site-nav .brand,
-.brand{font-family:var(--font-sans)!important;color:var(--ink)!important;font-weight:750!important;letter-spacing:.01em!important}
+.brand{font-family:var(--font-sans)!important;color:var(--ink)!important;font-weight:900!important;letter-spacing:.01em!important}
 .friend-pill,.btn,.pill,.mini-btn,.timeline-actions button,.timeline-actions a,.home-day-button,
 .guide-close,.moments-close,.unexpected-close,.tools-close,.mama-close,.trip-close{border:1px solid var(--line)!important;background:rgba(255,250,243,.72)!important;color:var(--ink)!important;border-radius:999px!important;box-shadow:none!important;font-weight:750!important}
 .btn,.home-day-button{background:var(--gold-deep)!important;border-color:var(--gold-deep)!important;color:#fff!important}
@@ -1004,7 +1003,6 @@ h1,h2,.home-brand-card h1,.page-hero h1,.module-hero h1{font-family:var(--font-s
 .app-nav a,.app-nav button{color:#fffaf3!important}
 .app-nav a span,.app-nav button span{font-size:20px!important;opacity:.86!important;filter:saturate(.7)!important}
 .mini-menu{position:fixed!important;bottom:82px!important;z-index:150!important;width:min(230px, calc(100vw - 24px))!important;border-radius:24px!important;padding:8px!important;pointer-events:none;transform:translateX(-50%) translateY(8px)!important;transition:.16s ease;left:50%!important;right:auto!important;max-height:min(64svh, 520px)!important;overflow:auto!important}
-.mini-menu a,.mini-menu button{border-radius:16px!important}
 .menu-title{font-weight:800!important;color:var(--ink)!important;font-size:15px!important}
 .menu-sub{font-size:11px!important;letter-spacing:.1em!important;color:var(--muted)!important}
 @media(max-width:520px){.dashboard{padding-left:14px!important;padding-right:14px!important}
@@ -1014,14 +1012,12 @@ h1,h2,.home-brand-card h1,.page-hero h1,.module-hero h1{font-family:var(--font-s
 .live-card strong{font-size:17px!important;line-height:1.12!important}}
 /* ===== CCMV Family Visual 11.43b: hero watermark + typography =====
    Scope: visual alignment only. No data/render/navigation logic changed.
-   (The splash-specific rules originally under this heading were consolidated
-   into the Stage 4F splash block above -- see STAGE_4F_DEAD_OVERRIDE_CLEANUP.md.) */
+   (Splash-specific rules are maintained in the consolidated Stage 4F block above.) */
 /* Front hero typography: centred, symmetrical, a little girly/fancy but still premium. */
 .home-brand-card.v37-dashboard-home .home-since,
 .home-brand-card.v37-dashboard-home .home-tagline,
 .home-brand-card.v37-dashboard-home .home-trip-line{align-self:center!important;text-align:center!important;justify-content:center!important}
-/* Hero watermark: one premium signature, bottom-right{position:relative!important;z-index:1!important}
-/* Moments + Expenses page hero cards get the same bottom-right brand mark. */
+/* Moments + Expenses page hero cards use one bottom-right brand mark. */
 body.moments-page .page-hero,
 body.moments-page .module-hero,
 body.expenses-page .page-hero,
@@ -1090,8 +1086,6 @@ body.expenses-page .page-hero::after,body.expenses-page .module-hero::after,
 #tripMenu.show,#guideMenu.show,#daysMenu.show{opacity:1!important;pointer-events:auto!important}
 .mini-menu::before,
 #tripMenu::before,#guideMenu::before,#daysMenu::before{content:""!important;position:absolute!important;inset:0!important;border-radius:inherit!important;background:#fffaf2!important;z-index:-1!important;opacity:1!important}
-.mini-menu a,.mini-menu button{background:#fffaf2!important}
-.mini-menu a:hover,.mini-menu button:hover{background:#f4eadc!important}
 /* ===== 1143h REAL Front hero cleanup =====
    Keep the top navigation/header logo only. Remove ONLY the logo inside the Front Page hero card
    and the large bottom-right hero-card watermark that overlapped the four small info cards. */
@@ -1218,7 +1212,6 @@ body.home-bg{background-image:radial-gradient(circle at 50% 10%,rgba(255,255,255
 body::before,
 body::after{display:none!important;content:none!important;background-image:none!important}
 /* Header logo: no pasted square photo, more like a monogram printed on the surface. */
-.site-nav .brand{font-size:22px!important;font-weight:900!important}
 /* Home should feel closer to Planner, but more alive: less dead air, more usable card space. */
 body.home-bg .site-nav{min-height:66px!important;box-sizing:border-box!important}
 body.home-bg .v37-dashboard-home .home-since{margin-bottom:8px!important}
@@ -1254,10 +1247,6 @@ body.home-bg .live-card{min-height:78px!important}}
    ========================================================= */
 /* Header logo: use the transparent monogram mark so it reads as printed,
    not as a pasted square photo. Keep Companion's warmer identity. */
-.site-nav .brand{gap:12px!important}
-.site-nav .brand-mark{display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:0 0 auto!important}
-.site-nav .brand-mark img{display:block!important}
-.site-nav .brand{font-size:21px!important}
 /* Home front page: keep card content size, but reduce the dead air above and below. */
 body.home-bg main.dashboard.home-premium.home-v37{height:calc(100dvh - 66px)!important;min-height:0!important;max-height:calc(100dvh - 66px)!important;box-sizing:border-box!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0 12px calc(72px + env(safe-area-inset-bottom))!important;margin:0 auto!important;overflow:hidden!important}
 body.home-bg section.home-brand-card.v37-dashboard-home{width:min(720px,calc(100vw - 24px))!important;max-height:calc(100dvh - 142px)!important;box-sizing:border-box!important;padding:20px 16px 18px!important;transform:translateY(-6.5vh)!important;box-shadow:0 20px 60px rgba(70,48,30,.12)!important}
@@ -1283,23 +1272,6 @@ body.home-bg main.dashboard.home-premium.home-v37{height:auto!important;max-heig
 body.home-bg section.home-brand-card.v37-dashboard-home{transform:none!important;max-height:none!important;margin:0 auto!important}}
 /* Mobile: keep the compact one-screen feel without clipping. */
 @media (max-width:720px){body.home-bg main.dashboard.home-premium.home-v37{overflow:visible!important}}
-
-/* Stage 4F-S1E: multi-guide day cards use an adaptive mobile grid. */
-@media (max-width:720px){
-  .timeline-actions.timeline-actions--multi{
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    gap:9px!important;
-  }
-  .timeline-actions.timeline-actions--multi button,
-  .timeline-actions.timeline-actions--multi a{
-    border-radius:22px!important;
-    min-height:54px!important;
-    padding:10px 12px!important;
-    font-size:14px!important;
-    line-height:1.15!important;
-    overflow-wrap:anywhere;
-  }
-}
 
 
 /* Stage 4F-S1F: stable mobile action-button geometry for all Day cards. */
@@ -1354,6 +1326,7 @@ body.home-bg section.home-brand-card.v37-dashboard-home{transform:none!important
   flex:0 0 62px!important;
 }
 .site-nav .brand-mark img{
+  display:block!important;
   width:100%!important;
   height:100%!important;
   object-fit:contain!important;
