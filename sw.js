@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ccmv-travel-engine-stage4e-14a-safe-nav-consolidation';
+const CACHE_NAME = 'ccmv-travel-engine-stage4e-15b-home-typography-consolidation';
 const ASSETS = [
   './',
   './index.html',

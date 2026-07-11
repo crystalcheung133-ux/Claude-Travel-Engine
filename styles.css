@@ -127,7 +127,7 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 /* v2.4 safety: keep card/modals scrollable after watermark layer */
 .guide-sheet,.moments-sheet,.unexpected-sheet,.tools-sheet,.trip-sheet{overflow-y:auto!important;overflow-x:hidden!important}.prose-block,.trip-card,.timeline-item,.day-summary a{overflow:visible!important}
 /* v2.5 premium home + guide routing */
-.home-brand-card:before{content:"";position:absolute;inset:14px;border:1px solid rgba(138,79,45,.18);border-radius:26px;pointer-events:none}
+
 .visit-row{border-top:1px dashed rgba(138,79,45,.22);padding-top:10px;margin-top:2px}
 .exchange-card{border:1px solid #d8c5b1;background:#fff7ed;border-radius:24px;padding:18px;margin:14px 0;box-shadow:0 12px 34px rgba(54,39,24,.06)}
 .exchange-card h3{margin:4px 0 4px;font-size:24px}
@@ -216,7 +216,7 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 
 
 .home-tagline{font-size:12px!important}
-.home-trip-line{gap:5px!important;font-size:12px!important}
+
 .expense-focus-grid{grid-template-columns:1fr 1fr;gap:8px}
 .expense-focus-card{padding:10px;border-radius:18px}
 .expense-focus-card h3{font-size:15px;margin-bottom:6px}
@@ -338,15 +338,15 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 #expenseSaveButton{font-size:15px!important;min-height:42px!important}
 /* v3.7 Design System + Home Live Dashboard */
 .home-premium.home-v37{min-height:calc(100dvh - 92px);display:flex;align-items:center;justify-content:center;padding:16px 16px 98px!important}
-.home-brand-card.v37-dashboard-home:before{display:none!important}
-.v37-dashboard-home .home-since{font-size:11px;letter-spacing:.23em;text-transform:uppercase;margin:0 0 10px;color:#9a6a35;font-weight:900}
-.v37-dashboard-home h1{font-size:clamp(42px,11vw,76px)!important;line-height:.86;margin:0 0 8px;color:#35261c}
-.v37-dashboard-home .home-tagline{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#6d5a4c;margin:0 0 12px;font-weight:850}
-.v37-dashboard-home .home-trip-line{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:6px 0 14px}
-.v37-dashboard-home .home-trip-line span{background:#fffaf2;border:1px solid rgba(170,126,79,.22);border-radius:999px;padding:7px 11px;font-size:12px;font-weight:850;color:#5d432e}
+
+
+
+
+
+
 .live-card{min-height:92px;border:1px solid rgba(170,126,79,.18);border-radius:24px;padding:13px 12px;text-align:left;box-shadow:0 10px 28px rgba(54,39,24,.055);position:relative;overflow:hidden}
 .live-card:after{content:"";position:absolute;right:-22px;bottom:-28px;width:86px;height:86px;border-radius:50%;background:#fffdf8}
-.live-countdown{background:linear-gradient(180deg,#fff3d2,#fff9eb)}
+
 .live-time{background:linear-gradient(180deg,#eaf2df,#fbfff4)}
 .live-weather{background:linear-gradient(180deg,#e7f1fb,#fbfdff)}
 .live-rate{background:linear-gradient(180deg,#e3f0df,#fbfff7)}
@@ -365,7 +365,7 @@ body:has(#tripModal) .trip-card,.trip-sheet{border-color:rgba(112,133,91,.28)!im
 .tools-sheet > .timestamp{order:3;font-size:11px!important;margin:0!important;color:var(--muted)!important;margin-top:2px!important;display:none!important}
 @media(max-width:520px){.home-premium.home-v37{align-items:flex-start;padding:8px 12px 92px!important}
 .home-brand-card.v37-dashboard-home{padding:22px 13px 20px!important;border-radius:30px!important}
-.v37-dashboard-home h1{font-size:42px!important}
+
 .home-live-grid{gap:7px;margin-bottom:12px}
 
 
@@ -895,17 +895,17 @@ body.ccmv-splash-active{overflow:hidden}
 html:has(body.home-bg),
 body.home-bg{height:100dvh!important;min-height:100dvh!important;overflow:hidden!important}
 
-body.home-bg .v37-dashboard-home .home-trip-line{margin:4px 0 10px!important}
+body.home-bg 
 @media (min-width:721px){body.home-bg main.dashboard.home-premium.home-v37{padding-top:8px!important;padding-bottom:100px!important}
 }
 @media (max-width:720px){body.home-bg .site-nav{min-height:68px!important;padding-top:10px!important;padding-bottom:10px!important}
 body.home-bg main.dashboard.home-premium.home-v37{height:calc(100dvh - 68px)!important;max-height:calc(100dvh - 68px)!important;overflow:hidden!important;padding:4px 12px calc(100px + env(safe-area-inset-bottom))!important;justify-content:center!important;align-items:center!important}
 body.home-bg section.home-brand-card.v37-dashboard-home{padding:18px 13px 16px!important;border-radius:30px!important}
-body.home-bg .v37-dashboard-home .home-since{margin-bottom:6px!important}
-body.home-bg .v37-dashboard-home h1{font-size:38px!important;margin-bottom:6px!important}
-body.home-bg .v37-dashboard-home .home-tagline{margin-bottom:8px!important}
-body.home-bg .v37-dashboard-home .home-trip-line{gap:7px!important;margin:4px 0 9px!important}
-body.home-bg .v37-dashboard-home .home-trip-line span{padding:5px 10px!important}
+body.home-bg 
+body.home-bg 
+body.home-bg 
+body.home-bg 
+body.home-bg 
 body.home-bg .home-live-grid{gap:7px!important;margin:2px auto 10px!important}
 body.home-bg .live-card{min-height:74px!important;padding:8px 9px!important;border-radius:19px!important}
 body.home-bg .live-card strong{font-size:14px!important}
@@ -913,7 +913,7 @@ body.home-bg .live-card small{font-size:9px!important}
 body.home-bg .live-icon{font-size:16px!important}
 body.home-bg .home-day-button{min-height:38px!important;padding:8px 17px!important}}
 @media (max-height:720px){body.home-bg section.home-brand-card.v37-dashboard-home{padding-top:18px!important;padding-bottom:16px!important}
-body.home-bg .v37-dashboard-home h1{font-size:38px!important}
+body.home-bg 
 body.home-bg .home-live-grid{gap:7px!important;margin-bottom:9px!important}
 body.home-bg .live-card{min-height:72px!important;padding:8px!important}
 body.home-bg .home-day-button{min-height:38px!important;padding:8px 16px!important}}
@@ -951,8 +951,8 @@ h1,h2,.home-brand-card h1,.page-hero h1,.module-hero h1{font-family:var(--font-s
 .home-tagline,.home-trip-line,.lead,.page-hero .lead,.module-hero .lead,p,li,
 .timeline-main p,.guide-list-sub,.quick-info-value{color:var(--muted)!important;font-weight:560!important}
 .home-tagline{font-size:17px!important;letter-spacing:.19em!important;text-transform:uppercase;margin:0 0 18px!important}
-.home-trip-line{display:flex!important;justify-content:center;gap:8px!important;flex-wrap:wrap!important;margin:18px 0 22px!important}
-.home-trip-line span{border:1px solid var(--line)!important;border-radius:999px!important;padding:8px 12px!important;background:rgba(255,255,255,.45)!important;color:var(--muted)!important;font-size:13px!important;font-weight:800!important}
+
+
 .home-live-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px!important;width:100%;max-width:540px;margin:18px 0 24px!important}
 .live-card,
 .live-countdown,.live-time,.live-weather,.live-rate{background:rgba(255,255,255,.48)!important;background-image:none!important;border:1px solid var(--line)!important;border-radius:22px!important;padding:16px!important;min-height:108px!important;box-shadow:0 8px 22px rgba(77,55,30,.045)!important;color:var(--ink)!important}
@@ -985,7 +985,7 @@ h1,h2,.home-brand-card h1,.page-hero h1,.module-hero h1{font-family:var(--font-s
 /* Front hero typography: centred, symmetrical, a little girly/fancy but still premium. */
 .home-brand-card.v37-dashboard-home .home-since,
 .home-brand-card.v37-dashboard-home .home-tagline,
-.home-brand-card.v37-dashboard-home .home-trip-line{align-self:center!important;text-align:center!important;justify-content:center!important}
+.home-brand-card
 /* Moments + Expenses page hero cards use one bottom-right brand mark. */
 body.moments-page .page-hero,
 body.moments-page .module-hero,
@@ -1040,14 +1040,14 @@ body.expenses-page .page-hero::after,body.expenses-page .module-hero::after,
 .home-bg .site-nav .brand{gap:13px!important;font-weight:950!important;color:var(--ccmv-ink-deep)!important;letter-spacing:-.01em!important}
 /* Front hero: restore the uploaded Saigon Companion look — strong editorial serif + italic Companion. */
 .home-brand-card.v37-dashboard-home{min-height:auto!important;aspect-ratio:auto!important;display:flex;flex-direction:column;align-items:center!important;justify-content:center;text-align:center!important;position:relative;overflow:hidden!important;background:linear-gradient(180deg,#e6cfa8 0%,#f2e2c4 45%,#fffcf5 100%)!important;box-shadow:0 18px 60px rgba(54,39,24,.12)!important;border-color:rgba(214,194,174,.72)!important}
-.home-brand-card.v37-dashboard-home::before{content:""!important;display:block!important;width:96px!important;height:96px!important;margin:0 auto 12px!important;background:url('ccmv-logo-calibrated.png') center/contain no-repeat!important;border-radius:0!important;box-shadow:none!important;position:relative!important;z-index:2!important;filter:drop-shadow(0 10px 18px rgba(76,52,34,.10))!important}
-.home-brand-card.v37-dashboard-home .home-since{color:#8a5f36!important;letter-spacing:.28em!important;font-size:13px!important;font-weight:900!important;margin-bottom:12px!important}
-.home-brand-card.v37-dashboard-home h1{font-family:'Baskerville','Iowan Old Style','Palatino Linotype','Book Antiqua',Georgia,serif!important;font-size:clamp(58px,13vw,92px)!important;line-height:.92!important;letter-spacing:-.045em!important;font-weight:900!important;text-align:center!important;margin-left:auto!important;margin-right:auto!important;color:#2a211c!important;text-shadow:0 2px 0 rgba(255,255,255,.48),0 14px 28px rgba(68,43,28,.12)!important;margin:0 0 24px!important;width:fit-content!important;padding:0 .16em .08em!important;background:linear-gradient(177deg,transparent 16%,rgba(244,205,211,.28) 17%,rgba(232,163,176,.48) 45%,rgba(246,211,216,.34) 78%,transparent 79%)!important}
+
+.home-brand-card
+.home-brand-card
 .home-brand-card.v37-dashboard-home h1 em{font-family:inherit!important;font-style:italic!important;font-weight:900!important;color:#2a211c!important}
-.home-brand-card.v37-dashboard-home .home-tagline{letter-spacing:.20em!important;font-weight:900!important;color:#625249!important;font-size:14px!important;text-transform:uppercase!important}
-@media(max-width:520px){.home-brand-card.v37-dashboard-home::before{width:86px!important;height:86px!important;margin-bottom:10px!important}
-.home-brand-card.v37-dashboard-home h1{font-size:clamp(58px,15vw,72px)!important;line-height:.90!important;margin-bottom:18px!important;padding-left:.10em!important;padding-right:.10em!important}
-.home-brand-card.v37-dashboard-home .home-tagline{font-size:12px!important;letter-spacing:.18em!important}}
+.home-brand-card
+@media(max-width:520px){
+.home-brand-card
+.home-brand-card}
 /* Bottom menu popups: fully opaque premium surface, so page underneath never shows through. */
 .mini-menu,
 #tripMenu,#guideMenu,#daysMenu{background:#fffaf2!important;background-image:none!important;opacity:0!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border:1px solid rgba(210,190,169,.92)!important;box-shadow:0 22px 58px rgba(43,37,31,.28)!important;isolation:isolate!important}
@@ -1183,15 +1183,15 @@ body::after{display:none!important;content:none!important;background-image:none!
 /* Header logo: no pasted square photo, more like a monogram printed on the surface. */
 /* Home should feel closer to Planner, but more alive: less dead air, more usable card space. */
 body.home-bg .site-nav{min-height:66px!important;box-sizing:border-box!important}
-body.home-bg .v37-dashboard-home .home-since{margin-bottom:8px!important}
-body.home-bg .v37-dashboard-home h1{margin-bottom:8px!important}
-body.home-bg .v37-dashboard-home .home-tagline{margin-bottom:10px!important}
-body.home-bg .home-trip-line{margin:4px 0 12px!important}
+body.home-bg 
+body.home-bg 
+body.home-bg 
+
 @media(max-width:520px){body.home-bg main.dashboard.home-premium.home-v37{height:calc(100dvh - 72px)!important;max-height:calc(100dvh - 72px)!important;padding:18px 12px calc(78px + env(safe-area-inset-bottom))!important;justify-content:center!important}
 
-body.home-bg .v37-dashboard-home h1{font-size:39px!important;line-height:.88!important}
-body.home-bg .v37-dashboard-home .home-tagline{font-size:11px!important;letter-spacing:.13em!important}
-body.home-bg .v37-dashboard-home .home-trip-line span{padding:6px 10px!important;font-size:12px!important}
+body.home-bg 
+body.home-bg 
+body.home-bg 
 }
 /* Bottom navigation: consistent dark glass on mobile and desktop. */
 .app-nav{position:fixed!important;left:50%!important;bottom:calc(12px + env(safe-area-inset-bottom))!important;transform:translateX(-50%)!important;z-index:999!important;width:min(500px,calc(100% - 22px));display:grid;grid-template-columns:repeat(5,1fr)!important;gap:3px!important;background:linear-gradient(180deg,rgba(54,47,40,.96),rgba(39,34,29,.98))!important;border-radius:28px;padding:8px;box-shadow:0 18px 44px rgba(38,31,25,.24)!important;border:1px solid rgba(255,250,243,.24)!important;backdrop-filter:blur(18px)!important}
@@ -1316,12 +1316,7 @@ body.home-bg section.home-brand-card.v37-dashboard-home{transform:none!important
 
 /* Higher-end editorial highlight: no full pink rectangle behind the title.
    Only “Companion” sits over a restrained champagne-blush brush trace. */
-.home-brand-card.v37-dashboard-home h1{
-  position:relative!important;
-  background:none!important;
-  padding:0 .10em .08em!important;
-  isolation:isolate!important;
-}
+.home-brand-card
 .home-brand-card.v37-dashboard-home h1 em{
   position:relative!important;
   display:inline-block!important;
@@ -1427,6 +1422,92 @@ body.home-bg section.home-brand-card.v37-dashboard-home{transform:none!important
   .tools-sheet h2{
     font-size:29px!important;
     margin-right:48px!important;
+  }
+}
+
+/* ==========================================================================
+   Stage 4E-15B — Canonical Home Hero typography
+   Since, title, tagline and trip-line typography live only in this section.
+   The Companion editorial brush remains in its existing em::after rule.
+   ========================================================================== */
+body.home-bg .home-brand-card.v37-dashboard-home .home-since{
+  align-self:center!important;
+  margin:0 0 8px!important;
+  color:#8a5f36!important;
+  font-size:13px!important;
+  font-weight:900!important;
+  letter-spacing:.28em!important;
+  line-height:1.2!important;
+  text-align:center!important;
+  text-transform:uppercase!important;
+}
+body.home-bg .home-brand-card.v37-dashboard-home h1{
+  position:relative!important;
+  width:fit-content!important;
+  margin:0 auto 8px!important;
+  padding:0 .10em .08em!important;
+  background:none!important;
+  color:#2a211c!important;
+  font-family:"Baskerville","Iowan Old Style","Palatino Linotype","Book Antiqua",Georgia,serif!important;
+  font-size:clamp(58px,13vw,92px)!important;
+  font-weight:900!important;
+  letter-spacing:-.045em!important;
+  line-height:.92!important;
+  text-align:center!important;
+  text-shadow:0 2px 0 rgba(255,255,255,.48),0 14px 28px rgba(68,43,28,.12)!important;
+  isolation:isolate!important;
+}
+body.home-bg .home-brand-card.v37-dashboard-home .home-tagline{
+  align-self:center!important;
+  margin:0 0 10px!important;
+  color:#625249!important;
+  font-size:14px!important;
+  font-weight:900!important;
+  letter-spacing:.20em!important;
+  line-height:1.3!important;
+  text-align:center!important;
+  text-transform:uppercase!important;
+}
+body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line{
+  align-self:center!important;
+  display:flex!important;
+  flex-wrap:wrap!important;
+  justify-content:center!important;
+  gap:8px!important;
+  margin:4px 0 12px!important;
+  text-align:center!important;
+}
+body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
+  padding:8px 12px!important;
+  border:1px solid var(--line)!important;
+  border-radius:999px!important;
+  background:rgba(255,255,255,.45)!important;
+  color:var(--muted)!important;
+  font-size:13px!important;
+  font-weight:800!important;
+  line-height:1.2!important;
+}
+@media(max-width:720px){
+  body.home-bg .home-brand-card.v37-dashboard-home h1{
+    font-size:38px!important;
+    line-height:.88!important;
+  }
+  body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line{
+    gap:7px!important;
+    margin:4px 0 9px!important;
+  }
+}
+@media(max-width:520px){
+  body.home-bg .home-brand-card.v37-dashboard-home h1{
+    font-size:39px!important;
+  }
+  body.home-bg .home-brand-card.v37-dashboard-home .home-tagline{
+    font-size:11px!important;
+    letter-spacing:.13em!important;
+  }
+  body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
+    padding:6px 10px!important;
+    font-size:12px!important;
   }
 }
 
