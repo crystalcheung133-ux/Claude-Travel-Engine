@@ -523,11 +523,6 @@ html body.moments-page .btn.primary-action,
 .timeline-item,
 .day-summary a,
 .moments-entry,
-.expense-card,
-.expense-total-card,
-.expense-focus-card,
-.expense-dashboard-v33 .expense-total-card,
-.expense-dashboard-v33 .expense-focus-card,
 .guide-sheet,
 .moments-sheet,
 .tools-sheet,
@@ -546,11 +541,6 @@ html body.moments-page .btn.primary-action,
 .timeline-item::after,
 .day-summary a::after,
 .moments-entry::after,
-.expense-card::after,
-.expense-total-card::after,
-.expense-focus-card::after,
-.expense-dashboard-v33 .expense-total-card::after,
-.expense-dashboard-v33 .expense-focus-card::after,
 .guide-sheet::after,
 .moments-sheet::after,
 .tools-sheet::after,
@@ -564,9 +554,6 @@ html body.moments-page .btn.primary-action,
 .timeline-item > *,
 .day-summary a > *,
 .moments-entry > *,
-.expense-card > *,
-.expense-total-card > *,
-.expense-focus-card > *,
 .guide-sheet > *,
 .moments-sheet > *,
 .tools-sheet > *,
@@ -575,7 +562,6 @@ html body.moments-page .btn.primary-action,
 .section .category-pop-list button > *{position:relative!important;z-index:1!important}
 /* Smaller cards need a softer watermark so it does not compete with content. */
 .fact::after,
-.expense-card::after,
 .category-pop-list button::after,
 .section .category-pop-list button::after{width:68px!important;height:68px!important;right:10px!important;bottom:10px!important;inset:auto 10px 10px auto!important;opacity:.075!important}
 /* Long timeline cards and guide cards keep the premium but complete logo. */
@@ -584,9 +570,7 @@ html body.moments-page .btn.primary-action,
 .guide-modal .quick-info-card::after,
 .trip-card::after,
 .hotel-card::after,
-.moments-entry::after,
-.expense-total-card::after,
-.expense-focus-card::after{width:88px!important;height:88px!important;right:14px!important;bottom:14px!important;inset:auto 14px 14px auto!important;opacity:.10!important}
+.moments-entry::after{width:88px!important;height:88px!important;right:14px!important;bottom:14px!important;inset:auto 14px 14px auto!important;opacity:.10!important}
 /* Modal sheets can use a larger watermark because they are larger cards. */
 .guide-sheet::after,
 .moments-sheet::after,
@@ -598,9 +582,7 @@ html body.moments-page .btn.primary-action,
   .guide-modal .quick-info-card::after,
   .trip-card::after,
   .hotel-card::after,
-  .moments-entry::after,
-  .expense-total-card::after,
-  .expense-focus-card::after{width:76px!important;height:76px!important;right:12px!important;bottom:12px!important;inset:auto 12px 12px auto!important}
+  .moments-entry::after{width:76px!important;height:76px!important;right:12px!important;bottom:12px!important;inset:auto 12px 12px auto!important}
 .guide-sheet::after,
   .moments-sheet::after,
   .tools-sheet::after,
@@ -625,88 +607,8 @@ body.moments-page button.primary-action{background:linear-gradient(180deg,#fff2e
 body.moments-page .moments-sheet{border-color:rgba(183,107,82,.32)!important}
 body.moments-page .moments-sheet .btn,
 body.moments-page .moments-sheet button.btn{background:linear-gradient(180deg,#fff2ed,#f3cabc)!important;border-color:rgba(183,107,82,.46)!important;color:#54261d!important}
-/* Card watermark: monogram only, complete inside card,
-.prose-block,
-.trip-card,
-.hotel-card,
-.fact,
-.quick-info-card,
-.directory-card,
-.timeline-item,
-.day-summary a,
-.moments-entry,
-.expense-card,
-.expense-total-card,
-.expense-focus-card,
-.guide-sheet,
-.trip-sheet,
-.moments-sheet,
-.tools-sheet{position:relative!important;overflow:hidden!important}
-.prose-block::after,
-.trip-card::after,
-.hotel-card::after,
-.fact::after,
-.quick-info-card::after,
-.directory-card::after,
-.timeline-item::after,
-.day-summary a::after,
-.moments-entry::after,
-.expense-card::after,
-.expense-total-card::after,
-.expense-focus-card::after,
-.guide-sheet::after,
-.trip-sheet::after,
-.moments-sheet::after,
-.tools-sheet::after{content:""!important;display:block!important;position:absolute!important;left:auto!important;top:auto!important;right:14px!important;bottom:14px!important;width:82px!important;height:82px!important;background:url('logo-monogram-transparent.png') center/contain no-repeat!important;background-size:contain!important;background-repeat:no-repeat!important;opacity:.095!important;mix-blend-mode:multiply!important;pointer-events:none!important;z-index:0!important;transform:none!important}
-.guide-sheet::after,
-.trip-sheet::after,
-.moments-sheet::after,
-.tools-sheet::after{width:106px!important;height:106px!important;right:18px!important;bottom:18px!important;opacity:.075!important}
-.fact::after,
-.expense-card::after,
-.directory-card::after{width:64px!important;height:64px!important;right:10px!important;bottom:10px!important;opacity:.075!important}
-.prose-block > *,
-.trip-card > *,
-.hotel-card > *,
-.fact > *,
-.quick-info-card > *,
-.directory-card > *,
-.timeline-item > *,
-.day-summary a > *,
-.moments-entry > *,
-.expense-card > *,
-.expense-total-card > *,
-.expense-focus-card > *,
-.guide-sheet > *,
-.trip-sheet > *,
-.moments-sheet > *,
-.tools-sheet > *{position:relative!important;z-index:1!important}
-@media(max-width:520px){.guide-modal.show,
-  .trip-modal.show,
-  .moments-modal.show,
-  .tools-modal.show{padding:10px!important}
-.guide-sheet,
-  .trip-sheet,
-  .moments-sheet,
-  .tools-sheet{max-height:calc(100dvh - 20px)!important;width:100%!important;padding-top:62px!important}
-.guide-close,
-  .trip-close,
-  .moments-close,
-  .tools-close{top:12px!important;right:12px!important;width:40px!important;height:40px!important}
-  .prose-block::after,
-  .trip-card::after,
-  .hotel-card::after,
-  .quick-info-card::after,
-  .timeline-item::after,
-  .day-summary a::after,
-  .moments-entry::after,
-  .expense-total-card::after,
-  .expense-focus-card::after{width:74px!important;height:74px!important;right:12px!important;bottom:12px!important}
-.guide-sheet::after,
-  .trip-sheet::after,
-  .moments-sheet::after,
-  .tools-sheet::after{width:92px!important;height:92px!important;right:14px!important;bottom:14px!important}}
-/* v3.9.6a REAL hotfix: restore modal scroll/close, final pink Moments, clean monogram watermark */
+/* Stage 4E-17C: removed fully ignored RC1 watermark payload. */
+
 /* 1) Modal sheets must scroll; previous watermark rule used overflow:hidden on sheets. */
 .guide-sheet,
 .trip-sheet,
@@ -720,55 +622,7 @@ body.moments-page .moments-sheet button.btn{background:linear-gradient(180deg,#f
 .trip-close,
 .moments-close,
 .tools-close{position:absolute!important;top:14px!important;right:14px!important;left:auto!important;bottom:auto!important;z-index:100000!important;display:flex!important;align-items:center!important;justify-content:center!important;width:44px!important;height:44px!important;float:none!important;border-radius:999px!important;pointer-events:auto!important;background:#fffaf2!important;color:#2b251f!important;border:1px solid #d8c5b1!important;box-shadow:0 8px 24px rgba(43,37,31,.14)!important}
-/* 3) Use clean monogram-only watermark,
-.prose-block::after,
-.trip-card::after,
-.hotel-card::after,
-.fact::after,
-.quick-info-card::after,
-.directory-card::after,
-.timeline-item::after,
-.day-summary a::after,
-.moments-entry::after,
-.expense-card::after,
-.expense-total-card::after,
-.expense-focus-card::after,
-.guide-sheet::after,
-.trip-sheet::after,
-.moments-sheet::after,
-.tools-sheet::after{background-image:url('logo-watermark-monogram.png')!important;background-size:contain!important;background-repeat:no-repeat!important;background-position:center!important;right:16px!important;bottom:16px!important;width:78px!important;height:78px!important;opacity:.095!important;mix-blend-mode:multiply!important;transform:none!important;pointer-events:none!important;z-index:0!important}
-.guide-sheet::after,
-.trip-sheet::after,
-.moments-sheet::after,
-.tools-sheet::after{width:96px!important;height:96px!important;right:18px!important;bottom:18px!important;opacity:.075!important}
-.fact::after,
-.expense-card::after,
-.directory-card::after{width:62px!important;height:62px!important;right:12px!important;bottom:12px!important;opacity:.075!important}
-@media(max-width:520px){.guide-modal.show,
-  .trip-modal.show,
-  .moments-modal.show,
-  .tools-modal.show{padding:8px!important}
-.guide-sheet,
-  .trip-sheet,
-  .moments-sheet,
-  .tools-sheet{width:100%!important;max-height:calc(100dvh - 16px)!important;padding-top:60px!important}
-.guide-close,
-  .trip-close,
-  .moments-close,
-  .tools-close{top:10px!important;right:10px!important;width:42px!important;height:42px!important}
-  .prose-block::after,
-  .trip-card::after,
-  .hotel-card::after,
-  .quick-info-card::after,
-  .timeline-item::after,
-  .day-summary a::after,
-  .moments-entry::after,
-  .expense-total-card::after,
-  .expense-focus-card::after{width:70px!important;height:70px!important;right:12px!important;bottom:12px!important}
-.guide-sheet::after,
-  .trip-sheet::after,
-  .moments-sheet::after,
-  .tools-sheet::after{width:88px!important;height:88px!important;right:14px!important;bottom:14px!important}}
+/* Stage 4E-17C: removed fully ignored REAL watermark payload. */
 /* v3.9.6b final popup readability fix: keep Moments/Expenses sheets consistent and make Paid by visible. */
 .moments-sheet .modal-intro,
 
@@ -954,7 +808,7 @@ h1,h2,.home-brand-card h1,.page-hero h1,.module-hero h1{font-family:var(--font-s
 .quick-info-card::after,.guide-modal .quick-info-card::after,
 .page-hero::after,.module-hero::after,.trip-sheet::after,
 .timeline-item::after,.prose-block::after,.trip-card::after,
-.expense-card::after,.moments-entry::after{display:none!important;content:none!important}
+.moments-entry::after{display:none!important;content:none!important}
 .page-hero,.module-hero{border-radius:34px!important;padding:28px 28px 26px!important;margin:18px 0 24px!important}
 .page-hero h1,.module-hero h1{font-size:clamp(44px,8vw,76px)!important;line-height:.95!important;margin:0 0 12px!important}
 .timeline-item,.day-summary a,.quick-info-card,.prose-block,.trip-card,.expense-card,.moments-entry{border-radius:26px!important}
@@ -977,50 +831,36 @@ h1,h2,.home-brand-card h1,.page-hero h1,.module-hero h1{font-family:var(--font-s
 .home-brand-card
 /* Moments + Expenses page hero cards use one bottom-right brand mark. */
 body.moments-page .page-hero,
-body.moments-page .module-hero,
-body.expenses-page .page-hero,
-body.expenses-page .module-hero{position:relative!important;overflow:hidden!important;isolation:isolate!important}
+body.moments-page .module-hero{position:relative!important;overflow:hidden!important;isolation:isolate!important}
 body.moments-page .page-hero::after,
-body.moments-page .module-hero::after,
-body.expenses-page .page-hero::after,
-body.expenses-page .module-hero::after{content:""!important;display:block!important;position:absolute!important;width:118px!important;height:118px!important;right:14px!important;bottom:12px!important;background:url('logo-watermark-monogram.png') center/contain no-repeat!important;opacity:var(--ccmv-watermark-deep)!important;mix-blend-mode:multiply!important;filter:saturate(1.02) contrast(1.06)!important;pointer-events:none!important;z-index:0!important}
+body.moments-page .module-hero::after{content:""!important;display:block!important;position:absolute!important;width:118px!important;height:118px!important;right:14px!important;bottom:12px!important;background:url('logo-watermark-monogram.png') center/contain no-repeat!important;opacity:var(--ccmv-watermark-deep)!important;mix-blend-mode:multiply!important;filter:saturate(1.02) contrast(1.06)!important;pointer-events:none!important;z-index:0!important}
 body.moments-page .page-hero > *,
-body.moments-page .module-hero > *,
-body.expenses-page .page-hero > *,
-body.expenses-page .module-hero > *{position:relative!important;z-index:1!important}
+body.moments-page .module-hero > *{position:relative!important;z-index:1!important}
 /* Feature cards: only selective premium watermarks, not every card. */
 .home-live-grid .live-card:nth-child(1),
 .home-live-grid .live-card:nth-child(3),
 .quick-info-card:nth-of-type(1),
 .trip-card:nth-of-type(1),
-.expense-card:nth-of-type(1),
 .moments-entry:nth-of-type(1){position:relative!important;overflow:hidden!important;isolation:isolate!important}
 .home-live-grid .live-card:nth-child(1)::after,
 .home-live-grid .live-card:nth-child(3)::after,
 .quick-info-card:nth-of-type(1)::after,
 .trip-card:nth-of-type(1)::after,
-.expense-card:nth-of-type(1)::after,
 .moments-entry:nth-of-type(1)::after{content:""!important;display:block!important;position:absolute!important;width:72px!important;height:72px!important;right:10px!important;bottom:8px!important;background:url('logo-watermark-monogram.png') center/contain no-repeat!important;opacity:var(--ccmv-watermark-feature)!important;mix-blend-mode:multiply!important;filter:saturate(.98) contrast(1.03)!important;pointer-events:none!important;z-index:0!important}
 .home-live-grid .live-card > *,
 .quick-info-card > *,
 .trip-card > *,
-.expense-card > *,
 .moments-entry > *{position:relative!important;z-index:1!important}
 @media(max-width:520px){
 body.moments-page .page-hero::after,
-  body.moments-page .module-hero::after,
-  body.expenses-page .page-hero::after,
-  body.expenses-page .module-hero::after{width:96px!important;height:96px!important;right:10px!important;bottom:10px!important;opacity:.17!important}}
+  body.moments-page .module-hero::after{width:96px!important;height:96px!important;right:10px!important;bottom:10px!important;opacity:.17!important}}
 body.moments-page .page-hero::after,body.moments-page .module-hero::after,
-body.expenses-page .page-hero::after,body.expenses-page .module-hero::after,
 .home-live-grid .live-card:nth-child(1)::after,.home-live-grid .live-card:nth-child(3)::after,
 .quick-info-card:nth-of-type(1)::after,.trip-card:nth-of-type(1)::after,
-.expense-card:nth-of-type(1)::after,.moments-entry:nth-of-type(1)::after{background-image:url('ccmv-logo-calibrated.png')!important;background-size:contain!important;background-repeat:no-repeat!important;background-position:center!important;transform:none!important}
+.moments-entry:nth-of-type(1)::after{background-image:url('ccmv-logo-calibrated.png')!important;background-size:contain!important;background-repeat:no-repeat!important;background-position:center!important;transform:none!important}
 .home-live-grid .live-card:nth-child(1)::after,.home-live-grid .live-card:nth-child(3)::after,
 .quick-info-card:nth-of-type(1)::after,.trip-card:nth-of-type(1)::after,
-.expense-card:nth-of-type(1)::after,.moments-entry:nth-of-type(1)::after{width:64px!important;height:64px!important;right:10px!important;bottom:9px!important;opacity:.12!important}
-@media(max-width:520px){
-}
+.moments-entry:nth-of-type(1)::after{width:64px!important;height:64px!important;right:10px!important;bottom:9px!important;opacity:.12!important}
 /* ===== CCMV Family Visual 11.43d: Planner-like splash, stronger Saigon hero, opaque bottom menus =====
    Base: Stage 1.5 master. Scope: CSS visual alignment only; no data/render/navigation logic changed. */
 /* Loading: closer to Journey Planner composition; smaller logo image, more breathing room, blush-cream background. */
@@ -1096,10 +936,6 @@ body.expenses-page .module-hero{
 .exchange-card::before,.exchange-card::after,
 .quick-info-card::before,.quick-info-card::after,
 .directory-card::before,.directory-card::after,
-.expense-card::before,.expense-card::after,
-.expense-total-card::before,.expense-total-card::after,
-.expense-focus-card::before,.expense-focus-card::after,
-.expense-history-block::before,.expense-history-block::after,
 .moments-entry::before,.moments-entry::after,
 .guide-sheet::before,.guide-sheet::after,
 .moments-sheet::before,.moments-sheet::after,
@@ -1120,9 +956,8 @@ body.expenses-page .module-hero{
 .moments-form textarea{background:#fffdf8!important;background-image:none!important;opacity:1!important}
 /* ===== 1143j WATERMARK CLEANUP =====
    - Delete watermarks from Guide popup list rows.
-   - Delete Moments / Expenses hero-card watermarks.
-   - Keep Trip Total watermark.
-   - Delete Personal Spend / Settlement watermarks.
+   - Delete Moments hero-card watermarks.
+   - Expenses watermark rules moved to Stage 4E-17C canonical section.
 */
 .guide-sheet .category-pop-list button::before,
 .guide-sheet .category-pop-list button::after,
@@ -1135,19 +970,14 @@ body.expenses-page .module-hero{
 body.moments-page .page-hero::before,
 body.moments-page .page-hero::after,
 body.moments-page .module-hero::before,
-body.moments-page .module-hero::after,
-body.expenses-page .page-hero::before,
-body.expenses-page .page-hero::after,
-body.expenses-page .module-hero::before,
-body.expenses-page .module-hero::after{content:none!important;display:none!important;background:none!important;background-image:none!important;opacity:0!important}
-.expense-focus-card::before,
-.expense-focus-card::after,
-.expense-dashboard-v33 .expense-focus-card::before,
-.expense-dashboard-v33 .expense-focus-card::after{content:none!important;display:none!important;background:none!important;background-image:none!important;opacity:0!important}
-.expense-total-card::after,
-.expense-dashboard-v33 .expense-total-card::after{content:""!important;display:block!important;position:absolute!important;width:96px!important;height:96px!important;right:18px!important;bottom:18px!important;inset:auto 18px 18px auto!important;background:url('logo-watermark-monogram.png') center/contain no-repeat!important;opacity:.075!important;mix-blend-mode:multiply!important;pointer-events:none!important;z-index:0!important;transform:none!important}
-.expense-total-card > *,
+body.moments-page .module-hero::after{content:none!important;display:none!important;background:none!important;background-image:none!important;opacity:0!important}
+/* ===== Stage 4E-17C · EXPENSES WATERMARK — CANONICAL =====
+   Single authority: Trip Total only.
+   Expenses hero, Personal Spend, Settlement and transaction cards have no watermark rules. */
+.expense-dashboard-v33 .expense-total-card{position:relative!important;overflow:hidden!important;isolation:isolate!important}
+.expense-dashboard-v33 .expense-total-card::after{content:""!important;display:block!important;position:absolute!important;width:96px!important;height:96px!important;inset:auto 18px 18px auto!important;background:url('logo-watermark-monogram.png') center/contain no-repeat!important;opacity:.075!important;mix-blend-mode:multiply!important;pointer-events:none!important;z-index:0!important;transform:none!important}
 .expense-dashboard-v33 .expense-total-card > *{position:relative!important;z-index:1!important}
+
 /* =========================================================
    Stage 4E-1 — Home / Navigation / Loading Brand Alignment
    Active sources:

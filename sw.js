@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ccmv-travel-engine-stage4e-16d2-guide-navigation-stack-repair';
+const CACHE_NAME = 'ccmv-travel-engine-stage4e-17c-expenses-watermark-reset-rebuild';
 const ASSETS = [
   './',
   './index.html',
