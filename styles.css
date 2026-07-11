@@ -980,6 +980,12 @@ body.expenses-page .expense-history-block .transaction-scroll{max-height:46vh;ov
   body.expenses-page .expense-history-block .transaction-scroll{max-height:none;overflow:visible;padding-right:0;overscroll-behavior:auto}
 }
 
+/* ===== Stage 4E-17G1 · EXPENSES BOTTOM CLEARANCE — CANONICAL =====
+   Avoid duplicate fixed-nav clearance from both body and page shell.
+   Keep one Expenses-specific mobile safe-area reserve only. */
+body.expenses-page{padding-bottom:0!important}
+body.expenses-page main.expense-page-shell{padding-bottom:calc(88px + env(safe-area-inset-bottom))!important}
+
 /* =========================================================
    Stage 4E-1 — Home / Navigation / Loading Brand Alignment
    Active sources:
