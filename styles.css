@@ -484,6 +484,18 @@ input,select,textarea{font-size:16px!important;-webkit-text-size-adjust:100%}
 /* Bottom menu popups: JS positions each menu under its own nav button; keep them visible and above nav. */
 .mini-menu.show{opacity:1;pointer-events:auto;transform:translateX(-50%) translateY(0)!important}
 #tripMenu,#guideMenu,#daysMenu{left:50%!important;right:auto!important}
+/* Guide place-card watermark: card-level, right bottom, not page background. */
+.quick-info-card,
+.guide-modal .quick-info-card,
+.guide-modal .guide-sheet,
+.section .category-pop-list button{position:relative!important;overflow:hidden!important;isolation:isolate}
+.quick-info-card::after,
+.guide-modal .quick-info-card::after,
+.section .category-pop-list button::after{content:"";position:absolute;right:-30px;bottom:-42px;width:150px;height:150px;background:url('logo-monogram-transparent.png') center/contain no-repeat;opacity:.13;mix-blend-mode:multiply;pointer-events:none;z-index:0}
+.quick-info-card > *,
+.guide-modal .quick-info-card > *,
+.section .category-pop-list button > *{position:relative;z-index:1}
+.section .category-pop-list button::after{width:88px;height:88px;right:-20px;bottom:-26px;opacity:.10}
 /* Moments returns to its pink theme; Expenses stays sage. */
 
 
