@@ -90,17 +90,12 @@ function openGuideCategory(cat){
   const directoryRow=`<button onclick="openShoppingDirectoryView()"><span><span class="guide-list-title">🛍 Shopping Directory</span><span class="guide-list-sub">Optional shops · Near · Best with Day</span></span><span>↓</span></button>`;
   const rows=directoryRow+list.map(i=>`<button onclick="goPlace('${i.key}')"><span><span class="guide-list-title">${i.emoji} ${i.title}</span><span class="guide-list-sub">${i.sub||''}</span></span><span>›</span></button>`).join('');
   $('guideModalContent').innerHTML=`<p class="kicker">Guide</p><h2>SHOP</h2><div class="category-pop-list">${rows}</div>`;
-  closeMiniMenus();$('guideModal').classList.add('show');
-  const sheet=document.querySelector('#guideModal .guide-sheet');
-  if(sheet) sheet.scrollTop=0;
-  return;
+  closeMiniMenus();$('guideModal').classList.add('show');return;
  }
  if(list.length===1){closeMiniMenus();openGuideModal(list[0].key);return;}
  const rows=list.map(i=>`<button onclick="goPlace('${i.key}')"><span><span class="guide-list-title">${i.emoji} ${i.title}</span><span class="guide-list-sub">${i.sub||''}</span></span><span>›</span></button>`).join('');
  $('guideModalContent').innerHTML=`<p class="kicker">Guide</p><h2>${cat}</h2><div class="category-pop-list">${rows}</div>`;
  closeMiniMenus();$('guideModal').classList.add('show');
- const sheet=document.querySelector('#guideModal .guide-sheet');
- if(sheet) sheet.scrollTop=0;
 }
 
 function quickInfoInnerHTML(g,key){
@@ -178,7 +173,7 @@ function openTripCard(key) {
   const content = document.getElementById('tripModalContent');
   const modal = document.getElementById('tripModal');
   if (!content || !modal) return;
-  content.innerHTML = `<div class="trip-onepage"><p class="kicker">Trip</p><h2>${t.title}</h2>${t.body}<div class="guide-next-row"><button class="pill" onclick="openTripCard('${prev}')">‹ Previous</button><button class="pill" onclick="openTripCard('${next}')">Next ›</button></div><p class="timestamp">Build · Stage 4E-16B1 · GUIDE CATEGORY MODAL SCROLL RESET</p></div>`;
+  content.innerHTML = `<div class="trip-onepage"><p class="kicker">Trip</p><h2>${t.title}</h2>${t.body}<div class="guide-next-row"><button class="pill" onclick="openTripCard('${prev}')">‹ Previous</button><button class="pill" onclick="openTripCard('${next}')">Next ›</button></div><p class="timestamp">Build · Stage 4E-16D · GUIDE PLACE DETAIL BACK CONTROL</p></div>`;
   modal.classList.add('show');
   const sheet=document.querySelector('#tripModal .trip-sheet');
   if(sheet) sheet.scrollTop=0;
@@ -269,6 +264,12 @@ document.addEventListener('keydown', function(e){
 // Renders a full place detail page (page-hero + quick-info-card + prose blocks)
 // from PLACES data. Used by the shared place.html?id=... renderer and legacy standalone place pages
 // so page content lives in ONE place (data.js) instead of being duplicated per file.
+function backToGuide(){
+  const fromGuide = document.referrer && new URL(document.referrer).origin === window.location.origin;
+  if(fromGuide && window.history.length > 1){ window.history.back(); return; }
+  window.location.href = 'guide.html';
+}
+
 function renderPlacePage(key){
   const g = PLACES[key];
   const mount = document.getElementById('placeMain');
@@ -276,7 +277,7 @@ function renderPlacePage(key){
   const sig = (g.signature||g.highlights||[]).map(x=>`<li>${x}</li>`).join('');
   const worth = (g.worth||g.tips||[]).map(x=>`<li>${x}</li>`).join('');
   mount.innerHTML = `
-<div class="page-hero"><p class="kicker">Guide</p><h1>${g.emoji} ${g.title}</h1><p class="lead">${g.sub||''}</p></div>
+<div class="page-hero"><p class="kicker">Guide</p><h1>${g.emoji} ${g.title}</h1><p class="lead">${g.sub||''}</p><p><button class="btn" type="button" onclick="backToGuide()">‹ Back to Guide</button></p></div>
 <section aria-label="Quick Info" class="quick-info-card">${quickInfoInnerHTML(g,key)}</section>
 <section class="prose-block guide-overview"><h2>Overview</h2><p>${g.desc||''}</p></section>
 <section class="prose-block"><h2>Highlights</h2><ul>${sig}</ul></section>

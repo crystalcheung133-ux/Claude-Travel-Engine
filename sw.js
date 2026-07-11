@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ccmv-travel-engine-stage4e-16b1-guide-category-modal-scroll-reset';
+const CACHE_NAME = 'ccmv-travel-engine-stage4e-16d-guide-place-detail-back-control';
 const ASSETS = [
   './',
   './index.html',
