@@ -895,26 +895,15 @@ body.ccmv-splash-active{overflow:hidden}
 html:has(body.home-bg),
 body.home-bg{height:100dvh!important;min-height:100dvh!important;overflow:hidden!important}
 
-body.home-bg 
-@media (min-width:721px){body.home-bg main.dashboard.home-premium.home-v37{padding-top:8px!important;padding-bottom:100px!important}
-}
 @media (max-width:720px){body.home-bg .site-nav{min-height:68px!important;padding-top:10px!important;padding-bottom:10px!important}
 body.home-bg main.dashboard.home-premium.home-v37{height:calc(100dvh - 68px)!important;max-height:calc(100dvh - 68px)!important;overflow:hidden!important;padding:4px 12px calc(100px + env(safe-area-inset-bottom))!important;justify-content:center!important;align-items:center!important}
 body.home-bg section.home-brand-card.v37-dashboard-home{padding:18px 13px 16px!important;border-radius:30px!important}
-body.home-bg 
-body.home-bg 
-body.home-bg 
-body.home-bg 
-body.home-bg 
-body.home-bg .home-live-grid{gap:7px!important;margin:2px auto 10px!important}
 body.home-bg .live-card{min-height:74px!important;padding:8px 9px!important;border-radius:19px!important}
 body.home-bg .live-card strong{font-size:14px!important}
 body.home-bg .live-card small{font-size:9px!important}
 body.home-bg .live-icon{font-size:16px!important}
 body.home-bg .home-day-button{min-height:38px!important;padding:8px 17px!important}}
 @media (max-height:720px){body.home-bg section.home-brand-card.v37-dashboard-home{padding-top:18px!important;padding-bottom:16px!important}
-body.home-bg 
-body.home-bg .home-live-grid{gap:7px!important;margin-bottom:9px!important}
 body.home-bg .live-card{min-height:72px!important;padding:8px!important}
 body.home-bg .home-day-button{min-height:38px!important;padding:8px 16px!important}}
 /* =========================================================
@@ -1041,13 +1030,6 @@ body.expenses-page .page-hero::after,body.expenses-page .module-hero::after,
 /* Front hero: restore the uploaded Saigon Companion look — strong editorial serif + italic Companion. */
 .home-brand-card.v37-dashboard-home{min-height:auto!important;aspect-ratio:auto!important;display:flex;flex-direction:column;align-items:center!important;justify-content:center;text-align:center!important;position:relative;overflow:hidden!important;background:linear-gradient(180deg,#e6cfa8 0%,#f2e2c4 45%,#fffcf5 100%)!important;box-shadow:0 18px 60px rgba(54,39,24,.12)!important;border-color:rgba(214,194,174,.72)!important}
 
-.home-brand-card
-.home-brand-card
-.home-brand-card.v37-dashboard-home h1 em{font-family:inherit!important;font-style:italic!important;font-weight:900!important;color:#2a211c!important}
-.home-brand-card
-@media(max-width:520px){
-.home-brand-card
-.home-brand-card}
 /* Bottom menu popups: fully opaque premium surface, so page underneath never shows through. */
 .mini-menu,
 #tripMenu,#guideMenu,#daysMenu{background:#fffaf2!important;background-image:none!important;opacity:0!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;border:1px solid rgba(210,190,169,.92)!important;box-shadow:0 22px 58px rgba(43,37,31,.28)!important;isolation:isolate!important}
@@ -1183,16 +1165,6 @@ body::after{display:none!important;content:none!important;background-image:none!
 /* Header logo: no pasted square photo, more like a monogram printed on the surface. */
 /* Home should feel closer to Planner, but more alive: less dead air, more usable card space. */
 body.home-bg .site-nav{min-height:66px!important;box-sizing:border-box!important}
-body.home-bg 
-body.home-bg 
-body.home-bg 
-
-@media(max-width:520px){body.home-bg main.dashboard.home-premium.home-v37{height:calc(100dvh - 72px)!important;max-height:calc(100dvh - 72px)!important;padding:18px 12px calc(78px + env(safe-area-inset-bottom))!important;justify-content:center!important}
-
-body.home-bg 
-body.home-bg 
-body.home-bg 
-}
 /* Bottom navigation: consistent dark glass on mobile and desktop. */
 .app-nav{position:fixed!important;left:50%!important;bottom:calc(12px + env(safe-area-inset-bottom))!important;transform:translateX(-50%)!important;z-index:999!important;width:min(500px,calc(100% - 22px));display:grid;grid-template-columns:repeat(5,1fr)!important;gap:3px!important;background:linear-gradient(180deg,rgba(54,47,40,.96),rgba(39,34,29,.98))!important;border-radius:28px;padding:8px;box-shadow:0 18px 44px rgba(38,31,25,.24)!important;border:1px solid rgba(255,250,243,.24)!important;backdrop-filter:blur(18px)!important}
 .app-nav a,.app-nav button,
@@ -1316,11 +1288,14 @@ body.home-bg section.home-brand-card.v37-dashboard-home{transform:none!important
 
 /* Higher-end editorial highlight: no full pink rectangle behind the title.
    Only “Companion” sits over a restrained champagne-blush brush trace. */
-.home-brand-card
 .home-brand-card.v37-dashboard-home h1 em{
   position:relative!important;
   display:inline-block!important;
   z-index:0!important;
+  font-family:inherit!important;
+  font-style:italic!important;
+  font-weight:900!important;
+  color:#2a211c!important;
 }
 .home-brand-card.v37-dashboard-home h1 em::after{
   content:"";

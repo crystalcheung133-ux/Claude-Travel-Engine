@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ccmv-travel-engine-stage4e-15b-home-typography-consolidation';
+const CACHE_NAME = 'ccmv-travel-engine-stage4e-15c1-css-structure-repair';
 const ASSETS = [
   './',
   './index.html',
