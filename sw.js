@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ccmv-travel-engine-stage4e-17e-expenses-dashboard-canonical-rebuild';
+const CACHE_NAME = 'ccmv-travel-engine-stage4e-17g-expenses-history-scroll-canonical-rebuild';
 const ASSETS = [
   './',
   './index.html',
