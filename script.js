@@ -24,9 +24,48 @@ function visitDayHTML(key){
 function placeHref(key){
   return `place.html?id=${encodeURIComponent(key)}`;
 }
+const GUIDE_NAV_CONTEXT_KEY='ccmv_guide_nav_context';
+const GUIDE_NAV_REOPEN_KEY='ccmv_guide_nav_reopen';
+function saveGuideNavigationContext(category){
+  try{
+    sessionStorage.setItem(GUIDE_NAV_CONTEXT_KEY,JSON.stringify({
+      category,
+      sourceUrl:window.location.href,
+      savedAt:Date.now()
+    }));
+  }catch(e){}
+}
+function readGuideNavigationContext(){
+  try{return JSON.parse(sessionStorage.getItem(GUIDE_NAV_CONTEXT_KEY)||'null');}
+  catch(e){return null;}
+}
+function clearGuideNavigationContext(){
+  try{
+    sessionStorage.removeItem(GUIDE_NAV_CONTEXT_KEY);
+    sessionStorage.removeItem(GUIDE_NAV_REOPEN_KEY);
+  }catch(e){}
+}
 function goPlace(key){
   window.location.href = placeHref(key);
 }
+function closePlaceDetail(){
+  const context=readGuideNavigationContext();
+  if(context?.category&&context?.sourceUrl){
+    try{sessionStorage.setItem(GUIDE_NAV_REOPEN_KEY,context.category);}catch(e){}
+    window.location.href=context.sourceUrl;
+    return;
+  }
+  window.location.href='guide.html';
+}
+function restoreGuideNavigationLayer(){
+  let category='';
+  try{
+    category=sessionStorage.getItem(GUIDE_NAV_REOPEN_KEY)||'';
+    sessionStorage.removeItem(GUIDE_NAV_REOPEN_KEY);
+  }catch(e){}
+  if(category)requestAnimationFrame(()=>openGuideCategory(category));
+}
+document.addEventListener('DOMContentLoaded',restoreGuideNavigationLayer);
 
 function $(id){return document.getElementById(id);}
 function closeMiniMenus(){document.querySelectorAll('.mini-menu').forEach(m=>m.classList.remove('show'));}
@@ -85,6 +124,7 @@ window.addEventListener('hashchange',applyGuideHashView);
 document.addEventListener('DOMContentLoaded',applyGuideHashView);
 
 function openGuideCategory(cat){
+ saveGuideNavigationContext(cat);
  const list=(CATEGORIES[cat]||[]).slice().sort((a,b)=>String(a.title||'').localeCompare(String(b.title||'')));
  if(cat==='SHOP'){
   const directoryRow=`<button onclick="openShoppingDirectoryView()"><span><span class="guide-list-title">🛍 Shopping Directory</span><span class="guide-list-sub">Optional shops · Near · Best with Day</span></span><span>↓</span></button>`;
@@ -115,7 +155,7 @@ function openGuideModal(key){
  const sheet=document.querySelector('#guideModal .guide-sheet');
  if(sheet) sheet.scrollTop=0;
 }
-function closeGuideModal(){$('guideModal').classList.remove('show')}
+function closeGuideModal(){$('guideModal').classList.remove('show');clearGuideNavigationContext()}
 
 let currentMomentKey='';
 function closeMomentsModal(){$('momentsModal').classList.remove('show')}
@@ -173,7 +213,7 @@ function openTripCard(key) {
   const content = document.getElementById('tripModalContent');
   const modal = document.getElementById('tripModal');
   if (!content || !modal) return;
-  content.innerHTML = `<div class="trip-onepage"><p class="kicker">Trip</p><h2>${t.title}</h2>${t.body}<div class="guide-next-row"><button class="pill" onclick="openTripCard('${prev}')">‹ Previous</button><button class="pill" onclick="openTripCard('${next}')">Next ›</button></div><p class="timestamp">Build · Stage 4E-16D1 · GUIDE DETAIL CLOSE CONTROL UNIFICATION</p></div>`;
+  content.innerHTML = `<div class="trip-onepage"><p class="kicker">Trip</p><h2>${t.title}</h2>${t.body}<div class="guide-next-row"><button class="pill" onclick="openTripCard('${prev}')">‹ Previous</button><button class="pill" onclick="openTripCard('${next}')">Next ›</button></div><p class="timestamp">Build · Stage 4E-16D2 · GUIDE NAVIGATION STACK REPAIR</p></div>`;
   modal.classList.add('show');
   const sheet=document.querySelector('#tripModal .trip-sheet');
   if(sheet) sheet.scrollTop=0;
@@ -264,18 +304,6 @@ document.addEventListener('keydown', function(e){
 // Renders a full place detail page (page-hero + quick-info-card + prose blocks)
 // from PLACES data. Used by the shared place.html?id=... renderer and legacy standalone place pages
 // so page content lives in ONE place (data.js) instead of being duplicated per file.
-function closePlaceDetail(){
-  try{
-    const ref = document.referrer ? new URL(document.referrer) : null;
-    const sameOriginGuide = ref && ref.origin === window.location.origin && /\/guide\.html$/.test(ref.pathname);
-    if(sameOriginGuide && window.history.length > 1){
-      window.history.back();
-      return;
-    }
-  }catch(e){}
-  window.location.href = 'guide.html';
-}
-
 function renderPlacePage(key){
   const g = PLACES[key];
   const mount = document.getElementById('placeMain');
@@ -283,7 +311,7 @@ function renderPlacePage(key){
   const sig = (g.signature||g.highlights||[]).map(x=>`<li>${x}</li>`).join('');
   const worth = (g.worth||g.tips||[]).map(x=>`<li>${x}</li>`).join('');
   mount.innerHTML = `
-<button class="place-detail-close" onclick="closePlaceDetail()" type="button" aria-label="Close place details">×</button>
+<button class="place-detail-close" type="button" aria-label="Close place detail" onclick="closePlaceDetail()">×</button>
 <div class="page-hero"><p class="kicker">Guide</p><h1>${g.emoji} ${g.title}</h1><p class="lead">${g.sub||''}</p></div>
 <section aria-label="Quick Info" class="quick-info-card">${quickInfoInnerHTML(g,key)}</section>
 <section class="prose-block guide-overview"><h2>Overview</h2><p>${g.desc||''}</p></section>
