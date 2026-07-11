@@ -31,7 +31,7 @@ h1,h2{font-family:"Cormorant Garamond",serif;line-height:.95;margin:8px 0 14px}.
 .day-card-meta{display:block;color:var(--muted);font-size:14px}
 .timeline-time{font-weight:800}
 .timeline-actions button,.timeline-actions a{border:1px solid var(--line);background:#fff7ed;border-radius:999px;min-height:46px;padding:11px 10px;font:inherit;font-size:14px;text-align:center;cursor:pointer}
-.status-badge{display:inline-flex;border:1px solid var(--line);background:#fff8e9;border-radius:999px;padding:7px 10px;font-size:13px;color:var(--muted);margin:0 0 8px}
+
 .time-legend{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
 .time-legend span{border:1px solid var(--line);border-radius:999px;padding:9px;text-align:center;background:#fff7ed;font-size:13px}
 .guide-modal,.moments-modal,.unexpected-modal,.tools-modal,.mama-modal{position:fixed;inset:0;z-index:110;display:none;background:rgba(43,37,31,.48);padding:18px;overflow:auto}
@@ -52,8 +52,8 @@ h1,h2{font-family:"Cormorant Garamond",serif;line-height:.95;margin:8px 0 14px}.
 .fact strong{display:block}
 .expense-card{border:1px solid var(--line);background:#fff7ed;border-radius:18px;padding:13px}
 @media(max-width:760px){.fact-grid{grid-template-columns:repeat(2,1fr)}
-.timeline-item{grid-template-columns:70px 1fr}
-.timeline-actions{grid-template-columns:1fr 1fr 1fr}
+
+
 .mini-menu{width:206px}}
 /* v2.1.1 final refinements */
 .trip-modal{position:fixed;inset:0;z-index:110;display:none;background:rgba(43,37,31,.48);padding:18px;overflow:auto}
@@ -140,7 +140,7 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 
 .home-brand-card h1{font-size:38px}
 .home-tagline{font-size:11px}
-.timeline-item{grid-template-columns:64px minmax(0,1fr)!important;padding:15px 13px}
+
 .timeline-actions{grid-template-columns:1fr 1fr 1fr}}
 /* v2.5.1 QA fix: compact checklist, readable days, expenses above-the-fold, premium blended logo */
 .trip-sheet{width:min(760px,100%);background:var(--card);border:1px solid var(--line);border-radius:32px;box-shadow:0 30px 90px rgba(0,0,0,.22);padding:22px!important}
@@ -160,7 +160,7 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 .timeline-main{min-width:0!important;display:block!important}
 .timeline-main h3{font-size:18px;margin:0 0 8px;line-height:1.25;margin-bottom:6px!important}
 .timeline-main p{margin:0 0 7px!important}
-.route-hint{display:block!important;line-height:1.35!important;font-size:13px!important;padding:9px 10px!important;margin:8px 0!important;border-radius:14px!important}
+
 .timeline-actions{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;margin-top:8px!important}
 .timeline-actions button,.timeline-actions a{min-width:0!important;white-space:normal!important;line-height:1.2!important;font-size:13px!important;padding:9px 6px!important;min-height:38px!important}
 /* Expenses: summary and settlement first; history below */
@@ -215,8 +215,6 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 @media(max-width:520px){
 
 
-
-
 .home-tagline{font-size:12px!important}
 .home-trip-line{gap:5px!important;font-size:12px!important}
 .expense-focus-grid{grid-template-columns:1fr 1fr;gap:8px}
@@ -229,20 +227,12 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 /* Home: one logo watermark only, no pasted hero image */
 
 
-
-
-
-
-
-
-
 /* Remove unwanted toolbar text labels */
 /* Tool modals: fit on one mobile screen as much as possible */
 .moments-modal.show,.tools-modal.show{place-items:end center!important;padding:8px!important;overflow:hidden!important}
 .moments-sheet,.tools-sheet{width:min(560px,100%)!important;max-height:calc(100dvh - 16px)!important;height:auto!important;overflow:hidden!important;border-radius:26px!important;padding:14px!important;display:flex;flex-direction:column;gap:6px}
-.moments-sheet .kicker,.tools-sheet .kicker{font-size:11px!important;margin:0!important}
-.moments-sheet h2,.tools-sheet h2{font-size:22px!important;margin:0 42px 0 0!important;line-height:1.05!important}
-.moments-sheet .modal-intro,.tools-sheet .modal-intro{font-size:12px!important;line-height:1.25!important;margin:2px 0 4px!important}
+
+
 .moments-sheet p,.tools-sheet p{margin:2px 0!important}
 .moments-close,.tools-close{position:absolute;right:10px;top:10px;width:34px!important;height:34px!important;font-size:20px!important;z-index:3}
 .moments-form,.expense-form{display:flex;flex-direction:column;gap:5px}
@@ -261,12 +251,9 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 @media(max-width:480px){
 
 
-.moments-sheet,.tools-sheet{padding:12px!important;border-radius:22px!important}
-.moments-sheet h2,.tools-sheet h2{font-size:20px!important}
-.moments-sheet .modal-intro,.tools-sheet .modal-intro{font-size:11px!important}
 .mood-grid{grid-template-columns:repeat(3,1fr)!important;gap:4px!important}
-.mood-btn{font-size:11px!important;padding:6px 3px!important}
-#momentsText{min-height:58px!important}
+
+
 .expense-form input,.expense-form select{min-height:32px!important}}
 /* Stage 4F-S2: removed malformed historical comment block; all swallowed nav and Expenses rules were superseded by later canonical rules. */
 /* Expense tool: no separate Latest Transactions block; intro remains visible */
@@ -388,8 +375,8 @@ body:has(#tripModal) .trip-card,.trip-sheet{border-color:rgba(112,133,91,.28)!im
 .home-brand-card.v37-dashboard-home{padding:22px 13px 20px!important;border-radius:30px!important}
 .v37-dashboard-home h1{font-size:42px!important}
 .home-live-grid{gap:7px;margin-bottom:12px}
-.live-card{min-height:82px;border-radius:19px;padding:10px 9px}
-.live-card strong{font-size:14px}
+
+
 .live-card small{font-size:9px}
 .live-icon{font-size:18px}
 .page-hero{padding:13px 13px 12px}}/* v3.8 Moments edit + stronger typography + deeper monogram watermark */
@@ -415,10 +402,10 @@ h3{font-size:20px}
 .btn,.pill,.mini-btn,.timeline-actions button,.timeline-actions a,.friend-pill,.category-pop-list button{font-weight:800;color:var(--ink)}
 .btn,.pill{min-height:50px;padding:14px 18px}
 .mini-btn{min-height:44px;padding:11px 14px}
-.app-nav a,.app-nav button{color:#fff}
+
 .quick-info-card,.prose-block,.trip-card,.timeline-item,.expense-card,.moments-entry{border-color:#d4bea7;box-shadow:0 12px 44px rgba(54,39,24,.075)}
 .quick-info-label,.timestamp{opacity:1}
-.moments-form textarea,.expense-form input,.expense-form select,textarea{font-size:17px;color:var(--ink);font-weight:560}.status-badge{font-weight:760;color:var(--ink)}
+.moments-form textarea,.expense-form input,.expense-form select,textarea{font-size:17px;color:var(--ink);font-weight:560}
 @media(max-width:760px){body{font-size:17px;line-height:1.7}
 .lead{font-size:18px}
 .timeline-main h3{font-size:19px}
@@ -430,7 +417,7 @@ h3{font-size:20px}
 .expense-export-action{background:#fffaf2!important;border-color:rgba(111,143,107,.38)!important;color:#31513a!important}
 @media(min-width:721px){body.expenses-page .expense-history-block .transaction-scroll{max-height:none!important;overflow:visible!important;padding-right:0!important}}
 .primary-action{display:inline-flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;padding:12px 18px;font-weight:850;box-shadow:0 10px 30px rgba(49,95,78,.12);font-size:16px!important;background:linear-gradient(180deg,#fffaf2,#f6e9d5)!important;border-color:rgba(138,79,45,.32)!important;color:#2b251f!important}
-@media(max-width:760px){.route-hint{font-size:16px}}
+@media(max-width:760px){}
 /* v3.9.1 day2 + modal stability + outdoor readability refinements */
 .content-page .page-hero .lead,
 .expense-page-shell .page-hero .lead,
@@ -439,18 +426,18 @@ h3{font-size:20px}
 .page-hero .kicker{font-size:14px!important;font-weight:900!important;color:#7b4a2f!important}
 .timeline-main h3,.prose-block h2,.guide-list-title,.menu-title{font-weight:900!important;color:#241b16!important}
 .timeline-main p,.quick-info-value,.prose-block li{font-size:17px!important;line-height:1.62!important;font-weight:650!important;color:#3b3029!important}
-.route-hint{background:#fff7ed;border:1px solid var(--line);color:#3b3029!important;font-size:16px!important;line-height:1.55!important;font-weight:700!important}
+.route-hint{display:block!important;line-height:1.55!important;font-size:16px!important;padding:9px 10px!important;margin:8px 0!important;border-radius:14px!important;background:#fff7ed;border:1px solid var(--line);color:#3b3029!important;font-weight:700!important}
 .moments-modal,.tools-modal{align-items:center!important;justify-items:center!important;overflow:hidden!important;padding:12px!important}
 .moments-sheet,.tools-sheet{width:min(720px,calc(100vw - 24px))!important;height:auto!important;max-height:min(92svh,720px)!important;overflow:auto!important;padding:22px!important;border-radius:28px!important;transform:none!important}
-.moments-sheet h2,.tools-sheet h2{font-size:28px!important;line-height:1.08!important;font-weight:900!important;margin:0 48px 6px 0!important}
+
 .moments-form textarea,#unexpectedText{min-height:96px!important;max-height:112px!important;font-size:16px!important;line-height:1.45!important;font-weight:650!important}
 .expense-form input,.expense-form select,.moments-form textarea,#unexpectedText,.tools-sheet input,.tools-sheet select,.tools-sheet textarea{font-size:16px!important}
-.moments-sheet .btn,.tools-sheet .btn{font-size:16px!important;font-weight:900!important;min-height:44px!important}
-@media(max-width:480px){.moments-sheet,.tools-sheet{width:calc(100vw - 18px)!important;max-height:90svh!important;padding:18px!important;border-radius:24px!important}
-.moments-sheet h2,.tools-sheet h2{font-size:25px!important}
-.moments-sheet .modal-intro,.tools-sheet .modal-intro{font-size:15.5px!important;line-height:1.42!important}
+
+@media(max-width:480px){
+
+
 .moments-form textarea,#unexpectedText{min-height:82px!important;max-height:96px!important}
-.mood-btn{font-size:13.5px!important;min-height:36px!important}}
+}
 /* v3.9.2 Design Consistency + Outdoor Use Final Pass */
 /* Global CCMV watermark system: visible on every page, consistent and still readable outdoors. */
 body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url('logo-monogram-transparent.png');background-repeat:repeat;background-size:340px 340px;background-position:center 92px;opacity:.105;mix-blend-mode:multiply;filter:saturate(1.08) contrast(1.08)}
@@ -496,7 +483,7 @@ input,select,textarea{font-size:16px!important;-webkit-text-size-adjust:100%}
 .page-hero .lead,.module-hero .lead{font-size:17px!important;line-height:1.56!important}
 .page-hero::after,.module-hero::after{width:220px;height:220px;opacity:.16}
 .moments-sheet,.tools-sheet{width:calc(100vw - 12px)!important;height:94svh!important;max-height:94svh!important;padding:18px 18px 14px!important;border-radius:30px 30px 22px 22px!important}
-.moments-sheet h2,.tools-sheet h2{font-size:30px!important}
+
 .moments-sheet .modal-intro,.tools-sheet .modal-intro{font-size:15px!important;line-height:1.38!important}
 .mood-grid{grid-template-columns:repeat(2,1fr)!important}
 .mood-btn{min-height:36px!important;font-size:13px!important}
@@ -518,16 +505,10 @@ input,select,textarea{font-size:16px!important;-webkit-text-size-adjust:100%}
 .section .category-pop-list button > *{position:relative;z-index:1}
 .section .category-pop-list button::after{width:88px;height:88px;right:-20px;bottom:-26px;opacity:.10}
 /* Moments returns to its pink theme; Expenses stays sage. */
-body:has(.page-action-row[data-v35="moment-action"]) .page-hero,
-body:has(.page-action-row[data-v35="moment-action"]) .module-hero{border-color:rgba(202,117,132,.28)!important}
-body:has(.page-action-row[data-v35="moment-action"]) .page-hero .kicker,
-body:has(.page-action-row[data-v35="moment-action"]) .module-hero .kicker{color:#9a5361!important}
-body:has(.page-action-row[data-v35="moment-action"]) .primary-action,
+
+
 .moments-sheet .btn{background:#b76c78!important;color:#fffaf7!important;border-color:#b76c78!important}
-body:has(.page-action-row[data-v35="expense-action"]) .page-hero,
-body:has(.page-action-row[data-v35="expense-action"]) .page-hero .kicker,
-body:has(.page-action-row[data-v35="expense-action"]) .module-hero .kicker{color:#527a5d!important}
-body:has(.page-action-row[data-v35="expense-action"]) .primary-action,
+
 .tools-sheet .btn{background:#678f72!important;color:#fffaf7!important;border-color:#678f72!important}
 /* Swipe affordance for day pages */
 body.moments-page .page-hero .kicker, body.moments-page .module-hero .kicker{color:#9a5361!important}
@@ -634,10 +615,7 @@ html body.moments-page .btn.primary-action,
   .trip-sheet::after{width:96px!important;height:96px!important;right:14px!important;bottom:14px!important;inset:auto 14px 14px auto!important}}
 /* v3.9.6a RC1 hotfix: modal scroll/close, Moments pink, monogram-only card watermark */
 /* Restore modal scrolling and close controls after watermark layer changes */
-.guide-modal.show,
-.trip-modal.show,
-.moments-modal.show,
-.tools-modal.show{display:grid!important;place-items:center!important;overflow:hidden!important;padding:18px!important}
+
 .guide-sheet,
 .trip-sheet,
 .moments-sheet,
@@ -827,7 +805,7 @@ body.moments-page .moments-sheet button.btn{background:linear-gradient(180deg,#f
 .tools-sheet #expensePaidBy:focus,
 .tools-sheet #expenseConsumedBy:focus{outline:2px solid rgba(88,116,84,.28)!important;outline-offset:2px!important}
 .moments-author-row{margin:0 0 8px!important}
-.moments-author-row .status-badge{display:inline-flex!important;align-items:center!important;min-height:34px!important;padding:7px 12px!important;border-radius:999px!important;background:#fff1f3!important;border:1px solid rgba(183,88,105,.34)!important;color:#3b201f!important;font-size:15px!important;font-weight:900!important}
+.moments-author-row .status-badge{display:inline-flex!important;border:1px solid rgba(183,88,105,.34)!important;background:#fff1f3!important;border-radius:999px!important;padding:7px 12px!important;font-size:15px!important;color:#3b201f!important;margin:0 0 8px;font-weight:900!important;align-items:center!important;min-height:34px!important}
 /* v3.9.6d Paid-by clear display */
 .paid-by-hidden-select{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
 .paid-by-panel{margin:8px 0 14px}
@@ -927,7 +905,7 @@ body.home-bg{height:100dvh!important;min-height:100dvh!important;overflow:hidden
 body.home-bg .app-nav{z-index:90!important}
 body.home-bg .v37-dashboard-home .home-trip-line{margin:4px 0 10px!important}
 @media (min-width:721px){body.home-bg main.dashboard.home-premium.home-v37{padding-top:8px!important;padding-bottom:100px!important}
-body.home-bg section.home-brand-card.v37-dashboard-home{transform:translateY(-2px)}}
+}
 @media (max-width:720px){body.home-bg .site-nav{min-height:68px!important;padding-top:10px!important;padding-bottom:10px!important}
 body.home-bg main.dashboard.home-premium.home-v37{height:calc(100dvh - 68px)!important;max-height:calc(100dvh - 68px)!important;overflow:hidden!important;padding:4px 12px calc(100px + env(safe-area-inset-bottom))!important;justify-content:center!important;align-items:center!important}
 body.home-bg section.home-brand-card.v37-dashboard-home{padding:18px 13px 16px!important;border-radius:30px!important}
@@ -955,8 +933,7 @@ body.home-bg .home-day-button{min-height:38px!important;padding:8px 16px!importa
 html,body{-webkit-text-size-adjust:100%}
 body{margin:0;background:radial-gradient(circle at 50% 12%,rgba(255,255,255,.55),transparent 26rem),linear-gradient(135deg,#f7f0e6,#f3eadb)!important;color:var(--ink)!important;font:16px/1.65 Inter,"Noto Sans TC",system-ui,sans-serif;padding-bottom:92px;background-color:var(--bg)!important;background-image:linear-gradient(rgba(244,237,227,.90), rgba(244,237,227,.90)),
     url("logo-watermark-monogram.png")!important;background-repeat:repeat!important;background-size:auto, 140px 140px!important;background-position:center center!important;font-size:16px!important;line-height:1.55!important;font-weight:500;-webkit-text-size-adjust:100%;font-family:var(--font-sans)!important}
-body::before,
-body::after{display:none!important;background-image:none!important;content:none!important}
+
 body.home-bg{padding-bottom:0!important;background:radial-gradient(circle at 50% 10%,rgba(255,255,255,.58),transparent 24rem),linear-gradient(135deg,#f7f0e6,#f3eadb)!important}
 .site-nav .brand,
 .brand{font-family:var(--font-sans)!important;color:var(--ink)!important;font-weight:900!important;letter-spacing:.01em!important}
@@ -1048,7 +1025,7 @@ body.expenses-page .module-hero > *{position:relative!important;z-index:1!import
 .trip-card > *,
 .expense-card > *,
 .moments-entry > *{position:relative!important;z-index:1!important}
-@media(max-width:520px){.home-brand-card.v37-dashboard-home h1{font-size:clamp(48px,13vw,62px)!important}
+@media(max-width:520px){
 body.moments-page .page-hero::after,
   body.moments-page .module-hero::after,
   body.expenses-page .page-hero::after,
@@ -1061,8 +1038,8 @@ body.expenses-page .page-hero::after,body.expenses-page .module-hero::after,
 .home-live-grid .live-card:nth-child(1)::after,.home-live-grid .live-card:nth-child(3)::after,
 .quick-info-card:nth-of-type(1)::after,.trip-card:nth-of-type(1)::after,
 .expense-card:nth-of-type(1)::after,.moments-entry:nth-of-type(1)::after{width:64px!important;height:64px!important;right:10px!important;bottom:9px!important;opacity:.12!important}
-@media(max-width:520px){.home-brand-card.v37-dashboard-home::before{width:92px!important;height:92px!important}
-.home-brand-card.v37-dashboard-home h1{font-size:clamp(52px,14vw,66px)!important}}
+@media(max-width:520px){
+}
 /* ===== CCMV Family Visual 11.43d: Planner-like splash, stronger Saigon hero, opaque bottom menus =====
    Base: Stage 1.5 master. Scope: CSS visual alignment only; no data/render/navigation logic changed. */
 /* Loading: closer to Journey Planner composition; smaller logo image, more breathing room, blush-cream background. */
@@ -1219,11 +1196,11 @@ body.home-bg .v37-dashboard-home h1{margin-bottom:8px!important}
 body.home-bg .v37-dashboard-home .home-tagline{margin-bottom:10px!important}
 body.home-bg .home-trip-line{margin:4px 0 12px!important}
 @media(max-width:520px){body.home-bg main.dashboard.home-premium.home-v37{height:calc(100dvh - 72px)!important;max-height:calc(100dvh - 72px)!important;padding:18px 12px calc(78px + env(safe-area-inset-bottom))!important;justify-content:center!important}
-body.home-bg section.home-brand-card.v37-dashboard-home{transform:translateY(-2vh)!important;max-height:calc(100dvh - 164px)!important;padding:20px 13px 18px!important}
+
 body.home-bg .v37-dashboard-home h1{font-size:39px!important;line-height:.88!important}
 body.home-bg .v37-dashboard-home .home-tagline{font-size:11px!important;letter-spacing:.13em!important}
 body.home-bg .v37-dashboard-home .home-trip-line span{padding:6px 10px!important;font-size:12px!important}
-body.home-bg .live-card{min-height:78px!important}}
+}
 /* Bottom navigation: consistent dark glass on mobile and desktop. */
 .app-nav{position:fixed!important;left:50%!important;bottom:calc(12px + env(safe-area-inset-bottom))!important;transform:translateX(-50%)!important;z-index:999!important;width:min(500px,calc(100% - 22px));display:grid;grid-template-columns:repeat(5,1fr)!important;gap:3px!important;background:linear-gradient(180deg,rgba(54,47,40,.96),rgba(39,34,29,.98))!important;border-radius:28px;padding:8px;box-shadow:0 18px 44px rgba(38,31,25,.24)!important;border:1px solid rgba(255,250,243,.24)!important;backdrop-filter:blur(18px)!important}
 .app-nav a,.app-nav button,
