@@ -29,11 +29,8 @@ h1,h2{font-family:"Cormorant Garamond",serif;line-height:.95;margin:8px 0 14px}.
 .day-summary strong{font-family:"Cormorant Garamond",serif;font-size:28px;line-height:1}
 .day-card-title{display:block;font-weight:700}
 .day-card-meta{display:block;color:var(--muted);font-size:14px}
-.timeline-time{font-weight:800}
-.timeline-actions button,.timeline-actions a{border:1px solid var(--line);background:#fff7ed;border-radius:999px;min-height:46px;padding:11px 10px;font:inherit;font-size:14px;text-align:center;cursor:pointer}
-
-.time-legend{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
-.time-legend span{border:1px solid var(--line);border-radius:999px;padding:9px;text-align:center;background:#fff7ed;font-size:13px}
+/* Stage 4E-19: .timeline-time base weight, .timeline-actions button/a base skin,
+   and .time-legend were relocated to the Days canonical section (see EOF). */
 .guide-modal,.moments-modal,.unexpected-modal,.tools-modal,.mama-modal{position:fixed;inset:0;z-index:110;display:none;background:rgba(43,37,31,.48);padding:18px;overflow:auto}
 .guide-modal.show,.moments-modal.show,.unexpected-modal.show,.tools-modal.show,.mama-modal.show{display:grid;place-items:center}
 .guide-sheet,.moments-sheet,.unexpected-sheet,.tools-sheet{width:min(760px,100%);max-height:88vh;overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:32px;box-shadow:0 30px 90px rgba(0,0,0,.22);padding:28px;position:relative}
@@ -92,11 +89,11 @@ h1,h2{font-family:"Cormorant Garamond",serif;line-height:.95;margin:8px 0 14px}.
 @media (min-width:720px){.quick-info-grid{grid-template-columns:1fr 1fr}
 .quick-info-actions{justify-content:flex-start}}
 /* v2.3 polish: softer map buttons, compact mobile home, next-stop hints */
-.timeline-actions a,
-.timeline-actions button,
 .pill{background:#fff7eb!important;color:var(--ink)!important;border:1px solid var(--line)!important;box-shadow:none!important}
-.timeline-actions a:hover,.map-button:hover,.pill:hover{border-color:var(--accent)!important}
-.route-hint strong{color:var(--accent)}
+/* Stage 4E-19: .timeline-actions a/button background here is dead (superseded by the later
+   shared button-skin rule); the a:hover and .route-hint strong rules were Days-exclusive and
+   were relocated to the Days canonical section (see EOF). */
+.map-button:hover,.pill:hover{border-color:var(--accent)!important}
 @media(max-width:430px){.site-nav{padding:10px 12px}
 .brand{font-size:14px}
 .brand img{width:28px;height:28px}
@@ -115,9 +112,9 @@ h1,h2{font-family:"Cormorant Garamond",serif;line-height:.95;margin:8px 0 14px}.
 @media(max-width:760px){.guide-modal,.moments-modal,.tools-modal,.trip-modal,.mama-modal{padding:10px!important}
 .guide-sheet,.moments-sheet,.tools-sheet,.trip-sheet{width:100%!important;max-height:calc(100dvh - 20px)!important;border-radius:24px!important;padding:58px 18px 22px!important}}
 .map-button,
-.timeline-actions a,
 .prose-block .pill[href*="maps.google"],
 a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important;border:1px solid #d4b89b!important;box-shadow:0 6px 18px rgba(138,79,45,.10)!important}
+/* Stage 4E-19: .timeline-actions a token removed here — dead (superseded by the later shared button-skin rule). */
 /* v2.4 content structure: detailed Guide, compact Days */
 .guide-overview p{font-size:1.02rem;line-height:1.78}
 .prose-block h2{margin-bottom:10px}
@@ -140,8 +137,7 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 
 .home-brand-card h1{font-size:38px}
 .home-tagline{font-size:11px}
-
-.timeline-actions{grid-template-columns:1fr 1fr 1fr}}
+}
 /* v2.5.1 QA fix: compact checklist, readable days, expenses above-the-fold, premium blended logo */
 .trip-sheet{width:min(760px,100%);background:var(--card);border:1px solid var(--line);border-radius:32px;box-shadow:0 30px 90px rgba(0,0,0,.22);padding:22px!important}
 .checklist-mini{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;align-items:start}
@@ -154,15 +150,8 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 .quick-info-grid{display:grid;grid-template-columns:1fr;gap:10px}
 .day-link-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:3px}
 .day-jump-button{display:inline-flex;align-items:center;justify-content:center;border:1px solid #b8895f;background:#fffaf2!important;color:#4a3425!important;text-decoration:none;border-radius:999px;padding:8px 11px;font-weight:800;font-size:.88rem;box-shadow:0 6px 16px rgba(138,79,45,.10);border-color:#b8895f!important}
-/* Days: fix nested / squeezed itinerary cards */
-.timeline{display:grid!important;gap:14px!important;max-width:760px;margin-inline:auto}
-.timeline-item{position:relative!important;display:grid!important;grid-template-columns:76px minmax(0,1fr)!important;gap:12px!important;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:17px 16px;margin-left:0!important;transform:none!important;align-items:start!important;margin:0!important}
-.timeline-main{min-width:0!important;display:block!important}
-.timeline-main h3{font-size:18px;margin:0 0 8px;line-height:1.25;margin-bottom:6px!important}
-.timeline-main p{margin:0 0 7px!important}
-
-.timeline-actions{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;margin-top:8px!important}
-.timeline-actions button,.timeline-actions a{min-width:0!important;white-space:normal!important;line-height:1.2!important;font-size:13px!important;padding:9px 6px!important;min-height:38px!important}
+/* Stage 4E-19: Days desktop baseline (.timeline, .timeline-item, .timeline-main,
+   .timeline-actions) relocated verbatim to the Days canonical section (see EOF). */
 /* Expenses: summary and settlement first; history below */
 .expense-page-shell .page-hero h1{font-size:clamp(42px,10vw,70px)}
 /* Home logo: use original colour artwork blended into paper, not extracted cutout */
@@ -171,9 +160,8 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 @media(max-width:760px){.trip-sheet{padding:18px!important;max-height:82vh}
 .checklist-mini{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
 .checklist-mini .check-row{font-size:13px;padding:7px 8px;min-height:34px}
-.timeline-item{grid-template-columns:58px minmax(0,1fr)!important;padding:14px 12px!important}
-.timeline-time{font-size:13px;line-height:1.2;word-break:break-word}
-.timeline-main h3{font-size:16px!important}
+/* Stage 4E-19: .timeline-item / .timeline-time / .timeline-main h3 mobile rules
+   relocated to the Days canonical section (see EOF). */
 .expense-page-shell{padding-top:18px!important}
 .expense-page-shell .page-hero{display:grid;grid-template-columns:1fr auto;align-items:end;gap:10px;margin:4px 0 10px}
 .expense-page-shell .page-hero .kicker,.expense-page-shell .page-hero .lead{display:none}
@@ -329,9 +317,7 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 /* Module accent language */
 .page-hero{border-radius:28px;padding:16px 16px 14px;background:#fffaf2;border:1px solid #d2bea9}
 body:has(#tripModal) .trip-card,.trip-sheet{border-color:rgba(112,133,91,.28)!important}
-.timeline-item:before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--sky)!important}
-.timeline-item:nth-child(3n+2):before{background:var(--olive)!important}
-.timeline-item:nth-child(3n):before{background:var(--terracotta)!important}
+/* Stage 4E-19: .timeline-item:before accent-stripe rules relocated to the Days canonical section (see EOF). */
 .expense-page-shell .primary-action{background:linear-gradient(180deg,#eef8ea,#d6e8d3)!important;border-color:rgba(111,143,107,.35)!important}
 .content-page .page-action-row .primary-action[onclick*="Moments"]{background:linear-gradient(180deg,#fff1ec,#f0c8b8)!important;border-color:rgba(183,107,82,.32)!important}
 .btn,.pill,.mini-btn,.map-button,.moment-button{transition:transform .12s ease, box-shadow .12s ease, border-color .12s ease}
@@ -391,9 +377,11 @@ h3{font-size:20px}
 .moments-sheet .modal-intro,
 
 .page-hero .kicker{font-size:14px!important;font-weight:900!important;color:#7b4a2f!important}
-.timeline-main h3,.prose-block h2,.guide-list-title,.menu-title{font-weight:900!important;color:#241b16!important}
-.timeline-main p,.quick-info-value,.prose-block li{font-size:17px!important;line-height:1.62!important;font-weight:650!important;color:#3b3029!important}
-.route-hint{display:block!important;line-height:1.55!important;font-size:16px!important;padding:9px 10px!important;margin:8px 0!important;border-radius:14px!important;background:#fff7ed;border:1px solid var(--line);color:#3b3029!important;font-weight:700!important}
+.prose-block h2,.guide-list-title,.menu-title{font-weight:900!important;color:#241b16!important}
+.quick-info-value,.prose-block li{font-size:17px!important;line-height:1.62!important;font-weight:650!important;color:#3b3029!important}
+/* Stage 4E-19: .timeline-main h3 (weight/color), .timeline-main p (font-size/line-height),
+   and .route-hint relocated to the Days canonical section (see EOF). Note: .timeline-main p's
+   color/font-weight are owned by the later shared muted-text rule below, not by this block. */
 
 
 
@@ -1052,39 +1040,9 @@ body.home-bg section.home-brand-card.v37-dashboard-home{transform:none!important
 @media (max-width:720px){body.home-bg main.dashboard.home-premium.home-v37{overflow:visible!important}}
 
 
-/* Stage 4F-S1F: stable mobile action-button geometry for all Day cards. */
-@media (max-width:720px){
-  .timeline-actions,
-  .timeline-actions.timeline-actions--multi{
-    display:grid!important;
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    gap:9px!important;
-    align-items:stretch!important;
-  }
-  .timeline-actions .timeline-action{
-    width:100%!important;
-    min-width:0!important;
-    min-height:50px!important;
-    height:auto!important;
-    padding:10px 12px!important;
-    border-radius:18px!important;
-    display:flex!important;
-    align-items:center!important;
-    justify-content:center!important;
-    text-align:center!important;
-    line-height:1.18!important;
-    font-size:14px!important;
-    white-space:normal!important;
-    overflow-wrap:anywhere!important;
-    box-sizing:border-box!important;
-  }
-  .timeline-actions:not(.timeline-actions--multi) .timeline-action--guide{
-    grid-column:1 / -1!important;
-  }
-  .timeline-actions--multi .timeline-action--directory{
-    grid-column:1 / -1!important;
-  }
-}
+/* Stage 4F-S1F mobile action-button geometry relocated verbatim to the Days canonical
+   section (see EOF) — Stage 4E-19 preserves this contract unchanged, byte-for-byte. */
+
 
 
 /* =========================================================
@@ -1331,3 +1289,108 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
 .place-detail-close{position:absolute;top:18px;right:18px;z-index:50;width:44px;height:44px;border:1px solid var(--line);border-radius:999px;background:rgba(255,250,243,.92);color:var(--ink);font:750 24px/1 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer;box-shadow:none}
 .place-detail-close:hover{background:var(--paper)}
 @media(max-width:720px){.place-detail-close{top:14px;right:14px}}
+
+
+/* =========================================================
+   STAGE 4E-19 — DAYS TIMELINE / ACTIVITY CARDS CANONICAL
+   Single, consolidated authority for the Days Timeline /
+   Activity Cards presentation (day.html?day=N — all 5 days
+   share one renderer/markup contract). Historical duplicate
+   and superseded declarations for these selectors were
+   removed/relocated here; nothing outside this section should
+   declare new Days-only presentation rules going forward.
+
+   PROTECTED SHARED DEPENDENCIES — intentionally NOT duplicated
+   in this section (still owned by earlier shared rules; do not
+   delete those rules, do not redeclare here):
+     - .content-page box model + 112px bottom clearance
+     - .page-hero / .module-hero module header system (Days uses
+       .page-hero + .kicker + .time-legend for its header)
+     - .timeline-item background / border / border-radius(26px) /
+       box-shadow / position:relative / overflow:hidden /
+       isolation:isolate (card-system + Stage 1.1 visual-alignment
+       blocks) and .timeline-item::after watermark disable
+     - .timeline-main p color + font-weight (sitewide muted-text
+       rule shared with .lead/.guide-list-sub/.quick-info-value)
+     - .timeline-action / .pill shared button skin (background,
+       color, border, border-radius, box-shadow, font-weight —
+       from the unified pill/button-skin system)
+   ========================================================= */
+
+/* --- Timeline wrapper --- */
+.timeline{display:grid!important;gap:14px!important;max-width:760px;margin-inline:auto}
+
+/* --- Timeline item layout (surface color/border/shadow owned by shared card system) --- */
+.timeline-item{display:grid!important;grid-template-columns:76px minmax(0,1fr)!important;gap:12px!important;padding:17px 16px;margin-left:0!important;transform:none!important;align-items:start!important;margin:0!important}
+.timeline-item:before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--sky)!important}
+.timeline-item:nth-child(3n+2):before{background:var(--olive)!important}
+.timeline-item:nth-child(3n):before{background:var(--terracotta)!important}
+
+/* --- Time column --- */
+.timeline-time{font-weight:800}
+
+/* --- Activity card content column --- */
+.timeline-main{min-width:0!important;display:block!important}
+
+/* --- Activity typography --- */
+.timeline-main h3{font-size:18px;margin:0 0 8px;line-height:1.25;margin-bottom:6px!important;font-weight:900!important;color:#241b16!important}
+.timeline-main p{margin:0 0 7px!important;font-size:17px!important;line-height:1.62!important}
+
+/* --- Metadata / route hint --- */
+.route-hint{display:block!important;line-height:1.55!important;font-size:16px!important;padding:9px 10px!important;margin:8px 0!important;border-radius:14px!important;background:#fff7ed;border:1px solid var(--line);color:#3b3029!important;font-weight:700!important}
+.route-hint strong{color:var(--accent)}
+
+/* --- Time legend (page-hero sub-component, Days only) --- */
+.time-legend{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+.time-legend span{border:1px solid var(--line);border-radius:999px;padding:9px;text-align:center;background:#fff7ed;font-size:13px}
+
+/* --- Action area / standard action buttons (skin owned by shared .pill button system) --- */
+.timeline-actions{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:7px!important;margin-top:8px!important}
+.timeline-actions button,.timeline-actions a{min-width:0!important;white-space:normal!important;line-height:1.2!important;font-size:13px!important;padding:9px 6px!important;min-height:38px!important;text-align:center;cursor:pointer}
+.timeline-actions a:hover{border-color:var(--accent)!important}
+
+/* --- Desktop spacing: covered by the unconditional rules above (>720px baseline) --- */
+
+/* --- Mobile layout: card + typography adjustments (<=760px) --- */
+@media(max-width:760px){
+  .timeline-item{grid-template-columns:58px minmax(0,1fr)!important;padding:14px 12px!important}
+  .timeline-time{font-size:13px;line-height:1.2;word-break:break-word}
+  .timeline-main h3{font-size:16px!important}
+}
+
+/* --- Mobile action geometry — Stage 4F-S1F contract, preserved verbatim (<=720px) --- */
+@media (max-width:720px){
+  .timeline-actions,
+  .timeline-actions.timeline-actions--multi{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:9px!important;
+    align-items:stretch!important;
+  }
+  .timeline-actions .timeline-action{
+    width:100%!important;
+    min-width:0!important;
+    min-height:50px!important;
+    height:auto!important;
+    padding:10px 12px!important;
+    border-radius:18px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    text-align:center!important;
+    line-height:1.18!important;
+    font-size:14px!important;
+    white-space:normal!important;
+    overflow-wrap:anywhere!important;
+    box-sizing:border-box!important;
+  }
+  .timeline-actions:not(.timeline-actions--multi) .timeline-action--guide{
+    grid-column:1 / -1!important;
+  }
+  .timeline-actions--multi .timeline-action--directory{
+    grid-column:1 / -1!important;
+  }
+}
+
+/* --- Bottom clearance: inherited from shared .content-page padding-bottom (112px);
+   no Days-specific override needed or added. --- */
