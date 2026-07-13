@@ -38,8 +38,7 @@ h1,h2{font-family:"Cormorant Garamond",serif;line-height:.95;margin:8px 0 14px}.
 .guide-next-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
 .moments-form textarea,.expense-form input{width:100%;min-height:48px;border:1px solid var(--line);border-radius:16px;background:var(--paper);padding:13px;font:inherit;margin:8px 0}
 .moments-form textarea{min-height:120px}
-.star-row span{font-size:28px;filter:grayscale(1);cursor:pointer}
-.star-row .active{filter:none}
+/* Stage 4E-22: .star-row span / .star-row .active relocated to the Moments Mood/Star canonical section (see EOF). */
 .check-row{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:#fff7ed;border-radius:16px;padding:12px 14px;margin:8px 0;cursor:pointer}
 .check-row input{width:20px;height:20px}
 .ready-box{display:none;background:#eef4e9;border:1px solid #c9d9bf;border-radius:24px;padding:22px;text-align:center;margin-top:16px}
@@ -58,7 +57,7 @@ h1,h2{font-family:"Cormorant Garamond",serif;line-height:.95;margin:8px 0 14px}.
 .trip-close{float:right;border:1px solid var(--line);background:var(--paper);width:44px;height:44px;border-radius:50%;font-size:24px;cursor:pointer}
 /* v2.1.2 final fixes */
 /* v2.1.3 navigation + moments + expenses */
-.mood-btn.active{background:#ead8c5;border-color:#8a4f2d;font-weight:700}
+/* Stage 4E-22: .mood-btn.active relocated to the Moments Mood/Star canonical section (see EOF). */
 .timestamp{font-size:13px;color:var(--muted)}
 @media(max-width:760px){body.home-bg::before{background-size:115% auto;background-position:center 130px}
 .app-nav a,.app-nav button{font-size:20px}
@@ -216,11 +215,7 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 #consumedByBlock{font-size:12px!important}/* Expenses page: latest first + larger summary */
 .expense-history-block h3{font-size:18px;font-family:Inter,system-ui,sans-serif;margin-top:8px}
 @media(max-width:480px){
-
-
-.mood-grid{grid-template-columns:repeat(3,1fr)!important;gap:4px!important}
-
-
+/* Stage 4E-22: dead duplicate .mood-grid removed here (fully superseded by later rules; see canonical section at EOF). */
 .expense-form input,.expense-form select{min-height:32px!important}}
 /* Stage 4F-S2: removed malformed historical comment block; all swallowed nav and Expenses rules were superseded by later canonical rules. */
 /* Expense tool: no separate Latest Transactions block; intro remains visible */
@@ -276,14 +271,12 @@ a.pill[href*="maps.google"]{background:#fff7eb!important;color:#2b251f!important
 /* Something to Say: bigger but one-screen modal */
 .moments-sheet{padding:16px!important;gap:7px!important}
 
-
-.star{font-size:26px!important;line-height:1!important}
+/* Stage 4E-22: dead standalone .star rule removed here (lower specificity than .star-row .star; superseded — see canonical section at EOF). */
 #momentsText{min-height:76px!important;max-height:92px!important;padding:9px!important;font-size:15px!important;border-radius:14px!important}
 .moments-sheet .photo-input{padding:10px!important;border-radius:14px!important;font-size:13px!important}
 .moments-sheet .btn{font-size:15px!important;min-height:42px!important}
 @media(max-width:480px){.moments-sheet{padding:14px!important}
-
-.mood-btn{font-size:12px!important;padding:7px 4px!important}
+/* Stage 4E-22: dead duplicate .mood-btn removed here (superseded by later ≤480px rule; see canonical section at EOF). */
 #momentsText{min-height:68px!important;max-height:82px!important}}
 /* Expense popup: clear CTA and no cramped wording */
 
@@ -407,11 +400,8 @@ body.trip-page .page-hero{background:linear-gradient(180deg,#dbe6cf,#fffaf2)!imp
 
 
 
-.star-row{display:flex;gap:2px;margin:0!important;line-height:1!important}
-.star-row .star{font-size:28px!important}
-.mood-help{font-size:13px!important;color:#5a4638!important;font-weight:800!important;margin:0!important}
-.mood-grid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:6px!important;margin:10px 0 14px;margin-top:4px}
-.mood-btn{border:1px solid var(--line);background:#fff7ed;border-radius:14px!important;min-height:38px!important;padding:7px 6px!important;font:inherit;text-align:left;cursor:pointer;font-size:13.5px!important;line-height:1.1!important;font-weight:800!important}
+/* Stage 4E-22: .star-row, .star-row .star, .mood-help, .mood-grid, .mood-btn baseline
+   relocated to the Moments Mood/Star canonical section (see EOF). */
 .moments-form textarea,#unexpectedText{flex:1 1 auto!important;min-height:92px!important;max-height:none!important;resize:none!important;font-size:16px!important;line-height:1.45!important}
 .photo-input{border:1px dashed var(--line);border-radius:16px!important;padding:10px 12px!important;background:#fff7ed;margin:0!important;font-size:14px!important;font-weight:760!important}
 
@@ -426,11 +416,7 @@ input,select,textarea{font-size:16px!important;-webkit-text-size-adjust:100%}
 .page-hero h1,.module-hero h1{font-size:clamp(50px,13vw,76px)!important}
 .page-hero .lead,.module-hero .lead{font-size:17px!important;line-height:1.56!important}
 .page-hero::after,.module-hero::after{width:220px;height:220px;opacity:.16}
-
-
-
-.mood-grid{grid-template-columns:repeat(2,1fr)!important}
-.mood-btn{min-height:36px!important;font-size:13px!important}
+/* Stage 4E-22: .mood-grid / .mood-btn ≤480px override relocated to the Moments Mood/Star canonical section (see EOF). */
 .moments-form textarea,#unexpectedText{min-height:82px!important}}
 /* v3.9.3 Navigation & Branding Fix */
 /* Bottom menu popups: JS positions each menu under its own nav button; keep them visible and above nav. */
@@ -463,8 +449,12 @@ body.expenses-page .primary-action{background:#678f72!important;color:#fffaf7!im
 .guide-modal .guide-sheet{overflow-y:auto!important;overflow-x:hidden!important;-webkit-overflow-scrolling:touch!important;max-height:calc(100dvh - 20px)!important}
 html body.moments-page .page-hero .kicker,
 html body.moments-page .module-hero .kicker{color:#9a5361!important}
-html body.moments-page .primary-action,
-html body.moments-page .btn.primary-action,
+/* Stage 4E-22F: the two Moments-page .primary-action branches were removed here — they
+   had one extra .btn class, which made them accidentally out-specificity (and silently
+   defeat) the later "Strong explicit Moments pink theme" rule below, which already pairs
+   dark #54261d text with a light peach gradient background (~8.4:1 contrast) and was never
+   actually taking effect. Removing the two branches here lets that rule win as intended,
+   fixing the "Something to Say" CTA's contrast without inventing any new color. */
 .moments-sheet .btn{background:#b76c78!important;color:#fffaf7!important;border-color:#b76c78!important}
 .prose-block,
 .trip-card,
@@ -1027,11 +1017,20 @@ body.home-bg .home-day-button{min-height:42px!important;padding:9px 24px!importa
    ========================================================= */
 /* Sticky app top bar across Trip / Guide / Days / Moments / Expenses. */
 .site-nav{top:0!important;z-index:1200!important;display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:rgba(247,240,230,.82)!important;backdrop-filter:blur(18px)!important;border-bottom:1px solid var(--line)!important;box-shadow:none!important;position:sticky!important;transform:translateZ(0)!important}
-/* Desktop regression fix: don't clip the hero on shorter desktop viewports. */
-@media (min-width:721px){html:has(body.home-bg),
-  body.home-bg{height:auto!important;min-height:100dvh!important;overflow:auto!important}
-body.home-bg main.dashboard.home-premium.home-v37{height:auto!important;max-height:none!important;min-height:calc(100dvh - 72px)!important;overflow:visible!important;padding:22px 16px calc(104px + env(safe-area-inset-bottom))!important;align-items:center!important;justify-content:center!important}
-body.home-bg section.home-brand-card.v37-dashboard-home{transform:none!important;max-height:none!important;margin:0 auto!important}}
+/* Stage 4E-22F: main is now hard-capped at (100dvh - 72px) instead of only floored via
+   min-height, and body/html are no longer switched to overflow:auto here — they fall back
+   to the unconditional "CCMV Home One-Viewport Fix" rule above (height:100dvh; overflow:
+   hidden). Previously, min-height + overflow:visible + max-height:none let the Hero Card
+   grow past the viewport on realistic desktop window heights, which pushed the page into
+   document scroll while the fixed Bottom Navigation stayed pinned to the viewport bottom —
+   so part of the card ended up under the nav, and the page needed scrolling that shouldn't
+   have been necessary. Capping main's box means the existing 104px bottom reserve (value
+   unchanged) is always inside the visible viewport, so the nav can never overlap the card.
+   The card itself keeps a matching max-height with its own scroll as a safety net only for
+   unusually short desktop windows, instead of silently overflowing past its reserved space. */
+@media (min-width:721px){
+body.home-bg main.dashboard.home-premium.home-v37{height:calc(100dvh - 72px)!important;max-height:calc(100dvh - 72px)!important;min-height:0!important;overflow:visible!important;padding:22px 16px calc(104px + env(safe-area-inset-bottom))!important;align-items:center!important;justify-content:center!important}
+body.home-bg section.home-brand-card.v37-dashboard-home{transform:none!important;max-height:calc(100dvh - 198px)!important;overflow-y:auto!important;margin:0 auto!important}}
 /* Mobile: keep the compact one-screen feel without clipping. */
 @media (max-width:720px){body.home-bg main.dashboard.home-premium.home-v37{overflow:visible!important}}
 
@@ -1390,3 +1389,33 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
 
 /* --- Bottom clearance: inherited from shared .content-page padding-bottom (112px);
    no Days-specific override needed or added. --- */
+
+
+/* =========================================================
+   STAGE 4E-22 — MOMENTS MOOD/STAR CONTROLS CANONICAL
+   Single authority for the Moments input-modal mood-chip and
+   star-rating controls. Scope is deliberately narrow: this does
+   NOT cover the Moments modal shell (owned by the Stage 4E-13
+   canonical Moments/Expenses modal component), the Moments Hero,
+   Entry Card surface/typography, or the Unexpected Moment modal —
+   those remain separate, un-reset responsibility boundaries per
+   the Stage 4E-22B scope-split audit.
+   ========================================================= */
+
+/* --- Star rating row --- */
+.star-row{display:flex;gap:2px;margin:0!important;line-height:1!important}
+.star-row span{filter:grayscale(1);cursor:pointer}
+.star-row .star{font-size:28px!important}
+.star-row .active{filter:none}
+
+/* --- Mood chip grid (desktop / unconditional baseline) --- */
+.mood-help{font-size:13px!important;color:#5a4638!important;font-weight:800!important;margin:0!important}
+.mood-grid{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:6px!important;margin:10px 0 14px;margin-top:4px}
+.mood-btn{border:1px solid var(--line);background:#fff7ed;border-radius:14px!important;min-height:38px!important;padding:7px 6px!important;font:inherit;text-align:left;cursor:pointer;font-size:13.5px!important;line-height:1.1!important;font-weight:800!important}
+.mood-btn.active{background:#ead8c5;border-color:#8a4f2d;font-weight:700}
+
+/* --- Mood chip grid (<=480px override) --- */
+@media(max-width:480px){
+  .mood-grid{grid-template-columns:repeat(2,1fr)!important}
+  .mood-btn{min-height:36px!important;font-size:13px!important}
+}
