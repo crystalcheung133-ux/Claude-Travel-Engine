@@ -1017,29 +1017,29 @@ body.home-bg .home-day-button{min-height:42px!important;padding:9px 24px!importa
    ========================================================= */
 /* Sticky app top bar across Trip / Guide / Days / Moments / Expenses. */
 .site-nav{top:0!important;z-index:1200!important;display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:rgba(247,240,230,.82)!important;backdrop-filter:blur(18px)!important;border-bottom:1px solid var(--line)!important;box-shadow:none!important;position:sticky!important;transform:translateZ(0)!important}
-/* Stage 4E-22F: main is now hard-capped at (100dvh - 72px) instead of only floored via
-   min-height, and body/html are no longer switched to overflow:auto here — they fall back
-   to the unconditional "CCMV Home One-Viewport Fix" rule above (height:100dvh; overflow:
-   hidden). Previously, min-height + overflow:visible + max-height:none let the Hero Card
-   grow past the viewport on realistic desktop window heights, which pushed the page into
-   document scroll while the fixed Bottom Navigation stayed pinned to the viewport bottom —
-   so part of the card ended up under the nav, and the page needed scrolling that shouldn't
-   have been necessary. Capping main's box means the existing 104px bottom reserve (value
-   unchanged) is always inside the visible viewport, so the nav can never overlap the card.
-   The card itself keeps a matching max-height with its own scroll as a safety net only for
-   unusually short desktop windows, instead of silently overflowing past its reserved space. */
+/* Stage 4E-22F2 — Desktop Home geometry repair.
+   The 22F internal-scroll safety net was the defect: normal PC heights entered the card's
+   own scroll context, while removing that scroll without reducing content height clipped the
+   hero. Desktop now reserves the fixed Bottom Navigation inside main's viewport box and uses
+   one bounded short-height compact contract. Mobile remains under its existing <=720px rules. */
 @media (min-width:721px){
-body.home-bg main.dashboard.home-premium.home-v37{height:calc(100dvh - 72px)!important;max-height:calc(100dvh - 72px)!important;min-height:0!important;overflow:hidden!important;padding:22px 16px calc(104px + env(safe-area-inset-bottom))!important;align-items:center!important;justify-content:center!important}
-body.home-bg section.home-brand-card.v37-dashboard-home{transform:none!important;max-height:none!important;overflow:hidden!important;margin:0 auto!important}}
+body.home-bg main.dashboard.home-premium.home-v37{height:calc(100dvh - 66px)!important;max-height:calc(100dvh - 66px)!important;min-height:0!important;overflow:hidden!important;padding:8px 16px calc(92px + env(safe-area-inset-bottom))!important;align-items:center!important;justify-content:center!important}
+body.home-bg section.home-brand-card.v37-dashboard-home{transform:none!important;max-height:none!important;overflow:visible!important;margin:0 auto!important}}
 @media (min-width:721px) and (max-height:900px){
-body.home-bg .home-brand-card.v37-dashboard-home h1{font-size:clamp(58px,min(9vw,10vh),82px)!important}
-body.home-bg .home-brand-card.v37-dashboard-home .home-since{margin-bottom:4px!important}
-body.home-bg .home-brand-card.v37-dashboard-home .home-tagline{margin-bottom:6px!important}
-body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line{margin:2px 0 8px!important}
-body.home-bg .home-live-grid{margin:0 auto 8px!important}
-body.home-bg .live-card{min-height:68px!important;padding:7px 10px!important}
+body.home-bg section.home-brand-card.v37-dashboard-home{padding:12px 16px 14px!important}
+body.home-bg .home-brand-card.v37-dashboard-home .home-since{margin-bottom:3px!important;font-size:12px!important}
+body.home-bg .home-brand-card.v37-dashboard-home h1{font-size:clamp(60px,9.2vh,78px)!important;line-height:.82!important;margin-bottom:4px!important}
+body.home-bg .home-brand-card.v37-dashboard-home .home-tagline{margin-bottom:5px!important;font-size:12px!important;line-height:1.2!important}
+body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line{margin:1px 0 7px!important;gap:7px!important}
+body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{padding:6px 10px!important;font-size:12px!important}
+body.home-bg .home-live-grid{gap:7px!important;margin:0 auto 8px!important}
+body.home-bg .live-card{min-height:86px!important;padding:8px 10px!important}
+body.home-bg .live-icon{height:20px!important;line-height:20px!important;margin-bottom:2px!important}
+body.home-bg .live-card small{margin-bottom:2px!important}
+body.home-bg .live-card strong{font-size:17px!important}
+body.home-bg .live-card em{margin-top:2px!important}
 body.home-bg .home-day-button{min-height:40px!important;padding:8px 24px!important;margin-top:0!important}}
-/* Mobile: keep the compact one-screen feel without clipping. */
+/* Mobile: preserve the existing compact one-screen contract unchanged. */
 @media (max-width:720px){body.home-bg main.dashboard.home-premium.home-v37{overflow:visible!important}}
 
 
