@@ -1469,3 +1469,21 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
   #momentsModal .photo-prototype-card{grid-template-columns:72px minmax(0,1fr) 28px}
   #momentsModal .photo-prototype-card img{width:72px;height:60px}
 }
+
+
+/* =========================================================
+   STAGE 5B-2A1 — PHOTO UX POLISH + EDITORIAL COPY
+   Preserve the proven five-column nav and contextual Moment
+   flows; only stabilise iOS viewport return and align labels.
+   ========================================================= */
+.app-nav,
+.app-nav.app-nav--layout-sync{
+  transform:translate3d(-50%,0,0)!important;
+  -webkit-transform:translate3d(-50%,0,0)!important;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+.quick-info-actions .moment-button{
+  white-space:nowrap;
+  min-height:44px!important;
+}

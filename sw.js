@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ccmv-travel-engine-stage5b-2a-photo-capture-prototype';
+const CACHE_NAME = 'ccmv-travel-engine-stage5b-2a1-photo-ux-polish';
 const ASSETS = [
   './',
   './index.html',

@@ -139,7 +139,7 @@ function openGuideCategory(cat){
 }
 
 function quickInfoInnerHTML(g,key){
- return `<div class="quick-info-top"><span class="category-tag">${g.categoryLabel||g.cat||'Guide'}</span></div><div class="quick-info-grid"><div class="quick-info-row"><span class="quick-info-icon">📍</span><span><span class="quick-info-label">Address</span><span class="quick-info-value">${g.address||'Check before visit'}</span></span></div><div class="quick-info-row"><span class="quick-info-icon">🕘</span><span><span class="quick-info-label">Hours</span><span class="quick-info-value">${g.hours||'Check before visit'}</span></span></div><div class="quick-info-row"><span class="quick-info-icon">💰</span><span><span class="quick-info-label">Price</span><span class="quick-info-value">${g.price||'Varies'}</span></span></div>${visitDayHTML(key)}</div><div class="quick-info-actions"><a class="map-button" href="${g.maps}" target="_blank" rel="noopener">🗺 Open Google Maps</a><button class="moment-button" aria-label="Add Moment" onclick="openMomentsModal('${key}')">✨</button></div>`;
+ return `<div class="quick-info-top"><span class="category-tag">${g.categoryLabel||g.cat||'Guide'}</span></div><div class="quick-info-grid"><div class="quick-info-row"><span class="quick-info-icon">📍</span><span><span class="quick-info-label">Address</span><span class="quick-info-value">${g.address||'Check before visit'}</span></span></div><div class="quick-info-row"><span class="quick-info-icon">🕘</span><span><span class="quick-info-label">Hours</span><span class="quick-info-value">${g.hours||'Check before visit'}</span></span></div><div class="quick-info-row"><span class="quick-info-icon">💰</span><span><span class="quick-info-label">Price</span><span class="quick-info-value">${g.price||'Varies'}</span></span></div>${visitDayHTML(key)}</div><div class="quick-info-actions"><a class="map-button" href="${g.maps}" target="_blank" rel="noopener">🗺 Open Google Maps</a><button class="moment-button" aria-label="Add Moment" onclick="openMomentsModal('${key}')">✨ Moment</button></div>`;
 }
 function quickInfoHTML(g,key){
  return `<div class="quick-info-card">${quickInfoInnerHTML(g,key)}</div>`;
@@ -361,7 +361,7 @@ function copyText(text){
     preview.hidden=false;
     preview.innerHTML=`<div class="photo-prototype-card">
       <img src="${currentMomentPhoto.url}" alt="Compressed moment preview"/>
-      <div class="photo-prototype-copy"><strong>✨ Looking good!</strong><span>${meta.width||'?'} × ${meta.height||'?'} · ${formatBytes(meta.bytes)}</span><small>Compressed preview · local prototype</small></div>
+      <div class="photo-prototype-copy"><strong>✨ Looking good!</strong><span>${meta.width||'?'} × ${meta.height||'?'} · ${formatBytes(meta.bytes)}</span><small>${meta.originalBytes ? `Original ${formatBytes(meta.originalBytes)} → ` : ''}Compressed preview · local prototype</small></div>
       <button type="button" class="photo-remove" onclick="removeMomentPhoto()" aria-label="Remove photo">×</button>
     </div>`;
   }
@@ -412,7 +412,26 @@ function copyText(text){
       alert(err?.message||'Unable to prepare this photo.');
     }finally{
       if(zone) zone.classList.remove('is-processing');
+      queueAppNavSync();
     }
+  }
+  function stabiliseAppNavAfterViewportChange(){
+    const nav=document.querySelector('.app-nav');
+    if(!nav) return;
+    nav.classList.add('app-nav--layout-sync');
+    void nav.offsetHeight;
+    requestAnimationFrame(()=>requestAnimationFrame(()=>nav.classList.remove('app-nav--layout-sync')));
+  }
+  let appNavSyncTimer=0;
+  function queueAppNavSync(){
+    clearTimeout(appNavSyncTimer);
+    appNavSyncTimer=setTimeout(stabiliseAppNavAfterViewportChange,80);
+  }
+  window.addEventListener('focus',queueAppNavSync);
+  window.addEventListener('pageshow',queueAppNavSync);
+  if(window.visualViewport){
+    window.visualViewport.addEventListener('resize',queueAppNavSync);
+    window.visualViewport.addEventListener('scroll',queueAppNavSync);
   }
   window.removeMomentPhoto=function(){ clearMomentPhoto(true); };
   function enhanceMomentPhotoInput(){
