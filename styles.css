@@ -1696,3 +1696,97 @@ body.moments-page .module-hero .page-action-row{
   #momentsModal .moment-activity-grid{grid-template-columns:1fr;max-height:200px}
   #momentsModal .moment-day-tab{font-size:11px}
 }
+
+
+/* =========================================================
+   STAGE 5B-2B1 — DIRECT CAPTURE CHOICE + COMPACT COMPOSER
+   ========================================================= */
+body.moments-page .moments-capture-choices{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:9px!important;
+}
+body.moments-page .moments-capture-choices .btn{
+  min-height:46px!important;
+  padding:10px 12px!important;
+}
+body.moments-page .moments-planned-entry{
+  border:1px solid rgba(183,107,82,.38)!important;
+  background:rgba(255,250,246,.88)!important;
+  color:#713d32!important;
+  box-shadow:none!important;
+}
+#momentsModal .moment-context-panel.is-custom{
+  margin:0!important;
+}
+#momentsModal .moment-context-panel.is-custom .moment-planned-toggle{
+  display:none!important;
+}
+#momentsModal .moment-context-summary[hidden]{
+  display:none!important;
+}
+#momentsModal .moments-sheet{
+  height:auto!important;
+  max-height:calc(100svh - 20px)!important;
+  overflow-y:auto!important;
+}
+#momentsModal .moments-form{
+  gap:7px!important;
+  overflow:visible!important;
+}
+#momentsModal .moment-context-panel{
+  gap:7px!important;
+  margin-bottom:8px!important;
+}
+#momentsModal .moment-context-summary{
+  min-height:46px!important;
+  padding:8px 10px!important;
+}
+#momentsModal .moment-context-dot{
+  width:30px!important;
+  height:30px!important;
+  flex-basis:30px!important;
+}
+#momentsModal .star-row{
+  margin-block:0!important;
+}
+#momentsModal .mood-help{
+  margin:0!important;
+}
+#momentsModal #momentsText{
+  min-height:58px!important;
+  max-height:72px!important;
+}
+#momentsModal .photo-capture-zone{
+  padding:8px!important;
+}
+#momentsModal .photo-capture-heading{
+  margin-bottom:6px!important;
+}
+#momentsModal .photo-capture-actions{
+  gap:6px!important;
+}
+#momentsModal .photo-capture-btn{
+  min-height:38px!important;
+  padding:8px 9px!important;
+}
+@media(max-width:520px){
+  body.moments-page .moments-capture-choices{
+    grid-template-columns:1fr 1fr!important;
+  }
+  body.moments-page .moments-capture-choices .btn{
+    min-height:44px!important;
+    padding:9px 8px!important;
+    font-size:13px!important;
+  }
+  #momentsModal .moments-sheet{
+    max-height:calc(100svh - 12px)!important;
+    padding:13px 14px 12px!important;
+  }
+  #momentsModal .moments-sheet h2{
+    font-size:27px!important;
+    margin-bottom:2px!important;
+  }
+  #momentsModal .moments-sheet .kicker{
+    margin-bottom:2px!important;
+  }
+}

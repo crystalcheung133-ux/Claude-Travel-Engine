@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ccmv-travel-engine-stage5b-2b-unified-moment-context';
+const CACHE_NAME = 'ccmv-travel-engine-stage5b-2b1-direct-capture-compact';
 const ASSETS = [
   './',
   './index.html',

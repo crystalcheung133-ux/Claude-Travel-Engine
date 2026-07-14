@@ -477,7 +477,7 @@ function copyText(text){
   }
   function resolveMomentContext(key, sourceHint){
     const raw=key||'general';
-    if(raw==='general') return {contextType:'custom',placeKey:null,activityId:null,dayId:null,displayTitleSnapshot:'Custom Moment'};
+    if(raw==='general') return {contextType:'custom',placeKey:null,activityId:null,dayId:null,displayTitleSnapshot:'Just this moment'};
     const source=sourceHint||momentEntrySource();
     if(source==='guide' && typeof PLACES!=='undefined' && PLACES[raw]){
       const candidates=guideCandidates(raw);
@@ -495,7 +495,7 @@ function copyText(text){
       const only=unique.size===1?[...unique.values()][0]:null;
       return {contextType:'guide',placeKey:raw,activityId:only?.id||null,dayId:only?.dayId||null,displayTitleSnapshot:PLACES[raw].title||'Moment'};
     }
-    return {contextType:'custom',placeKey:null,activityId:null,dayId:null,displayTitleSnapshot:'Custom Moment'};
+    return {contextType:'custom',placeKey:null,activityId:null,dayId:null,displayTitleSnapshot:'Just this moment'};
   }
   function plannedMomentContext(dayNumber,item){
     return {contextType:'planned-activity',placeKey:item.placeId||null,activityId:item.id,dayId:normaliseDayId(item.dayId)||('day'+dayNumber),displayTitleSnapshot:stripMomentTitle(item.title)};
@@ -511,15 +511,22 @@ function copyText(text){
     const box=document.getElementById('momentContextSummary');
     if(!box) return;
     const c=currentMomentContext||resolveMomentContext('general');
-    if(c.contextType==='custom') box.innerHTML='<span class="moment-context-dot">✨</span><span><strong>Custom Moment</strong><small>No planned activity attached</small></span>';
-    else box.innerHTML=`<span class="moment-context-dot">✓</span><span><strong>${c.displayTitleSnapshot}</strong><small>${c.dayId ? `Day ${dayNumberFromId(c.dayId)} · ` : ''}${c.contextType==='guide'?'From Guide':'Planned activity'}</small></span>`;
+    if(c.contextType==='custom'){
+      box.hidden=true;
+      box.innerHTML='';
+      box.closest('.moment-context-panel')?.classList.add('is-custom');
+    } else {
+      box.hidden=false;
+      box.closest('.moment-context-panel')?.classList.remove('is-custom');
+      box.innerHTML=`<span class="moment-context-dot">✓</span><span><strong>${c.displayTitleSnapshot}</strong><small>${c.dayId ? `Day ${dayNumberFromId(c.dayId)} · ` : ''}${c.contextType==='guide'?'From Guide':'Planned activity'}</small></span>`;
+    }
   }
   function renderPlannedActivityPicker(){
     const host=document.getElementById('momentPlannedPicker');
     if(!host) return;
     const day=(typeof ITINERARY_DATA!=='undefined'?ITINERARY_DATA:null)?.[momentSelectorDay];
     const chips=(day?.items||[]).map(item=>`<button type="button" class="moment-activity-chip" onclick="chooseMomentActivity('${momentSelectorDay}','${String(item.id).replace(/'/g,"\'")}')"><span>${stripMomentTitle(item.title)}</span><small>${item.time||''}</small></button>`).join('');
-    host.innerHTML=`<button type="button" class="moment-custom-choice" onclick="clearMomentActivity()">✨ Keep it as a Custom Moment</button><div class="moment-day-tabs">${['1','2','3','4','5'].map(n=>`<button type="button" class="moment-day-tab ${n===momentSelectorDay?'active':''}" onclick="setMomentSelectorDay('${n}')">Day ${n}</button>`).join('')}</div><div class="moment-activity-grid">${chips}</div>`;
+    host.innerHTML=`<button type="button" class="moment-custom-choice" onclick="clearMomentActivity()">✨ Just this moment</button><div class="moment-day-tabs">${['1','2','3','4','5'].map(n=>`<button type="button" class="moment-day-tab ${n===momentSelectorDay?'active':''}" onclick="setMomentSelectorDay('${n}')">Day ${n}</button>`).join('')}</div><div class="moment-activity-grid">${chips}</div>`;
   }
   function ensureMomentContextUI(){
     const form=document.querySelector('#momentsModal .moments-form');
@@ -536,6 +543,17 @@ function copyText(text){
     picker.hidden=!picker.hidden;
     if(!picker.hidden){ renderPlannedActivityPicker(); if(toggle) toggle.textContent='− Hide planned activities'; }
     else if(toggle) toggle.textContent=currentMomentContext?.contextType==='custom'?'＋ Add planned activity':'Change planned activity';
+  };
+  window.openPlannedMomentCapture=function(){
+    window.openMomentsModal('general');
+    momentSelectorDay=suggestedMomentDay();
+    const picker=document.getElementById('momentPlannedPicker');
+    const toggle=document.getElementById('momentPlannedToggle');
+    if(picker){
+      picker.hidden=false;
+      renderPlannedActivityPicker();
+    }
+    if(toggle) toggle.textContent='− Hide planned activities';
   };
   window.setMomentSelectorDay=function(dayNumber){ momentSelectorDay=String(dayNumber); renderPlannedActivityPicker(); };
   window.chooseMomentActivity=function(dayNumber,activityId){
@@ -554,7 +572,7 @@ function copyText(text){
   window.clearMomentActivity=function(){
     currentMomentKey='general';
     currentMomentContext=resolveMomentContext('general');
-    const title=document.getElementById('momentsTitle'); if(title) title.textContent='Custom Moment';
+    const title=document.getElementById('momentsTitle'); if(title) title.textContent='Just this moment';
     renderMomentContextSummary();
     const picker=document.getElementById('momentPlannedPicker'); if(picker) picker.hidden=true;
     const toggle=document.getElementById('momentPlannedToggle'); if(toggle) toggle.textContent='＋ Add planned activity';
