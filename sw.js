@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ccmv-travel-engine-stage5b-2a2-moments-export-hierarchy';
+const CACHE_NAME = 'ccmv-travel-engine-stage5b-2b-unified-moment-context';
 const ASSETS = [
   './',
   './index.html',

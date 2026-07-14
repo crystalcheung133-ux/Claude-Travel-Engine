@@ -329,6 +329,8 @@ function copyText(text){
 (function(){
   let editingMomentId = null;
   let currentMomentPhoto = null;
+  let currentMomentContext = null;
+  let momentSelectorDay = '1';
   const prototypePhotoUrls = new Map();
   function readJson(key, fallback){try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));}catch(e){return fallback;}}
   function writeJson(key, value){localStorage.setItem(key, JSON.stringify(value));}
@@ -434,6 +436,129 @@ function copyText(text){
     window.visualViewport.addEventListener('scroll',queueAppNavSync);
   }
   window.removeMomentPhoto=function(){ clearMomentPhoto(true); };
+  function normaliseDayId(value){
+    if(value == null) return null;
+    const raw=String(value);
+    if(/^day[1-5]$/.test(raw)) return raw;
+    if(/^[1-5]$/.test(raw)) return 'day'+raw;
+    return null;
+  }
+  function dayNumberFromId(dayId){
+    const match=String(dayId||'').match(/day([1-5])/);
+    return match ? match[1] : null;
+  }
+  function itineraryItems(){
+    const out=[];
+    Object.entries((typeof ITINERARY_DATA!=='undefined'&&ITINERARY_DATA)||{}).forEach(([dayNumber,day])=>{
+      (day?.items||[]).forEach(item=>out.push({...item,_dayNumber:String(dayNumber),dayId:normaliseDayId(item.dayId)||('day'+dayNumber)}));
+    });
+    return out;
+  }
+  function stripMomentTitle(title){
+    return String(title||'Moment').replace(/^[^\p{L}\p{N}]+/u,'').trim() || 'Moment';
+  }
+  function guideCandidates(placeKey){
+    const links=(typeof DAY_LINKS!=='undefined'&&DAY_LINKS[placeKey])||[];
+    return links.map(link=>{
+      const href=Array.isArray(link)?link[1]:'';
+      const dayMatch=String(href||'').match(/[?&]day=([1-5])/);
+      const idMatch=String(href||'').match(/#([^#?&]+)/);
+      if(!dayMatch||!idMatch) return null;
+      const item=itineraryItems().find(x=>x._dayNumber===dayMatch[1]&&x.id===decodeURIComponent(idMatch[1]));
+      return item||null;
+    }).filter(Boolean);
+  }
+  function momentEntrySource(){
+    const guideModalOpen=document.getElementById('guideModal')?.classList.contains('show');
+    const path=(location.pathname||'').split('/').pop();
+    if(guideModalOpen || path==='guide.html' || path==='place.html' || document.getElementById('placeMain')) return 'guide';
+    if(path==='day.html') return 'days';
+    return 'unknown';
+  }
+  function resolveMomentContext(key, sourceHint){
+    const raw=key||'general';
+    if(raw==='general') return {contextType:'custom',placeKey:null,activityId:null,dayId:null,displayTitleSnapshot:'Custom Moment'};
+    const source=sourceHint||momentEntrySource();
+    if(source==='guide' && typeof PLACES!=='undefined' && PLACES[raw]){
+      const candidates=guideCandidates(raw);
+      const unique=new Map(candidates.map(x=>[x.dayId+'|'+x.id,x]));
+      const only=unique.size===1?[...unique.values()][0]:null;
+      return {contextType:'guide',placeKey:raw,activityId:only?.id||null,dayId:only?.dayId||null,displayTitleSnapshot:PLACES[raw].title||'Moment'};
+    }
+    const item=itineraryItems().find(x=>x.id===raw);
+    if(item){
+      return {contextType:'days',placeKey:item.placeId||null,activityId:item.id,dayId:item.dayId,displayTitleSnapshot:stripMomentTitle(item.title)};
+    }
+    if(typeof PLACES!=='undefined'&&PLACES[raw]){
+      const candidates=guideCandidates(raw);
+      const unique=new Map(candidates.map(x=>[x.dayId+'|'+x.id,x]));
+      const only=unique.size===1?[...unique.values()][0]:null;
+      return {contextType:'guide',placeKey:raw,activityId:only?.id||null,dayId:only?.dayId||null,displayTitleSnapshot:PLACES[raw].title||'Moment'};
+    }
+    return {contextType:'custom',placeKey:null,activityId:null,dayId:null,displayTitleSnapshot:'Custom Moment'};
+  }
+  function plannedMomentContext(dayNumber,item){
+    return {contextType:'planned-activity',placeKey:item.placeId||null,activityId:item.id,dayId:normaliseDayId(item.dayId)||('day'+dayNumber),displayTitleSnapshot:stripMomentTitle(item.title)};
+  }
+  function suggestedMomentDay(){
+    const start=new Date(2026,9,30);
+    const today=new Date();
+    const local=new Date(today.getFullYear(),today.getMonth(),today.getDate());
+    const diff=Math.round((local-start)/86400000);
+    return diff>=0&&diff<=4 ? String(diff+1) : '1';
+  }
+  function renderMomentContextSummary(){
+    const box=document.getElementById('momentContextSummary');
+    if(!box) return;
+    const c=currentMomentContext||resolveMomentContext('general');
+    if(c.contextType==='custom') box.innerHTML='<span class="moment-context-dot">✨</span><span><strong>Custom Moment</strong><small>No planned activity attached</small></span>';
+    else box.innerHTML=`<span class="moment-context-dot">✓</span><span><strong>${c.displayTitleSnapshot}</strong><small>${c.dayId ? `Day ${dayNumberFromId(c.dayId)} · ` : ''}${c.contextType==='guide'?'From Guide':'Planned activity'}</small></span>`;
+  }
+  function renderPlannedActivityPicker(){
+    const host=document.getElementById('momentPlannedPicker');
+    if(!host) return;
+    const day=(typeof ITINERARY_DATA!=='undefined'?ITINERARY_DATA:null)?.[momentSelectorDay];
+    const chips=(day?.items||[]).map(item=>`<button type="button" class="moment-activity-chip" onclick="chooseMomentActivity('${momentSelectorDay}','${String(item.id).replace(/'/g,"\'")}')"><span>${stripMomentTitle(item.title)}</span><small>${item.time||''}</small></button>`).join('');
+    host.innerHTML=`<button type="button" class="moment-custom-choice" onclick="clearMomentActivity()">✨ Keep it as a Custom Moment</button><div class="moment-day-tabs">${['1','2','3','4','5'].map(n=>`<button type="button" class="moment-day-tab ${n===momentSelectorDay?'active':''}" onclick="setMomentSelectorDay('${n}')">Day ${n}</button>`).join('')}</div><div class="moment-activity-grid">${chips}</div>`;
+  }
+  function ensureMomentContextUI(){
+    const form=document.querySelector('#momentsModal .moments-form');
+    if(!form||form.querySelector('.moment-context-panel')) return;
+    const panel=document.createElement('div');
+    panel.className='moment-context-panel';
+    panel.innerHTML=`<div id="momentContextSummary" class="moment-context-summary"></div><button type="button" id="momentPlannedToggle" class="moment-planned-toggle" onclick="toggleMomentPlannedPicker()">＋ Add planned activity</button><div id="momentPlannedPicker" class="moment-planned-picker" hidden></div>`;
+    form.insertBefore(panel,form.firstChild);
+  }
+  window.toggleMomentPlannedPicker=function(){
+    const picker=document.getElementById('momentPlannedPicker');
+    const toggle=document.getElementById('momentPlannedToggle');
+    if(!picker) return;
+    picker.hidden=!picker.hidden;
+    if(!picker.hidden){ renderPlannedActivityPicker(); if(toggle) toggle.textContent='− Hide planned activities'; }
+    else if(toggle) toggle.textContent=currentMomentContext?.contextType==='custom'?'＋ Add planned activity':'Change planned activity';
+  };
+  window.setMomentSelectorDay=function(dayNumber){ momentSelectorDay=String(dayNumber); renderPlannedActivityPicker(); };
+  window.chooseMomentActivity=function(dayNumber,activityId){
+    const item=((typeof ITINERARY_DATA!=='undefined'?ITINERARY_DATA:null)?.[String(dayNumber)]?.items||[]).find(x=>x.id===activityId);
+    if(!item) return;
+    currentMomentKey=item.id;
+    currentMomentContext=plannedMomentContext(String(dayNumber),item);
+    const title=document.getElementById('momentsTitle');
+    if(title) title.textContent=currentMomentContext.displayTitleSnapshot;
+    renderMomentContextSummary();
+    const picker=document.getElementById('momentPlannedPicker');
+    const toggle=document.getElementById('momentPlannedToggle');
+    if(picker) picker.hidden=true;
+    if(toggle) toggle.textContent='Change planned activity';
+  };
+  window.clearMomentActivity=function(){
+    currentMomentKey='general';
+    currentMomentContext=resolveMomentContext('general');
+    const title=document.getElementById('momentsTitle'); if(title) title.textContent='Custom Moment';
+    renderMomentContextSummary();
+    const picker=document.getElementById('momentPlannedPicker'); if(picker) picker.hidden=true;
+    const toggle=document.getElementById('momentPlannedToggle'); if(toggle) toggle.textContent='＋ Add planned activity';
+  };
   function enhanceMomentPhotoInput(){
     document.querySelectorAll('#momentsModal .photo-input').forEach(host=>{
       if(host.dataset.photoEnhanced==='true') return;
@@ -453,13 +578,19 @@ function copyText(text){
   window.openMomentsModal = function(key){
     editingMomentId = null;
     currentMomentKey = key || 'general';
-    const g = PLACES[currentMomentKey] || PLACES.general || {title:'Moment'};
+    currentMomentContext = resolveMomentContext(currentMomentKey);
+    momentSelectorDay = dayNumberFromId(currentMomentContext.dayId) || suggestedMomentDay();
+    const g = PLACES[currentMomentContext.placeKey||currentMomentKey] || PLACES.general || {title:'Moment'};
     const title = document.getElementById('momentsTitle');
     const friend = document.getElementById('momentsFriend');
     const text = document.getElementById('momentsText');
-    if(title) title.textContent = g.title || 'Moment';
+    if(title) title.textContent = currentMomentContext.displayTitleSnapshot || g.title || 'Moment';
     if(friend) friend.textContent = FRIENDS[getFriend()];
     if(text) text.value = '';
+    ensureMomentContextUI();
+    renderMomentContextSummary();
+    const picker=document.getElementById('momentPlannedPicker'); if(picker) picker.hidden=true;
+    const toggle=document.getElementById('momentPlannedToggle'); if(toggle) toggle.textContent=currentMomentContext.contextType==='custom'?'＋ Add planned activity':'Change planned activity';
     clearMomentPhoto(true);
     setStars(0);
     renderMoodButtons([]);
@@ -479,7 +610,8 @@ function copyText(text){
     let entry={
       id:editingMomentId || ('m_'+Date.now()+'_'+Math.random().toString(36).slice(2,7)),
       itemKey:key,
-      itemTitle:g.title || 'Moment',
+      itemTitle:currentMomentContext?.displayTitleSnapshot || g.title || 'Moment',
+      context:{...(currentMomentContext||resolveMomentContext(key))},
       friendLabel:FRIENDS[getFriend()],
       rating:Number(ratingEl?.value||0),
       moods:(currentMood||[]).slice(),
@@ -512,10 +644,16 @@ function copyText(text){
     if(!e) return;
     editingMomentId=id;
     currentMomentKey=e.itemKey || 'general';
+    currentMomentContext=e.context ? {...e.context} : resolveMomentContext(currentMomentKey);
+    momentSelectorDay=dayNumberFromId(currentMomentContext.dayId)||suggestedMomentDay();
+    ensureMomentContextUI();
+    renderMomentContextSummary();
+    const picker=document.getElementById('momentPlannedPicker'); if(picker) picker.hidden=true;
+    const toggle=document.getElementById('momentPlannedToggle'); if(toggle) toggle.textContent=currentMomentContext.contextType==='custom'?'＋ Add planned activity':'Change planned activity';
     const title=document.getElementById('momentsTitle');
     const friend=document.getElementById('momentsFriend');
     const text=document.getElementById('momentsText');
-    if(title) title.textContent=e.itemTitle || 'Moment';
+    if(title) title.textContent=e.context?.displayTitleSnapshot || e.itemTitle || 'Moment';
     if(friend) friend.textContent=e.friendLabel || FRIENDS[getFriend()];
     if(text) text.value=e.text || '';
     clearMomentPhoto(true);
