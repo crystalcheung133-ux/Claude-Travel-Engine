@@ -1487,3 +1487,79 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
   white-space:nowrap;
   min-height:44px!important;
 }
+
+
+/* =========================================================
+   STAGE 5B-2A2 — MOMENTS VISUAL REBALANCE + EXPORT HIERARCHY
+   Moments keeps its joyful memory identity with a calmer,
+   three-level editorial hierarchy. Expenses export becomes a
+   compact utility action outside the primary capture flow.
+   ========================================================= */
+body.moments-page .module-hero{
+  background:linear-gradient(180deg,#ecd2d8 0%,#f6e5e8 48%,#fffaf7 100%)!important;
+  background-image:linear-gradient(180deg,#ecd2d8 0%,#f6e5e8 48%,#fffaf7 100%)!important;
+  padding:25px 26px 23px!important;
+}
+body.moments-page .module-hero .kicker{
+  color:#a05a69!important;
+}
+body.moments-page .module-hero h1{
+  color:#33231f!important;
+  font-size:clamp(42px,7.2vw,68px)!important;
+  line-height:.98!important;
+  margin-bottom:11px!important;
+}
+body.moments-page .module-hero .lead{
+  color:#765e60!important;
+  font-size:17px!important;
+  line-height:1.5!important;
+  font-weight:620!important;
+  max-width:38rem;
+}
+body.moments-page .module-hero .page-action-row{
+  margin-top:18px!important;
+}
+.expense-utility-row{
+  display:flex;
+  justify-content:flex-end;
+  align-items:center;
+  margin:-12px 2px 10px;
+}
+.expense-export-action--compact{
+  appearance:none;
+  min-height:36px;
+  padding:7px 11px;
+  border:1px solid rgba(82,122,93,.32);
+  border-radius:999px;
+  background:rgba(255,250,242,.78);
+  color:#41654a;
+  font:inherit;
+  font-size:13px;
+  line-height:1;
+  font-weight:800;
+  letter-spacing:.01em;
+  cursor:pointer;
+  box-shadow:none;
+}
+.expense-export-action--compact:active{
+  transform:translateY(1px);
+}
+@media(max-width:520px){
+  body.moments-page .module-hero{
+    padding:23px 22px 21px!important;
+  }
+  body.moments-page .module-hero h1{
+    font-size:clamp(40px,12vw,58px)!important;
+  }
+  body.moments-page .module-hero .lead{
+    font-size:16px!important;
+  }
+  .expense-utility-row{
+    margin:-10px 2px 8px;
+  }
+  .expense-export-action--compact{
+    min-height:34px;
+    padding:7px 10px;
+    font-size:12.5px;
+  }
+}

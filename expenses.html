@@ -8,8 +8,10 @@
 <p class="lead">A clear record of what we shared, spent and settled.</p>
 <div class="page-action-row" data-v35="expense-action">
 <button class="btn primary-action" onclick="openExpenseModal()" type="button">💸 What did we spend?</button>
-<button class="btn expense-export-action" onclick="exportExpenseData()" type="button">⇩ Export Data</button>
 </div></div>
+<div class="expense-utility-row" aria-label="Expense utilities">
+<button class="expense-export-action expense-export-action--compact" onclick="exportExpenseData()" type="button">↗ Export data</button>
+</div>
 <section class="prose-block">
 <div id="expensePageList"></div>
 </section>
