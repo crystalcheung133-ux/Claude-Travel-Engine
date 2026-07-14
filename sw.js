@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ccmv-travel-engine-stage4e-17g1-expenses-bottom-clearance-repair';
+const CACHE_NAME = 'ccmv-travel-engine-stage5b-2a-photo-capture-prototype';
 const ASSETS = [
   './',
   './index.html',

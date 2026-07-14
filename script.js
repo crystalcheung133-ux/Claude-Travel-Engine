@@ -328,8 +328,109 @@ function copyText(text){
 /* v3.2 P0 workflow fixes: append Moments, latest-first Expenses, save-and-stay expense tool */
 (function(){
   let editingMomentId = null;
+  let currentMomentPhoto = null;
+  const prototypePhotoUrls = new Map();
   function readJson(key, fallback){try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));}catch(e){return fallback;}}
   function writeJson(key, value){localStorage.setItem(key, JSON.stringify(value));}
+  function formatBytes(bytes){
+    if(!Number.isFinite(bytes)) return '';
+    if(bytes < 1024) return bytes + ' B';
+    if(bytes < 1024*1024) return (bytes/1024).toFixed(bytes < 10240 ? 1 : 0) + ' KB';
+    return (bytes/(1024*1024)).toFixed(1) + ' MB';
+  }
+  function clearMomentPhoto(revoke=true){
+    if(currentMomentPhoto?.url && revoke && ![...prototypePhotoUrls.values()].includes(currentMomentPhoto.url)){
+      try{ URL.revokeObjectURL(currentMomentPhoto.url); }catch(e){}
+    }
+    currentMomentPhoto = null;
+    const inputCamera=document.getElementById('momentsPhotoCamera');
+    const inputLibrary=document.getElementById('momentsPhotoLibrary');
+    if(inputCamera) inputCamera.value='';
+    if(inputLibrary) inputLibrary.value='';
+    renderMomentPhotoPreview();
+  }
+  function renderMomentPhotoPreview(){
+    const preview=document.getElementById('momentsPhotoPreview');
+    if(!preview) return;
+    if(!currentMomentPhoto){
+      preview.hidden=true;
+      preview.innerHTML='';
+      return;
+    }
+    const meta=currentMomentPhoto.meta||{};
+    preview.hidden=false;
+    preview.innerHTML=`<div class="photo-prototype-card">
+      <img src="${currentMomentPhoto.url}" alt="Compressed moment preview"/>
+      <div class="photo-prototype-copy"><strong>✨ Looking good!</strong><span>${meta.width||'?'} × ${meta.height||'?'} · ${formatBytes(meta.bytes)}</span><small>Compressed preview · local prototype</small></div>
+      <button type="button" class="photo-remove" onclick="removeMomentPhoto()" aria-label="Remove photo">×</button>
+    </div>`;
+  }
+  function loadImageFromFile(file){
+    return new Promise((resolve,reject)=>{
+      const url=URL.createObjectURL(file);
+      const img=new Image();
+      img.onload=()=>{URL.revokeObjectURL(url);resolve(img);};
+      img.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('Could not read this photo.'));};
+      img.src=url;
+    });
+  }
+  function canvasToBlob(canvas,type,quality){
+    return new Promise(resolve=>canvas.toBlob(resolve,type,quality));
+  }
+  async function compressMomentPhoto(file){
+    if(!file || !file.type.startsWith('image/')) throw new Error('Please choose a photo.');
+    const img=await loadImageFromFile(file);
+    const maxEdge=1600;
+    const scale=Math.min(1,maxEdge/Math.max(img.naturalWidth,img.naturalHeight));
+    const width=Math.max(1,Math.round(img.naturalWidth*scale));
+    const height=Math.max(1,Math.round(img.naturalHeight*scale));
+    const canvas=document.createElement('canvas');
+    canvas.width=width; canvas.height=height;
+    const ctx=canvas.getContext('2d',{alpha:false});
+    ctx.fillStyle='#fff'; ctx.fillRect(0,0,width,height);
+    ctx.drawImage(img,0,0,width,height);
+    let type='image/webp', quality=.75;
+    let blob=await canvasToBlob(canvas,type,quality);
+    if(!blob){ type='image/jpeg'; quality=.82; blob=await canvasToBlob(canvas,type,quality); }
+    for(const q of [.68,.60,.52]){
+      if(blob && blob.size<=500*1024) break;
+      const next=await canvasToBlob(canvas,type,q);
+      if(next) blob=next;
+    }
+    if(!blob) throw new Error('Photo compression failed. Please try another photo.');
+    return {blob,url:URL.createObjectURL(blob),meta:{name:file.name||'camera-photo',bytes:blob.size,width,height,type:blob.type,originalBytes:file.size||0}};
+  }
+  async function handleMomentPhotoFile(file){
+    const zone=document.querySelector('#momentsModal .photo-capture-zone');
+    if(zone) zone.classList.add('is-processing');
+    try{
+      const processed=await compressMomentPhoto(file);
+      clearMomentPhoto(true);
+      currentMomentPhoto=processed;
+      renderMomentPhotoPreview();
+    }catch(err){
+      alert(err?.message||'Unable to prepare this photo.');
+    }finally{
+      if(zone) zone.classList.remove('is-processing');
+    }
+  }
+  window.removeMomentPhoto=function(){ clearMomentPhoto(true); };
+  function enhanceMomentPhotoInput(){
+    document.querySelectorAll('#momentsModal .photo-input').forEach(host=>{
+      if(host.dataset.photoEnhanced==='true') return;
+      host.dataset.photoEnhanced='true';
+      host.classList.add('photo-capture-zone');
+      host.innerHTML=`<div class="photo-capture-heading"><span class="photo-capture-spark">📸</span><span><strong>Add a happy snap</strong><small>We compress it before anything is saved.</small></span></div>
+        <div class="photo-capture-actions">
+          <label class="photo-capture-btn photo-capture-btn--camera">📷 Take Photo<input id="momentsPhotoCamera" type="file" accept="image/*" capture="environment" hidden></label>
+          <label class="photo-capture-btn">🖼 Choose Photo<input id="momentsPhotoLibrary" type="file" accept="image/*" hidden></label>
+        </div>
+        <div id="momentsPhotoPreview" class="photo-prototype-preview" hidden></div>`;
+      host.querySelectorAll('input[type=file]').forEach(input=>input.addEventListener('change',e=>{
+        const file=e.target.files?.[0]; if(file) handleMomentPhotoFile(file);
+      }));
+    });
+  }
   window.openMomentsModal = function(key){
     editingMomentId = null;
     currentMomentKey = key || 'general';
@@ -340,6 +441,7 @@ function copyText(text){
     if(title) title.textContent = g.title || 'Moment';
     if(friend) friend.textContent = FRIENDS[getFriend()];
     if(text) text.value = '';
+    clearMomentPhoto(true);
     setStars(0);
     renderMoodButtons([]);
     const save=document.querySelector('#momentsModal .moments-form .btn');
@@ -363,17 +465,23 @@ function copyText(text){
       rating:Number(ratingEl?.value||0),
       moods:(currentMood||[]).slice(),
       text:textEl?.value||'',
+      photoPrototype:currentMomentPhoto ? {...currentMomentPhoto.meta, retained:false} : null,
       createdAt:now
     };
     if(editingMomentId){
+      const existing=arr.find(e=>e.id===editingMomentId);
+      if(!currentMomentPhoto && existing?.photoPrototype) entry.photoPrototype=existing.photoPrototype;
       arr=arr.map(e=> e.id===editingMomentId ? {...e,...entry,createdAt:e.createdAt||now,editedAt:now} : e);
     }else{
       arr.push(entry);
     }
+    if(currentMomentPhoto?.url) prototypePhotoUrls.set(entry.id,currentMomentPhoto.url);
     writeJson('moments_list',arr);
     localStorage.setItem('moment_latest_'+key, JSON.stringify(entry));
     editingMomentId=null;
     if(textEl) textEl.value='';
+    currentMomentPhoto=null;
+    renderMomentPhotoPreview();
     setStars(0); renderMoodButtons([]);
     const save=document.querySelector('#momentsModal .moments-form .btn');
     if(save) save.textContent='Save';
@@ -391,6 +499,12 @@ function copyText(text){
     if(title) title.textContent=e.itemTitle || 'Moment';
     if(friend) friend.textContent=e.friendLabel || FRIENDS[getFriend()];
     if(text) text.value=e.text || '';
+    clearMomentPhoto(true);
+    const rememberedUrl=prototypePhotoUrls.get(e.id);
+    if(rememberedUrl && e.photoPrototype){
+      currentMomentPhoto={url:rememberedUrl,meta:e.photoPrototype};
+      renderMomentPhotoPreview();
+    }
     setStars(e.rating||0);
     renderMoodButtons(e.moods||[]);
     const save=document.querySelector('#momentsModal .moments-form .btn');
@@ -405,6 +519,8 @@ function copyText(text){
     arr=arr.filter(e=>e.id!==idOrKey);
     writeJson('moments_list',arr);
     if(before===arr.length && idOrKey && !idOrKey.startsWith('m_')) localStorage.removeItem('moment_'+idOrKey);
+    const photoUrl=prototypePhotoUrls.get(idOrKey);
+    if(photoUrl){try{URL.revokeObjectURL(photoUrl);}catch(e){} prototypePhotoUrls.delete(idOrKey);}
     renderMoments();
   };
   window.renderMoments = function(){
@@ -427,6 +543,9 @@ function copyText(text){
     box.innerHTML=arr.map(e=>`<div class="moments-entry">
       <strong>${e.itemTitle||'Moment'}</strong>
       <p class="timestamp">${e.friendLabel||''} · ${formatTime(e.createdAt)}${e.editedAt?` · Edited ${formatTime(e.editedAt)}`:''}</p>
+      ${e.photoPrototype ? (prototypePhotoUrls.get(e.id)
+        ? `<img class="moment-prototype-photo" src="${prototypePhotoUrls.get(e.id)}" alt="Moment photo preview">`
+        : `<p class="moment-photo-note">📸 Photo tested · preview was intentionally not kept after reload</p>`) : ''}
       <p class="moment-mood">${moodLabel(e.moods||[])}</p>
       <p class="moment-stars">${'⭐'.repeat(e.rating||0)}</p>
       <p class="moment-copy">${e.text||''}</p>
@@ -449,7 +568,7 @@ function copyText(text){
   };
   /* Stage 4C-6: removed legacy v3.2 window.renderExpenses; canonical handler is later in this file. */
 
-  document.addEventListener('DOMContentLoaded',()=>{renderMoodButtons([]);renderMoments();renderExpenses();});
+  document.addEventListener('DOMContentLoaded',()=>{enhanceMomentPhotoInput();renderMoodButtons([]);renderMoments();renderExpenses();});
 })();
 
 /* Stage 4C-6: legacy v3.4 Expenses wrappers removed; Stage 4F-Q owns the single canonical Expenses module. */
