@@ -1,4 +1,4 @@
-const CACHE_NAME='ccmv-travel-engine-stage5d-4-direct';
+const CACHE_NAME='ccmv-travel-engine-stage5d-5-card-rhythm';
 const ASSETS = [
   './',
   './index.html',
