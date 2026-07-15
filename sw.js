@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ccmv-travel-engine-stage5c-1c-slogan-copy';
+const CACHE_NAME = 'ccmv-travel-engine-stage5c-2-home-refresh';
 const ASSETS = [
   './',
   './index.html',

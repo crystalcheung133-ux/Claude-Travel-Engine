@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
-:root{--bg:#f7f1e8;--paper:#fffcf7;--card:#fffefb;--ink:#2b251f;--muted:#4f463f;--line:#e0d2c3;--accent:#8a4f2d;--green:#315f4e;--lav:#6b4a7a;--blue:#455f86}
+:root{--bg:#f4ede3;--paper:#fffaf2;--card:#fffdf8;--ink:#2b251f;--muted:#4f463f;--line:#e0d2c3;--accent:#8a4f2d;--green:#315f4e;--lav:#6b4a7a;--blue:#455f86}
 *{box-sizing:border-box}
 a{color:inherit;text-decoration:none}
 .brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:21px}
@@ -1828,3 +1828,139 @@ body.moments-page .moments-capture-choices .moments-planned-entry{
     margin-bottom:2px!important;
   }
 }
+
+/* =========================================================
+   Stage 5C-2 — Home Experience Refresh
+   Scope: Home visual presentation only. No layout, geometry,
+   navigation, data, or interaction changes.
+   ========================================================= */
+:root{
+  --home-ivory-0:#fffdf8;
+  --home-ivory-1:#faf4e9;
+  --home-ivory-2:#f3e8d7;
+  --home-sand:#dec7a6;
+  --home-gold:#9a6d35;
+  --home-gold-deep:#76502b;
+  --home-ink:#30271f;
+  --home-muted:#716357;
+  --home-line:rgba(154,109,53,.24);
+}
+
+body.home-bg{
+  background-color:var(--home-ivory-1)!important;
+  background-image:
+    radial-gradient(circle at 50% 4%,rgba(255,255,255,.88),transparent 38%),
+    linear-gradient(180deg,var(--home-ivory-0) 0%,var(--home-ivory-1) 54%,var(--home-ivory-2) 100%)!important;
+  color:var(--home-ink)!important;
+}
+
+body.home-bg .site-nav{
+  background:rgba(255,253,248,.96)!important;
+  border-bottom-color:var(--home-line)!important;
+  box-shadow:0 8px 24px rgba(71,51,31,.035)!important;
+}
+body.home-bg .site-nav .brand{
+  color:var(--home-ink)!important;
+  letter-spacing:.005em!important;
+}
+body.home-bg .friend-pill{
+  background:var(--home-ivory-0)!important;
+  border-color:var(--home-line)!important;
+  color:var(--home-gold-deep)!important;
+  box-shadow:0 6px 18px rgba(71,51,31,.045)!important;
+}
+
+body.home-bg .home-brand-card.v37-dashboard-home{
+  background:
+    radial-gradient(circle at 50% -12%,rgba(255,255,255,.94),transparent 38%),
+    linear-gradient(180deg,#ead9bf 0%,#f4e9d8 43%,#fffdf8 100%)!important;
+  border-color:rgba(154,109,53,.22)!important;
+  box-shadow:0 22px 64px rgba(67,47,27,.11)!important;
+}
+body.home-bg .home-since{
+  color:var(--home-gold-deep)!important;
+  font-weight:800!important;
+  letter-spacing:.2em!important;
+}
+body.home-bg .home-brand-card h1{
+  color:var(--home-ink)!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.46)!important;
+}
+body.home-bg .home-brand-card h1 em{
+  color:var(--home-gold-deep)!important;
+  font-weight:600!important;
+}
+body.home-bg .home-tagline{
+  color:var(--home-gold-deep)!important;
+  font-weight:700!important;
+  letter-spacing:.2em!important;
+}
+body.home-bg .home-trip-line{
+  color:var(--home-muted)!important;
+  font-weight:650!important;
+}
+body.home-bg .home-trip-line span + span{
+  color:var(--home-gold-deep)!important;
+}
+
+body.home-bg .live-card,
+body.home-bg .live-countdown,
+body.home-bg .live-time,
+body.home-bg .live-weather,
+body.home-bg .live-rate{
+  background:rgba(255,253,248,.9)!important;
+  border-color:rgba(154,109,53,.18)!important;
+  box-shadow:0 10px 28px rgba(71,51,31,.055)!important;
+}
+body.home-bg .live-card small{
+  color:var(--home-gold-deep)!important;
+  font-weight:850!important;
+}
+body.home-bg .live-card strong{
+  color:var(--home-ink)!important;
+  font-weight:800!important;
+}
+body.home-bg .live-card em{
+  color:var(--home-muted)!important;
+}
+body.home-bg .live-icon{
+  opacity:.72!important;
+  filter:saturate(.72) sepia(.08)!important;
+}
+
+body.home-bg .home-day-button{
+  background:linear-gradient(180deg,#9a6d35 0%,#80572d 100%)!important;
+  border-color:#80572d!important;
+  color:#fffdf8!important;
+  box-shadow:0 10px 24px rgba(118,80,43,.2)!important;
+  font-weight:800!important;
+  letter-spacing:.03em!important;
+}
+body.home-bg .home-day-button:hover,
+body.home-bg .home-day-button:focus-visible{
+  background:linear-gradient(180deg,#8c6030 0%,#704923 100%)!important;
+}
+
+body.home-bg .app-nav{
+  background:rgba(255,253,248,.96)!important;
+  border-top-color:var(--home-line)!important;
+  box-shadow:0 -10px 30px rgba(71,51,31,.06)!important;
+}
+body.home-bg .app-nav a,
+body.home-bg .app-nav button{
+  color:var(--home-muted)!important;
+}
+body.home-bg .app-nav small{
+  color:var(--home-muted)!important;
+  font-weight:750!important;
+}
+body.home-bg .mini-menu,
+body.home-bg #tripMenu,
+body.home-bg #guideMenu,
+body.home-bg #daysMenu{
+  background:var(--home-ivory-0)!important;
+  border-color:var(--home-line)!important;
+  box-shadow:0 24px 58px rgba(55,39,24,.2)!important;
+}
+body.home-bg .menu-title{color:var(--home-ink)!important}
+body.home-bg .menu-sub{color:var(--home-muted)!important}
