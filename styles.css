@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
-:root{--bg:#f4ede3;--paper:#fffaf2;--card:#fffdf8;--ink:#2b251f;--muted:#4f463f;--line:#e0d2c3;--accent:#8a4f2d;--green:#315f4e;--lav:#6b4a7a;--blue:#455f86}
+:root{--bg:#f7f1e8;--paper:#fffcf7;--card:#fffefb;--ink:#2b251f;--muted:#4f463f;--line:#e0d2c3;--accent:#8a4f2d;--green:#315f4e;--lav:#6b4a7a;--blue:#455f86}
 *{box-sizing:border-box}
 a{color:inherit;text-decoration:none}
 .brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:21px}
