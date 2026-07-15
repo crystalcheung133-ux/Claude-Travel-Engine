@@ -318,19 +318,19 @@ body:has(#tripModal) .trip-card,.trip-sheet{border-color:rgba(112,133,91,.28)!im
 .page-hero{padding:13px 13px 12px}}/* v3.8 Moments edit + stronger typography + deeper monogram watermark */
 @media(max-width:520px){}
 .moments-entry{border:1px solid rgba(183,107,82,.22)!important;background:linear-gradient(180deg,#fff8f4,#fffcf8)!important;border-radius:22px;padding:16px;margin:12px 0}
-.moments-entry strong{display:block;font-size:18px!important;line-height:1.22;font-weight:950!important;color:#38261f!important;margin-bottom:4px}
+.moments-entry strong{display:block;font-size:18px!important;line-height:1.28;font-weight:720!important;letter-spacing:-.012em!important;color:#38261f!important;margin-bottom:5px}
 .moments-entry .timestamp{font-weight:800!important;color:#7a5f50!important}
 .moment-copy{font-size:16px!important;line-height:1.42;font-weight:750!important;color:#2f251f!important;margin-top:6px!important}
 .moment-mood,.moment-stars{font-size:15px!important;font-weight:850!important;margin:5px 0!important}
 .entry-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .entry-actions .mini-btn{min-height:36px;padding:8px 12px;font-weight:850}
-.page-hero h1,.prose-block h2,.expense-card strong{font-weight:950!important}
+.page-hero h1,.prose-block h2,.expense-card strong{font-weight:700!important}
 .page-hero .lead,.prose-block p,.guide-sheet p,.tools-sheet p,.moments-sheet p{font-weight:650}
 /* v3.9 Outdoor Readability Pass
    Higher contrast, larger text and clearer tap targets for outdoor travel use. */
 p,li,.lead,.timeline-main p,.guide-list-sub,.menu-sub,.timestamp,.quick-info-value{color:var(--muted);font-weight:560}
 .lead{font-size:18.5px;color:var(--muted);line-height:1.68}
-h1,h2,h3,.guide-list-title,.menu-title,.timeline-time,.timeline-main h3,.brand,.quick-info-label{font-weight:800;color:var(--ink)}
+h1,h2,h3,.guide-list-title,.menu-title,.timeline-time,.timeline-main h3,.brand,.quick-info-label{font-weight:700;color:var(--ink)}
 h1{font-size:clamp(58px,12vw,96px);letter-spacing:-.02em}
 h2{font-size:42px}
 h3{font-size:20px}
@@ -359,8 +359,8 @@ h3{font-size:20px}
 .moments-sheet .modal-intro,
 
 .page-hero .kicker{font-size:14px!important;font-weight:900!important;color:#7b4a2f!important}
-.prose-block h2,.guide-list-title,.menu-title{font-weight:900!important;color:#241b16!important}
-.quick-info-value,.prose-block li{font-size:17px!important;line-height:1.62!important;font-weight:650!important;color:#3b3029!important}
+.prose-block h2,.guide-list-title,.menu-title{font-weight:650!important;letter-spacing:-.018em!important;color:#241b16!important}
+.quick-info-value,.prose-block li{font-size:17px!important;line-height:1.66!important;font-weight:540!important;color:#3b3029!important}
 /* Stage 4E-19: .timeline-main h3 (weight/color), .timeline-main p (font-size/line-height),
    and .route-hint relocated to the Days canonical section (see EOF). Note: .timeline-main p's
    color/font-weight are owned by the later shared muted-text rule below, not by this block. */
@@ -735,13 +735,13 @@ body.home-bg{padding-bottom:0!important;background:radial-gradient(circle at 50%
 .home-brand-card.v37-dashboard-home,
 .home-brand-card{width:min(92vw,620px)!important;min-height:auto!important;aspect-ratio:auto!important;margin:0 auto!important;padding:clamp(28px,7vw,54px)!important;border-radius:40px!important;text-align:left!important;isolation:isolate!important}
 .home-since,.kicker,.page-hero .kicker,.module-hero .kicker,
-.quick-info-label,.timestamp,.menu-sub{color:var(--gold-deep)!important;letter-spacing:.16em!important;text-transform:uppercase!important;font-weight:800!important}
+.quick-info-label,.timestamp,.menu-sub{color:var(--gold-deep)!important;letter-spacing:.145em!important;text-transform:uppercase!important;font-weight:740!important}
 .home-since{margin:0 0 18px!important;font-size:12px!important}
 h1,h2,.home-brand-card h1,.page-hero h1,.module-hero h1{font-family:var(--ccmv-fashion-serif)!important;color:var(--ink)!important;font-weight:600!important;letter-spacing:-.032em!important}
 .home-brand-card h1{font-size:clamp(52px,13vw,88px)!important;line-height:.9!important;margin:0 0 16px!important}
 .home-brand-card h1 em{font-style:italic!important;color:var(--ink)!important}
 .home-tagline,.home-trip-line,.lead,.page-hero .lead,.module-hero .lead,p,li,
-.timeline-main p,.guide-list-sub,.quick-info-value{color:var(--muted)!important;font-weight:520!important}
+.timeline-main p,.guide-list-sub,.quick-info-value{color:var(--muted)!important;font-weight:500!important}
 .home-tagline{font-size:17px!important;letter-spacing:.19em!important;text-transform:uppercase;margin:0 0 18px!important}
 
 
@@ -764,7 +764,7 @@ h1,h2,.home-brand-card h1,.page-hero h1,.module-hero h1{font-family:var(--ccmv-f
 
 
 .mini-menu{position:fixed!important;bottom:82px!important;z-index:150!important;width:min(230px, calc(100vw - 24px))!important;border-radius:24px!important;padding:8px!important;pointer-events:none;transform:translateX(-50%) translateY(8px)!important;transition:.16s ease;left:50%!important;right:auto!important;max-height:min(64svh, 520px)!important;overflow:auto!important}
-.menu-title{font-weight:720!important;color:var(--ink)!important;font-size:15px!important;letter-spacing:-.008em!important}
+.menu-title{font-weight:650!important;color:var(--ink)!important;font-size:15px!important;letter-spacing:-.014em!important}
 .menu-sub{font-size:11px!important;letter-spacing:.1em!important;color:var(--muted)!important}
 @media(max-width:520px){.dashboard{padding-left:14px!important;padding-right:14px!important}
 .home-brand-card.v37-dashboard-home,.home-brand-card{border-radius:34px!important;padding:30px 22px!important}
@@ -1330,14 +1330,14 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
 .timeline-item:nth-child(3n):before{background:var(--terracotta)!important}
 
 /* --- Time column --- */
-.timeline-time{font-weight:800}
+.timeline-time{font-weight:720;letter-spacing:.025em}
 
 /* --- Activity card content column --- */
 .timeline-main{min-width:0!important;display:block!important}
 
 /* --- Activity typography --- */
-.timeline-main h3{font-size:18px;margin:0 0 8px;line-height:1.25;margin-bottom:6px!important;font-weight:900!important;color:#241b16!important}
-.timeline-main p{margin:0 0 7px!important;font-size:17px!important;line-height:1.62!important}
+.timeline-main h3{font-size:18px;margin:0 0 8px;line-height:1.3;margin-bottom:7px!important;font-weight:700!important;letter-spacing:-.014em!important;color:#241b16!important}
+.timeline-main p{margin:0 0 7px!important;font-size:17px!important;line-height:1.66!important}
 
 /* --- Metadata / route hint --- */
 .route-hint{display:block!important;line-height:1.55!important;font-size:16px!important;padding:9px 10px!important;margin:8px 0!important;border-radius:14px!important;background:#fff7ed;border:1px solid var(--line);color:#3b3029!important;font-weight:700!important}
