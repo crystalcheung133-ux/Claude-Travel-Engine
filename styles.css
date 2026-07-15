@@ -1829,138 +1829,109 @@ body.moments-page .moments-capture-choices .moments-planned-entry{
   }
 }
 
-/* =========================================================
+/* ==========================================================================
    Stage 5C-2 — Home Experience Refresh
-   Scope: Home visual presentation only. No layout, geometry,
-   navigation, data, or interaction changes.
-   ========================================================= */
-:root{
-  --home-ivory-0:#fffdf8;
-  --home-ivory-1:#faf4e9;
-  --home-ivory-2:#f3e8d7;
-  --home-sand:#dec7a6;
-  --home-gold:#9a6d35;
-  --home-gold-deep:#76502b;
-  --home-ink:#30271f;
-  --home-muted:#716357;
-  --home-line:rgba(154,109,53,.24);
-}
-
+   Home-only visual finish. No layout, geometry, animation, hierarchy or logic.
+   ========================================================================== */
 body.home-bg{
-  background-color:var(--home-ivory-1)!important;
+  --home-ivory:#f8f1e6;
+  --home-cream:#fffaf2;
+  --home-paper:#fffdf8;
+  --home-ink:#2b221c;
+  --home-muted:#6b5d52;
+  --home-gold:#9b7440;
+  --home-gold-soft:#bda27c;
   background-image:
-    radial-gradient(circle at 50% 4%,rgba(255,255,255,.88),transparent 38%),
-    linear-gradient(180deg,var(--home-ivory-0) 0%,var(--home-ivory-1) 54%,var(--home-ivory-2) 100%)!important;
-  color:var(--home-ink)!important;
+    radial-gradient(circle at 50% 4%,rgba(255,255,255,.92),transparent 30rem),
+    linear-gradient(145deg,#fbf6ee 0%,#f4eadc 58%,#efe1cf 100%)!important;
 }
-
 body.home-bg .site-nav{
-  background:rgba(255,253,248,.96)!important;
-  border-bottom-color:var(--home-line)!important;
-  box-shadow:0 8px 24px rgba(71,51,31,.035)!important;
+  background:rgba(255,250,242,.96)!important;
+  border-bottom-color:rgba(184,155,119,.32)!important;
+  box-shadow:0 8px 26px rgba(72,50,31,.045)!important;
 }
 body.home-bg .site-nav .brand{
   color:var(--home-ink)!important;
-  letter-spacing:.005em!important;
+  font-weight:900!important;
+  letter-spacing:-.018em!important;
 }
 body.home-bg .friend-pill{
-  background:var(--home-ivory-0)!important;
-  border-color:var(--home-line)!important;
-  color:var(--home-gold-deep)!important;
-  box-shadow:0 6px 18px rgba(71,51,31,.045)!important;
+  background:rgba(255,253,248,.92)!important;
+  border-color:rgba(184,155,119,.42)!important;
+  color:#5c4939!important;
+  box-shadow:0 5px 16px rgba(72,50,31,.055)!important;
 }
-
-body.home-bg .home-brand-card.v37-dashboard-home{
+body.home-bg section.home-brand-card.v37-dashboard-home{
   background:
-    radial-gradient(circle at 50% -12%,rgba(255,255,255,.94),transparent 38%),
-    linear-gradient(180deg,#ead9bf 0%,#f4e9d8 43%,#fffdf8 100%)!important;
-  border-color:rgba(154,109,53,.22)!important;
-  box-shadow:0 22px 64px rgba(67,47,27,.11)!important;
+    radial-gradient(circle at 50% -12%,rgba(255,255,255,.92),transparent 42%),
+    linear-gradient(180deg,#ead7b6 0%,#f5e8d2 43%,#fffdf8 100%)!important;
+  border-color:rgba(172,137,94,.36)!important;
+  box-shadow:
+    0 34px 90px rgba(77,52,31,.14),
+    0 4px 14px rgba(77,52,31,.055),
+    inset 0 1px 0 rgba(255,255,255,.82)!important;
 }
-body.home-bg .home-since{
-  color:var(--home-gold-deep)!important;
+body.home-bg .home-brand-card.v37-dashboard-home .home-since{
+  color:#8f6a3e!important;
+  font-weight:850!important;
+  letter-spacing:.31em!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.72)!important;
+}
+body.home-bg .home-brand-card.v37-dashboard-home h1{
+  color:#241b16!important;
+  font-weight:900!important;
+  letter-spacing:-.052em!important;
+  text-shadow:
+    0 1px 0 rgba(255,255,255,.76),
+    0 16px 34px rgba(72,43,24,.16)!important;
+}
+body.home-bg .home-brand-card.v37-dashboard-home h1 em{
+  color:#8f6738!important;
+  text-shadow:0 1px 0 rgba(255,255,255,.66),0 12px 26px rgba(95,61,28,.13)!important;
+}
+body.home-bg .home-brand-card.v37-dashboard-home .home-tagline{
+  color:#66564a!important;
   font-weight:800!important;
-  letter-spacing:.2em!important;
+  letter-spacing:.18em!important;
 }
-body.home-bg .home-brand-card h1{
-  color:var(--home-ink)!important;
-  text-shadow:0 1px 0 rgba(255,255,255,.46)!important;
+body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
+  background:rgba(255,253,248,.70)!important;
+  border-color:rgba(177,144,106,.34)!important;
+  color:#675647!important;
+  font-weight:750!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.88),0 4px 14px rgba(78,53,32,.045)!important;
 }
-body.home-bg .home-brand-card h1 em{
-  color:var(--home-gold-deep)!important;
-  font-weight:600!important;
+body.home-bg .home-live-grid .live-card{
+  background:linear-gradient(180deg,rgba(255,255,253,.98),rgba(255,250,242,.98))!important;
+  border-color:rgba(177,144,106,.28)!important;
+  box-shadow:
+    0 13px 30px rgba(72,49,30,.075),
+    0 2px 6px rgba(72,49,30,.035),
+    inset 0 1px 0 rgba(255,255,255,.96)!important;
 }
-body.home-bg .home-tagline{
-  color:var(--home-gold-deep)!important;
-  font-weight:700!important;
-  letter-spacing:.2em!important;
+body.home-bg .home-live-grid .live-card small{
+  color:#9a7b55!important;
+  font-weight:850!important;
+  letter-spacing:.115em!important;
 }
-body.home-bg .home-trip-line{
-  color:var(--home-muted)!important;
+body.home-bg .home-live-grid .live-card strong{
+  color:#30251e!important;
+  font-weight:850!important;
+  letter-spacing:-.018em!important;
+}
+body.home-bg .home-live-grid .live-card em{
+  color:#76675b!important;
   font-weight:650!important;
 }
-body.home-bg .home-trip-line span + span{
-  color:var(--home-gold-deep)!important;
+body.home-bg .home-live-grid .live-icon{
+  filter:saturate(.78) contrast(.94)!important;
+  opacity:.9!important;
 }
-
-body.home-bg .live-card,
-body.home-bg .live-countdown,
-body.home-bg .live-time,
-body.home-bg .live-weather,
-body.home-bg .live-rate{
-  background:rgba(255,253,248,.9)!important;
-  border-color:rgba(154,109,53,.18)!important;
-  box-shadow:0 10px 28px rgba(71,51,31,.055)!important;
-}
-body.home-bg .live-card small{
-  color:var(--home-gold-deep)!important;
-  font-weight:850!important;
-}
-body.home-bg .live-card strong{
-  color:var(--home-ink)!important;
-  font-weight:800!important;
-}
-body.home-bg .live-card em{
-  color:var(--home-muted)!important;
-}
-body.home-bg .live-icon{
-  opacity:.72!important;
-  filter:saturate(.72) sepia(.08)!important;
-}
-
 body.home-bg .home-day-button{
-  background:linear-gradient(180deg,#9a6d35 0%,#80572d 100%)!important;
-  border-color:#80572d!important;
-  color:#fffdf8!important;
-  box-shadow:0 10px 24px rgba(118,80,43,.2)!important;
-  font-weight:800!important;
-  letter-spacing:.03em!important;
+  background:linear-gradient(180deg,#9b7442 0%,#75512c 100%)!important;
+  border-color:rgba(92,59,28,.28)!important;
+  color:#fffaf1!important;
+  font-weight:850!important;
+  letter-spacing:.035em!important;
+  box-shadow:0 15px 34px rgba(83,54,29,.22),inset 0 1px 0 rgba(255,255,255,.24)!important;
 }
-body.home-bg .home-day-button:hover,
-body.home-bg .home-day-button:focus-visible{
-  background:linear-gradient(180deg,#8c6030 0%,#704923 100%)!important;
-}
-
-body.home-bg .app-nav{
-  background:rgba(255,253,248,.96)!important;
-  border-top-color:var(--home-line)!important;
-  box-shadow:0 -10px 30px rgba(71,51,31,.06)!important;
-}
-body.home-bg .app-nav a,
-body.home-bg .app-nav button{
-  color:var(--home-muted)!important;
-}
-body.home-bg .app-nav small{
-  color:var(--home-muted)!important;
-  font-weight:750!important;
-}
-body.home-bg .mini-menu,
-body.home-bg #tripMenu,
-body.home-bg #guideMenu,
-body.home-bg #daysMenu{
-  background:var(--home-ivory-0)!important;
-  border-color:var(--home-line)!important;
-  box-shadow:0 24px 58px rgba(55,39,24,.2)!important;
-}
-body.home-bg .menu-title{color:var(--home-ink)!important}
-body.home-bg .menu-sub{color:var(--home-muted)!important}
