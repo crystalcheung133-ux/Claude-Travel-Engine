@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ccmv-travel-engine-stage5d-2-content-typography';
+const CACHE_NAME = 'ccmv-travel-engine-stage5d-3-mobile-button-system';
 const ASSETS = [
   './',
   './index.html',
