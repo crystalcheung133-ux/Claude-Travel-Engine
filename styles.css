@@ -660,25 +660,25 @@ body.moments-page .moments-sheet button.btn{background:linear-gradient(180deg,#f
    the ~50 dead/superseded fragments that were making every future edit a
    guessing game. The active splash sequence is now maintained in this block.
 
-   Sequence: logo fades in first (0–16% of the 8s cycle), then the slogan
-   (30–44%), then "VIETNAM 2026" (64–76%). See the three ccmv*421 keyframes.
+   Sequence: logo appears first, the slogan follows without a dead pause, then
+   "VIETNAM 2026" resolves the sequence. The complete cycle is 2.6 seconds.
    ============================================================================ */
-#ccmvSplash{--spl-cream:#f7efe3;position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;min-height:100dvh;overflow:hidden;font-family:Georgia,'Times New Roman',serif;padding:max(28px,env(safe-area-inset-top)) 22px max(34px,env(safe-area-inset-bottom));transition:opacity .5s ease,visibility .5s ease;color:var(--ccmv-taupe);background:linear-gradient(180deg,#fbf6ef 0%,#f4e8da 58%,#ecd9ca 100%)}
+#ccmvSplash{--spl-cream:#f7efe3;position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;min-height:100dvh;overflow:hidden;font-family:Georgia,'Times New Roman',serif;padding:max(28px,env(safe-area-inset-top)) 22px max(34px,env(safe-area-inset-bottom));transition:opacity .36s ease,visibility .36s ease;color:var(--ccmv-taupe);background:linear-gradient(180deg,#fbf6ef 0%,#f4e8da 58%,#ecd9ca 100%)}
 #ccmvSplash *{box-sizing:border-box}
 #ccmvSplash.ccmv-splash-hide{opacity:0;visibility:hidden;pointer-events:none}
 body.ccmv-splash-active{overflow:hidden}
 #ccmvSplash .splash-paper{position:absolute;inset:0;background:radial-gradient(circle at 20% 18%,rgba(139,111,82,.08) 0 1px,transparent 2px),radial-gradient(circle at 82% 68%,rgba(139,111,82,.055) 0 1px,transparent 2px);background-size:210px 220px,260px 250px;opacity:.10;display:block}
-#ccmvSplash .splash-glow{position:absolute;width:72vw;max-width:430px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,255,250,.76),rgba(255,255,250,.22) 48%,transparent 72%);filter:blur(4px);animation:ccmvGlow 8s ease-in-out both;transform:translateY(-6vh);opacity:.58;display:block}
+#ccmvSplash .splash-glow{position:absolute;width:72vw;max-width:430px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(255,255,250,.76),rgba(255,255,250,.22) 48%,transparent 72%);filter:blur(4px);animation:ccmvGlow 2.6s ease-in-out both;transform:translateY(-6vh);opacity:.58;display:block}
 #ccmvSplash .splash-content{position:relative;width:min(92vw,560px);text-align:center;transform:none;padding:0 24px;display:block}
-#ccmvSplash .splash-logo{width:min(52vw,240px);display:block;margin:0 auto 30px;height:auto;max-height:none;object-fit:contain;aspect-ratio:1/1;border-radius:34px;padding:22px;background:linear-gradient(180deg,rgba(253,248,241,.98),rgba(246,235,220,.94));border:1px solid rgba(204,181,153,.32);box-shadow:0 22px 46px rgba(84,61,39,.14),0 6px 16px rgba(84,61,39,.07),inset 0 1px 0 rgba(255,255,255,.55);filter:saturate(.98) contrast(1.02);position:relative;left:0;opacity:0;animation:ccmvLogo421 8s cubic-bezier(.22,.8,.22,1) both;box-sizing:border-box}
-#ccmvSplash .splash-line{margin:0 auto;font-size:clamp(22px,5.6vw,32px);line-height:1.18;letter-spacing:.005em;font-family:'Baskerville','Iowan Old Style','Palatino Linotype','Book Antiqua',Georgia,serif;font-style:normal;font-weight:700;text-align:center;color:#9b7443;text-shadow:none;opacity:0;animation:ccmvSlogan421 8s ease both}
-#ccmvSplash .splash-destination{margin-top:28px;font-family:Avenir,Montserrat,system-ui,-apple-system,sans-serif;font-size:clamp(14px,3.6vw,20px);letter-spacing:.38em;line-height:1;text-transform:uppercase;font-weight:800;text-align:center;color:#9b7443;opacity:0;animation:ccmvVietnam421 8s ease both}
-#ccmvSplash .splash-fadeout{position:absolute;inset:0;background:var(--spl-cream);pointer-events:none;opacity:0;animation:ccmvOut 8s ease both}
+#ccmvSplash .splash-logo{width:min(52vw,240px);display:block;margin:0 auto 30px;height:auto;max-height:none;object-fit:contain;aspect-ratio:1/1;border-radius:34px;padding:22px;background:linear-gradient(180deg,rgba(253,248,241,.98),rgba(246,235,220,.94));border:1px solid rgba(204,181,153,.32);box-shadow:0 22px 46px rgba(84,61,39,.14),0 6px 16px rgba(84,61,39,.07),inset 0 1px 0 rgba(255,255,255,.55);filter:saturate(.98) contrast(1.02);position:relative;left:0;opacity:0;animation:ccmvLogo421 2.6s cubic-bezier(.22,.8,.22,1) both;box-sizing:border-box}
+#ccmvSplash .splash-line{margin:0 auto;font-size:clamp(22px,5.6vw,32px);line-height:1.18;letter-spacing:.005em;font-family:'Baskerville','Iowan Old Style','Palatino Linotype','Book Antiqua',Georgia,serif;font-style:normal;font-weight:600;text-align:center;color:#a77b43;text-shadow:none;opacity:0;animation:ccmvSlogan421 2.6s cubic-bezier(.22,.8,.22,1) both}
+#ccmvSplash .splash-destination{margin-top:28px;font-family:Avenir,Montserrat,system-ui,-apple-system,sans-serif;font-size:clamp(14px,3.6vw,20px);letter-spacing:.38em;line-height:1;text-transform:uppercase;font-weight:800;text-align:center;color:#9b7443;opacity:0;animation:ccmvVietnam421 2.6s cubic-bezier(.22,.8,.22,1) both}
+#ccmvSplash .splash-fadeout{position:absolute;inset:0;background:var(--spl-cream);pointer-events:none;opacity:0;animation:ccmvOut 2.6s ease both}
 @keyframes ccmvGlow{0%{opacity:.2;transform:translateY(-6vh) scale(.9)}35%,100%{opacity:1;transform:translateY(-6vh) scale(1)}}
-@keyframes ccmvOut{0%,88%{opacity:0}100%{opacity:.92}}
-@keyframes ccmvLogo421{0%{opacity:0;transform:translateY(18px) scale(.96)}16%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:1;transform:translateY(-2px) scale(1)}}
-@keyframes ccmvSlogan421{0%,30%{opacity:0;transform:translateY(12px)}44%,100%{opacity:1;transform:translateY(0)}}
-@keyframes ccmvVietnam421{0%,64%{opacity:0;transform:translateY(8px)}76%,100%{opacity:1;transform:translateY(0)}}
+@keyframes ccmvOut{0%,90%{opacity:0}100%{opacity:.92}}
+@keyframes ccmvLogo421{0%{opacity:0;transform:translateY(14px) scale(.97)}18%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:1;transform:translateY(-2px) scale(1)}}
+@keyframes ccmvSlogan421{0%,20%{opacity:0;transform:translateY(9px)}42%,100%{opacity:1;transform:translateY(0)}}
+@keyframes ccmvVietnam421{0%,48%{opacity:0;transform:translateY(7px)}68%,100%{opacity:1;transform:translateY(0)}}
 /* Devices short enough that the tall composition needs to shift up (checked
    first, since a device can match BOTH this and the width query below — the
    width query below wins ties for shared properties on phones that match
