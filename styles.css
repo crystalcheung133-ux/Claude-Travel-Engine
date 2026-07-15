@@ -737,11 +737,11 @@ body.home-bg{padding-bottom:0!important;background:radial-gradient(circle at 50%
 .home-since,.kicker,.page-hero .kicker,.module-hero .kicker,
 .quick-info-label,.timestamp,.menu-sub{color:var(--gold-deep)!important;letter-spacing:.16em!important;text-transform:uppercase!important;font-weight:800!important}
 .home-since{margin:0 0 18px!important;font-size:12px!important}
-h1,h2,.home-brand-card h1,.page-hero h1,.module-hero h1{font-family:var(--font-serif)!important;color:var(--ink)!important;font-weight:500!important;letter-spacing:-.04em!important}
+h1,h2,.home-brand-card h1,.page-hero h1,.module-hero h1{font-family:var(--ccmv-fashion-serif)!important;color:var(--ink)!important;font-weight:600!important;letter-spacing:-.032em!important}
 .home-brand-card h1{font-size:clamp(52px,13vw,88px)!important;line-height:.9!important;margin:0 0 16px!important}
 .home-brand-card h1 em{font-style:italic!important;color:var(--ink)!important}
 .home-tagline,.home-trip-line,.lead,.page-hero .lead,.module-hero .lead,p,li,
-.timeline-main p,.guide-list-sub,.quick-info-value{color:var(--muted)!important;font-weight:560!important}
+.timeline-main p,.guide-list-sub,.quick-info-value{color:var(--muted)!important;font-weight:520!important}
 .home-tagline{font-size:17px!important;letter-spacing:.19em!important;text-transform:uppercase;margin:0 0 18px!important}
 
 
@@ -764,7 +764,7 @@ h1,h2,.home-brand-card h1,.page-hero h1,.module-hero h1{font-family:var(--font-s
 
 
 .mini-menu{position:fixed!important;bottom:82px!important;z-index:150!important;width:min(230px, calc(100vw - 24px))!important;border-radius:24px!important;padding:8px!important;pointer-events:none;transform:translateX(-50%) translateY(8px)!important;transition:.16s ease;left:50%!important;right:auto!important;max-height:min(64svh, 520px)!important;overflow:auto!important}
-.menu-title{font-weight:800!important;color:var(--ink)!important;font-size:15px!important}
+.menu-title{font-weight:720!important;color:var(--ink)!important;font-size:15px!important;letter-spacing:-.008em!important}
 .menu-sub{font-size:11px!important;letter-spacing:.1em!important;color:var(--muted)!important}
 @media(max-width:520px){.dashboard{padding-left:14px!important;padding-right:14px!important}
 .home-brand-card.v37-dashboard-home,.home-brand-card{border-radius:34px!important;padding:30px 22px!important}
@@ -1879,8 +1879,8 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-since{
 }
 body.home-bg .home-brand-card.v37-dashboard-home h1{
   color:#241b16!important;
-  font-weight:900!important;
-  letter-spacing:-.052em!important;
+  font-weight:650!important;
+  letter-spacing:-.044em!important;
   text-shadow:
     0 1px 0 rgba(255,255,255,.76),
     0 16px 34px rgba(72,43,24,.16)!important;
@@ -1891,14 +1891,15 @@ body.home-bg .home-brand-card.v37-dashboard-home h1 em{
 }
 body.home-bg .home-brand-card.v37-dashboard-home .home-tagline{
   color:#66564a!important;
-  font-weight:800!important;
-  letter-spacing:.18em!important;
+  font-weight:700!important;
+  letter-spacing:.205em!important;
 }
 body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
   background:rgba(255,253,248,.70)!important;
   border-color:rgba(177,144,106,.34)!important;
   color:#675647!important;
-  font-weight:750!important;
+  font-weight:650!important;
+  letter-spacing:.015em!important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.88),0 4px 14px rgba(78,53,32,.045)!important;
 }
 body.home-bg .home-live-grid .live-card{
@@ -1911,17 +1912,17 @@ body.home-bg .home-live-grid .live-card{
 }
 body.home-bg .home-live-grid .live-card small{
   color:#9a7b55!important;
-  font-weight:850!important;
-  letter-spacing:.115em!important;
+  font-weight:740!important;
+  letter-spacing:.145em!important;
 }
 body.home-bg .home-live-grid .live-card strong{
   color:#30251e!important;
-  font-weight:850!important;
-  letter-spacing:-.018em!important;
+  font-weight:760!important;
+  letter-spacing:-.012em!important;
 }
 body.home-bg .home-live-grid .live-card em{
   color:#76675b!important;
-  font-weight:650!important;
+  font-weight:540!important;
 }
 body.home-bg .home-live-grid .live-icon{
   filter:saturate(.78) contrast(.94)!important;
@@ -1931,7 +1932,7 @@ body.home-bg .home-day-button{
   background:linear-gradient(180deg,#9b7442 0%,#75512c 100%)!important;
   border-color:rgba(92,59,28,.28)!important;
   color:#fffaf1!important;
-  font-weight:850!important;
-  letter-spacing:.035em!important;
+  font-weight:760!important;
+  letter-spacing:.055em!important;
   box-shadow:0 15px 34px rgba(83,54,29,.22),inset 0 1px 0 rgba(255,255,255,.24)!important;
 }
