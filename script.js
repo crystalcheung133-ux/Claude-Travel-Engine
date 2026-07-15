@@ -331,6 +331,7 @@ function copyText(text){
   let currentMomentPhoto = null;
   let currentMomentContext = null;
   let momentSelectorDay = '1';
+  let momentEntryIsPlanned = false; /* Stage 5B-2B2: true only while the composer was opened via the "Planned activity" landing card */
   const prototypePhotoUrls = new Map();
   function readJson(key, fallback){try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));}catch(e){return fallback;}}
   function writeJson(key, value){localStorage.setItem(key, JSON.stringify(value));}
@@ -526,7 +527,11 @@ function copyText(text){
     if(!host) return;
     const day=(typeof ITINERARY_DATA!=='undefined'?ITINERARY_DATA:null)?.[momentSelectorDay];
     const chips=(day?.items||[]).map(item=>`<button type="button" class="moment-activity-chip" onclick="chooseMomentActivity('${momentSelectorDay}','${String(item.id).replace(/'/g,"\'")}')"><span>${stripMomentTitle(item.title)}</span><small>${item.time||''}</small></button>`).join('');
-    host.innerHTML=`<button type="button" class="moment-custom-choice" onclick="clearMomentActivity()">✨ Just this moment</button><div class="moment-day-tabs">${['1','2','3','4','5'].map(n=>`<button type="button" class="moment-day-tab ${n===momentSelectorDay?'active':''}" onclick="setMomentSelectorDay('${n}')">Day ${n}</button>`).join('')}</div><div class="moment-activity-grid">${chips}</div>`;
+    /* Stage 5B-2B2: the "Just this moment" chip is redundant when the composer was entered via the
+       Planned activity card — returning to free capture is done by closing the composer and choosing
+       the other card instead. Only render the chip for the general-entry "+Add planned activity" path. */
+    const customChoiceHTML=momentEntryIsPlanned ? '' : `<button type="button" class="moment-custom-choice" onclick="clearMomentActivity()">✨ Just this moment</button>`;
+    host.innerHTML=`${customChoiceHTML}<div class="moment-day-tabs">${['1','2','3','4','5'].map(n=>`<button type="button" class="moment-day-tab ${n===momentSelectorDay?'active':''}" onclick="setMomentSelectorDay('${n}')">Day ${n}</button>`).join('')}</div><div class="moment-activity-grid">${chips}</div>`;
   }
   function ensureMomentContextUI(){
     const form=document.querySelector('#momentsModal .moments-form');
@@ -546,6 +551,7 @@ function copyText(text){
   };
   window.openPlannedMomentCapture=function(){
     window.openMomentsModal('general');
+    momentEntryIsPlanned=true;
     momentSelectorDay=suggestedMomentDay();
     const picker=document.getElementById('momentPlannedPicker');
     const toggle=document.getElementById('momentPlannedToggle');
@@ -595,6 +601,7 @@ function copyText(text){
   }
   window.openMomentsModal = function(key){
     editingMomentId = null;
+    momentEntryIsPlanned = false; /* Stage 5B-2B2: only openPlannedMomentCapture re-enables planned-entry mode, right after this call */
     currentMomentKey = key || 'general';
     currentMomentContext = resolveMomentContext(currentMomentKey);
     momentSelectorDay = dayNumberFromId(currentMomentContext.dayId) || suggestedMomentDay();
@@ -661,6 +668,7 @@ function copyText(text){
     const e=arr.find(x=>x.id===id);
     if(!e) return;
     editingMomentId=id;
+    momentEntryIsPlanned = false; /* Stage 5B-2B2: editing an existing moment always keeps the full planned-activity picker */
     currentMomentKey=e.itemKey || 'general';
     currentMomentContext=e.context ? {...e.context} : resolveMomentContext(currentMomentKey);
     momentSelectorDay=dayNumberFromId(currentMomentContext.dayId)||suggestedMomentDay();

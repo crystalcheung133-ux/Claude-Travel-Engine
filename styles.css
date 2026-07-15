@@ -1423,8 +1423,9 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
 .mood-btn.active{background:#ead8c5;border-color:#8a4f2d;font-weight:700}
 
 /* --- Mood chip grid (<=480px override) --- */
+/* Stage 5B-2B2: stayed on 3 columns (was 2) so the 8 mood chips wrap to 3 rows
+   instead of 4, trimming composer height on narrow viewports. */
 @media(max-width:480px){
-  .mood-grid{grid-template-columns:repeat(2,1fr)!important}
   .mood-btn{min-height:36px!important;font-size:13px!important}
 }
 
@@ -1700,6 +1701,10 @@ body.moments-page .module-hero .page-action-row{
 
 /* =========================================================
    STAGE 5B-2B1 — DIRECT CAPTURE CHOICE + COMPACT COMPOSER
+   STAGE 5B-2B2 — CAPTURE CHOICE SYMMETRY + PLANNED FLOW SIMPLIFICATION
+   (5B-2B2 additions are commented inline below; this remains the single
+   canonical section for Moments capture-choice and composer-density rules —
+   do not open a third override block for the same properties.)
    ========================================================= */
 body.moments-page .moments-capture-choices{
   grid-template-columns:repeat(2,minmax(0,1fr))!important;
@@ -1709,11 +1714,16 @@ body.moments-page .moments-capture-choices .btn{
   min-height:46px!important;
   padding:10px 12px!important;
 }
-body.moments-page .moments-planned-entry{
-  border:1px solid rgba(183,107,82,.38)!important;
-  background:rgba(255,250,246,.88)!important;
-  color:#713d32!important;
-  box-shadow:none!important;
+/* Stage 5B-2B2: both capture cards share one visual treatment — same background,
+   border, text color and shadow — so neither reads as more "primary" than the other. */
+body.moments-page .moments-capture-choices .btn,
+body.moments-page .moments-capture-choices .primary-action,
+body.moments-page .moments-capture-choices .moments-planned-entry{
+  width:100%!important;
+  background:linear-gradient(180deg,#fff2ed,#f3cabc)!important;
+  border:1px solid rgba(183,107,82,.42)!important;
+  color:#54261d!important;
+  box-shadow:0 8px 22px rgba(138,79,45,.10)!important;
 }
 #momentsModal .moment-context-panel.is-custom{
   margin:0!important;
@@ -1730,21 +1740,41 @@ body.moments-page .moments-planned-entry{
   overflow-y:auto!important;
 }
 #momentsModal .moments-form{
-  gap:7px!important;
+  gap:6px!important;
   overflow:visible!important;
 }
+/* Stage 5B-2B2: additional header/context/mood/save trims — keeps photo controls,
+   rating, mood, caption and Save above the fold on a normal mobile viewport whenever
+   the layout allows it, without touching photo compression, save logic or schema. */
+#momentsModal .moments-sheet h2{
+  margin:0 44px 4px 0!important;
+}
+#momentsModal .moments-sheet .kicker{
+  margin:0 0 3px!important;
+}
+#momentsModal .moments-sheet p:has(#momentsFriend){
+  margin:0 0 4px!important;
+}
+#momentsModal .moments-sheet p:has(#momentsFriend) .mini-btn{
+  min-height:32px!important;
+  padding:6px 10px!important;
+  font-size:12px!important;
+}
 #momentsModal .moment-context-panel{
-  gap:7px!important;
-  margin-bottom:8px!important;
+  gap:6px!important;
+  margin-bottom:6px!important;
 }
 #momentsModal .moment-context-summary{
-  min-height:46px!important;
-  padding:8px 10px!important;
+  min-height:42px!important;
+  padding:7px 10px!important;
 }
 #momentsModal .moment-context-dot{
   width:30px!important;
   height:30px!important;
   flex-basis:30px!important;
+}
+#momentsModal .moment-planned-toggle{
+  padding:8px 10px!important;
 }
 #momentsModal .star-row{
   margin-block:0!important;
@@ -1752,22 +1782,30 @@ body.moments-page .moments-planned-entry{
 #momentsModal .mood-help{
   margin:0!important;
 }
+#momentsModal .mood-grid{
+  margin:4px 0 8px!important;
+}
 #momentsModal #momentsText{
   min-height:58px!important;
   max-height:72px!important;
 }
 #momentsModal .photo-capture-zone{
+  margin:0 0 8px!important;
   padding:8px!important;
 }
 #momentsModal .photo-capture-heading{
-  margin-bottom:6px!important;
+  margin-bottom:5px!important;
 }
 #momentsModal .photo-capture-actions{
-  gap:6px!important;
+  gap:5px!important;
 }
 #momentsModal .photo-capture-btn{
-  min-height:38px!important;
-  padding:8px 9px!important;
+  min-height:36px!important;
+  padding:7px 9px!important;
+}
+#momentsModal .moments-sheet .btn{
+  min-height:46px!important;
+  padding:8px 12px!important;
 }
 @media(max-width:520px){
   body.moments-page .moments-capture-choices{
