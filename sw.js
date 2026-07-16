@@ -1,4 +1,4 @@
-const CACHE_NAME='ccmv-travel-engine-stage5f-final-ux-polish';
+const CACHE_NAME='ccmv-saigon-companion-v1-0-rc1-freeze-audit';
 const ASSETS = [
   './',
   './index.html',

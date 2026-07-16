@@ -68,6 +68,7 @@ function restoreGuideNavigationLayer(){
 document.addEventListener('DOMContentLoaded',restoreGuideNavigationLayer);
 
 function $(id){return document.getElementById(id);}
+function escapeHTML(value){return String(value ?? '').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 function closeMiniMenus(){document.querySelectorAll('.mini-menu').forEach(m=>m.classList.remove('show'));}
 function clampMenuPosition(n,min,max){return Math.max(min,Math.min(max,n));}
 function positionMiniMenu(menu,trigger){
@@ -172,7 +173,7 @@ var openMomentsModal, saveMoments, editMoment, deleteMoment, renderMoments;
 function openUnexpectedModal(){$('unexpectedFriend').textContent=FRIENDS[getFriend()];$('unexpectedText').value='';$('unexpectedModal').classList.add('show')}
 function closeUnexpectedModal(){$('unexpectedModal').classList.remove('show')}
 function saveUnexpected(){const arr=JSON.parse(localStorage.getItem('moments_freeform')||'[]');arr.push({page:document.title.replace(' · Saigon Companion',''),friendLabel:FRIENDS[getFriend()],text:$('unexpectedText').value,savedAt:new Date().toISOString()});localStorage.setItem('moments_freeform',JSON.stringify(arr));closeUnexpectedModal();renderUnexpected();}
-function renderUnexpected(){const box=$('unexpectedTimeline');if(!box)return;const arr=JSON.parse(localStorage.getItem('moments_freeform')||'[]');box.innerHTML=arr.length?arr.map(e=>`<div class="moments-entry"><strong>✨ ${e.page}</strong><p>${e.friendLabel}</p><p>${e.text}</p></div>`).join(''):'<p>暫時未有 Moments。</p>'}
+function renderUnexpected(){const box=$('unexpectedTimeline');if(!box)return;let arr=[];try{arr=JSON.parse(localStorage.getItem('moments_freeform')||'[]');if(!Array.isArray(arr))arr=[];}catch(e){arr=[];}box.innerHTML=arr.length?arr.map(e=>`<div class="moments-entry"><strong>✨ ${escapeHTML(e.page)}</strong><p>${escapeHTML(e.friendLabel)}</p><p>${escapeHTML(e.text)}</p></div>`).join(''):'<p>暫時未有 Moments。</p>'}
 
 function updateExpenseMode(){
   const personal = document.getElementById('expensePersonal')?.checked;
@@ -213,7 +214,7 @@ function openTripCard(key) {
   const content = document.getElementById('tripModalContent');
   const modal = document.getElementById('tripModal');
   if (!content || !modal) return;
-  content.innerHTML = `<div class="trip-onepage"><p class="kicker">Trip</p><h2>${t.title}</h2>${t.body}<div class="guide-next-row"><button class="pill" onclick="openTripCard('${prev}')">‹ Previous</button><button class="pill" onclick="openTripCard('${next}')">Next ›</button></div><p class="timestamp">Build · Stage 5F · FINAL UX POLISH</p></div>`;
+  content.innerHTML = `<div class="trip-onepage"><p class="kicker">Trip</p><h2>${t.title}</h2>${t.body}<div class="guide-next-row"><button class="pill" onclick="openTripCard('${prev}')">‹ Previous</button><button class="pill" onclick="openTripCard('${next}')">Next ›</button></div><p class="timestamp">Build · Version 1.0 RC1 · FREEZE AUDIT</p></div>`;
   modal.classList.add('show');
   const sheet=document.querySelector('#tripModal .trip-sheet');
   if(sheet) sheet.scrollTop=0;
@@ -724,14 +725,14 @@ function copyText(text){
     arr.sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')));
     if(!arr.length){box.innerHTML='<p>暫時未有 Moments。</p>';return;}
     box.innerHTML=arr.map(e=>`<div class="moments-entry">
-      <strong>${e.itemTitle||'Moment'}</strong>
-      <p class="timestamp">${e.friendLabel||''} · ${formatTime(e.createdAt)}${e.editedAt?` · Edited ${formatTime(e.editedAt)}`:''}</p>
+      <strong>${escapeHTML(e.itemTitle||'Moment')}</strong>
+      <p class="timestamp">${escapeHTML(e.friendLabel||'')} · ${formatTime(e.createdAt)}${e.editedAt?` · Edited ${formatTime(e.editedAt)}`:''}</p>
       ${e.photoPrototype ? (prototypePhotoUrls.get(e.id)
         ? `<img class="moment-prototype-photo" src="${prototypePhotoUrls.get(e.id)}" alt="Moment photo preview">`
         : `<p class="moment-photo-note">📸 Photo tested · preview was intentionally not kept after reload</p>`) : ''}
       <p class="moment-mood">${moodLabel(e.moods||[])}</p>
       <p class="moment-stars">${'⭐'.repeat(e.rating||0)}</p>
-      <p class="moment-copy">${e.text||''}</p>
+      <p class="moment-copy">${escapeHTML(e.text||'')}</p>
       <div class="entry-actions"><button class="mini-btn" onclick="editMoment('${e.id||e.itemKey}')">✏️ Edit</button><button class="mini-btn" onclick="deleteMoment('${e.id||e.itemKey}')">🗑 Delete</button></div>
     </div>`).join('');
   };
@@ -743,7 +744,7 @@ function copyText(text){
     const latest=arr.map((e,i)=>({...e,_idx:i})).sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||''))).slice(0,3);
     if(!latest.length){box.innerHTML='<p class="timestamp">No transactions yet.</p>';return;}
     box.innerHTML=latest.map(e=>`<div class="expense-card">
-      <strong>${e.item}</strong>
+      <strong>${escapeHTML(e.item)}</strong>
       <p class="timestamp">${formatTime(e.createdAt)}</p>
       <p>${Number(e.total).toLocaleString()} VND · Paid by ${FRIENDS[e.paidBy]}</p>
       <div class="entry-actions"><button class="mini-btn" onclick="editExpense(${e._idx})">✏️ Edit</button><button class="mini-btn" onclick="deleteExpense(${e._idx})">🗑 Delete</button></div>
@@ -969,7 +970,7 @@ function getBookingStatusLabel(status){
     const split=e.split||[];
     const consumer=e.consumedBy || split[0] || e.paidBy;
     const who=personal ? `Consumed by ${labelFor(consumer)}` : `Split: ${split.map(labelFor).join(' · ')}`;
-    return `<div class="expense-card"><strong>${e.item||''}</strong><p class="timestamp">${timeLabel(e.createdAt)}${e.editedAt?` · Edited ${timeLabel(e.editedAt)}`:''}</p><p>${Number(e.total||0).toLocaleString()} VND · Paid by ${labelFor(e.paidBy)}</p><p>${personal?'Personal Expense':'Shared Expense'} · ${who}</p><div class="entry-actions"><button class="mini-btn" onclick="editExpense(${e._idx})">✏️ Edit</button><button class="mini-btn" onclick="deleteExpense(${e._idx})">🗑 Delete</button></div></div>`;
+    return `<div class="expense-card"><strong>${escapeHTML(e.item||'')}</strong><p class="timestamp">${timeLabel(e.createdAt)}${e.editedAt?` · Edited ${timeLabel(e.editedAt)}`:''}</p><p>${Number(e.total||0).toLocaleString()} VND · Paid by ${labelFor(e.paidBy)}</p><p>${personal?'Personal Expense':'Shared Expense'} · ${who}</p><div class="entry-actions"><button class="mini-btn" onclick="editExpense(${e._idx})">✏️ Edit</button><button class="mini-btn" onclick="deleteExpense(${e._idx})">🗑 Delete</button></div></div>`;
   }
   function ensureToolHistory(){
     const sheet=document.querySelector('#expenseModal .tools-sheet');
