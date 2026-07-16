@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
-<html lang="zh-Hant"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>Day · Saigon Companion</title><link href="manifest.json" rel="manifest"/><meta content="#8A4F2D" name="theme-color"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="Saigon" name="apple-mobile-web-app-title"/><link href="icon-192.png" rel="apple-touch-icon"/><link href="styles.css?v=5e2" rel="stylesheet"/></head><body><nav class="site-nav"><a class="brand" href="index.html"><span class="brand-mark"><img alt="" src="logo-watermark-monogram.png"/></span>Saigon Companion</a><button class="friend-pill" onclick="openFriendModal()"><span data-friend-label="">👓 Crystal</span></button></nav><main class="content-page" id="dynamicDayRoot" aria-live="polite"></main>
-<script src="data.js"></script><script src="script.js?v=5e2"></script>
+<html lang="zh-Hant"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>Day · Saigon Companion</title><link href="manifest.json" rel="manifest"/><meta content="#8A4F2D" name="theme-color"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="Saigon" name="apple-mobile-web-app-title"/><link href="icon-192.png" rel="apple-touch-icon"/><link href="styles.css?v=5f" rel="stylesheet"/></head><body><nav class="site-nav"><a class="brand" href="index.html"><span class="brand-mark"><img alt="" src="logo-watermark-monogram.png"/></span>Saigon Companion</a><button class="friend-pill" onclick="openFriendModal()"><span data-friend-label="">👓 Crystal</span></button></nav><main class="content-page" id="dynamicDayRoot" aria-live="polite"></main>
+<script src="data.js"></script><script src="script.js?v=5f"></script>
 <script>
 (function(){
   const DAY_RENDER_DATA = ITINERARY_DATA; // Stage 3E: canonical data now lives in data.js
@@ -16,46 +16,33 @@
     return;
   }
   document.title = data.title;
-  function buildDaySummary(dayData, dayNumber){
-    const typeLabels = {
-      meal:'Food',
-      experience:'Culture',
-      shoppingWindow:'Shopping',
-      spa:'Wellness',
-      transport:'Journey',
-      buffer:'Pause'
-    };
-    const counts = (dayData.items || []).reduce((acc, item) => {
-      const key = typeLabels[item.type] ? item.type : null;
-      if(key) acc[key] = (acc[key] || 0) + 1;
-      return acc;
-    }, {});
-    const focus = Object.entries(counts)
-      .sort((a,b) => b[1] - a[1])
-      .slice(0,2)
-      .map(([type]) => typeLabels[type])
-      .join(' · ') || 'Explore';
-    const items = dayData.items || [];
-    const firstType = items[0]?.type;
-    const lastType = items[items.length - 1]?.type;
-    const shoppingStops = counts.shoppingWindow || 0;
-    const hasBooking = items.some(item => item.bookingId);
-    let style = 'Curated';
-    if(String(dayNumber) === '1' && firstType === 'transport') style = 'Arrival';
-    else if(lastType === 'transport') style = 'Departure';
-    else if(hasBooking) style = 'Reserved';
-    else if(shoppingStops >= 2) style = 'Flexible';
-    return [
-      {label:'Focus', value:focus},
-      {label:'Stops', value:`${items.length} stops`},
-      {label:'Style', value:style}
-    ].map(item => `<div class="day-hero-summary-item"><span>${esc(item.label)}</span><strong>${esc(item.value)}</strong></div>`).join('');
+  function routeLocation(item){
+    if(!item || !item.map) return '';
+    try{
+      const url = new URL(item.map, location.href);
+      return url.searchParams.get('q') || url.searchParams.get('query') || '';
+    }catch(error){
+      return '';
+    }
   }
-  const daySummary = buildDaySummary(data, day);
+  function buildTodayRoute(dayData){
+    const stops = (dayData.items || []).map(routeLocation).filter(Boolean);
+    if(stops.length < 2) return '';
+    const params = new URLSearchParams({
+      api:'1',
+      origin:stops[0],
+      destination:stops[stops.length - 1],
+      travelmode:'driving'
+    });
+    if(stops.length > 2) params.set('waypoints', stops.slice(1,-1).join('|'));
+    const href = `https://www.google.com/maps/dir/?${params.toString()}`;
+    return `<a class="day-route-action" href="${esc(href)}" target="_blank" rel="noopener"><span>View Today’s Route</span><b aria-hidden="true">›</b></a>`;
+  }
+  const todayRoute = buildTodayRoute(data);
   const items = data.items.map(item => {
     const detailHtml = (item.details || []).map(text => `<p>${esc(text)}</p>`).join('');
     const routeHtml = item.route ? `<div class="route-hint"><strong>🚕 To next stop</strong><br/>${esc(item.route)}</div>` : '';
-    const mapHtml = item.map ? `<a class="timeline-action timeline-action--map" href="${esc(item.map)}" target="_blank">Map</a>` : '';
+    const mapHtml = item.map ? `<a class="timeline-action timeline-action--map" href="${esc(item.map)}" target="_blank" rel="noopener">Navigate</a>` : '';
     const guideIds = Array.isArray(item.guideIds) && item.guideIds.length ? item.guideIds : [item.placeId || item.id];
     const directoryHtml = item.showShoppingDirectory
       ? `<button class="timeline-action timeline-action--directory" onclick="location.href='guide.html#shopping-directory'">Shopping List</button>`
@@ -75,14 +62,13 @@
         ${detailHtml}
         ${routeHtml}
         <div class="${actionClass}">
-          ${directoryHtml}${guideHtml}
-          ${mapHtml}
+          ${mapHtml}${directoryHtml}${guideHtml}
           <button class="timeline-action timeline-action--moment" onclick="openMomentsModal('${esc(item.id)}')">✨ Moment</button>
         </div>
       </div>
     </div>`;
   }).join('');
-  root.innerHTML = `<div class="page-hero"><p class="kicker">${esc(data.kicker)}</p><h1>${esc(data.heading)}</h1><div class="day-hero-summary" aria-label="Day overview">${daySummary}</div></div><section class="timeline">${items}</section>`;
+  root.innerHTML = `<div class="page-hero day-page-hero"><p class="kicker">${esc(data.kicker)}</p><h1>${esc(data.heading)}</h1>${todayRoute}</div><section class="timeline">${items}</section>`;
 
   // Stage 4F-L: native hash scrolling can run before dynamic cards exist.
   // Re-resolve the requested card after render and offset the sticky top bar.

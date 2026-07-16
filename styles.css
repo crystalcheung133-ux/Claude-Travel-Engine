@@ -1344,11 +1344,12 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
 .route-hint strong{color:var(--accent)}
 
 /* --- Day overview (page-hero sub-component, Days only) --- */
-.day-hero-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:16px;padding-top:14px;border-top:1.5px solid rgba(112,82,48,.32)}
-.day-hero-summary-item{min-width:0;padding:0 12px;text-align:center}
-.day-hero-summary-item+.day-hero-summary-item{border-left:1.5px solid rgba(112,82,48,.28)}
-.day-hero-summary-item span{display:block;margin-bottom:6px;color:#725334;font-size:12px;line-height:1.15;font-weight:820;letter-spacing:.10em;text-transform:uppercase}
-.day-hero-summary-item strong{display:block;color:#2f241d;font-family:var(--ccmv-fashion-serif);font-size:16px;line-height:1.28;font-weight:700;letter-spacing:-.01em;overflow-wrap:anywhere}
+.day-page-hero{display:flex;flex-direction:column}
+.day-route-action{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:18px;padding:15px 18px;border:1.5px solid rgba(112,82,48,.42);border-radius:18px;background:rgba(255,252,246,.84);color:#2f241d;text-decoration:none;box-shadow:0 8px 22px rgba(91,60,35,.10);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.day-route-action:hover{border-color:var(--accent);box-shadow:0 10px 26px rgba(91,60,35,.14)}
+.day-route-action:active{transform:translateY(1px)}
+.day-route-action span{font-size:16px;line-height:1.2;font-weight:820;letter-spacing:.015em}
+.day-route-action b{color:var(--accent);font-size:25px;line-height:1;font-weight:700}
 
 /* --- Action area / standard action buttons (skin owned by shared .pill button system) --- */
 .timeline-actions{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:9px!important;margin-top:12px!important;padding-top:12px!important;border-top:1.5px solid rgba(112,82,48,.28)!important}
@@ -1362,8 +1363,8 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
   .timeline-item{grid-template-columns:58px minmax(0,1fr)!important;padding:14px 12px!important}
   .timeline-time{font-size:15px;line-height:1.25;word-break:break-word}
   .timeline-main h3{font-size:18px!important}
-  .day-hero-summary-item{padding-inline:7px}
-  .day-hero-summary-item strong{font-size:15px}
+  .day-route-action{padding:15px 16px}
+  .day-route-action span{font-size:16px}
 }
 
 /* --- Mobile action geometry — Stage 4F-S1F contract, preserved verbatim (<=720px) --- */
