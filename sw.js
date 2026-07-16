@@ -1,4 +1,4 @@
-const CACHE_NAME='ccmv-travel-engine-stage5e-1-hero-information';
+const CACHE_NAME='ccmv-travel-engine-stage5e-2-outdoor-readability';
 const ASSETS = [
   './',
   './index.html',
