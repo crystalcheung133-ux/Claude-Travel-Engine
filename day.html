@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="zh-Hant"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>Day · Saigon Companion</title><link href="manifest.json" rel="manifest"/><meta content="#8A4F2D" name="theme-color"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="Saigon" name="apple-mobile-web-app-title"/><link href="icon-192.png" rel="apple-touch-icon"/><link href="styles.css?v=5d5" rel="stylesheet"/></head><body><nav class="site-nav"><a class="brand" href="index.html"><span class="brand-mark"><img alt="" src="logo-watermark-monogram.png"/></span>Saigon Companion</a><button class="friend-pill" onclick="openFriendModal()"><span data-friend-label="">👓 Crystal</span></button></nav><main class="content-page" id="dynamicDayRoot" aria-live="polite"></main>
+<html lang="zh-Hant"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/><title>Day · Saigon Companion</title><link href="manifest.json" rel="manifest"/><meta content="#8A4F2D" name="theme-color"/><meta content="yes" name="apple-mobile-web-app-capable"/><meta content="Saigon" name="apple-mobile-web-app-title"/><link href="icon-192.png" rel="apple-touch-icon"/><link href="styles.css?v=5e1" rel="stylesheet"/></head><body><nav class="site-nav"><a class="brand" href="index.html"><span class="brand-mark"><img alt="" src="logo-watermark-monogram.png"/></span>Saigon Companion</a><button class="friend-pill" onclick="openFriendModal()"><span data-friend-label="">👓 Crystal</span></button></nav><main class="content-page" id="dynamicDayRoot" aria-live="polite"></main>
 <script src="data.js"></script><script src="script.js?v=5d5"></script>
 <script>
 (function(){
@@ -16,7 +16,42 @@
     return;
   }
   document.title = data.title;
-  const legend = data.legend.map(x => `<span>${esc(x)}</span>`).join('');
+  function buildDaySummary(dayData, dayNumber){
+    const typeLabels = {
+      meal:'Food',
+      experience:'Culture',
+      shoppingWindow:'Shopping',
+      spa:'Wellness',
+      transport:'Journey',
+      buffer:'Pause'
+    };
+    const counts = (dayData.items || []).reduce((acc, item) => {
+      const key = typeLabels[item.type] ? item.type : null;
+      if(key) acc[key] = (acc[key] || 0) + 1;
+      return acc;
+    }, {});
+    const focus = Object.entries(counts)
+      .sort((a,b) => b[1] - a[1])
+      .slice(0,2)
+      .map(([type]) => typeLabels[type])
+      .join(' · ') || 'Explore';
+    const items = dayData.items || [];
+    const firstType = items[0]?.type;
+    const lastType = items[items.length - 1]?.type;
+    const shoppingStops = counts.shoppingWindow || 0;
+    const hasBooking = items.some(item => item.bookingId);
+    let style = 'Curated';
+    if(String(dayNumber) === '1' && firstType === 'transport') style = 'Arrival';
+    else if(lastType === 'transport') style = 'Departure';
+    else if(hasBooking) style = 'Reserved';
+    else if(shoppingStops >= 2) style = 'Flexible';
+    return [
+      {label:'Focus', value:focus},
+      {label:'Stops', value:`${items.length} stops`},
+      {label:'Style', value:style}
+    ].map(item => `<div class="day-hero-summary-item"><span>${esc(item.label)}</span><strong>${esc(item.value)}</strong></div>`).join('');
+  }
+  const daySummary = buildDaySummary(data, day);
   const items = data.items.map(item => {
     const detailHtml = (item.details || []).map(text => `<p>${esc(text)}</p>`).join('');
     const routeHtml = item.route ? `<div class="route-hint"><strong>🚕 To next stop</strong><br/>${esc(item.route)}</div>` : '';
@@ -47,7 +82,7 @@
       </div>
     </div>`;
   }).join('');
-  root.innerHTML = `<div class="page-hero"><p class="kicker">${esc(data.kicker)}</p><h1>${esc(data.heading)}</h1><div class="time-legend">${legend}</div></div><section class="timeline">${items}</section>`;
+  root.innerHTML = `<div class="page-hero"><p class="kicker">${esc(data.kicker)}</p><h1>${esc(data.heading)}</h1><div class="day-hero-summary" aria-label="Day overview">${daySummary}</div></div><section class="timeline">${items}</section>`;
 
   // Stage 4F-L: native hash scrolling can run before dynamic cards exist.
   // Re-resolve the requested card after render and offset the sticky top bar.
@@ -108,7 +143,7 @@
 <a class="summary-link" href="moments.html"><span>✨</span><small>Moments</small></a>
 <a class="summary-link" href="expenses.html"><span>💸</span><small>Expenses</small></a>
 </nav>
-<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=5d5').catch(()=>{}));}</script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js?v=5e1').catch(()=>{}));}</script>
 <div class="trip-modal" id="tripModal"><div class="trip-sheet"><button class="trip-close" onclick="closeTripModal()" type="button">×</button><div id="tripModalContent"></div></div></div>
 <div class="guide-modal" id="guideModal"><div class="guide-sheet"><button class="guide-close" onclick="closeGuideModal()" type="button">×</button><div id="guideModalContent"></div></div></div>
 <div class="moments-modal" id="momentsModal"><div class="moments-sheet"><button class="moments-close" onclick="closeMomentsModal()" type="button">×</button><p class="kicker">MEMORY BOOK</p><h2 id="momentsTitle">Moment</h2><p class="lead modal-intro" id="momentsIntro">每一個地方都可以留底 rating、something to say 同相片。旅行完之後，呢度就係四位朋友嘅 memory book。</p><p><span class="status-badge" id="momentsFriend">Friend</span> <button class="mini-btn" onclick="openFriendModal()">Change Friend</button></p><div class="moments-form"><input id="momentsRating" type="hidden" value="0"/><div class="star-row"><span class="star" onclick="setStars(1)">⭐</span><span class="star" onclick="setStars(2)">⭐</span><span class="star" onclick="setStars(3)">⭐</span><span class="star" onclick="setStars(4)">⭐</span><span class="star" onclick="setStars(5)">⭐</span></div><p class="mood-help">Choose up to 2 moods</p><div class="mood-grid" id="moodGrid"></div><textarea id="momentsText" placeholder="Something to say..."></textarea><div class="photo-input">📷 Add Photo（Camera / Photo Library）</div><button class="btn" onclick="saveMoments()">Save</button></div></div></div>
