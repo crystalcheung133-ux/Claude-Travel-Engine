@@ -1,7 +1,18 @@
 /* script.js — Stage 7K-2E compatibility entry and shared startup.
    Domain behavior lives in focused runtime modules. */
 function renderCanonicalDayNavigation(){
-  const productionItinerary=GenerationSelectionAdapter.view('itinerary').days;
+  let productionItinerary={};
+  try{
+    const projection=window.GenerationSelectionAdapter&&typeof GenerationSelectionAdapter.view==='function'
+      ? GenerationSelectionAdapter.view('itinerary')
+      : null;
+    productionItinerary=(projection&&projection.days&&Object.keys(projection.days).length)
+      ? projection.days
+      : ((typeof ITINERARY_DATA!=='undefined'&&ITINERARY_DATA)||{});
+  }catch(error){
+    console.warn('Day navigation projection unavailable; using canonical itinerary data.',error);
+    productionItinerary=(typeof ITINERARY_DATA!=='undefined'&&ITINERARY_DATA)||{};
+  }
   const days=Object.keys(productionItinerary).sort((a,b)=>Number(a)-Number(b));
   const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const model=days.map(number=>{
@@ -20,7 +31,8 @@ function renderCanonicalDayNavigation(){
   });
 }
 document.addEventListener('DOMContentLoaded',()=>{
-  renderCanonicalDayNavigation();
+  try{ renderCanonicalDayNavigation(); }
+  catch(error){ console.error('Unable to render day navigation.',error); }
   updateFriendLabels();
   if(typeof renderMoments==='function') renderMoments();
   if(typeof renderUnexpected==='function') renderUnexpected();

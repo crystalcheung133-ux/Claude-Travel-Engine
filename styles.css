@@ -2092,3 +2092,7 @@ body.home-bg .live-currency-card #currencyCardMeta{position:relative;z-index:2;w
 .guide-modal.show .guide-sheet,.trip-modal.show .trip-sheet,.mama-modal.show .guide-sheet,.tools-modal.show .tools-sheet,.moments-modal.show .moments-sheet,.unexpected-modal.show .unexpected-sheet{pointer-events:auto!important;position:relative!important;z-index:6001!important;}
 .category-pop-list button,#guideModalContent button,#guideModalContent a,#tripModalContent button,#tripModalContent a,#daysMenu a{position:relative!important;z-index:2!important;pointer-events:auto!important;touch-action:manipulation!important;}
 @media(max-width:760px){#daysMenu{max-height:calc(100dvh - 154px - env(safe-area-inset-bottom))!important;}.guide-sheet,.trip-sheet,.tools-sheet,.moments-sheet,.unexpected-sheet{padding-bottom:calc(28px + env(safe-area-inset-bottom))!important;}}
+
+/* Japan v1.4.1 — one explicit interactive layer for bottom menus. */
+#tripMenu::before,#guideMenu::before,#daysMenu::before{pointer-events:none!important;}
+#tripMenu>a,#guideMenu>button,#daysMenu>a{position:relative!important;z-index:1!important;pointer-events:auto!important;touch-action:manipulation!important;}

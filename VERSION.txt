@@ -1,4 +1,1 @@
-Travel Engine — Japan Onsen Review Candidate v1.4
-Baseline: Importer Review Candidate v1.2
-Scope: Browser recovery only; no layout redesign
-Status: REVIEW CANDIDATE — NOT PRODUCTION
+Japan Onsen Review Candidate v1.4.1 — Navigation + Moments Isolation Hotfix

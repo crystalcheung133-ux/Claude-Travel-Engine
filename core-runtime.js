@@ -190,3 +190,35 @@ document.addEventListener('keydown', function(e){
   }
 });
 
+
+/* Japan v1.4.1 — resilient bottom-menu activation.
+   Inline onclick remains for backwards compatibility; this capture handler
+   guarantees touch/click activation even when legacy menu-layer CSS changes
+   event ordering. */
+(function(){
+  function activateMenuItem(event){
+    const item=event.target&&event.target.closest&&event.target.closest('#tripMenu a,#guideMenu button,#daysMenu a');
+    if(!item)return;
+    const menu=item.closest('.mini-menu');
+    if(!menu||!menu.classList.contains('show'))return;
+    event.preventDefault();
+    event.stopPropagation();
+    if(event.stopImmediatePropagation)event.stopImmediatePropagation();
+    if(menu.id==='daysMenu'){
+      const href=item.getAttribute('href');
+      if(href) window.location.assign(href);
+      return;
+    }
+    const source=item.getAttribute('onclick')||'';
+    if(menu.id==='tripMenu'){
+      const match=source.match(/openTripCard\(['\"]([^'\"]+)['\"]\)/);
+      if(match&&typeof window.openTripCard==='function')window.openTripCard(match[1]);
+      return;
+    }
+    if(menu.id==='guideMenu'){
+      const match=source.match(/openGuideCategory\(['\"]([^'\"]+)['\"]\)/);
+      if(match&&typeof window.openGuideCategory==='function')window.openGuideCategory(match[1]);
+    }
+  }
+  document.addEventListener('click',activateMenuItem,true);
+})();

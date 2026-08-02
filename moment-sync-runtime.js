@@ -8,9 +8,10 @@
   const table=config.tables?.moments||'trip_moments';
   const bucket=config.storage?.momentsBucket||'trip-moments';
   const EVENTS=Object.freeze({status:'travelengine:momentsyncstatus',changed:'travelengine:momentsyncchanged'});
-  const TOMBSTONE_KEY='travel_engine_moment_tombstones_v1';
-  const META_KEY='travel_engine_moment_sync_meta_v1';
-  const DB_NAME='travel_engine_moment_photos_v1';
+  const momentNamespace=String(root.TRIP_CONFIG&&root.TRIP_CONFIG.storageNamespace||config.tripId||'trip').replace(/[^a-z0-9_-]+/gi,'_');
+  const TOMBSTONE_KEY=momentNamespace+':moment_tombstones:v1';
+  const META_KEY=momentNamespace+':moment_sync_meta:v1';
+  const DB_NAME='travel_engine_moment_photos_'+momentNamespace+'_v1';
   const STORE='pending_photos';
   const state={status:'idle',message:'Saved on this device',lastSyncAt:null,error:null,timer:null,inFlight:null,paused:false};
 
