@@ -1,5 +1,5 @@
 # Travel Engine production file manifest
-# Japan v1.4.4 Guide and Trip Context Recovery
+# Japan v1.4.4.1 Day Renderer Hotfix
 
 - admin.js
 - app-runtime.js
