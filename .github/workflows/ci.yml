@@ -1,0 +1,33 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  ci-suite:
+    name: Production CI Suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '20'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.x'}
+      - name: JS syntax gate
+        run: sh ci-tests/test-syntax.sh
+      - name: HTML and asset references
+        run: node ci-tests/test-html-assets.js
+      - name: HTML structure
+        run: sh ci-tests/test-html-structure.sh
+      - name: Entity linkage
+        run: node ci-tests/test-entity-integrity.js
+      - name: Guide address integrity
+        run: python3 ci-tests/address-integrity-test.py
+      - name: Trip identity clean
+        run: node ci-tests/test-trip-identity-clean.js
+      - name: Japan browser recovery static gate
+        run: node ci-tests/test-japan-browser-recovery.js
+      - name: Release integrity
+        run: sh ci-tests/test-checksums.sh
+
+      - name: Canonical integrity + production projection
+        run: node ci-tests/test-canonical-integrity.js
