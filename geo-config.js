@@ -1,0 +1,7 @@
+/* Generated geography config. */
+(function(root){'use strict';
+const geo=Object.freeze({homeTimeZone:'Australia/Melbourne',homeLabel:'Melbourne',homeFlag:'🇦🇺',destinationFlag:'🇯🇵',
+weatherStops:Object.freeze([{name:'Yokohama',lat:35.4437,lon:139.6380},{name:'Hakone',lat:35.2324,lon:139.1070},{name:'Gotemba',lat:35.3086,lon:138.9345},{name:'Tokyo',lat:35.6762,lon:139.6503}]),
+dayWeatherIndex:Object.freeze([0,0,1,1,2,0,3,3,3]),
+dayLocations:Object.freeze({1:{name:'Yokohama',lat:35.4437,lon:139.6380},2:{name:'Yokohama & Hakone',lat:35.2324,lon:139.1070},3:{name:'Hakone',lat:35.2324,lon:139.1070},4:{name:'Gotemba',lat:35.3086,lon:138.9345},5:{name:'Kamakura & Yokohama',lat:35.3192,lon:139.5467},6:{name:'Yokohama & Minami-machida',lat:35.5114,lon:139.4709},7:{name:'Yokohama, Gotanda & Ueno',lat:35.6762,lon:139.6503},8:{name:'Jiyugaoka & Gotanda',lat:35.6074,lon:139.6687},9:{name:'Gotanda & Haneda',lat:35.5494,lon:139.7798}})});
+root.GEO_CONFIG=geo;function applyGeoIdentity(){if(typeof document==='undefined')return;document.querySelectorAll('[data-geo-flag]').forEach(function(el){const k=el.getAttribute('data-geo-flag');if(geo[k])el.textContent=geo[k];});document.querySelectorAll('[data-geo-label]').forEach(function(el){const k=el.getAttribute('data-geo-label');if(geo[k])el.textContent=geo[k];});}root.applyGeoIdentity=applyGeoIdentity;if(typeof document!=='undefined'){if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',applyGeoIdentity);else applyGeoIdentity();}})(globalThis);
