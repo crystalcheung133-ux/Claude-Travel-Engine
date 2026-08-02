@@ -42,8 +42,12 @@
   window.closeTripExportCenter=function(){CCMV_MODAL.setOpen('tripExportModal',false,{openClass:'open'});};
   window.exportExpenseSummary=function(){if(!isExportAdmin())return alert('Enter Admin Mode to export the trip.');if(typeof window.exportExpenseData!=='function')return alert('Expense export is not available on this page.');window.exportExpenseData();returnToTripStudio();};
 
+  function exportItinerarySource(){
+    try{const selected=window.GenerationSelectionAdapter&&GenerationSelectionAdapter.view&&GenerationSelectionAdapter.view('export');if(selected&&selected.itinerary&&Object.keys(selected.itinerary).length)return selected.itinerary;}catch(error){console.warn('Export projection unavailable; using approved itinerary data.',error);}
+    return (typeof ITINERARY_DATA!=='undefined'&&ITINERARY_DATA)||{};
+  }
   function itineraryShareText(){
-    const source=GenerationSelectionAdapter.view('export').itinerary;
+    const source=exportItinerarySource();
     const days=Object.keys(source).sort((a,b)=>Number(a)-Number(b));
     const changedPlans=readObject(CHANGED_PLAN_KEY);
     const lines=[];
@@ -91,7 +95,7 @@
 
   window.exportFinalItinerary=function(){
     if(!isExportAdmin())return alert('Enter Admin Mode to export the trip.');
-    const source=GenerationSelectionAdapter.view('export').itinerary;const days=Object.keys(source).sort((a,b)=>Number(a)-Number(b));if(!days.length)return alert('No itinerary data is available.');
+    const source=exportItinerarySource();const days=Object.keys(source).sort((a,b)=>Number(a)-Number(b));if(!days.length)return alert('No itinerary data is available.');
     const changedPlans=readObject(CHANGED_PLAN_KEY);const title=(window.TRIP_CONFIG&&TRIP_CONFIG.tripName)||'Trip Itinerary';
     const dayHtml=days.map(dayNo=>{const day=source[dayNo],drive=day.drive||{};const items=currentItems(dayNo,day).map(item=>{const changed=changedPlans[String(item.id||'')];const details=Array.isArray(item.details)?item.details:[];const changeHtml=changed?`<div class="change"><strong>Changed plan</strong>${changed.reason?`<p><b>Why:</b> ${escapeHtml(changed.reason)}</p>`:''}${changed.instead?`<p><b>Went instead:</b> ${escapeHtml(changed.instead)}</p>`:''}</div>`:'';return `<article><div class="time">${escapeHtml(item.time||'')}</div><div><h3>${escapeHtml(item.title||'')}</h3>${details.map(detail=>`<p>${escapeHtml(detail)}</p>`).join('')}${changeHtml}</div></article>`;}).join('');return `<section class="day"><header><p>${escapeHtml(day.kicker||`Day ${dayNo}`)}</p><h2>${escapeHtml(day.heading||day.title||'')}</h2></header>${drive.route?`<div class="drive"><strong>Today’s Drive</strong><span>${escapeHtml(drive.route)}</span>${drive.distance?`<small>${escapeHtml(drive.distance)}${drive.drivingTime?' · '+escapeHtml(drive.drivingTime):''}</small>`:''}</div>`:''}${items}</section>`;}).join('');
     const popup=window.open('','_blank');if(!popup)return alert('Please allow pop-ups to open the itinerary.');

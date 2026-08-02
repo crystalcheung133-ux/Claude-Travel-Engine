@@ -8,7 +8,7 @@
 
   const keys=Object.freeze({
     checklist:'checklist',
-    expenses:'expenses',
+    expenses:namespace+':expenses:v1',
     momentPrefix:'moment_',
     latestMomentPrefix:'moment_latest_',
     momentsFreeform:'moments_freeform',
@@ -25,8 +25,8 @@
     cloudSnapshot:'travel_engine_cloud_snapshot_v1',
     cloudSyncMeta:'travel_engine_cloud_sync_meta_v1',
     cloudReloadMarker:'travel_engine_cloud_reload_version_v1',
-    expenseSyncTombstones:'travel_engine_expense_tombstones_v1',
-    expenseSyncMeta:'travel_engine_expense_sync_meta_v1',
+    expenseSyncTombstones:namespace+':expense_tombstones:v1',
+    expenseSyncMeta:namespace+':expense_sync_meta:v1',
     canonicalExpenseState:namespace+':canonical_expenses:stage_3_2d:v1',
     expenseReadShadowState:namespace+':canonical_expense_read_shadow:stage_3_2e:v1',
     tripGeneration:'travel_engine_trip_generation_v1',

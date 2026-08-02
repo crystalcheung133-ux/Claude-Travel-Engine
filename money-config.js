@@ -1,2 +1,2 @@
-/* Generated money config. */
-(function(root){'use strict';root.MONEY_CONFIG=Object.freeze({baseCurrency:'JPY',displayCurrency:'JPY',decimals:0,symbol:'¥'});})(globalThis);
+/* money-config.js — Japan Companion canonical money/FX configuration. */
+(function(root){'use strict';root.MONEY_CONFIG=Object.freeze({homeCurrency:'AUD',exchangeProvider:'frankfurter',apiBase:'https://api.frankfurter.dev/v1/latest',cacheHours:12,storageVersion:1,supportedCurrencies:Object.freeze(['AUD','JPY'])});})(globalThis);

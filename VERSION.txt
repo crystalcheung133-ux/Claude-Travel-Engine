@@ -1,3 +1,4 @@
-Japan Onsen Trip · Importer Review Candidate v1.2
-Generated: 2026-08-02T03:18:00
-Engine baseline preserved; trip-specific data/config replaced.
+Travel Engine — Japan Onsen Review Candidate v1.4
+Baseline: Importer Review Candidate v1.2
+Scope: Browser recovery only; no layout redesign
+Status: REVIEW CANDIDATE — NOT PRODUCTION
