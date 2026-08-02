@@ -125,7 +125,7 @@
     const primaryGuideHtml=primaryGuideId?`<button class="timeline-action timeline-action--guide" onclick='openGuideGroupFromDay(${JSON.stringify([primaryGuideId])},${JSON.stringify(item.id)})'>📖 Guide</button>`:'';
     const alternativeLabel=item.optionsLabel||'Alternative options';
     const alternativeGuideHtml=alternativeGuideIds.length?`<button class="timeline-action timeline-action--alternative" onclick='openGuideGroupFromDay(${JSON.stringify(alternativeGuideIds)},${JSON.stringify(item.id)})'>🔄 ${esc(alternativeLabel)}</button>`:'';
-    const guideHtml=primaryGuideHtml+alternativeGuideHtml;
+    const guideHtml=tripInfoHtml?'':(primaryGuideHtml+alternativeGuideHtml);
     const parkingGuideId=!nonPlace&&item.parkingGuideId&&DAY_PLACES[item.parkingGuideId]?item.parkingGuideId:'';
     const parkingHtml=parkingGuideId?`<button class="timeline-action timeline-action--parking" onclick='openGuideGroupFromDay(${JSON.stringify([parkingGuideId])},${JSON.stringify(item.id)})'>🚗 Parking</button>`:'';
     const tripInfoHtml=buildTripInfoButton(booking);

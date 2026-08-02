@@ -383,6 +383,13 @@ document.addEventListener('travelengine:adminmodechange',function(){
 document.addEventListener('DOMContentLoaded',reopenSavedBooking);
 
 function openTripCard(key) {
+  // Japan v1.4.4: Trip Info must open on the dedicated Trip page, never
+  // as an overlay on the Day Timeline. The same function remains the
+  // canonical entry point for bottom-nav and Timeline Trip Info actions.
+  if(!NAVIGATION.isPage('trip')){
+    NAVIGATION.go(NAVIGATION.build('trip',{query:{tripCard:key}}));
+    return;
+  }
   closeMiniMenus();
   const t = PRODUCTION_TRIP.cards[key];
   if (!t) return;
@@ -432,3 +439,14 @@ function renderDashboard(){
 
 
 
+
+
+/* Japan v1.4.4 — reopen the requested Trip card on the dedicated Trip page. */
+document.addEventListener('DOMContentLoaded',function(){
+ if(!NAVIGATION.isPage('trip'))return;
+ const requested=NAVIGATION.getQuery('tripCard','');
+ if(!requested)return;
+ const clean=NAVIGATION.build('trip');
+ try{history.replaceState(null,'',clean);}catch(e){}
+ setTimeout(function(){openTripCard(requested);},0);
+});

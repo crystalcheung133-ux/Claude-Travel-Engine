@@ -136,6 +136,13 @@ function groupedGuideRows(cat,list){
  return list.map(guideListRow).join('');
 }
 function openGuideCategory(cat){
+ // Japan v1.4.4: Guide navigation must not render over the Day Timeline.
+ // The canonical Guide host remains the Home page; Timeline -> single Guide
+ // links still go directly to place.html via openGuideGroupFromDay().
+ if(!NAVIGATION.isPage('home')){
+  NAVIGATION.go(NAVIGATION.build('home',{query:{guideCategory:cat}}));
+  return;
+ }
  saveGuideNavigationContext(cat);
  const list=guideSortedCategoryItems(cat);
  if(cat==='SHOP'){
@@ -292,3 +299,14 @@ function renderPlaceGroupPage(keys){
 }
 
 
+
+
+/* Japan v1.4.4 — reopen the requested Guide category on its canonical host. */
+document.addEventListener('DOMContentLoaded',function(){
+ if(!NAVIGATION.isPage('home'))return;
+ const requested=NAVIGATION.getQuery('guideCategory','');
+ if(!requested)return;
+ const clean=NAVIGATION.build('home');
+ try{history.replaceState(null,'',clean);}catch(e){}
+ setTimeout(function(){openGuideCategory(requested);},0);
+});

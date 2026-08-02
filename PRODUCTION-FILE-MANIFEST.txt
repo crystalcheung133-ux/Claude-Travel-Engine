@@ -1,12 +1,11 @@
 # Travel Engine production file manifest
-# Japan Onsen Review Candidate v1.4.2
+# Japan v1.4.4 Guide and Trip Context Recovery
 
-- CI-PATH-FIX-REPORT.md
-- VERSION.txt
 - admin.js
 - app-runtime.js
 - asset-config.js
 - booking-authority.js
+- CI-PATH-FIX-REPORT.md
 - complete-runtime.js
 - core-runtime.js
 - currency-runtime.js
@@ -61,3 +60,4 @@
 - trip-runtime.js
 - trip.html
 - vercel.json
+- VERSION.txt
