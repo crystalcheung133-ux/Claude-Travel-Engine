@@ -1,5 +1,5 @@
 # Travel Engine production file manifest
-# Japan Onsen Review Candidate v1.4.1
+# Japan Onsen Review Candidate v1.4.2
 
 - CI-PATH-FIX-REPORT.md
 - VERSION.txt
