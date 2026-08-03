@@ -8,10 +8,9 @@
   const table=config.tables?.moments||'trip_moments';
   const bucket=config.storage?.momentsBucket||'trip-moments';
   const EVENTS=Object.freeze({status:'travelengine:momentsyncstatus',changed:'travelengine:momentsyncchanged'});
-  const momentNamespace=String(root.TRIP_CONFIG&&root.TRIP_CONFIG.storageNamespace||config.tripId||'trip').replace(/[^a-z0-9_-]+/gi,'_');
-  const TOMBSTONE_KEY=momentNamespace+':moment_tombstones:v1';
-  const META_KEY=momentNamespace+':moment_sync_meta:v1';
-  const DB_NAME='travel_engine_moment_photos_'+momentNamespace+'_v1';
+  const TOMBSTONE_KEY='travel_engine_moment_tombstones_v1';
+  const META_KEY='travel_engine_moment_sync_meta_v1';
+  const DB_NAME='travel_engine_moment_photos_v1';
   const STORE='pending_photos';
   const state={status:'idle',message:'Saved on this device',lastSyncAt:null,error:null,timer:null,inFlight:null,paused:false};
 
@@ -46,7 +45,7 @@
       error=>{clearTimeout(timer);throw error;}
     );
   }
-  function toRemote(record,deleted=false){const r=normalizeRecord(record);return{id:r.id,trip_id:config.tripId,payload:r,actor_family:(typeof root.getFriend==='function'?root.getFriend():null)||'crystal',created_at:r.createdAt,updated_at:r.updatedAt,deleted_at:deleted?(r.deletedAt||r.updatedAt):null,generation:root.TRIP_GENERATION?.getLocal?.()||1};}
+  function toRemote(record,deleted=false){const r=normalizeRecord(record);return{id:r.id,trip_id:config.tripId,payload:r,actor_family:(typeof root.getFriend==='function'?root.getFriend():null)||null,created_at:r.createdAt,updated_at:r.updatedAt,deleted_at:deleted?(r.deletedAt||r.updatedAt):null,generation:root.TRIP_GENERATION?.getLocal?.()||1};}
   function fromRemote(row){const payload=normalizeRecord(Object.assign({},row.payload||{},{id:row.id,createdAt:row.created_at,updatedAt:row.updated_at}));if(row.deleted_at)payload.deletedAt=row.deleted_at;return payload;}
   async function pull(){
     await ensureSession();

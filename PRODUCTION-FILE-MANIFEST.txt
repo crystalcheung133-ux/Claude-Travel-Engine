@@ -1,11 +1,13 @@
-# Travel Engine production file manifest
-# Japan v1.4.4.1 Day Renderer Hotfix
+CCMV Travel Engine Production File Manifest
+Generated: 2026-08-03
+Release: Stage3.2H-PORT1-E2A.1-IDENTITY-AUTHORITY-CI-REPRODUCIBILITY
+Production root files:
 
+- VERSION.txt
 - admin.js
 - app-runtime.js
 - asset-config.js
 - booking-authority.js
-- CI-PATH-FIX-REPORT.md
 - complete-runtime.js
 - core-runtime.js
 - currency-runtime.js
@@ -17,6 +19,7 @@
 - expenses.js
 - export-runtime.js
 - formatter.js
+- generate-manifest.js
 - generation-runtime.js
 - generation-selection-adapter.js
 - geo-config.js
@@ -29,7 +32,6 @@
 - index.html
 - itinerary-authority.js
 - itinerary.html
-- japan-onsen-logo.png
 - locale-config.js
 - manifest.webmanifest
 - memory.html
@@ -41,6 +43,8 @@
 - money.js
 - navigation-config.js
 - navigation.js
+- nz-adventure-logo.png
+- nz-adventure-mark.png
 - offline.html
 - party-render-runtime.js
 - place.html
@@ -57,7 +61,9 @@
 - sync-runtime.js
 - theme-config.js
 - trip-config.js
+- trip-failure-runtime.js
 - trip-runtime.js
 - trip.html
 - vercel.json
-- VERSION.txt
+
+Total production files excluding manifest/checksum: 62

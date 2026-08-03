@@ -2,7 +2,7 @@
 (function(root){
   'use strict';
   const theme = Object.freeze({
-    name:'Japan Warm Editorial Preview',
+    name: 'New Zealand Adventure',
     colors: Object.freeze({
       primary: '#087F9C', primaryDeep: '#075B73', secondary: '#3D7F55', secondaryDeep: '#2F6844',
       accent: '#F49A24', accentDeep: '#C96D00', highlight: '#E94F37',

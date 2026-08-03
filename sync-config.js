@@ -10,19 +10,34 @@
     publishableKey:'sb_publishable_gjObd52pFWZh5VDWD5wKZw_jHxzV7yP'
   });
   const runtimeOverride=root.TRAVEL_ENGINE_SUPABASE||{};
-  /* Portability Stage: tripId used to be a literal 'nz-family-2026', a third
-     copy of the same identifier already owned by trip-config.js's
-     storageNamespace (publication-runtime.js carried a second copy as a
-     fallback). This module loads before trip-config.js, so tripId is
-     resolved lazily via a getter rather than read at parse time — by the
-     time any sync call actually fires, TRIP_CONFIG has always loaded. */
-  const legacyTripIdFallback='nz-family-2026';
+  /* Stage E2A-5: tripId used to silently fall back to the literal
+     'nz-family-2026' whenever TRIP_CONFIG hadn't loaded yet or was missing —
+     a second Trip Package deployed without a valid config would have synced
+     straight into the NZ trip's cloud rows. It now resolves through the one
+     shared TRIP_FAILURE.tripId() surface (see trip-failure-runtime.js),
+     which returns null rather than fabricating an identifier; every reader
+     of config.tripId already treats a falsy tripId as "not configured" and
+     refuses to sync (see expense-sync-runtime.js/moment-sync-runtime.js/
+     generation-runtime.js's own configured() guards). This module loads
+     before trip-config.js, so tripId is still resolved lazily via a getter
+     — by the time any sync call actually fires, TRIP_CONFIG has always
+     loaded if it's going to. */
+  function resolveTripId(){
+    if(root.TRIP_FAILURE) return root.TRIP_FAILURE.tripId();
+    /* trip-failure-runtime.js not loaded on this page for some reason —
+       fail the same way (no identity), never fabricate one. */
+    return (root.TRIP_CONFIG&&typeof root.TRIP_CONFIG.storageNamespace==='string'&&root.TRIP_CONFIG.storageNamespace)||null;
+  }
   const config=Object.freeze({
     provider:'supabase',
     enabled:runtimeOverride.enabled===true||project.enabled===true,
     url:String(runtimeOverride.url||project.url||''),
     anonKey:String(runtimeOverride.anonKey||runtimeOverride.publishableKey||project.publishableKey||''),
-    get tripId(){ return (root.TRIP_CONFIG&&root.TRIP_CONFIG.storageNamespace)||legacyTripIdFallback; },
+    get tripId(){
+      const id=resolveTripId();
+      if(!id&&root.TRIP_FAILURE) root.TRIP_FAILURE.reportTripLoadFailure('sync-config.js tripId');
+      return id;
+    },
     schemaVersion:1,
     tables:Object.freeze({publications:'trip_publications',expenses:'trip_expenses',moments:'trip_moments',generation:'trip_generation'}),
     storage:Object.freeze({momentsBucket:'trip-moments'}),
@@ -47,7 +62,11 @@
      as a live getter on the exported object so it still resolves lazily. */
   Object.defineProperty(exported,'tripId',{
     enumerable:true,
-    get:function(){ return (root.TRIP_CONFIG&&root.TRIP_CONFIG.storageNamespace)||legacyTripIdFallback; }
+    get:function(){
+      const id=resolveTripId();
+      if(!id&&root.TRIP_FAILURE) root.TRIP_FAILURE.reportTripLoadFailure('sync-config.js tripId');
+      return id;
+    }
   });
   root.SYNC_CONFIG=Object.freeze(exported);
 })(globalThis);

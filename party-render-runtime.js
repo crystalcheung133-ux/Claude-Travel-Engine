@@ -31,12 +31,42 @@
     const picker=holder.id==='splitPickerMenu'||holder.classList.contains('split-picker-menu');
     holder.innerHTML=m.order.map(function(key){return splitOptionHtml(m,key,picker);}).join(picker?'':'<br/>');
   }
+  /* Lightweight fallback for pages that load this file but not the full core-runtime.js
+     chain (e.g. offline.html). Only runs when root.updateFriendLabels is unavailable, so
+     it never competes with core-runtime.js's own handler on pages that already have it. */
+  function currentFriendKeyLite(m){
+    if(typeof root.getFriend==='function')return valid(m,root.getFriend());
+    try{
+      const cfgKey=root.STORAGE_CONFIG&&root.STORAGE_CONFIG.keys&&root.STORAGE_CONFIG.keys.friend;
+      if(cfgKey&&root.localStorage){
+        const stored=root.localStorage.getItem(cfgKey);
+        if(stored)return valid(m,stored);
+      }
+    }catch(e){/* localStorage unavailable (privacy mode, etc.) — fall through to default */}
+    return m.defaultKey;
+  }
+  function updateFriendLabelsLite(m){
+    const current=currentFriendKeyLite(m);
+    document.querySelectorAll('[data-friend-label]').forEach(function(el){
+      const x=ident(m,current);
+      el.innerHTML='<span class="family-identity family-'+esc(current)+' is-compact"><span class="family-code">'+esc(x.code)+'</span><span class="family-name">'+esc(x.name)+'</span></span>';
+      el.dataset.family=current;
+    });
+  }
+  function showNoTripLoaded(){
+    document.querySelectorAll('[data-friend-label]').forEach(function(el){
+      el.textContent=(root.TRIP_FAILURE&&root.TRIP_FAILURE.NO_TRIP_LOADED_TEXT)||'';
+      el.dataset.family='';
+    });
+  }
   function run(){
-    const m=model(); if(!m)return;
+    const m=model();
+    if(!m){ showNoTripLoaded(); return; }
     document.querySelectorAll('select[data-party-options]').forEach(function(el){renderPartySelect(el,m);});
     document.querySelectorAll('[data-party-split-options]').forEach(function(holder){renderSplitOptions(holder,m);});
     renderFriends(m);
     if(typeof root.updateFriendLabels==='function')root.updateFriendLabels();
+    else updateFriendLabelsLite(m);
     if(typeof root.updateSplitUI==='function'&&document.getElementById('splitPickerSummary'))root.updateSplitUI();
   }
   ready(run); root.__partyRenderRuntimeRun=run;

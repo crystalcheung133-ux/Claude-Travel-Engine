@@ -69,12 +69,14 @@ let editingExpenseIndex=null;
    are unchanged from the deploy-tested Stage 4F-P baseline.
    ============================================================================ */
 (function(){
-  const FRIEND_ORDER=(TRIP_CONFIG.participants&&TRIP_CONFIG.participants.order)||[];
-  const FRIEND_FALLBACK=Object.fromEntries(Object.entries(TRIP_CONFIG.participants?.identities||{}).map(([key,value])=>[key,`${value.code} · ${value.name}`]));
+  const hasTripConfig=typeof TRIP_CONFIG!=='undefined'&&!!TRIP_CONFIG;
+  if(!hasTripConfig&&typeof TRIP_FAILURE!=='undefined')TRIP_FAILURE.reportTripLoadFailure('expenses.js');
+  const FRIEND_ORDER=(hasTripConfig&&TRIP_CONFIG.participants&&TRIP_CONFIG.participants.order)||[];
+  const FRIEND_FALLBACK=Object.fromEntries(Object.entries((hasTripConfig&&TRIP_CONFIG.participants?.identities)||{}).map(([key,value])=>[key,`${value.code} · ${value.name}`]));
 
   function currentUser(){
-    try{return (typeof getFriend==='function' ? getFriend() : STORAGE.local.get(STORAGE_CONFIG.keys.friend)) || (TRIP_CONFIG.participants&&TRIP_CONFIG.participants.defaultKey) || 'crystal';}
-    catch(e){return 'crystal';}
+    try{return (typeof getFriend==='function' ? getFriend() : STORAGE.local.get(STORAGE_CONFIG.keys.friend)) || (hasTripConfig&&TRIP_CONFIG.participants&&TRIP_CONFIG.participants.defaultKey) || null;}
+    catch(e){return null;}
   }
   function labelFor(k){
     try{return (typeof FRIENDS!=='undefined' && FRIENDS[k]) ? FRIENDS[k] : (FRIEND_FALLBACK[k]||k||'');}
@@ -493,7 +495,7 @@ let editingExpenseIndex=null;
   };
 
   window.exportExpenseData=function(){
-    if(currentUser()!==((TRIP_CONFIG.admin&&TRIP_CONFIG.admin.user)||'crystal') || typeof window.isAdminMode!=='function' || !window.isAdminMode()) return alert('Enter Admin Mode to export the complete expense data.');
+    if(currentUser()!==(hasTripConfig&&TRIP_CONFIG.admin&&TRIP_CONFIG.admin.user) || typeof window.isAdminMode!=='function' || !window.isAdminMode()) return alert('Enter Admin Mode to export the complete expense data.');
     const arr=readExpenses();
     if(!arr.length) return alert('No expense data to export yet.');
     const quote=value=>`"${String(value??'').replace(/"/g,'""')}"`;
@@ -549,13 +551,13 @@ let editingExpenseIndex=null;
     const item=document.getElementById('expenseItem'); if(item) item.value=e.details || (e.category ? '' : (e.item||''));
     window.setExpenseCategory(e.category || 'Other');
     const total=document.getElementById('expenseTotal'); if(total) total.value=e.total||'';
-    setSelectValue('expensePaidBy',e.paidBy||'crystal');
-    setSelectValue('expensePersonalPaidBy',e.paidBy||'crystal');
+    setSelectValue('expensePaidBy',e.paidBy||'');
+    setSelectValue('expensePersonalPaidBy',e.paidBy||'');
     const personal=(e.type==='personal');
     const personalBox=document.getElementById('expensePersonal'); if(personalBox) personalBox.checked=personal;
     const consumed=document.getElementById('expenseConsumedBy');
     if(consumed){
-      consumed.value=e.consumedBy || ((e.split||[])[0]) || e.paidBy || 'crystal';
+      consumed.value=e.consumedBy || ((e.split||[])[0]) || e.paidBy || '';
       consumed.dataset.manual=personal && consumed.value!==e.paidBy ? 'true':'false';
     }
     document.querySelectorAll('#expenseModal input[data-split]').forEach(x=>x.checked=(e.split||[]).includes(x.value));

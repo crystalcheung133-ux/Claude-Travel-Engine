@@ -199,14 +199,10 @@
       box.innerHTML=`<span class="moment-context-dot">✓</span><span><strong>${c.displayTitleSnapshot}</strong><small>${c.dayId ? `Day ${dayNumberFromId(c.dayId)} · ` : ''}${c.contextType==='guide'?'From Guide':'Planned activity'}</small></span>`;
     }
   }
-  function isMomentSafePlannedActivity(item){
-    const text=[item&&item.title,...((item&&Array.isArray(item.details))?item.details:[])].join(' ');
-    return !/\b(?:Alvin|Austin|Chelsea)\b/i.test(text);
-  }
   function renderPlannedActivityPicker(){
     const host=document.getElementById('momentPlannedPicker');
     if(!host) return;
-    const chips=currentDayItems(momentSelectorDay).filter(isMomentSafePlannedActivity).map(item=>`<button type="button" class="moment-activity-chip" onclick="chooseMomentActivity('${momentSelectorDay}','${String(item.id).replace(/'/g,"\'")}')"><span>${stripMomentTitle(item.title)}</span><small>${item.time||''}</small></button>`).join('');
+    const chips=currentDayItems(momentSelectorDay).map(item=>`<button type="button" class="moment-activity-chip" onclick="chooseMomentActivity('${momentSelectorDay}','${String(item.id).replace(/'/g,"\'")}')"><span>${stripMomentTitle(item.title)}</span><small>${item.time||''}</small></button>`).join('');
     /* Stage 5B-2B2: the "Just this moment" chip is redundant when the composer was entered via the
        Planned activity card — returning to free capture is done by closing the composer and choosing
        the other card instead. Only render the chip for the general-entry "+Add planned activity" path. */
@@ -324,13 +320,13 @@
       photoPrototype:currentMomentPhoto ? {...currentMomentPhoto.meta, retained:false} : null,
       createdAt:now,
       updatedAt:now,
-      createdBy:(typeof getFriend==='function'?getFriend():'crystal'),
-      editedBy:(typeof getFriend==='function'?getFriend():'crystal')
+      createdBy:(typeof getFriend==='function'?getFriend():null),
+      editedBy:(typeof getFriend==='function'?getFriend():null)
     };
     if(editingMomentId){
       const existing=arr.find(e=>e.id===editingMomentId);
       if(!currentMomentPhoto && existing?.photoPrototype) entry.photoPrototype=existing.photoPrototype;
-      arr=arr.map(e=> e.id===editingMomentId ? {...e,...entry,createdAt:e.createdAt||now,createdBy:e.createdBy||entry.createdBy,editedAt:now,updatedAt:now,editedBy:(typeof getFriend==='function'?getFriend():'crystal')} : e);
+      arr=arr.map(e=> e.id===editingMomentId ? {...e,...entry,createdAt:e.createdAt||now,createdBy:e.createdBy||entry.createdBy,editedAt:now,updatedAt:now,editedBy:(typeof getFriend==='function'?getFriend():null)} : e);
     }else{
       arr.push(entry);
     }

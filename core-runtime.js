@@ -148,7 +148,11 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 });
 
-function getFriend(){return STORAGE.local.get(STORAGE_CONFIG.keys.friend,TRIP_CONFIG.participants?.defaultKey||'crystal');}
+function getFriend(){
+  const fallback=(typeof TRIP_CONFIG!=='undefined'&&TRIP_CONFIG.participants&&TRIP_CONFIG.participants.defaultKey)||null;
+  if(!fallback&&typeof TRIP_FAILURE!=='undefined')TRIP_FAILURE.reportTripLoadFailure('core-runtime.js getFriend');
+  return STORAGE.local.get(STORAGE_CONFIG.keys.friend,fallback);
+}
 function setFriend(k){
   STORAGE.local.set(STORAGE_CONFIG.keys.friend,k);
   closeFriendModal();
@@ -157,14 +161,18 @@ function setFriend(k){
   if(document.getElementById('momentsModal')?.classList.contains('show')&&typeof window.simplifyMomentsAuthor==='function')window.simplifyMomentsAuthor();
   if(typeof window.refreshExpenseAdminUI==='function')window.refreshExpenseAdminUI();
 }
-const FRIEND_IDENTITY=TRIP_CONFIG.participants?.identities||{};
+const FRIEND_IDENTITY=(typeof TRIP_CONFIG!=='undefined'&&TRIP_CONFIG.participants?.identities)||{};
 function friendIdentityHTML(key,compact=false){
-  const fallbackKey=TRIP_CONFIG.participants?.defaultKey||Object.keys(FRIEND_IDENTITY)[0];
+  const fallbackKey=(typeof TRIP_CONFIG!=='undefined'&&TRIP_CONFIG.participants?.defaultKey)||Object.keys(FRIEND_IDENTITY)[0];
   const identity=FRIEND_IDENTITY[key]||FRIEND_IDENTITY[fallbackKey];
+  if(!identity){
+    if(typeof TRIP_FAILURE!=='undefined')TRIP_FAILURE.reportTripLoadFailure('core-runtime.js friendIdentityHTML');
+    return `<span class="family-identity${compact?' is-compact':''}">${escapeHTML(typeof TRIP_FAILURE!=='undefined'?TRIP_FAILURE.NO_TRIP_LOADED_TEXT:'')}</span>`;
+  }
   return `<span class="family-identity family-${escapeHTML(key)}${compact?' is-compact':''}"><span class="family-code">${escapeHTML(identity.code)}</span><span class="family-name">${escapeHTML(identity.name)}</span></span>`;
 }
 window.friendIdentityHTML=friendIdentityHTML;
-function updateFriendLabels(){const key=getFriend();document.querySelectorAll('[data-friend-label]').forEach(e=>{e.innerHTML=friendIdentityHTML(key,true);e.dataset.family=key;});}
+function updateFriendLabels(){const key=getFriend();document.querySelectorAll('[data-friend-label]').forEach(e=>{e.innerHTML=friendIdentityHTML(key,true);e.dataset.family=key||'';});}
 function renderFriendChoices(){const list=document.querySelector('#mamaModal .friend-choice-list');if(!list)return;const current=getFriend();list.innerHTML=Object.keys(FRIEND_IDENTITY).map(key=>`<button type="button" class="family-choice${key===current?' active':''}" data-family="${key}" onclick="setFriend('${key}')">${friendIdentityHTML(key)}</button>`).join('');}
 function openFriendModal(){renderFriendChoices();$('mamaModal').classList.add('show')} function closeFriendModal(){$('mamaModal').classList.remove('show')}
 
@@ -190,35 +198,3 @@ document.addEventListener('keydown', function(e){
   }
 });
 
-
-/* Japan v1.4.1 — resilient bottom-menu activation.
-   Inline onclick remains for backwards compatibility; this capture handler
-   guarantees touch/click activation even when legacy menu-layer CSS changes
-   event ordering. */
-(function(){
-  function activateMenuItem(event){
-    const item=event.target&&event.target.closest&&event.target.closest('#tripMenu a,#guideMenu button,#daysMenu a');
-    if(!item)return;
-    const menu=item.closest('.mini-menu');
-    if(!menu||!menu.classList.contains('show'))return;
-    event.preventDefault();
-    event.stopPropagation();
-    if(event.stopImmediatePropagation)event.stopImmediatePropagation();
-    if(menu.id==='daysMenu'){
-      const href=item.getAttribute('href');
-      if(href) window.location.assign(href);
-      return;
-    }
-    const source=item.getAttribute('onclick')||'';
-    if(menu.id==='tripMenu'){
-      const match=source.match(/openTripCard\(['\"]([^'\"]+)['\"]\)/);
-      if(match&&typeof window.openTripCard==='function')window.openTripCard(match[1]);
-      return;
-    }
-    if(menu.id==='guideMenu'){
-      const match=source.match(/openGuideCategory\(['\"]([^'\"]+)['\"]\)/);
-      if(match&&typeof window.openGuideCategory==='function')window.openGuideCategory(match[1]);
-    }
-  }
-  document.addEventListener('click',activateMenuItem,true);
-})();

@@ -159,7 +159,7 @@
       const status=selectorCard.querySelector('.trip-studio-selector-status');
       if(status) status.textContent=active?'Studio active · Open workspace':'PIN protected · '+ADMIN_CONFIG.displayName+' only';
       const arrow=selectorCard.querySelector('.trip-studio-selector-arrow');
-      if(arrow) arrow.remove();
+      if(arrow) arrow.textContent='›';
     }
     const banner=document.getElementById('adminModeBanner');
     if(banner) banner.hidden=!state.mode;
@@ -190,7 +190,7 @@
       selectorToggle.setAttribute('tabindex','0');
       selectorToggle.setAttribute('aria-label','Open Studio Mode');
       selectorToggle.setAttribute('aria-pressed','false');
-      selectorToggle.innerHTML=`<span class="trip-studio-selector-copy"><strong>⚙ Studio Mode</strong><small>Editing, Complete Trip, Export Centre and trip controls</small><em class="trip-studio-selector-status">PIN protected · ${ADMIN_CONFIG.displayName} only</em></span>`;
+      selectorToggle.innerHTML=`<span class="trip-studio-selector-copy"><strong>⚙ Studio Mode</strong><small>Editing, Complete Trip, Export Centre and trip controls</small><em class="trip-studio-selector-status">PIN protected · ${ADMIN_CONFIG.displayName} only</em></span><span class="trip-studio-selector-arrow" aria-hidden="true">›</span>`;
       familyList.insertAdjacentElement('afterend',selectorToggle);
       const activateStudio=()=>{
         if(state.mode && isUnlocked() && isAdminUser()){

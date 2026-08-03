@@ -1,11 +1,11 @@
 {
-  "name": "Japan Onsen Trip",
-  "short_name": "Japan Onsen",
-  "start_url": "./index.html",
+  "name": "New Zealand Family Companion",
+  "short_name": "NZ Family",
+  "start_url": "./index.html?coldLaunch=1",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f4eadb",
-  "theme_color": "#f4eadb",
+  "background_color": "#EEF8FA",
+  "theme_color": "#EEF8FA",
   "icons": [
     {
       "src": "icon-192.png",

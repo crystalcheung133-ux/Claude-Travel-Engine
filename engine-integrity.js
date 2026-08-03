@@ -12,8 +12,7 @@
   const PLANNING_ROLES=Object.freeze(['primary','alternative']);
   const NON_PLACE_ROLES=Object.freeze([
     'meal-choice','accommodation-meal','operator-meal','fuel-check','final-refuel',
-    'comfort-stop','free-time','check-in','check-out','preparation','transfer-instruction',
-    'approved-timeline-step'
+    'comfort-stop','free-time','check-in','check-out','preparation','transfer-instruction'
   ]);
   const NAVIGATION_ROLES=Object.freeze([
     'place','hotel','rental-pickup','rental-return','airport','activity-meeting-point',
