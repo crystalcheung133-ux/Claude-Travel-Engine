@@ -1,8 +1,3 @@
-Travel Engine Production File Manifest
-Generated: 2026-08-03
-Release: Stage-E2C.1-JAPAN-POPUP-SANDBOX
-Production root files:
-
 - CI-PATH-FIX-REPORT.md
 - VERSION.txt
 - admin.js
@@ -65,3 +60,8 @@ Production root files:
 - trip-runtime.js
 - trip.html
 - vercel.json
+Generated: 2026-08-03
+Production root files:
+Release: Stage-E2C.1-JAPAN-POPUP-SANDBOX
+Travel Engine Production File Manifest
+trip-identity-runtime.js

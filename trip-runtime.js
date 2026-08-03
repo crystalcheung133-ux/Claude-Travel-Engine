@@ -448,7 +448,7 @@ function renderDashboard(){
     const t=PRODUCTION_TRIP.cards[key];
     if(!t){show('<div class="route-error-state"><h2>No Trip Info</h2><p>This Trip Info card is not available.</p><a class="btn" href="trip.html">Back to Trip</a></div>');return;}
     const body=key==='emergency'?compactEmergencyHTML(t.body):(key==='stay'?buildAccommodationListHTML():(key==='activities'?buildActivityBookingListHTML():t.body));
-    show(tripNav(key)+`<section class="trip-page-panel"><div class="trip-onepage trip-onepage-${key}"><p class="kicker">Trip</p><h2>${t.title}</h2>${body}<p class="timestamp trip-build-summary">${tripSyncSummary()}</p></div></section>`);
+    show(`<section class="trip-page-panel"><div class="trip-onepage trip-onepage-${key}"><p class="kicker">Trip</p><h2>${t.title}</h2>${body}<p class="timestamp trip-build-summary">${tripSyncSummary()}</p></div></section>`);
     if(key==='checklist')setTimeout(loadChecklist,0);
   };
   openAccommodationList=function(){openTripCard('stay');};
@@ -456,13 +456,13 @@ function renderDashboard(){
     if(!onTripPage()&&!bookingOverride){NAVIGATION_ADAPTER.goToBooking(bookingId,'stay');return;}
     const booking=bookingOverride||getBookingById(bookingId);activeBookingDetail={type:'accommodation',id:bookingId};
     if(!booking){show('<div class="route-error-state"><h2>Item Not Found</h2><p>This accommodation booking is not available.</p><a class="btn" href="trip.html?tripInfoId=stay">Back to Accommodation</a></div>');return;}
-    show(tripNav('stay')+`<section class="trip-page-panel"><div class="trip-onepage trip-onepage-stay accommodation-onepage-detail"><a class="accommodation-back" href="trip.html?tripInfoId=stay">‹ All accommodation</a><p class="kicker">Trip · Accommodation</p><h2>${escapeTripHTML(booking.title)}</h2>${showSaved?'<p class="timestamp booking-save-success" role="status">Saved ✓</p>':''}${buildAccommodationDetailHTML(booking)}<p class="timestamp trip-build-summary">${tripSyncSummary()}</p></div></section>`);
+    show(`<section class="trip-page-panel"><div class="trip-onepage trip-onepage-stay accommodation-onepage-detail"><a class="accommodation-back" href="trip.html?tripInfoId=stay">‹ All accommodation</a><p class="kicker">Trip · Accommodation</p><h2>${escapeTripHTML(booking.title)}</h2>${showSaved?'<p class="timestamp booking-save-success" role="status">Saved ✓</p>':''}${buildAccommodationDetailHTML(booking)}<p class="timestamp trip-build-summary">${tripSyncSummary()}</p></div></section>`);
   };
   openActivityBookingDetail=function(bookingId,bookingOverride,showSaved){
     if(!onTripPage()&&!bookingOverride){NAVIGATION_ADAPTER.goToBooking(bookingId,'activity');return;}
     const booking=bookingOverride||getBookingById(bookingId);activeBookingDetail={type:'activity',id:bookingId};
     if(!booking){show('<div class="route-error-state"><h2>Item Not Found</h2><p>This activity booking is not available.</p><a class="btn" href="trip.html?tripInfoId=activities">Back to Activities</a></div>');return;}
-    show(tripNav('activities')+`<section class="trip-page-panel"><div class="trip-onepage accommodation-onepage-detail"><a class="accommodation-back" href="trip.html?tripInfoId=activities">‹ All activities</a><p class="kicker">Trip · Activities</p><h2>${escapeTripHTML(booking.title)}</h2>${showSaved?'<p class="timestamp booking-save-success" role="status">Saved ✓</p>':''}${buildActivityBookingDetailHTML(booking)}<p class="timestamp trip-build-summary">${tripSyncSummary()}</p></div></section>`);
+    show(`<section class="trip-page-panel"><div class="trip-onepage accommodation-onepage-detail"><a class="accommodation-back" href="trip.html?tripInfoId=activities">‹ All activities</a><p class="kicker">Trip · Activities</p><h2>${escapeTripHTML(booking.title)}</h2>${showSaved?'<p class="timestamp booking-save-success" role="status">Saved ✓</p>':''}${buildActivityBookingDetailHTML(booking)}<p class="timestamp trip-build-summary">${tripSyncSummary()}</p></div></section>`);
   };
   openBookingEdit=function(bookingId){
     if(!(window.isAdminMode&&window.isAdminMode()))return;
