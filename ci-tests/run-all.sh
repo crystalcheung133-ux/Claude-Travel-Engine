@@ -81,6 +81,10 @@ echo "== E2C 2/2 Semantic route contract =="
 node test-e2c-route-contract.js || overall=1
 echo ""
 
+echo "== E2C.1 Trip popup preservation =="
+node test-e2c1-trip-popup.js || overall=1
+echo ""
+
 if [ "$overall" -eq 0 ]; then
   echo "ALL TESTS PASSED"
 else
