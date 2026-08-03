@@ -1,193 +1,63 @@
-importScripts('./theme-config.js', './asset-config.js', './locale-config.js', './formatter.js', './navigation-config.js', './trip-config.js', './storage-config.js');
-const CACHE_NAME = `travel-engine-${TRIP_CONFIG.storageNamespace}-${TRIP_CONFIG.version}-e2c-fullpage-navigation`;
-const CRITICAL_EXTENSIONS = /\.(?:css|js)$/i;
-const ASSETS = [
-  './',
-  './index.html',
-  './styles.css',
-  './core-runtime.js',
-  './trip-runtime.js',
-  './moments-compat.js',
-  './currency-runtime.js',
-  './home-runtime.js',
-  './script.js',
-  './guide-runtime.js',
-  './guide-navigation-runtime.js',
-  './expenses.js',
-  './supabase-client-runtime.js',
-  './expense-sync-runtime.js',
-  './moment-sync-runtime.js',
-  './generation-runtime.js',
-  './moments.js',
-  './admin.js',
-  './reset-runtime.js',
-  './publication-runtime.js',
-  './complete-runtime.js',
-  './export-runtime.js',
-  './pwa.js',
-  './app-runtime.js',
-  './trip-failure-runtime.js',
-  './theme-config.js',
-  './asset-config.js',
-  './locale-config.js',
-  './geo-config.js',
-  './party-render-runtime.js',
-  './formatter.js',
-  './money-config.js',
-  './money.js',
-  './navigation-config.js',
-  './navigation.js',
-  './navigation-adapter.js',
-  './storage-config.js',
-  './storage.js',
-  './sync-config.js',
-  './sync-runtime.js',
-  './trip-config.js',
-  './engine-integrity.js',
-  './data.js',
-  './booking-authority.js',
-  './itinerary-authority.js',
-  './place.html',
-  './day.html',
-  './offline.html',
-  './manifest.webmanifest',
-  './' + ASSET_CONFIG.icons.icon192,
-  './' + ASSET_CONFIG.icons.icon512,
-  './' + ASSET_CONFIG.branding.secondaryMark,
-  './' + ASSET_CONFIG.branding.splashLogo,
-  './guide.html',
-  './itinerary.html',
-  './memory.html',
-  './moments.html',
-  './expenses.html',
-  './trip.html'
-];
-
-
-self.addEventListener('message', event => {
-  if (event.data && event.data.type === 'SKIP_WAITING') self.skipWaiting();
-});
-
-self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => Promise.all(ASSETS.map(asset => cache.add(new Request(asset,{cache:'reload'})))))
-  );
-});
-
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys()
-      .then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
-      .then(() => self.clients.claim())
-  );
-});
-
-function looksLikeHtmlDocument(text) {
-  const sample = String(text || '').replace(/^\uFEFF/, '').trimStart().slice(0, 512).toLowerCase();
-  return sample.startsWith('<!doctype html') || sample.startsWith('<html') || sample.includes('<html ');
-}
-
-async function validateHtmlResponse(response) {
-  if (!response || !response.ok) return false;
-  try {
-    const body = await response.clone().text();
-    return looksLikeHtmlDocument(body);
-  } catch (error) {
-    return false;
-  }
-}
-
-async function fetchValidHtml(request) {
-  try {
-    const response = await fetch(request, { cache: 'no-store', redirect: 'follow' });
-    return await validateHtmlResponse(response) ? response : null;
-  } catch (error) {
-    return null;
-  }
-}
-
-async function cachedValidHtml(request) {
-  const candidates = [
-    request,
-    new Request('./index.html', { headers: { accept: 'text/html' } }),
-    new Request('./offline.html', { headers: { accept: 'text/html' } })
-  ];
-  for (const candidate of candidates) {
-    const response = await caches.match(candidate, { ignoreSearch: true });
-    if (await validateHtmlResponse(response)) return response;
-  }
-  return null;
-}
-
-async function navigationResponse(request) {
-  const cache = await caches.open(CACHE_NAME);
-  const direct = await fetchValidHtml(request);
-  if (direct) {
-    await cache.put(request, direct.clone());
-    return direct;
-  }
-
-  const indexRequest = new Request(new URL('./index.html', self.location.href), {
-    method: 'GET',
-    headers: { accept: 'text/html' },
-    cache: 'no-store',
-    credentials: 'same-origin',
-    redirect: 'follow'
-  });
-  const indexResponse = await fetchValidHtml(indexRequest);
-  if (indexResponse) {
-    await cache.put('./index.html', indexResponse.clone());
-    return indexResponse;
-  }
-
-  return await cachedValidHtml(request) || new Response(
-    '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Offline</title></head><body><p>This page is temporarily unavailable.</p></body></html>',
-    { status: 503, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
-  );
-}
-
-async function networkFirst(request) {
-  const cache = await caches.open(CACHE_NAME);
-  try {
-    const response = await fetch(request);
-    if (response && response.ok) cache.put(request, response.clone());
-    return response;
-  } catch (error) {
-    let cached = await caches.match(request, { ignoreSearch: true });
-    if (!cached) {
-      const url = new URL(request.url);
-      cached = await caches.match(url.pathname.split('/').pop() || './index.html', { ignoreSearch: true });
-    }
-    return cached || caches.match('./offline.html');
-  }
-}
-
-async function cacheFirstMedia(request) {
-  const cache = await caches.open(CACHE_NAME);
-  const cached = await cache.match(request, {ignoreSearch:true});
-  if (cached) return cached;
-  try {
-    const response = await fetch(request);
-    if (response && response.ok) cache.put(request, response.clone());
-    return response;
-  } catch (error) {
-    return caches.match('./offline.html');
-  }
-}
-
-self.addEventListener('fetch', event => {
-  if (event.request.method !== 'GET') return;
-
-  const url = new URL(event.request.url);
-  if (url.origin !== self.location.origin) return;
-
-  const acceptsHtml = event.request.headers.get('accept')?.includes('text/html');
-  if (event.request.mode === 'navigate' || acceptsHtml) {
-    event.respondWith(navigationResponse(event.request));
-  } else if (CRITICAL_EXTENSIONS.test(url.pathname)) {
-    event.respondWith(networkFirst(event.request));
-  } else {
-    event.respondWith(cacheFirstMedia(event.request));
-  }
-});
+7cca762fb6d9da0ba152ab6c2b4c2d295bd77b75fc1d1688b77969cac944989c  CI-PATH-FIX-REPORT.md
+c6f3d278da9a9fb6195121e504183d256603ad84b70edf504b3494a218a3d628  VERSION.txt
+42282760d2009db8e461d15e07a825237c86b681ff8529ce74c7872436cddb8c  admin.js
+a0f9041bd28136fe2e3c7eab1f4f244faef9ba057cf89e0c2e8941d88ae1d1e3  app-runtime.js
+a7755bcca239f0ffda67b362957facc78220af5b6fe10f301c4574ec84adf1d6  asset-config.js
+d9530fab4051fd11f60c5ac758369f12e16cfc567bcf590cc024cf24eeb8e2da  assets/japan-onsen-logo.png
+02882063049489b0fac16f811e503ee73f152d61ecea5efe656312d97ec782f3  booking-authority.js
+023abeee1120a3e3315f820a953e937f7396f14db37299bb79279e825c63aa5e  complete-runtime.js
+45071b0f23d877b00e719e0d358a2eab117f92f4c7236e91eda548ef03f6ac05  core-runtime.js
+168ee80f70fd42a9cced04d26ffcddee5908789cf69e358e57d3766059cd4baa  currency-runtime.js
+af80bb5f2b875f7d909d8aefdb0d3f95eb802037162e6fbe09fcd6a581f4cee8  data.js
+9a9ca77e64e3d7b2a01163df2e1a2978ea7f4227029806c53a750bbd81256a87  day.html
+31d8b881c0b3eab03c333df6f742ffa03a4df49c564daa70cd6be290cd24435a  engine-integrity.js
+6d3673f84a2a5995dd92d04dcb8d9b4b193e7b965585f429967568474b34335e  expense-sync-runtime.js
+af7d51d2ade7fe841123caa1dedfd732896084262faad8db05b5fbca6f2f606f  expenses.html
+f96a55c320ff45439f63ccb7e4dfa28ebf7ee53e2cf7bb5de2e47e186f12e9ec  expenses.js
+a0c6b3217fc4fbda766a8d06e07a333340bd1e7cd3bb155edde8a95febc84f36  export-runtime.js
+58ccad9a796b79cce871dcd43f342c6fc526b29ceaaead4ddd5ba0756e8e3d2b  formatter.js
+c48f6485b1ac9f164b06fa9f453024e8fd86595623fdef5c94dc9db8009df3c4  generate-manifest.js
+45c76951c515ddba9930e59d69cea716da3e71d7b6ebb94f6e5ad3b02a56914b  generation-runtime.js
+bfad531007fed93abba12307c7a2031677bd8f092941870bfa64f485e4b1a5c5  generation-selection-adapter.js
+27e6702e264bcda145d4b1c58de2dee1bb69740c3440793cf8f28e5b17b55e59  geo-config.js
+24270e034a66028de7aa867aac70a2a232317dc898281c079e6651de1c156be7  guide-navigation-runtime.js
+9c753c12d6013a170a6c68648112f691b68ad5e0c8153a0882098a723b3f3f6e  guide-runtime.js
+af9235e3f16ec12d6ddc9f9f65377dd5d51af2c7f251d5f2e953f4a01fdcab5c  guide.html
+5d6e836efb3a4ba0a4a77e1e07c5f1e2de05f1690b3cace20347fc874c7596ce  home-runtime.js
+3684c071c09dfba8bd603af9eefcd039f70f9fe929a2e26b11f62e75b0850578  index.html
+6a4688d9c723462fe1c40fc9c8c3a8fea30f1891aae52a871cd6ba2c46ae8daf  itinerary-authority.js
+6175b8d5b74f66fa4ed4d331ce96b4f2f115289f2a7d438fc5fa0b201bae70a1  itinerary.html
+75556f6968b479690f9c3722b168db01a2553808d70046b8925a300e4de2b6d3  locale-config.js
+9bd80f6c01c49a997f966edb30dc11f87b30a3f5c00eea58ee7e6ca717f5677c  manifest.webmanifest
+c24bbf19c8da626f68dc286cc92eb28717bf6a3a0890ffa73dc2f3a084465baa  memory.html
+1c218e524ee378d1af7a20c38012077d417be56b951d7407b373ece2615e4a3f  moment-sync-runtime.js
+c22be4c46067500e4f1b66acda7544d1532ae0f301d08271b7e30a7ae4d963ec  moments-compat.js
+3beea06f14eaf621a0f7de1c233e30e603d192ff4322eaac0ff8e2ff9be8606e  moments.html
+11c48667a658132404576c95a2e4a72914a48d28805980d76654dfa7cc1c86c8  moments.js
+6a4801bef6fc7861b0e98483fcb0b9ec50e9f497a06c4d00273ed85fe3fcf30a  money-config.js
+8481a7525cd6cc97cda27e33d4289de27e80593360630c5676fecfd6d8136fe3  money.js
+9b3051ede7630eb0b7006164bdff9ab37a7b0c74d608e658a4f5d7bad4830a61  navigation-adapter.js
+2fc56f6e67deea007b2341a027223eb544c981f060f125abce7913a5b7cad90e  navigation-config.js
+ff0a396c3500826880c13f9767fcaa99c3d55344278884ecee67e32c4e7cc605  navigation.js
+da6f7a50e9ef8a83aff7a97b20c652e5af70b7ca2b7cc024d2cab90e3acb27eb  offline.html
+3a6c4f6a9a3a8bfe442290bf37f044a78d0b2dd644dd30a1162ae98c8d49681c  party-render-runtime.js
+c879fd1805e83016a51a978bbcb4b08781cd7efb6f88ea7b507a81e22d4c4014  place.html
+a2fd7147955d8ea1bcab0b1f085df0a47b84753e563baebb750be48a57bd2cde  publication-runtime.js
+e90c7410d608492df953b930075bd7b18024d5ad184fd543ea8a0fc7fe1d4a49  pwa.js
+ba49e0033ffa86ce650820c2811eb3ff4ce750c5e1508976bf101fa29de298dd  reset-runtime.js
+0a8b51329a0a78390356e5ad928edb7c35be2e1c4bb0f6d2b7f560d3e73b3434  script.js
+32104fc23e847a0e6ad7e8f32fe7cba0620b184cf2058932dbee2fd41e512d03  storage-config.js
+2dc373906b1d336317d75ffab8f4b6f85e43e9d0813effac3c72cfa5a2712aed  storage-migration-runtime.js
+afd1db094344b6503422ccb4a2877e147f9c4e7d53d4b27385575e22f1fe9e49  storage.js
+163bf39e8a98061444827186fbc4fb80252606d9c7b4cdb4930e592457fdc84b  styles.css
+4086f7b154acc74eb119def8ec481228d28e6fafcdefe2e2f66d4fe0f25a4c9e  supabase-client-runtime.js
+99aae6a3c10f55567d683bf02225e92e0995bd9aa065c50f6fd4511e35ba737c  sw.js
+bc02bfea90b02e0abb35d37f5cbb40efbedd39e9ba88f535b5322bee33304ec9  sync-config.js
+e167de867974e43d4afb17bbb3e16214c1ad5c67f86f5a82d75418a74c5e1c3e  sync-runtime.js
+935a166137c802dab4cd18fc3916150e4197886ace26290abf9af3b22aa919c6  theme-config.js
+84c6c94372c453d16e04ec963e0f59f306f536711757c88c7ebff4046bedd4d6  trip-config.js
+018741e78d937fc0cf426d14a4bc1b7c13fa3d3ac819216ab96509baff1b683f  trip-failure-runtime.js
+baafd7e2a0c86e4b7c8c5f9fc5a68f4e03ea9432ebb86dda617096deda98e128  trip-runtime.js
+42f9cd46e7f8dbe2b872182032f729a04436b77eb92a831a5a213b32a76cf5ca  trip.html
+b130b701ac004f6953bd47df4b8b12bedfc788fd817e111af7a1d43a96d312b1  vercel.json
+2f803d4b30b0133b572d750cea668e91a5325e63c8b373646b8bc35abcecc3fe  PRODUCTION-FILE-MANIFEST.txt

@@ -1,30 +1,193 @@
-/* Japan Trip Package — Winter Editorial Warm theme. */
-(function(root){
-  'use strict';
-  const theme=Object.freeze({
-    name:'Japan Winter Editorial Warm',
-    colors:Object.freeze({
-      primary:'#2F574C',primaryDeep:'#1F4038',secondary:'#B8684D',secondaryDeep:'#8E4B39',
-      accent:'#C98B58',accentDeep:'#9F6840',highlight:'#7D91A3',background:'#F7F1E7',surface:'#FFFDFC',
-      ink:'#17324B',muted:'#66727A',border:'rgba(23,50,75,.15)',heroSky:'#DCECEF',heroMeadow:'#E7E9D5',heroSun:'#F4D7AF'
-    }),
-    gradients:Object.freeze({
-      hero:'linear-gradient(135deg,#DCECEF 0%,#E7E9D5 56%,#F4D7AF 100%)',
-      primaryAction:'linear-gradient(135deg,#2F574C,#1F4038)',
-      secondaryAction:'linear-gradient(135deg,#B8684D,#8E4B39)',
-      accentAction:'linear-gradient(135deg,#C98B58,#9F6840)',
-      homeHero:'linear-gradient(135deg,#D7ECEB 0%,#E8E7D3 55%,#F6D7AA 100%)',
-      splash:'linear-gradient(180deg,#DCECEF 0%,#E7E9D5 58%,#F4D7AF 100%)'
-    }),
-    radius:Object.freeze({surface:'26px',hero:'30px',button:'18px',compactButton:'14px'}),
-    borderWeight:'1px',
-    shadows:Object.freeze({surface:'0 11px 28px rgba(16,42,67,.09)',hero:'0 16px 38px rgba(21,50,75,.09)',nav:'0 3px 15px rgba(21,50,75,.045)',action:'0 10px 24px rgba(31,64,56,.18)'}),
-    treatments:Object.freeze({navigation:'light-glass',hero:'winter-editorial-gradient',watermark:'steam-wave',splash:'trip-badge-light-gradient'})
-  });
-  root.THEME_CONFIG=theme;
-  if(typeof document!=='undefined'){
-    const c=theme.colors,g=theme.gradients,r=theme.radius,s=theme.shadows;
-    const vars={'--theme-primary':c.primary,'--theme-primary-deep':c.primaryDeep,'--theme-secondary':c.secondary,'--theme-secondary-deep':c.secondaryDeep,'--theme-accent':c.accent,'--theme-accent-deep':c.accentDeep,'--theme-highlight':c.highlight,'--theme-background':c.background,'--theme-surface':c.surface,'--theme-ink':c.ink,'--theme-muted':c.muted,'--theme-border':c.border,'--theme-hero-sky':c.heroSky,'--theme-hero-meadow':c.heroMeadow,'--theme-hero-sun':c.heroSun,'--theme-hero-gradient':g.hero,'--theme-primary-action':g.primaryAction,'--theme-secondary-action':g.secondaryAction,'--theme-accent-action':g.accentAction,'--theme-home-hero':g.homeHero,'--theme-splash':g.splash,'--theme-surface-radius':r.surface,'--theme-hero-radius':r.hero,'--theme-button-radius':r.button,'--theme-compact-button-radius':r.compactButton,'--theme-border-weight':theme.borderWeight,'--theme-shadow-surface':s.surface,'--theme-shadow-hero':s.hero,'--theme-shadow-nav':s.nav,'--theme-shadow-action':s.action};
-    const style=document.createElement('style');style.id='travel-engine-theme-tokens';style.textContent=':root{'+Object.entries(vars).map(([k,v])=>k+':'+v).join(';')+';}';document.head.appendChild(style);
+importScripts('./theme-config.js', './asset-config.js', './locale-config.js', './formatter.js', './navigation-config.js', './trip-config.js', './storage-config.js');
+const CACHE_NAME = `travel-engine-${TRIP_CONFIG.storageNamespace}-${TRIP_CONFIG.version}-e2c1-trip-popup`;
+const CRITICAL_EXTENSIONS = /\.(?:css|js)$/i;
+const ASSETS = [
+  './',
+  './index.html',
+  './styles.css',
+  './core-runtime.js',
+  './trip-runtime.js',
+  './moments-compat.js',
+  './currency-runtime.js',
+  './home-runtime.js',
+  './script.js',
+  './guide-runtime.js',
+  './guide-navigation-runtime.js',
+  './expenses.js',
+  './supabase-client-runtime.js',
+  './expense-sync-runtime.js',
+  './moment-sync-runtime.js',
+  './generation-runtime.js',
+  './moments.js',
+  './admin.js',
+  './reset-runtime.js',
+  './publication-runtime.js',
+  './complete-runtime.js',
+  './export-runtime.js',
+  './pwa.js',
+  './app-runtime.js',
+  './trip-failure-runtime.js',
+  './theme-config.js',
+  './asset-config.js',
+  './locale-config.js',
+  './geo-config.js',
+  './party-render-runtime.js',
+  './formatter.js',
+  './money-config.js',
+  './money.js',
+  './navigation-config.js',
+  './navigation.js',
+  './navigation-adapter.js',
+  './storage-config.js',
+  './storage.js',
+  './sync-config.js',
+  './sync-runtime.js',
+  './trip-config.js',
+  './engine-integrity.js',
+  './data.js',
+  './booking-authority.js',
+  './itinerary-authority.js',
+  './place.html',
+  './day.html',
+  './offline.html',
+  './manifest.webmanifest',
+  './' + ASSET_CONFIG.icons.icon192,
+  './' + ASSET_CONFIG.icons.icon512,
+  './' + ASSET_CONFIG.branding.secondaryMark,
+  './' + ASSET_CONFIG.branding.splashLogo,
+  './guide.html',
+  './itinerary.html',
+  './memory.html',
+  './moments.html',
+  './expenses.html',
+  './trip.html'
+];
+
+
+self.addEventListener('message', event => {
+  if (event.data && event.data.type === 'SKIP_WAITING') self.skipWaiting();
+});
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => Promise.all(ASSETS.map(asset => cache.add(new Request(asset,{cache:'reload'})))))
+  );
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys()
+      .then(keys => Promise.all(keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))))
+      .then(() => self.clients.claim())
+  );
+});
+
+function looksLikeHtmlDocument(text) {
+  const sample = String(text || '').replace(/^\uFEFF/, '').trimStart().slice(0, 512).toLowerCase();
+  return sample.startsWith('<!doctype html') || sample.startsWith('<html') || sample.includes('<html ');
+}
+
+async function validateHtmlResponse(response) {
+  if (!response || !response.ok) return false;
+  try {
+    const body = await response.clone().text();
+    return looksLikeHtmlDocument(body);
+  } catch (error) {
+    return false;
   }
-})(globalThis);
+}
+
+async function fetchValidHtml(request) {
+  try {
+    const response = await fetch(request, { cache: 'no-store', redirect: 'follow' });
+    return await validateHtmlResponse(response) ? response : null;
+  } catch (error) {
+    return null;
+  }
+}
+
+async function cachedValidHtml(request) {
+  const candidates = [
+    request,
+    new Request('./index.html', { headers: { accept: 'text/html' } }),
+    new Request('./offline.html', { headers: { accept: 'text/html' } })
+  ];
+  for (const candidate of candidates) {
+    const response = await caches.match(candidate, { ignoreSearch: true });
+    if (await validateHtmlResponse(response)) return response;
+  }
+  return null;
+}
+
+async function navigationResponse(request) {
+  const cache = await caches.open(CACHE_NAME);
+  const direct = await fetchValidHtml(request);
+  if (direct) {
+    await cache.put(request, direct.clone());
+    return direct;
+  }
+
+  const indexRequest = new Request(new URL('./index.html', self.location.href), {
+    method: 'GET',
+    headers: { accept: 'text/html' },
+    cache: 'no-store',
+    credentials: 'same-origin',
+    redirect: 'follow'
+  });
+  const indexResponse = await fetchValidHtml(indexRequest);
+  if (indexResponse) {
+    await cache.put('./index.html', indexResponse.clone());
+    return indexResponse;
+  }
+
+  return await cachedValidHtml(request) || new Response(
+    '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Offline</title></head><body><p>This page is temporarily unavailable.</p></body></html>',
+    { status: 503, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
+  );
+}
+
+async function networkFirst(request) {
+  const cache = await caches.open(CACHE_NAME);
+  try {
+    const response = await fetch(request);
+    if (response && response.ok) cache.put(request, response.clone());
+    return response;
+  } catch (error) {
+    let cached = await caches.match(request, { ignoreSearch: true });
+    if (!cached) {
+      const url = new URL(request.url);
+      cached = await caches.match(url.pathname.split('/').pop() || './index.html', { ignoreSearch: true });
+    }
+    return cached || caches.match('./offline.html');
+  }
+}
+
+async function cacheFirstMedia(request) {
+  const cache = await caches.open(CACHE_NAME);
+  const cached = await cache.match(request, {ignoreSearch:true});
+  if (cached) return cached;
+  try {
+    const response = await fetch(request);
+    if (response && response.ok) cache.put(request, response.clone());
+    return response;
+  } catch (error) {
+    return caches.match('./offline.html');
+  }
+}
+
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
+
+  const url = new URL(event.request.url);
+  if (url.origin !== self.location.origin) return;
+
+  const acceptsHtml = event.request.headers.get('accept')?.includes('text/html');
+  if (event.request.mode === 'navigate' || acceptsHtml) {
+    event.respondWith(navigationResponse(event.request));
+  } else if (CRITICAL_EXTENSIONS.test(url.pathname)) {
+    event.respondWith(networkFirst(event.request));
+  } else {
+    event.respondWith(cacheFirstMedia(event.request));
+  }
+});
