@@ -108,9 +108,10 @@ function guideDayNumber(item){
  return numbers.length?Math.min(...numbers):999;
 }
 function guideActivityGroup(item){
+ const explicit=String(item.activityGroup||item.group||'').trim();if(explicit)return explicit;
  const text=`${item.title||''} ${item.sub||''} ${item.categoryLabel||''}`.toLowerCase();
- if(/cruise|tour|4wd|glowworm|milford|doubtful|gold panning/.test(text)) return 'Tours & Cruises';
- if(/track|hike|walk|blue lakes|deer park/.test(text)) return 'Walks & Outdoor';
+ if(/cruise|tour/.test(text)) return 'Tours & Cruises';
+ if(/track|hike|walk|outdoor/.test(text)) return 'Walks & Outdoor';
  return 'Experiences & Attractions';
 }
 function guideSortedCategoryItems(cat){
@@ -291,4 +292,38 @@ function renderPlaceGroupPage(keys){
   document.title=`Guide options · ${TRIP_CONFIG.tripName}`;
 }
 
+
+
+/* E2C — Guide is full-page owned. Compatibility names now route, never render a modal. */
+(function(){
+  function categoryKeys(){
+    return Object.keys(PRODUCTION_GUIDE.categories||{}).filter(function(key){return guideCategoryItems(key).length>0;});
+  }
+  function categoryLabel(key){return guideCategoryHeading(key||'GUIDE');}
+  function categoryIcon(key){return ({ATTRACTIONS:'🍃',ACTIVITIES:'🎟️',DINING:'🍽',STAY:'🏨',SHOP:'🛍'})[key]||'📖';}
+  function guideHref(key){return NAVIGATION_ADAPTER.category(key);}
+  guideListRow=function(item){
+    return `<a class="guide-list-route" href="${placeHref(item.key)}"><span><span class="guide-list-title">${item.emoji||''} ${item.title||''}</span><span class="guide-list-sub">${item.sub||''}</span></span><span class="guide-list-meta">${guideStatusHTML(PRODUCTION_GUIDE.places[item.key]||{})}<span class="guide-list-chevron">›</span></span></a>`;
+  };
+  openGuideCategory=function(cat){NAVIGATION_ADAPTER.goToGuideCategory(cat);};
+  openGuideModal=function(key){NAVIGATION_ADAPTER.goToPlace(key);};
+  closeGuideModal=function(){if(NAVIGATION.hasSameOriginReferrer())history.back();else NAVIGATION.goPage('guide');return true;};
+  openShoppingDirectoryView=function(){
+    if(!NAVIGATION.isPage('guide')){NAVIGATION.goPage('guide',{hash:'shoppingDirectory'});return;}
+    if(NAVIGATION.hasHash('shoppingDirectory'))applyGuideHashView();else NAVIGATION.setHash('shoppingDirectory');
+  };
+  function renderGuidePage(){
+    const host=document.getElementById('guidePageContent');if(!host)return;
+    const keys=categoryKeys();
+    if(!keys.length){host.innerHTML='<div class="route-error-state"><h2>No Guide Data</h2><p>No Guide categories are available for this trip.</p><a class="btn" href="index.html">Back Home</a></div>';return;}
+    const requested=String(NAVIGATION.getQuery('category','')||'').toUpperCase();
+    const current=keys.includes(requested)?requested:keys[0];
+    const nav=`<nav class="guide-category-nav" aria-label="Guide categories">${keys.map(function(key){return `<a href="${guideHref(key)}" ${key===current?'aria-current="page"':''}><span>${categoryIcon(key)} ${categoryLabel(key)}</span><span>›</span></a>`;}).join('')}</nav>`;
+    const list=guideSortedCategoryItems(current);
+    const body=list.length?groupedGuideRows(current,list):'<div class="route-error-state"><h2>No Guide Data</h2><p>No Guide items are available in this category.</p></div>';
+    host.innerHTML=nav+`<section class="guide-page-panel"><p class="kicker">Guide</p><h2>${categoryLabel(current)}</h2><div class="category-pop-list guide-category-grouped">${body}</div></section>`;
+    saveGuideNavigationContext(current,{sourceUrl:NAVIGATION.currentAbsoluteUrl(),sourceType:'guide',scrollY:window.scrollY||0});
+  }
+  document.addEventListener('DOMContentLoaded',renderGuidePage);
+})();
 

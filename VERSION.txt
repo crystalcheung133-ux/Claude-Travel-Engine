@@ -1,24 +1,23 @@
 CCMV Travel Engine — New Zealand Companion
-Release: Stage3.2H-PORT1-E2B-STORAGE-RESET-ISOLATION
-Engine baseline: Stage3.2H-PORT1-E2A.1-IDENTITY-AUTHORITY-CI-REPRODUCIBILITY
+Release: Stage3.2H-PORT1-E2C-FULL-PAGE-NAVIGATION
+Engine baseline: Stage3.2H-PORT1-E2B-STORAGE-RESET-ISOLATION
 Release date: 2026-08-03
-Status: E2B implementation candidate; E2C/E2D/E2E not started
+Status: E2C implementation candidate; E2D/E2E remain
 
-Stage E2B introduces trip-scoped storage and reset isolation.
+Stage E2C freezes full-page ownership for navigation.
 
 Changes:
-- Every Engine-owned localStorage key now follows travel-engine.<tripId>.<module>.v1.
-- Admin unlock and booking-reopen session state are trip-scoped.
-- Pending moment-photo IndexedDB is named per trip.
-- A one-time migration moves eligible legacy NZ state into the NZ namespace only.
-- Expenses, Moments, checklist, selected party, itinerary overrides and generation state are preserved where safe.
-- Admin unlock/mode, stale sync caches and navigation context are discarded as unsafe.
-- Booking overrides and Complete Trip state are preserved in namespaced quarantine rather than silently applied.
-- Reset Trip Data clears the active trip namespace by prefix and cannot clear another trip.
-- Runtime files no longer own legacy global storage-key fallbacks.
-- E2B adds namespace, migration, reset and runtime-ownership CI gates.
+- Guide is a real full-page category/list surface at guide.html.
+- Place detail is owned only by place.html.
+- Trip Info and Booking details are owned by trip.html.
+- Day pages retain Timeline only and route semantic references through navigation-adapter.js.
+- Bottom Trip, Guide and Days controls are ordinary full-page links.
+- Per-page Guide/Trip mini-menus and modal hosts are removed.
+- NZ-specific Guide category inference vocabulary is removed.
+- Duplicate party-picker rendering is consolidated through party-render-runtime.js.
+- Visible no-data / item-not-found states replace silent modal no-ops.
+- E2C adds navigation-authority and semantic-route CI gates.
 
 Known remaining work:
-- E2C: navigation authority and duplicated renderer cleanup.
 - E2D: service-worker update-trigger and cache isolation architecture.
-- E2E: complete real-browser cross-trip, reset, offline and mobile acceptance.
+- E2E: full deployed desktop/mobile, back-flow, invalid-ID and network acceptance.

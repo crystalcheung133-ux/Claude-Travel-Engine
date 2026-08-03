@@ -1,8 +1,9 @@
 CCMV Travel Engine Production File Manifest
 Generated: 2026-08-03
-Release: Stage3.2H-PORT1-E2B-STORAGE-RESET-ISOLATION
+Release: Stage3.2H-PORT1-E2C-FULL-PAGE-NAVIGATION
 Production root files:
 
+- CI-PATH-FIX-REPORT.md
 - VERSION.txt
 - admin.js
 - app-runtime.js
@@ -41,6 +42,7 @@ Production root files:
 - moments.js
 - money-config.js
 - money.js
+- navigation-adapter.js
 - navigation-config.js
 - navigation.js
 - nz-adventure-logo.png
@@ -66,5 +68,3 @@ Production root files:
 - trip-runtime.js
 - trip.html
 - vercel.json
-
-Total production files excluding manifest/checksum: 63

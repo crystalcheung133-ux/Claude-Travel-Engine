@@ -73,6 +73,14 @@ echo "== E2B 4/4 Runtime key ownership + page load order =="
 node test-e2b-runtime-key-ownership.js || overall=1
 echo ""
 
+echo "== E2C 1/2 Navigation authority =="
+node test-e2c-navigation-authority.js || overall=1
+echo ""
+
+echo "== E2C 2/2 Semantic route contract =="
+node test-e2c-route-contract.js || overall=1
+echo ""
+
 if [ "$overall" -eq 0 ]; then
   echo "ALL TESTS PASSED"
 else

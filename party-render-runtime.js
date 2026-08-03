@@ -69,5 +69,6 @@
     else updateFriendLabelsLite(m);
     if(typeof root.updateSplitUI==='function'&&document.getElementById('splitPickerSummary'))root.updateSplitUI();
   }
+  root.__partyRenderFriendChoices=function(){const m=model();if(m)renderFriends(m);};
   ready(run); root.__partyRenderRuntimeRun=run;
 })(globalThis);

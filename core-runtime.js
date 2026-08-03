@@ -131,11 +131,11 @@ function toggleMenu(id,trigger){
   closeMiniMenus();
   if(m&&!open)openMiniMenu(id,trigger);
 }
-function toggleTripMenu(){toggleMenu('tripMenu',document.querySelector('.trip-trigger'));}
-function toggleGuideMenu(){toggleMenu('guideMenu',document.querySelector('.guide-trigger'));}
-function toggleDays(){toggleMenu('daysMenu',document.querySelector('.days-trigger'));}
-function reopenTripMenu(){requestAnimationFrame(()=>openMiniMenu('tripMenu',document.querySelector('.trip-trigger')));}
-function reopenGuideMenu(){requestAnimationFrame(()=>openMiniMenu('guideMenu',document.querySelector('.guide-trigger')));}
+function toggleTripMenu(){NAVIGATION.goPage('trip');}
+function toggleGuideMenu(){NAVIGATION.goPage('guide');}
+function toggleDays(){NAVIGATION.goPage('days');}
+function reopenTripMenu(){NAVIGATION.goPage('trip');}
+function reopenGuideMenu(){NAVIGATION.goPage('guide');}
 window.addEventListener('resize',closeMiniMenus);
 document.addEventListener('click',e=>{if(!e.target.closest('.mini-menu')&&!e.target.closest('.trip-modal')&&!e.target.closest('.trip-trigger')&&!e.target.closest('.guide-trigger')&&!e.target.closest('.days-trigger')) closeMiniMenus();});
 document.addEventListener('DOMContentLoaded',()=>{
@@ -173,7 +173,7 @@ function friendIdentityHTML(key,compact=false){
 }
 window.friendIdentityHTML=friendIdentityHTML;
 function updateFriendLabels(){const key=getFriend();document.querySelectorAll('[data-friend-label]').forEach(e=>{e.innerHTML=friendIdentityHTML(key,true);e.dataset.family=key||'';});}
-function renderFriendChoices(){const list=document.querySelector('#mamaModal .friend-choice-list');if(!list)return;const current=getFriend();list.innerHTML=Object.keys(FRIEND_IDENTITY).map(key=>`<button type="button" class="family-choice${key===current?' active':''}" data-family="${key}" onclick="setFriend('${key}')">${friendIdentityHTML(key)}</button>`).join('');}
+function renderFriendChoices(){if(typeof window.__partyRenderFriendChoices==='function')window.__partyRenderFriendChoices();}
 function openFriendModal(){renderFriendChoices();$('mamaModal').classList.add('show')} function closeFriendModal(){$('mamaModal').classList.remove('show')}
 
 

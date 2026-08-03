@@ -2083,3 +2083,15 @@ body.home-bg .live-currency-card #currencyCardMeta{position:relative;z-index:2;w
   .accommodation-section{margin-top:9px}
 }
 @media(max-width:370px){.accommodation-facts{grid-template-columns:1fr}}
+
+/* E2C — full-page Guide and Trip ownership */
+.guide-page-content,.trip-page-content{padding-bottom:110px}
+.guide-category-nav,.trip-card-nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 18px}
+.guide-category-nav a,.trip-card-nav a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:var(--paper,#fff);color:var(--ink);text-decoration:none;font-weight:800}
+.guide-category-nav a[aria-current="page"],.trip-card-nav a[aria-current="page"]{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 18%,transparent)}
+.guide-page-panel,.trip-page-panel{background:var(--paper,#fff);border:1px solid var(--line);border-radius:22px;padding:18px}
+.guide-page-panel .category-pop-list button,.guide-page-panel .category-pop-list a{width:100%}
+.route-error-state{background:var(--paper,#fff);border:1px solid var(--line);border-radius:20px;padding:24px;text-align:center}
+.route-error-state h2{margin-top:0}
+.trip-page-content .trip-onepage{padding:0;background:transparent}
+.app-nav a.trip-trigger,.app-nav a.guide-trigger,.app-nav a.days-trigger{display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;color:inherit}
