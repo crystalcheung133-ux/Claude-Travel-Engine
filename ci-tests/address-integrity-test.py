@@ -1,14 +1,25 @@
-import json,re,pathlib
-DATA_JS=pathlib.Path(__file__).resolve().parent.parent / "data.js"
-s=DATA_JS.read_text(encoding="utf-8")
-a=s.index("const PLACES=")+len("const PLACES="); b=s.index("\n\nconst CATEGORIES=",a)
-p=json.loads(s[a:b].rstrip(";"))
-allowed={"glenorchy-paradise","queenstown-central","te-anau","lake-tekapo-village","christchurch-cbd-discovery-walk","white-water-rafting"}
-bad=[]
-for k,v in p.items():
-    if k in allowed: continue
-    if k not in json.loads(s[s.index("const GUIDE_ORDER=")+len("const GUIDE_ORDER="):s.index("\n\nconst DAY_LINKS=")].rstrip(";")): continue
-    addr=(v.get("address") or "").strip()
-    if addr in {"Queenstown, New Zealand","Te Anau, New Zealand","Lake Tekapo, Canterbury, New Zealand","Fiordland, New Zealand","Arrowtown, New Zealand"}: bad.append((k,addr))
-assert not bad, bad
-print("Guide address integrity: PASS")
+import json, pathlib
+DATA_JS=pathlib.Path(__file__).resolve().parent.parent/'data.js'
+s=DATA_JS.read_text(encoding='utf-8')
+
+def extract(name):
+    marker=f'const {name}='
+    start=s.index(marker)+len(marker)
+    return json.JSONDecoder().raw_decode(s[start:])[0]
+
+places=extract('PLACES')
+order=extract('GUIDE_ORDER')
+missing=[]
+for pid in order:
+    place=places.get(pid)
+    if not place:
+        missing.append((pid,'missing place'))
+        continue
+    address=str(place.get('address') or '').strip()
+    maps=str(place.get('maps') or '').strip()
+    if not address:
+        missing.append((pid,'empty address field'))
+    if not maps:
+        missing.append((pid,'empty map field'))
+assert not missing, missing
+print(f'Guide address integrity: PASS — {len(order)} Guide entities have structured address/map fields')

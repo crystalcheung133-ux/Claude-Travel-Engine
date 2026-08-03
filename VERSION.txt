@@ -1,23 +1,18 @@
-CCMV Travel Engine — New Zealand Companion
-Release: Stage3.2H-PORT1-E2C-FULL-PAGE-NAVIGATION
-Engine baseline: Stage3.2H-PORT1-E2B-STORAGE-RESET-ISOLATION
-Release date: 2026-08-03
-Status: E2C implementation candidate; E2D/E2E remain
+Travel Engine — Japan Onsen Sandbox Candidate
+Release: JAPAN-ROUND2-E2C-SANDBOX-1
+Engine baseline: Stage E2C Full-page Navigation Ownership
+Trip package: Japan Round 2 Trip Package v2
+Release date: 2026-08-04
+Status: Sandbox browser-validation candidate; not Production Freeze
 
-Stage E2C freezes full-page ownership for navigation.
-
-Changes:
-- Guide is a real full-page category/list surface at guide.html.
-- Place detail is owned only by place.html.
-- Trip Info and Booking details are owned by trip.html.
-- Day pages retain Timeline only and route semantic references through navigation-adapter.js.
-- Bottom Trip, Guide and Days controls are ordinary full-page links.
-- Per-page Guide/Trip mini-menus and modal hosts are removed.
-- NZ-specific Guide category inference vocabulary is removed.
-- Duplicate party-picker rendering is consolidated through party-render-runtime.js.
-- Visible no-data / item-not-found states replace silent modal no-ops.
-- E2C adds navigation-authority and semantic-route CI gates.
+Assembly boundary:
+- Engine behaviour and UI modules remain from Stage E2C.
+- Trip-owned config, data, branding and icons are supplied by the Japan Trip Package.
+- Operational parties are Crystal, Moon and Ava for Days 1–9.
+- Storage namespace is japan-onsen-2026.
 
 Known remaining work:
-- E2D: service-worker update-trigger and cache isolation architecture.
-- E2E: full deployed desktop/mobile, back-flow, invalid-ID and network acceptance.
+- Public research refresh for fields explicitly marked pending/live.
+- Deployed desktop/mobile browser acceptance.
+- E2D service-worker update-trigger architecture.
+- E2E cross-trip/offline/full workflow acceptance.
