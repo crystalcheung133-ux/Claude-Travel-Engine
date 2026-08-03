@@ -17,7 +17,7 @@
   }
   const ADMIN_USER=ADMIN_CONFIG.user;
   const ADMIN_PIN=ADMIN_CONFIG.pin;
-  const SESSION_KEY='travel_engine_admin_unlocked_v1';
+  const SESSION_KEY=STORAGE_CONFIG.sessionKeys.adminUnlocked;
   const state={mode:false,dirty:false,draft:null};
 
   function isAdminUser(){ return getFriend()===ADMIN_USER; }

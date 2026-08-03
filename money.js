@@ -20,7 +20,7 @@
 
   function cacheKey(){
     const config=root.MONEY_CONFIG||{};
-    return `travel_engine_fx_${tripCurrency().code.toLowerCase()}_${homeCurrency().toLowerCase()}_v${Number(config.storageVersion||1)}`;
+    return root.STORAGE_CONFIG.fxKey(tripCurrency().code,homeCurrency(),Number(config.storageVersion||1));
   }
 
   function apiUrl(){

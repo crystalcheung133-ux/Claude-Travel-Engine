@@ -1,41 +1,24 @@
 CCMV Travel Engine — New Zealand Companion
-Release: Stage3.2H-PORT1-E2A.1-IDENTITY-AUTHORITY-CI-REPRODUCIBILITY
-Engine baseline: Stage3.2H-PORT1-BOOKING-SAVE-ROOTFIX1-EXPENSE-CLEANUP1
+Release: Stage3.2H-PORT1-E2B-STORAGE-RESET-ISOLATION
+Engine baseline: Stage3.2H-PORT1-E2A.1-IDENTITY-AUTHORITY-CI-REPRODUCIBILITY
 Release date: 2026-08-03
-Status: E2A.1 completion candidate; E2B/E2C/E2D/E2E explicitly not started
+Status: E2B implementation candidate; E2C/E2D/E2E not started
 
-Stage E2A.1 completes the narrow packaging reproducibility and identity-authority
-work identified by the independent E2A deliverable audit.
+Stage E2B introduces trip-scoped storage and reset isolation.
 
-Changes in E2A.1:
-- Removed the external jsdom dependency from the party-rendering test. The CI
-  suite is now self-contained and includes a lockfile with zero external npm
-  packages, so a clean extraction can run `npm ci` deterministically without
-  hidden preinstalled modules.
-- Enforced trip-failure-runtime.js as the single production definition of the
-  visible `No Trip Loaded` text. Runtime consumers use
-  TRIP_FAILURE.NO_TRIP_LOADED_TEXT; if that module is unavailable they fail
-  neutrally with empty identity output rather than inventing trip content.
-- Neutralised complete-runtime.js's executable Lee fallback to `the trip admin`
-  without changing Complete Trip state, permissions, confirmation flow,
-  lifecycle logic, storage, reopen behaviour, or UI.
-- Added E2A.1 identity-authority and clean-room packaging gates.
-- Recomputed reports, authoritative diff, production manifest and checksums.
+Changes:
+- Every Engine-owned localStorage key now follows travel-engine.<tripId>.<module>.v1.
+- Admin unlock and booking-reopen session state are trip-scoped.
+- Pending moment-photo IndexedDB is named per trip.
+- A one-time migration moves eligible legacy NZ state into the NZ namespace only.
+- Expenses, Moments, checklist, selected party, itinerary overrides and generation state are preserved where safe.
+- Admin unlock/mode, stale sync caches and navigation context are discarded as unsafe.
+- Booking overrides and Complete Trip state are preserved in namespaced quarantine rather than silently applied.
+- Reset Trip Data clears the active trip namespace by prefix and cannot clear another trip.
+- Runtime files no longer own legacy global storage-key fallbacks.
+- E2B adds namespace, migration, reset and runtime-ownership CI gates.
 
-Stage E2A features retained:
-- memory.html party controls use shared config-owned party rendering hooks.
-- offline identity is config-driven with a neutral no-trip state.
-- index.html has a trip-neutral pre-JS first paint.
-- manifest.webmanifest is generated from Trip/Theme/Asset config.
-- NZ sync/party failure fallbacks were removed from Engine runtime files.
-- duplicated static mini-menu NZ subtitles were neutralised.
-
-Known remaining Stage E2 work:
-- E2B: storage namespace migration and Reset isolation.
-- E2C: Guide/Trip navigation authority and duplicated renderer cleanup.
+Known remaining work:
+- E2C: navigation authority and duplicated renderer cleanup.
 - E2D: service-worker update-trigger and cache isolation architecture.
-- E2E: real-browser portability, navigation, offline, desktop and mobile gates.
-
-No Japan generation, Importer work, storage-key changes, navigation redesign,
-Supabase schema changes, Export format changes, or visible UI redesign were
-performed in E2A.1.
+- E2E: complete real-browser cross-trip, reset, offline and mobile acceptance.

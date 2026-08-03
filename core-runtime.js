@@ -25,9 +25,9 @@
   function migrate(){
     if(!root.STORAGE_CONFIG||!root.STORAGE||typeof ITINERARY_DATA==='undefined')return;
     const keys=root.STORAGE_CONFIG.keys||{};
-    const signatureKey=keys.itineraryMasterSignature||'travel_engine_itinerary_master_signature_v1';
-    const overridesKey=keys.itineraryOverrides||'travel_engine_itinerary_overrides_v1';
-    const draftKey=keys.adminDraft||'travel_engine_admin_draft_v1';
+    const signatureKey=keys.itineraryMasterSignature;
+    const overridesKey=keys.itineraryOverrides;
+    const draftKey=keys.adminDraft;
     const signature='itinerary-v1:'+hash(stableStringify(ITINERARY_DATA));
     const previous=root.STORAGE.local.get(signatureKey);
 

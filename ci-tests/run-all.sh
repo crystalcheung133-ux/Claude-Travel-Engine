@@ -57,6 +57,22 @@ echo "== E2A.1 2/2 Clean-room dependency gate =="
 node test-e2a1-clean-room.js || overall=1
 echo ""
 
+echo "== E2B 1/4 Storage namespace + cross-trip isolation =="
+node test-e2b-storage-namespace.js || overall=1
+echo ""
+
+echo "== E2B 2/4 One-time legacy migration =="
+node test-e2b-migration.js || overall=1
+echo ""
+
+echo "== E2B 3/4 Reset namespace contract =="
+node test-e2b-reset-contract.js || overall=1
+echo ""
+
+echo "== E2B 4/4 Runtime key ownership + page load order =="
+node test-e2b-runtime-key-ownership.js || overall=1
+echo ""
+
 if [ "$overall" -eq 0 ]; then
   echo "ALL TESTS PASSED"
 else

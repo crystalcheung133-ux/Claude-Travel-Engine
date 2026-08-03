@@ -4,7 +4,7 @@
    overrides before GenerationSelectionAdapter builds its production views. */
 (function(root){
   'use strict';
-  const KEY=(root.STORAGE_CONFIG&&root.STORAGE_CONFIG.keys&&root.STORAGE_CONFIG.keys.bookingOverrides)||'travel_engine_booking_overrides_v1';
+  const KEY=root.STORAGE_CONFIG.keys.bookingOverrides;
   function clone(value){return value==null?value:JSON.parse(JSON.stringify(value));}
   function store(){return root.STORAGE&&root.STORAGE.local?root.STORAGE.local:null;}
   function read(){

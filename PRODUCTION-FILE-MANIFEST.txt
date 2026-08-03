@@ -1,6 +1,6 @@
 CCMV Travel Engine Production File Manifest
 Generated: 2026-08-03
-Release: Stage3.2H-PORT1-E2A.1-IDENTITY-AUTHORITY-CI-REPRODUCIBILITY
+Release: Stage3.2H-PORT1-E2B-STORAGE-RESET-ISOLATION
 Production root files:
 
 - VERSION.txt
@@ -53,6 +53,7 @@ Production root files:
 - reset-runtime.js
 - script.js
 - storage-config.js
+- storage-migration-runtime.js
 - storage.js
 - styles.css
 - supabase-client-runtime.js
@@ -66,4 +67,4 @@ Production root files:
 - trip.html
 - vercel.json
 
-Total production files excluding manifest/checksum: 62
+Total production files excluding manifest/checksum: 63

@@ -8,9 +8,10 @@
   const table=config.tables?.moments||'trip_moments';
   const bucket=config.storage?.momentsBucket||'trip-moments';
   const EVENTS=Object.freeze({status:'travelengine:momentsyncstatus',changed:'travelengine:momentsyncchanged'});
-  const TOMBSTONE_KEY='travel_engine_moment_tombstones_v1';
-  const META_KEY='travel_engine_moment_sync_meta_v1';
-  const DB_NAME='travel_engine_moment_photos_v1';
+  const TOMBSTONE_KEY=root.STORAGE_CONFIG.keys.momentSyncTombstones;
+  const META_KEY=root.STORAGE_CONFIG.keys.momentSyncMeta;
+  const DB_NAME=root.STORAGE_CONFIG.indexedDbName;
+  const LEGACY_DB_NAME='travel_engine_moment_photos_v1';
   const STORE='pending_photos';
   const state={status:'idle',message:'Saved on this device',lastSyncAt:null,error:null,timer:null,inFlight:null,paused:false};
 
@@ -19,7 +20,7 @@
   function writeJSON(key,value){try{storage?.writeJSON?storage.writeJSON(key,value):localStorage.setItem(key,JSON.stringify(value));}catch(e){}}
   function iso(value){const d=new Date(value||0);return Number.isNaN(d.getTime())?new Date(0).toISOString():d.toISOString();}
   function normalizeRecord(record){const next=Object.assign({},record||{});next.id=String(next.id||uuid());next.createdAt=iso(next.createdAt||new Date().toISOString());next.updatedAt=iso(next.updatedAt||next.editedAt||next.createdAt);return next;}
-  function key(){return root.STORAGE_CONFIG?.keys?.momentsList||'moments_list';}
+  function key(){return root.STORAGE_CONFIG.keys.momentsList;}
   function readLocal(){const list=readJSON(key(),[]);const normalized=(Array.isArray(list)?list:[]).map(normalizeRecord);if(JSON.stringify(list)!==JSON.stringify(normalized))writeJSON(key(),normalized);return normalized;}
   function writeLocal(list){writeJSON(key(),(Array.isArray(list)?list:[]).map(normalizeRecord));}
   function readTombstones(){return (readJSON(TOMBSTONE_KEY,[])||[]).filter(x=>x?.id).map(x=>Object.assign({},x,{updatedAt:iso(x.updatedAt||x.deletedAt),deletedAt:iso(x.deletedAt||x.updatedAt)}));}
@@ -68,8 +69,26 @@
     console.log(LOG,'Moment uploaded',records.map(r=>r.id).join(', '));
   }
 
-  function openDb(){return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,1);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:'id'});};req.onsuccess=()=>{const db=req.result;db.onversionchange=()=>db.close();resolve(db);};req.onerror=()=>reject(req.error);});}
-  function runDbTransaction(mode,operation){return openDb().then(db=>new Promise((resolve,reject)=>{let result;let settled=false;const finish=(ok,value)=>{if(settled)return;settled=true;try{db.close();}catch(e){}ok?resolve(value):reject(value);};let tx;try{tx=db.transaction(STORE,mode);result=operation(tx.objectStore(STORE));}catch(error){finish(false,error);return;}tx.oncomplete=()=>finish(true,result?.result);tx.onerror=()=>finish(false,tx.error||result?.error||new Error('Pending photo database transaction failed'));tx.onabort=()=>finish(false,tx.error||new Error('Pending photo database transaction aborted'));}));}
+  function openNamedDb(name){return new Promise((resolve,reject)=>{const req=indexedDB.open(name,1);req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains(STORE))req.result.createObjectStore(STORE,{keyPath:'id'});};req.onsuccess=()=>{const db=req.result;db.onversionchange=()=>db.close();resolve(db);};req.onerror=()=>reject(req.error);});}
+  function transact(db,mode,operation){return new Promise((resolve,reject)=>{let result;let settled=false;const finish=(ok,value)=>{if(settled)return;settled=true;ok?resolve(value):reject(value);};let tx;try{tx=db.transaction(STORE,mode);result=operation(tx.objectStore(STORE));}catch(error){finish(false,error);return;}tx.oncomplete=()=>finish(true,result?.result);tx.onerror=()=>finish(false,tx.error||result?.error||new Error('Pending photo database transaction failed'));tx.onabort=()=>finish(false,tx.error||new Error('Pending photo database transaction aborted'));});}
+  let dbMigrationPromise=null;
+  async function migrateLegacyPendingPhotos(){
+    if(dbMigrationPromise)return dbMigrationPromise;
+    dbMigrationPromise=(async()=>{
+      const marker=root.STORAGE_CONFIG.keys.indexedDbMigrationMarker;
+      if(!root.STORAGE_CONFIG.legacyOwner||root.STORAGE_CONFIG.tripId!==root.STORAGE_CONFIG.legacyOwner||readJSON(marker,null))return;
+      if(typeof indexedDB.databases!=='function')return; // old browsers keep legacy DB quarantined; another Trip never opens it.
+      const dbs=await indexedDB.databases();
+      if(!(dbs||[]).some(info=>info&&info.name===LEGACY_DB_NAME)){writeJSON(marker,{status:'not-found',at:new Date().toISOString()});return;}
+      const legacy=await openNamedDb(LEGACY_DB_NAME);const records=await transact(legacy,'readonly',s=>s.getAll());legacy.close();
+      if(records&&records.length){const current=await openNamedDb(DB_NAME);await transact(current,'readwrite',s=>{records.forEach(record=>s.put(record));});current.close();}
+      await new Promise((resolve,reject)=>{const req=indexedDB.deleteDatabase(LEGACY_DB_NAME);req.onsuccess=()=>resolve();req.onerror=()=>reject(req.error);req.onblocked=()=>reject(new Error('Legacy pending-photo database is still in use'));});
+      writeJSON(marker,{status:'completed',count:(records||[]).length,at:new Date().toISOString()});
+    })().catch(error=>{console.error(LOG,'Legacy pending-photo migration failed',error);});
+    return dbMigrationPromise;
+  }
+  async function openDb(){await migrateLegacyPendingPhotos();return openNamedDb(DB_NAME);}
+  function runDbTransaction(mode,operation){return openDb().then(db=>transact(db,mode,operation).finally(()=>{try{db.close();}catch(e){}}));}
   async function storePendingPhoto(id,blob){await runDbTransaction('readwrite',store=>store.put({id,blob,type:blob.type||'image/jpeg',updatedAt:new Date().toISOString()}));}
   async function getPendingPhotos(){const rows=await runDbTransaction('readonly',store=>store.getAll());return rows||[];}
   async function deletePendingPhoto(id){try{await runDbTransaction('readwrite',store=>store.delete(id));}catch(e){}}
@@ -198,11 +217,11 @@
      on every device that wipes its local moments, not only the one that
      pressed the button. */
   function clearLegacyMomentKeys(){
-    const prefixes=[root.STORAGE_CONFIG?.keys?.momentPrefix,root.STORAGE_CONFIG?.keys?.latestMomentPrefix].filter(Boolean);
-    if(!prefixes.length)return;
+    const activePrefix=root.STORAGE_CONFIG.prefix;
+    const legacy=[root.STORAGE_CONFIG.legacyKeys.momentPrefix,root.STORAGE_CONFIG.legacyKeys.latestMomentPrefix];
     for(let i=localStorage.length-1;i>=0;i--){
       const k=localStorage.key(i);
-      if(k && prefixes.some(prefix=>k.startsWith(prefix))) localStorage.removeItem(k);
+      if(k && (k.startsWith(activePrefix+'moment.')||k.startsWith(activePrefix+'moment-latest.')||legacy.some(prefix=>k.startsWith(prefix)))) localStorage.removeItem(k);
     }
   }
   /* Clears this device's local moment store only (list, tombstones, sync

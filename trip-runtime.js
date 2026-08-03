@@ -371,8 +371,8 @@ function saveBookingEdit(event,bookingId){
   return false;
 }
 function reopenSavedBooking(){
-  const marker=STORAGE.session.readJSON('travel_engine_booking_reopen_v1',null);if(!marker||!marker.bookingId)return;
-  STORAGE.session.remove('travel_engine_booking_reopen_v1');
+  const marker=STORAGE.session.readJSON(STORAGE_CONFIG.sessionKeys.bookingReopen,null);if(!marker||!marker.bookingId)return;
+  STORAGE.session.remove(STORAGE_CONFIG.sessionKeys.bookingReopen);
   setTimeout(function(){returnToBookingDetail(marker.bookingId);},80);
 }
 document.addEventListener('travelengine:adminmodechange',function(){

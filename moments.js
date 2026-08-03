@@ -338,7 +338,7 @@
     }
     writeJson(STORAGE_CONFIG.keys.momentsList,arr);
     window.MOMENT_SYNC?.queueSync();
-    STORAGE.local.writeJSON(STORAGE_CONFIG.keys.latestMomentPrefix+key,entry);
+    STORAGE.local.writeJSON(STORAGE_CONFIG.latestMomentKey(key),entry);
     editingMomentId=null;
     if(textEl) textEl.value='';
     currentMomentPhoto=null;
@@ -388,7 +388,7 @@
     window.MOMENT_SYNC?.markDeleted(deleting);
     arr=arr.filter(e=>e.id!==idOrKey);
     writeJson(STORAGE_CONFIG.keys.momentsList,arr);
-    if(before===arr.length && idOrKey && !idOrKey.startsWith('m_')) STORAGE.local.remove(STORAGE_CONFIG.keys.momentPrefix+idOrKey);
+    if(before===arr.length && idOrKey && !idOrKey.startsWith('m_')) STORAGE.local.remove(STORAGE_CONFIG.momentKey(idOrKey));
     const photoUrl=prototypePhotoUrls.get(idOrKey);
     if(photoUrl){try{URL.revokeObjectURL(photoUrl);}catch(e){} prototypePhotoUrls.delete(idOrKey);}
     window.MOMENT_SYNC?.queueSync();
@@ -397,13 +397,15 @@
   window.renderMoments = function(){
     const box=document.getElementById('momentsTimeline'); if(!box) return;
     let arr=readJson(STORAGE_CONFIG.keys.momentsList,[]);
-    // Include legacy one-per-place moments once so older saved data still appears.
+    // Include namespaced one-per-place compatibility moments once.
+    const momentPrefix=STORAGE_CONFIG.prefix+'moment.';
+    const latestPrefix=STORAGE_CONFIG.prefix+'moment-latest.';
     for(const k of STORAGE.local.keys()){
-      if(k && k.startsWith(STORAGE_CONFIG.keys.momentPrefix) && !k.startsWith(STORAGE_CONFIG.keys.latestMomentPrefix)){
+      if(k && k.startsWith(momentPrefix) && !k.startsWith(latestPrefix)){
         try{
           const e=STORAGE.local.readJSON(k,null);
           if(e && !arr.some(x=>x.id===e.id || (x.createdAt===e.createdAt && x.itemKey===e.itemKey && x.text===e.text))){
-            arr.push({...e,id:e.id||('legacy_'+k.replace(STORAGE_CONFIG.keys.momentPrefix,''))});
+            arr.push({...e,id:e.id||('legacy_'+k.slice(momentPrefix.length).replace(/\.v1$/,''))});
           }
         }catch(err){}
       }

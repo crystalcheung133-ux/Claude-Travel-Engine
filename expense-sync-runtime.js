@@ -7,8 +7,8 @@
   const config=root.SYNC_CONFIG||{};
   const storage=root.STORAGE?.local;
   const EVENTS=Object.freeze({status:'travelengine:expensesyncstatus',changed:'travelengine:expensesyncchanged'});
-  const TOMBSTONE_KEY='travel_engine_expense_tombstones_v1';
-  const META_KEY='travel_engine_expense_sync_meta_v1';
+  const TOMBSTONE_KEY=root.STORAGE_CONFIG.keys.expenseSyncTombstones;
+  const META_KEY=root.STORAGE_CONFIG.keys.expenseSyncMeta;
   const table=config.tables?.expenses||'trip_expenses';
   const state={status:'idle',message:'Saved on this device',lastSyncAt:null,error:null,timer:null,inFlight:null,paused:false};
 
@@ -34,14 +34,14 @@
     return next;
   }
   function readLocal(){
-    const key=root.STORAGE_CONFIG?.keys?.expenses||'expenses';
+    const key=root.STORAGE_CONFIG.keys.expenses;
     const list=readJSON(key,[]);
     const normalized=(Array.isArray(list)?list:[]).map(normalizeRecord);
     if(JSON.stringify(list)!==JSON.stringify(normalized)) writeJSON(key,normalized);
     return normalized;
   }
   function writeLocal(list){
-    const key=root.STORAGE_CONFIG?.keys?.expenses||'expenses';
+    const key=root.STORAGE_CONFIG.keys.expenses;
     writeJSON(key,(Array.isArray(list)?list:[]).map(normalizeRecord));
   }
   function readTombstones(){return (readJSON(TOMBSTONE_KEY,[])||[]).filter(x=>x?.id).map(x=>Object.assign({},x,{updatedAt:iso(x.updatedAt||x.deletedAt),deletedAt:iso(x.deletedAt||x.updatedAt)}));}

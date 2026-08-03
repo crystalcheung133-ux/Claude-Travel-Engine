@@ -1,12 +1,54 @@
-/* storage-config.js — Stage 7F canonical browser-storage key ownership.
-   Existing key values are intentionally preserved so deployed user data remains compatible. */
+/* storage-config.js — Stage E2B trip-scoped browser-storage ownership.
+   Every Engine-owned persistent key is isolated by TRIP_CONFIG.storageNamespace.
+   Legacy unscoped keys are exposed only to the one-time NZ migration runtime. */
 (function(root){
   'use strict';
 
-  const namespace=String(root.TRIP_CONFIG&&root.TRIP_CONFIG.storageNamespace||'').trim();
-  if(!namespace) throw new Error('TRIP_CONFIG.storageNamespace is required before storage-config.js');
+  const tripId=String(root.TRIP_CONFIG&&root.TRIP_CONFIG.storageNamespace||'').trim();
+  if(!tripId) throw new Error('TRIP_CONFIG.storageNamespace is required before storage-config.js');
+
+  const legacyOwner=String(root.TRIP_CONFIG&&root.TRIP_CONFIG.legacyStorageNamespace||'').trim()||null;
+  const schemaVersion=1;
+  const prefix=`travel-engine.${tripId}.`;
+  const key=(module)=>`${prefix}${module}.v${schemaVersion}`;
 
   const keys=Object.freeze({
+    checklist:key('checklist'),
+    expenses:key('expenses'),
+    momentsFreeform:key('moments-freeform'),
+    momentsList:key('moments-list'),
+    friend:key('party'),
+    adminMode:key('admin-mode'),
+    adminDraft:key('admin-draft'),
+    guideNavContext:key('guide-nav-context'),
+    guideNavReopen:key('guide-nav-reopen'),
+    itineraryOverrides:key('itinerary-overrides'),
+    itineraryMasterSignature:key('itinerary-master-signature'),
+    tripCompletion:key('trip-completion'),
+    changedPlans:key('changed-plans'),
+    cloudSnapshot:key('cloud-snapshot'),
+    cloudSyncMeta:key('cloud-sync-meta'),
+    cloudReloadMarker:key('cloud-reload-version'),
+    expenseSyncTombstones:key('expense-tombstones'),
+    expenseSyncMeta:key('expense-sync-meta'),
+    momentSyncTombstones:key('moment-tombstones'),
+    momentSyncMeta:key('moment-sync-meta'),
+    canonicalExpenseState:key('canonical-expenses'),
+    expenseReadShadowState:key('expense-read-shadow'),
+    tripGeneration:key('trip-generation'),
+    bookingOverrides:key('booking-overrides'),
+    migrationMarker:key('migration-e2b'),
+    bookingMigrationQuarantine:key('legacy-booking-overrides-quarantine'),
+    completionMigrationQuarantine:key('legacy-trip-completion-quarantine'),
+    indexedDbMigrationMarker:key('indexeddb-migration-e2b')
+  });
+
+  const sessionKeys=Object.freeze({
+    adminUnlocked:key('admin-unlocked-session'),
+    bookingReopen:key('booking-reopen-session')
+  });
+
+  const legacyKeys=Object.freeze({
     checklist:'checklist',
     expenses:'expenses',
     momentPrefix:'moment_',
@@ -27,8 +69,10 @@
     cloudReloadMarker:'travel_engine_cloud_reload_version_v1',
     expenseSyncTombstones:'travel_engine_expense_tombstones_v1',
     expenseSyncMeta:'travel_engine_expense_sync_meta_v1',
-    canonicalExpenseState:namespace+':canonical_expenses:stage_3_2d:v1',
-    expenseReadShadowState:namespace+':canonical_expense_read_shadow:stage_3_2e:v1',
+    momentSyncTombstones:'travel_engine_moment_tombstones_v1',
+    momentSyncMeta:'travel_engine_moment_sync_meta_v1',
+    canonicalExpenseState:`${tripId}:canonical_expenses:stage_3_2d:v1`,
+    expenseReadShadowState:`${tripId}:canonical_expense_read_shadow:stage_3_2e:v1`,
     tripGeneration:'travel_engine_trip_generation_v1',
     bookingOverrides:'travel_engine_booking_overrides_v1'
   });
@@ -39,8 +83,8 @@
     expenses:Object.freeze({records:keys.expenses,tombstones:keys.expenseSyncTombstones,syncMetadata:keys.expenseSyncMeta}),
     canonicalExpenses:Object.freeze({state:keys.canonicalExpenseState}),
     expenseReadShadow:Object.freeze({state:keys.expenseReadShadowState}),
-    moments:Object.freeze({records:keys.momentsList,freeform:keys.momentsFreeform,legacyPrefix:keys.momentPrefix,latestPrefix:keys.latestMomentPrefix}),
-    admin:Object.freeze({mode:keys.adminMode,draft:keys.adminDraft}),
+    moments:Object.freeze({records:keys.momentsList,freeform:keys.momentsFreeform,tombstones:keys.momentSyncTombstones,syncMetadata:keys.momentSyncMeta}),
+    admin:Object.freeze({mode:keys.adminMode,draft:keys.adminDraft,unlockedSession:sessionKeys.adminUnlocked}),
     guide:Object.freeze({context:keys.guideNavContext,reopen:keys.guideNavReopen}),
     itinerary:Object.freeze({overrides:keys.itineraryOverrides,masterSignature:keys.itineraryMasterSignature}),
     bookings:Object.freeze({overrides:keys.bookingOverrides}),
@@ -49,10 +93,14 @@
     sync:Object.freeze({snapshot:keys.cloudSnapshot,metadata:keys.cloudSyncMeta,reloadMarker:keys.cloudReloadMarker})
   });
 
+  function safeId(value){return encodeURIComponent(String(value==null?'':value));}
+  function momentKey(id){return `${prefix}moment.${safeId(id)}.v${schemaVersion}`;}
+  function latestMomentKey(id){return `${prefix}moment-latest.${safeId(id)}.v${schemaVersion}`;}
+  function fxKey(base,quote,version){return `${prefix}fx.${String(base||'').toLowerCase()}-${String(quote||'').toLowerCase()}.v${Number(version||1)}`;}
+
   root.STORAGE_CONFIG=Object.freeze({
-    appPrefix:'travel_engine',
-    version:1,
-    keys,
-    domains
+    appPrefix:'travel-engine',tripId,legacyOwner,prefix,version:schemaVersion,
+    indexedDbName:`travel-engine-${tripId}`,
+    keys,sessionKeys,legacyKeys,domains,momentKey,latestMomentKey,fxKey
   });
 })(globalThis);
