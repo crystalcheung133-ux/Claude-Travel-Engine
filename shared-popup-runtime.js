@@ -1,135 +1,91 @@
-/* Travel Engine E2C-Rebase — shared popup navigation authority. */
-(function(global){
-'use strict';
-const doc=global.document;
-if(!doc)return;
-let lastGuideCategory='';
-
-function esc(value){return String(value==null?'':value).replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));}
-function ensureHosts(){
-  if(!doc.body)return;
-  if(!doc.getElementById('tripModal')){
-    const modal=doc.createElement('div');
-    modal.id='tripModal';modal.className='modal';modal.setAttribute('aria-hidden','true');
-    modal.innerHTML='<div class="trip-sheet" role="dialog" aria-modal="true" aria-label="Trip information"><button class="modal-close" type="button" aria-label="Close Trip information">×</button><div id="tripModalContent"></div></div>';
-    doc.body.appendChild(modal);
-    modal.querySelector('.modal-close').addEventListener('click',()=>global.closeTripModal&&global.closeTripModal());
-    modal.addEventListener('click',e=>{if(e.target===modal&&global.closeTripModal)global.closeTripModal();});
-  }
-  if(!doc.getElementById('guideModal')){
-    const modal=doc.createElement('div');
-    modal.id='guideModal';modal.className='modal';modal.setAttribute('aria-hidden','true');
-    modal.innerHTML='<div class="guide-sheet" role="dialog" aria-modal="true" aria-label="Trip guide"><button class="modal-close" type="button" aria-label="Close Guide">×</button><div id="guideModalContent"></div></div>';
-    doc.body.appendChild(modal);
-    modal.querySelector('.modal-close').addEventListener('click',()=>global.closeGuideModal&&global.closeGuideModal());
-    modal.addEventListener('click',e=>{if(e.target===modal&&global.closeGuideModal)global.closeGuideModal();});
-  }
-}
-function showModal(id){
-  ensureHosts();
-  const modal=doc.getElementById(id);if(!modal)return;
-  doc.querySelectorAll('#tripModal.show,#guideModal.show').forEach(x=>{if(x!==modal)x.classList.remove('show');});
-  modal.classList.add('show');modal.setAttribute('aria-hidden','false');
-  const sheet=modal.querySelector('.trip-sheet,.guide-sheet');if(sheet)sheet.scrollTop=0;
-}
-function hideModal(id){const modal=doc.getElementById(id);if(modal){modal.classList.remove('show');modal.setAttribute('aria-hidden','true');}}
-function closeMenus(){doc.querySelectorAll('.mini-menu.show').forEach(x=>x.classList.remove('show'));}
-
-function tripBody(key,t){
-  if(key==='emergency'&&typeof global.compactEmergencyHTML==='function')return global.compactEmergencyHTML(t.body);
-  if(key==='stay'&&typeof global.buildAccommodationListHTML==='function')return global.buildAccommodationListHTML();
-  if(key==='activities'&&typeof global.buildActivityBookingListHTML==='function')return global.buildActivityBookingListHTML();
-  return t.body||'';
-}
-function renderTripCard(key){
-  ensureHosts();closeMenus();
-  const trip=global.PRODUCTION_TRIP;const t=trip&&trip.cards&&trip.cards[key];
-  const content=doc.getElementById('tripModalContent');if(!content)return;
-  if(!t){content.innerHTML='<div class="route-error-state"><h2>No Trip Info</h2><p>This Trip Info card is not available.</p></div>';showModal('tripModal');return;}
-  const order=trip.order.filter(k=>trip.cards[k]);const idx=order.indexOf(key);const prev=order[(idx-1+order.length)%order.length],next=order[(idx+1)%order.length];
-  const summary=typeof global.tripSyncSummary==='function'?global.tripSyncSummary():'';
-  content.innerHTML='<div class="trip-onepage trip-onepage-'+esc(key)+'"><p class="kicker">Trip</p><h2>'+t.title+'</h2>'+tripBody(key,t)+'<div class="guide-next-row"><button class="pill" type="button" data-popup-trip="'+esc(prev)+'">‹ Previous</button><button class="pill" type="button" data-popup-trip="'+esc(next)+'">Next ›</button></div>'+(summary?'<p class="timestamp trip-build-summary">'+summary+'</p>':'')+'</div>';
-  showModal('tripModal');
-  if(key==='checklist'&&typeof global.loadChecklist==='function')setTimeout(global.loadChecklist,0);
-}
-function renderAccommodationDetail(id,override,saved){
-  ensureHosts();closeMenus();
-  const booking=override||(typeof global.getBookingById==='function'?global.getBookingById(id):null);
-  const content=doc.getElementById('tripModalContent');if(!content)return;
-  const detail=typeof global.buildAccommodationDetailHTML==='function'?global.buildAccommodationDetailHTML(booking):'<p>Booking unavailable.</p>';
-  content.innerHTML='<div class="trip-onepage trip-onepage-stay accommodation-onepage-detail"><button class="accommodation-back" type="button" data-popup-trip="stay">‹ All accommodation</button><p class="kicker">Trip · Accommodation</p><h2>'+esc(booking?booking.title:'Accommodation')+'</h2>'+(saved?'<p class="timestamp booking-save-success" role="status">Saved ✓</p>':'')+detail+'</div>';
-  showModal('tripModal');
-}
-function renderActivityDetail(id,override,saved){
-  ensureHosts();closeMenus();
-  const booking=override||(typeof global.getBookingById==='function'?global.getBookingById(id):null);
-  const content=doc.getElementById('tripModalContent');if(!content)return;
-  const detail=typeof global.buildActivityBookingDetailHTML==='function'?global.buildActivityBookingDetailHTML(booking):'<p>Booking unavailable.</p>';
-  content.innerHTML='<div class="trip-onepage accommodation-onepage-detail"><button class="accommodation-back" type="button" data-popup-trip="activities">‹ All activities</button><p class="kicker">Trip · Activities</p><h2>'+esc(booking?booking.title:'Activity Booking')+'</h2>'+(saved?'<p class="timestamp booking-save-success" role="status">Saved ✓</p>':'')+detail+'</div>';
-  showModal('tripModal');
-}
-
-function categoryKeys(){
-  const cats=global.PRODUCTION_GUIDE&&global.PRODUCTION_GUIDE.categories||{};
-  return Object.keys(cats).filter(k=>typeof global.guideCategoryItems!=='function'||global.guideCategoryItems(k).length);
-}
-function categoryTitle(key){return typeof global.guideCategoryHeading==='function'?global.guideCategoryHeading(key):key;}
-function categoryIcon(key){return ({ATTRACTIONS:'🍃',ACTIVITIES:'🎟️',DINING:'🍽',STAY:'🏨',SHOP:'🛍'})[key]||'📖';}
-function renderGuideRoot(){
-  ensureHosts();closeMenus();
-  const keys=categoryKeys(),content=doc.getElementById('guideModalContent');if(!content)return;
-  content.innerHTML='<div class="guide-onepage"><p class="kicker">Guide</p><h2>Browse Guide</h2><div class="category-pop-list">'+keys.map(k=>'<button type="button" data-popup-guide-category="'+esc(k)+'"><span><span class="guide-list-title">'+categoryIcon(k)+' '+esc(categoryTitle(k))+'</span></span><span class="guide-list-chevron">›</span></button>').join('')+'</div></div>';
-  showModal('guideModal');
-}
-function renderGuideCategory(cat){
-  ensureHosts();closeMenus();lastGuideCategory=cat;
-  const content=doc.getElementById('guideModalContent');if(!content)return;
-  const list=typeof global.guideSortedCategoryItems==='function'?global.guideSortedCategoryItems(cat):(typeof global.guideCategoryItems==='function'?global.guideCategoryItems(cat):[]);
-  const rows=list.map(i=>'<button type="button" data-popup-guide-place="'+esc(i.key)+'"><span><span class="guide-list-title">'+(i.emoji||'')+' '+esc(i.title||'')+'</span><span class="guide-list-sub">'+esc(i.sub||'')+'</span></span><span class="guide-list-chevron">›</span></button>').join('');
-  content.innerHTML='<div class="guide-onepage"><button class="accommodation-back" type="button" data-popup-guide-root>‹ Guide categories</button><p class="kicker">Guide</p><h2>'+esc(categoryTitle(cat))+'</h2><div class="category-pop-list guide-category-grouped">'+(rows||'<p class="timestamp">No Guide items are available.</p>')+'</div></div>';
-  showModal('guideModal');
-}
-function renderGuidePlace(key){
-  ensureHosts();closeMenus();
-  const g=global.PRODUCTION_GUIDE&&global.PRODUCTION_GUIDE.places&&global.PRODUCTION_GUIDE.places[key];const content=doc.getElementById('guideModalContent');if(!content)return;
-  if(!g){content.innerHTML='<div class="route-error-state"><h2>Item Not Found</h2><p>This Guide place is not available.</p></div>';showModal('guideModal');return;}
-  lastGuideCategory=g.cat||lastGuideCategory;
-  const quick=typeof global.quickInfoHTML==='function'?global.quickInfoHTML(g,key):'';
-  const route=typeof global.routeStopsHTML==='function'?global.routeStopsHTML(g):'';
-  const sections=typeof global.compactGuideSections==='function'?global.compactGuideSections(g):'';
-  const nav=typeof global.guideNavButtons==='function'?global.guideNavButtons(key):'';
-  content.innerHTML='<div class="guide-onepage"><button class="accommodation-back" type="button" data-popup-guide-category="'+esc(lastGuideCategory)+'">‹ '+esc(categoryTitle(lastGuideCategory))+'</button><p class="kicker">Guide</p><h2>'+(g.emoji||'')+' '+esc(g.title||'')+'</h2><p class="guide-onepage-sub"><strong>'+esc(g.sub||'')+'</strong></p><p class="guide-onepage-desc">'+(g.desc||'')+'</p>'+quick+route+sections+nav+'</div>';
-  showModal('guideModal');
-}
-function renderGuideGroup(keys){
-  const clean=[...new Set((keys||[]).filter(k=>global.PRODUCTION_GUIDE&&global.PRODUCTION_GUIDE.places&&global.PRODUCTION_GUIDE.places[k]))];
-  if(clean.length===1){renderGuidePlace(clean[0]);return;}
-  ensureHosts();const content=doc.getElementById('guideModalContent');if(!content)return;
-  content.innerHTML='<div class="guide-onepage"><p class="kicker">Guide</p><h2>Choose an option</h2><div class="category-pop-list">'+clean.map(k=>{const g=global.PRODUCTION_GUIDE.places[k];return '<button type="button" data-popup-guide-place="'+esc(k)+'"><span><span class="guide-list-title">'+(g.emoji||'')+' '+esc(g.title||'')+'</span><span class="guide-list-sub">'+esc(g.sub||'')+'</span></span><span class="guide-list-chevron">›</span></button>';}).join('')+'</div></div>';
-  showModal('guideModal');
-}
-
-function bind(){
-  ensureHosts();
-  global.openTripCard=renderTripCard;
-  global.openAccommodationList=()=>renderTripCard('stay');
-  global.openAccommodationDetail=renderAccommodationDetail;
-  global.openActivityBookingDetail=renderActivityDetail;
-  global.closeTripModal=function(){hideModal('tripModal');closeMenus();return true;};
-  global.openGuideModal=renderGuidePlace;
-  global.openGuideCategory=renderGuideCategory;
-  global.openGuideGroupFromDay=function(keys){renderGuideGroup(keys);};
-  global.closeGuideModal=function(){hideModal('guideModal');closeMenus();return true;};
-  doc.querySelectorAll('.guide-trigger').forEach(a=>{if(a.dataset.sharedPopupBound)return;a.dataset.sharedPopupBound='1';a.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();renderGuideRoot();},true);});
-  doc.addEventListener('click',e=>{
-    const tripLink=e.target.closest('#tripMenu [data-trip-info-ref]');if(tripLink){e.preventDefault();e.stopPropagation();renderTripCard(tripLink.dataset.tripInfoRef);return;}
-    const tripBtn=e.target.closest('[data-popup-trip]');if(tripBtn){e.preventDefault();renderTripCard(tripBtn.dataset.popupTrip);return;}
-    const root=e.target.closest('[data-popup-guide-root]');if(root){e.preventDefault();renderGuideRoot();return;}
-    const cat=e.target.closest('[data-popup-guide-category]');if(cat){e.preventDefault();renderGuideCategory(cat.dataset.popupGuideCategory);return;}
-    const place=e.target.closest('[data-popup-guide-place]');if(place){e.preventDefault();renderGuidePlace(place.dataset.popupGuidePlace);return;}
-    const guideRoute=e.target.closest('button[onclick*="goPage(\'place\'"]');if(guideRoute){const match=guideRoute.getAttribute('onclick').match(/placeId:\'([^\']+)/);if(match){e.preventDefault();e.stopImmediatePropagation();renderGuidePlace(match[1]);}}
-  },true);
-  doc.addEventListener('keydown',e=>{if(e.key==='Escape'){if(doc.getElementById('tripModal')?.classList.contains('show'))global.closeTripModal();else if(doc.getElementById('guideModal')?.classList.contains('show'))global.closeGuideModal();}});
-}
-if(doc.readyState==='loading')doc.addEventListener('DOMContentLoaded',bind,{once:true});else bind();
-})(window);
+29340ac132cce384defcaffc0e390f1c3b3e260db9b9791d3f93d53cc653c910  .github/workflows/ci.yml
+42282760d2009db8e461d15e07a825237c86b681ff8529ce74c7872436cddb8c  admin.js
+a0f9041bd28136fe2e3c7eab1f4f244faef9ba057cf89e0c2e8941d88ae1d1e3  app-runtime.js
+a7755bcca239f0ffda67b362957facc78220af5b6fe10f301c4574ec84adf1d6  asset-config.js
+d9530fab4051fd11f60c5ac758369f12e16cfc567bcf590cc024cf24eeb8e2da  assets/japan-onsen-logo.png
+02882063049489b0fac16f811e503ee73f152d61ecea5efe656312d97ec782f3  booking-authority.js
+7cca762fb6d9da0ba152ab6c2b4c2d295bd77b75fc1d1688b77969cac944989c  CI-PATH-FIX-REPORT.md
+66480dcc6f389a3cacae8b13f25b8906744065e2c6e9f55b131f0cd59c1a6f89  ci-tests/address-integrity-test.py
+82ad8264690f0de81d49d11c0dfc72048709831bbc73b62ca204b080e000e6e0  ci-tests/package-lock.json
+1f659df73f306defc09f464bb8a693a5afabf7ed6a584ea58ee5049d401838de  ci-tests/package.json
+cf2ea4ecadb92c5f9c8494df537986f02bd02b0ef3ef37e1585aa818c4b29162  ci-tests/run-all.sh
+123cb48d2f2551ad3ff68b32b500b4a198a0b50e20769624eabe2c2806cd67dd  ci-tests/test-checksums.sh
+88935693c54d5258a2eb3ca42b50c0e5844d53e8b4a3c484e57213be37740c5f  ci-tests/test-e2a-first-paint.js
+908bd330870b9920148c163d200b81bb3f60453ca58b3593b23cbee44581d0fa  ci-tests/test-e2a-manifest.js
+3838436708444aa15deb0e20787c7528aa0d946f7fe7d3cfbf6569f4ea7ce8da  ci-tests/test-e2a-missing-config.js
+0691d55be45c3b84274380074130d5ed7c34b12e3c3a3e82fd84ce6540337afb  ci-tests/test-e2a-party-rendering.js
+41370c643db455c71dc748f706454a43177dff53921af4e4fe5bb3f0d9d44b3f  ci-tests/test-e2a-residue-scan.js
+d87b19f640a559ebadc638f9aa9e8bc15063671f3ddfbfb565f1855ccaa352aa  ci-tests/test-e2a1-clean-room.js
+ce259a5fc04348ffdc603b42c6f41b9c5361d13e19ac8e0abbf103c4e50c089f  ci-tests/test-e2a1-identity-authority.js
+4de314f1ed13f15a91a133654209881a464d007f051b9be32fd3efe19dabc77f  ci-tests/test-e2b-migration.js
+9ca6d6449adf3ebf665fa3fb68e2ec1afe39f3c0c55c98070782785baae8ebde  ci-tests/test-e2b-reset-contract.js
+d31e005e3f4aba44401262f4d45f224f087167a350f853c34f2bc84b0318684d  ci-tests/test-e2b-runtime-key-ownership.js
+bf08a83b4f8a4a26c7e35f06200df3271d18b0b2ed322cac48021f5e29b3b7c0  ci-tests/test-e2b-storage-namespace.js
+5af79d7a24f0862d82c2281d5681766749b32c1d89744cd8255113e5f662332d  ci-tests/test-e2c-navigation-authority.js
+c09b79df1e111ce265969038f92feaabd4f71060481e3145bef118861dd96995  ci-tests/test-e2c-popup-data-authority.js
+7ce56172e5eaae8ceb36f189fa9cbf73f3f1d5de93e08e0f1f3fbbc1c4e2619c  ci-tests/test-e2c-route-contract.js
+78fdead2f971f6c28431132cf9a186883a0b7cfaaade314a11dd9e2373f99ab8  ci-tests/test-e2c1-trip-popup.js
+a4861514d5c7c4f23988b59e3598d167327ef7c0248bc58270ad489d190835b2  ci-tests/test-entity-integrity.js
+4b428a64c15d7d85ef5302adc6d6956f56cf3c9d3e09927efefb889d095a441f  ci-tests/test-html-structure.sh
+1e6f0e4bad08c849239f1e00e361be407b12f5beab5e632dde2045e74ecf2422  ci-tests/test-syntax.sh
+023abeee1120a3e3315f820a953e937f7396f14db37299bb79279e825c63aa5e  complete-runtime.js
+45071b0f23d877b00e719e0d358a2eab117f92f4c7236e91eda548ef03f6ac05  core-runtime.js
+168ee80f70fd42a9cced04d26ffcddee5908789cf69e358e57d3766059cd4baa  currency-runtime.js
+af80bb5f2b875f7d909d8aefdb0d3f95eb802037162e6fbe09fcd6a581f4cee8  data.js
+0eeb6b176e70671cc0a3d2529dd0fc2a776f9d6300f7dcbf6d83f9f54dd1534a  day.html
+962237f5bf694d3afc49e69f98e5d7980ff3bf87e4d295d337be32dff9c4acb6  E2C-REBASE-REPORT.md
+6bfd11386012c78bbba75be68a5ba00373964009204c0e12fc8cad80fa758643  E2C2-Japan-Recovery-Report.md
+31d8b881c0b3eab03c333df6f742ffa03a4df49c564daa70cd6be290cd24435a  engine-integrity.js
+6d3673f84a2a5995dd92d04dcb8d9b4b193e7b965585f429967568474b34335e  expense-sync-runtime.js
+784084ac8946f58cef69d2708ea72fda904c4a24cc4fe00224932175bd5f8824  expenses.html
+f96a55c320ff45439f63ccb7e4dfa28ebf7ee53e2cf7bb5de2e47e186f12e9ec  expenses.js
+a0c6b3217fc4fbda766a8d06e07a333340bd1e7cd3bb155edde8a95febc84f36  export-runtime.js
+58ccad9a796b79cce871dcd43f342c6fc526b29ceaaead4ddd5ba0756e8e3d2b  formatter.js
+c48f6485b1ac9f164b06fa9f453024e8fd86595623fdef5c94dc9db8009df3c4  generate-manifest.js
+45c76951c515ddba9930e59d69cea716da3e71d7b6ebb94f6e5ad3b02a56914b  generation-runtime.js
+bfad531007fed93abba12307c7a2031677bd8f092941870bfa64f485e4b1a5c5  generation-selection-adapter.js
+27e6702e264bcda145d4b1c58de2dee1bb69740c3440793cf8f28e5b17b55e59  geo-config.js
+24270e034a66028de7aa867aac70a2a232317dc898281c079e6651de1c156be7  guide-navigation-runtime.js
+9c753c12d6013a170a6c68648112f691b68ad5e0c8153a0882098a723b3f3f6e  guide-runtime.js
+8a5e99799d06c9e456dcbc0af06f4ae1fbe7c078a1a19d09b036cc37a0e5da5a  guide.html
+5d6e836efb3a4ba0a4a77e1e07c5f1e2de05f1690b3cace20347fc874c7596ce  home-runtime.js
+68b535b656ff5abb6840a2e45c6a8ef004794b127eedbd5338ec0230f9be9205  index.html
+6a4688d9c723462fe1c40fc9c8c3a8fea30f1891aae52a871cd6ba2c46ae8daf  itinerary-authority.js
+8ffd7b7306d60f76e1b82cfdacb1dedb32eef9c079935c3911b24bc90818cb54  itinerary.html
+75556f6968b479690f9c3722b168db01a2553808d70046b8925a300e4de2b6d3  locale-config.js
+9bd80f6c01c49a997f966edb30dc11f87b30a3f5c00eea58ee7e6ca717f5677c  manifest.webmanifest
+ddbd87b19f7887865cb5690ac4099bfba93cf293066bba3a4ae367ad74509c70  memory.html
+1c218e524ee378d1af7a20c38012077d417be56b951d7407b373ece2615e4a3f  moment-sync-runtime.js
+c22be4c46067500e4f1b66acda7544d1532ae0f301d08271b7e30a7ae4d963ec  moments-compat.js
+251f67341cdeb9395d5bc971fbc0b27fc541f981982999aae4874c6ee0d97148  moments.html
+11c48667a658132404576c95a2e4a72914a48d28805980d76654dfa7cc1c86c8  moments.js
+6a4801bef6fc7861b0e98483fcb0b9ec50e9f497a06c4d00273ed85fe3fcf30a  money-config.js
+8481a7525cd6cc97cda27e33d4289de27e80593360630c5676fecfd6d8136fe3  money.js
+9b3051ede7630eb0b7006164bdff9ab37a7b0c74d608e658a4f5d7bad4830a61  navigation-adapter.js
+2fc56f6e67deea007b2341a027223eb544c981f060f125abce7913a5b7cad90e  navigation-config.js
+ff0a396c3500826880c13f9767fcaa99c3d55344278884ecee67e32c4e7cc605  navigation.js
+7ddc5c7b90bb325ef920b72696dd7c818fd1cc220c38d5891f2675eed252b939  offline.html
+3a6c4f6a9a3a8bfe442290bf37f044a78d0b2dd644dd30a1162ae98c8d49681c  party-render-runtime.js
+39c7ad64160e4307d08e251ada88da9615a1bebe31f2ad82b1a8050627f0572b  place.html
+98677b48c21961bc346d76b0883ec38bf72095bafa5b962e688257cff5f61ca8  PRODUCTION-FILE-MANIFEST.txt
+a2fd7147955d8ea1bcab0b1f085df0a47b84753e563baebb750be48a57bd2cde  publication-runtime.js
+e90c7410d608492df953b930075bd7b18024d5ad184fd543ea8a0fc7fe1d4a49  pwa.js
+ba49e0033ffa86ce650820c2811eb3ff4ce750c5e1508976bf101fa29de298dd  reset-runtime.js
+0a8b51329a0a78390356e5ad928edb7c35be2e1c4bb0f6d2b7f560d3e73b3434  script.js
+afa36b93c0348c6457116a687de0caef3b29f74fe716d666600e325d1cd0b25e  shared-popup-runtime.js
+32104fc23e847a0e6ad7e8f32fe7cba0620b184cf2058932dbee2fd41e512d03  storage-config.js
+2dc373906b1d336317d75ffab8f4b6f85e43e9d0813effac3c72cfa5a2712aed  storage-migration-runtime.js
+afd1db094344b6503422ccb4a2877e147f9c4e7d53d4b27385575e22f1fe9e49  storage.js
+922249f40199aff0338876470e7d06c938dc9cea46568c0897bc5478ebd97e53  styles.css
+4086f7b154acc74eb119def8ec481228d28e6fafcdefe2e2f66d4fe0f25a4c9e  supabase-client-runtime.js
+99aae6a3c10f55567d683bf02225e92e0995bd9aa065c50f6fd4511e35ba737c  sw.js
+bc02bfea90b02e0abb35d37f5cbb40efbedd39e9ba88f535b5322bee33304ec9  sync-config.js
+e167de867974e43d4afb17bbb3e16214c1ad5c67f86f5a82d75418a74c5e1c3e  sync-runtime.js
+935a166137c802dab4cd18fc3916150e4197886ace26290abf9af3b22aa919c6  theme-config.js
+84c6c94372c453d16e04ec963e0f59f306f536711757c88c7ebff4046bedd4d6  trip-config.js
+018741e78d937fc0cf426d14a4bc1b7c13fa3d3ac819216ab96509baff1b683f  trip-failure-runtime.js
+83525efaefa37371be0330e304c2ca805029c7c4e05da6935bb5b84ead729a67  trip-identity-runtime.js
+2ab648676ff5bd9c6909ca2aca583ae5c8b179ca18fc4e0d74eb97611efbaea7  trip-runtime.js
+f080678eb47c2d24645ccefb5b215d6ddb97b81e805814cb2aad5468aeb2999b  trip.html
+b130b701ac004f6953bd47df4b8b12bedfc788fd817e111af7a1d43a96d312b1  vercel.json
+72ed0cbe15c1a4819035f7029bc66ceefbcc4c18400118ffbf02ad0119afeaab  VERSION.txt
