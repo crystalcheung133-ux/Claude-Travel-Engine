@@ -24,7 +24,7 @@
       const heading=sheet.querySelector('h2'); if(heading)heading.textContent=(root.TRIP_CONFIG?.participants?.selectionTitle||'User Selection');
     }
     const list=document.querySelector('#mamaModal .friend-choice-list'); if(!list)return;
-    const current=typeof root.getFriend==='function'?valid(m,root.getFriend()):m.defaultKey;
+    const stored=typeof root.getStoredFriend==='function'?root.getStoredFriend():null; const current=stored?valid(m,stored):null;
     list.innerHTML=m.order.map(function(key){
       const x=ident(m,key);
       return '<button type="button" class="family-choice'+(key===current?' active':'')+'" data-family="'+esc(key)+'" onclick="setFriend(\''+esc(key)+'\')"><span class="family-identity family-'+esc(key)+'"><span class="family-code">'+esc(x.emoji||x.code)+'</span><span class="family-name">'+esc(x.name)+'</span></span></button>';

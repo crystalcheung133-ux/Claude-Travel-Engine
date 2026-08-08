@@ -167,9 +167,18 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 });
 
-function getFriend(){const identities=TRIP_CONFIG.participants?.identities||{};const fallback=TRIP_CONFIG.participants?.defaultKey||Object.keys(identities)[0]||'unknown';return STORAGE.local.get(STORAGE_CONFIG.keys.friend,fallback);}
+function getStoredFriend(){const identities=TRIP_CONFIG.participants?.identities||{};const saved=STORAGE.local.get(STORAGE_CONFIG.keys.friend,null);return saved&&identities[saved]?saved:null;}
+function getFriend(){const identities=TRIP_CONFIG.participants?.identities||{};const fallback=TRIP_CONFIG.participants?.defaultKey||Object.keys(identities)[0]||'unknown';return getStoredFriend()||fallback;}
+let identitySelectionRequired=false;
 function setFriend(k){
+  const identities=TRIP_CONFIG.participants?.identities||{};
+  if(!identities[k]) return;
   STORAGE.local.set(STORAGE_CONFIG.keys.friend,k);
+  identitySelectionRequired=false;
+  document.documentElement.removeAttribute('data-identity-selection-required');
+  document.body?.classList.remove('identity-selection-required');
+  const modal=document.getElementById('mamaModal');
+  modal?.classList.remove('identity-required');
   closeFriendModal();
   updateFriendLabels();
   if(document.getElementById('expenseModal')?.classList.contains('show')&&typeof window.resetExpenseForm==='function')window.resetExpenseForm();
@@ -184,8 +193,12 @@ function friendIdentityHTML(key,compact=false){
 }
 window.friendIdentityHTML=friendIdentityHTML;
 function updateFriendLabels(){const key=getFriend();document.querySelectorAll('[data-friend-label]').forEach(e=>{e.innerHTML=friendIdentityHTML(key,true);e.dataset.family=key;});}
-function renderFriendChoices(){const list=document.querySelector('#mamaModal .friend-choice-list');if(!list)return;const current=getFriend();list.innerHTML=Object.keys(FRIEND_IDENTITY).map(key=>`<button type="button" class="family-choice${key===current?' active':''}" data-family="${key}" onclick="setFriend('${key}')">${friendIdentityHTML(key)}</button>`).join('');}
-function openFriendModal(){renderFriendChoices();$('mamaModal').classList.add('show')} function closeFriendModal(){$('mamaModal').classList.remove('show')}
+function renderFriendChoices(){const list=document.querySelector('#mamaModal .friend-choice-list');if(!list)return;const current=getStoredFriend();list.innerHTML=Object.keys(FRIEND_IDENTITY).map(key=>`<button type="button" class="family-choice${key===current?' active':''}" data-family="${key}" onclick="setFriend('${key}')">${friendIdentityHTML(key)}</button>`).join('');}
+function openFriendModal(){renderFriendChoices();const modal=$('mamaModal');if(!modal)return;modal.classList.add('show');if(identitySelectionRequired)modal.classList.add('identity-required');}
+function closeFriendModal(){if(identitySelectionRequired&&!getStoredFriend())return;const modal=$('mamaModal');if(modal)modal.classList.remove('show','identity-required');}
+function ensureFriendIdentity(){if(getStoredFriend())return false;identitySelectionRequired=true;document.documentElement.dataset.identitySelectionRequired='true';document.body?.classList.add('identity-selection-required');const modal=document.getElementById('mamaModal');if(!modal)return true;const title=modal.querySelector('h2');if(title)title.textContent=TRIP_CONFIG.participants?.selectionTitle||'Who are you?';const kicker=modal.querySelector('.kicker');if(kicker)kicker.textContent=TRIP_CONFIG.participants?.selectionKicker||'SELECT TRAVELLER';modal.classList.add('identity-required');renderFriendChoices();requestAnimationFrame(()=>modal.classList.add('show'));return true;}
+window.getStoredFriend=getStoredFriend;window.ensureFriendIdentity=ensureFriendIdentity;
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(ensureFriendIdentity,0));else setTimeout(ensureFriendIdentity,0);
 
 
 
@@ -196,6 +209,7 @@ document.addEventListener('click', function(e){
   if(modal.id==='tripModal' && typeof window.isBookingEditActive==='function' && window.isBookingEditActive()) return;
   if(modal.id==='tripModal' && typeof closeTripModal==='function') closeTripModal();
   else if(modal.id==='guideModal' && typeof closeGuideModal==='function') closeGuideModal();
+  else if(modal.id==='mamaModal' && typeof closeFriendModal==='function') closeFriendModal();
   else modal.classList.remove('show');
 });
 document.addEventListener('keydown', function(e){
@@ -205,7 +219,7 @@ document.addEventListener('keydown', function(e){
     if(tripModal?.classList.contains('show') && typeof window.isBookingEditActive==='function' && window.isBookingEditActive()) return;
     if(tripModal?.classList.contains('show') && typeof closeTripModal==='function') closeTripModal();
     else if(guideModal?.classList.contains('show') && typeof closeGuideModal==='function') closeGuideModal();
-    else document.querySelectorAll('.moments-modal,.unexpected-modal,.tools-modal,.mama-modal').forEach(m=>m.classList.remove('show'));
+    else { document.querySelectorAll('.moments-modal,.unexpected-modal,.tools-modal').forEach(m=>m.classList.remove('show')); if(typeof closeFriendModal==='function')closeFriendModal(); }
   }
 });
 

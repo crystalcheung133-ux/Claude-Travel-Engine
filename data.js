@@ -2219,11 +2219,11 @@ const BOOKINGS_DATA={
     "depositPaid": "",
     "depositAmount": "",
     "depositCurrency": "",
-    "bookingMethod": "Provider already stored",
+    "bookingMethod": "",
     "bookingContact": "",
     "secondaryContact": "",
     "bookingUrl": "",
-    "notes": "Arrival Klook transfer is not booked yet. Klook transfer · SGN → Fusion Original.",
+    "notes": "未預約。Arrival transfer 暫定使用 Klook；預約後再補 booking reference / contact / payment details。",
     "standalone": true
   }
 };

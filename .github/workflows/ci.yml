@@ -63,3 +63,18 @@ jobs:
 
       - name: RC8 presentation contract
         run: node ci-tests/test-rc8-presentation-contract.js
+
+      - name: RC9 presentation contract
+        run: node ci-tests/test-rc9-presentation-contract.js
+
+      - name: RC10 presentation + guide contract
+        run: node ci-tests/test-rc10-presentation-contract.js
+
+      - name: RC11 sync + content contract
+        run: node ci-tests/test-rc11-sync-content-contract.js
+
+      - name: RC12 identity + UI contract
+        run: node ci-tests/test-rc12-identity-ui-contract.js
+
+      - name: Dual-currency Expenses
+        run: node ci-tests/test-dual-currency-expenses.js .

@@ -1,3 +1,2 @@
-Saigon Companion RC10
-Travel Engine 25.3.7
-Richer module theme + Guide Signature + configurable Trip grouping
+Saigon Companion RC12
+Travel Engine 25.3.9

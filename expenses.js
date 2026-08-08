@@ -466,7 +466,7 @@ let editingExpenseIndex=null;
     expenseSplitMode='equal';
     try{updateExpenseMode();}catch(e){}
     window.updateSplitUI();
-    const title=document.getElementById('expenseModalTitle'); if(title) title.textContent='Add expense';
+    const title=document.getElementById('expenseModalTitle'); if(title) title.innerHTML='<span class="expense-title-emoji" aria-hidden="true">💰</span> Add expense';
     const save=document.getElementById('expenseSaveButton'); if(save) save.textContent='Save';
   }
   function expenseCard(e){
@@ -688,7 +688,7 @@ let editingExpenseIndex=null;
       Object.entries(e.shares).forEach(([k,v])=>{const input=document.getElementById(`customShare_${k}`);if(input&&!input.readOnly) input.value=FORMATTER.decimal(MONEY.normalizeAmount(v),2);});
       window.updateSplitUI();
     }
-    const title=document.getElementById('expenseModalTitle'); if(title) title.textContent='✏️ Edit Expense';
+    const title=document.getElementById('expenseModalTitle'); if(title) title.innerHTML='<span class="expense-title-emoji" aria-hidden="true">💰</span> Edit expense';
     const save=document.getElementById('expenseSaveButton'); if(save) save.textContent='Update Expense';
     const modal=document.getElementById('expenseModal'); if(modal) modal.classList.add('show');
   };
