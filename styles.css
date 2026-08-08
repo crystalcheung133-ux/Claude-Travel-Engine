@@ -2712,3 +2712,17 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
 .home-primary-actions .home-day-button{margin-top:0}
 .home-shopping-button{appearance:none;border:1px solid rgba(139,83,52,.20);border-radius:16px;background:rgba(255,250,244,.84);color:var(--ink);font:800 14px/1.2 inherit;padding:13px 12px;box-shadow:0 8px 20px rgba(76,49,35,.06);cursor:pointer}
 @media(max-width:380px){.home-primary-actions{grid-template-columns:1fr}}
+
+/* RC18 — V4 Shopping Directory presentation contract */
+.home-primary-actions{display:block}
+.home-primary-actions .home-day-button{display:block;width:min(100%,320px);margin:14px auto 0}
+.directory-grid{display:block!important;margin-top:14px}
+.directory-route-group{margin:0 0 22px}
+.directory-route-group>h3{margin:0 0 10px;padding:0 2px;font-size:17px;font-weight:850;color:var(--ink)}
+.directory-route-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.directory-card{border:1px solid var(--surface-border);background:#fffaf2;border-radius:24px;padding:18px;box-shadow:var(--surface-shadow)}
+.directory-card h3{font-family:Inter,system-ui,sans-serif;font-size:18px;margin:0 0 6px;color:#4a3425}
+.directory-card p{font-size:14px;line-height:1.45;margin:6px 0}
+.directory-card strong{color:#7a4528}
+.directory-tag{display:inline-block;margin-top:7px;padding:5px 9px;border:1px solid rgba(139,83,52,.24);border-radius:999px;font-size:11px;font-weight:800;color:#7a4528}
+@media(max-width:700px){.directory-route-grid{grid-template-columns:1fr}.directory-card{padding:13px;border-radius:18px}.directory-card p{font-size:13px}}

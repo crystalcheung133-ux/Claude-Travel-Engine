@@ -90,20 +90,32 @@ function applyGuideHashView(){
  document.body.classList.toggle('shopping-directory-view',directoryOnly);
  if(directoryOnly)requestAnimationFrame(()=>window.scrollTo({top:0,left:0,behavior:'auto'}));
 }
-function openShoppingDirectoryView(){
- const list=guideSortedCategoryItems('SHOP');
- const groups=new Map();
- list.forEach(item=>{
-   const links=(PRODUCTION_GUIDE.dayLinks&&PRODUCTION_GUIDE.dayLinks[item.key])||[];
-   const label=String(item.shoppingRoute||'').trim() || (links.length?String(links[0][0]||'Optional / Flexible'):'Optional / Flexible');
-   (groups.get(label)||groups.set(label,[]).get(label)).push(item);
- });
- const order=[...groups.keys()].sort((a,b)=>{
-   const na=Number((a.match(/\d+/)||['999'])[0]), nb=Number((b.match(/\d+/)||['999'])[0]); return na-nb;
- });
- const sections=order.map(label=>`<section class="guide-category-group shopping-day-group"><h3 class="guide-category-group-title">${label}</h3>${groups.get(label).map(item=>`<button onclick="openGuideModal('${item.key}')"><span><span class="guide-list-title">${item.emoji} ${item.title}</span><span class="guide-list-sub">${item.sub||''}</span></span><span class="guide-list-chevron">›</span></button>`).join('')}</section>`).join('');
- $('guideModalContent').innerHTML=`<p class="kicker">Guide</p><h2>🛍 Shopping List</h2><p class="lead">Brand guide grouped by the day it fits the route. Optional shops stay flexible.</p><div class="category-pop-list guide-category-grouped shopping-directory">${sections}</div>`;
+function shoppingDirectoryDay(card){
+ const text=String(card||'');
+ const match=text.match(/Best with<\/strong>\s*Day\s*(\d+)/i);
+ return match?Number(match[1]):null;
+}
+function openShoppingDirectoryView(requestedDay){
+ const raw=Array.isArray(globalThis.VN_SHOPPING_DIRECTORY_CARDS)?globalThis.VN_SHOPPING_DIRECTORY_CARDS:[];
+ const day=Number(requestedDay)||0;
+ const cards=day?raw.filter(card=>shoppingDirectoryDay(card)===day):raw;
+ const groups=[
+  ['Day 2 · Nguyễn Trãi & Central D1',2],
+  ['Day 3 · Thảo Điền Lifestyle Walk',3],
+  ['Day 4 · Phú Nhuận & District 3',4]
+ ];
+ const grouped=groups.map(([label,n])=>{
+   if(day&&day!==n)return '';
+   const rows=cards.filter(card=>shoppingDirectoryDay(card)===n).join('');
+   return rows?`<section class="directory-route-group"><h3>${label}</h3><div class="directory-route-grid">${rows}</div></section>`:'';
+ }).join('');
+ const detours=day?'':cards.filter(card=>!shoppingDirectoryDay(card)).join('');
+ const optional=detours?`<section class="directory-route-group"><h3>Optional Detours</h3><div class="directory-route-grid">${detours}</div></section>`:'';
+ const title=day?`🛍 Day ${day} Shopping Directory`:'🛍 Optional Shopping Directory';
+ const lead=day?`只顯示 Day ${day} 當日順路店舖；按體力取捨，不需要逐間完成。`:'按當日路線分組；近邊去邊，唔需要逐間完成。';
+ $('guideModalContent').innerHTML=`<p class="kicker">Shopping Directory</p><h2>${title}</h2><p class="lead">${lead}</p><div class="directory-grid">${grouped}${optional}</div>`;
  closeMiniMenus();$('guideModal').classList.add('show');
+ const sheet=document.querySelector('#guideModal .guide-sheet'); if(sheet)sheet.scrollTop=0;
 }
 window.addEventListener('hashchange',applyGuideHashView);
 document.addEventListener('DOMContentLoaded',applyGuideHashView);
@@ -223,9 +235,9 @@ function openGuideCategory(cat){
  const list=guideSortedCategoryItems(semantic);
  // A single-entry category is already the destination; skip a redundant chooser.
  if(list.length===1){closeMiniMenus();openGuideModal(list[0].key);return;}
- if(semantic==='SHOP'){ openShoppingDirectoryView(); return;
+ if(semantic==='SHOP'){
   const directoryRow=`<button onclick="openShoppingDirectoryView()"><span><span class="guide-list-title">🛍 Shopping Directory</span><span class="guide-list-sub">Optional shops · Near · Best with Day</span></span><span>↓</span></button>`;
-  const rows=directoryRow+list.map(i=>`<button onclick="openGuideModal('${i.key}')"><span><span class="guide-list-title">${i.emoji} ${i.title}</span><span class="guide-list-sub">${i.sub||''}</span></span><span class="guide-list-meta">${guideStatusHTML(PRODUCTION_GUIDE.places[i.key]||{})}<span class="guide-list-chevron">›</span></span></button>`).join('');
+  const rows=directoryRow+list.map(i=>guideListRow(i)).join('');
   $('guideModalContent').innerHTML=`<p class="kicker">Guide</p><h2>SHOP</h2><div class="category-pop-list">${rows}</div>`;
   closeMiniMenus();$('guideModal').classList.add('show');return;
  }
