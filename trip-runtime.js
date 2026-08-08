@@ -78,6 +78,8 @@ function getBookingsByCategory(category){
     if(target==='accommodation')return explicit==='accommodation'||explicit==='stay'||explicit==='hotel'||type==='accommodation';
     if(target==='activities')return explicit==='activities'||explicit==='activity'||explicit==='experience'||type==='activity';
     if(target==='transport')return explicit==='transport'||explicit==='transfer'||type==='transport';
+    if(target==='restaurants')return explicit==='restaurant'||explicit==='restaurants'||type==='restaurant';
+    if(target==='spa')return explicit==='spa'||type==='spa';
     return false;
   }).sort(function(a,b){return String(a.date||'').localeCompare(String(b.date||''))||String(a.time||'').localeCompare(String(b.time||''));});
 }
@@ -94,7 +96,11 @@ function buildAccommodationListHTML(){
   return '<div class="accommodation-picker" role="list">'+bookings.map(function(booking){
     const nights=Number(booking.nights||0);
     const nightsLabel=nights?`${nights} night${nights===1?'':'s'}`:'';
-    const price=booking.netTotalAUD?`${booking.approximateNet?'≈ ':''}Net ${booking.netTotalAUD}`:(booking.price||'Price not added yet');
+    const priceParts=[];
+    if(booking.totalAmount||booking.price)priceParts.push(`Total ${booking.totalAmount||booking.price}`);
+    if(booking.cashbackAmount||booking.cashback)priceParts.push(`Cashback ${booking.cashbackAmount||booking.cashback}`);
+    if(booking.netTotalAUD||booking.netPrice)priceParts.push(`${booking.approximateNet?'≈ ':''}Net ${booking.netTotalAUD||booking.netPrice}`);
+    const price=priceParts.join(' · ')||'Price not added yet';
     const statusLabel=booking.displayStatus||bookingStatusText(booking)||'';
     const statusClass=String(booking.status||'').replace(/[^a-z0-9-]/gi,'').toLowerCase();
     return `<button class="accommodation-picker-row" type="button" role="listitem" onclick="openAccommodationDetail('${escapeTripHTML(booking.id)}')"><span class="accommodation-picker-icon" aria-hidden="true">🏨</span><span class="accommodation-picker-copy"><strong>${escapeTripHTML(booking.title)}</strong><small>${escapeTripHTML(booking.stayDates||booking.date||'')}</small><span class="accommodation-picker-price">${escapeTripHTML(price)}</span></span><span class="accommodation-picker-meta accommodation-picker-meta--stack">${statusLabel?`<span class="accommodation-status-badge accommodation-status-badge--${escapeTripHTML(statusClass)}">${escapeTripHTML(statusLabel)}</span>`:''}<span class="accommodation-night-line">${escapeTripHTML(nightsLabel)} <b aria-hidden="true">›</b></span></span></button>`;
@@ -586,6 +592,31 @@ function renderDashboard(){
 
 
 
+function bookingCategoryIcon(category){
+  const key=String(category||'').toLowerCase();
+  return key==='restaurants'?'🍽️':key==='spa'?'💆':key==='activities'?'🎟️':key==='transport'?'🚐':'📋';
+}
+function buildBookingCategoryListHTML(category){
+  const bookings=getBookingsByCategory(category);
+  if(!bookings.length)return `<p class="timestamp">No ${escapeTripHTML(String(category).toLowerCase())} bookings have been added yet.</p>`;
+  return '<div class="accommodation-picker booking-category-picker" role="list">'+bookings.map(function(booking){
+    const priceParts=[];
+    if(booking.totalAmount||booking.price)priceParts.push(`Total ${booking.totalAmount||booking.price}`);
+    if(booking.cashbackAmount||booking.cashback)priceParts.push(`Cashback ${booking.cashbackAmount||booking.cashback}`);
+    if(booking.netTotalAUD||booking.netPrice)priceParts.push(`Net ${booking.netTotalAUD||booking.netPrice}`);
+    const price=priceParts.join(' · ');
+    return `<button class="accommodation-picker-row booking-category-row" type="button" role="listitem" onclick="openGenericBookingDetail('${escapeTripHTML(booking.id)}')"><span class="accommodation-picker-icon" aria-hidden="true">${bookingCategoryIcon(category)}</span><span class="accommodation-picker-copy"><strong>${escapeTripHTML(booking.title)}</strong><small>${bookingDayNumber(booking)?`Day ${escapeTripHTML(bookingDayNumber(booking))} · `:''}${escapeTripHTML(booking.date||'')}${booking.time?` · ${escapeTripHTML(booking.time)}`:''}</small>${price?`<span class="accommodation-picker-price">${escapeTripHTML(price)}</span>`:''}</span><span class="accommodation-picker-meta"><span class="activity-status-badge">${escapeTripHTML(bookingStatusText(booking))}</span><b aria-hidden="true">›</b></span></button>`;
+  }).join('')+'</div>';
+}
+function openBookingCategoryCard(category){
+  closeMiniMenus();
+  const content=document.getElementById('tripModalContent'),modal=document.getElementById('tripModal');
+  if(!content||!modal)return;
+  content.innerHTML=`<div class="trip-onepage trip-onepage-booking-category"><p class="kicker">Trip · Booking</p><h2>${bookingCategoryIcon(category)} ${escapeTripHTML(category)}</h2>${buildBookingCategoryListHTML(category)}<p class="timestamp trip-build-summary">${tripSyncSummary()}</p></div>`;
+  modal.classList.add('show');
+  const sheet=document.querySelector('#tripModal .trip-sheet');if(sheet)sheet.scrollTop=0;
+}
+
 /* Engine 25.2.9 — trip-data-driven menu. Prevents NZ-only Rental Car/route labels
    from leaking into trips that do not have those modules. */
 function renderTripMenuFromConfig(){
@@ -597,10 +628,11 @@ function renderTripMenuFromConfig(){
  const push=(action,icon,title,sub,href)=>rows.push(`<a href="${href||'#'}"${action?` onclick="${action};return false;"`:''}><span><span class="menu-title">${icon} ${title}</span>${sub?`<span class="menu-sub">${sub}</span>`:''}</span><span>›</span></a>`);
  if(cards.flights)push("openTripCard('flights')",'✈️','Flights','Flight details');
  if(enabled('stay',!!getAccommodationBookings().length))push("openTripCard('stay')",'🏨','Stay','Accommodation');
- if(enabled('activities',!!getActivityBookings().length))push("openTripCard('activities')",'🎟️','Activities','Bookings & experiences');
- if(enabled('transport',!!getTransportBookings().length))push("openTripCard('transport')",'🚐','Transport','Transfers & booked transport');
+ if(getBookingsByCategory('restaurants').length)push("openBookingCategoryCard('Restaurants')",'🍽️','Restaurants','Restaurant bookings');
+ if(getBookingsByCategory('spa').length)push("openBookingCategoryCard('Spa')",'💆','Spa','Spa bookings');
+ if(enabled('activities',!!getActivityBookings().length))push("openTripCard('activities')",'🎟️','Activities','Activity bookings');
+ if(enabled('transport',!!getTransportBookings().length))push("openTripCard('transport')",'🚐','Transport','Booked transport');
  if(enabled('rentalCar',!!cards.vehicle)&&cards.vehicle)push("openTripCard('vehicle')",'🚙','Rental Car','Vehicle details');
- if(enabled('bookings',true))push('', '📋','Bookings','Restaurants, spa & other bookings',NAVIGATION.build('bookings'));
  if(cards.checklist)push("openTripCard('checklist')",'✅','Checklist','Before the trip');
  if(cards.emergency)push("openTripCard('emergency')",'☎️','Emergency','Contacts & medical care');
  host.innerHTML=rows.join('');

@@ -19,12 +19,12 @@ function server(){return http.createServer((req,res)=>{const raw=(req.url||'/').
   await page.goto(base+'/day.html?day=2',{waitUntil:'domcontentloaded'});await page.waitForTimeout(80);
   const first=page.locator('.timeline-item').first();if(await first.count()){const time=await first.locator('.timeline-time').boundingBox();assert(time&&time.width<=72,'Mobile timeline time rail is too wide');}
   const actionButtons=page.locator('.timeline-actions button.timeline-action');for(let i=0;i<await actionButtons.count();i++){const el=actionButtons.nth(i);assert(await el.getAttribute('onclick'),'Timeline action button has no route');}
-  await page.goto(base+'/expenses.html',{waitUntil:'domcontentloaded'});await page.locator('button[onclick="openExpenseModal()"]') .click();await page.locator('[data-split-mode="custom"]').click();
+  await page.goto(base+'/expenses.html',{waitUntil:'domcontentloaded'});await page.locator('button[onclick="openExpenseModal()"]') .click();await page.waitForTimeout(30);assert.equal(await page.locator('#expenseCurrencyToggle .expense-currency-btn').count(),2,'Dual-currency selector is not visible');assert(/AUD/.test(await page.locator('#expenseCurrencyToggle').innerText())&&/VND|NZD/.test(await page.locator('#expenseCurrencyToggle').innerText()),'Dual-currency selector does not show home and destination currencies');await page.locator('[data-split-mode="custom"]').click();
   const rows=page.locator('.custom-split-row');for(let i=0;i<await rows.count();i++){const row=rows.nth(i),box=await row.boundingBox(),field=await row.locator('.expense-money-field').boundingBox();assert(box&&field&&field.x>=box.x-1&&field.x+field.width<=box.x+box.width+1,'Custom split controls overflow row');}
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth+1),'Expenses page has horizontal overflow');
   const tripId=await page.evaluate(()=>window.TRIP_CONFIG&&TRIP_CONFIG.id||TRIP_CONFIG.storageNamespace||'');
   if(String(tripId).includes('vietnam')){
-    await page.goto(base+'/day.html?day=2',{waitUntil:'domcontentloaded'});await page.waitForTimeout(80);const text=(await page.locator('.timeline').innerText());assert(!/Grab\s*→\s*Mộc Kim|Grab\s*→\s*LÚNE/i.test(text),'Routine Grab transition rendered as standalone timeline card');
+    await page.goto(base+'/day.html?day=2',{waitUntil:'domcontentloaded'});await page.waitForTimeout(80);const text=(await page.locator('.timeline').innerText());assert(!/Grab\s*→/i.test(text),'Routine Grab transition rendered as standalone timeline card');
   }
   assert.equal(errors.length,0,'Browser page errors: '+errors.join(' | '));
   console.log('BROWSER PORTABILITY SMOKE: PASS — mobile logo, FX, timeline rail/actions, expense custom split and transition filtering.');

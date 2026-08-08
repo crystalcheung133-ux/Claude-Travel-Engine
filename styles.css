@@ -2490,3 +2490,7 @@ body.expenses-page .primary-action{background:var(--module-expenses-accent)!impo
 .expense-original-totals span{font-size:12px;color:var(--muted)}
 .expense-card .expense-home-equivalent{color:var(--muted);font-size:12px;margin-top:-4px}
 @media(max-width:430px){.expense-amount-heading{align-items:center}.expense-currency-btn{padding:7px 9px}.expense-currency-toggle{max-width:48vw}}
+
+/* Engine 25.3.2 — explicit dual-currency expense control */
+.expense-currency-row{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:10px 0 14px}.expense-currency-row label{margin:0}.expense-currency-row .timestamp{margin:3px 0 0}.expense-currency-row .expense-currency-toggle{display:grid;grid-template-columns:repeat(2,minmax(64px,1fr));min-width:150px;padding:4px}.expense-currency-row .expense-currency-btn{font-size:14px;padding:10px 12px}.expense-currency-row .expense-currency-btn.active{background:var(--ink);color:#fff}
+@media(max-width:430px){.expense-currency-row{align-items:flex-end}.expense-currency-row .expense-currency-toggle{min-width:142px;max-width:none}.expense-currency-row .expense-currency-btn{padding:10px 9px}}

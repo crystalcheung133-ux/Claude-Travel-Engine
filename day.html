@@ -100,7 +100,11 @@
     if(!item)return false;
     /* Ordinary point-to-point transport (Grab/taxi/walk/short drive) is a transition,
        not a standalone itinerary event. Booked/significant transport remains visible. */
-    if(String(item.type||'').toLowerCase()==='transport' && !item.bookingId && item.transportEvent!==true) return false;
+    if(String(item.type||'').toLowerCase()==='transport'){
+      const title=String(item.title||'');
+      const routine=/\b(grab|taxi|walk|walking|short drive)\b/i.test(title);
+      if(item.transportEvent!==true && item.standalone!==true && (routine || !item.bookingId)) return false;
+    }
     return item.hidden!==true;
   }
 
@@ -116,7 +120,7 @@
 
   function itemHTML(item,index){
     const nonPlace=item.nonPlace===true;
-    const booking=item.bookingId?DAY_BOOKINGS[item.bookingId]:null;
+    const booking=(item.bookingId&&DAY_BOOKINGS[item.bookingId])||Object.values(DAY_BOOKINGS||{}).find(b=>b&&(b.eventId===item.id||(item.placeId&&b.placeId===item.placeId&&String(b.dayId||'')===String(item.dayId||''))))||null;
     const detailHtml=(item.details||[]).map(text=>`<p>${esc(text)}</p>`).join('');
     const routeHtml=item.route?`<div class="route-hint"><strong>Next leg</strong><br/>${esc(item.route)}</div>`:'';
     const {primaryGuideId,alternativeGuideIds}=resolveGuideButtons(item,nonPlace);
