@@ -7,9 +7,9 @@ find . -maxdepth 1 -type f -printf '%f\n' \
  | grep -Ev '^(SHA256SUMS\.txt|PRODUCTION-FILE-MANIFEST\.txt|VERSION\.txt|.*\.md|.*\.sql|BOOKING-SYNC-EDGE-FUNCTION\.ts|bookings\.html|bookings-runtime\.js)$' \
  | sort > /tmp/travel-engine-prod-files.$$
 {
-  echo 'Saigon Companion RC6 Production File Manifest'
+  echo 'Saigon Companion Production File Manifest'
   echo 'Generated: 2026-08-08'
-  echo 'Base: Travel Engine 25.3.3'
+  echo 'Base: current Travel Engine release identity from trip-config.js'
   echo 'Reference trip: Vietnam'
   echo
   echo 'Production root files:'

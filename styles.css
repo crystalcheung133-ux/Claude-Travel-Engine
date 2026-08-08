@@ -2502,3 +2502,25 @@ html[data-party-presentation="emoji"] .family-identity.is-compact .family-code{m
 html[data-party-presentation="emoji"] .friend-pill .family-code{min-width:auto!important;height:auto!important;font-size:20px!important}
 .expense-amount-heading{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-top:10px}.expense-amount-heading>label{margin:0!important}.expense-currency-toggle{display:inline-flex!important;align-items:center!important;padding:3px!important;border:1px solid var(--line)!important;border-radius:999px!important;background:var(--paper)!important;gap:2px!important}.expense-currency-btn{min-height:34px!important;min-width:56px!important;padding:7px 12px!important;border:0!important;border-radius:999px!important;background:transparent!important;font-weight:850!important;color:var(--muted)!important}.expense-currency-btn.active{background:var(--ink)!important;color:#fff!important}.expense-fx-helper:empty{display:none!important}.expense-fx-helper{margin:2px 0 8px!important;font-size:12px!important;letter-spacing:0!important;text-transform:none!important}.expense-form>label[for="expenseItem"]{margin-top:8px!important}
 @media(max-width:520px){.expense-amount-heading{align-items:center}.expense-currency-btn{min-width:52px!important}.tools-sheet .expense-form{gap:8px!important}}
+
+/* VN RC9 — V4 visual continuity + four-person Split By grid */
+body.moments-page .page-hero,body.moments-page .module-hero{background:radial-gradient(circle at 14% 0%,rgba(255,255,255,.52),transparent 34%),linear-gradient(145deg,#e7c7cf 0%,#f1d7dd 52%,#fff8f4 100%)!important;border-color:rgba(176,105,119,.34)!important}
+body.moments-page .page-hero .kicker,body.moments-page .module-hero .kicker{color:#a54f61!important}
+body.moments-page .page-hero h1,body.moments-page .module-hero h1{color:#35231f!important}
+body.moments-page .page-hero .lead,body.moments-page .module-hero .lead{color:#6d5655!important}
+body.moments-page .moments-capture-choices .btn,body.moments-page .moments-capture-choices .primary-action,body.moments-page .moments-capture-choices .moments-planned-entry{background:linear-gradient(180deg,#fff0e9 0%,#f2c8bb 100%)!important;border-color:rgba(190,106,85,.38)!important;color:#57291f!important}
+body.expenses-page .page-hero,body.expenses-page .module-hero{background:radial-gradient(circle at 16% 0%,rgba(255,255,255,.50),transparent 34%),linear-gradient(145deg,#a9c7a1 0%,#d1e4cb 52%,#f7fbf4 100%)!important;border-color:rgba(86,128,91,.34)!important}
+body.expenses-page .page-hero .kicker,body.expenses-page .module-hero .kicker{color:#4e795a!important}
+body.expenses-page .page-hero h1,body.expenses-page .module-hero h1{color:#2d261f!important}
+body.expenses-page .page-hero .lead,body.expenses-page .module-hero .lead{color:#4f5c50!important}
+body.moments-page #momentsModal .moments-sheet{background:radial-gradient(circle at 100% 100%,rgba(245,211,217,.44),transparent 32%),linear-gradient(180deg,#fffaf4 0%,#fff8f3 100%)!important;border-color:rgba(183,107,82,.34)!important}
+body.expenses-page #expenseModal .tools-sheet{background:radial-gradient(circle at 100% 100%,rgba(202,225,199,.44),transparent 32%),linear-gradient(180deg,#fffaf4 0%,#fbfdf9 100%)!important;border-color:rgba(93,138,100,.34)!important}
+body.expenses-page #expenseModal .expense-type-btn.active,body.expenses-page #expenseModal .split-mode-btn.active,body.expenses-page #expenseModal #expenseSaveButton{background:linear-gradient(180deg,#7fa487 0%,#688e72 100%)!important;color:#fff!important}
+#expenseModal .split-picker-menu{grid-template-columns:repeat(2,minmax(0,1fr))!important;width:min(330px,calc(100vw - 40px))!important;min-width:250px!important;gap:7px!important}
+#expenseModal .split-picker-menu label,#expenseModal .split-picker-menu label:last-child{grid-column:auto!important;min-width:0!important;width:100%!important;overflow:visible!important;box-sizing:border-box!important}
+#expenseModal .split-picker-menu label>span{min-width:0!important;overflow:visible!important;white-space:nowrap!important}
+@media(max-width:560px){#expenseModal .split-picker-menu{grid-template-columns:repeat(2,minmax(0,1fr))!important;width:min(330px,calc(100vw - 28px))!important;min-width:246px!important}}
+@media(max-width:380px){#expenseModal .split-picker-menu{grid-template-columns:repeat(2,minmax(0,1fr))!important;width:min(310px,calc(100vw - 20px))!important;min-width:232px!important}#expenseModal .split-picker-menu label{font-size:11.5px!important;padding:6px!important}}
+body.moments-page #momentsModal .mood-btn{background:#fff8f1!important;border-color:rgba(196,143,119,.36)!important;color:#34241f!important}
+body.moments-page #momentsModal .mood-btn.active{background:linear-gradient(180deg,#f7d7d3,#efbfc1)!important;border-color:#b96b78!important;color:#57251f!important}
+body.moments-page #momentsModal .photo-capture-zone{background:linear-gradient(145deg,#fff2e8 0%,#fcebee 54%,#f5eafa 100%)!important}

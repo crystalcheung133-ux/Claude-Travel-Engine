@@ -1,6 +1,6 @@
-Saigon Companion RC7 Production File Manifest
+Saigon Companion Production File Manifest
 Generated: 2026-08-08
-Base: Travel Engine 25.3.4
+Base: current Travel Engine release identity from trip-config.js
 Reference trip: Vietnam
 
 Production root files:

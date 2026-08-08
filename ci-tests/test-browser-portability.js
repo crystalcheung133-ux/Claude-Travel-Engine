@@ -14,8 +14,11 @@ function server(){return http.createServer((req,res)=>{const raw=(req.url||'/').
   await page.route('**/v1/latest**',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({rates:{AUD:0.000057},date:'2026-08-08'})}));
   await page.route('**/currencies/*.json',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({date:'2026-08-08',vnd:{aud:0.000057},nzd:{aud:0.91}})}));
   await page.goto(base+'/index.html',{waitUntil:'domcontentloaded'});await page.evaluate(()=>document.getElementById('ccmvSplash')?.remove());
-  assert.equal(await page.locator('meta[name="travel-engine-build"]').getAttribute('content'),'VN-RC6|25.3.3','Build identity mismatch: deployed files are not RC6 / Engine 25.3.3');
-  assert.equal(await page.evaluate(()=>TRIP_CONFIG.version),'RC6-25.3.3','Runtime build identity mismatch');
+  const runtimeVersion=await page.evaluate(()=>TRIP_CONFIG.version);
+  const buildMatch=String(runtimeVersion||'').match(/^RC(\d+)-(.+)$/);
+  assert(buildMatch,'Runtime version must follow RC<n>-<engine-version>: '+runtimeVersion);
+  const expectedBuildIdentity=`VN-RC${buildMatch[1]}|${buildMatch[2]}`;
+  assert.equal(await page.locator('meta[name="travel-engine-build"]').getAttribute('content'),expectedBuildIdentity,'Build identity mismatch: meta and runtime version disagree');
   const logo=await page.locator('.site-nav .brand-mark img').boundingBox(),host=await page.locator('.site-nav .brand-mark').boundingBox();assert(logo&&host&&logo.width<=host.width+1&&logo.height<=host.height+1,'Header logo overflows its safe area');
   const currency=page.locator('#currencyCardMeta');await currency.waitFor({state:'visible'});await page.waitForTimeout(100);assert(!/unavailable/i.test(await currency.innerText()),'Currency converter has no usable rate');
   await page.goto(base+'/day.html?day=2',{waitUntil:'domcontentloaded'});await page.waitForTimeout(80);
@@ -36,6 +39,6 @@ function server(){return http.createServer((req,res)=>{const raw=(req.url||'/').
     await page.goto(base+'/day.html?day=2',{waitUntil:'domcontentloaded'});await page.waitForTimeout(80);const text=(await page.locator('.timeline').innerText());assert(!/Grab\s*→/i.test(text),'Routine Grab transition rendered as standalone timeline card');
   }
   assert.equal(errors.length,0,'Browser page errors: '+errors.join(' | '));
-  console.log('BROWSER PORTABILITY SMOKE: PASS — mobile logo, FX, timeline rail/actions, expense custom split and transition filtering.');
+  console.log(`BROWSER PORTABILITY SMOKE: PASS — ${expectedBuildIdentity}; mobile logo, FX, timeline rail/actions, expense custom split and transition filtering.`);
  }finally{if(browser)await browser.close();await new Promise(r=>srv.close(r));}
 })().catch(e=>{console.error(e);process.exit(1)});

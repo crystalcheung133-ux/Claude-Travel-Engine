@@ -18,8 +18,8 @@ function renderUnexpected(){const box=$('unexpectedTimeline');if(!box)return;let
 
 
 const MOODS=[
-  ["🤩","Wow"],["😋","Delicious"],["😵","Exhausted"],["🔥","Amazing"],
-  ["🤯","Unexpected"],["😶","Speechless"],["🥲","Oh no"],["🤬","Damn"]
+  ["🤩","Wow"],["😋","Delicious"],["😵","Exhausted"],["🔥","正到爆"],
+  ["🤯","估你唔到"],["😶","Speechless"],["🥲","仆街了"],["🤬","Damn"]
 ];
 let currentMood=[];
 

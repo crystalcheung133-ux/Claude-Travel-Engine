@@ -1,1 +1,3 @@
-Saigon Companion RC7 — Travel Engine 25.3.4 Release Pipeline + Interaction Enforcement
+Saigon Companion RC9
+Travel Engine 25.3.6
+V4 visual continuity + release-neutral browser CI
