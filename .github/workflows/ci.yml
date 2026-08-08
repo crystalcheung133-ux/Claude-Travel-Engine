@@ -82,5 +82,11 @@ jobs:
       - name: RC15 moments + timeline contract
         run: node ci-tests/test-rc15-moments-timeline-contract.js
 
+      - name: RC16 guide + shopping contract
+        run: node ci-tests/test-rc16-guide-shopping-contract.js
+
+      - name: RC17 Guide content audit
+        run: node ci-tests/test-rc17-guide-content-audit.js
+
       - name: Dual-currency Expenses
         run: node ci-tests/test-dual-currency-expenses.js .

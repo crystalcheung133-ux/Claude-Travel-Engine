@@ -1,4 +1,4 @@
-// data.js — Saigon Companion RC8 · reconciled VN Master v4 on Travel Engine 25.3.5
+// data.js — Saigon Companion RC17 · Guide audit complete on Travel Engine 25.4.4
 // Timeline is authoritative for itinerary content; booking linkage is reconciled to Booking Foundation IDs.
 
 const PLACES={
@@ -7,8 +7,7 @@ const PLACES={
     "emoji": "🏨",
     "cat": "STAY",
     "sub": "酒店據點",
-    "hours": "24 Hours",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%20Fusion%20Original%20Saigon%20Centre%2C%2065%20L%C3%AA%20L%E1%BB%A3i%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
+        "maps": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%20Fusion%20Original%20Saigon%20Centre%2C%2065%20L%C3%AA%20L%E1%BB%A3i%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
     "address": "Fusion Original Saigon Centre, 65 Lê Lợi, Bến Nghé, District 1, Ho Chi Minh City",
     "desc": "Fusion Original Saigon Centre 係今次旅程嘅城市據點：第一郡核心、樓下直通 Saigon Centre / Takashimaya，四個人每日出入、寄放戰利品、返酒店補妝都非常方便。兩房兩衛令行程唔需要因為梳洗同收拾而互相等待，呢點對短途朋友旅行特別重要。",
     "signature": [
@@ -21,9 +20,7 @@ const PLACES={
       "最適合用作「回巢點」：午后小休、放低戰利品、晚餐前換裝。"
     ],
     "categoryLabel": "🏨 Stay",
-    "price": "Booked",
     "transport": "Grab / walk depending on current route",
-    "audit": "Route-ready; check live hours before visit",
     "highlights": [
       "2 Bedroom Suite：四人共享客廳，私隱同方便度平衡得好",
       "直通 Takashimaya，雨天、酷熱或夜晚返酒店都安心",
@@ -39,6 +36,7 @@ const PLACES={
     "emoji": "🥐",
     "cat": "CAFÉS",
     "sub": "法式甜點",
+    "status": "planned",
     "hours": "07:30–22:30 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=Bakes%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2016%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20An%20Kh%C3%A1nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "16 Thảo Điền, An Khánh, Hồ Chí Minh 700000, Vietnam",
@@ -71,6 +69,7 @@ const PLACES={
     "emoji": "🌃",
     "cat": "CAFÉS",
     "sub": "老公寓咖啡樓",
+    "status": "planned",
     "hours": "Individual venues vary; most operate about 08:00–22:00",
     "maps": "https://www.google.com/maps/search/?api=1&query=The%20Cafe%20Apartments%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "42 Nguyễn Huệ, District 1, Ho Chi Minh City, Vietnam",
@@ -103,7 +102,8 @@ const PLACES={
     "emoji": "🥥",
     "cat": "CAFÉS",
     "sub": "粉紅教堂景觀咖啡",
-    "hours": "約 07:00–23:00；出發前再確認",
+    "status": "planned",
+    "hours": "",
     "maps": "https://www.google.com/maps/search/?api=1&query=C%E1%BB%99ng%20C%C3%A0%20Ph%C3%AA%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%20C%E1%BB%99ng%20C%C3%A0%20Ph%C3%AA%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20Hai%20B%C3%A0%20Tr%C6%B0ng%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
     "address": "Cộng Cà Phê Tân Định, Hai Bà Trưng, District 3, Ho Chi Minh City",
     "desc": "Cộng Cà Phê Tân Định 最大賣點唔係咖啡本身，而係位置：粉紅教堂正對面／附近，適合打完卡後上樓坐低，用椰子咖啡或冰沙咖啡換一個俯瞰教堂角度。復古軍綠風裝潢亦好有越南味。",
@@ -135,7 +135,8 @@ const PLACES={
     "emoji": "🍫",
     "cat": "CAFÉS",
     "sub": "朱古力甜點",
-    "hours": "出發前再確認營業時間",
+    "status": "planned",
+    "hours": "",
     "maps": "https://www.google.com/maps/search/?api=1&query=Maison%20Marou%20Level%20B2%2C%20Saigon%20Centre%20%E2%80%93%20Takashimaya%2C%2065%20L%C3%AA%20L%E1%BB%A3i%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "Level B2, Saigon Centre – Takashimaya, 65 Lê Lợi, Ho Chi Minh City, Vietnam",
     "desc": "Maison Marou 是越南精品朱古力品牌，今次最方便的分店就在 Saigon Centre / Fusion 附近。它適合兩種用途：一是旅行中段回酒店後飲杯熱朱古力，二是最後買手信。比起普通 souvenir，Marou 朱古力包裝靚、有越南產地特色，而且容易帶回澳洲。",
@@ -167,6 +168,7 @@ const PLACES={
     "emoji": "☕",
     "cat": "CAFÉS",
     "sub": "晨間咖啡",
+    "status": "planned",
     "hours": "07:30–22:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=The%20Running%20Bean%20115%20H%E1%BB%93%20T%C3%B9ng%20M%E1%BA%ADu%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "115 Hồ Tùng Mậu, Ho Chi Minh City, Vietnam",
@@ -199,6 +201,7 @@ const PLACES={
     "emoji": "🏡",
     "cat": "RESTAURANTS",
     "sub": "越式家常菜",
+    "status": "planned",
     "hours": "10:30–22:30",
     "maps": "https://www.google.com/maps/search/?api=1&query=B%E1%BA%BFp%20M%E1%BA%B9%20%E1%BB%88n%20136%2F9%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
     "address": "136/9 Lê Thánh Tôn, Bến Thành, Hồ Chí Minh, Vietnam",
@@ -233,6 +236,7 @@ const PLACES={
     "emoji": "🍚",
     "cat": "RESTAURANTS",
     "sub": "炭烤豬排碎米飯",
+    "status": "planned",
     "hours": "09:00–21:30 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=C%C6%A1m%20T%E1%BA%A5m%20M%E1%BB%99c%2085%20L%C3%BD%20T%E1%BB%B1%20Tr%E1%BB%8Dng%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "85 Lý Tự Trọng, Bến Thành, Hồ Chí Minh 700000, Vietnam",
@@ -265,6 +269,7 @@ const PLACES={
     "emoji": "🧸",
     "cat": "RESTAURANTS",
     "sub": "Michelin Guide 餐酒館",
+    "status": "planned",
     "hours": "Thu–Sun 18:00–22:00; Mon–Wed closed",
     "maps": "https://www.google.com/maps/search/?api=1&query=Little%20Bear%2036%20Nguy%E1%BB%85n%20B%C3%A1%20Hu%C3%A2n%2C%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "36 Nguyễn Bá Huân, Thảo Điền, Ho Chi Minh City, Vietnam",
@@ -299,6 +304,7 @@ const PLACES={
     "emoji": "🇫🇷",
     "cat": "RESTAURANTS",
     "sub": "現代越式餐廳",
+    "status": "planned",
     "hours": "Mon–Sat 11:30–14:00 & 17:00–22:30；Sunday closed",
     "maps": "https://www.google.com/maps/search/?api=1&query=L%C3%9ANE%20Restaurant%20%26%20Bar%2017%2F14%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20S%C3%A0i%20G%C3%B2n%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
     "address": "17/14 Lê Thánh Tôn, Sài Gòn, Hồ Chí Minh 70000, Vietnam",
@@ -333,6 +339,7 @@ const PLACES={
     "emoji": "🍣",
     "cat": "RESTAURANTS",
     "sub": "Day 1 · 已確認 17:30",
+    "status": "booked",
     "hours": "Reservation confirmed · 17:30",
     "maps": "https://www.google.com/maps/search/?api=1&query=Omakase%20Tiger%2085%2F9%20Ph%E1%BA%A1m%20Vi%E1%BA%BFt%20Ch%C3%A1nh%2C%20Th%E1%BA%A1nh%20M%E1%BB%B9%20T%C3%A2y%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "85/9 Phạm Viết Chánh, Thạnh Mỹ Tây, Hồ Chí Minh 700000, Vietnam",
@@ -365,6 +372,7 @@ const PLACES={
     "emoji": "🍜",
     "cat": "RESTAURANTS",
     "sub": "石鍋牛肉河粉",
+    "status": "planned",
     "hours": "06:00–24:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=Ph%E1%BB%9F%20SOL%2032%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
     "address": "32 Phạm Hồng Thái, Bến Thành, Hồ Chí Minh, Vietnam",
@@ -397,6 +405,7 @@ const PLACES={
     "emoji": "🥣",
     "cat": "RESTAURANTS",
     "sub": "石鍋河粉",
+    "status": "planned",
     "hours": "06:00–03:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=Ph%E1%BB%9F%20Vi%E1%BB%87t%20Nam%20B%E1%BA%BFn%20Th%C3%A0nh%2014%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
     "address": "14 Phạm Hồng Thái, Bến Thành, Hồ Chí Minh 70000, Vietnam",
@@ -429,6 +438,7 @@ const PLACES={
     "emoji": "🍕",
     "cat": "RESTAURANTS",
     "sub": "自家製芝士 Pizza",
+    "status": "planned",
     "hours": "Mon–Fri 11:00–23:00；Sat–Sun 10:00–23:00",
     "maps": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%E2%80%99s%20Hai%20B%C3%A0%20Tr%C6%B0ng%20151B%20Hai%20B%C3%A0%20Tr%C6%B0ng%2C%20V%C3%B5%20Th%E1%BB%8B%20S%C3%A1u%20Ward%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
     "address": "151B Hai Bà Trưng, Võ Thị Sáu Ward, District 3, Ho Chi Minh City",
@@ -461,6 +471,7 @@ const PLACES={
     "emoji": "🦀",
     "cat": "RESTAURANTS",
     "sub": "蟹肉粉絲",
+    "status": "planned",
     "hours": "09:00–21:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=Qu%C3%A1n%20Thu%C3%BD%2094%2084%20%C4%90inh%20Ti%C3%AAn%20Ho%C3%A0ng%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
     "address": "84 Đinh Tiên Hoàng, Tân Định, Hồ Chí Minh, Vietnam",
@@ -493,6 +504,7 @@ const PLACES={
     "emoji": "🔥",
     "cat": "RESTAURANTS",
     "sub": "木火料理",
+    "status": "planned",
     "hours": "17:30–late daily; last order 21:45",
     "maps": "https://www.google.com/maps/search/?api=1&query=Quince%20Saigon%2037bis%20K%C3%BD%20Con%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
     "address": "37bis Ký Con, Bến Thành, Hồ Chí Minh, Vietnam",
@@ -525,6 +537,7 @@ const PLACES={
     "emoji": "👗",
     "cat": "SHOP",
     "sub": "Day 2 日常女裝",
+    "shoppingRoute": "Day 2 · Nguyễn Trãi / Central",
     "hours": "09:30–21:30",
     "maps": "https://www.google.com/maps/search/?api=1&query=LIB%C3%89%20LIB%C3%89%20Nguy%E1%BB%85n%20Tr%C3%A3i%2C%2052%20Nguy%E1%BB%85n%20Tr%C3%A3i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
     "address": "LIBÉ Nguyễn Trãi, 52 Nguyễn Trãi, Bến Thành, Hồ Chí Minh, Vietnam",
@@ -557,6 +570,7 @@ const PLACES={
     "emoji": "🧵",
     "cat": "SHOP",
     "sub": "Day 2 亞麻真絲",
+    "shoppingRoute": "Day 2 · Nguyễn Trãi / Central",
     "hours": "09:30–21:30",
     "maps": "https://www.google.com/maps/search/?api=1&query=Dauple%20by%20Ka's%20Dauple%20by%20Ka's%2C%2070%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
     "address": "Dauple by Ka's, 70 Phạm Hồng Thái, Bến Thành, Hồ Chí Minh, Vietnam",
@@ -589,6 +603,7 @@ const PLACES={
     "emoji": "🤎",
     "cat": "SHOP",
     "sub": "Day 2 極簡日常",
+    "shoppingRoute": "Day 2 · Nguyễn Trãi / Central",
     "hours": "10:00–21:00",
     "maps": "https://www.google.com/maps/search/?api=1&query=NOSBYN%20Nosbyn%2C%209%20Phan%20Chu%20Trinh%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20Ho%20Chi%20Minh%20City",
     "address": "Nosbyn, 9 Phan Chu Trinh, Bến Thành, Ho Chi Minh City",
@@ -621,6 +636,7 @@ const PLACES={
     "emoji": "🛍",
     "cat": "SHOP",
     "sub": "Day 2 本地品牌集合",
+    "shoppingRoute": "Day 2 · Central optional extension",
     "hours": "10:00–21:00",
     "maps": "https://www.google.com/maps/search/?api=1&query=The%20New%20Playground%2026%20L%C3%BD%20T%E1%BB%B1%20Tr%E1%BB%8Dng%2C%20S%C3%A0i%20G%C3%B2n%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "26 Lý Tự Trọng, Sài Gòn, Hồ Chí Minh 700000, Vietnam",
@@ -653,7 +669,8 @@ const PLACES={
     "emoji": "🌿",
     "cat": "SHOP",
     "sub": "Day 3 Thảo Điền 選物",
-    "hours": "出發前再確認營業時間",
+    "shoppingRoute": "Day 3 · Thảo Điền",
+    "hours": "",
     "maps": "https://www.google.com/maps/search/?api=1&query=Saigon%20Concept%2014%20Tr%E1%BA%A7n%20Ng%E1%BB%8Dc%20Di%E1%BB%87n%2C%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "14 Trần Ngọc Diện, Thảo Điền, Ho Chi Minh City, Vietnam",
     "desc": "Saigon Concept 是 Thảo Điền 很適合慢逛的 lifestyle compound：紅磚庭園、棉麻服飾、家居選物與小型品牌集中在同一區。Day 3 到草田區後先放慢節奏，由這裡開始很舒服。",
@@ -685,6 +702,7 @@ const PLACES={
     "emoji": "🎁",
     "cat": "SHOP",
     "sub": "Day 3 越南設計與手信",
+    "shoppingRoute": "Day 3 · Thảo Điền",
     "hours": "10:00–20:00",
     "maps": "https://www.google.com/maps/search/?api=1&query=OHQUAO%2019%20%C4%90%C6%B0%E1%BB%9Dng%20S%E1%BB%91%2038%2C%20P.%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Qu%E1%BA%ADn%202%2C%20TP.%20H%E1%BB%93%20Ch%C3%AD%20Minh",
     "address": "19 Đường Số 38, P. Thảo Điền, Quận 2, TP. Hồ Chí Minh",
@@ -716,10 +734,11 @@ const PLACES={
     "title": "LOUH Saigon",
     "emoji": "🧺",
     "cat": "SHOP",
-    "sub": "Day 3 亞麻棉織家居服",
-    "hours": "Unconfirmed — no published storefront hours found",
+    "sub": "Day 3 optional · showroom待核實",
+    "shoppingRoute": "Day 3 · Thảo Điền optional",
+    "hours": "",
     "maps": "https://www.google.com/maps/search/?api=1&query=Louh%20Saigon%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%20Ho%20Chi%20Minh%20City",
-    "address": "Address unverified — LOUH Saigon's official site (louhsaigon.com) lists no public storefront address; brand appears online-led. Confirm exact Thảo Điền visiting location before departure.",
+    "address": "",
     "desc": "LOUH Saigon 由法籍設計師 Cindy Jacques 創立，主打亞麻／棉質女裝與家居服，走法式優雅路線。目前未能從官方渠道核實實體門市地址，出發前應直接向品牌查詢是否有 Thảo Điền showroom 及開放時間。",
     "signature": [
       "法式優雅剪裁",
@@ -749,6 +768,7 @@ const PLACES={
     "emoji": "🧥",
     "cat": "SHOP",
     "sub": "Day 4 設計師選物",
+    "shoppingRoute": "Day 4 · Trần Quang Diệu",
     "hours": "10:00–21:30 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=11%20Garmentory%20117B%20Nguy%E1%BB%85n%20%C4%90%C3%ACnh%20Ch%C3%ADnh%2C%20Ph%C6%B0%E1%BB%9Dng%20C%E1%BA%A7u%20Ki%E1%BB%87u%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "117B Nguyễn Đình Chính, Phường Cầu Kiệu, Ho Chi Minh City, Vietnam",
@@ -781,7 +801,8 @@ const PLACES={
     "emoji": "👗",
     "cat": "SHOP",
     "sub": "Day 4 第二輪 · Trần Quang Diệu 女裝",
-    "hours": "出發前再確認營業時間",
+    "shoppingRoute": "Day 4 · Trần Quang Diệu",
+    "hours": "",
     "maps": "https://www.google.com/maps/search/?api=1&query=Dalla%20Saigon%2064%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%20Ph%C6%B0%E1%BB%9Dng%2014%20Qu%E1%BA%ADn%203%20H%E1%BB%93%20Ch%C3%AD%20Minh",
     "address": "64 Trần Quang Diệu, Phường 14, Quận 3, Hồ Chí Minh, Vietnam",
     "desc": "Dalla Saigon 是 Trần Quang Diệu 一帶熱門本地女裝品牌，主打 crop top、連身裙與日常穿搭單品，與 Tỉnh Thức Spa 同一條街，Spa 後順路開始第二輪 shopping 很方便。",
@@ -813,7 +834,8 @@ const PLACES={
     "emoji": "👚",
     "cat": "SHOP",
     "sub": "Day 4 第二輪 · Trần Quang Diệu 女裝",
-    "hours": "出發前再確認營業時間",
+    "shoppingRoute": "Day 4 · Trần Quang Diệu",
+    "hours": "",
     "maps": "https://www.google.com/maps/search/?api=1&query=Rubies%20Rubies%2047-49%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%20Ph%C6%B0%E1%BB%9Dng%2014%20Qu%E1%BA%ADn%203%20H%E1%BB%93%20Ch%C3%AD%20Minh",
     "address": "47–49 Trần Quang Diệu, Phường 14, Quận 3, Hồ Chí Minh, Vietnam",
     "desc": "Rubies Rubies 是越南本地連鎖女裝品牌，走年輕、俐落路線，辦公室與街拍都能穿。分店就在 Dalla Saigon 附近，可以走著逛完整條 Trần Quang Diệu shopping 段。",
@@ -845,7 +867,8 @@ const PLACES={
     "emoji": "🎀",
     "cat": "SHOP",
     "sub": "Day 4 第二輪 · Trần Quang Diệu 女裝",
-    "hours": "出發前再確認營業時間",
+    "shoppingRoute": "Day 4 · Trần Quang Diệu",
+    "hours": "",
     "maps": "https://www.google.com/maps/search/?api=1&query=LANE%20C%C3%AC%2027%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%20Ph%C6%B0%E1%BB%9Dng%2014%20Qu%E1%BA%ADn%203%20H%E1%BB%93%20Ch%C3%AD%20Minh",
     "address": "27 Trần Quang Diệu, Phường 14, Quận 3, Hồ Chí Minh, Vietnam",
     "desc": "LANE Cì 是同一條街上較細小的女裝選物店，款式較少女、甜美，適合作為第二輪 shopping 的最後一站，逛完直接叫 Grab 去 Quince。",
@@ -877,6 +900,7 @@ const PLACES={
     "emoji": "👖",
     "cat": "SHOP",
     "sub": "Day 3 年輕人與舒適街頭款",
+    "shoppingRoute": "Day 3 · Pink Church / en route",
     "hours": "09:30–21:30",
     "maps": "https://www.google.com/maps/search/?api=1&query=Push%20Push%20Official%2020%20Nguy%E1%BB%85n%20V%C4%83n%20Nguy%E1%BB%85n%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "20 Nguyễn Văn Nguyễn, Tân Định, Hồ Chí Minh 700000, Vietnam",
@@ -909,7 +933,7 @@ const PLACES={
     "emoji": "🫧",
     "cat": "SPA",
     "sub": "Day 1 · Head Spa",
-    "hours": "出發前再確認營業時間",
+    "hours": "",
     "maps": "https://www.google.com/maps/search/?api=1&query=Spa%20Nh%C3%A0%20Suga%20Premium%20Korea%20Headspa%20%E2%80%93%20Nguy%E1%BB%85n%20Hu%E1%BB%87%208th%20Floor%2C%20The%20Caf%C3%A9%20Apartment%2C%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "8th Floor, The Café Apartment, 42 Nguyễn Huệ, District 1, Ho Chi Minh City, Vietnam",
     "desc": "Nguyễn Huệ 分店位於 The Cafe Apartments 8樓。Day 1 安排韓式 Head Spa，做完可直接接晚餐；出發前再確認預約及大廈入場方式。",
@@ -975,7 +999,7 @@ const PLACES={
     "emoji": "🪨",
     "cat": "SPA",
     "sub": "Day 3 Villa Wellness",
-    "hours": "出發前再確認營業時間",
+    "hours": "",
     "maps": "https://www.google.com/maps/search/?api=1&query=M%E1%BB%99c%20H%C6%B0%C6%A1ng%20Wellness%2061%20Xu%C3%A2n%20Th%E1%BB%A7y%2C%20Ph%C6%B0%E1%BB%9Dng%20An%20Kh%C3%A1nh%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "61 Xuân Thủy, Phường An Khánh, Ho Chi Minh City, Vietnam",
     "desc": "Mộc Hương Wellness Thảo Điền 走高級 villa spa 路線，環境比普通按摩店更度假。Day 3 逛草田區後在這裡做熱石／精油按摩，再去 Little Bear，整日節奏會很一致：慢、綠意、輕奢。",
@@ -1007,7 +1031,7 @@ const PLACES={
     "emoji": "🦶",
     "cat": "SPA",
     "sub": "Day 4 足底按摩",
-    "hours": "出發前再確認營業時間",
+    "hours": "",
     "maps": "https://www.google.com/maps/search/?api=1&query=T%E1%BB%89nh%20Th%E1%BB%A9c%20Spa%20118%2F54%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%2C%20Ph%C6%B0%E1%BB%9Dng%20Nhi%C3%AAu%20L%E1%BB%99c%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "118/54 Trần Quang Diệu, Phường Nhiêu Lộc, Ho Chi Minh City, Vietnam",
     "desc": "Tỉnh Thức Spa 係 Day 4 下午嘅足底／身體按摩休息站，藏喺 Trần Quang Diệu 118 號巷內。15:15–17:00 做完可直接接第二輪 shopping；入口較隱蔽，預約時順便確認星期一營業及入巷指示。",
@@ -1105,7 +1129,6 @@ const PLACES={
     "emoji": "⛪",
     "cat": "ATTRACTIONS",
     "sub": "紅磚教堂",
-    "hours": "外觀打卡；內部開放情況出發前確認",
     "maps": "https://www.google.com/maps/search/?api=1&query=Notre-Dame%20Cathedral%20Notre-Dame%20Cathedral%20Basilica%20of%20Saigon%2C%20C%C3%B4ng%20x%C3%A3%20Paris%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
     "address": "Notre-Dame Cathedral Basilica of Saigon, Công xã Paris, Bến Nghé, District 1, Ho Chi Minh City",
     "desc": "西貢聖母聖殿主教座堂是中央郵政局對面的紅磚地標。近年常有修復工程，重點應放在外觀打卡與和郵政局／書街形成一個短小經典路線，不建議專程安排太長時間。",
@@ -1169,7 +1192,6 @@ const PLACES={
     "emoji": "🌸",
     "cat": "ATTRACTIONS",
     "sub": "粉紅教堂",
-    "hours": "外觀打卡；內部開放情況出發前確認",
     "maps": "https://www.google.com/maps/search/?api=1&query=T%C3%A2n%20%C4%90%E1%BB%8Bnh%20Church%20Tan%20Dinh%20Church%2C%20289%20Hai%20B%C3%A0%20Tr%C6%B0ng%2C%20Ward%208%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
     "address": "Tan Dinh Church, 289 Hai Bà Trưng, Ward 8, District 3, Ho Chi Minh City",
     "desc": "新定教堂／粉紅教堂是 Saigon 最容易出片的地標之一。粉紅色外牆本身已經很有記憶點，配對面 Cộng Cà Phê 的樓上視角，可以一次拍到近景和俯瞰全景。",
@@ -1265,7 +1287,7 @@ const PLACES={
     "emoji": "👩🏻‍🍳",
     "cat": "EXPERIENCE",
     "sub": "Day 2 · 廚藝課 10:00–13:00",
-    "hours": "出發前再確認營業時間",
+    "hours": "",
     "maps": "https://www.google.com/maps/search/?api=1&query=Saigon%20Cooking%20Class%2080%2F1%20Nguy%E1%BB%85n%20Tr%C3%A3i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20770000%2C%20Vietnam",
     "address": "80/1 Nguyễn Trãi, Bến Thành, Hồ Chí Minh 770000, Vietnam",
     "desc": "Day 2 固定行程，地址 80/1 Nguyễn Trãi，課堂 10:00–13:00。出發前再確認集合方式即可。",
@@ -1339,7 +1361,7 @@ const PLACES={
   "cash-backup": {
     "title": "Cash Backup · Saigon Centre",
     "emoji": "💵",
-    "cat": "EXPERIENCE",
+    "cat": "PRACTICAL",
     "sub": "Day 1 · Licensed FX backup",
     "hours": "Ask hotel concierge or Takashimaya Information Desk during opening hours",
     "maps": "https://www.google.com/maps/search/?api=1&query=Saigon%20Centre%20Takashimaya%2065%20L%C3%AA%20L%E1%BB%A3i%20Ho%20Chi%20Minh%20City",
@@ -1373,6 +1395,7 @@ const PLACES={
     "emoji": "🌙",
     "cat": "RESTAURANTS",
     "sub": "Any night · Savoury or sweet delivery",
+    "status": "optional",
     "hours": "Oanh Cua about 06:00–22:00; late dessert availability varies — check GrabFood Open Now",
     "maps": "https://www.google.com/maps/search/?api=1&query=Oanh%20Cua%20214%2F1B%20Nguy%E1%BB%85n%20Tr%C3%A3i%20Ho%20Chi%20Minh%20City",
     "address": "Delivery to Fusion Original; Oanh Cua: 214/1B Nguyễn Trãi, District 1",
@@ -1407,6 +1430,7 @@ const PLACES={
     "emoji": "🍲",
     "cat": "RESTAURANTS",
     "sub": "Day 5 備選 · 越南家常菜",
+    "status": "optional",
     "hours": "10:00–22:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=M%E1%BA%B7n%20M%C3%B2i%20B%E1%BA%BFn%20Ngh%C3%A9%20VNPT%20Building%20Gate%206%20Nguy%E1%BB%85n%20V%C4%83n%20B%C3%ACnh%20Ho%20Chi%20Minh%20City",
     "address": "Level 3, VNPT Building, Gate 6, Nguyễn Văn Bình Street, Ho Chi Minh City, Vietnam",
@@ -1446,22 +1470,31 @@ const PLACES={
     "desc": "VN 行程抵達及離境使用的新山一機場。"
   },
   "social-club": {
-    "title": "Social Club Rooftop",
+    "title": "Social Club Rooftop Bar",
     "emoji": "🥂",
     "cat": "CAFÉS",
-    "sub": "Optional rooftop",
-    "maps": "https://maps.google.com/?q=Social+Club+Rooftop+Saigon",
-    "address": "",
-    "desc": "Day 4 可選 rooftop stop；有精神先去，唔影響主行程。"
+    "sub": "24/F rooftop cocktails · skyline views",
+    "hours": "Sun–Thu 15:00–00:00; Fri–Sat 15:00–01:00",
+    "maps": "https://maps.google.com/?q=Social+Club+Rooftop+Bar+Hotel+des+Arts+Saigon",
+    "address": "24/F, Hôtel des Arts Saigon, 76–78 Nguyễn Thị Minh Khai, Ho Chi Minh City",
+    "phone": "0901 379 129",
+    "desc": "Hôtel des Arts Saigon 24樓 rooftop bar，以 Saigon skyline、sunset cocktails 同夜景氣氛做主角。Day 4 只作 optional after-dinner drink：有精神先去，唔影響主行程。",
+    "signature": ["24樓開揚 Saigon skyline，黃昏至入夜最有氣氛", "Signature cocktails；15:00–19:00 daily Happy Hour（公眾假期／special events除外）", "Smart casual；夜晚較適合成人 drinks / city-view stop"],
+    "worth": ["Optional after-dinner stop；攰就直接返 Fusion，完全唔需要硬去。"],
+    "categoryLabel": "🥂 Rooftop Bar",
+    "status": "optional"
   },
   "takashimaya": {
     "title": "Takashimaya Saigon",
     "emoji": "🛍",
     "cat": "SHOP",
     "sub": "Day 5 shopping",
+    "shoppingRoute": "Day 5 · Saigon Centre",
     "maps": "https://maps.google.com/?q=Takashimaya+Saigon",
-    "address": "",
-    "desc": "Day 5 最後購物 stop，完成後返酒店提行李。"
+    "address": "Saigon Centre, 65 Lê Lợi, District 1, Ho Chi Minh City",
+    "desc": "Day 5 最後補貨位，就在 Fusion Original 同一棟 Saigon Centre 內。適合買手信、beauty、零食或漏買用品；逛完直接返酒店提行李，唔需要再加一程交通。",
+    "signature": ["同 Fusion Original 同一棟，最後一日最省腳力", "百貨、beauty、食品與手信集中", "適合把未買齊的東西一次收尾"],
+    "worth": ["最後一日以補貨為主，不需要為購物特別繞路。"]
   }
 };
 
@@ -1486,6 +1519,9 @@ const CATEGORIES={
     },
     {
       "key": "running-bean"
+    },
+    {
+      "key": "social-club"
     }
   ],
   "RESTAURANTS": [
@@ -1550,6 +1586,21 @@ const CATEGORIES={
     },
     {
       "key": "new-playground"
+    },
+    {
+      "key": "louh"
+    },
+    {
+      "key": "dalla-saigon"
+    },
+    {
+      "key": "rubies"
+    },
+    {
+      "key": "lane-ci"
+    },
+    {
+      "key": "takashimaya"
     }
   ],
   "SPA": [
@@ -1592,7 +1643,9 @@ const CATEGORIES={
   "EXPERIENCE": [
     {
       "key": "cooking"
-    },
+    }
+  ],
+  "PRACTICAL": [
     {
       "key": "cash-backup"
     }
@@ -1626,6 +1679,11 @@ const GUIDE_ORDER=[
   "push-push",
   "saigon-concept",
   "new-playground",
+  "louh",
+  "dalla-saigon",
+  "rubies",
+  "lane-ci",
+  "takashimaya",
   "ha-spa",
   "moc-huong",
   "moc-kim",
@@ -1638,7 +1696,8 @@ const GUIDE_ORDER=[
   "pink-church",
   "war-museum",
   "cooking",
-  "cash-backup"
+  "cash-backup",
+  "social-club"
 ];
 
 const DAY_LINKS={
@@ -1786,6 +1845,12 @@ const DAY_LINKS={
       "day.html?day=3#ohquao"
     ]
   ],
+  "louh": [
+    [
+      "Day 3",
+      "day.html?day=3#louh"
+    ]
+  ],
   "moc-huong": [
     [
       "Day 3",
@@ -1832,6 +1897,24 @@ const DAY_LINKS={
       "day.html?day=4#garmentory"
     ]
   ],
+  "dalla-saigon": [
+    [
+      "Day 4",
+      "day.html?day=4#dalla-saigon"
+    ]
+  ],
+  "rubies": [
+    [
+      "Day 4",
+      "day.html?day=4#dalla-saigon"
+    ]
+  ],
+  "lane-ci": [
+    [
+      "Day 4",
+      "day.html?day=4#dalla-saigon"
+    ]
+  ],
   "quince": [
     [
       "Day 4",
@@ -1856,6 +1939,12 @@ const DAY_LINKS={
       "day.html?day=5#bep-me-in"
     ]
   ],
+  "takashimaya": [
+    [
+      "Day 5",
+      "day.html?day=5#takashimaya"
+    ]
+  ],
   "ha-spa": [
     [
       "Day 5",
@@ -1872,6 +1961,12 @@ const DAY_LINKS={
     [
       "Day 1",
       "day.html?day=1#cash-backup"
+    ]
+  ],
+  "social-club": [
+    [
+      "Day 4",
+      "day.html?day=4#social-club"
     ]
   ],
   "late-night-supper": [

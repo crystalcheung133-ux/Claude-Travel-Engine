@@ -91,11 +91,19 @@ function applyGuideHashView(){
  if(directoryOnly)requestAnimationFrame(()=>window.scrollTo({top:0,left:0,behavior:'auto'}));
 }
 function openShoppingDirectoryView(){
- closeGuideModal();closeMiniMenus();
- const onGuide=NAVIGATION.isPage('guide');
- if(!onGuide){NAVIGATION.goPage('guide',{hash:'shoppingDirectory'});return;}
- if(NAVIGATION.hasHash('shoppingDirectory'))applyGuideHashView();
- else NAVIGATION.setHash('shoppingDirectory');
+ const list=guideSortedCategoryItems('SHOP');
+ const groups=new Map();
+ list.forEach(item=>{
+   const links=(PRODUCTION_GUIDE.dayLinks&&PRODUCTION_GUIDE.dayLinks[item.key])||[];
+   const label=String(item.shoppingRoute||'').trim() || (links.length?String(links[0][0]||'Optional / Flexible'):'Optional / Flexible');
+   (groups.get(label)||groups.set(label,[]).get(label)).push(item);
+ });
+ const order=[...groups.keys()].sort((a,b)=>{
+   const na=Number((a.match(/\d+/)||['999'])[0]), nb=Number((b.match(/\d+/)||['999'])[0]); return na-nb;
+ });
+ const sections=order.map(label=>`<section class="guide-category-group shopping-day-group"><h3 class="guide-category-group-title">${label}</h3>${groups.get(label).map(item=>`<button onclick="openGuideModal('${item.key}')"><span><span class="guide-list-title">${item.emoji} ${item.title}</span><span class="guide-list-sub">${item.sub||''}</span></span><span class="guide-list-chevron">›</span></button>`).join('')}</section>`).join('');
+ $('guideModalContent').innerHTML=`<p class="kicker">Guide</p><h2>🛍 Shopping List</h2><p class="lead">Brand guide grouped by the day it fits the route. Optional shops stay flexible.</p><div class="category-pop-list guide-category-grouped shopping-directory">${sections}</div>`;
+ closeMiniMenus();$('guideModal').classList.add('show');
 }
 window.addEventListener('hashchange',applyGuideHashView);
 document.addEventListener('DOMContentLoaded',applyGuideHashView);
@@ -127,7 +135,8 @@ function guideCategorySources(cat){
   ACTIVITIES:['ACTIVITIES','EXPERIENCE','EXPERIENCES','SPA','WELLNESS'],
   DINING:['DINING','RESTAURANTS','CAFÉS','CAFES'],
   STAY:['STAY'],
-  SHOP:['SHOP','SHOPPING']
+  SHOP:['SHOP','SHOPPING'],
+  PRACTICAL:['PRACTICAL']
  };
  return defaults[semantic]||[semantic];
 }
@@ -184,7 +193,7 @@ function guideStayStatusHTML(item){
 function guideListRow(item){
  // Guide is experiential content. Booking operations remain in Trip · Accommodation.
  const action=`openGuideModal('${item.key}')`;
- const status=item.cat==='STAY'?guideStayStatusHTML(item):guideStatusHTML(PRODUCTION_GUIDE.places[item.key]||{});
+ const status=item.cat==='STAY'?guideStayStatusHTML(item):guideStatusHTML(Object.assign({key:item.key},PRODUCTION_GUIDE.places[item.key]||{}));
  const booking=(item.cat==='STAY'&&window.BOOKING_AUTHORITY)?BOOKING_AUTHORITY.byPlace(item.key):null;
  const subtitle=booking?[booking.stayDates||'',booking.nights?`${booking.nights} night${Number(booking.nights)===1?'':'s'}`:''].filter(Boolean).join(' · '):(item.sub||'');
  return `<button onclick="${action}"><span><span class="guide-list-title">${item.emoji} ${item.title}</span><span class="guide-list-sub">${subtitle}</span></span><span class="guide-list-meta">${status}<span class="guide-list-chevron">›</span></span></button>`;
@@ -214,7 +223,7 @@ function openGuideCategory(cat){
  const list=guideSortedCategoryItems(semantic);
  // A single-entry category is already the destination; skip a redundant chooser.
  if(list.length===1){closeMiniMenus();openGuideModal(list[0].key);return;}
- if(semantic==='SHOP'){
+ if(semantic==='SHOP'){ openShoppingDirectoryView(); return;
   const directoryRow=`<button onclick="openShoppingDirectoryView()"><span><span class="guide-list-title">🛍 Shopping Directory</span><span class="guide-list-sub">Optional shops · Near · Best with Day</span></span><span>↓</span></button>`;
   const rows=directoryRow+list.map(i=>`<button onclick="openGuideModal('${i.key}')"><span><span class="guide-list-title">${i.emoji} ${i.title}</span><span class="guide-list-sub">${i.sub||''}</span></span><span class="guide-list-meta">${guideStatusHTML(PRODUCTION_GUIDE.places[i.key]||{})}<span class="guide-list-chevron">›</span></span></button>`).join('');
   $('guideModalContent').innerHTML=`<p class="kicker">Guide</p><h2>SHOP</h2><div class="category-pop-list">${rows}</div>`;
@@ -228,7 +237,11 @@ function openGuideCategory(cat){
 function guideStatusHTML(g){
  const audit=String(g.audit||'');
  const optionalPattern=/optional|option|alternative|backup|recommended|flexible|weather-dependent/i;
- const status=(g.status==='optional'||(!g.status&&optionalPattern.test(audit)))?'OPTIONAL':'PLANNED';
+ const linked=(g&&guideSemanticCategory(g.cat)==='DINING'&&window.BOOKING_AUTHORITY&&g.key)?BOOKING_AUTHORITY.byPlace(g.key):null;
+ const explicit=String(g.status||'').toLowerCase();
+ const status=(linked&&String(linked.status||'').toLowerCase()==='confirmed')||explicit==='booked'
+  ?'BOOKED'
+  :((explicit==='optional'||(!explicit&&optionalPattern.test(audit)))?'OPTIONAL':'PLANNED');
  return `<span class="guide-status guide-status-${status.toLowerCase()}">${status}</span>`;
 }
 function copyGuideAddress(key){
@@ -280,7 +293,7 @@ function quickInfoInnerHTML(g,key){
  const bookingButton=linkedBooking?`<button class="utility-button" type="button" onclick="openGuideLinkedBooking('${linkedBooking.id}')">🎟️ Booking</button>`:'';
  const parking=g.parking;
  const parkingHTML=parking?`<div class="recommended-parking"><div class="recommended-parking-head"><span>🚗</span><span><strong>Recommended Parking</strong><small>${parking.name||''}</small></span></div><div class="recommended-parking-grid"><p><span>📍</span><span>${parking.address||''}</span></p><p><span>🚶</span><span>${parking.walk||''}</span></p><p><span>💰</span><span>${parking.fee||''}</span></p></div>${parking.note?`<p class="recommended-parking-note">${parking.note}</p>`:''}${parking.maps?`<a class="map-button recommended-parking-nav" href="${parking.maps}" target="_blank" rel="noopener">🧭 Navigate to Parking</a>`:''}</div>`:'';
- const detailStatus=g.cat==='STAY'?guideStayStatusHTML(Object.assign({key},g)):guideStatusHTML(g);
+ const detailStatus=g.cat==='STAY'?guideStayStatusHTML(Object.assign({key},g)):guideStatusHTML(Object.assign({key},g));
  const coreSections=guideCoreSections(g,key);
  return `<div class="quick-info-top"><span class="category-tag">${g.categoryLabel||g.cat||'Guide'}</span>${roleBadge}${detailStatus}</div><div class="quick-info-grid">${addressRow}${phoneRow}${hoursRow}${priceRow}${bookingRow}${visitDayHTML(key)}</div>${coreSections}${reminderRow}${parkingHTML}<div class="quick-info-actions">${navButton}${bookingButton}</div>`;
 }
@@ -364,7 +377,8 @@ function criticalGuideItems(g){
 function guideShopSections(g){
  if(g.cat!=='SHOP'&&g.cat!=='SHOPPING')return '';
  const why=guideWhyGo(g);
- const hours=String(g.hours||'').trim();
+ const rawHours=String(g.hours||'').trim();
+ const hours=/出發前|before (departure|visit)|reconfirm|confirm.*hours/i.test(rawHours)?'':rawHours;
  const all=practicalGuideItems(g);
  const parking=all.filter(item=>/park/i.test(String(item)));
  const critical=criticalGuideItems(g).filter(item=>!parking.includes(item));
@@ -376,8 +390,10 @@ function compactGuideSections(g){
  const booking=bookingAdviceItems(g);
  const practical=practicalGuideItems(g);
  const whyRequired=g.cat==='DINING'||g.cat==='ACTIVITIES'||g.cat==='ATTRACTIONS';
- const hours=(g.cat==='DINING'&&String(g.hours||'').trim())
-  ? `<section class="guide-content-section guide-trading-hours"><h3>Trading Hours</h3><p>${String(g.hours).trim()}</p></section>`
+ const rawHours=String(g.hours||'').trim();
+ const meaningfulHours=rawHours&&!/出發前|before (departure|visit)|reconfirm|confirm.*hours/i.test(rawHours);
+ const hours=(g.cat==='DINING'&&meaningfulHours)
+  ? `<section class="guide-content-section guide-trading-hours"><h3>Trading Hours</h3><p>${rawHours}</p></section>`
   : '';
  const goodToKnow=g.cat==='DINING'?criticalGuideItems(g):practical;
  return `${(why&&(whyRequired||g.cat!=='STAY'))?`<section class="guide-content-section guide-why-go"><h3>Why Go</h3><p>${why}</p></section>`:''}${guideListSection('Signature / Must Try',dishes,'guide-suggested-dishes')}${hours}${guideListSection('Booking',booking,'guide-booking-advice')}${guideListSection(g.cat==='DINING'?'Good to Know':'Practical Info',goodToKnow,'guide-practical-info')}`;
@@ -419,7 +435,6 @@ function guideStaySections(g){
  if(g.cat!=='STAY')return '';
  const booking=window.BOOKING_AUTHORITY?BOOKING_AUTHORITY.byPlace(g.key):null;
  const stay=[];
- if(g.hours)stay.push(g.hours);
  if(booking?.nights)stay.push(`${booking.nights} night${Number(booking.nights)===1?'':'s'}`);
  if(booking?.guests)stay.push(`${booking.guests} guest${Number(booking.guests)===1?'':'s'}`);
  const useful=practicalGuideItems(g).filter(item=>!stay.includes(item));

@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 
-/* RC16.5 — Current bottom-navigation state. */
+/* RC17.5 — Current bottom-navigation state. */
 (function(){
   function markCurrentNav(){
     var nav=document.querySelector('.app-nav');
