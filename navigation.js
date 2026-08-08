@@ -154,91 +154,6 @@
     markSessionActive();
   }
 
-
-
-  /* E2C.1 — preserve the original Trip popup selector while keeping
-     full-page ownership for Trip detail content. The popup is Engine-owned;
-     Trip data supplies semantic tripInfo IDs and labels only. */
-  function tripMenuData(){
-    const sets=global.TRAVEL_DATASETS || {};
-    const data=sets.TRIP_DATA || {};
-    const order=Array.isArray(sets.TRIP_ORDER) ? sets.TRIP_ORDER : Object.keys(data);
-    return order.filter(key=>data[key]).map(key=>({key:String(key),card:data[key]}));
-  }
-
-  function stripMarkup(value){
-    const text=String(value == null ? '' : value);
-    if(!global.document) return text.replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
-    const node=global.document.createElement('div');
-    node.innerHTML=text;
-    return (node.textContent || '').replace(/\s+/g,' ').trim();
-  }
-
-  function tripMenuSubtitle(key,card){
-    const configured=global.TRIP_CONFIG && global.TRIP_CONFIG.tripMenu && global.TRIP_CONFIG.tripMenu[key];
-    if(configured) return String(configured);
-    const defaults={
-      flights:'Outbound & return',vehicle:'Pickup & return',stay:'Bookings & addresses',
-      activities:'Confirmed tours & experiences',checklist:'Before the Trip',emergency:'Contacts & medical care'
-    };
-    if(defaults[key]) return defaults[key];
-    const body=stripMarkup(card && card.body);
-    return body.length>72 ? body.slice(0,69)+'…' : body;
-  }
-
-  function ensureTripMenu(){
-    if(!global.document || !global.document.body || typeof global.document.createElement!=='function') return null;
-    let menu=global.document.getElementById('tripMenu');
-    if(!menu){
-      menu=global.document.createElement('div');
-      menu.id='tripMenu';
-      menu.className='mini-menu';
-      menu.setAttribute('aria-label','Trip information');
-      global.document.body.appendChild(menu);
-    }
-    const entries=tripMenuData();
-    menu.innerHTML=entries.map(({key,card})=>{
-      const title=stripMarkup(card.title || key);
-      const subtitle=tripMenuSubtitle(key,card);
-      const href=build('trip',{query:{tripInfoId:key}});
-      return '<a href="'+href+'" data-trip-info-ref="'+key+'"><span><span class="menu-title">'+title+'</span><span class="menu-sub">'+subtitle+'</span></span><span>›</span></a>';
-    }).join('');
-    return menu;
-  }
-
-  function closeTripMenu(){
-    const menu=global.document && global.document.getElementById('tripMenu');
-    if(menu) menu.classList.remove('show');
-  }
-
-  function toggleTripMenu(event){
-    if(event){event.preventDefault();event.stopPropagation();}
-    const menu=ensureTripMenu();
-    if(!menu) return false;
-    const opening=!menu.classList.contains('show');
-    global.document.querySelectorAll('.mini-menu.show').forEach(item=>item.classList.remove('show'));
-    if(opening) menu.classList.add('show');
-    return false;
-  }
-
-  function installTripMenu(){
-    if(!global.document || typeof global.document.querySelectorAll!=='function') return;
-    ensureTripMenu();
-    global.document.querySelectorAll('.trip-trigger').forEach(trigger=>{
-      if(trigger.dataset.tripPopupBound==='1') return;
-      trigger.dataset.tripPopupBound='1';
-      trigger.addEventListener('click',toggleTripMenu);
-      trigger.setAttribute('aria-haspopup','menu');
-    });
-    global.document.addEventListener('click',event=>{
-      const menu=global.document.getElementById('tripMenu');
-      if(!menu || !menu.classList.contains('show')) return;
-      if(menu.contains(event.target) || event.target.closest('.trip-trigger')) return;
-      closeTripMenu();
-    });
-    global.document.addEventListener('keydown',event=>{if(event.key==='Escape') closeTripMenu();});
-  }
-
   const NAVIGATION=Object.freeze({
     page,
     queryName,
@@ -260,16 +175,9 @@
     permittedReturnTarget,
     isStandaloneDisplay,
     isColdLaunch,
-    enforceCanonicalEntry,
-    ensureTripMenu,
-    toggleTripMenu,
-    closeTripMenu
+    enforceCanonicalEntry
   });
 
   global.NAVIGATION=NAVIGATION;
   enforceCanonicalEntry();
-  if(global.document){
-    if(global.document.readyState==='loading') global.document.addEventListener('DOMContentLoaded',installTripMenu,{once:true});
-    else installTripMenu();
-  }
 })(typeof self !== 'undefined' ? self : window);

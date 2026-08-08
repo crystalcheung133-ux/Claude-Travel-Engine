@@ -1,8 +1,0 @@
-{
-  "name": "travel-engine-ci-tests",
-  "private": true,
-  "description": "Self-contained Travel Engine CI tests. No external runtime dependencies.",
-  "scripts": {
-    "test": "sh run-all.sh"
-  }
-}

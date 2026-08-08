@@ -1,0 +1,8 @@
+# Travel Engine source/repository artifacts — do not publish to the Companion.
+ci-tests/
+.github/
+*.md
+*.sql
+PRODUCTION-FILE-MANIFEST.txt
+SHA256SUMS.txt
+VERSION.txt

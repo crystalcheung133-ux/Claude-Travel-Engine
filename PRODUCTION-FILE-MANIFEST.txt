@@ -1,11 +1,22 @@
-- CI-PATH-FIX-REPORT.md
-- E2C-REBASE-REPORT.md
+Saigon Companion RC1 Production File Manifest
+Generated: 2026-08-08
+Base: Travel Engine 25.2.8
+Reference trip: Vietnam
+
+Production root files:
+
+- .vercelignore
 - VERSION.txt
 - admin.js
+- analytics-runtime.js
 - app-runtime.js
 - asset-config.js
-- assets/japan-onsen-logo.png
 - booking-authority.js
+- booking-permissions.js
+- booking-sync-runtime.js
+- bookings-runtime.js
+- bookings.html
+- ccmv-logo-calibrated.png
 - complete-runtime.js
 - core-runtime.js
 - currency-runtime.js
@@ -17,7 +28,6 @@
 - expenses.js
 - export-runtime.js
 - formatter.js
-- generate-manifest.js
 - generation-runtime.js
 - generation-selection-adapter.js
 - geo-config.js
@@ -25,10 +35,13 @@
 - guide-runtime.js
 - guide.html
 - home-runtime.js
+- icon-192.png
+- icon-512.png
 - index.html
 - itinerary-authority.js
 - itinerary.html
 - locale-config.js
+- logo-monogram-transparent.png
 - manifest.webmanifest
 - memory.html
 - moment-sync-runtime.js
@@ -37,7 +50,6 @@
 - moments.js
 - money-config.js
 - money.js
-- navigation-adapter.js
 - navigation-config.js
 - navigation.js
 - offline.html
@@ -47,9 +59,7 @@
 - pwa.js
 - reset-runtime.js
 - script.js
-- shared-popup-runtime.js
 - storage-config.js
-- storage-migration-runtime.js
 - storage.js
 - styles.css
 - supabase-client-runtime.js
@@ -58,11 +68,6 @@
 - sync-runtime.js
 - theme-config.js
 - trip-config.js
-- trip-failure-runtime.js
 - trip-runtime.js
 - trip.html
 - vercel.json
-Generated: 2026-08-04
-Production root files:
-Release: Stage-E2C-REBASE-SHARED-POPUP
-Travel Engine Production File Manifest

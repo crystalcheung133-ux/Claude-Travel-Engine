@@ -1,14 +1,2 @@
-(function(root){'use strict';root.ASSET_CONFIG=Object.freeze({
-branding:Object.freeze({
-primaryLogo:'assets/japan-onsen-logo.png',
-secondaryMark:'assets/japan-onsen-logo.png',
-splashLogo:'assets/japan-onsen-logo.png',
-splashMark:'assets/japan-onsen-logo.png'
-}),
-hero:Object.freeze({coverImage:null,heroImage:null,heroOverlay:null}),
-icons:Object.freeze({
-favicon:'assets/japan-onsen-logo.png',appIcon:'assets/japan-onsen-logo.png',
-appleIcon:'assets/japan-onsen-logo.png',icon192:'assets/japan-onsen-logo.png',icon512:'assets/japan-onsen-logo.png'
-}),
-splash:Object.freeze({background:null,assets:Object.freeze(['assets/japan-onsen-logo.png'])})
-});})(globalThis);
+/* Saigon RC1 assets */
+(function(root){'use strict';root.ASSET_CONFIG=Object.freeze({branding:Object.freeze({primaryLogo:'ccmv-logo-calibrated.png',secondaryMark:'logo-monogram-transparent.png',splashLogo:'ccmv-logo-calibrated.png',splashMark:'logo-monogram-transparent.png'}),hero:Object.freeze({coverImage:null,heroImage:null,heroOverlay:null}),icons:Object.freeze({favicon:'icon-192.png',appIcon:'icon-192.png',appleIcon:'icon-192.png',icon192:'icon-192.png',icon512:'icon-512.png'}),splash:Object.freeze({background:null,assets:Object.freeze(['ccmv-logo-calibrated.png'])})});})(globalThis);

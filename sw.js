@@ -1,5 +1,5 @@
 importScripts('./theme-config.js', './asset-config.js', './locale-config.js', './formatter.js', './navigation-config.js', './trip-config.js', './storage-config.js');
-const CACHE_NAME = `travel-engine-${TRIP_CONFIG.storageNamespace}-${TRIP_CONFIG.version}-e2c1-trip-popup`;
+const CACHE_NAME = `travel-engine-${TRIP_CONFIG.storageNamespace}-${TRIP_CONFIG.version}-rc25-2-3-admin-safe-engine-25-2-8-booking-collaboration-v1`;
 const CRITICAL_EXTENSIONS = /\.(?:css|js)$/i;
 const ASSETS = [
   './',
@@ -7,8 +7,10 @@ const ASSETS = [
   './styles.css',
   './core-runtime.js',
   './trip-runtime.js',
+  './bookings-runtime.js',
   './moments-compat.js',
   './currency-runtime.js',
+  './analytics-runtime.js',
   './home-runtime.js',
   './script.js',
   './guide-runtime.js',
@@ -26,7 +28,6 @@ const ASSETS = [
   './export-runtime.js',
   './pwa.js',
   './app-runtime.js',
-  './trip-failure-runtime.js',
   './theme-config.js',
   './asset-config.js',
   './locale-config.js',
@@ -37,7 +38,6 @@ const ASSETS = [
   './money.js',
   './navigation-config.js',
   './navigation.js',
-  './navigation-adapter.js',
   './storage-config.js',
   './storage.js',
   './sync-config.js',
@@ -46,6 +46,8 @@ const ASSETS = [
   './engine-integrity.js',
   './data.js',
   './booking-authority.js',
+  './booking-permissions.js',
+  './booking-sync-runtime.js',
   './itinerary-authority.js',
   './place.html',
   './day.html',
@@ -60,7 +62,8 @@ const ASSETS = [
   './memory.html',
   './moments.html',
   './expenses.html',
-  './trip.html'
+  './trip.html',
+  './bookings.html'
 ];
 
 

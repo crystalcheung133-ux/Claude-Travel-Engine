@@ -1,23 +1,3020 @@
-// Japan Round 2 — Trip Package compile-test data.
-// Trip-owned data only. No navigation, renderer, storage, HTML or Engine behaviour is generated.
+// data.js — Saigon Companion RC1 · generated from reconciled VN Master on Travel Engine 25.2.8
+// Timeline is authoritative for itinerary content; booking linkage is reconciled to Booking Foundation IDs.
 
-const PLACES={"mitsui-garden-hotel-yokohama-minatomirai-premier":{"title":"Mitsui Garden Hotel Yokohama Minatomirai Premier","emoji":"🏨","cat":"STAY","sub":"Arrival Base","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Mitsui+Garden+Hotel+Yokohama+Minatomirai+Premier","address":"Pending official refresh","desc":"位於港未來嘅高層酒店，方便第一日落機後休息，同時連接 MARK IS、櫻木町同海濱地區。今次主要作三人會合及橫濱短住基地，Day 2 退房後亦會寄存行李至取車前。","signature":["港未來位置方便","適合由機場抵達後直接休息","Day 2 可寄存行李再行 Air Cabin／紅磚倉庫"],"worth":["第一晚不要再跨區安排大型景點。","Day 2 取車前先回酒店收行李，避免帶行李搭纜車。"],"categoryLabel":"🏨 Stay","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"mark-is-minatomirai":{"title":"MARK IS Minatomirai","emoji":"🛍️","cat":"SHOPPING","sub":"Arrival Shopping","hours":"Refresh before travel","maps":"https://maps.google.com/?q=MARK+IS+Minatomirai","address":"Pending official refresh","desc":"港未來大型商場，集合戶外用品、生活雜貨、餐飲同超市，適合落機後做輕鬆 Shopping。今次重點係 Montbell、Seiko STH200 metronome 搜尋，同 B1 超市補充上箱根前零食。","signature":["Montbell","Metronome search","B1 supermarket"],"worth":["先完成指定購物，再隨意行。","如航班延誤，超市及 metronome 可縮短，唔影響翌日主行程。"],"categoryLabel":"🛍️ Shopping","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"yokohama-air-cabin":{"title":"Yokohama Air Cabin","emoji":"🚠","cat":"ACTIVITIES","sub":"Waterfront Transition","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Yokohama+Air+Cabin","address":"Pending official refresh","desc":"連接櫻木町同運河公園嘅都市纜車，短程已經可以睇到港未來海濱同城市天際線。今次用作由酒店區順住去紅磚倉庫嘅體驗式交通，而唔係獨立大型景點。","signature":["港未來空中景觀","短程、不需大體力","自然接駁 Red Brick Warehouse"],"worth":["天氣或停運時直接改地面步行／其他交通，唔需要重排整日。","行李應留酒店。"],"categoryLabel":"🚠 Transport Experience","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"yokohama-red-brick-warehouse":{"title":"Yokohama Red Brick Warehouse","emoji":"🛍️","cat":"SHOPPING","sub":"Yokohama Morning Stop","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Yokohama+Red+Brick+Warehouse","address":"Pending official refresh","desc":"由歷史倉庫改建而成嘅海濱商場，集小店、餐飲、季節活動同港口景觀於一處。今次只安排約一小時短逛，作為取車前嘅橫濱最後一站。","signature":["紅磚建築及海濱景觀","小型品牌及手信","季節活動空間"],"worth":["11:00左右要離開準備午餐及取行李。","如商店未開齊，仍可行海旁及影相。"],"categoryLabel":"🛍️ Shopping","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"hakone-open-air-museum":{"title":"Hakone Open-Air Museum","emoji":"🏛️","cat":"ATTRACTIONS","sub":"Transition Experience","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Hakone+Open-Air+Museum","address":"Pending official refresh","desc":"箱根山景之中嘅大型戶外雕塑美術館，園內有現代雕塑、Picasso 收藏、彩繪玻璃塔同足湯。今次係由橫濱駕車去 KAI 途中嘅精華短遊，會集中睇重點而唔係完整行遍全園。","signature":["Outdoor Sculpture Garden","Picasso Pavilion","Symphonic Sculpture","Forest Footbath"],"worth":["13:30取車後行程緊湊，先看戶外雕塑及一至兩個室內重點。","臨近閉館不要再開新區域。"],"categoryLabel":"🏛️ Attraction","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"hoshino-resorts-kai-hakone":{"title":"Hoshino Resorts KAI Hakone","emoji":"🏨","cat":"STAY","sub":"Luxury Retreat","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Hoshino+Resorts+KAI+Hakone","address":"Pending official refresh","desc":"沿箱根湯本山谷而建嘅溫泉旅館，以季節會席、溫泉同安靜房間體驗為旅程核心。今次住兩晚，Day 2 及 Day 3 晚餐都鎖定19:30，所有彈性活動都要保護返旅館時間。","signature":["Onsen retreat","Two fixed 19:30 dinners","Slow evening after sightseeing"],"worth":["Day 2到埗後不要再外出。","Day 3最遲約18:15回酒店，預留更衣及休息。"],"categoryLabel":"🏨 Stay","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"heiwa-no-torii-lake-ashi-motohakone":{"title":"Heiwa no Torii / Lake Ashi Motohakone","emoji":"📸","cat":"ATTRACTIONS","sub":"Morning Lake Moment","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Heiwa+no+Torii+/+Lake+Ashi+Motohakone","address":"Pending official refresh","desc":"元箱根湖邊嘅水上鳥居同蘆之湖景色，係箱根早晨最具代表性嘅畫面之一。今次只在乘船前短停，影相排隊絕對唔可以令大家錯過海盜船。","signature":["Lake Ashi view","Waterfront torii photo","Early-morning atmosphere"],"worth":["09:20必須開始返回港口。","排隊過長就影湖景及遠景，不等正中央單人相。"],"categoryLabel":"📸 Attraction","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"hakone-sightseeing-cruise":{"title":"Hakone Sightseeing Cruise","emoji":"🚠","cat":"ACTIVITIES","sub":"Scenic Transport","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Hakone+Sightseeing+Cruise","address":"Pending official refresh","desc":"蘆之湖海盜船連接元箱根、箱根町同桃源台，將湖景觀光同前往 Ropeway 嘅交通合併。今次由元箱根搭到桃源台，目標係乘最早合適班次，避免壓縮大涌谷同強羅。","signature":["Lake Ashi crossing","Mountains and lakeside views","Direct connection to Togendai Ropeway"],"worth":["提早回港口買票及上洗手間。","船停駛時改自駕桃源台或湖邊替代行程。"],"categoryLabel":"🚠 Transport Experience","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"owakudani":{"title":"Owakudani","emoji":"🌋","cat":"ATTRACTIONS","sub":"Hakone Landscape Highlight","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Owakudani","address":"Pending official refresh","desc":"大涌谷係箱根火山地貌最鮮明嘅區域，可見蒸氣地景、山谷景觀同當地黑蛋。今次停留約55分鐘，重點係觀景、簡單 Shopping同準時繼續去強羅。","signature":["Volcanic landscape","Kuro-tamago","Ropeway views"],"worth":["風大及低溫要預備保暖。","12:00左右離開，保護強羅午餐及箱根湯本購物。"],"categoryLabel":"🌋 Viewpoint","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"tamura-ginkatsutei":{"title":"Tamura Ginkatsutei","emoji":"🍽️","cat":"DINING","sub":"Primary Hakone Lunch","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Tamura+Ginkatsutei","address":"Pending official refresh","desc":"強羅站附近以豆腐豬排煮聞名嘅日式餐廳，熱鍋豆腐、豬肉同蛋汁非常適合冬天午餐。今次係 Day 3 主餐，但最多等45分鐘，唔會為一間餐廳犧牲箱根湯本行程。","signature":["Tofu cutlet set","Hot clay-pot style dish"],"worth":["19:30有KAI晚餐，午餐不宜食太慢或過量。","如預計14:00後才入座，立即轉 Alternative。"],"categoryLabel":"🍽️ Dining","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"hakone-yumoto-shopping-street":{"title":"Hakone-Yumoto Shopping Street","emoji":"🛍️","cat":"SHOPPING","sub":"Onsen Souvenir Mission","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Hakone-Yumoto+Shopping+Street","address":"Pending official refresh","desc":"箱根湯本站外集中溫泉饅頭、和菓子、咖啡甜品同手信店，適合返旅館前一次過完成箱根購物。今次只有約一小時，會按優先次序買湯麻糬、咖啡雪糕同饅頭，16:15開始返巴士站。","signature":["Chimoto yumochi","Hakone Roasting Coffee","Marushima / Kikukawa onsen manju","Grande Rivière only if time remains"],"worth":["先買保存期較重要或可能售罄嘅商品。","最後一間未買到就放棄，唔錯過回元箱根巴士。"],"categoryLabel":"🛍️ Shopping","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"gotemba-premium-outlets":{"title":"Gotemba Premium Outlets","emoji":"🛍️","cat":"SHOPPING","sub":"Major Shopping Day","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Gotemba+Premium+Outlets","address":"Pending official refresh","desc":"御殿場大型 Outlet 由多個購物區組成，品牌選擇廣，天氣清晰時部分位置亦可望見富士山。今次由開門前後行到19:00，午餐同晚餐都留在場內，整日唔加入其他景點。","signature":["Full-day brand shopping","On-site lunch and dinner","Tax-free and final bag organisation"],"worth":["泊車後影低停車區及最近出口。","18:30後不再開新區，只做補買、退稅及整理。"],"categoryLabel":"🛍️ Shopping","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"tsurugaoka-hachimangu":{"title":"Tsurugaoka Hachimangu","emoji":"⛩️","cat":"ATTRACTIONS","sub":"Kamakura Cultural Anchor","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Tsurugaoka+Hachimangu","address":"Pending official refresh","desc":"鶴岡八幡宮係鎌倉中心最重要嘅神社空間，由若宮大路同小町通都可以自然步行到達。今次會由小町通上行參拜，再沿若宮大路返回，形成一次泊車、不走回頭路嘅中心環線。","signature":["Main approach and shrine axis","Main sanctuary","Omamori / goshuin"],"worth":["預留約50分鐘。","Mum如疲倦，可在主區等候，不必完成所有樓梯及支線。"],"categoryLabel":"⛩️ Shrine","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"komachi-dori-and-wakamiya-oji":{"title":"Komachi-dori and Wakamiya-oji","emoji":"🛍️","cat":"SHOPPING","sub":"Kamakura Walking Loop","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Komachi-dori+and+Wakamiya-oji","address":"Pending official refresh","desc":"小町通集中鎌倉小食、甜品、雜貨同手信，而若宮大路就提供較開揚嘅歷史街道景觀。今次會由小町通行去八幡宮，再沿若宮大路返回，午餐後只留約35分鐘完成最後 Shopping。","signature":["Giraffa curry bread","Matcha dessert","Shirasu lunch","Souvenir and small shops"],"worth":["午餐排隊最多30分鐘。","13:50一定返回停車場方向，保護16:30還車。"],"categoryLabel":"🛍️ Shopping","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"snoopy-museum-tokyo":{"title":"Snoopy Museum Tokyo","emoji":"🏛️","cat":"ATTRACTIONS","sub":"Family Museum Day","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Snoopy+Museum+Tokyo","address":"Pending official refresh","desc":"南町田嘅 Snoopy Museum 以 Peanuts 原畫、主題展覽、角色場景同限定商品為核心。今次由六人一齊參觀，目標訂10:00或10:30早場，離場前一次過完成 Museum Shop。","signature":["Peanuts exhibitions","Character photo spaces","Museum-limited shop"],"worth":["不可假設可以重新入場，限定商品要離場前買。","提早票證確認，六人同時段入場。"],"categoryLabel":"🏛️ Attraction","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"grandberry-park":{"title":"Grandberry Park","emoji":"🛍️","cat":"SHOPPING","sub":"Family Shopping Extension","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Grandberry+Park","address":"Pending official refresh","desc":"南町田站旁嘅大型商場，以戶外式購物街、餐飲、生活店同 Snoopy Museum 周邊設施組成。今次中午起留在同一區食烏冬／天婦羅、Shopping同 Coffee，唔再加另一個東京區域。","signature":["Udon / tempura lunch","Shopping blocks","Optional PEANUTS Café"],"worth":["午餐最多等30分鐘。","16:45開始返橫濱，避免晚餐太遲。"],"categoryLabel":"🛍️ Shopping","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"sushi-tokyo-ten-yokohama":{"title":"Sushi Tokyo Ten Yokohama","emoji":"🍽️","cat":"DINING","sub":"Celebration Lunch","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Sushi+Tokyo+Ten+Yokohama","address":"Pending official refresh","desc":"位於 NEWoMan Yokohama 嘅 Omakase 壽司店，以季節魚生同連續出品嘅午餐體驗為主。今次已改成5大1小，Chelsea可以同Crystal分享，亦係搬酒店去五反田前嘅正式家庭午餐。","signature":["Omakase lunch","Station-connected location","Family celebration meal"],"worth":["11:15前抵達餐廳區域。","完成後先回酒店取行李，再搬往OMO5。"],"categoryLabel":"🍽️ Dining","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"ueno-and-ameyoko":{"title":"Ueno and Ameyoko","emoji":"🛍️","cat":"SHOPPING","sub":"Birthday Evening Shopping","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Ueno+and+Ameyoko","address":"Pending official refresh","desc":"上野至御徒町一帶集合阿美橫市場、藥妝、零食、乾貨同熱鬧街區氣氛。今次係Moon指定想去嘅地方，會先Shopping再沿路行去御徒町食牛舌。","signature":["Ameyoko market atmosphere","Snacks and pharmacy shopping","Direct walk toward Okachimachi dinner"],"worth":["很多店比餐廳早收，必須Shop first, dinner second。","18:00後停止開新店，六人集合去晚餐。"],"categoryLabel":"🛍️ Shopping","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"negishi-okachimachi":{"title":"Negishi Okachimachi","emoji":"🍽️","cat":"DINING","sub":"Birthday Gyutan Dinner","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Negishi+Okachimachi","address":"Pending official refresh","desc":"御徒町站旁嘅牛舌專門店，以牛舌、麥飯、山藥蓉同牛尾湯套餐為主，六人亦容易各自選份量。今次安排在阿美橫Shopping之後，食完可直接由御徒町乘山手線返五反田。","signature":["Gyutan set meals","Barley rice and oxtail soup","Convenient Okachimachi location"],"worth":["建議預約六人座位。","Chelsea可按食量選較小份或分享。"],"categoryLabel":"🍽️ Dining","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"omo5-tokyo-gotanda":{"title":"OMO5 Tokyo Gotanda","emoji":"🏨","cat":"STAY","sub":"Tokyo Family Base","hours":"Refresh before travel","maps":"https://maps.google.com/?q=OMO5+Tokyo+Gotanda","address":"Pending official refresh","desc":"位於五反田高層嘅城市酒店，交通方便，適合作為上野、自由之丘同羽田出發前嘅家庭基地。今次已加訂一間房，六人入住兩晚，Day 9只有Crystal同Moon離開。","signature":["Gotanda transport base","High-floor common space","Family Dessert Night base"],"worth":["由五反田站步行約6分鐘；大崎廣小路站更近，但搬酒店仍選JR五反田路線。","Day 8甜品返酒店後要妥善冷藏。"],"categoryLabel":"🏨 Stay","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"jiyugaoka":{"title":"Jiyugaoka","emoji":"🛍️","cat":"SHOPPING","sub":"Slow Exploration","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Jiyugaoka","address":"Pending official refresh","desc":"自由之丘以小型時裝店、生活雜貨、家品、文具、Café同洋菓子店形成悠閒街區。今次全日只留在呢一區慢慢行，最後買甜品返OMO5做家庭夜間Snack。","signature":["Lifestyle and homeware shops","Fashion and stationery","Café break","Dessert Mission"],"worth":["六人可短暫分開，但要有固定集合點。","甜品優先選可安全攜帶及酒店可冷藏款式。"],"categoryLabel":"🛍️ Shopping","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"shabu-shabu-on-yasai-gotanda-annex":{"title":"Shabu-shabu On-Yasai Gotanda Annex","emoji":"🍽️","cat":"DINING","sub":"Primary Day 8 Dinner","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Shabu-shabu+On-Yasai+Gotanda+Annex","address":"Pending official refresh","desc":"五反田站附近嘅 Shabu-shabu 店，以多款肉類、蔬菜同湯底作家庭式火鍋，六人可以一齊分享。今次係 Day 8 已批准晚餐，食完返 OMO5 進行最後一晚 Dessert Night。","signature":["Shabu-shabu hot pot","Family-friendly shared meal","Reservable six-person option"],"worth":["Production 前確認六人訂位或即時可用時段。","控制晚餐時間，保留返酒店享用甜品嘅安排。"],"categoryLabel":"🍽️ Dining","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"unagi-yoneyama":{"title":"Unagi Yoneyama","emoji":"🍽️","cat":"DINING","sub":"Farewell Meal","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Unagi+Yoneyama","address":"Pending official refresh","desc":"五反田一帶嘅傳統鰻魚料理店，主打現烤鰻魚飯同可外帶嘅鰻魚便當。今次安排作 Crystal 同 Moon 離開日本前嘅 Farewell Brunch，食完便經品川前往羽田。","signature":[],"worth":["目標開門第一輪入座，避免影響15:05國際航班。","最多只作短時間等候；時間優先於堂食。","食完回 OMO5 取行李或按當日行李安排直接出發。"],"categoryLabel":"🍽️ Dining","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"p-tisserie-paris-s-eveille":{"title":"Pâtisserie Paris S'eveille","emoji":"🍰","cat":"DINING","sub":"Dessert Mission Candidate","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Pâtisserie+Paris+S'eveille","address":"Pending official refresh","desc":"自由之丘人氣法式甜點店，以細緻嘅單件蛋糕、撻類同朱古力甜品見稱。今次係 Dessert Mission 嘅主要候選，大家可以按當日款式自由選擇帶返 OMO5 分享。","signature":[],"worth":["熱門款式下午可能售罄，以現場供應為準。","鮮製甜品買完後直接返 OMO5 冷藏。","不使用「每人一件」或其他購買上限。"],"categoryLabel":"🍰 Dessert","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"mont-st-clair":{"title":"Mont St. Clair","emoji":"🍰","cat":"DINING","sub":"Dessert Mission Candidate","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Mont+St.+Clair","address":"Pending official refresh","desc":"自由之丘具代表性嘅高級甜點店，提供法式蛋糕、朱古力同季節作品。今次作 Dessert Mission 另一個主要候選，適合揀一啲較有最後一晚感覺嘅甜品。","signature":[],"worth":["唔需要三間甜品店全部完成。","以現場款式為主，不將網上舊款寫成保證供應。","買完鮮製甜品後先返回酒店。"],"categoryLabel":"🍰 Dessert","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"jiyugaoka-roll-ya":{"title":"Jiyugaoka Roll-ya","emoji":"🍰","cat":"DINING","sub":"Dessert Mission Candidate","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Jiyugaoka+Roll-ya","address":"Pending official refresh","desc":"自由之丘嘅卷蛋專門店，亦有磅蛋糕、檸檬蛋糕同燒菓子。今次提供另一種甜品風格，大家想買卷蛋或烘焙點心時可以順路加入。","signature":[],"worth":["先睇當日限定口味再決定。","可以同其他甜點店混合購買，無需限制款式或數量。","16:30左右完成甜品購買並開始返五反田。"],"categoryLabel":"🍰 Dessert","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"edit-x-seven-fuji-gotemba":{"title":"edit x seven Fuji Gotemba","emoji":"🏨","cat":"STAY","sub":"Overnight Transition Base","hours":"Refresh before travel","maps":"https://maps.google.com/?q=edit+x+seven+Fuji+Gotemba","address":"Pending official refresh","desc":"位於御殿場、方便完成 Outlet 全日購物後短程入住嘅現代酒店。今次只住一晚，主要功能係讓三人整理戰利品、休息並準備翌日早上開車去鎌倉。","signature":["近 Gotemba Premium Outlets","適合購物後整理行李","翌日直接開車往鎌倉"],"worth":["晚餐已在 Outlet 完成，酒店不需承擔額外餐飲行程。","入住後以休息與整理購物袋為主。"],"categoryLabel":"🏨 Stay","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""},"sotetsu-hotels-the-splaisir-yokohama":{"title":"Sotetsu Hotels The Splaisir Yokohama","emoji":"🏨","cat":"STAY","sub":"Reunion Hotel and Transport Base","hours":"Refresh before travel","maps":"https://maps.google.com/?q=Sotetsu+Hotels+The+Splaisir+Yokohama","address":"Pending official refresh","desc":"位於橫濱站附近嘅城市酒店，方便還車、翌日去南町田，以及之後搬往五反田。今次亦係家人 Surprise 會合地點，已加訂一間房但公開 Companion 不應提前解釋原因。","signature":["近橫濱站","方便 Toyota 還車後返回","已為擴大同行人數加訂房間"],"worth":["Moon 與行李先在酒店落車，Crystal 和 Ava 再去還車。","Surprise 前的公開內容只顯示一般入住流程。"],"categoryLabel":"🏨 Stay","transport":"See approved timeline","audit":"BUILDER IMPORT · PUBLIC FACT REFRESH REQUIRED","status":"planned","website":"","phone":""}};
-const CATEGORIES={"STAY":[{"key":"mitsui-garden-hotel-yokohama-minatomirai-premier"},{"key":"hoshino-resorts-kai-hakone"},{"key":"omo5-tokyo-gotanda"},{"key":"edit-x-seven-fuji-gotemba"},{"key":"sotetsu-hotels-the-splaisir-yokohama"}],"DINING":[{"key":"tamura-ginkatsutei"},{"key":"sushi-tokyo-ten-yokohama"},{"key":"negishi-okachimachi"},{"key":"shabu-shabu-on-yasai-gotanda-annex"},{"key":"unagi-yoneyama"},{"key":"p-tisserie-paris-s-eveille"},{"key":"mont-st-clair"},{"key":"jiyugaoka-roll-ya"}],"ATTRACTIONS":[{"key":"hakone-open-air-museum"},{"key":"heiwa-no-torii-lake-ashi-motohakone"},{"key":"owakudani"},{"key":"tsurugaoka-hachimangu"},{"key":"snoopy-museum-tokyo"}],"ACTIVITIES":[{"key":"yokohama-air-cabin"},{"key":"hakone-sightseeing-cruise"}],"SHOPPING":[{"key":"mark-is-minatomirai"},{"key":"yokohama-red-brick-warehouse"},{"key":"hakone-yumoto-shopping-street"},{"key":"gotemba-premium-outlets"},{"key":"komachi-dori-and-wakamiya-oji"},{"key":"grandberry-park"},{"key":"ueno-and-ameyoko"},{"key":"jiyugaoka"}]};
-const GUIDE_ORDER=["mitsui-garden-hotel-yokohama-minatomirai-premier","mark-is-minatomirai","yokohama-air-cabin","yokohama-red-brick-warehouse","hakone-open-air-museum","hoshino-resorts-kai-hakone","heiwa-no-torii-lake-ashi-motohakone","hakone-sightseeing-cruise","owakudani","tamura-ginkatsutei","hakone-yumoto-shopping-street","gotemba-premium-outlets","tsurugaoka-hachimangu","komachi-dori-and-wakamiya-oji","snoopy-museum-tokyo","grandberry-park","sushi-tokyo-ten-yokohama","ueno-and-ameyoko","negishi-okachimachi","omo5-tokyo-gotanda","jiyugaoka","shabu-shabu-on-yasai-gotanda-annex","unagi-yoneyama","p-tisserie-paris-s-eveille","mont-st-clair","jiyugaoka-roll-ya","edit-x-seven-fuji-gotemba","sotetsu-hotels-the-splaisir-yokohama"];
-const DAY_LINKS={"mitsui-garden-hotel-yokohama-minatomirai-premier":[["Day 1","day.html?day=1#day1-item2"],["Day 1","day.html?day=1"]],"mark-is-minatomirai":[["Day 1","day.html?day=1#day1-item4"],["Day 1","day.html?day=1"]],"yokohama-air-cabin":[["Day 2","day.html?day=2#day2-item3"],["Day 2","day.html?day=2"]],"hakone-open-air-museum":[["Day 2","day.html?day=2#day2-item8"],["Day 2","day.html?day=2"]],"hoshino-resorts-kai-hakone":[["Day 2","day.html?day=2#day2-item9"],["Day 2","day.html?day=2#day2-item10"],["Day 3","day.html?day=3#day3-item1"],["Day 3","day.html?day=3#day3-item2"],["Day 3","day.html?day=3#day3-item15"],["Day 3","day.html?day=3#day3-item16"],["Day 4","day.html?day=4#day4-item1"],["Day 2","day.html?day=2"]],"heiwa-no-torii-lake-ashi-motohakone":[["Day 3","day.html?day=3#day3-item3"],["Day 3","day.html?day=3#day3-item4"],["Day 3","day.html?day=3#day3-item6"],["Day 3","day.html?day=3#day3-item14"],["Day 3","day.html?day=3"]],"hakone-sightseeing-cruise":[["Day 3","day.html?day=3#day3-item5"],["Day 3","day.html?day=3"]],"owakudani":[["Day 3","day.html?day=3#day3-item7"],["Day 3","day.html?day=3#day3-item8"],["Day 3","day.html?day=3"]],"tamura-ginkatsutei":[["Day 3","day.html?day=3#day3-item10"],["Day 3","day.html?day=3"]],"hakone-yumoto-shopping-street":[["Day 3","day.html?day=3#day3-item12"],["Day 3","day.html?day=3#day3-item13"],["Day 3","day.html?day=3"]],"gotemba-premium-outlets":[["Day 4","day.html?day=4#day4-item4"],["Day 4","day.html?day=4"]],"edit-x-seven-fuji-gotemba":[["Day 4","day.html?day=4#day4-item11"],["Day 5","day.html?day=5#day5-item1"],["Day 4","day.html?day=4"]],"komachi-dori-and-wakamiya-oji":[["Day 5","day.html?day=5#day5-item3"],["Day 5","day.html?day=5#day5-item4"],["Day 5","day.html?day=5#day5-item6"],["Day 5","day.html?day=5#day5-item8"],["Day 5","day.html?day=5"]],"tsurugaoka-hachimangu":[["Day 5","day.html?day=5#day5-item5"],["Day 5","day.html?day=5"]],"sotetsu-hotels-the-splaisir-yokohama":[["Day 5","day.html?day=5#day5-item10"],["Day 5","day.html?day=5"]],"grandberry-park":[["Day 6","day.html?day=6#day6-item3"],["Day 6","day.html?day=6#day6-item5"],["Day 6","day.html?day=6"]],"snoopy-museum-tokyo":[["Day 6","day.html?day=6#day6-item4"],["Day 6","day.html?day=6"]],"sushi-tokyo-ten-yokohama":[["Day 7","day.html?day=7#day7-item3"],["Day 7","day.html?day=7#day7-item4"],["Day 7","day.html?day=7"]],"omo5-tokyo-gotanda":[["Day 7","day.html?day=7#day7-item6"],["Day 7","day.html?day=7#day7-item13"],["Day 8","day.html?day=8#day8-item1"],["Day 8","day.html?day=8#day8-item2"],["Day 8","day.html?day=8#day8-item8"],["Day 8","day.html?day=8#day8-item11"],["Day 7","day.html?day=7"]],"ueno-and-ameyoko":[["Day 7","day.html?day=7#day7-item9"],["Day 7","day.html?day=7#day7-item10"],["Day 7","day.html?day=7"]],"negishi-okachimachi":[["Day 7","day.html?day=7#day7-item11"],["Day 7","day.html?day=7"]],"jiyugaoka":[["Day 8","day.html?day=8#day8-item3"],["Day 8","day.html?day=8#day8-item7"],["Day 8","day.html?day=8"]],"shabu-shabu-on-yasai-gotanda-annex":[["Day 8","day.html?day=8#day8-item10"],["Day 8","day.html?day=8"]],"unagi-yoneyama":[["Day 9","day.html?day=9#day9-item4"],["Day 9","day.html?day=9"]],"yokohama-red-brick-warehouse":[["Day 2","day.html?day=2"]],"p-tisserie-paris-s-eveille":[["Day 8","day.html?day=8"]],"mont-st-clair":[["Day 8","day.html?day=8"]],"jiyugaoka-roll-ya":[["Day 8","day.html?day=8"]]};
-const FRIENDS={"crystal":"Crystal · Admin","moon":"Moon · Mum","ava":"Ava · Sis"};
-const BOOKINGS_DATA={"mitsui-booking":{"id":"mitsui-booking","type":"accommodation","title":"Mitsui Garden Hotel Yokohama Minatomirai Premier","status":"confirmed","date":"2026-01-15","time":"15:00 check-in","placeId":"mitsui-garden-hotel-yokohama-minatomirai-premier","dayId":"day1","guests":3,"paymentStatus":"recorded","notes":"1 night · private confirmation authority","timelineItemId":"day1-item2","checkIn":"2026-01-15T15:00:00+09:00","checkOut":"2026-01-16T09:00:00+09:00"},"kai-booking":{"id":"kai-booking","type":"accommodation","title":"Hoshino Resorts KAI Hakone","status":"confirmed","date":"2026-01-16","time":"15:00 check-in","placeId":"hoshino-resorts-kai-hakone","dayId":"day2","guests":3,"paymentStatus":"paid","notes":"2 nights · dinner 19:30 both evenings","timelineItemId":"day2-item9","checkIn":"2026-01-16T15:00:00+09:00","checkOut":"2026-01-18T09:00:00+09:00"},"toyota-rental":{"id":"toyota-rental","type":"transport","title":"Toyota Rent-a-Car","status":"confirmed","date":"2026-01-16","time":"13:30 pickup","placeId":null,"dayId":"day2","guests":3,"reference":"99985514700","paymentStatus":"confirmed","notes":"4WD · winter tyres · ETC · return 19 Jan 16:30 · Depot addresses pending official booking refresh; navigation intentionally suppressed.","standalone":true,"provider":"Toyota Rent-a-Car","pickupDateTime":"2026-01-16T13:30:00+09:00","returnDateTime":"2026-01-19T16:30:00+09:00","navigationSuppressed":true},"gotemba-hotel":{"id":"gotemba-hotel","type":"accommodation","title":"edit x seven Fuji Gotemba","status":"planned","date":"2026-01-18","time":"check-in","placeId":"edit-x-seven-fuji-gotemba","dayId":"day4","guests":3,"paymentStatus":"recorded","notes":"1 night","timelineItemId":"day4-item11","checkIn":"2026-01-18T16:30:00+09:00","checkOut":"2026-01-19T09:00:00+09:00"},"splaisir-booking":{"id":"splaisir-booking","type":"accommodation","title":"The Splaisir Yokohama","status":"confirmed","date":"2026-01-19","time":"check-in after vehicle return","placeId":"sotetsu-hotels-the-splaisir-yokohama","dayId":"day5","guests":6,"paymentStatus":"recorded","notes":"2 nights · extra room booked","timelineItemId":"day5-item10","checkIn":"2026-01-19T17:00:00+09:00","checkOut":"2026-01-21T11:00:00+09:00"},"snoopy-booking":{"id":"snoopy-booking","type":"attraction","title":"Snoopy Museum Tokyo","status":"pending","date":"2026-01-20","time":"10:00 or 10:30 target","placeId":"snoopy-museum-tokyo","dayId":"day6","guests":6,"paymentStatus":"pending","notes":"Timed entry evidence required","timelineItemId":"day6-item4"},"omo5-booking":{"id":"omo5-booking","type":"accommodation","title":"OMO5 Tokyo Gotanda","status":"confirmed","date":"2026-01-21","time":"15:00 check-in","placeId":"omo5-tokyo-gotanda","dayId":"day7","guests":6,"paymentStatus":"paid","notes":"2 nights · extra room booked","timelineItemId":"day7-item6","checkIn":"2026-01-21T15:00:00+09:00","checkOut":"2026-01-23T11:00:00+09:00"},"tokyo-ten-booking":{"id":"tokyo-ten-booking","type":"restaurant","title":"Sushi Tokyo Ten Yokohama","status":"confirmed","date":"2026-01-21","time":"11:30","placeId":"sushi-tokyo-ten-yokohama","dayId":"day7","guests":6,"paymentStatus":"recorded","notes":"5 adults + 1 child; Chelsea shares with Crystal","timelineItemId":"day7-item3"},"onyasai-booking":{"id":"onyasai-booking","type":"restaurant","title":"Shabu-shabu On-Yasai Gotanda Annex","status":"planned","date":"2026-01-22","time":"18:00 target","placeId":"shabu-shabu-on-yasai-gotanda-annex","dayId":"day8","guests":6,"paymentStatus":"pending","notes":"Primary Day 8 dinner under the later frozen refinement; Meat Yazawa is removed from the approved itinerary.","timelineItemId":"day8-item10"}};
-const TRIP_DATA={"flights":{"title":"✈️ Flights","body":"<p><strong>Arrival</strong> Crystal and Moon from Melbourne; Ava from Hong Kong. All arrive 15 Jan 2026.</p><p><strong>Departure</strong> Crystal and Moon · CZ3086 / CZ643 · 23 Jan · 15:05.</p>"},"vehicle":{"title":"🚙 Rental Car","body":"<p><strong>Toyota Rent-a-Car</strong><br>16 Jan 13:30 pickup · 19 Jan 16:30 return<br>4WD · winter tyres · ETC</p>"},"stay":{"title":"🏨 Accommodation","body":"<div id='accommodationInfoRoot'></div>"},"activities":{"title":"♨️ Trip Essentials","body":"<p>Hakone transport requires same-day status checks. Protect fixed KAI dinners, timed entry and airport timing.</p>"},"checklist":{"title":"✅ Before the Trip","body":"<div class='checklist-mini'><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Passport</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Visit Japan Web</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Suica</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> International driving permit</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Winter road check</label><p class='checklist-progress' id='checklistProgress'>0 / 5 Complete</p><div class='ready-box' id='readyBox'><h2>♨️ WE ARE READY</h2><p>Tokyo · Hakone · Fuji</p></div></div>"},"emergency":{"title":"☎️ Emergency","body":"<div class='fact-grid'><div class='fact'><strong>Japan emergency</strong>Police 110 · Ambulance / Fire 119</div><div class='fact'><strong>Travel rule</strong>Use live road and transport notices in winter.</div></div>"}};
-const TRIP_ORDER=["flights","vehicle","stay","activities","checklist","emergency"];
-const ITINERARY_DATA={"1":{"title":"Day 1 · Japan Onsen Trip","kicker":"Day 1","heading":"Arrival and Yokohama Reunion","legend":["🗓️ Approved","🧭 Route ready","🔄 Live checks"],"drive":{"route":"See timeline","distance":"","drivingTime":"","road":"","stops":[],"note":"Generated from Approved Master File v1.2.","contingency":"Use the approved recovery rules and live conditions.","primaryMap":""},"items":[{"id":"day1-item1","time":"Arrival window","title":"Crystal + Moon and Ava arrive approximately 20 minutes apart","details":["Meet inside Haneda after both flights land; Ava arrives about 20 minutes apart from Crystal and Moon."],"route":"","type":"experience","dayId":"day1","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day1-item2","time":"After arrival","title":"Travel to Mitsui Garden Hotel Yokohama Minatomirai Premier.","details":["Haneda → Yokohama by Keikyu Line, then Minatomirai Line to Minatomirai Station. Use the airport bus only if the live timetable better suits the three-arrival window."],"route":"Haneda → Yokohama by Keikyu Line, then Minatomirai Line to Minatomirai Station. Use the airport bus only if the live timetable better suits the three-arrival window.","type":"rest","dayId":"day1","placeId":"mitsui-garden-hotel-yokohama-minatomirai-premier","bookingId":"mitsui-booking","map":"https://maps.google.com/?q=Mitsui+Garden+Hotel+Yokohama+Minatomirai+Premier"},{"id":"day1-item3","time":"15:00 onward","title":"Check-in and rest.","details":[],"route":"","type":"rest","dayId":"day1","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day1-item4","time":"Late afternoon","title":"MARK IS Minatomirai: Montbell, Seiko STH200 metronome search and B1 supermarket.","details":[],"route":"","type":"experience","dayId":"day1","placeId":"mark-is-minatomirai","bookingId":null,"map":"https://maps.google.com/?q=MARK+IS+Minatomirai"},{"id":"day1-item5","time":"Evening","title":"Flexible dinner near the hotel","details":["Flexible dinner near the hotel; only a short local night walk if everyone has energy."],"route":"","type":"meal","dayId":"day1","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"}],"dayId":"day1"},"2":{"title":"Day 2 · Japan Onsen Trip","kicker":"Day 2","heading":"Yokohama Morning to KAI Hakone","legend":["🗓️ Approved","🧭 Route ready","🔄 Live checks"],"drive":{"route":"See timeline","distance":"","drivingTime":"","road":"","stops":[],"note":"Generated from Approved Master File v1.2.","contingency":"Use the approved recovery rules and live conditions.","primaryMap":""},"items":[{"id":"day2-item1","time":"07:30–08:30","title":"Breakfast and packing.","details":[],"route":"","type":"meal","dayId":"day2","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day2-item2","time":"09:00","title":"Check-out","details":["Check-out; store luggage."],"route":"","type":"rest","dayId":"day2","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day2-item3","time":"09:15 onward","title":"Yokohama Air Cabin from Sakuragicho side, then Red Brick Warehouse.","details":[],"route":"","type":"experience","dayId":"day2","placeId":"yokohama-air-cabin","bookingId":null,"map":"https://maps.google.com/?q=Yokohama+Air+Cabin"},{"id":"day2-item4","time":"11:00–12:00","title":"Early lunch.","details":[],"route":"","type":"meal","dayId":"day2","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day2-item5","time":"12:00–12:30","title":"Return to hotel, collect luggage and go to Toyota.","details":[],"route":"Toyota Minatomirai → Hakone Open-Air Museum: allow about 1 hr 30 min–1 hr 50 min. Museum → KAI Hakone: allow about 30–45 min.","type":"rest","dayId":"day2","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day2-item6","time":"13:00","title":"Arrive at Toyota and politely ask whether early pickup is possible.","details":["Arriving at 13:00 is only a soft opportunity. Ask politely, but keep the official 13:30 pickup as the working time."],"route":"Toyota Minatomirai → Hakone Open-Air Museum: allow about 1 hr 30 min–1 hr 50 min. Museum → KAI Hakone: allow about 30–45 min.","type":"transport","dayId":"day2","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day2-item7","time":"13:30","title":"Reserved rental pickup.","details":["Toyota rental includes 4WD, winter tyres and ETC. Depot address remains pending official booking refresh."],"route":"Toyota Minatomirai → Hakone Open-Air Museum: allow about 1 hr 30 min–1 hr 50 min. Museum → KAI Hakone: allow about 30–45 min.","type":"transport","dayId":"day2","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day2-item8","time":"After departure","title":"Drive to Hakone Open-Air Museum for a short, focused visit.","details":["Keep the museum visit focused if pickup or winter traffic runs late; protect the fixed 19:30 KAI dinner."],"route":"Toyota Minatomirai → Hakone Open-Air Museum: allow about 1 hr 30 min–1 hr 50 min. Museum → KAI Hakone: allow about 30–45 min.","type":"transport","dayId":"day2","placeId":"hakone-open-air-museum","bookingId":null,"map":"https://maps.google.com/?q=Hakone+Open-Air+Museum"},{"id":"day2-item9","time":"After museum","title":"Drive to KAI Hakone","details":["Drive to KAI Hakone; check in and rest."],"route":"Toyota Minatomirai → Hakone Open-Air Museum: allow about 1 hr 30 min–1 hr 50 min. Museum → KAI Hakone: allow about 30–45 min.","type":"transport","dayId":"day2","placeId":"hoshino-resorts-kai-hakone","bookingId":"kai-booking","map":"https://maps.google.com/?q=Hoshino+Resorts+KAI+Hakone"},{"id":"day2-item10","time":"19:30","title":"KAI dinner.","details":[],"route":"","type":"meal","dayId":"day2","placeId":"hoshino-resorts-kai-hakone","bookingId":"kai-booking","map":"https://maps.google.com/?q=Hoshino+Resorts+KAI+Hakone"}],"dayId":"day2"},"3":{"title":"Day 3 · Japan Onsen Trip","kicker":"Day 3","heading":"Hakone Round Course","legend":["🗓️ Approved","🧭 Route ready","🔄 Live checks"],"drive":{"route":"See timeline","distance":"","drivingTime":"","road":"","stops":[],"note":"Generated from Approved Master File v1.2.","contingency":"Use the approved recovery rules and live conditions.","primaryMap":""},"items":[{"id":"day3-item1","time":"07:00–07:45","title":"KAI breakfast.","details":[],"route":"","type":"meal","dayId":"day3","placeId":"hoshino-resorts-kai-hakone","bookingId":"kai-booking","map":"https://maps.google.com/?q=Hoshino+Resorts+KAI+Hakone"},{"id":"day3-item2","time":"07:50","title":"Drive from KAI to Motohakone.","details":[],"route":"Park once at Motohakone. Complete the lake–pirate ship–ropeway–Gora loop by public transport, then return by the H route toward Motohakone / Hakone-machi.","type":"transport","dayId":"day3","placeId":"hoshino-resorts-kai-hakone","bookingId":"kai-booking","map":"https://maps.google.com/?q=Hoshino+Resorts+KAI+Hakone"},{"id":"day3-item3","time":"08:35","title":"Park near Motohakone Port.","details":[],"route":"","type":"experience","dayId":"day3","placeId":"heiwa-no-torii-lake-ashi-motohakone","bookingId":null,"map":"https://maps.google.com/?q=Heiwa+no+Torii+/+Lake+Ashi+Motohakone"},{"id":"day3-item4","time":"08:35–09:20","title":"Lake view and Heiwa no Torii","details":["Leave the torii photo queue in time for the earliest suitable pirate-ship sailing."],"route":"Park once at Motohakone. Complete the lake–pirate ship–ropeway–Gora loop by public transport, then return by the H route toward Motohakone / Hakone-machi.","type":"transport","dayId":"day3","placeId":"heiwa-no-torii-lake-ashi-motohakone","bookingId":null,"map":"https://maps.google.com/?q=Heiwa+no+Torii+/+Lake+Ashi+Motohakone"},{"id":"day3-item5","time":"09:20 onward","title":"Return to port, tickets and boarding for the earliest suitable pirate ship.","details":[],"route":"Park once at Motohakone. Complete the lake–pirate ship–ropeway–Gora loop by public transport, then return by the H route toward Motohakone / Hakone-machi.","type":"transport","dayId":"day3","placeId":"hakone-sightseeing-cruise","bookingId":null,"map":"https://maps.google.com/?q=Hakone+Sightseeing+Cruise"},{"id":"day3-item6","time":"Approx. 10:00–10:40","title":"Pirate ship: Motohakone → Togendai.","details":[],"route":"Park once at Motohakone. Complete the lake–pirate ship–ropeway–Gora loop by public transport, then return by the H route toward Motohakone / Hakone-machi.","type":"transport","dayId":"day3","placeId":"heiwa-no-torii-lake-ashi-motohakone","bookingId":null,"map":"https://maps.google.com/?q=Heiwa+no+Torii+/+Lake+Ashi+Motohakone"},{"id":"day3-item7","time":"Approx. 10:45–11:05","title":"Hakone Ropeway: Togendai → Owakudani.","details":[],"route":"Park once at Motohakone. Complete the lake–pirate ship–ropeway–Gora loop by public transport, then return by the H route toward Motohakone / Hakone-machi.","type":"transport","dayId":"day3","placeId":"owakudani","bookingId":null,"map":"https://maps.google.com/?q=Owakudani"},{"id":"day3-item8","time":"11:05–12:00","title":"Owakudani.","details":["Ropeway service can stop for weather or maintenance. Use the approved lake / Hakone-Yumoto recovery route if required."],"route":"","type":"experience","dayId":"day3","placeId":"owakudani","bookingId":null,"map":"https://maps.google.com/?q=Owakudani"},{"id":"day3-item9","time":"12:00–12:40","title":"Ropeway to Sounzan, then cable car to Gora.","details":[],"route":"Park once at Motohakone. Complete the lake–pirate ship–ropeway–Gora loop by public transport, then return by the H route toward Motohakone / Hakone-machi.","type":"transport","dayId":"day3","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day3-item10","time":"12:40–14:15","title":"Lunch at Tamura Ginkatsutei","details":["Lunch at Tamura Ginkatsutei; tofu cutlet is primary."],"route":"","type":"meal","dayId":"day3","placeId":"tamura-ginkatsutei","bookingId":null,"map":"https://maps.google.com/?q=Tamura+Ginkatsutei"},{"id":"day3-item11","time":"14:15–14:45","title":"Short Gora shopping.","details":["Tamura Ginkatsutei queue limit: 45 minutes. Use a nearby alternative if the wait threatens the afternoon."],"route":"","type":"experience","dayId":"day3","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day3-item12","time":"14:45–15:25","title":"Hakone Tozan Railway to Hakone-Yumoto.","details":[],"route":"","type":"experience","dayId":"day3","placeId":"hakone-yumoto-shopping-street","bookingId":null,"map":"https://maps.google.com/?q=Hakone-Yumoto+Shopping+Street"},{"id":"day3-item13","time":"15:25–16:25","title":"Hakone-Yumoto shopping.","details":[],"route":"","type":"experience","dayId":"day3","placeId":"hakone-yumoto-shopping-street","bookingId":null,"map":"https://maps.google.com/?q=Hakone-Yumoto+Shopping+Street"},{"id":"day3-item14","time":"Approx. 16:30–17:20","title":"H-line bus back to Motohakone.","details":["Begin returning toward the bus stop by about 16:15 so shopping does not delay the trip back to Motohakone."],"route":"Park once at Motohakone. Complete the lake–pirate ship–ropeway–Gora loop by public transport, then return by the H route toward Motohakone / Hakone-machi.","type":"transport","dayId":"day3","placeId":"heiwa-no-torii-lake-ashi-motohakone","bookingId":null,"map":"https://maps.google.com/?q=Heiwa+no+Torii+/+Lake+Ashi+Motohakone"},{"id":"day3-item15","time":"17:35–18:15","title":"Drive back to KAI.","details":[],"route":"Park once at Motohakone. Complete the lake–pirate ship–ropeway–Gora loop by public transport, then return by the H route toward Motohakone / Hakone-machi.","type":"transport","dayId":"day3","placeId":"hoshino-resorts-kai-hakone","bookingId":"kai-booking","map":"https://maps.google.com/?q=Hoshino+Resorts+KAI+Hakone"},{"id":"day3-item16","time":"19:30","title":"KAI dinner.","details":[],"route":"","type":"meal","dayId":"day3","placeId":"hoshino-resorts-kai-hakone","bookingId":"kai-booking","map":"https://maps.google.com/?q=Hoshino+Resorts+KAI+Hakone"}],"dayId":"day3"},"4":{"title":"Day 4 · Japan Onsen Trip","kicker":"Day 4","heading":"Gotemba Outlet Day","legend":["🗓️ Approved","🧭 Route ready","🔄 Live checks"],"drive":{"route":"See timeline","distance":"","drivingTime":"","road":"","stops":[],"note":"Generated from Approved Master File v1.2.","contingency":"Use the approved recovery rules and live conditions.","primaryMap":""},"items":[{"id":"day4-item1","time":"07:30–08:15","title":"KAI breakfast.","details":[],"route":"","type":"meal","dayId":"day4","placeId":"hoshino-resorts-kai-hakone","bookingId":"kai-booking","map":"https://maps.google.com/?q=Hoshino+Resorts+KAI+Hakone"},{"id":"day4-item2","time":"08:15–08:50","title":"Pack and final room check.","details":[],"route":"","type":"experience","dayId":"day4","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day4-item3","time":"08:50","title":"Check-out.","details":[],"route":"","type":"rest","dayId":"day4","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day4-item4","time":"09:00","title":"Drive to Gotemba Premium Outlets.","details":[],"route":"KAI Hakone → Gotemba Premium Outlets via Sengokuhara / Route 138 / Otome Pass when safe; allow about 50–75 min in winter conditions.","type":"transport","dayId":"day4","placeId":"gotemba-premium-outlets","bookingId":null,"map":"https://maps.google.com/?q=Gotemba+Premium+Outlets"},{"id":"day4-item5","time":"Before 11:00","title":"Target arrival","details":["Lunch and dinner both stay inside the outlet. Attack Priority A brands first."],"route":"","type":"experience","dayId":"day4","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day4-item6","time":"Morning–12:30","title":"Priority shopping block.","details":[],"route":"","type":"experience","dayId":"day4","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day4-item7","time":"12:30–13:30","title":"Lunch at the outlet.","details":[],"route":"","type":"meal","dayId":"day4","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day4-item8","time":"13:30–17:30","title":"Main afternoon shopping block.","details":[],"route":"","type":"experience","dayId":"day4","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day4-item9","time":"17:30–18:30","title":"Dinner at the outlet.","details":["After 18:30, do not start a new shopping zone."],"route":"","type":"meal","dayId":"day4","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day4-item10","time":"18:30–19:00","title":"Final purchases, tax-free and bag organisation.","details":[],"route":"","type":"experience","dayId":"day4","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day4-item11","time":"19:00","title":"Drive to edit x seven Fuji Gotemba and check in.","details":[],"route":"KAI Hakone → Gotemba Premium Outlets via Sengokuhara / Route 138 / Otome Pass when safe; allow about 50–75 min in winter conditions.","type":"transport","dayId":"day4","placeId":"edit-x-seven-fuji-gotemba","bookingId":"gotemba-hotel","map":"https://maps.google.com/?q=edit+x+seven+Fuji+Gotemba"}],"dayId":"day4"},"5":{"title":"Day 5 · Japan Onsen Trip","kicker":"Day 5","heading":"Kamakura Centre and Family Reunion","legend":["🗓️ Approved","🧭 Route ready","🔄 Live checks"],"drive":{"route":"See timeline","distance":"","drivingTime":"","road":"","stops":[],"note":"Generated from Approved Master File v1.2.","contingency":"Use the approved recovery rules and live conditions.","primaryMap":""},"items":[{"id":"day5-item1","time":"07:30–08:15","title":"Breakfast at edit x seven.","details":[],"route":"","type":"meal","dayId":"day5","placeId":"edit-x-seven-fuji-gotemba","bookingId":"gotemba-hotel","map":"https://maps.google.com/?q=edit+x+seven+Fuji+Gotemba"},{"id":"day5-item2","time":"08:45","title":"Drive from Gotemba to Kamakura.","details":[],"route":"Gotemba → Kamakura: allow about 1 hr 35 min–2 hr. Kamakura → Yokohama: allow about 45–70 min. Drop Moon and luggage before the car return.","type":"transport","dayId":"day5","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day5-item3","time":"10:30–10:45","title":"Target parking near Kamakura Station east exit / Komachi-dori.","details":["Park once near Kamakura Station east exit / Komachi-dori and walk the approved central loop."],"route":"","type":"experience","dayId":"day5","placeId":"komachi-dori-and-wakamiya-oji","bookingId":null,"map":"https://maps.google.com/?q=Komachi-dori+and+Wakamiya-oji"},{"id":"day5-item4","time":"10:45–11:10","title":"Komachi-dori first section.","details":[],"route":"","type":"experience","dayId":"day5","placeId":"komachi-dori-and-wakamiya-oji","bookingId":null,"map":"https://maps.google.com/?q=Komachi-dori+and+Wakamiya-oji"},{"id":"day5-item5","time":"11:10–12:00","title":"Tsurugaoka Hachimangu.","details":[],"route":"","type":"experience","dayId":"day5","placeId":"tsurugaoka-hachimangu","bookingId":null,"map":"https://maps.google.com/?q=Tsurugaoka+Hachimangu"},{"id":"day5-item6","time":"12:00–12:20","title":"Return via Wakamiya-oji.","details":[],"route":"","type":"experience","dayId":"day5","placeId":"komachi-dori-and-wakamiya-oji","bookingId":null,"map":"https://maps.google.com/?q=Komachi-dori+and+Wakamiya-oji"},{"id":"day5-item7","time":"12:20–13:15","title":"Shirasu lunch","details":["Shirasu lunch; cooked shirasu is acceptable if raw is unavailable."],"route":"","type":"meal","dayId":"day5","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day5-item8","time":"13:15–13:50","title":"Komachi-dori shopping and snacks.","details":["Lunch queue limit: 30 minutes. Cooked shirasu is acceptable if raw is unavailable."],"route":"","type":"experience","dayId":"day5","placeId":"komachi-dori-and-wakamiya-oji","bookingId":null,"map":"https://maps.google.com/?q=Komachi-dori+and+Wakamiya-oji"},{"id":"day5-item9","time":"14:00","title":"Leave Kamakura for Yokohama.","details":[],"route":"","type":"experience","dayId":"day5","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day5-item10","time":"Approx. 15:00–15:20","title":"Drop Moon and all luggage at The Splaisir lobby","details":["Drop Moon and all luggage at The Splaisir lobby; do not check in yet."],"route":"","type":"rest","dayId":"day5","placeId":"sotetsu-hotels-the-splaisir-yokohama","bookingId":"splaisir-booking","map":"https://maps.google.com/?q=Sotetsu+Hotels+The+Splaisir+Yokohama"},{"id":"day5-item11","time":"After luggage drop","title":"Crystal and Ava refuel and return the car.","details":["Drop Moon and luggage at the hotel first; Crystal and Ava complete the vehicle return."],"route":"","type":"experience","dayId":"day5","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day5-item12","time":"By 16:30","title":"Arrive at Toyota Yokohama Station Central West Exit and complete return.","details":["Arrive at the booked return store by 16:30. Walking or a short taxi back to the hotel is acceptable."],"route":"","type":"experience","dayId":"day5","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day5-item13","time":"After return","title":"Crystal and Ava return to the nearby hotel","details":["Crystal and Ava return to the nearby hotel; the six-person family surprise is revealed and the party checks in."],"route":"","type":"rest","dayId":"day5","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day5-item14","time":"18:00","title":"Yokohama dinner / booked yakiniku timing.","details":[],"route":"","type":"meal","dayId":"day5","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"}],"dayId":"day5"},"6":{"title":"Day 6 · Japan Onsen Trip","kicker":"Day 6","heading":"Snoopy Museum and Grandberry Park","legend":["🗓️ Approved","🧭 Route ready","🔄 Live checks"],"drive":{"route":"See timeline","distance":"","drivingTime":"","road":"","stops":[],"note":"Generated from Approved Master File v1.2.","contingency":"Use the approved recovery rules and live conditions.","primaryMap":""},"items":[{"id":"day6-item1","time":"08:00–09:00","title":"Breakfast near Yokohama hotel.","details":[],"route":"","type":"meal","dayId":"day6","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day6-item2","time":"09:00","title":"Leave hotel.","details":[],"route":"","type":"rest","dayId":"day6","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day6-item3","time":"Approx. 10:00","title":"Arrive at Minami-machida Grandberry Park.","details":[],"route":"","type":"experience","dayId":"day6","placeId":"grandberry-park","bookingId":null,"map":"https://maps.google.com/?q=Grandberry+Park"},{"id":"day6-item4","time":"10:00 or 10:30–12:00","title":"Snoopy Museum Tokyo.","details":["Museum booking should be 10:00 or 10:30. Complete museum-limited shopping before exiting."],"route":"","type":"experience","dayId":"day6","placeId":"snoopy-museum-tokyo","bookingId":"snoopy-booking","map":"https://maps.google.com/?q=Snoopy+Museum+Tokyo"},{"id":"day6-item5","time":"12:10–13:10","title":"Lunch at Grandberry Park: udon / tempura style preferred.","details":["Lunch queue limit: 30 minutes."],"route":"","type":"meal","dayId":"day6","placeId":"grandberry-park","bookingId":null,"map":"https://maps.google.com/?q=Grandberry+Park"},{"id":"day6-item6","time":"13:10–14:45","title":"Shopping block 1.","details":[],"route":"","type":"experience","dayId":"day6","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day6-item7","time":"14:45–15:15","title":"Coffee or optional PEANUTS Café.","details":[],"route":"","type":"experience","dayId":"day6","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day6-item8","time":"15:15–16:45","title":"Shopping block 2.","details":[],"route":"","type":"experience","dayId":"day6","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day6-item9","time":"16:45–17:45","title":"Return to Yokohama.","details":[],"route":"","type":"experience","dayId":"day6","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day6-item10","time":"17:45–18:30","title":"Hotel rest.","details":[],"route":"","type":"rest","dayId":"day6","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day6-item11","time":"18:30–20:00","title":"Flexible dinner around Yokohama Station / NEWoMan / Lumine.","details":[],"route":"","type":"meal","dayId":"day6","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"}],"dayId":"day6"},"7":{"title":"Day 7 · Japan Onsen Trip","kicker":"Day 7","heading":"Omakase, Gotanda and Ueno Birthday Evening","legend":["🗓️ Approved","🧭 Route ready","🔄 Live checks"],"drive":{"route":"See timeline","distance":"","drivingTime":"","road":"","stops":[],"note":"Generated from Approved Master File v1.2.","contingency":"Use the approved recovery rules and live conditions.","primaryMap":""},"items":[{"id":"day7-item1","time":"Morning","title":"Free time in Yokohama","details":["Free time in Yokohama; all travellers regroup in time for check-out and lunch."],"route":"","type":"meal","dayId":"day7","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day7-item2","time":"10:30","title":"Check-out and store luggage.","details":[],"route":"","type":"rest","dayId":"day7","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day7-item3","time":"11:15","title":"Arrive at Sushi Tokyo Ten area.","details":[],"route":"","type":"experience","dayId":"day7","placeId":"sushi-tokyo-ten-yokohama","bookingId":"tokyo-ten-booking","map":"https://maps.google.com/?q=Sushi+Tokyo+Ten+Yokohama"},{"id":"day7-item4","time":"11:30–13:00","title":"Sushi Tokyo Ten Yokohama — 5 adults + 1 child","details":["Booking: 5 adults + 1 child; Chelsea shares with Crystal."],"route":"","type":"experience","dayId":"day7","placeId":"sushi-tokyo-ten-yokohama","bookingId":"tokyo-ten-booking","map":"https://maps.google.com/?q=Sushi+Tokyo+Ten+Yokohama"},{"id":"day7-item5","time":"After lunch","title":"Collect luggage.","details":[],"route":"","type":"rest","dayId":"day7","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day7-item6","time":"Approx. 13:15–14:15","title":"JR Yokohama → Shinagawa → Gotanda","details":["JR Yokohama → Shinagawa → Gotanda; walk approximately 6 minutes to OMO5."],"route":"Yokohama → Shinagawa by JR Tokaido / Yokosuka Line, then Yamanote Line to Gotanda. Gotanda ↔ Ueno / Okachimachi is direct on the Yamanote Line.","type":"transport","dayId":"day7","placeId":"omo5-tokyo-gotanda","bookingId":"omo5-booking","map":"https://maps.google.com/?q=OMO5+Tokyo+Gotanda"},{"id":"day7-item7","time":"14:15–15:00","title":"Store luggage / wait for room.","details":[],"route":"","type":"rest","dayId":"day7","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day7-item8","time":"15:00–16:00","title":"Check-in and rest.","details":[],"route":"","type":"rest","dayId":"day7","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day7-item9","time":"16:00–16:45","title":"JR Yamanote Line to Ueno.","details":[],"route":"Yokohama → Shinagawa by JR Tokaido / Yokosuka Line, then Yamanote Line to Gotanda. Gotanda ↔ Ueno / Okachimachi is direct on the Yamanote Line.","type":"transport","dayId":"day7","placeId":"ueno-and-ameyoko","bookingId":null,"map":"https://maps.google.com/?q=Ueno+and+Ameyoko"},{"id":"day7-item10","time":"16:45–18:15","title":"Ueno and Ameyoko shopping, walking toward Okachimachi.","details":["Shop first and dine second because many Ameyoko shops close earlier."],"route":"","type":"experience","dayId":"day7","placeId":"ueno-and-ameyoko","bookingId":null,"map":"https://maps.google.com/?q=Ueno+and+Ameyoko"},{"id":"day7-item11","time":"18:15–19:30","title":"Gyutan dinner at Negishi Okachimachi.","details":[],"route":"","type":"meal","dayId":"day7","placeId":"negishi-okachimachi","bookingId":null,"map":"https://maps.google.com/?q=Negishi+Okachimachi"},{"id":"day7-item12","time":"19:30–20:15","title":"JR Yamanote Line from Okachimachi to Gotanda.","details":[],"route":"Yokohama → Shinagawa by JR Tokaido / Yokosuka Line, then Yamanote Line to Gotanda. Gotanda ↔ Ueno / Okachimachi is direct on the Yamanote Line.","type":"transport","dayId":"day7","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day7-item13","time":"20:15 onward","title":"OMO5 family time and birthday celebration.","details":[],"route":"","type":"experience","dayId":"day7","placeId":"omo5-tokyo-gotanda","bookingId":"omo5-booking","map":"https://maps.google.com/?q=OMO5+Tokyo+Gotanda"}],"dayId":"day7"},"8":{"title":"Day 8 · Japan Onsen Trip","kicker":"Day 8","heading":"Jiyugaoka and Dessert Night","legend":["🗓️ Approved","🧭 Route ready","🔄 Live checks"],"drive":{"route":"See timeline","distance":"","drivingTime":"","road":"","stops":[],"note":"Generated from Approved Master File v1.2.","contingency":"Use the approved recovery rules and live conditions.","primaryMap":""},"items":[{"id":"day8-item1","time":"08:00–09:00","title":"OMO5 Japanese rice-ball breakfast.","details":[],"route":"","type":"meal","dayId":"day8","placeId":"omo5-tokyo-gotanda","bookingId":"omo5-booking","map":"https://maps.google.com/?q=OMO5+Tokyo+Gotanda"},{"id":"day8-item2","time":"09:30","title":"Leave OMO5.","details":[],"route":"","type":"experience","dayId":"day8","placeId":"omo5-tokyo-gotanda","bookingId":"omo5-booking","map":"https://maps.google.com/?q=OMO5+Tokyo+Gotanda"},{"id":"day8-item3","time":"Approx. 10:00","title":"Arrive in Jiyugaoka.","details":[],"route":"","type":"experience","dayId":"day8","placeId":"jiyugaoka","bookingId":null,"map":"https://maps.google.com/?q=Jiyugaoka"},{"id":"day8-item4","time":"10:00–12:30","title":"Shopping block 1: fashion, lifestyle, homeware and stationery.","details":[],"route":"","type":"experience","dayId":"day8","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day8-item5","time":"12:30–13:30","title":"Lunch: tonkatsu or gyoza preferred.","details":[],"route":"","type":"meal","dayId":"day8","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day8-item6","time":"13:30–15:30","title":"Shopping block 2 and café.","details":[],"route":"","type":"experience","dayId":"day8","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day8-item7","time":"15:30–16:30","title":"Dessert shopping for the evening snack: Pâtisserie Paris S'eveille, Mont St. Clair and Jiyugaoka Roll-ya are approved candidates.","details":["Buy whichever desserts appeal. Purchase fresh items near the end of the visit, then return them to OMO5 for refrigeration."],"route":"","type":"experience","dayId":"day8","placeId":"jiyugaoka","bookingId":null,"map":"https://maps.google.com/?q=Jiyugaoka"},{"id":"day8-item8","time":"16:30–17:00","title":"Return to OMO5.","details":[],"route":"Gotanda → Hatanodai by Tokyu Ikegami Line, then Tokyu Oimachi Line to Jiyugaoka. Return the same way.","type":"experience","dayId":"day8","placeId":"omo5-tokyo-gotanda","bookingId":"omo5-booking","map":"https://maps.google.com/?q=OMO5+Tokyo+Gotanda"},{"id":"day8-item9","time":"17:00–17:45","title":"Drop purchases and rest.","details":[],"route":"","type":"rest","dayId":"day8","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day8-item10","time":"Approx. 18:00","title":"Dinner at Shabu-shabu On-Yasai Gotanda Annex.","details":["Dinner is fixed at Shabu-shabu On-Yasai Gotanda Annex. Meat Yazawa is removed."],"route":"","type":"meal","dayId":"day8","placeId":"shabu-shabu-on-yasai-gotanda-annex","bookingId":"onyasai-booking","map":"https://maps.google.com/?q=Shabu-shabu+On-Yasai+Gotanda+Annex"},{"id":"day8-item11","time":"20:00 onward","title":"OMO5 Dessert Night with the Jiyugaoka purchases.","details":[],"route":"","type":"experience","dayId":"day8","placeId":"omo5-tokyo-gotanda","bookingId":"omo5-booking","map":"https://maps.google.com/?q=OMO5+Tokyo+Gotanda"}],"dayId":"day8"},"9":{"title":"Day 9 · Japan Onsen Trip","kicker":"Day 9","heading":"Eel Brunch and Departure","legend":["🗓️ Approved","🧭 Route ready","🔄 Live checks"],"drive":{"route":"See timeline","distance":"","drivingTime":"","road":"","stops":[],"note":"Generated from Approved Master File v1.2.","contingency":"Use the approved recovery rules and live conditions.","primaryMap":""},"items":[{"id":"day9-item1","time":"08:30–09:30","title":"Wake naturally","details":["Wake naturally; no separate hotel breakfast."],"route":"","type":"meal","dayId":"day9","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day9-item2","time":"09:30–10:15","title":"Final packing.","details":[],"route":"","type":"experience","dayId":"day9","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day9-item3","time":"Approx. 10:15","title":"Check out or store luggage depending on the final eel venue.","details":[],"route":"","type":"rest","dayId":"day9","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day9-item4","time":"10:30–11:15","title":"Farewell brunch at Unagi Yoneyama","details":["Use the same shop’s eel bento takeaway if timing changes; protect airport timing."],"route":"","type":"meal","dayId":"day9","placeId":"unagi-yoneyama","bookingId":null,"map":"https://maps.google.com/?q=Unagi+Yoneyama"},{"id":"day9-item5","time":"11:15–11:30","title":"Collect luggage and depart.","details":[],"route":"Gotanda → Shinagawa by JR Yamanote Line, then Keikyu Line to Haneda. Allow about 55–70 min with luggage; taxi is the comfort backup.","type":"rest","dayId":"day9","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day9-item6","time":"Approx. 12:15–12:30","title":"Target arrival at Haneda.","details":["Confirm terminal and live airline instructions before departure."],"route":"Gotanda → Shinagawa by JR Yamanote Line, then Keikyu Line to Haneda. Allow about 55–70 min with luggage; taxi is the comfort backup.","type":"experience","dayId":"day9","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day9-item7","time":"15:05","title":"Crystal and Moon depart on CZ3086 / CZ643.","details":[],"route":"Gotanda → Shinagawa by JR Yamanote Line, then Keikyu Line to Haneda. Allow about 55–70 min with luggage; taxi is the comfort backup.","type":"experience","dayId":"day9","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"},{"id":"day9-item8","time":"After split","title":"Ava, Alvin, Austin and Chelsea continue independently","details":["Ava, Alvin, Austin and Chelsea continue independently; no further Companion itinerary is generated."],"route":"","type":"experience","dayId":"day9","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"approved-timeline-step"}],"dayId":"day9"}};
+const PLACES={
+  "fusion": {
+    "title": "Fusion Original Saigon Centre",
+    "emoji": "🏨",
+    "cat": "STAY",
+    "sub": "酒店據點",
+    "hours": "24 Hours",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%20Fusion%20Original%20Saigon%20Centre%2C%2065%20L%C3%AA%20L%E1%BB%A3i%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
+    "address": "Fusion Original Saigon Centre, 65 Lê Lợi, Bến Nghé, District 1, Ho Chi Minh City",
+    "desc": "Fusion Original Saigon Centre 係今次旅程嘅城市據點：第一郡核心、樓下直通 Saigon Centre / Takashimaya，四個人每日出入、寄放戰利品、返酒店補妝都非常方便。兩房兩衛令行程唔需要因為梳洗同收拾而互相等待，呢點對短途朋友旅行特別重要。",
+    "signature": [
+      "2 Bedroom Suite：四人共享客廳，私隱同方便度平衡得好",
+      "直通 Takashimaya，雨天、酷熱或夜晚返酒店都安心",
+      "Maison Marou、超市、餐廳都在同一棟／附近，適合臨時補給"
+    ],
+    "worth": [
+      "Hotel 係 base，不代表每日都由酒店出發；網站路線會以當時上一站作交通提示。",
+      "最適合用作「回巢點」：午后小休、放低戰利品、晚餐前換裝。"
+    ],
+    "categoryLabel": "🏨 Stay",
+    "price": "Booked",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Route-ready; check live hours before visit",
+    "highlights": [
+      "2 Bedroom Suite：四人共享客廳，私隱同方便度平衡得好",
+      "直通 Takashimaya，雨天、酷熱或夜晚返酒店都安心",
+      "Maison Marou、超市、餐廳都在同一棟／附近，適合臨時補給"
+    ],
+    "tips": [
+      "Hotel 係 base，不代表每日都由酒店出發；網站路線會以當時上一站作交通提示。",
+      "最適合用作「回巢點」：午后小休、放低戰利品、晚餐前換裝。"
+    ]
+  },
+  "bakes": {
+    "title": "Bakes Thảo Điền",
+    "emoji": "🥐",
+    "cat": "CAFÉS",
+    "sub": "法式甜點",
+    "hours": "07:30–22:30 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Bakes%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2016%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20An%20Kh%C3%A1nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
+    "address": "16 Thảo Điền, An Khánh, Hồ Chí Minh 700000, Vietnam",
+    "desc": "Bakes Thảo Điền 係草田區很順路的法式甜點 stop。相比普通 cafe，Bakes 嘅重點係精緻甜點同 croissant 類 pastry，適合 Day 3 逛完 Thảo Điền 小店後，用一小時坐低補糖、吹冷氣、整理戰利品。",
+    "signature": [
+      "多款法式甜點與千層 croissant",
+      "冷氣座位，適合午后避暑",
+      "同 The Dreamers Bakery 很近，可二選一"
+    ],
+    "worth": [
+      "唔需要當成正式下午茶，4 人點 2–3 件 share 最剛好。",
+      "若當日太飽，可以外帶 pastry 留返酒店。"
+    ],
+    "categoryLabel": "☕ Cafe",
+    "price": "$–$$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Needs branch/address check",
+    "highlights": [
+      "多款法式甜點與千層 croissant",
+      "冷氣座位，適合午后避暑",
+      "同 The Dreamers Bakery 很近，可二選一"
+    ],
+    "tips": [
+      "唔需要當成正式下午茶，4 人點 2–3 件 share 最剛好。",
+      "若當日太飽，可以外帶 pastry 留返酒店。"
+    ]
+  },
+  "cafe-apartments": {
+    "title": "The Cafe Apartments",
+    "emoji": "🌃",
+    "cat": "CAFÉS",
+    "sub": "老公寓咖啡樓",
+    "hours": "Individual venues vary; most operate about 08:00–22:00",
+    "maps": "https://www.google.com/maps/search/?api=1&query=The%20Cafe%20Apartments%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+    "address": "42 Nguyễn Huệ, District 1, Ho Chi Minh City, Vietnam",
+    "desc": "The Cafe Apartments 係阮惠步行街最有代表性的老公寓改造景點。白天入內是迷宮式小店與 cafe，夜晚外牆一格格招牌亮起，反而成為最經典的西貢夜景背景。今次 Day 1 將 Spa 同夜景安排在同一棟樓，動線很聰明：下午上樓放鬆，晚上食完飯回來影霓虹燈。",
+    "signature": [
+      "夜晚外牆最上鏡",
+      "每層都有不同 cafe、選物店、香氛小店",
+      "電梯可能收小額費用，亦可逐層行樓梯探索"
+    ],
+    "worth": [
+      "建議先搭到高層，再慢慢向下行，體力消耗較少。",
+      "不建議一入門就坐第一間；先逛一圈再決定。"
+    ],
+    "categoryLabel": "☕ Cafe",
+    "price": "$–$$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Building address verified; hours correctly remain venue-dependent",
+    "highlights": [
+      "夜晚外牆最上鏡",
+      "每層都有不同 cafe、選物店、香氛小店",
+      "電梯可能收小額費用，亦可逐層行樓梯探索"
+    ],
+    "tips": [
+      "建議先搭到高層，再慢慢向下行，體力消耗較少。",
+      "不建議一入門就坐第一間；先逛一圈再決定。"
+    ]
+  },
+  "cong": {
+    "title": "Cộng Cà Phê Tân Định",
+    "emoji": "🥥",
+    "cat": "CAFÉS",
+    "sub": "粉紅教堂景觀咖啡",
+    "hours": "約 07:00–23:00；出發前再確認",
+    "maps": "https://www.google.com/maps/search/?api=1&query=C%E1%BB%99ng%20C%C3%A0%20Ph%C3%AA%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%20C%E1%BB%99ng%20C%C3%A0%20Ph%C3%AA%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20Hai%20B%C3%A0%20Tr%C6%B0ng%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
+    "address": "Cộng Cà Phê Tân Định, Hai Bà Trưng, District 3, Ho Chi Minh City",
+    "desc": "Cộng Cà Phê Tân Định 最大賣點唔係咖啡本身，而係位置：粉紅教堂正對面／附近，適合打完卡後上樓坐低，用椰子咖啡或冰沙咖啡換一個俯瞰教堂角度。復古軍綠風裝潢亦好有越南味。",
+    "signature": [
+      "椰子咖啡／椰子冰沙咖啡",
+      "粉紅教堂視角",
+      "復古越南風格"
+    ],
+    "worth": [
+      "如果只想影教堂，停留 20–30 分鐘已足夠。",
+      "座位景觀視乎當日樓層與窗邊位置。"
+    ],
+    "categoryLabel": "☕ Cafe",
+    "price": "$–$$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Route-ready; check live hours before visit",
+    "highlights": [
+      "椰子咖啡／椰子冰沙咖啡",
+      "粉紅教堂視角",
+      "復古越南風格"
+    ],
+    "tips": [
+      "如果只想影教堂，停留 20–30 分鐘已足夠。",
+      "座位景觀視乎當日樓層與窗邊位置。"
+    ]
+  },
+  "marou": {
+    "title": "Maison Marou",
+    "emoji": "🍫",
+    "cat": "CAFÉS",
+    "sub": "朱古力甜點",
+    "hours": "Check official hours before visit",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Maison%20Marou%20Level%20B2%2C%20Saigon%20Centre%20%E2%80%93%20Takashimaya%2C%2065%20L%C3%AA%20L%E1%BB%A3i%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+    "address": "Level B2, Saigon Centre – Takashimaya, 65 Lê Lợi, Ho Chi Minh City, Vietnam",
+    "desc": "Maison Marou 是越南精品朱古力品牌，今次最方便的分店就在 Saigon Centre / Fusion 附近。它適合兩種用途：一是旅行中段回酒店後飲杯熱朱古力，二是最後買手信。比起普通 souvenir，Marou 朱古力包裝靚、有越南產地特色，而且容易帶回澳洲。",
+    "signature": [
+      "熱朱古力、朱古力撻、bonbon",
+      "越南產地朱古力手信",
+      "包裝靚，送禮安全牌"
+    ],
+    "worth": [
+      "如果怕行李熱溶，最後一日或晚間買最好。",
+      "店內甜品偏濃郁，4 人 share 會比每人一份舒服。"
+    ],
+    "categoryLabel": "☕ Cafe",
+    "price": "$–$$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Saigon Centre – Takashimaya Level B2 branch verified; current official hours unconfirmed",
+    "highlights": [
+      "熱朱古力、朱古力撻、bonbon",
+      "越南產地朱古力手信",
+      "包裝靚，送禮安全牌"
+    ],
+    "tips": [
+      "如果怕行李熱溶，最後一日或晚間買最好。",
+      "店內甜品偏濃郁，4 人 share 會比每人一份舒服。"
+    ]
+  },
+  "running-bean": {
+    "title": "The Running Bean",
+    "emoji": "☕",
+    "cat": "CAFÉS",
+    "sub": "晨間咖啡",
+    "hours": "07:30–22:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=The%20Running%20Bean%20115%20H%E1%BB%93%20T%C3%B9ng%20M%E1%BA%ADu%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+    "address": "115 Hồ Tùng Mậu, Ho Chi Minh City, Vietnam",
+    "desc": "The Running Bean 係一間比較現代、明亮、旅客友善的 Saigon cafe。今次放在 Day 4 早上，角色唔係 brunch，而係入 War Museum 前的 caffeine stop：坐低 30–45 分鐘，飲杯蛋咖啡或椰子咖啡，再開始比較沉重的人文行程。",
+    "signature": [
+      "越式蛋咖啡",
+      "椰子咖啡／冰沙咖啡",
+      "明亮現代空間"
+    ],
+    "worth": [
+      "早餐尖峰時段可能較多人，建議短坐即可。",
+      "Day 4 之後會有 Pizza 4P，不需要在這裡食太飽。"
+    ],
+    "categoryLabel": "☕ Cafe",
+    "price": "$–$$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "115 Hồ Tùng Mậu branch verified and synchronized",
+    "highlights": [
+      "越式蛋咖啡",
+      "椰子咖啡／冰沙咖啡",
+      "明亮現代空間"
+    ],
+    "tips": [
+      "早餐尖峰時段可能較多人，建議短坐即可。",
+      "Day 4 之後會有 Pizza 4P，不需要在這裡食太飽。"
+    ]
+  },
+  "bep-me-in": {
+    "title": "Bếp Mẹ Ỉn",
+    "emoji": "🏡",
+    "cat": "RESTAURANTS",
+    "sub": "越式家常菜",
+    "hours": "10:30–22:30",
+    "maps": "https://www.google.com/maps/search/?api=1&query=B%E1%BA%BFp%20M%E1%BA%B9%20%E1%BB%88n%20136%2F9%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
+    "address": "136/9 Lê Thánh Tôn, Bến Thành, Hồ Chí Minh, Vietnam",
+    "desc": "Bếp Mẹ Ỉn 是 Michelin Bib Gourmand 越式家常菜，藏在市中心小巷內，氣氛比街邊小店舒服，但菜式仍然保留越南家庭菜與街頭味道。放在最後一日午餐很適合：不用太 formal，但又可以把 bánh xèo、椰子炒飯、越式小食一次過收尾。",
+    "signature": [
+      "Bánh Xèo 黃金煎餅",
+      "椰子炒飯",
+      "越式拼盤與家常菜"
+    ],
+    "worth": [
+      "入口在巷內，第一次去要跟 Google Maps 慢慢找。",
+      "多人 share 最好食，4 人比 2 人更適合。",
+      "🥖 Local Tip：隔籬同一條巷係 Bánh Mì Mẹ Ỉn（136/13 Lê Thánh Tôn）。可問店員能否叫法包送到 Bếp Mẹ Ỉn 一齊 share；以當日安排為準。"
+    ],
+    "categoryLabel": "🍽 Restaurant",
+    "price": "$$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Needs branch/address check",
+    "highlights": [
+      "Bánh Xèo 黃金煎餅",
+      "椰子炒飯",
+      "越式拼盤與家常菜"
+    ],
+    "tips": [
+      "入口在巷內，第一次去要跟 Google Maps 慢慢找。",
+      "多人 share 最好食，4 人比 2 人更適合。",
+      "🥖 Local Tip：隔籬同一條巷係 Bánh Mì Mẹ Ỉn（136/13 Lê Thánh Tôn）。可問店員能否叫法包送到 Bếp Mẹ Ỉn 一齊 share；以當日安排為準。"
+    ]
+  },
+  "com-tam-moc": {
+    "title": "Cơm Tấm Mộc",
+    "emoji": "🍚",
+    "cat": "RESTAURANTS",
+    "sub": "炭烤豬排碎米飯",
+    "hours": "09:00–21:30 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=C%C6%A1m%20T%E1%BA%A5m%20M%E1%BB%99c%2085%20L%C3%BD%20T%E1%BB%B1%20Tr%E1%BB%8Dng%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
+    "address": "85 Lý Tự Trọng, Bến Thành, Hồ Chí Minh 700000, Vietnam",
+    "desc": "Cơm Tấm Mộc 是碎米飯的舒服版：保留炭烤豬排香氣，但環境比街邊小店乾淨、有冷氣。Day 2 早上放在 Cooking Class 前，重點是試一口地道早餐，而不是食到太飽。",
+    "signature": [
+      "炭烤豬排碎米飯",
+      "魚露、蛋、酸菜配搭",
+      "冷氣環境比街邊舒服"
+    ],
+    "worth": [
+      "4 人點 2–3 份 share 已足夠，預算約 60,000–100,000 VND / 人，因為 10:00 還有 cooking class。",
+      "如果早上不餓，可以改成外帶咖啡。"
+    ],
+    "categoryLabel": "🍽 Restaurant",
+    "price": "$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Needs branch/address check",
+    "highlights": [
+      "炭烤豬排碎米飯",
+      "魚露、蛋、酸菜配搭",
+      "冷氣環境比街邊舒服"
+    ],
+    "tips": [
+      "4 人點 2–3 份 share 已足夠，預算約 60,000–100,000 VND / 人，因為 10:00 還有 cooking class。",
+      "如果早上不餓，可以改成外帶咖啡。"
+    ]
+  },
+  "little-bear": {
+    "title": "Little Bear",
+    "emoji": "🐻",
+    "cat": "RESTAURANTS",
+    "sub": "Michelin Guide 餐酒館",
+    "hours": "Thu–Sun 18:00–22:00; Mon–Wed closed",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Little%20Bear%2036%20Nguy%E1%BB%85n%20B%C3%A1%20Hu%C3%A2n%2C%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+    "address": "36 Nguyễn Bá Huân, Thảo Điền, Ho Chi Minh City, Vietnam",
+    "desc": "Little Bear 是 Thảo Điền 近年非常受注目的小型 wine bar / modern Vietnamese bistro。餐廳空間不大，但氣氛輕鬆，料理不是傳統大碟越菜，而是以分享盤、細緻調味和年輕主廚風格去呈現越南味道。Day 3 逛完草田區再去，地理同氣氛都最順。",
+    "signature": [
+      "Michelin Selected / Young Chef 話題",
+      "小型空間，counter/table seating 氣氛親近",
+      "越南味道 + bistro 手法，適合 share plates"
+    ],
+    "worth": [
+      "星期一休息，必須訂位。",
+      "份量偏精緻，建議不要期待傳統大份量越菜。",
+      "不飲酒也可以去，重點是食物和氣氛。"
+    ],
+    "categoryLabel": "🍽 Restaurant",
+    "price": "$$$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Official address verified; published Sunday schedule is 18:00–22:00",
+    "highlights": [
+      "Michelin Selected / Young Chef 話題",
+      "小型空間，counter/table seating 氣氛親近",
+      "越南味道 + bistro 手法，適合 share plates"
+    ],
+    "tips": [
+      "星期一休息，必須訂位。",
+      "份量偏精緻，建議不要期待傳統大份量越菜。",
+      "不飲酒也可以去，重點是食物和氣氛。"
+    ]
+  },
+  "lune": {
+    "title": "LÚNE Restaurant & Bar",
+    "emoji": "🍷",
+    "cat": "RESTAURANTS",
+    "sub": "現代越式餐廳",
+    "hours": "Mon–Sat 11:30–14:00 & 17:00–22:30；Sunday closed",
+    "maps": "https://www.google.com/maps/search/?api=1&query=L%C3%9ANE%20Restaurant%20%26%20Bar%2017%2F14%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20S%C3%A0i%20G%C3%B2n%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
+    "address": "17/14 Lê Thánh Tôn, Sài Gòn, Hồ Chí Minh 70000, Vietnam",
+    "desc": "LÚNE Restaurant & Bar 是現代法式／fusion fine dining 路線，位置在 Lê Thánh Tôn 小巷內，氣氛比傳統酒店 fine dining 更有城市感。它適合 Day 2 晚上：白天已經 cooking class + shopping + spa，夜晚需要一餐有儀式感但不會太沉重的 dinner。",
+    "signature": [
+      "Michelin Selected 話題餐廳",
+      "法式技巧結合越南／亞洲食材",
+      "Bar + restaurant 氣氛，適合四人換裝後晚餐"
+    ],
+    "worth": [
+      "建議提前 2–4 週預約，週日休息要留意。",
+      "Smart casual 已足夠，不需要太正式。",
+      "如果行街時間 delay，要預留回酒店換裝與 Grab 時間。"
+    ],
+    "categoryLabel": "🍽 Restaurant",
+    "price": "$$$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Needs branch/address check",
+    "highlights": [
+      "Michelin Selected 話題餐廳",
+      "法式技巧結合越南／亞洲食材",
+      "Bar + restaurant 氣氛，適合四人換裝後晚餐"
+    ],
+    "tips": [
+      "建議提前 2–4 週預約，週日休息要留意。",
+      "Smart casual 已足夠，不需要太正式。",
+      "Vincom → LÚNE 約 5 分鐘 Grab。"
+    ]
+  },
+  "omakase-tiger": {
+    "title": "Omakase Tiger",
+    "emoji": "🍣",
+    "cat": "RESTAURANTS",
+    "sub": "Day 1 · Booked session 17:30",
+    "hours": "Check official hours before visit",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Omakase%20Tiger%2085%2F9%20Ph%E1%BA%A1m%20Vi%E1%BA%BFt%20Ch%C3%A1nh%2C%20Th%E1%BA%A1nh%20M%E1%BB%B9%20T%C3%A2y%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
+    "address": "85/9 Phạm Viết Chánh, Thạnh Mỹ Tây, Hồ Chí Minh 700000, Vietnam",
+    "desc": "Omakase Tiger remains the confirmed Day 1 restaurant. Booked session: 17:30 on 30 October 2026, based on the traveller’s direct confirmation. General venue trading hours are separate and should be reconfirmed before departure.",
+    "signature": [
+      "8-seat countertop，座位極少",
+      "17:30 日落場最有記憶點",
+      "約 10–14 道 omakase，價格比澳港日同類體驗低"
+    ],
+    "worth": [
+      "Booked session: 17:30 on 30 October 2026.",
+      "General venue trading hours were not independently verified; reconfirm before departure."
+    ],
+    "categoryLabel": "🍽 Restaurant",
+    "price": "$$$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Retained per direct traveller confirmation; stale temporary-closure warning removed",
+    "highlights": [
+      "8-seat countertop，座位極少",
+      "17:30 日落場最有記憶點",
+      "約 10–14 道 omakase，價格比澳港日同類體驗低"
+    ],
+    "tips": [
+      "Booked session: 17:30 on 30 October 2026.",
+      "General venue trading hours were not independently verified; reconfirm before departure."
+    ]
+  },
+  "pho-sol": {
+    "title": "Phở SOL",
+    "emoji": "🍜",
+    "cat": "RESTAURANTS",
+    "sub": "石鍋牛肉河粉",
+    "hours": "06:00–24:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Ph%E1%BB%9F%20SOL%2032%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
+    "address": "32 Phạm Hồng Thái, Bến Thành, Hồ Chí Minh, Vietnam",
+    "desc": "Phở SOL 是抵達後第一餐的好選擇：位置近第一郡，石鍋河粉上枱有儀式感，熱湯、牛肉、油條很適合剛落機後慢慢進入越南節奏。它比街邊河粉更乾淨舒服，適合四位朋友第一餐先穩陣開局。",
+    "signature": [
+      "石鍋河粉",
+      "牛骨湯與牛肉配料",
+      "油條 quẩy 沾湯"
+    ],
+    "worth": [
+      "4 人可以點不同款式 share，不一定每人一碗。",
+      "第一日下機後不要排太多，食完留體力去景點和 spa。"
+    ],
+    "categoryLabel": "🍽 Restaurant",
+    "price": "$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Route-ready; check live hours before visit",
+    "highlights": [
+      "石鍋河粉",
+      "牛骨湯與牛肉配料",
+      "油條 quẩy 沾湯"
+    ],
+    "tips": [
+      "4 人可以點不同款式 share，不一定每人一碗。",
+      "第一日下機後不要排太多，食完留體力去景點和 spa。"
+    ]
+  },
+  "pho-vietnam": {
+    "title": "Phở Việt Nam Bến Thành",
+    "emoji": "🥣",
+    "cat": "RESTAURANTS",
+    "sub": "石鍋河粉",
+    "hours": "06:00–03:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Ph%E1%BB%9F%20Vi%E1%BB%87t%20Nam%20B%E1%BA%BFn%20Th%C3%A0nh%2014%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
+    "address": "14 Phạm Hồng Thái, Bến Thành, Hồ Chí Minh 70000, Vietnam",
+    "desc": "Phở Việt Nam Bến Thành 是 Michelin Selected 河粉店，以 phở thố đá 石鍋河粉聞名。湯、牛肉和配料分開上，熱石鍋令湯從第一口到最後仍然滾熱。放在最後一日早餐，有一種「用一碗越南河粉收尾」的完整感。",
+    "signature": [
+      "Michelin Selected",
+      "Phở thố đá 石鍋河粉",
+      "湯保持高溫，牛肉即場燙熟"
+    ],
+    "worth": [
+      "熱門時段可能要等位，但流轉快。",
+      "湯很熱，慢慢食比較安全。"
+    ],
+    "categoryLabel": "🍽 Restaurant",
+    "price": "$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Needs branch/address check",
+    "highlights": [
+      "Michelin Selected",
+      "Phở thố đá 石鍋河粉",
+      "湯保持高溫，牛肉即場燙熟"
+    ],
+    "tips": [
+      "熱門時段可能要等位，但流轉快。",
+      "湯很熱，慢慢食比較安全。"
+    ]
+  },
+  "pizza4ps": {
+    "title": "Pizza 4P’s Hai Bà Trưng",
+    "emoji": "🍕",
+    "cat": "RESTAURANTS",
+    "sub": "自家製芝士 Pizza",
+    "hours": "Mon–Fri 11:00–23:00；Sat–Sun 10:00–23:00",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%E2%80%99s%20Hai%20B%C3%A0%20Tr%C6%B0ng%20151B%20Hai%20B%C3%A0%20Tr%C6%B0ng%2C%20V%C3%B5%20Th%E1%BB%8B%20S%C3%A1u%20Ward%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
+    "address": "151B Hai Bà Trưng, Võ Thị Sáu Ward, District 3, Ho Chi Minh City",
+    "desc": "Pizza 4P’s 是越南最成功的日式 pizza 品牌，重點是自家製芝士、窯烤 pizza 和穩定服務。Day 4 午餐安排它很合理：連續幾日越南菜後轉一餐西式 comfort food，而且 Võ Văn Tần 分店動線接 War Museum / District 3 很順。",
+    "signature": [
+      "House-made cheese",
+      "Burrata / 4-cheese pizza",
+      "Pasta 與 sharing dishes"
+    ],
+    "worth": [
+      "建議預約，尤其週末或 lunch peak。",
+      "不需要點太多，下午還有 11 Garmentory / spa / dinner。"
+    ],
+    "categoryLabel": "🍽 Restaurant",
+    "price": "$$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Route-ready; check live hours before visit",
+    "highlights": [
+      "House-made cheese",
+      "Burrata / 4-cheese pizza",
+      "Pasta 與 sharing dishes"
+    ],
+    "tips": [
+      "建議預約，尤其週末或 lunch peak。",
+      "不需要點太多，下午還有 11 Garmentory / spa / dinner。"
+    ]
+  },
+  "quan-thuy": {
+    "title": "Quán Thuý 94",
+    "emoji": "🦀",
+    "cat": "RESTAURANTS",
+    "sub": "蟹肉粉絲",
+    "hours": "09:00–21:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Qu%C3%A1n%20Thu%C3%BD%2094%2084%20%C4%90inh%20Ti%C3%AAn%20Ho%C3%A0ng%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
+    "address": "84 Đinh Tiên Hoàng, Tân Định, Hồ Chí Minh, Vietnam",
+    "desc": "Quán Thuý 94 是蟹肉粉絲老店風格，適合 Day 3 早上先食一餐地道小店，再步行去粉紅教堂。它不是精緻 cafe，而是用蟹肉、粉絲、炸蟹春捲帶出很 Saigon 的早餐／早午餐感。",
+    "signature": [
+      "Miến cua 蟹肉粉絲",
+      "炸蟹肉春捲",
+      "Tân Định / Pink Church 動線順路"
+    ],
+    "worth": [
+      "環境偏地道，接受度要有心理準備。",
+      "建議早去，太晚可能部分款式售完。"
+    ],
+    "categoryLabel": "🍽 Restaurant",
+    "price": "$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Route-ready; check live hours before visit",
+    "highlights": [
+      "Miến cua 蟹肉粉絲",
+      "炸蟹肉春捲",
+      "Tân Định / Pink Church 動線順路"
+    ],
+    "tips": [
+      "環境偏地道，接受度要有心理準備。",
+      "建議早去，太晚可能部分款式售完。"
+    ]
+  },
+  "quince": {
+    "title": "Quince Saigon",
+    "emoji": "🔥",
+    "cat": "RESTAURANTS",
+    "sub": "木火料理",
+    "hours": "17:30–late daily; last order 21:45",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Quince%20Saigon%2037bis%20K%C3%BD%20Con%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
+    "address": "37bis Ký Con, Bến Thành, Hồ Chí Minh, Vietnam",
+    "desc": "Quince Saigon 是最後一晚很適合的 farewell dinner。它以 wood-fired cooking、charcoal grill 和開放式廚房聞名，菜式有火烤香氣但不會太難懂。氣氛成熟、燈光暗、服務穩定，適合四人旅行最後一晚坐低慢慢回味。",
+    "signature": [
+      "Wood-fired / charcoal-grilled dishes",
+      "Open kitchen / counter seats",
+      "成熟但不拘謹的 farewell dinner 氣氛"
+    ],
+    "worth": [
+      "如果想看廚房動作，可嘗試要求 counter seats。",
+      "燈光偏暗，影相未必最清楚，但氣氛很好。"
+    ],
+    "categoryLabel": "🍽 Restaurant",
+    "price": "$$$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Official FAQ verifies daily service, including Monday, from 17:30 with last order 21:45",
+    "highlights": [
+      "Wood-fired / charcoal-grilled dishes",
+      "Open kitchen / counter seats",
+      "成熟但不拘謹的 farewell dinner 氣氛"
+    ],
+    "tips": [
+      "如果想看廚房動作，可嘗試要求 counter seats。",
+      "燈光偏暗，影相未必最清楚，但氣氛很好。"
+    ]
+  },
+  "libe": {
+    "title": "LIBÉ",
+    "emoji": "👗",
+    "cat": "SHOP",
+    "sub": "Day 2 日常女裝",
+    "hours": "09:30–21:30",
+    "maps": "https://www.google.com/maps/search/?api=1&query=LIB%C3%89%20LIB%C3%89%20Nguy%E1%BB%85n%20Tr%C3%A3i%2C%2052%20Nguy%E1%BB%85n%20Tr%C3%A3i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
+    "address": "LIBÉ Nguyễn Trãi, 52 Nguyễn Trãi, Bến Thành, Hồ Chí Minh, Vietnam",
+    "desc": "LIBÉ 的衣服不急著搶鏡，勝在比例乾淨、顏色容易相處。它像旅行途中偶然遇到的一個實用衣櫃：上班、週末、吃飯都穿得到，回到澳洲後也不容易被遺忘。",
+    "signature": [
+      "Casual chic 女裝",
+      "上班、旅行、日常都易穿",
+      "多層店面，款式更新快"
+    ],
+    "worth": [
+      "記得上不同樓層，唔好只睇地下。",
+      "尺寸可能偏亞洲版型，最好試身。"
+    ],
+    "categoryLabel": "🛍 Shopping",
+    "price": "Varies",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Needs branch/address check",
+    "highlights": [
+      "Casual chic 女裝",
+      "上班、旅行、日常都易穿",
+      "多層店面，款式更新快"
+    ],
+    "tips": [
+      "記得上不同樓層，唔好只睇地下。",
+      "尺寸可能偏亞洲版型，最好試身。"
+    ]
+  },
+  "dauple": {
+    "title": "Dauple by Ka's",
+    "emoji": "🧵",
+    "cat": "SHOP",
+    "sub": "Day 2 亞麻真絲",
+    "hours": "09:30–21:30",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Dauple%20by%20Ka's%20Dauple%20by%20Ka's%2C%2070%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
+    "address": "Dauple by Ka's, 70 Phạm Hồng Thái, Bến Thành, Hồ Chí Minh, Vietnam",
+    "desc": "Dauple by Ka’s 偏成熟、優雅、度假感，適合想買一兩件「比普通 fast fashion 更有質感」的朋友。亞麻、真絲、柔和色調和寬鬆剪裁會比街頭品牌更耐看。",
+    "signature": [
+      "亞麻／真絲質感",
+      "成熟優雅剪裁",
+      "適合旅行 resort / dinner look"
+    ],
+    "worth": [
+      "價位通常比普通本地品牌高少少，但勝在質感。",
+      "如果只想買年輕街頭款，可留時間給 The New Playground。"
+    ],
+    "categoryLabel": "🛍 Shopping",
+    "price": "Varies",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Needs branch/address check",
+    "highlights": [
+      "亞麻／真絲質感",
+      "成熟優雅剪裁",
+      "適合旅行 resort / dinner look"
+    ],
+    "tips": [
+      "價位通常比普通本地品牌高少少，但勝在質感。",
+      "如果只想買年輕街頭款，可留時間給 The New Playground。"
+    ]
+  },
+  "nosbyn": {
+    "title": "NOSBYN",
+    "emoji": "🤎",
+    "cat": "SHOP",
+    "sub": "Day 2 極簡日常",
+    "hours": "10:00–21:00",
+    "maps": "https://www.google.com/maps/search/?api=1&query=NOSBYN%20Nosbyn%2C%209%20Phan%20Chu%20Trinh%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20Ho%20Chi%20Minh%20City",
+    "address": "Nosbyn, 9 Phan Chu Trinh, Bến Thành, Ho Chi Minh City",
+    "desc": "NOSBYN 把簡約做得很安靜：線條俐落、顏色克制，單件未必喧鬧，放進原有衣櫃卻很容易。適合平日偏 MUJI、Lululemon 或簡潔 casual 的人慢慢試。",
+    "signature": [
+      "Minimal / timeless 女裝",
+      "布料質感與剪裁較穩",
+      "Office、旅行、日常都可重複穿"
+    ],
+    "worth": [
+      "顏色偏 neutral，啱鍾意低調質感的人。",
+      "熱門尺碼可能不齊，看到喜歡要即試。"
+    ],
+    "categoryLabel": "🛍 Shopping",
+    "price": "Varies",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Needs branch/address check",
+    "highlights": [
+      "Minimal / timeless 女裝",
+      "布料質感與剪裁較穩",
+      "Office、旅行、日常都可重複穿"
+    ],
+    "tips": [
+      "顏色偏 neutral，啱鍾意低調質感的人。",
+      "熱門尺碼可能不齊，看到喜歡要即試。"
+    ]
+  },
+  "new-playground": {
+    "title": "The New Playground",
+    "emoji": "🛍",
+    "cat": "SHOP",
+    "sub": "Day 2 本地品牌集合",
+    "hours": "10:00–21:00",
+    "maps": "https://www.google.com/maps/search/?api=1&query=The%20New%20Playground%2026%20L%C3%BD%20T%E1%BB%B1%20Tr%E1%BB%8Dng%2C%20S%C3%A0i%20G%C3%B2n%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
+    "address": "26 Lý Tự Trọng, Sài Gòn, Hồ Chí Minh 700000, Vietnam",
+    "desc": "The New Playground 適合把選擇交給同行的年輕人。多個本地品牌集中在同一處，不必逐間追地址；有人看衣服、有人看帽袋，也可以約好時間再集合。",
+    "signature": [
+      "多個越南本地品牌集中",
+      "冷氣環境，適合下午避暑",
+      "Streetwear 到 accessories 都有"
+    ],
+    "worth": [
+      "店多但不是每間都精緻，當作快速掃街最有效率。",
+      "如果時間 delay，可以只逛這裡，不逐間 boutique 追。"
+    ],
+    "categoryLabel": "🛍 Shopping",
+    "price": "Varies",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Needs branch/address check",
+    "highlights": [
+      "多個越南本地品牌集中",
+      "冷氣環境，適合下午避暑",
+      "Streetwear 到 accessories 都有"
+    ],
+    "tips": [
+      "店多但不是每間都精緻，當作快速掃街最有效率。",
+      "如果時間 delay，可以只逛這裡，不逐間 boutique 追。"
+    ]
+  },
+  "saigon-concept": {
+    "title": "Saigon Concept",
+    "emoji": "🌿",
+    "cat": "SHOP",
+    "sub": "Day 3 Thảo Điền 選物",
+    "hours": "Check official hours before visit",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Saigon%20Concept%2014%20Tr%E1%BA%A7n%20Ng%E1%BB%8Dc%20Di%E1%BB%87n%2C%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+    "address": "14 Trần Ngọc Diện, Thảo Điền, Ho Chi Minh City, Vietnam",
+    "desc": "Saigon Concept 是 Thảo Điền 很適合慢逛的 lifestyle compound：紅磚庭園、棉麻服飾、家居選物與小型品牌集中在同一區。Day 3 到草田區後先放慢節奏，由這裡開始很舒服。",
+    "signature": [
+      "庭園式複合空間",
+      "DESIGNED BY SISI / lifestyle 選物",
+      "適合拍照與慢逛"
+    ],
+    "worth": [
+      "下午早段去比較好，部分小店可能較早關。",
+      "重點是氛圍，不一定每間都要買。"
+    ],
+    "categoryLabel": "🛍 Shopping",
+    "price": "Varies",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Thảo Điền branch address corrected; current official hours unconfirmed",
+    "highlights": [
+      "庭園式複合空間",
+      "DESIGNED BY SISI / lifestyle 選物",
+      "適合拍照與慢逛"
+    ],
+    "tips": [
+      "下午早段去比較好，部分小店可能較早關。",
+      "重點是氛圍，不一定每間都要買。"
+    ]
+  },
+  "ohquao": {
+    "title": "OHQUAO",
+    "emoji": "🎁",
+    "cat": "SHOP",
+    "sub": "Day 3 越南設計與手信",
+    "hours": "10:00–20:00",
+    "maps": "https://www.google.com/maps/search/?api=1&query=OHQUAO%2019%20%C4%90%C6%B0%E1%BB%9Dng%20S%E1%BB%91%2038%2C%20P.%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Qu%E1%BA%ADn%202%2C%20TP.%20H%E1%BB%93%20Ch%C3%AD%20Minh",
+    "address": "19 Đường Số 38, P. Thảo Điền, Quận 2, TP. Hồ Chí Minh",
+    "desc": "OHQUAO 像一間替現代越南做選書的店，把插畫、家品、文具與小禮物放在同一個空間。不是為了買「到此一遊」，而是挑一件回家後仍然願意使用的小東西。",
+    "signature": [
+      "在地藝術家小物",
+      "明信片、香氛、家居手信",
+      "適合買輕便 souvenir"
+    ],
+    "worth": [
+      "不要預期大型店鋪，這類小店重點是慢慢看。",
+      "適合安排在 Mộc Hương Spa 前後順路逛。"
+    ],
+    "categoryLabel": "🛍 Shopping",
+    "price": "Varies",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Needs branch/address check",
+    "highlights": [
+      "在地藝術家小物",
+      "明信片、香氛、家居手信",
+      "適合買輕便 souvenir"
+    ],
+    "tips": [
+      "不要預期大型店鋪，這類小店重點是慢慢看。",
+      "適合安排在 Mộc Hương Spa 前後順路逛。"
+    ]
+  },
+  "louh": {
+    "title": "LOUH Saigon",
+    "emoji": "🧺",
+    "cat": "SHOP",
+    "sub": "Day 3 亞麻棉織家居服",
+    "hours": "Unconfirmed — no published storefront hours found",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Louh%20Saigon%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%20Ho%20Chi%20Minh%20City",
+    "address": "Address unverified — LOUH Saigon's official site (louhsaigon.com) lists no public storefront address; brand appears online-led. Confirm exact Thảo Điền visiting location before departure.",
+    "desc": "LOUH Saigon 由法籍設計師 Cindy Jacques 創立，主打亞麻／棉質女裝與家居服，走法式優雅路線。目前未能從官方渠道核實實體門市地址，出發前應直接向品牌查詢是否有 Thảo Điền showroom 及開放時間。",
+    "signature": [
+      "法式優雅剪裁",
+      "亞麻／棉質天然布料",
+      "女裝與家居服為主"
+    ],
+    "worth": [
+      "出發前透過 Instagram（@louh_saigon）或官方網站確認是否可到訪及地址。",
+      "如未能核實地點，可考慮改為其他 Thảo Điền 選物店。"
+    ],
+    "categoryLabel": "🛍 Shopping",
+    "price": "Varies",
+    "transport": "Grab / walk depending on current route",
+    "audit": "NEEDS VERIFICATION — no confirmed physical storefront found; previously mis-linked to OHQUAO's address, now uses a name-based Maps search pending confirmation",
+    "highlights": [
+      "法式優雅剪裁",
+      "亞麻／棉質天然布料",
+      "女裝與家居服為主"
+    ],
+    "tips": [
+      "出發前透過 Instagram（@louh_saigon）或官方網站確認是否可到訪及地址。",
+      "如未能核實地點，可考慮改為其他 Thảo Điền 選物店。"
+    ]
+  },
+  "garmentory": {
+    "title": "11 Garmentory",
+    "emoji": "🧥",
+    "cat": "SHOP",
+    "sub": "Day 4 設計師選物",
+    "hours": "10:00–21:30 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=11%20Garmentory%20117B%20Nguy%E1%BB%85n%20%C4%90%C3%ACnh%20Ch%C3%ADnh%2C%20Ph%C6%B0%E1%BB%9Dng%20C%E1%BA%A7u%20Ki%E1%BB%87u%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+    "address": "117B Nguyễn Đình Chính, Phường Cầu Kiệu, Ho Chi Minh City, Vietnam",
+    "desc": "11 Garmentory 是 Day 4 District 3 逛街線的重點，風格偏本地設計、質感小眾，不是大量連鎖品牌。配合 Trần Quang Diệu 一帶的 cafe / boutique 氣氛，適合慢慢試衫、感受西貢比較安靜的時髦街區。",
+    "signature": [
+      "本地設計師選物",
+      "女裝／生活風格小店感",
+      "District 3 氣氛比 D1 更 local"
+    ],
+    "worth": [
+      "小店營業時間可能變動，出發前再查 IG。",
+      "如果當日博物館或午餐 delay，可以保留 11 Garmentory 作主站，其他小店自由取捨。"
+    ],
+    "categoryLabel": "🛍 Shopping",
+    "price": "Varies",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Branch corrected to 117B Nguyễn Đình Chính; daily hours supplied and synchronized",
+    "highlights": [
+      "本地設計師選物",
+      "女裝／生活風格小店感",
+      "District 3 氣氛比 D1 更 local"
+    ],
+    "tips": [
+      "小店營業時間可能變動，出發前再查 IG。",
+      "如果當日博物館或午餐 delay，可以保留 11 Garmentory 作主站，其他小店自由取捨。"
+    ]
+  },
+  "dalla-saigon": {
+    "title": "Dalla Saigon",
+    "emoji": "👗",
+    "cat": "SHOP",
+    "sub": "Day 4 第二輪 · Trần Quang Diệu 女裝",
+    "hours": "Check official hours before visit",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Dalla%20Saigon%2064%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%20Ph%C6%B0%E1%BB%9Dng%2014%20Qu%E1%BA%ADn%203%20H%E1%BB%93%20Ch%C3%AD%20Minh",
+    "address": "64 Trần Quang Diệu, Phường 14, Quận 3, Hồ Chí Minh, Vietnam",
+    "desc": "Dalla Saigon 是 Trần Quang Diệu 一帶熱門本地女裝品牌，主打 crop top、連身裙與日常穿搭單品，與 Tỉnh Thức Spa 同一條街，Spa 後順路開始第二輪 shopping 很方便。",
+    "signature": [
+      "日常女裝、連身裙、上班單品",
+      "Trần Quang Diệu 街區代表店之一",
+      "與 Tỉnh Thức Spa 同街，步行可達"
+    ],
+    "worth": [
+      "同條街已包含 Rubies、Lane Cì，可以順路一次逛完。",
+      "出發前可查 Instagram @dalla.saigon 確認分店與時間。"
+    ],
+    "categoryLabel": "🛍 Shopping",
+    "price": "Varies",
+    "transport": "Walk from Tỉnh Thức Spa / Grab depending on current route",
+    "audit": "Address verified via official Facebook/Instagram store-locator info (64 Trần Quang Diệu branch)",
+    "highlights": [
+      "日常女裝、連身裙、上班單品",
+      "Trần Quang Diệu 街區代表店之一",
+      "與 Tỉnh Thức Spa 同街，步行可達"
+    ],
+    "tips": [
+      "同條街已包含 Rubies、Lane Cì，可以順路一次逛完。",
+      "出發前可查 Instagram @dalla.saigon 確認分店與時間。"
+    ]
+  },
+  "rubies": {
+    "title": "Rubies Rubies",
+    "emoji": "👚",
+    "cat": "SHOP",
+    "sub": "Day 4 第二輪 · Trần Quang Diệu 女裝",
+    "hours": "Check official hours before visit",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Rubies%20Rubies%2047-49%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%20Ph%C6%B0%E1%BB%9Dng%2014%20Qu%E1%BA%ADn%203%20H%E1%BB%93%20Ch%C3%AD%20Minh",
+    "address": "47–49 Trần Quang Diệu, Phường 14, Quận 3, Hồ Chí Minh, Vietnam",
+    "desc": "Rubies Rubies 是越南本地連鎖女裝品牌，走年輕、俐落路線，辦公室與街拍都能穿。分店就在 Dalla Saigon 附近，可以走著逛完整條 Trần Quang Diệu shopping 段。",
+    "signature": [
+      "年輕俐落女裝",
+      "本地連鎖品牌，多分店",
+      "與 Dalla Saigon 同街，步行可達"
+    ],
+    "worth": [
+      "店內偏小，建議分批試身。",
+      "出發前查 Instagram / Facebook 確認分店營業時間。"
+    ],
+    "categoryLabel": "🛍 Shopping",
+    "price": "Varies",
+    "transport": "Walk from Dalla Saigon / Grab depending on current route",
+    "audit": "Address verified via multiple independent local business listings (47–49 Trần Quang Diệu branch)",
+    "highlights": [
+      "年輕俐落女裝",
+      "本地連鎖品牌，多分店",
+      "與 Dalla Saigon 同街，步行可達"
+    ],
+    "tips": [
+      "店內偏小，建議分批試身。",
+      "出發前查 Instagram / Facebook 確認分店營業時間。"
+    ]
+  },
+  "lane-ci": {
+    "title": "LANE Cì",
+    "emoji": "🎀",
+    "cat": "SHOP",
+    "sub": "Day 4 第二輪 · Trần Quang Diệu 女裝",
+    "hours": "Check official hours before visit",
+    "maps": "https://www.google.com/maps/search/?api=1&query=LANE%20C%C3%AC%2027%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%20Ph%C6%B0%E1%BB%9Dng%2014%20Qu%E1%BA%ADn%203%20H%E1%BB%93%20Ch%C3%AD%20Minh",
+    "address": "27 Trần Quang Diệu, Phường 14, Quận 3, Hồ Chí Minh, Vietnam",
+    "desc": "LANE Cì 是同一條街上較細小的女裝選物店，款式較少女、甜美，適合作為第二輪 shopping 的最後一站，逛完直接叫 Grab 去 Quince。",
+    "signature": [
+      "少女甜美風格單品",
+      "小型精品店感",
+      "同街最後一站，順路收尾"
+    ],
+    "worth": [
+      "店較細，適合快閃選購。",
+      "出發前查 Facebook 專頁確認營業狀態。"
+    ],
+    "categoryLabel": "🛍 Shopping",
+    "price": "Varies",
+    "transport": "Walk from Rubies Rubies / Grab depending on current route",
+    "audit": "Address verified via official Facebook page (27 Trần Quang Diệu)",
+    "highlights": [
+      "少女甜美風格單品",
+      "小型精品店感",
+      "同街最後一站，順路收尾"
+    ],
+    "tips": [
+      "店較細，適合快閃選購。",
+      "出發前查 Facebook 專頁確認營業狀態。"
+    ]
+  },
+  "push-push": {
+    "title": "Push Push Official",
+    "emoji": "👖",
+    "cat": "SHOP",
+    "sub": "Day 3 年輕人與舒適街頭款",
+    "hours": "09:30–21:30",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Push%20Push%20Official%2020%20Nguy%E1%BB%85n%20V%C4%83n%20Nguy%E1%BB%85n%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
+    "address": "20 Nguyễn Văn Nguyễn, Tân Định, Hồ Chí Minh 700000, Vietnam",
+    "desc": "Push Push 的輪廓年輕，但重點不只是「街頭」。寬鬆恤衫、T-shirt、長褲與帶點造型感的貼身單品，適合同行的 15–21 歲年輕人，也可能找到媽媽們旅行時會穿的舒服款。",
+    "signature": [
+      "Streetwear / casual pants",
+      "年輕感、寬鬆剪裁",
+      "粉紅教堂附近可順路"
+    ],
+    "worth": [
+      "這類品牌 IG 資訊可能比 Google 準，出發前查 IG 最穩。",
+      "不是每位朋友都會啱，可作分組自由逛。"
+    ],
+    "categoryLabel": "🛍 Shopping",
+    "price": "Varies",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Needs branch/address check",
+    "highlights": [
+      "Streetwear / casual pants",
+      "年輕感、寬鬆剪裁",
+      "粉紅教堂附近可順路"
+    ],
+    "tips": [
+      "這類品牌 IG 資訊可能比 Google 準，出發前查 IG 最穩。",
+      "不是每位朋友都會啱，可作分組自由逛。"
+    ]
+  },
+  "nha-suga": {
+    "title": "Spa Nhà Suga Premium Korea Headspa – Nguyễn Huệ",
+    "emoji": "💆",
+    "cat": "SPA",
+    "sub": "Day 1 · Scheduled head spa",
+    "hours": "Check official hours before visit",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Spa%20Nh%C3%A0%20Suga%20Premium%20Korea%20Headspa%20%E2%80%93%20Nguy%E1%BB%85n%20Hu%E1%BB%87%208th%20Floor%2C%20The%20Caf%C3%A9%20Apartment%2C%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+    "address": "8th Floor, The Café Apartment, 42 Nguyễn Huệ, District 1, Ho Chi Minh City, Vietnam",
+    "desc": "The Nguyễn Huệ branch is on the 8th Floor of The Café Apartment at 42 Nguyễn Huệ. This is the scheduled Day 1 Korean head-spa session. Current full weekly trading hours could not be confirmed from an official publication; reconfirm the booking and building access before departure.",
+    "signature": [
+      "Korean-style head spa / scalp care",
+      "肩頸放鬆",
+      "位於 The Cafe Apartments，同日夜景動線順"
+    ],
+    "worth": [
+      "評論提過可能 overbook，出發前務必 WhatsApp 確認。",
+      "做完頭髮要確認有足夠時間吹乾再去晚餐。"
+    ],
+    "categoryLabel": "💆 Spa",
+    "price": "$$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Nguyễn Huệ branch, 8th Floor identity verified; official weekly hours unconfirmed",
+    "highlights": [
+      "Korean-style head spa / scalp care",
+      "肩頸放鬆",
+      "位於 The Cafe Apartments，同日夜景動線順"
+    ],
+    "tips": [
+      "評論提過可能 overbook，出發前務必 WhatsApp 確認。",
+      "做完頭髮要確認有足夠時間吹乾再去晚餐。"
+    ]
+  },
+  "moc-kim": {
+    "title": "Mộc Kim Spa & Beauty",
+    "emoji": "🌿",
+    "cat": "SPA",
+    "sub": "Day 2 Spa · Bến Thành branch",
+    "hours": "09:15–21:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=M%E1%BB%99c%20Kim%20Spa%20%26%20Beauty%20143%20L%C3%AA%20Th%E1%BB%8B%20H%E1%BB%93ng%20G%E1%BA%A5m%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+    "address": "143 Lê Thị Hồng Gấm, Bến Thành, Ho Chi Minh City, Vietnam",
+    "desc": "Mộc Kim Spa & Beauty Day 2 改用 Bến Thành／Nguyễn Thái Bình 這間分店，位置更適合 Cooking Class 後先去放鬆，再接 Nguyễn Trãi shopping route。13:15–15:15 這段安排剛好讓身體從早上的廚藝課和市場節奏慢下來，做完 spa 再開始購物會舒服很多。",
+    "signature": [
+      "Bến Thành 旁邊分店，銜接 Day 2 flow 更順",
+      "足底按摩、身體按摩、草本洗頭都適合午後休息",
+      "營業時間 08:30–21:00，Day 2 13:15–15:15 時段穩陣"
+    ],
+    "worth": [
+      "建議預約 13:15–15:15，避免 walk-in 等位。",
+      "Spa 後直接 Grab 約 10 分鐘去 LIBÉ，正式開始購物 flow。",
+      "Phone：+84 968 459 618。"
+    ],
+    "categoryLabel": "💆 Spa",
+    "price": "$$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Bến Thành branch and hours verified on the official site",
+    "highlights": [
+      "越式草本洗頭",
+      "足底穴位按摩",
+      "可作 shopping 後回復站"
+    ],
+    "tips": [
+      "建議預約 13:15–15:15，避免 walk-in 等位。",
+      "Spa 後直接 Grab 約 10 分鐘去 LIBÉ，正式開始購物 flow。",
+      "電話：+84 968 459 618"
+    ]
+  },
+  "moc-huong": {
+    "title": "Mộc Hương Wellness",
+    "emoji": "🏡",
+    "cat": "SPA",
+    "sub": "Day 3 Villa Wellness",
+    "hours": "Check official hours before visit",
+    "maps": "https://www.google.com/maps/search/?api=1&query=M%E1%BB%99c%20H%C6%B0%C6%A1ng%20Wellness%2061%20Xu%C3%A2n%20Th%E1%BB%A7y%2C%20Ph%C6%B0%E1%BB%9Dng%20An%20Kh%C3%A1nh%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+    "address": "61 Xuân Thủy, Phường An Khánh, Ho Chi Minh City, Vietnam",
+    "desc": "Mộc Hương Wellness Thảo Điền 走高級 villa spa 路線，環境比普通按摩店更度假。Day 3 逛草田區後在這裡做熱石／精油按摩，再去 Little Bear，整日節奏會很一致：慢、綠意、輕奢。",
+    "signature": [
+      "Villa-style spa setting",
+      "熱石／精油按摩",
+      "Thảo Điền 動線極順"
+    ],
+    "worth": [
+      "比市區普通 spa 價位高，但環境感更好。",
+      "做完按摩去 Little Bear 只需短 Grab，唔需要返 D1 再出來。"
+    ],
+    "categoryLabel": "💆 Spa",
+    "price": "$$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Thảo Điền branch verified on official site; current official hours unconfirmed",
+    "highlights": [
+      "Villa-style spa setting",
+      "熱石／精油按摩",
+      "Thảo Điền 動線極順"
+    ],
+    "tips": [
+      "比市區普通 spa 價位高，但環境感更好。",
+      "做完按摩去 Little Bear 只需短 Grab，唔需要返 D1 再出來。"
+    ]
+  },
+  "tinh-thuc": {
+    "title": "Tỉnh Thức Spa",
+    "emoji": "💆",
+    "cat": "SPA",
+    "sub": "Day 4 足底按摩",
+    "hours": "Check official hours before visit",
+    "maps": "https://www.google.com/maps/search/?api=1&query=T%E1%BB%89nh%20Th%E1%BB%A9c%20Spa%20118%2F54%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%2C%20Ph%C6%B0%E1%BB%9Dng%20Nhi%C3%AAu%20L%E1%BB%99c%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+    "address": "118/54 Trần Quang Diệu, Phường Nhiêu Lộc, Ho Chi Minh City, Vietnam",
+    "desc": "Tỉnh Thức Spa is the scheduled Day 4 foot-massage venue. Scheduled treatment: 15:15–17:00. The spa is inside alley 118; from the alley entrance, continue to the end and turn left. Current regular hours and Monday operation were not published clearly enough to verify, so reconfirm directly before departure.",
+    "signature": [
+      "Scheduled treatment: 15:15–17:00",
+      "Quiet spa inside alley 118/54 Trần Quang Diệu",
+      "Body massage and foot-pressure treatments"
+    ],
+    "worth": [
+      "Published regular Monday hours could not be verified; confirm the 2 November 2026 appointment before departure.",
+      "From the alley entrance, continue to the end and turn left.",
+      "Hotline / Zalo / WhatsApp: +84 989 611 854"
+    ],
+    "categoryLabel": "💆 Spa",
+    "price": "$$",
+    "transport": "Walk from nearby shopping / Grab depending on current route",
+    "audit": "Official name and address verified on official website; regular hours unconfirmed",
+    "highlights": [
+      "90 分鐘身體按摩 + 面部護理",
+      "安靜巷內小型 spa",
+      "接住 Trần Quang Diệu shopping 動線"
+    ],
+    "tips": [
+      "由 11 Garmentory／第一輪 shopping 過來順路，完成後可繼續行 Dalla 與 Rubies。",
+      "入口在 118 號巷內：由巷口行到底再左轉；建議預約並預留找入口時間。",
+      "Hotline / WhatsApp：+84 989 611 854"
+    ]
+  },
+  "ha-spa": {
+    "title": "Hạ Spa",
+    "emoji": "✈️",
+    "cat": "SPA",
+    "sub": "Day 5 · Pre-flight Spa",
+    "hours": "09:00–21:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=H%E1%BA%A1%20Spa%20334%20Nguy%E1%BB%85n%20Tr%E1%BB%8Dng%20Tuy%E1%BB%83n%2C%20Ward%202%2C%20T%C3%A2n%20B%C3%ACnh%20District%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
+    "address": "334 Nguyễn Trọng Tuyển, Ward 2, Tân Bình District, Hồ Chí Minh 700000, Vietnam",
+    "desc": "Hạ Spa 是最後一日飛機前的 airport-side spa。最大優勢是距離新山一機場近、可寄存行李，適合在搭夜機前洗頭、按摩、整理狀態，不用一身汗上機。",
+    "signature": [
+      "近機場",
+      "行李寄存",
+      "洗頭 + 全身放鬆 package"
+    ],
+    "worth": [
+      "最後一日時間要保守，不要排太晚。",
+      "預約時確認行李寄存、吹髮、叫車到機場時間。"
+    ],
+    "categoryLabel": "💆 Spa",
+    "price": "$$",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Needs branch/address check",
+    "highlights": [
+      "近機場",
+      "行李寄存",
+      "洗頭 + 全身放鬆 package"
+    ],
+    "tips": [
+      "最後一日時間要保守，不要排太晚。",
+      "預約時確認行李寄存、吹髮、叫車到機場時間。"
+    ]
+  },
+  "post-office": {
+    "title": "Saigon Central Post Office",
+    "emoji": "📮",
+    "cat": "ATTRACTIONS",
+    "sub": "法式郵局",
+    "hours": "Mon–Fri 07:00–19:00；Sat 07:00–18:00；Sun 08:00–18:00",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Saigon%20Central%20Post%20Office%20Saigon%20Central%20Post%20Office%2C%202%20C%C3%B4ng%20x%C3%A3%20Paris%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
+    "address": "Saigon Central Post Office, 2 Công xã Paris, Bến Nghé, District 1, Ho Chi Minh City",
+    "desc": "西貢中央郵政局是最容易安排、最有法式殖民建築感的經典景點。金黃色拱頂、古老地圖、木製電話亭都很上鏡，而且仍然是運作中的郵局。Day 1 放在抵達後不會太累，因為它和紅教堂、書街三點幾乎連在一起。",
+    "signature": [
+      "金黃色拱頂大廳",
+      "法式殖民建築",
+      "可買明信片／郵票"
+    ],
+    "worth": [
+      "免費入場，停留 20–30 分鐘已夠。",
+      "人多時先拍建築細節，不一定要等無人全景。"
+    ],
+    "categoryLabel": "📍 Attraction",
+    "price": "Free",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Route-ready; check live hours before visit",
+    "highlights": [
+      "金黃色拱頂大廳",
+      "法式殖民建築",
+      "可買明信片／郵票"
+    ],
+    "tips": [
+      "免費入場，停留 20–30 分鐘已夠。",
+      "人多時先拍建築細節，不一定要等無人全景。"
+    ]
+  },
+  "notre-dame": {
+    "title": "Notre-Dame Cathedral",
+    "emoji": "⛪",
+    "cat": "ATTRACTIONS",
+    "sub": "紅磚教堂",
+    "hours": "外觀打卡；內部開放情況出發前確認",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Notre-Dame%20Cathedral%20Notre-Dame%20Cathedral%20Basilica%20of%20Saigon%2C%20C%C3%B4ng%20x%C3%A3%20Paris%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
+    "address": "Notre-Dame Cathedral Basilica of Saigon, Công xã Paris, Bến Nghé, District 1, Ho Chi Minh City",
+    "desc": "西貢聖母聖殿主教座堂是中央郵政局對面的紅磚地標。近年常有修復工程，重點應放在外觀打卡與和郵政局／書街形成一個短小經典路線，不建議專程安排太長時間。",
+    "signature": [
+      "紅磚外觀",
+      "郵政局對面",
+      "經典 D1 地標合照"
+    ],
+    "worth": [
+      "內部是否開放常受工程／宗教活動影響，當作外觀景點最穩。",
+      "中午光線硬，早上或傍晚拍照較舒服。"
+    ],
+    "categoryLabel": "📍 Attraction",
+    "price": "Free",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Route-ready; check live hours before visit",
+    "highlights": [
+      "紅磚外觀",
+      "郵政局對面",
+      "經典 D1 地標合照"
+    ],
+    "tips": [
+      "內部是否開放常受工程／宗教活動影響，當作外觀景點最穩。",
+      "中午光線硬，早上或傍晚拍照較舒服。"
+    ]
+  },
+  "book-street": {
+    "title": "Nguyễn Văn Bình Book Street",
+    "emoji": "📚",
+    "cat": "ATTRACTIONS",
+    "sub": "書街散步",
+    "hours": "Mon–Fri 08:00–21:00；Sat–Sun 08:00–21:30",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Nguy%E1%BB%85n%20V%C4%83n%20B%C3%ACnh%20Book%20Street%20Nguy%E1%BB%85n%20V%C4%83n%20B%C3%ACnh%20Book%20Street%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
+    "address": "Nguyễn Văn Bình Book Street, Bến Nghé, District 1, Ho Chi Minh City",
+    "desc": "Nguyễn Văn Bình Book Street 夾在郵政局與紅教堂旁邊，是短短一條步行文化街。書店、咖啡、文創攤位集中，適合在 Day 1 三大景點中作一個較輕鬆的過渡位。",
+    "signature": [
+      "步行書街",
+      "書店、文創、咖啡小攤",
+      "與郵政局／紅教堂相連"
+    ],
+    "worth": [
+      "不是大型景點，停留 20–40 分鐘即可。",
+      "若太熱，可以只穿過拍照，不必硬逛每間店。"
+    ],
+    "categoryLabel": "📍 Attraction",
+    "price": "Free",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Route-ready; check live hours before visit",
+    "highlights": [
+      "步行書街",
+      "書店、文創、咖啡小攤",
+      "與郵政局／紅教堂相連"
+    ],
+    "tips": [
+      "不是大型景點，停留 20–40 分鐘即可。",
+      "若太熱，可以只穿過拍照，不必硬逛每間店。"
+    ]
+  },
+  "pink-church": {
+    "title": "Tân Định Church",
+    "emoji": "🌸",
+    "cat": "ATTRACTIONS",
+    "sub": "粉紅教堂",
+    "hours": "外觀打卡；內部開放情況出發前確認",
+    "maps": "https://www.google.com/maps/search/?api=1&query=T%C3%A2n%20%C4%90%E1%BB%8Bnh%20Church%20Tan%20Dinh%20Church%2C%20289%20Hai%20B%C3%A0%20Tr%C6%B0ng%2C%20Ward%208%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
+    "address": "Tan Dinh Church, 289 Hai Bà Trưng, Ward 8, District 3, Ho Chi Minh City",
+    "desc": "新定教堂／粉紅教堂是 Saigon 最容易出片的地標之一。粉紅色外牆本身已經很有記憶點，配對面 Cộng Cà Phê 的樓上視角，可以一次拍到近景和俯瞰全景。",
+    "signature": [
+      "粉紅外牆",
+      "對面 cafe 視角",
+      "Tân Định 街區順路早餐"
+    ],
+    "worth": [
+      "內部開放不穩，當作外觀打卡最實際。",
+      "早上光線和人流通常較友善。"
+    ],
+    "categoryLabel": "📍 Attraction",
+    "price": "Free",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Route-ready; check live hours before visit",
+    "highlights": [
+      "粉紅外牆",
+      "對面 cafe 視角",
+      "Tân Định 街區順路早餐"
+    ],
+    "tips": [
+      "內部開放不穩，當作外觀打卡最實際。",
+      "早上光線和人流通常較友善。"
+    ]
+  },
+  "war-museum": {
+    "title": "War Remnants Museum",
+    "emoji": "🏛",
+    "cat": "ATTRACTIONS",
+    "sub": "戰爭遺跡博物館",
+    "hours": "07:30–17:30",
+    "maps": "https://www.google.com/maps/search/?api=1&query=War%20Remnants%20Museum%20War%20Remnants%20Museum%2C%2028%20V%C3%B5%20V%C4%83n%20T%E1%BA%A7n%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
+    "address": "War Remnants Museum, 28 Võ Văn Tần, District 3, Ho Chi Minh City",
+    "desc": "戰爭遺跡博物館是今次最沉重但最值得保留的人文景點。展覽以照片、文字和戰爭後果為主，內容不輕鬆，但能讓整個旅程不只是吃喝購物，也真正理解這座城市的歷史厚度。",
+    "signature": [
+      "越戰相關照片與史料",
+      "館內有冷氣，適合上午安排",
+      "與 District 3 / Pizza 4P’s 動線順"
+    ],
+    "worth": [
+      "建議預留 90–120 分鐘，比「打卡景點」需要更多情緒空間。",
+      "看完可安排 Pizza 4P’s 或 cafe 作心理緩衝。"
+    ],
+    "categoryLabel": "📍 Attraction",
+    "price": "Ticketed",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Route-ready; check live hours before visit",
+    "highlights": [
+      "越戰相關照片與史料",
+      "館內有冷氣，適合上午安排",
+      "與 District 3 / Pizza 4P’s 動線順"
+    ],
+    "tips": [
+      "建議預留 90–120 分鐘，比「打卡景點」需要更多情緒空間。",
+      "看完可安排 Pizza 4P’s 或 cafe 作心理緩衝。"
+    ]
+  },
+  "fine-arts": {
+    "title": "Fine Arts Museum",
+    "emoji": "🖼",
+    "cat": "ATTRACTIONS",
+    "sub": "黃色法式美術館",
+    "hours": "08:00–17:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Fine%20Arts%20Museum%20Ho%20Chi%20Minh%20City%20Museum%20of%20Fine%20Arts%2C%2097A%20Ph%C3%B3%20%C4%90%E1%BB%A9c%20Ch%C3%ADnh%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
+    "address": "Ho Chi Minh City Museum of Fine Arts, 97A Phó Đức Chính, District 1, Ho Chi Minh City",
+    "desc": "胡志明市美術館是一座黃色法式大宅，比起展品本身，建築、樓梯、彩色玻璃、舊式地磚和復古感更容易令人留下印象。Day 5 上午安排它很適合：節奏慢、拍照靚、又不會太消耗體力。",
+    "signature": [
+      "黃色法式建築",
+      "彩色玻璃、樓梯、復古地磚",
+      "適合王家衛感照片"
+    ],
+    "worth": [
+      "館內部分位置沒有強冷氣，早上去較舒服。",
+      "建議停留 60–90 分鐘。"
+    ],
+    "categoryLabel": "📍 Attraction",
+    "price": "Ticketed",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Route-ready; check live hours before visit",
+    "highlights": [
+      "黃色法式建築",
+      "彩色玻璃、樓梯、復古地磚",
+      "適合王家衛感照片"
+    ],
+    "tips": [
+      "館內部分位置沒有強冷氣，早上去較舒服。",
+      "建議停留 60–90 分鐘。"
+    ]
+  },
+  "cooking": {
+    "title": "Saigon Cooking Class",
+    "emoji": "👩🏻‍🍳",
+    "cat": "EXPERIENCE",
+    "sub": "Day 2 · Scheduled class 10:00–13:00",
+    "hours": "Check official hours before visit",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Saigon%20Cooking%20Class%2080%2F1%20Nguy%E1%BB%85n%20Tr%C3%A3i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20770000%2C%20Vietnam",
+    "address": "80/1 Nguyễn Trãi, Bến Thành, Hồ Chí Minh 770000, Vietnam",
+    "desc": "Saigon Cooking Class is the fixed Day 2 experience at 80/1 Nguyễn Trãi. Scheduled class: 10:00–13:00. Reconfirm the meeting instructions before departure.",
+    "signature": [
+      "3 小時越菜體驗",
+      "親手做菜，即場享用作午餐",
+      "適合四人共同參與"
+    ],
+    "worth": [
+      "課程時間固定，Day 2 早上不要排太緊。",
+      "早餐要輕食，留肚食自己煮的午餐。"
+    ],
+    "categoryLabel": "🍳 Experience",
+    "price": "Pre-booked",
+    "transport": "Grab / walk depending on current route",
+    "audit": "Booking venue corrected to 80/1 Nguyễn Trãi; scheduled class 10:00–13:00",
+    "highlights": [
+      "3 小時越菜體驗",
+      "親手做菜，即場享用作午餐",
+      "適合四人共同參與"
+    ],
+    "tips": [
+      "課程時間固定，Day 2 早上不要排太緊。",
+      "早餐要輕食，留肚食自己煮的午餐。"
+    ]
+  },
+  "general": {
+    "title": "Moments",
+    "emoji": "✨",
+    "cat": "MOMENTS",
+    "sub": "Every place has a story",
+    "desc": "每一個地方都可以留底 rating、something to say 同相片。",
+    "categoryLabel": "✨ Moments",
+    "price": "Memory",
+    "hours": "Anytime",
+    "maps": "#",
+    "address": "Saigon Companion"
+  },
+  "workshop-coffee": {
+    "title": "The Workshop Coffee",
+    "emoji": "☕",
+    "cat": "CAFÉS",
+    "sub": "Day 1 · Nguyễn Huệ 附近咖啡選項",
+    "hours": "08:00–21:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=The%20Workshop%20Coffee%202nd%20Floor%2C%2027%20Ng%C3%B4%20%C4%90%E1%BB%A9c%20K%E1%BA%BF%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+    "address": "2nd Floor, 27 Ngô Đức Kế, District 1, Ho Chi Minh City, Vietnam",
+    "desc": "藏在 Ngô Đức Kế 老樓上層的 specialty coffee 空間，離 Nguyễn Huệ Walking Street 與 The Cafe Apartments 只是一小段步程。高樓底、長木枱與工業感不刻意討好鏡頭，反而適合在第一日的城市喧鬧之間，留一段安靜喝咖啡的空白。",
+    "signature": [
+      "以手沖、espresso 與 specialty coffee 為主",
+      "樓上空間寬敞，適合短坐或慢慢聊天",
+      "由 Café Apartments 一帶步行前往，毋須另開一段行程"
+    ],
+    "worth": [
+      "這是 read-only nearby option，不會取代原定 Day 1 行程。",
+      "入口較低調，跟 Google Maps 到 27 Ngô Đức Kế 後再留意上樓指示。"
+    ],
+    "categoryLabel": "☕ Cafe · Optional",
+    "price": "$–$$",
+    "transport": "Walk from Nguyễn Huệ / Cafe Apartments",
+    "audit": "Address and current daily schedule cross-checked; optional recommendation",
+    "highlights": [
+      "以手沖、espresso 與 specialty coffee 為主",
+      "樓上空間寬敞，適合短坐或慢慢聊天",
+      "由 Café Apartments 一帶步行前往，毋須另開一段行程"
+    ],
+    "tips": [
+      "這是 read-only nearby option，不會取代原定 Day 1 行程。",
+      "入口較低調，跟 Google Maps 到 27 Ngô Đức Kế 後再留意上樓指示。"
+    ]
+  },
+  "cash-backup": {
+    "title": "Cash Backup · Saigon Centre",
+    "emoji": "💵",
+    "cat": "EXPERIENCE",
+    "sub": "Day 1 · Licensed FX backup",
+    "hours": "Ask hotel concierge or Takashimaya Information Desk during opening hours",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Saigon%20Centre%20Takashimaya%2065%20L%C3%AA%20L%E1%BB%A3i%20Ho%20Chi%20Minh%20City",
+    "address": "Saigon Centre / Takashimaya Information Desk, 65 Lê Lợi, District 1",
+    "desc": "機場 ATM 仍然係首選。若取款失敗，返到 Fusion Original 後可先問酒店 concierge，或者到 Takashimaya Information Desk 查詢最近的持牌銀行／獲授權外幣兌換櫃位。唔再將金舖當作正式換錢後備。",
+    "signature": [
+      "Airport ATM first；Wise 卡優先",
+      "向 Fusion Original concierge 或 Takashimaya Information Desk 查詢",
+      "只使用 licensed bank / authorised FX counter"
+    ],
+    "worth": [
+      "不要假設 Takashimaya B2 一定有固定兌換櫃位；以當日資訊為準。",
+      "若 ATM 已成功取款，直接略過呢個 optional backup。"
+    ],
+    "categoryLabel": "💵 Practical · Optional",
+    "price": "Exchange rate varies",
+    "transport": "Inside / next to the hotel",
+    "audit": "Safe backup wording; no jewellery-shop exchange recommendation",
+    "highlights": [
+      "Airport ATM first；Wise 卡優先",
+      "向 Fusion Original concierge 或 Takashimaya Information Desk 查詢",
+      "只使用 licensed bank / authorised FX counter"
+    ],
+    "tips": [
+      "不要假設 Takashimaya B2 一定有固定兌換櫃位；以當日資訊為準。",
+      "若 ATM 已成功取款，直接略過呢個 optional backup。"
+    ]
+  },
+  "late-night-supper": {
+    "title": "Late-night Hotel Supper",
+    "emoji": "🌙",
+    "cat": "RESTAURANTS",
+    "sub": "Any night · Savoury or sweet delivery",
+    "hours": "Oanh Cua about 06:00–22:00; late dessert availability varies — check GrabFood Open Now",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Oanh%20Cua%20214%2F1B%20Nguy%E1%BB%85n%20Tr%C3%A3i%20Ho%20Chi%20Minh%20City",
+    "address": "Delivery to Fusion Original; Oanh Cua: 214/1B Nguyễn Trãi, District 1",
+    "desc": "返到酒店仲想食多少少，可以按心情揀鹹或甜。鹹食可叫 Oanh Cua 蟹料理送到 Fusion Original lobby；甜食可在 GrabFood 搜尋 BINGO Artisanal Ice Dessert & Tofu Café，或用 Dessert／Chè／Tofu／Bingsu 關鍵字並篩選 Open Now。",
+    "signature": [
+      "🦀 Oanh Cua：蟹料理、蟹肉小食，適合四人 share",
+      "🍧 BINGO／夜間甜品：刨冰、豆腐花、水果甜品",
+      "送到 Fusion Original lobby，落單後留意電話／App 訊息"
+    ],
+    "worth": [
+      "Oanh Cua 官方 delivery / hotline：0876 255 559；亦可當晚檢查 GrabFood。",
+      "BINGO 是否可送及營業狀態以當晚 GrabFood 顯示為準，不寫死一定可落單。",
+      "Day 1–4 都可用；完全 optional，不需要 Booking。"
+    ],
+    "categoryLabel": "🌙 Optional Supper",
+    "price": "$–$$",
+    "transport": "Delivery to hotel / Grab if dining in",
+    "audit": "Trip-wide optional supper; live delivery availability must be checked",
+    "highlights": [
+      "🦀 Oanh Cua：蟹料理、蟹肉小食，適合四人 share",
+      "🍧 BINGO／夜間甜品：刨冰、豆腐花、水果甜品",
+      "送到 Fusion Original lobby，落單後留意電話／App 訊息"
+    ],
+    "tips": [
+      "Oanh Cua 官方 delivery / hotline：0876 255 559；亦可當晚檢查 GrabFood。",
+      "BINGO 是否可送及營業狀態以當晚 GrabFood 顯示為準，不寫死一定可落單。",
+      "Day 1–4 都可用；完全 optional，不需要 Booking。"
+    ]
+  },
+  "man-moi": {
+    "title": "Mặn Mòi – Bến Nghé",
+    "emoji": "🍲",
+    "cat": "RESTAURANTS",
+    "sub": "Day 5 備選 · 越南家常菜",
+    "hours": "10:00–22:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=M%E1%BA%B7n%20M%C3%B2i%20B%E1%BA%BFn%20Ngh%C3%A9%20VNPT%20Building%20Gate%206%20Nguy%E1%BB%85n%20V%C4%83n%20B%C3%ACnh%20Ho%20Chi%20Minh%20City",
+    "address": "Level 3, VNPT Building, Gate 6, Nguyễn Văn Bình Street, Ho Chi Minh City, Vietnam",
+    "desc": "藏在書街旁 VNPT 大樓三樓，Mặn Mòi 把越南家常味放進帶點舊西貢氣息的空間。菜式適合四人分享，不靠浮誇擺盤，勝在香料、火候與一桌熱鬧。",
+    "signature": [
+      "南部家常菜，味道細緻而不過重",
+      "木質與綠意交疊的老西貢氛圍",
+      "多人分享最有感覺"
+    ],
+    "worth": [
+      "Day 5 備選；Bếp Mẹ Ỉn 仍是原定午餐。",
+      "由 Gate 6 入內，再上 Level 3。",
+      "出發前再確認訂位與即日營業時間。"
+    ],
+    "categoryLabel": "🍽 Restaurant",
+    "price": "$$",
+    "transport": "Walk / short Grab from the heritage district",
+    "audit": "Official Mặn Mòi website verifies the Bến Nghé branch, Level 3 Gate 6 address and 10:00–22:00 published hours",
+    "highlights": [
+      "南部家常菜，味道細緻而不過重",
+      "木質與綠意交疊的老西貢氛圍",
+      "多人分享最有感覺"
+    ],
+    "tips": [
+      "Day 5 備選；Bếp Mẹ Ỉn 仍是原定午餐。",
+      "由 Gate 6 入內，再上 Level 3。",
+      "出發前再確認訂位與即日營業時間。"
+    ]
+  },
+  "tan-son-nhat-airport": {
+    "title": "Tan Son Nhat International Airport",
+    "emoji": "✈️",
+    "cat": "SIGHTS",
+    "sub": "Airport",
+    "maps": "https://maps.google.com/?q=Tan+Son+Nhat+International+Airport",
+    "address": "",
+    "desc": "Airport arrival / departure point used by the VN timeline."
+  },
+  "social-club": {
+    "title": "Social Club Rooftop",
+    "emoji": "🥂",
+    "cat": "CAFÉS",
+    "sub": "Optional rooftop",
+    "maps": "https://maps.google.com/?q=Social+Club+Rooftop+Saigon",
+    "address": "",
+    "desc": "Optional Day 4 rooftop stop from the reconciled timeline."
+  },
+  "takashimaya": {
+    "title": "Takashimaya Saigon",
+    "emoji": "🛍",
+    "cat": "SHOP",
+    "sub": "Day 5 shopping",
+    "maps": "https://maps.google.com/?q=Takashimaya+Saigon",
+    "address": "",
+    "desc": "Day 5 final shopping stop from the reconciled timeline."
+  }
+};
 
-globalThis.TRAVEL_DATASETS=Object.freeze({
-  PLACES,CATEGORIES,GUIDE_ORDER,DAY_LINKS,FRIENDS,BOOKINGS_DATA,
-  TRIP_DATA,TRIP_ORDER,ITINERARY_DATA
-});
-if(globalThis.TravelEngineIntegrity){
-  globalThis.TRAVEL_ENGINE_ACCEPTANCE=globalThis.TravelEngineIntegrity.acceptTripData(
-    globalThis.TRAVEL_DATASETS,
-    globalThis.TRIP_CONFIG||{}
-  );
-}
+const CATEGORIES={
+  "STAY": [
+    {
+      "key": "fusion"
+    }
+  ],
+  "CAFÉS": [
+    {
+      "key": "bakes"
+    },
+    {
+      "key": "cong"
+    },
+    {
+      "key": "marou"
+    },
+    {
+      "key": "cafe-apartments"
+    },
+    {
+      "key": "running-bean"
+    }
+  ],
+  "RESTAURANTS": [
+    {
+      "key": "bep-me-in"
+    },
+    {
+      "key": "com-tam-moc"
+    },
+    {
+      "key": "little-bear"
+    },
+    {
+      "key": "lune"
+    },
+    {
+      "key": "omakase-tiger"
+    },
+    {
+      "key": "pho-sol"
+    },
+    {
+      "key": "pho-vietnam"
+    },
+    {
+      "key": "pizza4ps"
+    },
+    {
+      "key": "quince"
+    },
+    {
+      "key": "quan-thuy"
+    },
+    {
+      "key": "late-night-supper"
+    },
+    {
+      "key": "man-moi"
+    }
+  ],
+  "SHOP": [
+    {
+      "key": "garmentory"
+    },
+    {
+      "key": "dauple"
+    },
+    {
+      "key": "libe"
+    },
+    {
+      "key": "nosbyn"
+    },
+    {
+      "key": "ohquao"
+    },
+    {
+      "key": "push-push"
+    },
+    {
+      "key": "saigon-concept"
+    },
+    {
+      "key": "new-playground"
+    }
+  ],
+  "SPA": [
+    {
+      "key": "ha-spa"
+    },
+    {
+      "key": "moc-huong"
+    },
+    {
+      "key": "moc-kim"
+    },
+    {
+      "key": "nha-suga"
+    },
+    {
+      "key": "tinh-thuc"
+    }
+  ],
+  "ATTRACTIONS": [
+    {
+      "key": "fine-arts"
+    },
+    {
+      "key": "book-street"
+    },
+    {
+      "key": "notre-dame"
+    },
+    {
+      "key": "post-office"
+    },
+    {
+      "key": "pink-church"
+    },
+    {
+      "key": "war-museum"
+    }
+  ],
+  "EXPERIENCE": [
+    {
+      "key": "cooking"
+    },
+    {
+      "key": "cash-backup"
+    }
+  ]
+};
+
+const GUIDE_ORDER=[
+  "fusion",
+  "bakes",
+  "cong",
+  "marou",
+  "cafe-apartments",
+  "running-bean",
+  "bep-me-in",
+  "late-night-supper",
+  "com-tam-moc",
+  "little-bear",
+  "lune",
+  "man-moi",
+  "omakase-tiger",
+  "pho-sol",
+  "pho-vietnam",
+  "pizza4ps",
+  "quince",
+  "quan-thuy",
+  "garmentory",
+  "dauple",
+  "libe",
+  "nosbyn",
+  "ohquao",
+  "push-push",
+  "saigon-concept",
+  "new-playground",
+  "ha-spa",
+  "moc-huong",
+  "moc-kim",
+  "nha-suga",
+  "tinh-thuc",
+  "fine-arts",
+  "book-street",
+  "notre-dame",
+  "post-office",
+  "pink-church",
+  "war-museum",
+  "cooking",
+  "cash-backup"
+];
+
+const DAY_LINKS={
+  "fusion": [
+    [
+      "Day 1",
+      "day.html?day=1#fusion"
+    ]
+  ],
+  "pho-sol": [
+    [
+      "Day 1",
+      "day.html?day=1#pho-sol"
+    ]
+  ],
+  "post-office": [
+    [
+      "Day 1",
+      "day.html?day=1#post-office"
+    ]
+  ],
+  "notre-dame": [
+    [
+      "Day 1",
+      "day.html?day=1#post-office"
+    ]
+  ],
+  "book-street": [
+    [
+      "Day 1",
+      "day.html?day=1#post-office"
+    ]
+  ],
+  "nha-suga": [
+    [
+      "Day 1",
+      "day.html?day=1#nha-suga"
+    ]
+  ],
+  "tinh-thuc": [
+    [
+      "Day 4",
+      "day.html?day=4#tinh-thuc"
+    ]
+  ],
+  "omakase-tiger": [
+    [
+      "Day 1",
+      "day.html?day=1#omakase-tiger"
+    ]
+  ],
+  "cafe-apartments": [
+    [
+      "Day 1",
+      "day.html?day=1#cafe-apartments"
+    ]
+  ],
+  "com-tam-moc": [
+    [
+      "Day 2",
+      "day.html?day=2#com-tam-moc"
+    ]
+  ],
+  "cooking": [
+    [
+      "Day 2",
+      "day.html?day=2#cooking"
+    ]
+  ],
+  "libe": [
+    [
+      "Day 2",
+      "day.html?day=2#libe"
+    ]
+  ],
+  "dauple": [
+    [
+      "Day 2",
+      "day.html?day=2#libe"
+    ]
+  ],
+  "nosbyn": [
+    [
+      "Day 2",
+      "day.html?day=2#libe"
+    ]
+  ],
+  "new-playground": [
+    [
+      "Day 2",
+      "day.html?day=2#libe"
+    ]
+  ],
+  "moc-kim": [
+    [
+      "Day 2",
+      "day.html?day=2#moc-kim"
+    ]
+  ],
+  "lune": [
+    [
+      "Day 2",
+      "day.html?day=2#lune"
+    ]
+  ],
+  "quan-thuy": [
+    [
+      "Day 3",
+      "day.html?day=3#quan-thuy"
+    ]
+  ],
+  "pink-church": [
+    [
+      "Day 3",
+      "day.html?day=3#pink-church"
+    ]
+  ],
+  "cong": [
+    [
+      "Day 3",
+      "day.html?day=3#pink-church"
+    ]
+  ],
+  "push-push": [
+    [
+      "Day 3",
+      "day.html?day=3#push-push"
+    ]
+  ],
+  "saigon-concept": [
+    [
+      "Day 3",
+      "day.html?day=3#saigon-concept"
+    ]
+  ],
+  "bakes": [
+    [
+      "Day 3",
+      "day.html?day=3#bakes"
+    ]
+  ],
+  "ohquao": [
+    [
+      "Day 3",
+      "day.html?day=3#ohquao"
+    ]
+  ],
+  "moc-huong": [
+    [
+      "Day 3",
+      "day.html?day=3#moc-huong"
+    ]
+  ],
+  "little-bear": [
+    [
+      "Day 3",
+      "day.html?day=3#little-bear"
+    ]
+  ],
+  "marou": [
+    [
+      "Day 3",
+      "day.html?day=3#marou"
+    ],
+    [
+      "Day 5",
+      "day.html?day=5#takashimaya"
+    ]
+  ],
+  "running-bean": [
+    [
+      "Day 4",
+      "day.html?day=4#running-bean"
+    ]
+  ],
+  "war-museum": [
+    [
+      "Day 4",
+      "day.html?day=4#war-museum"
+    ]
+  ],
+  "pizza4ps": [
+    [
+      "Day 4",
+      "day.html?day=4#pizza4ps"
+    ]
+  ],
+  "garmentory": [
+    [
+      "Day 4",
+      "day.html?day=4#garmentory"
+    ]
+  ],
+  "quince": [
+    [
+      "Day 4",
+      "day.html?day=4#quince"
+    ]
+  ],
+  "pho-vietnam": [
+    [
+      "Day 5",
+      "day.html?day=5#pho-vietnam"
+    ]
+  ],
+  "fine-arts": [
+    [
+      "Day 5",
+      "day.html?day=5#fine-arts"
+    ]
+  ],
+  "bep-me-in": [
+    [
+      "Day 5",
+      "day.html?day=5#bep-me-in"
+    ]
+  ],
+  "ha-spa": [
+    [
+      "Day 5",
+      "day.html?day=5#ha-spa"
+    ]
+  ],
+  "man-moi": [
+    [
+      "Day 5",
+      "day.html?day=5#bep-me-in"
+    ]
+  ],
+  "cash-backup": [
+    [
+      "Day 1",
+      "day.html?day=1#cash-backup"
+    ]
+  ],
+  "late-night-supper": [
+    [
+      "Day 1",
+      "day.html?day=1#late-night-supper"
+    ],
+    [
+      "Day 2",
+      "day.html?day=2#late-night-supper"
+    ],
+    [
+      "Day 3",
+      "day.html?day=3#late-night-supper"
+    ],
+    [
+      "Day 4",
+      "day.html?day=4#late-night-supper"
+    ]
+  ]
+};
+
+const FRIENDS={
+  "christal": "🧸 Christal",
+  "crystal": "👓 Crystal",
+  "mero": "✝️ Mero",
+  "vivian": "👟 Vivian"
+};
+
+const BOOKINGS_DATA={
+  "bk-fusion-original": {
+    "id": "bk-fusion-original",
+    "bookingId": "bk-fusion-original",
+    "eventId": "fusion",
+    "day": 1,
+    "dayId": "day1",
+    "status": "confirmed",
+    "date": "2026-10-30",
+    "time": "",
+    "bookingName": "",
+    "bookingCategory": "Accommodation",
+    "category": "Accommodation",
+    "title": "Fusion Original Saigon Centre",
+    "depositPaid": "",
+    "depositAmount": "",
+    "depositCurrency": "",
+    "bookingMethod": "Online booking",
+    "bookingContact": "+84 28 3622 2265",
+    "secondaryContact": "",
+    "bookingUrl": "",
+    "notes": "2 Bedroom Suite · Pay at hotel. Total AUD 1,693; cashback AUD 215. Net is a calculated display value, not stored as source truth.",
+    "totalAmount": "AUD 1,693",
+    "cashbackAmount": "AUD 215",
+    "placeId": "fusion",
+    "paymentStatus": "pay_at_hotel"
+  },
+  "bk-omakase-tiger": {
+    "id": "bk-omakase-tiger",
+    "bookingId": "bk-omakase-tiger",
+    "eventId": "omakase-tiger",
+    "day": 1,
+    "dayId": "day1",
+    "status": "confirmed",
+    "date": "2026-10-30",
+    "time": "17:30",
+    "bookingName": "",
+    "bookingCategory": "Restaurants",
+    "category": "Restaurants",
+    "title": "Omakase Tiger",
+    "depositPaid": "VND 2,000,000",
+    "depositAmount": "2000000",
+    "depositCurrency": "VND",
+    "bookingMethod": "WhatsApp / Zalo and official website",
+    "bookingContact": "+84 93 201 4124",
+    "secondaryContact": "",
+    "bookingUrl": "https://omakasetiger.com/en",
+    "notes": "Booked for 17:30. Deposit paid: 2,000,000 VND.",
+    "paymentStatus": "deposit paid",
+    "placeId": "omakase-tiger"
+  },
+  "bk-lune": {
+    "id": "bk-lune",
+    "bookingId": "bk-lune",
+    "eventId": "lune",
+    "day": 2,
+    "dayId": "day2",
+    "status": "pending",
+    "date": "2026-10-31",
+    "time": "19:00",
+    "bookingName": "",
+    "bookingCategory": "Restaurants",
+    "category": "Restaurants",
+    "title": "LÜNE Restaurant & Bar",
+    "depositPaid": "",
+    "depositAmount": "",
+    "depositCurrency": "",
+    "bookingMethod": "Official online reservation",
+    "bookingContact": "+84 28 7777 2022",
+    "secondaryContact": "",
+    "bookingUrl": "https://www.adrienguenzi.com/reservations",
+    "notes": "Phone: +84 28 7777 2022\nEmail: contact-lune@hdnt.vn\nConfirm dinner reservation for 4 guests.",
+    "placeId": "lune"
+  },
+  "bk-little-bear": {
+    "id": "bk-little-bear",
+    "bookingId": "bk-little-bear",
+    "eventId": "little-bear",
+    "day": 3,
+    "dayId": "day3",
+    "status": "pending",
+    "date": "2026-11-01",
+    "time": "18:30",
+    "bookingName": "",
+    "bookingCategory": "Restaurants",
+    "category": "Restaurants",
+    "title": "Little Bear",
+    "depositPaid": "",
+    "depositAmount": "",
+    "depositCurrency": "",
+    "bookingMethod": "WhatsApp or Zalo",
+    "bookingContact": "+84 862 512 086",
+    "secondaryContact": "",
+    "bookingUrl": "",
+    "notes": "Restaurant number retained from the verified source record.",
+    "placeId": "little-bear"
+  },
+  "bk-pizza4ps": {
+    "id": "bk-pizza4ps",
+    "bookingId": "bk-pizza4ps",
+    "eventId": "pizza4ps",
+    "day": 4,
+    "dayId": "day4",
+    "status": "pending",
+    "date": "2026-11-02",
+    "time": "11:30",
+    "bookingName": "",
+    "bookingCategory": "Restaurants",
+    "category": "Restaurants",
+    "title": "Pizza 4P’s Hai Bà Trưng",
+    "depositPaid": "",
+    "depositAmount": "",
+    "depositCurrency": "",
+    "bookingMethod": "Official TableCheck reservation",
+    "bookingContact": "",
+    "secondaryContact": "",
+    "bookingUrl": "https://www.tablecheck.com/vi/pizza-4ps-hcm-hai-ba-trung/reserve/landing",
+    "notes": "Branch: Hai Bà Trưng. Reserve lunch for 4 guests.",
+    "placeId": "pizza4ps"
+  },
+  "bk-quince": {
+    "id": "bk-quince",
+    "bookingId": "bk-quince",
+    "eventId": "quince",
+    "day": 4,
+    "dayId": "day4",
+    "status": "pending",
+    "date": "2026-11-02",
+    "time": "19:30",
+    "bookingName": "",
+    "bookingCategory": "Restaurants",
+    "category": "Restaurants",
+    "title": "Quince Saigon",
+    "depositPaid": "",
+    "depositAmount": "",
+    "depositCurrency": "",
+    "bookingMethod": "Official Book a Table page",
+    "bookingContact": "+84 28 3821 8661",
+    "secondaryContact": "",
+    "bookingUrl": "https://www.quincesaigon.com/reservations",
+    "notes": "Phone: +84 28 3821 8661\nEmail: eat@quincesaigon.com\nConfirm Monday dinner service.",
+    "placeId": "quince"
+  },
+  "bk-nha-suga": {
+    "id": "bk-nha-suga",
+    "bookingId": "bk-nha-suga",
+    "eventId": "nha-suga",
+    "day": 1,
+    "dayId": "day1",
+    "status": "pending",
+    "date": "2026-10-30",
+    "time": "14:00",
+    "bookingName": "",
+    "bookingCategory": "Spa",
+    "category": "Spa",
+    "title": "Spa Nhà Suga Premium Korea Headspa — Nguyễn Huệ",
+    "depositPaid": "",
+    "depositAmount": "",
+    "depositCurrency": "",
+    "bookingMethod": "WhatsApp / Zalo",
+    "bookingContact": "+84 903 888 369",
+    "secondaryContact": "",
+    "bookingUrl": "",
+    "notes": "Timeline: 14:00–16:30. Address: 8th Floor, 42 Nguyễn Huệ, Bến Nghé, District 1, Ho Chi Minh City\nHours: daily 09:00–20:00\nConfirm treatment duration and arrival time.",
+    "placeId": "nha-suga"
+  },
+  "bk-moc-kim": {
+    "id": "bk-moc-kim",
+    "bookingId": "bk-moc-kim",
+    "eventId": "moc-kim",
+    "day": 2,
+    "dayId": "day2",
+    "status": "pending",
+    "date": "2026-10-31",
+    "time": "13:15",
+    "bookingName": "",
+    "bookingCategory": "Spa",
+    "category": "Spa",
+    "title": "Mộc Kim Spa & Beauty — Bến Thành",
+    "depositPaid": "",
+    "depositAmount": "",
+    "depositCurrency": "",
+    "bookingMethod": "Official website / form and WhatsApp",
+    "bookingContact": "+84 934 193 758",
+    "secondaryContact": "+84 968 459 618",
+    "bookingUrl": "https://duongsinhspa.vn/en/all-services/",
+    "notes": "Timeline: 13:15–15:15. Branch: 143 Lê Thị Hồng Gấm\nWhatsApp: +84 934 193 758\nHotline: +84 968 459 618",
+    "placeId": "moc-kim"
+  },
+  "bk-moc-huong": {
+    "id": "bk-moc-huong",
+    "bookingId": "bk-moc-huong",
+    "eventId": "moc-huong",
+    "day": 3,
+    "dayId": "day3",
+    "status": "pending",
+    "date": "2026-11-01",
+    "time": "15:30",
+    "bookingName": "",
+    "bookingCategory": "Spa",
+    "category": "Spa",
+    "title": "Mộc Hương Wellness — Thảo Điền",
+    "depositPaid": "",
+    "depositAmount": "",
+    "depositCurrency": "",
+    "bookingMethod": "Online booking / Hotline / Zalo / WhatsApp",
+    "bookingContact": "+84 90 975 5877",
+    "secondaryContact": "",
+    "bookingUrl": "https://mochuongwellness.vn/vi/booking/",
+    "notes": "Timeline: 15:30–17:30. Official booking system. Book at least 36 hours ahead.",
+    "placeId": "moc-huong"
+  },
+  "bk-tinh-thuc": {
+    "id": "bk-tinh-thuc",
+    "bookingId": "bk-tinh-thuc",
+    "eventId": "tinh-thuc",
+    "day": 4,
+    "dayId": "day4",
+    "status": "pending",
+    "date": "2026-11-02",
+    "time": "15:15",
+    "bookingName": "",
+    "bookingCategory": "Spa",
+    "category": "Spa",
+    "title": "Tỉnh Thức Spa",
+    "depositPaid": "",
+    "depositAmount": "",
+    "depositCurrency": "",
+    "bookingMethod": "WhatsApp / Zalo / Hotline",
+    "bookingContact": "+84 989 611 854",
+    "secondaryContact": "",
+    "bookingUrl": "https://tinhthucspa.com/",
+    "notes": "Timeline: 15:15–17:00. Confirm Monday appointment and treatment.",
+    "placeId": "tinh-thuc"
+  },
+  "bk-ha-spa": {
+    "id": "bk-ha-spa",
+    "bookingId": "bk-ha-spa",
+    "eventId": "ha-spa",
+    "day": 5,
+    "dayId": "day5",
+    "status": "pending",
+    "date": "2026-11-03",
+    "time": "15:30",
+    "bookingName": "",
+    "bookingCategory": "Spa",
+    "category": "Spa",
+    "title": "Hạ Spa — Tân Bình",
+    "depositPaid": "",
+    "depositAmount": "",
+    "depositCurrency": "",
+    "bookingMethod": "WhatsApp / Hotline / Zalo",
+    "bookingContact": "+84 908 661 683",
+    "secondaryContact": "",
+    "bookingUrl": "",
+    "notes": "Timeline: 15:30–17:30. Confirm timing against airport transfer.",
+    "placeId": "ha-spa"
+  },
+  "bk-cooking": {
+    "id": "bk-cooking",
+    "bookingId": "bk-cooking",
+    "eventId": "cooking",
+    "day": 2,
+    "dayId": "day2",
+    "status": "pending",
+    "date": "2026-10-31",
+    "time": "10:00",
+    "bookingName": "",
+    "bookingCategory": "Activities",
+    "category": "Activities",
+    "title": "Saigon Cooking Class",
+    "depositPaid": "",
+    "depositAmount": "",
+    "depositCurrency": "",
+    "bookingMethod": "Online platform",
+    "bookingContact": "",
+    "secondaryContact": "",
+    "bookingUrl": "",
+    "notes": "Timeline: 10:00–13:00. Time: 10:00–13:00\nAddress: 80/1 Nguyễn Trãi, Bến Thành, Hồ Chí Minh 770000, Vietnam\nOnline platform: Klook / booking platform to confirm.",
+    "placeId": "cooking"
+  },
+  "bk-transfer-in": {
+    "id": "bk-transfer-in",
+    "bookingId": "bk-transfer-in",
+    "eventId": "airport-transfer",
+    "day": 1,
+    "dayId": "day1",
+    "status": "pending",
+    "date": "2026-10-30",
+    "time": "06:00",
+    "bookingName": "",
+    "bookingCategory": "Transport",
+    "category": "Transport",
+    "title": "Airport transfer · Arrival",
+    "depositPaid": "",
+    "depositAmount": "",
+    "depositCurrency": "",
+    "bookingMethod": "Provider already stored",
+    "bookingContact": "",
+    "secondaryContact": "",
+    "bookingUrl": "",
+    "notes": "Arrival Klook transfer is not booked yet. Klook transfer · SGN → Fusion Original.",
+    "standalone": true
+  }
+};
+
+const TRIP_DATA={
+  "checklist": {
+    "title": "✅ Checklist",
+    "body": "<div class='checklist-mini trip-checklist-compact'><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Passport</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> E-Visa</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Travel Insurance</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Credit Card</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> AUD 500 Cash</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> eSIM</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Grab App</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Offline Maps</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Power Bank</label><label class='check-row'><input type='checkbox' data-check onchange='saveChecklist()'> Online Check-in</label><div class='ready-box' id='readyBox'><h2>✈ WE ARE READY</h2><p>Let's Go!</p></div></div>"
+  },
+  "emergency": {
+    "title": "☎️ Emergency",
+    "body": "<div class='fact-grid trip-facts-compact'><div class='fact'><strong>Police</strong><a href='tel:113'>113</a></div><div class='fact'><strong>Fire</strong><a href='tel:114'>114</a></div><div class='fact'><strong>Ambulance</strong><a href='tel:115'>115</a></div><div class='fact'><strong>Hotel</strong><a href='tel:+842836222265'>+84 28 3622 2265</a></div><div class='fact'><strong>Australian Consulate-General</strong><a href='tel:+842835218100'>+84 28 3521 8100</a><br>20/F Vincom Centre, 47 Lý Tự Trọng, D1</div><div class='fact'><strong>24-hour Consular Emergency</strong><a href='tel:+61262613305'>+61 2 6261 3305</a></div><div class='fact'><strong>Nhà Suga Spa</strong><a href='tel:+84935227989'>+84 935 227 989</a></div><div class='fact'><strong>Mộc Hương Wellness</strong><a href='tel:+842837444550'>+84 28 3744 4550</a></div><div class='fact'><strong>Little Bear</strong><a href='tel:+84862512086'>+84 862 512 086</a></div><div class='fact'><strong>Pizza 4P’s Hai Bà Trưng</strong><a href='tel:+842836220500'>+84 28 3622 0500</a></div></div><p class='timestamp'>Local emergency lines may operate mainly in Vietnamese. Contact the hotel or travel insurer when practical.</p>"
+  },
+  "flights": {
+    "title": "✈️ Flights",
+    "body": "<div class='fact-grid trip-facts-compact'><div class='fact'><strong>Outbound · Fri 30 Oct</strong>VietJet VJ082<br>MEL 01:30 → SGN 05:55<br>7kg carry-on · 20kg checked</div><div class='fact'><strong>Return · Tue 3 Nov</strong>Vietnam Airlines VN781<br>SGN 21:10 → MEL 09:25 +1<br>7kg carry-on · 20kg checked</div></div>"
+  },
+  "stay": {
+    "title": "🏨 Stay",
+    "body": "<p><strong>Fusion Original Saigon Centre</strong><br>今次四人行的城市 base。位置連住 Saigon Centre / Takashimaya，落雨、太熱或者夜晚返酒店都方便。</p><div class='hotel-card'><p class='kicker'>Hotel Address</p><p><strong>Fusion Original Saigon Centre</strong><br>65 Đường Lê Lợi<br>Takashimaya Saigon Centre<br>District 1, Ho Chi Minh City, Vietnam</p><div class='guide-next-row'><button class='pill' onclick=\"copyText('Fusion Original Saigon Centre, 65 Đường Lê Lợi, Takashimaya Saigon Centre, District 1, Ho Chi Minh City, Vietnam')\">📋 Copy Address</button></div></div><div class='fact-grid hotel-facts'><div class='fact'><strong>Phone</strong><a href='tel:+842836222265'>+84 28 3622 2265</a></div><div class='fact'><strong>Check-in</strong>2:00 pm – 12:00 am</div><div class='fact'><strong>Check-out</strong>Before 12:00 pm</div><div class='fact'><strong>Room</strong>2 Bedroom Suite</div></div>"
+  }
+};
+
+const TRIP_ORDER=[
+  "checklist",
+  "flights",
+  "stay",
+  "emergency"
+];
+
+const ITINERARY_DATA={
+  "1": {
+    "title": "Day 1 · Saigon Companion",
+    "kicker": "Day 1 · 30 Oct • Friday",
+    "heading": "Hello Saigon",
+    "legend": [
+      "☀️ Morning",
+      "🍜 Midday",
+      "🌙 Evening"
+    ],
+    "items": [
+      {
+        "id": "airport-atm",
+        "time": "09:30–10:00",
+        "title": "💵 Airport ATM 取款",
+        "details": [
+          "Tien Phong Bank LiveBank 取 VND；Wise 卡優先。"
+        ],
+        "route": "🚶 To next stop：完成取款後前往接送集合點。",
+        "map": "https://maps.google.com/?q=Tien+Phong+Bank+LiveBank+Tan+Son+Nhat+Airport",
+        "type": "money",
+        "dayId": "day1",
+        "placeId": "tan-son-nhat-airport",
+        "bookingId": null
+      },
+      {
+        "id": "airport-transfer",
+        "time": "10:00–10:45",
+        "title": "🚐 Airport Transfer → Fusion Original",
+        "details": [
+          "Klook 接送直達酒店，先 drop luggage。"
+        ],
+        "route": "🚶 To next stop：寄放行李後，若機場未能取款，先問酒店 concierge／Takashimaya Information Desk；否則直接去 Phở SOL。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%20Fusion%20Original%20Saigon%20Centre%2C%2065%20L%C3%AA%20L%E1%BB%A3i%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
+        "type": "transport",
+        "dayId": "day1",
+        "placeId": "fusion",
+        "bookingId": "bk-transfer-in"
+      },
+      {
+        "id": "cash-backup",
+        "time": "10:45–11:15",
+        "title": "💵 Cash Backup · Saigon Centre",
+        "details": [
+          "只在機場 ATM 未成功時使用；向酒店 concierge 或 Takashimaya Information Desk 查詢最近的持牌銀行／獲授權外幣兌換櫃位。",
+          "Wise／ATM 優先；不再到金舖換錢。"
+        ],
+        "route": "🚶 To next stop：由酒店／Saigon Centre 步行約 5–10 分鐘去 Phở SOL。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Saigon%20Centre%20Takashimaya%2065%20L%C3%AA%20L%E1%BB%A3i%20Ho%20Chi%20Minh%20City",
+        "type": "money",
+        "dayId": "day1",
+        "placeId": "cash-backup",
+        "bookingId": null
+      },
+      {
+        "id": "pho-sol",
+        "time": "11:15–12:15",
+        "title": "🍜 Phở SOL - Bến Thành",
+        "details": [
+          "酒店附近第一餐；石鍋河粉可 share。"
+        ],
+        "route": "🚕 To next stop：Grab 約 5 分鐘去中央郵局，約 40,000–60,000 VND。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Ph%E1%BB%9F%20SOL%2032%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
+        "type": "meal",
+        "dayId": "day1",
+        "placeId": "pho-sol",
+        "bookingId": null
+      },
+      {
+        "id": "post-office",
+        "time": "12:30–14:00",
+        "title": "🏛 Saigon Central Post Office → Notre-Dame Cathedral → Book Street",
+        "details": [
+          "三個經典點集中在同一區，完成後可先回酒店 check-in 或直接繼續。"
+        ],
+        "route": "🚕 To next stop：Grab 約 5 分鐘去 The Cafe Apartments / Nhà Suga，約 40,000–60,000 VND。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Saigon%20Central%20Post%20Office%20Saigon%20Central%20Post%20Office%2C%202%20C%C3%B4ng%20x%C3%A3%20Paris%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
+        "type": "experience",
+        "dayId": "day1",
+        "placeId": "post-office",
+        "bookingId": null
+      },
+      {
+        "id": "nha-suga",
+        "time": "14:00–16:30",
+        "title": "💆 Spa Nhà Suga Premium Korea Headspa – Nguyễn Huệ · The Cafe Apartments",
+        "details": [
+          "Spa 位於 The Cafe Apartments 內；可先逛 cafe / 小店，再入療程。"
+        ],
+        "route": "🚕 To next stop：Grab 約 15 分鐘去 Omakase Tiger（16:30 完，17:30 開場，預留約 45 分鐘 buffer），約 60,000–90,000 VND。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Spa%20Nh%C3%A0%20Suga%20Premium%20Korea%20Headspa%20%E2%80%93%20Nguy%E1%BB%85n%20Hu%E1%BB%87%208th%20Floor%2C%20The%20Caf%C3%A9%20Apartment%2C%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+        "type": "spa",
+        "dayId": "day1",
+        "placeId": "nha-suga",
+        "bookingId": "bk-nha-suga"
+      },
+      {
+        "id": "omakase-tiger",
+        "time": "17:30",
+        "title": "🍣 Omakase Tiger",
+        "details": [
+          "Booked session: 17:30; availability confirmed directly by the traveller.",
+          "General trading hours: confirm before departure."
+        ],
+        "route": "🚕 To next stop：Grab 約 15–20 分鐘返 Nguyễn Huệ / The Cafe Apartments 夜景。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Omakase%20Tiger%2085%2F9%20Ph%E1%BA%A1m%20Vi%E1%BA%BFt%20Ch%C3%A1nh%2C%20Th%E1%BA%A1nh%20M%E1%BB%B9%20T%C3%A2y%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
+        "type": "meal",
+        "dayId": "day1",
+        "placeId": "omakase-tiger",
+        "bookingId": "bk-omakase-tiger"
+      },
+      {
+        "id": "cafe-apartments",
+        "time": "19:45–20:15",
+        "title": "📸 Nguyễn Huệ Night Walk",
+        "details": [
+          "Optional：The Cafe Apartments 霓虹夜景與步行街合照。"
+        ],
+        "route": "🚶 To next stop：步行約 5 分鐘返回酒店。",
+        "map": "https://www.google.com/maps/search/?api=1&query=The%20Cafe%20Apartments%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+        "type": "experience",
+        "dayId": "day1",
+        "placeId": "cafe-apartments",
+        "bookingId": null
+      },
+      {
+        "id": "return-hotel",
+        "time": "20:15 onwards",
+        "title": "🛌 Return Hotel",
+        "details": [
+          "第一晚重點是 settle in，不拖到太夜。"
+        ],
+        "route": "",
+        "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%20Fusion%20Original%20Saigon%20Centre%2C%2065%20L%C3%AA%20L%E1%BB%A3i%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
+        "type": "rest",
+        "dayId": "day1",
+        "placeId": "fusion",
+        "bookingId": "bk-fusion-original"
+      },
+      {
+        "id": "late-night-supper",
+        "time": "Optional · After dinner",
+        "title": "🌙 Optional Hotel Supper",
+        "details": [
+          "想食鹹：Oanh Cua 蟹料理，可查官方 delivery／GrabFood。",
+          "想食甜：GrabFood 搜 BINGO、Dessert、Chè、Tofu 或 Bingsu，篩選 Open Now。"
+        ],
+        "route": "🏨 Delivery option：送到 Fusion Original lobby；完全 optional。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Oanh%20Cua%20214%2F1B%20Nguy%E1%BB%85n%20Tr%C3%A3i%20Ho%20Chi%20Minh%20City",
+        "type": "optional",
+        "dayId": "day1",
+        "placeId": "late-night-supper",
+        "bookingId": null
+      }
+    ],
+    "dayId": "day1"
+  },
+  "2": {
+    "title": "Day 2 · Saigon Companion",
+    "kicker": "Day 2 · 31 Oct • Saturday",
+    "heading": "Made in Saigon",
+    "legend": [
+      "☀️ Morning",
+      "🍜 Midday",
+      "🌙 Evening"
+    ],
+    "items": [
+      {
+        "id": "com-tam-moc",
+        "time": "08:30–09:30",
+        "title": "🍚 Cơm Tấm Mộc",
+        "details": [
+          "越南豬扒碎飯早餐，份量可 share。"
+        ],
+        "route": "🚕 To next stop：Grab 約 5 分鐘去 Saigon Cooking Class，約 40,000–60,000 VND。",
+        "map": "https://www.google.com/maps/search/?api=1&query=C%C6%A1m%20T%E1%BA%A5m%20M%E1%BB%99c%2085%20L%C3%BD%20T%E1%BB%B1%20Tr%E1%BB%8Dng%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
+        "type": "meal",
+        "dayId": "day2",
+        "placeId": "com-tam-moc",
+        "bookingId": null
+      },
+      {
+        "id": "cooking",
+        "time": "10:00–13:00",
+        "title": "👩🏻‍🍳 Saigon Cooking Class",
+        "details": [
+          "Fixed class at 80/1 Nguyễn Trãi; reconfirm meeting instructions before departure."
+        ],
+        "route": "🚕 To next stop：Grab 約 10–15 分鐘去 Mộc Kim Spa。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Saigon%20Cooking%20Class%2080%2F1%20Nguy%E1%BB%85n%20Tr%C3%A3i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20770000%2C%20Vietnam",
+        "type": "experience",
+        "dayId": "day2",
+        "placeId": "cooking",
+        "bookingId": "bk-cooking"
+      },
+      {
+        "id": "grab-moc-kim",
+        "time": "13:00–13:15",
+        "title": "🚕 Grab → Mộc Kim Spa & Beauty",
+        "details": [
+          "Cooking class 完結後直接去 Spa。"
+        ],
+        "route": "🚶 To next stop：抵達後直接入 Spa。",
+        "map": "https://www.google.com/maps/search/?api=1&query=M%E1%BB%99c%20Kim%20Spa%20%26%20Beauty%20143%20L%C3%AA%20Th%E1%BB%8B%20H%E1%BB%93ng%20G%E1%BA%A5m%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+        "type": "transport",
+        "dayId": "day2",
+        "placeId": "moc-kim",
+        "bookingId": "bk-moc-kim"
+      },
+      {
+        "id": "moc-kim",
+        "time": "13:15–15:15",
+        "title": "💆 Mộc Kim Spa & Beauty",
+        "details": [
+          "草本洗頭 / head spa，做完剛好整理狀態。"
+        ],
+        "route": "🚕 To next stop：Grab 約 10 分鐘去 Nguyễn Trãi shopping 起點。",
+        "map": "https://www.google.com/maps/search/?api=1&query=M%E1%BB%99c%20Kim%20Spa%20%26%20Beauty%20143%20L%C3%AA%20Th%E1%BB%8B%20H%E1%BB%93ng%20G%E1%BA%A5m%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+        "type": "spa",
+        "dayId": "day2",
+        "placeId": "moc-kim",
+        "bookingId": "bk-moc-kim"
+      },
+      {
+        "id": "libe",
+        "time": "15:30–18:30",
+        "title": "🛍 Nguyễn Trãi Shopping Route（由 Mộc Kim Spa 出發）",
+        "details": [
+          "由 Mộc Kim Spa 門口出發，步行／Grab 前往 LIBÉ / Dauple by Ka’s / NOSBYN / The New Playground 等；核心店優先。"
+        ],
+        "route": "🚕 To next stop：Vincom / The New Playground → LÚNE 約 5 分鐘。",
+        "map": "https://www.google.com/maps/search/?api=1&query=M%E1%BB%99c%20Kim%20Spa%20%26%20Beauty%20143%20L%C3%AA%20Th%E1%BB%8B%20H%E1%BB%93ng%20G%E1%BA%A5m%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+        "type": "shoppingWindow",
+        "dayId": "day2",
+        "placeId": "moc-kim",
+        "bookingId": "bk-moc-kim",
+        "guideIds": [
+          "libe",
+          "dauple",
+          "nosbyn"
+        ],
+        "showShoppingDirectory": true
+      },
+      {
+        "id": "grab-lune",
+        "time": "18:45–19:00",
+        "title": "🚕 Grab → LÚNE Restaurant & Bar",
+        "details": [
+          "從 D1 shopping / Vincom 轉場最簡單。"
+        ],
+        "route": "🚶 To next stop：抵達餐廳。",
+        "map": "https://www.google.com/maps/search/?api=1&query=L%C3%9ANE%20Restaurant%20%26%20Bar%2017%2F14%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20S%C3%A0i%20G%C3%B2n%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
+        "type": "transport",
+        "dayId": "day2",
+        "placeId": "lune",
+        "bookingId": "bk-lune"
+      },
+      {
+        "id": "lune",
+        "time": "19:00–21:00",
+        "title": "🍷 LÚNE Restaurant & Bar",
+        "details": [
+          "Michelin selected contemporary French；預算約 800,000–1,500,000 VND pp。"
+        ],
+        "route": "🚕 To next stop：晚餐後 Grab 約 5 分鐘返酒店。",
+        "map": "https://www.google.com/maps/search/?api=1&query=L%C3%9ANE%20Restaurant%20%26%20Bar%2017%2F14%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20S%C3%A0i%20G%C3%B2n%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
+        "type": "meal",
+        "dayId": "day2",
+        "placeId": "lune",
+        "bookingId": "bk-lune"
+      },
+      {
+        "id": "late-night-supper-day2",
+        "time": "Optional · After dinner",
+        "title": "🌙 Optional Hotel Supper",
+        "details": [
+          "想食鹹：Oanh Cua 蟹料理，可查官方 delivery／GrabFood。",
+          "想食甜：GrabFood 搜 BINGO、Dessert、Chè、Tofu 或 Bingsu，篩選 Open Now。"
+        ],
+        "route": "🏨 Delivery option：送到 Fusion Original lobby；完全 optional。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Oanh%20Cua%20214%2F1B%20Nguy%E1%BB%85n%20Tr%C3%A3i%20Ho%20Chi%20Minh%20City",
+        "type": "optional",
+        "dayId": "day2",
+        "placeId": "late-night-supper",
+        "bookingId": null
+      }
+    ],
+    "dayId": "day2"
+  },
+  "3": {
+    "title": "Day 3 · Saigon Companion",
+    "kicker": "Day 3 · 1 Nov • Sunday",
+    "heading": "A Slower Side",
+    "legend": [
+      "☀️ Morning",
+      "🍜 Midday",
+      "🌙 Evening"
+    ],
+    "items": [
+      {
+        "id": "quan-thuy",
+        "time": "09:00–10:00",
+        "title": "🍜 Quán Thuý 94",
+        "details": [
+          "蟹肉粉絲早餐，之後步行約 5 分鐘到粉紅教堂。"
+        ],
+        "route": "🚶 To next stop：步行約 5 分鐘去粉紅教堂。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Qu%C3%A1n%20Thu%C3%BD%2094%2084%20%C4%90inh%20Ti%C3%AAn%20Ho%C3%A0ng%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
+        "type": "meal",
+        "dayId": "day3",
+        "placeId": "quan-thuy",
+        "bookingId": null
+      },
+      {
+        "id": "pink-church",
+        "time": "10:00–10:45",
+        "title": "⛪ Pink Church + Cộng Cà Phê",
+        "details": [
+          "快閃打卡；可在 Cộng Cà Phê 高層坐一坐。"
+        ],
+        "route": "🚶 To next stop：Push Push 如有合適實體店可順路；否則直接叫 Grab。",
+        "map": "https://www.google.com/maps/search/?api=1&query=T%C3%A2n%20%C4%90%E1%BB%8Bnh%20Church%20Tan%20Dinh%20Church%2C%20289%20Hai%20B%C3%A0%20Tr%C6%B0ng%2C%20Ward%208%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
+        "type": "experience",
+        "dayId": "day3",
+        "placeId": "pink-church",
+        "bookingId": null
+      },
+      {
+        "id": "push-push",
+        "time": "10:45–11:30",
+        "title": "👗 Push Push Official（Optional）",
+        "details": [
+          "年輕 streetwear；出發前再確認實體店地址。"
+        ],
+        "route": "🚕 To next stop：Grab 約 15 分鐘跨橋去 Thảo Điền。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Push%20Push%20Official%2020%20Nguy%E1%BB%85n%20V%C4%83n%20Nguy%E1%BB%85n%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
+        "type": "shoppingWindow",
+        "dayId": "day3",
+        "placeId": "push-push",
+        "bookingId": null
+      },
+      {
+        "id": "grab-thao-dien",
+        "time": "10:45–11:30",
+        "title": "🚕 Grab → Thảo Điền",
+        "details": [
+          "跨橋到草田區，開始 slower neighbourhood day。"
+        ],
+        "route": "🚶 To next stop：由 Saigon Concept 開始步行。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Saigon%20Concept%2014%20Tr%E1%BA%A7n%20Ng%E1%BB%8Dc%20Di%E1%BB%87n%2C%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+        "type": "transport",
+        "dayId": "day3",
+        "placeId": "saigon-concept",
+        "bookingId": null
+      },
+      {
+        "id": "saigon-concept",
+        "time": "11:45–13:00",
+        "title": "🛍 Lifestyle Walk",
+        "details": [
+          "Saigon Concept → In the Mood → Soo Kafe 外帶蛋撻 → YouOn Boutique。"
+        ],
+        "route": "🚶 To next stop：步行去 Bakes / The Dreamers 下午茶。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Saigon%20Concept%2014%20Tr%E1%BA%A7n%20Ng%E1%BB%8Dc%20Di%E1%BB%87n%2C%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+        "type": "shoppingWindow",
+        "dayId": "day3",
+        "placeId": "saigon-concept",
+        "bookingId": null,
+        "guideIds": [
+          "saigon-concept",
+          "ohquao"
+        ],
+        "showShoppingDirectory": true
+      },
+      {
+        "id": "bakes",
+        "time": "13:00–14:00",
+        "title": "☕ Bakes Thảo Điền · Afternoon Tea",
+        "details": [
+          "Bakes 或 The Dreamers；食唔食、食幾多自己 buffer，重點是坐低休息。"
+        ],
+        "route": "🚶 To next stop：步行去 OHQUAO Living。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Bakes%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2016%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20An%20Kh%C3%A1nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
+        "type": "meal",
+        "dayId": "day3",
+        "placeId": "bakes",
+        "bookingId": null
+      },
+      {
+        "id": "ohquao",
+        "time": "14:30–15:00",
+        "title": "🛍 OHQUAO Living",
+        "details": [
+          "藝術家明信片、香氛、手工藝品；放 Spa 前，趁仍有精神慢慢睇。"
+        ],
+        "route": "🚕 To next stop：前往 Mộc Hương Wellness。",
+        "map": "https://www.google.com/maps/search/?api=1&query=OHQUAO%2019%20%C4%90%C6%B0%E1%BB%9Dng%20S%E1%BB%91%2038%2C%20P.%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Qu%E1%BA%ADn%202%2C%20TP.%20H%E1%BB%93%20Ch%C3%AD%20Minh",
+        "type": "shoppingWindow",
+        "dayId": "day3",
+        "placeId": "ohquao",
+        "bookingId": null
+      },
+      {
+        "id": "moc-huong",
+        "time": "15:30–17:30",
+        "title": "💆 Mộc Hương Wellness",
+        "details": [
+          "白色法式別墅、蒸氣房、草本熱石療程。"
+        ],
+        "route": "🚶 To next stop：Spa 後可步行約 2–3 分鐘去 Louh × Alouane。",
+        "map": "https://www.google.com/maps/search/?api=1&query=M%E1%BB%99c%20H%C6%B0%C6%A1ng%20Wellness%2061%20Xu%C3%A2n%20Th%E1%BB%A7y%2C%20Ph%C6%B0%E1%BB%9Dng%20An%20Kh%C3%A1nh%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+        "type": "spa",
+        "dayId": "day3",
+        "placeId": "moc-huong",
+        "bookingId": "bk-moc-huong"
+      },
+      {
+        "id": "louh",
+        "time": "17:30–18:00",
+        "title": "🛍 LOUH Saigon（地址待核實）",
+        "details": [
+          "亞麻／棉質女裝與家居服，Spa 後慢慢逛。",
+          "⚠️ 未能核實實體門市地址，出發前請先向品牌 Instagram（@louh_saigon）確認是否可到訪。"
+        ],
+        "route": "🚕 To next stop：Grab 約 3 分鐘去 Little Bear（實際車程視乎確認後的地點）。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Louh%20Saigon%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%20Ho%20Chi%20Minh%20City",
+        "type": "shoppingWindow",
+        "dayId": "day3",
+        "placeId": "louh",
+        "bookingId": null
+      },
+      {
+        "id": "little-bear",
+        "time": "18:30–20:30",
+        "title": "🍷 Little Bear",
+        "details": [
+          "Creative Vietnamese；Michelin Guide 入選。"
+        ],
+        "route": "🚕 To next stop：Grab 約 15 分鐘返酒店，約 80,000–120,000 VND。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Little%20Bear%2036%20Nguy%E1%BB%85n%20B%C3%A1%20Hu%C3%A2n%2C%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+        "type": "meal",
+        "dayId": "day3",
+        "placeId": "little-bear",
+        "bookingId": "bk-little-bear"
+      },
+      {
+        "id": "marou",
+        "time": "21:00",
+        "title": "🍫 Maison Marou @ Fusion Original",
+        "details": [
+          "返回酒店後可飲一杯熱朱古力。"
+        ],
+        "route": "",
+        "map": "https://www.google.com/maps/search/?api=1&query=Maison%20Marou%20Level%20B2%2C%20Saigon%20Centre%20%E2%80%93%20Takashimaya%2C%2065%20L%C3%AA%20L%E1%BB%A3i%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+        "type": "meal",
+        "dayId": "day3",
+        "placeId": "marou",
+        "bookingId": null
+      },
+      {
+        "id": "late-night-supper-day3",
+        "time": "Optional · After dinner",
+        "title": "🌙 Optional Hotel Supper",
+        "details": [
+          "想食鹹：Oanh Cua 蟹料理，可查官方 delivery／GrabFood。",
+          "想食甜：GrabFood 搜 BINGO、Dessert、Chè、Tofu 或 Bingsu，篩選 Open Now。"
+        ],
+        "route": "🏨 Delivery option：送到 Fusion Original lobby；完全 optional。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Oanh%20Cua%20214%2F1B%20Nguy%E1%BB%85n%20Tr%C3%A3i%20Ho%20Chi%20Minh%20City",
+        "type": "optional",
+        "dayId": "day3",
+        "placeId": "late-night-supper",
+        "bookingId": null
+      }
+    ],
+    "dayId": "day3"
+  },
+  "4": {
+    "title": "Day 4 · Saigon Companion",
+    "kicker": "Day 4 · 2 Nov • Monday",
+    "heading": "City Contrast",
+    "legend": [
+      "☀️ Morning",
+      "🍜 Midday",
+      "🌙 Evening"
+    ],
+    "items": [
+      {
+        "id": "running-bean",
+        "time": "08:30–09:30",
+        "title": "☕ The Running Bean",
+        "details": [
+          "晨間咖啡，為博物館行程留精神。"
+        ],
+        "route": "🚕 To next stop：Grab 約 8–10 分鐘去 War Remnants Museum。",
+        "map": "https://www.google.com/maps/search/?api=1&query=The%20Running%20Bean%20115%20H%E1%BB%93%20T%C3%B9ng%20M%E1%BA%ADu%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+        "type": "meal",
+        "dayId": "day4",
+        "placeId": "running-bean",
+        "bookingId": null
+      },
+      {
+        "id": "war-museum",
+        "time": "09:30–11:30",
+        "title": "🏛 War Remnants Museum",
+        "details": [
+          "上午參觀，避開午後疲倦。"
+        ],
+        "route": "🚕 To next stop：Grab 約 8 分鐘去 Pizza 4P’s Hai Bà Trưng。",
+        "map": "https://www.google.com/maps/search/?api=1&query=War%20Remnants%20Museum%20War%20Remnants%20Museum%2C%2028%20V%C3%B5%20V%C4%83n%20T%E1%BA%A7n%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
+        "type": "experience",
+        "dayId": "day4",
+        "placeId": "war-museum",
+        "bookingId": null
+      },
+      {
+        "id": "pizza4ps",
+        "time": "11:30–13:00",
+        "title": "🍕 Pizza 4P’s Hai Bà Trưng",
+        "details": [
+          "食完向 Phú Nhuận 方向，動線順。"
+        ],
+        "route": "🚕 To next stop：Grab 約 15 分鐘去 11 Garmentory。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%E2%80%99s%20Hai%20B%C3%A0%20Tr%C6%B0ng%20151B%20Hai%20B%C3%A0%20Tr%C6%B0ng%2C%20V%C3%B5%20Th%E1%BB%8B%20S%C3%A1u%20Ward%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
+        "type": "meal",
+        "dayId": "day4",
+        "placeId": "pizza4ps",
+        "bookingId": "bk-pizza4ps"
+      },
+      {
+        "id": "garmentory",
+        "time": "13:30–15:15",
+        "title": "🧥 11 Garmentory",
+        "details": [
+          "117B Nguyễn Đình Chính, Phường Cầu Kiệu; 10:00–21:30 daily."
+        ],
+        "route": "🚶 To next stop：沿 Trần Quang Diệu 步行去 Tỉnh Thức Spa。",
+        "map": "https://www.google.com/maps/search/?api=1&query=11%20Garmentory%20117B%20Nguy%E1%BB%85n%20%C4%90%C3%ACnh%20Ch%C3%ADnh%2C%20Ph%C6%B0%E1%BB%9Dng%20C%E1%BA%A7u%20Ki%E1%BB%87u%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+        "type": "shoppingWindow",
+        "dayId": "day4",
+        "placeId": "garmentory",
+        "bookingId": null,
+        "showShoppingDirectory": true
+      },
+      {
+        "id": "tinh-thuc",
+        "time": "15:15–17:00",
+        "title": "💆 Tỉnh Thức Spa",
+        "details": [
+          "Scheduled foot massage: 15:15–17:00.",
+          "Confirm regular Monday hours and the appointment before departure."
+        ],
+        "route": "🚶 To next stop：按摩後沿 Trần Quang Diệu 開始第二輪 shopping / 咖啡 buffer。",
+        "map": "https://www.google.com/maps/search/?api=1&query=T%E1%BB%89nh%20Th%E1%BB%A9c%20Spa%20118%2F54%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%2C%20Ph%C6%B0%E1%BB%9Dng%20Nhi%C3%AAu%20L%E1%BB%99c%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+        "type": "spa",
+        "dayId": "day4",
+        "placeId": "tinh-thuc",
+        "bookingId": "bk-tinh-thuc"
+      },
+      {
+        "id": "shopping-round2",
+        "time": "17:00–19:00",
+        "title": "🛍 Trần Quang Diệu Shopping · 第二輪 + 咖啡歇腳",
+        "details": [
+          "Dalla Saigon → RUBIES → Lane Cì；三間店同一條街，按體力與時間取捨。"
+        ],
+        "route": "🚕 To next stop：19:00 叫 Grab 去 District 1，預留 30 分鐘下班車程。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Dalla%20Saigon%2064%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%20Ph%C6%B0%E1%BB%9Dng%2014%20Qu%E1%BA%ADn%203%20H%E1%BB%93%20Ch%C3%AD%20Minh",
+        "type": "shoppingWindow",
+        "dayId": "day4",
+        "placeId": "dalla-saigon",
+        "bookingId": null,
+        "guideIds": [
+          "dalla-saigon",
+          "rubies",
+          "lane-ci"
+        ],
+        "showShoppingDirectory": true
+      },
+      {
+        "id": "grab-quince",
+        "time": "19:00–19:30",
+        "title": "🚕 Grab → Quince Saigon",
+        "details": [
+          "下班尖峰時間，預留 30 分鐘車程去 Quince。"
+        ],
+        "route": "🚶 To next stop：抵達 Quince。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Quince%20Saigon%2037bis%20K%C3%BD%20Con%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
+        "type": "transport",
+        "dayId": "day4",
+        "placeId": "quince",
+        "bookingId": "bk-quince"
+      },
+      {
+        "id": "quince",
+        "time": "19:30–21:30",
+        "title": "🔥 Quince Saigon",
+        "details": [
+          "Wood-fired contemporary European；Dinner category $$$。"
+        ],
+        "route": "🚕 To next stop：如有精神，Grab 約 5 分鐘去 Social Club Rooftop。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Quince%20Saigon%2037bis%20K%C3%BD%20Con%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
+        "type": "meal",
+        "dayId": "day4",
+        "placeId": "quince",
+        "bookingId": "bk-quince"
+      },
+      {
+        "id": "social-club",
+        "time": "22:15 onwards",
+        "title": "🥂 Social Club Rooftop（Optional）",
+        "details": [
+          "視體力決定，不作硬性安排。"
+        ],
+        "route": "🚕 To next stop：完成後 Grab 返回酒店。",
+        "map": "https://maps.google.com/?q=Social+Club+Rooftop+Saigon",
+        "type": "experience",
+        "dayId": "day4",
+        "placeId": "social-club",
+        "bookingId": null
+      },
+      {
+        "id": "late-night-supper-day4",
+        "time": "Optional · After dinner",
+        "title": "🌙 Optional Hotel Supper",
+        "details": [
+          "想食鹹：Oanh Cua 蟹料理，可查官方 delivery／GrabFood。",
+          "想食甜：GrabFood 搜 BINGO、Dessert、Chè、Tofu 或 Bingsu，篩選 Open Now。"
+        ],
+        "route": "🏨 Delivery option：送到 Fusion Original lobby；完全 optional。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Oanh%20Cua%20214%2F1B%20Nguy%E1%BB%85n%20Tr%C3%A3i%20Ho%20Chi%20Minh%20City",
+        "type": "optional",
+        "dayId": "day4",
+        "placeId": "late-night-supper",
+        "bookingId": null
+      }
+    ],
+    "dayId": "day4"
+  },
+  "5": {
+    "title": "Day 5 · Saigon Companion",
+    "kicker": "Day 5 · 3 Nov • Tuesday",
+    "heading": "One Last Look",
+    "legend": [
+      "☀️ Morning",
+      "🍜 Midday",
+      "🌙 Evening"
+    ],
+    "items": [
+      {
+        "id": "pho-vietnam",
+        "time": "09:30–10:30",
+        "title": "🍜 Phở Việt Nam Bến Thành",
+        "details": [
+          "最後一碗石鍋河粉，距酒店步行或 Grab 3–5 分鐘。"
+        ],
+        "route": "🚶 To next stop：步行約 4 分鐘去 Museum of Fine Arts。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Ph%E1%BB%9F%20Vi%E1%BB%87t%20Nam%20B%E1%BA%BFn%20Th%C3%A0nh%2014%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
+        "type": "meal",
+        "dayId": "day5",
+        "placeId": "pho-vietnam",
+        "bookingId": null
+      },
+      {
+        "id": "fine-arts",
+        "time": "10:30–11:45",
+        "title": "🏛 Museum of Fine Arts",
+        "details": [
+          "復古人文街拍，彩色玻璃與老升降機。"
+        ],
+        "route": "🚕 To next stop：Grab 約 4 分鐘去 Bếp Mẹ Ỉn。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Fine%20Arts%20Museum%20Ho%20Chi%20Minh%20City%20Museum%20of%20Fine%20Arts%2C%2097A%20Ph%C3%B3%20%C4%90%E1%BB%A9c%20Ch%C3%ADnh%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
+        "type": "experience",
+        "dayId": "day5",
+        "placeId": "fine-arts",
+        "bookingId": null
+      },
+      {
+        "id": "bep-me-in",
+        "time": "11:45–13:00",
+        "title": "🥞 Bếp Mẹ Ỉn",
+        "details": [
+          "Michelin Bib Gourmand；黃金煎餅、椰子炒飯與越式拼盤。",
+          "🥖 Optional add-on：隔籬 Bánh Mì Mẹ Ỉn；可問店員能否送法包過來一齊 share。"
+        ],
+        "route": "🚕 To next stop：Grab 約 3 分鐘去 Takashimaya。",
+        "map": "https://www.google.com/maps/search/?api=1&query=B%E1%BA%BFp%20M%E1%BA%B9%20%E1%BB%88n%20136%2F9%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
+        "type": "meal",
+        "dayId": "day5",
+        "placeId": "bep-me-in",
+        "bookingId": null
+      },
+      {
+        "id": "takashimaya",
+        "time": "13:00–14:15",
+        "title": "🛍 Takashimaya + Maison Marou",
+        "details": [
+          "最後手信時間：朱古力、咖啡、茶葉與乾果。"
+        ],
+        "route": "🚶 To next stop：回 Fusion Original 提行李。",
+        "map": "https://maps.google.com/?q=Takashimaya+Saigon",
+        "type": "shoppingWindow",
+        "dayId": "day5",
+        "placeId": "takashimaya",
+        "bookingId": null
+      },
+      {
+        "id": "hotel-luggage",
+        "time": "14:15–14:45",
+        "title": "🧳 Return Hotel / Luggage",
+        "details": [
+          "回 Fusion Original 提取寄存行李。"
+        ],
+        "route": "🚕 To next stop：14:45 出發，Grab 約 20–25 分鐘去 Hạ Spa。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%20Fusion%20Original%20Saigon%20Centre%2C%2065%20L%C3%AA%20L%E1%BB%A3i%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
+        "type": "buffer",
+        "dayId": "day5",
+        "placeId": "fusion",
+        "bookingId": null
+      },
+      {
+        "id": "grab-ha-spa",
+        "time": "14:45–15:30",
+        "title": "🚕 Grab → Hạ Spa",
+        "details": [
+          "提早離開 D1，避開黃昏塞車。"
+        ],
+        "route": "🚶 To next stop：抵達後直接入療程。",
+        "map": "https://www.google.com/maps/search/?api=1&query=H%E1%BA%A1%20Spa%20334%20Nguy%E1%BB%85n%20Tr%E1%BB%8Dng%20Tuy%E1%BB%83n%2C%20Ward%202%2C%20T%C3%A2n%20B%C3%ACnh%20District%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
+        "type": "transport",
+        "dayId": "day5",
+        "placeId": "ha-spa",
+        "bookingId": "bk-ha-spa"
+      },
+      {
+        "id": "ha-spa",
+        "time": "15:30–17:30",
+        "title": "💆 Hạ Spa",
+        "details": [
+          "草本洗頭 + 全身熱石按摩；近機場。"
+        ],
+        "route": "🚕 To next stop：Grab 約 2 分鐘去新山一機場國際航廈。",
+        "map": "https://www.google.com/maps/search/?api=1&query=H%E1%BA%A1%20Spa%20334%20Nguy%E1%BB%85n%20Tr%E1%BB%8Dng%20Tuy%E1%BB%83n%2C%20Ward%202%2C%20T%C3%A2n%20B%C3%ACnh%20District%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
+        "type": "spa",
+        "dayId": "day5",
+        "placeId": "ha-spa",
+        "bookingId": "bk-ha-spa"
+      },
+      {
+        "id": "airport-transfer-final",
+        "time": "17:45–18:00",
+        "title": "🚕 Hạ Spa → Airport",
+        "details": [
+          "前往新山一國際機場。"
+        ],
+        "route": "🚶 To next stop：國際線 Check-in 櫃檯。",
+        "map": "https://maps.google.com/?q=Tan+Son+Nhat+International+Airport",
+        "type": "transport",
+        "dayId": "day5",
+        "placeId": "tan-son-nhat-airport",
+        "bookingId": null
+      },
+      {
+        "id": "airport",
+        "time": "18:00–21:10",
+        "title": "✈️ Check-in / Duty Free / Boarding",
+        "details": [
+          "預留 3 小時處理 check-in、過關與登機。"
+        ],
+        "route": "",
+        "map": "",
+        "type": "transport",
+        "dayId": "day5",
+        "placeId": "tan-son-nhat-airport",
+        "bookingId": null
+      }
+    ],
+    "dayId": "day5"
+  }
+};
+
+globalThis.TRAVEL_DATASETS=Object.freeze({PLACES,CATEGORIES,GUIDE_ORDER,DAY_LINKS,FRIENDS,BOOKINGS_DATA,TRIP_DATA,TRIP_ORDER,ITINERARY_DATA});
+if(globalThis.TravelEngineIntegrity){globalThis.TRAVEL_ENGINE_ACCEPTANCE=globalThis.TravelEngineIntegrity.acceptTripData(globalThis.TRAVEL_DATASETS,globalThis.TRIP_CONFIG||{});}
+(function computeMasterItineraryRevision(){function hashString(input){let h1=0xdeadbeef^input.length,h2=0x41c6ce57^input.length;for(let i=0;i<input.length;i++){const ch=input.charCodeAt(i);h1=Math.imul(h1^ch,2654435761);h2=Math.imul(h2^ch,1597334677);}h1=Math.imul(h1^(h1>>>16),2246822507);h1^=Math.imul(h2^(h2>>>13),3266489909);h2=Math.imul(h2^(h2>>>16),2246822507);h2^=Math.imul(h1^(h1>>>13),3266489909);return(4294967296*(2097151&h2)+(h1>>>0)).toString(16);}try{globalThis.MASTER_ITINERARY_REVISION=hashString(JSON.stringify(ITINERARY_DATA));}catch(error){globalThis.MASTER_ITINERARY_REVISION=null;}})();
+if(typeof TRIP_SYNC!=='undefined'&&typeof TRIP_SYNC.hydrateStaticData==='function'){TRIP_SYNC.hydrateStaticData({PLACES,CATEGORIES,GUIDE_ORDER,DAY_LINKS,FRIENDS,BOOKINGS_DATA,TRIP_DATA,TRIP_ORDER,ITINERARY_DATA});}

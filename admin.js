@@ -17,10 +17,10 @@
   }
   const ADMIN_USER=ADMIN_CONFIG.user;
   const ADMIN_PIN=ADMIN_CONFIG.pin;
-  const SESSION_KEY=STORAGE_CONFIG.sessionKeys.adminUnlocked;
+  const SESSION_KEY='travel_engine_admin_unlocked_v1';
   const state={mode:false,dirty:false,draft:null};
 
-  function isAdminUser(){ return getFriend()===ADMIN_USER; }
+  function isAdminUser(){ return true; } // Studio access is PIN-based and independent of selected family.
   function isUnlocked(){ return sessionStorage.getItem(SESSION_KEY)==='1'; }
   function lockAdminSession(){ sessionStorage.removeItem(SESSION_KEY); }
   function scrollTripStudioToBottom(){
@@ -42,6 +42,8 @@
       modal.classList.remove('studio-view');
       modal.classList.remove('show');
     }
+    const selector=document.getElementById('tripStudioSelectorToggle');
+    if(selector) selector.hidden=false;
   }
   function exitTripStudioMode(){
     const disabled=window.setAdminMode(false);
@@ -50,12 +52,13 @@
     return true;
   }
   function openTripStudioPanel(){
-    if(!isAdminUser()){ alert(ADMIN_CONFIG.studioMessage||('Trip Studio is available to '+ADMIN_CONFIG.displayName+' only.')); return false; }
     if(typeof renderFriendChoices==='function') renderFriendChoices();
     const modal=document.getElementById('mamaModal');
     const studio=document.getElementById('adminModeControl');
     if(!modal||!studio) return false;
     studio.hidden=false;
+    const selector=document.getElementById('tripStudioSelectorToggle');
+    if(selector) selector.hidden=true;
     modal.classList.add('studio-view');
     modal.classList.add('show');
     scrollTripStudioToBottom();
@@ -157,9 +160,9 @@
       selectorCard.setAttribute('aria-pressed',String(active));
       selectorCard.setAttribute('aria-label',active?'Open Trip Studio':'Open Studio Mode');
       const status=selectorCard.querySelector('.trip-studio-selector-status');
-      if(status) status.textContent=active?'Studio active · Open workspace':'PIN protected · '+ADMIN_CONFIG.displayName+' only';
-      const arrow=selectorCard.querySelector('.trip-studio-selector-arrow');
-      if(arrow) arrow.textContent='›';
+      if(status) status.textContent=active?'Studio active · Tap to reopen Trip Studio':'PIN protected · Enter PIN to access';
+      const studio=document.getElementById('adminModeControl');
+      selectorCard.hidden=!!(active && studio && !studio.hidden);
     }
     const banner=document.getElementById('adminModeBanner');
     if(banner) banner.hidden=!state.mode;
@@ -190,7 +193,7 @@
       selectorToggle.setAttribute('tabindex','0');
       selectorToggle.setAttribute('aria-label','Open Studio Mode');
       selectorToggle.setAttribute('aria-pressed','false');
-      selectorToggle.innerHTML=`<span class="trip-studio-selector-copy"><strong>⚙ Studio Mode</strong><small>Editing, Complete Trip, Export Centre and trip controls</small><em class="trip-studio-selector-status">PIN protected · ${ADMIN_CONFIG.displayName} only</em></span><span class="trip-studio-selector-arrow" aria-hidden="true">›</span>`;
+      selectorToggle.innerHTML=`<span class="trip-studio-selector-copy"><strong>⚙ Studio Mode</strong><small>Editing, Complete Trip, Export Centre and trip controls</small><em class="trip-studio-selector-status">PIN protected · Enter PIN to access</em></span>`;
       familyList.insertAdjacentElement('afterend',selectorToggle);
       const activateStudio=()=>{
         if(state.mode && isUnlocked() && isAdminUser()){
@@ -233,7 +236,7 @@
             <span><strong>Reset Trip Data</strong><small>Restore the original trip and remove all saved progress.</small></span><span aria-hidden="true">↺</span>
           </button>
           <button id="exitTripStudioButton" class="exit-trip-studio-btn" type="button">
-            <span><strong>Exit Studio Mode</strong><small>Return to normal traveller mode and hide all editing controls.</small></span><span aria-hidden="true">Leave</span>
+            <span><strong>Leave Studio Mode</strong><small>Return to traveller mode. The Studio PIN will be required next time.</small></span><span aria-hidden="true">Leave</span>
           </button>
         </div>`;
       familySheet.appendChild(block);
@@ -273,11 +276,6 @@
 
   window.setAdminMode=function(enabled){
     enabled=!!enabled;
-    if(enabled && !isAdminUser()){
-      alert(ADMIN_CONFIG.studioMessage||('Trip Studio is available to '+ADMIN_CONFIG.displayName+' only.'));
-      updateUI();
-      return false;
-    }
     if(enabled && !isUnlocked() && !requestUnlock()){
       updateUI();
       return false;
@@ -309,9 +307,9 @@
   };
 
   window.getAdminDraft=function(){ return JSON.parse(JSON.stringify(ensureDraft())); };
-  window.isAdminMode=function(){ return state.mode && isUnlocked() && isAdminUser(); };
-  window.isAdminUnlocked=function(){ return isUnlocked() && isAdminUser(); };
-  window.getAdminPublishCredential=function(){ return isUnlocked() && isAdminUser() ? ADMIN_PIN : null; };
+  window.isAdminMode=function(){ return state.mode && isUnlocked(); };
+  window.isAdminUnlocked=function(){ return isUnlocked(); };
+  window.getAdminPublishCredential=function(){ return isUnlocked() ? ADMIN_PIN : null; };
   window.hasUnsavedAdminChanges=function(){ return state.dirty; };
 
   window.saveAdminChanges=function(){
@@ -348,7 +346,7 @@
     if(modal) modal.classList.remove('studio-view');
     originalOpenFriendModal();
     updateUI();
-    if(state.mode && isAdminUser()){
+    if(state.mode){
       const sheet=modal&&modal.querySelector('.guide-sheet');
       if(sheet) window.requestAnimationFrame(()=>{ sheet.scrollTop=sheet.scrollHeight; });
     }
@@ -358,7 +356,6 @@
   window.setFriend=function(key){
     if(state.mode&&state.dirty&&!confirmExit()) return;
     if(state.mode&&state.dirty) window.discardAdminChanges();
-    if(key!==ADMIN_USER){ state.mode=false; setStoredMode(false); lockAdminSession(); }
     originalSetFriend(key);
     state.mode=readMode();
     updateUI();

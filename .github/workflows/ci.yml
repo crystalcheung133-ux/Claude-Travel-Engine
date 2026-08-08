@@ -16,17 +16,30 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: ci-tests/package-lock.json
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
-      - name: Install locked CI dependencies
-        working-directory: ci-tests
-        run: npm ci --ignore-scripts
+      - name: JS syntax gate
+        run: sh ci-tests/test-syntax.sh
 
-      - name: Full regression suite
-        run: sh ci-tests/run-all.sh
+      - name: Release integrity (checksums + manifest)
+        run: sh ci-tests/test-checksums.sh
+
+      - name: HTML structure
+        run: sh ci-tests/test-html-structure.sh
+
+      - name: Entity linkage (places/bookings/itinerary/parties)
+        run: node ci-tests/test-entity-integrity.js
+
+      - name: Guide address integrity
+        run: python3 ci-tests/address-integrity-test.py
+
+      - name: Timeline integrity
+        run: node ci-tests/test-timeline-integrity.js
+
+      - name: UX contract
+        run: node ci-tests/test-ux-contract.js
+

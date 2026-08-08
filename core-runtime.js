@@ -25,9 +25,9 @@
   function migrate(){
     if(!root.STORAGE_CONFIG||!root.STORAGE||typeof ITINERARY_DATA==='undefined')return;
     const keys=root.STORAGE_CONFIG.keys||{};
-    const signatureKey=keys.itineraryMasterSignature;
-    const overridesKey=keys.itineraryOverrides;
-    const draftKey=keys.adminDraft;
+    const signatureKey=keys.itineraryMasterSignature||'travel_engine_itinerary_master_signature_v1';
+    const overridesKey=keys.itineraryOverrides||'travel_engine_itinerary_overrides_v1';
+    const draftKey=keys.adminDraft||'travel_engine_admin_draft_v1';
     const signature='itinerary-v1:'+hash(stableStringify(ITINERARY_DATA));
     const previous=root.STORAGE.local.get(signatureKey);
 
@@ -131,11 +131,30 @@ function toggleMenu(id,trigger){
   closeMiniMenus();
   if(m&&!open)openMiniMenu(id,trigger);
 }
-function toggleTripMenu(){NAVIGATION.goPage('trip');}
-function toggleGuideMenu(){NAVIGATION.goPage('guide');}
-function toggleDays(){NAVIGATION.goPage('days');}
-function reopenTripMenu(){NAVIGATION.goPage('trip');}
-function reopenGuideMenu(){NAVIGATION.goPage('guide');}
+function closeCrossModuleOverlays(target){
+  const tripModal=document.getElementById('tripModal');
+  const guideModal=document.getElementById('guideModal');
+  if(target!=='trip' && tripModal?.classList.contains('show')){
+    if(typeof window.isBookingEditActive==='function' && window.isBookingEditActive()) return false;
+    tripModal.classList.remove('show');
+  }
+  if(target!=='guide' && guideModal?.classList.contains('show')) guideModal.classList.remove('show');
+  return true;
+}
+function toggleTripMenu(){
+  if(!closeCrossModuleOverlays('trip'))return;
+  toggleMenu('tripMenu',document.querySelector('.trip-trigger'));
+}
+function toggleGuideMenu(){
+  if(!closeCrossModuleOverlays('guide'))return;
+  toggleMenu('guideMenu',document.querySelector('.guide-trigger'));
+}
+function toggleDays(){
+  if(!closeCrossModuleOverlays('days'))return;
+  toggleMenu('daysMenu',document.querySelector('.days-trigger'));
+}
+function reopenTripMenu(){requestAnimationFrame(()=>openMiniMenu('tripMenu',document.querySelector('.trip-trigger')));}
+function reopenGuideMenu(){requestAnimationFrame(()=>openMiniMenu('guideMenu',document.querySelector('.guide-trigger')));}
 window.addEventListener('resize',closeMiniMenus);
 document.addEventListener('click',e=>{if(!e.target.closest('.mini-menu')&&!e.target.closest('.trip-modal')&&!e.target.closest('.trip-trigger')&&!e.target.closest('.guide-trigger')&&!e.target.closest('.days-trigger')) closeMiniMenus();});
 document.addEventListener('DOMContentLoaded',()=>{
@@ -148,11 +167,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 });
 
-function getFriend(){
-  const fallback=(typeof TRIP_CONFIG!=='undefined'&&TRIP_CONFIG.participants&&TRIP_CONFIG.participants.defaultKey)||null;
-  if(!fallback&&typeof TRIP_FAILURE!=='undefined')TRIP_FAILURE.reportTripLoadFailure('core-runtime.js getFriend');
-  return STORAGE.local.get(STORAGE_CONFIG.keys.friend,fallback);
-}
+function getFriend(){const identities=TRIP_CONFIG.participants?.identities||{};const fallback=TRIP_CONFIG.participants?.defaultKey||Object.keys(identities)[0]||'unknown';return STORAGE.local.get(STORAGE_CONFIG.keys.friend,fallback);}
 function setFriend(k){
   STORAGE.local.set(STORAGE_CONFIG.keys.friend,k);
   closeFriendModal();
@@ -161,19 +176,15 @@ function setFriend(k){
   if(document.getElementById('momentsModal')?.classList.contains('show')&&typeof window.simplifyMomentsAuthor==='function')window.simplifyMomentsAuthor();
   if(typeof window.refreshExpenseAdminUI==='function')window.refreshExpenseAdminUI();
 }
-const FRIEND_IDENTITY=(typeof TRIP_CONFIG!=='undefined'&&TRIP_CONFIG.participants?.identities)||{};
+const FRIEND_IDENTITY=TRIP_CONFIG.participants?.identities||{};
 function friendIdentityHTML(key,compact=false){
-  const fallbackKey=(typeof TRIP_CONFIG!=='undefined'&&TRIP_CONFIG.participants?.defaultKey)||Object.keys(FRIEND_IDENTITY)[0];
+  const fallbackKey=TRIP_CONFIG.participants?.defaultKey||Object.keys(FRIEND_IDENTITY)[0];
   const identity=FRIEND_IDENTITY[key]||FRIEND_IDENTITY[fallbackKey];
-  if(!identity){
-    if(typeof TRIP_FAILURE!=='undefined')TRIP_FAILURE.reportTripLoadFailure('core-runtime.js friendIdentityHTML');
-    return `<span class="family-identity${compact?' is-compact':''}">${escapeHTML(typeof TRIP_FAILURE!=='undefined'?TRIP_FAILURE.NO_TRIP_LOADED_TEXT:'')}</span>`;
-  }
   return `<span class="family-identity family-${escapeHTML(key)}${compact?' is-compact':''}"><span class="family-code">${escapeHTML(identity.code)}</span><span class="family-name">${escapeHTML(identity.name)}</span></span>`;
 }
 window.friendIdentityHTML=friendIdentityHTML;
-function updateFriendLabels(){const key=getFriend();document.querySelectorAll('[data-friend-label]').forEach(e=>{e.innerHTML=friendIdentityHTML(key,true);e.dataset.family=key||'';});}
-function renderFriendChoices(){if(typeof window.__partyRenderFriendChoices==='function')window.__partyRenderFriendChoices();}
+function updateFriendLabels(){const key=getFriend();document.querySelectorAll('[data-friend-label]').forEach(e=>{e.innerHTML=friendIdentityHTML(key,true);e.dataset.family=key;});}
+function renderFriendChoices(){const list=document.querySelector('#mamaModal .friend-choice-list');if(!list)return;const current=getFriend();list.innerHTML=Object.keys(FRIEND_IDENTITY).map(key=>`<button type="button" class="family-choice${key===current?' active':''}" data-family="${key}" onclick="setFriend('${key}')">${friendIdentityHTML(key)}</button>`).join('');}
 function openFriendModal(){renderFriendChoices();$('mamaModal').classList.add('show')} function closeFriendModal(){$('mamaModal').classList.remove('show')}
 
 

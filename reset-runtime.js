@@ -42,9 +42,22 @@
   }
 
   function clearDeviceOnlyUiState(){
-    const prefix=STORAGE_CONFIG.prefix;
-    STORAGE.local.keys().filter(key=>key.startsWith(prefix)).forEach(key=>STORAGE.local.remove(key));
-    try{Object.values(STORAGE_CONFIG.sessionKeys).forEach(key=>sessionStorage.removeItem(key));}catch(error){}
+    const exactKeys=[
+      STORAGE_CONFIG.keys.checklist,
+      STORAGE_CONFIG.keys.momentsFreeform,
+      STORAGE_CONFIG.keys.adminDraft,
+      STORAGE_CONFIG.keys.guideNavContext,
+      STORAGE_CONFIG.keys.guideNavReopen,
+      STORAGE_CONFIG.keys.itineraryOverrides,
+      STORAGE_CONFIG.keys.bookingOverrides,
+      STORAGE_CONFIG.keys.tripCompletion,
+      STORAGE_CONFIG.keys.changedPlans,
+      STORAGE_CONFIG.keys.cloudSnapshot,
+      STORAGE_CONFIG.keys.cloudSyncMeta,
+      STORAGE_CONFIG.keys.tripCompletion+':notice',
+      STORAGE_CONFIG.keys.cloudReloadMarker
+    ];
+    exactKeys.forEach(k=>STORAGE.local.remove(k));
   }
 
   window.resetTripData=async function(){

@@ -47,9 +47,9 @@
     return root.MASTER_ITINERARY_REVISION||computeRevisionFallback();
   }
 
-  function storageKey(){ return root.STORAGE_CONFIG.keys.itineraryOverrides; }
+  function storageKey(){ return (root.STORAGE_CONFIG&&root.STORAGE_CONFIG.keys&&root.STORAGE_CONFIG.keys.itineraryOverrides)||'travel_engine_itinerary_overrides_v1'; }
   function localStore(){ return root.STORAGE&&root.STORAGE.local?root.STORAGE.local:null; }
-  function draftKey(){ return root.STORAGE_CONFIG.keys.adminDraft; }
+  function draftKey(){ return (root.STORAGE_CONFIG&&root.STORAGE_CONFIG.keys&&root.STORAGE_CONFIG.keys.adminDraft)||'travel_engine_admin_draft_v1'; }
   function clone(value){ return value==null?value:JSON.parse(JSON.stringify(value)); }
 
   function emptyStore(){ return {masterRevision:getMasterRevision(),dayChanges:{}}; }

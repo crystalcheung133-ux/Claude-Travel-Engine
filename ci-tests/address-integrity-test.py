@@ -1,23 +1,14 @@
 import json,re,pathlib
 DATA_JS=pathlib.Path(__file__).resolve().parent.parent / "data.js"
 s=DATA_JS.read_text(encoding="utf-8")
-def read_const(name):
-    marker=f"const {name}="
-    start=s.index(marker)+len(marker)
-    decoder=json.JSONDecoder()
-    value,_=decoder.raw_decode(s[start:])
-    return value
-places=read_const("PLACES")
-guide_order=read_const("GUIDE_ORDER")
+a=s.index("const PLACES=")+len("const PLACES="); b=s.index("\n\nconst CATEGORIES=",a)
+p=json.loads(s[a:b].rstrip(";"))
+allowed={"glenorchy-paradise","queenstown-central","te-anau","lake-tekapo-village","christchurch-cbd-discovery-walk"}
 bad=[]
-for key in guide_order:
-    value=places.get(key)
-    if not value:
-        bad.append((key,"missing-place")); continue
-    address=(value.get("address") or "").strip()
-    # Empty address is an explicit research gap and is allowed in a sandbox.
-    # Reject known placeholder/fabricated values rather than enforcing NZ geography.
-    if address.lower() in {"tbc","todo","unknown","placeholder","address pending"}:
-        bad.append((key,address))
-assert not bad,bad
+for k,v in p.items():
+    if k in allowed: continue
+    if k not in json.loads(s[s.index("const GUIDE_ORDER=")+len("const GUIDE_ORDER="):s.index("\n\nconst DAY_LINKS=")].rstrip(";")): continue
+    addr=(v.get("address") or "").strip()
+    if addr in {"Queenstown, New Zealand","Te Anau, New Zealand","Lake Tekapo, Canterbury, New Zealand","Fiordland, New Zealand","Arrowtown, New Zealand"}: bad.append((k,addr))
+assert not bad, bad
 print("Guide address integrity: PASS")

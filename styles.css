@@ -1815,7 +1815,7 @@ body.admin-mode .app-nav .days-trigger small {color:#fff!important;opacity:.96!i
 .day-footer-nav-link{display:flex;align-items:center;justify-content:center;min-height:48px;padding:12px 16px;border:1px solid var(--line,#d8d1c5);border-radius:14px;background:var(--surface,#fff);font-weight:700;text-decoration:none}
 @media(max-width:640px){.day-footer-nav{gap:10px;margin-bottom:100px}.day-footer-nav-link{font-size:.94rem;padding:11px 10px}}
 
-/* RC17.3 — Trip Studio is an explicit Lee-only panel, not an automatic selector extension. */
+/* Trip Studio is an explicit admin-only panel, not an automatic traveller-selector extension. */
 .trip-studio-entry{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;margin:16px 0 2px;padding:14px 15px;border:1px solid rgba(31,78,63,.18);border-radius:16px;background:rgba(246,250,246,.96);color:#28483b;font:inherit;text-align:left;box-shadow:0 5px 14px rgba(26,62,68,.06);cursor:pointer}
 .trip-studio-entry[hidden]{display:none!important}
 .trip-studio-entry>span:first-child{display:grid;gap:3px}.trip-studio-entry strong{font-size:15px;font-weight:850}.trip-studio-entry small{color:#71847b;font-size:11px;font-weight:650;line-height:1.35}.trip-studio-entry>span:last-child{font-size:22px;font-weight:800}
@@ -2084,23 +2084,354 @@ body.home-bg .live-currency-card #currencyCardMeta{position:relative;z-index:2;w
 }
 @media(max-width:370px){.accommodation-facts{grid-template-columns:1fr}}
 
-/* E2C — full-page Guide and Trip ownership */
-.guide-page-content,.trip-page-content{padding-bottom:110px}
-.guide-category-nav,.trip-card-nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 18px}
-.guide-category-nav a,.trip-card-nav a{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:var(--paper,#fff);color:var(--ink);text-decoration:none;font-weight:800}
-.guide-category-nav a[aria-current="page"],.trip-card-nav a[aria-current="page"]{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 18%,transparent)}
-.guide-page-panel,.trip-page-panel{background:var(--paper,#fff);border:1px solid var(--line);border-radius:22px;padding:18px}
-.guide-page-panel .category-pop-list button,.guide-page-panel .category-pop-list a{width:100%}
-.route-error-state{background:var(--paper,#fff);border:1px solid var(--line);border-radius:20px;padding:24px;text-align:center}
-.route-error-state h2{margin-top:0}
-.trip-page-content .trip-onepage{padding:0;background:transparent}
-.app-nav a.trip-trigger,.app-nav a.guide-trigger,.app-nav a.days-trigger{display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;color:inherit}
+/* RC22.3 — Prevent timeline time/title collisions on compact layouts. */
+.timeline-item{grid-template-columns:96px minmax(0,1fr)!important;}
+.timeline-time{min-width:0!important;max-width:96px!important;white-space:normal!important;overflow-wrap:normal!important;line-height:1.25!important;}
+.timeline-title-row{min-width:0!important;flex-wrap:wrap!important;}
+.timeline-title-row h3{min-width:0!important;overflow-wrap:anywhere!important;}
+@media(max-width:760px){
+  .timeline-item{grid-template-columns:88px minmax(0,1fr)!important;gap:10px!important;}
+  .timeline-time{max-width:88px!important;font-size:13px!important;}
+}
+/* RC22.4 — accommodation status badges and clearer booking overview */
+.accommodation-picker-meta--stack{flex-direction:column;align-items:flex-end;justify-content:center;gap:7px;white-space:normal;opacity:1}
+.accommodation-status-badge{display:inline-flex;align-items:center;justify-content:center;max-width:150px;padding:5px 8px;border-radius:999px;background:#e7f3ea;border:1px solid rgba(43,105,66,.2);color:#27653d;font-size:10px;font-weight:900;line-height:1.1;letter-spacing:.025em;text-align:center;text-transform:uppercase}
+.accommodation-status-badge--backup-booked{background:#fff1d8;border-color:rgba(139,97,29,.22);color:#815917}
+.accommodation-status-badge--monitoring{background:#e9edf7;border-color:rgba(71,84,124,.2);color:#4e5e88}
+.accommodation-night-line{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:800;white-space:nowrap;opacity:.74}
+@media(max-width:520px){.accommodation-picker-row{grid-template-columns:auto minmax(0,1fr) minmax(92px,auto)}.accommodation-status-badge{max-width:118px;font-size:9px;padding:5px 6px}.accommodation-picker-meta--stack{gap:5px}}
 
-/* E2C-Rebase shared popup navigation authority */
-#tripModal,#guideModal{position:fixed;inset:0;z-index:2100;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(15,31,46,.38);backdrop-filter:blur(5px)}
-#tripModal.show,#guideModal.show{display:flex}
-#tripModal .trip-sheet,#guideModal .guide-sheet{position:relative;width:min(920px,calc(100vw - 28px));max-height:min(88vh,920px);overflow:auto;background:var(--surface,#fffdf9);border:1px solid var(--border,rgba(23,50,75,.15));border-radius:28px;padding:28px;box-shadow:0 24px 70px rgba(15,31,46,.22)}
-#tripModal .modal-close,#guideModal .modal-close{position:sticky;top:0;float:right;z-index:3;width:48px;height:48px;border-radius:50%;border:1px solid var(--border,rgba(23,50,75,.15));background:var(--surface,#fff);font-size:28px;line-height:1;cursor:pointer}
-#tripModalContent,#guideModalContent{clear:both}
-#guideModal .category-pop-list button,#tripModal .category-pop-list button{width:100%;text-align:left}
-@media(max-width:700px){#tripModal,#guideModal{padding:8px;align-items:flex-end}#tripModal .trip-sheet,#guideModal .guide-sheet{width:100%;max-height:92vh;border-radius:24px 24px 12px 12px;padding:18px 14px 24px}}
+/* RC23 — Guide Stay status and day grouping */
+.guide-status-confirmed{background:#dbeee4;color:#235d46;border:1px solid rgba(35,93,70,.22)}
+.guide-status-to-confirm{background:#fff0d6;color:#80561f;border:1px solid rgba(128,86,31,.24)}
+.guide-stay-section{margin:16px 0 0;padding:15px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.55)}
+.guide-stay-section h3{margin:0 0 8px;font-size:.95rem}
+.guide-stay-section p{margin:0;line-height:1.55}
+.guide-stay-section ul{margin:0;padding-left:20px}
+.guide-stay-section li+li{margin-top:6px}
+
+
+/* RC23.3 emergency hotfix: bottom navigation popups must render above the fixed app nav. */
+.app-nav {
+  z-index: 6000 !important;
+}
+.mini-menu,
+#tripMenu,
+#guideMenu,
+#daysMenu {
+  position: fixed !important;
+  bottom: calc(96px + env(safe-area-inset-bottom, 0px)) !important;
+  z-index: 6100 !important;
+  max-height: min(62dvh, 520px) !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+}
+.mini-menu.show,
+#tripMenu.show,
+#guideMenu.show,
+#daysMenu.show {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
+  transform: translateX(-50%) translateY(0) !important;
+}
+@media (max-width: 760px) {
+  .mini-menu,
+  #tripMenu,
+  #guideMenu,
+  #daysMenu {
+    bottom: calc(102px + env(safe-area-inset-bottom, 0px)) !important;
+    width: min(330px, calc(100vw - 24px)) !important;
+  }
+}
+
+
+/* RC23.4 modal/nav coexistence: long Trip and Guide cards remain fully reachable. */
+:root{
+  --app-nav-clearance: calc(112px + env(safe-area-inset-bottom, 0px));
+}
+.guide-modal,
+.trip-modal{
+  padding-bottom:var(--app-nav-clearance)!important;
+  align-items:start!important;
+  overflow:hidden!important;
+}
+#guideModal .guide-sheet,
+#tripModal .trip-sheet{
+  max-height:calc(100dvh - var(--app-nav-clearance) - 18px)!important;
+  padding-bottom:24px!important;
+  scroll-padding-bottom:28px!important;
+  overscroll-behavior:contain!important;
+}
+#guideModal .guide-next-row,
+#tripModal .guide-next-row{
+  position:relative!important;
+  z-index:2!important;
+  margin-bottom:8px!important;
+}
+@media (max-width:760px){
+  :root{
+    --app-nav-clearance: calc(118px + env(safe-area-inset-bottom, 0px));
+  }
+  .guide-modal,
+  .trip-modal{
+    padding:8px 8px var(--app-nav-clearance)!important;
+  }
+  #guideModal .guide-sheet,
+  #tripModal .trip-sheet{
+    max-height:calc(100dvh - var(--app-nav-clearance) - 8px)!important;
+  }
+}
+
+
+/* RC24 UX Freeze — Trip = Action; Guide = Knowledge. */
+.accommodation-detail-card--compact{
+  gap:12px!important;
+}
+.accommodation-detail-card--compact .accommodation-facts{
+  margin:0!important;
+}
+.accommodation-detail-card--compact .accommodation-section{
+  margin:0!important;
+  padding:10px 12px!important;
+}
+.accommodation-detail-card--compact .accommodation-section h3{
+  margin-bottom:4px!important;
+}
+.accommodation-detail-card--compact .trip-action-row{
+  margin-top:2px!important;
+}
+.entry-owner-note{
+  margin:8px 0 0!important;
+  opacity:.78;
+}
+.trip-studio-selector-toggle[hidden]{
+  display:none!important;
+}
+@media (max-width:760px){
+  .accommodation-onepage-detail{
+    padding-bottom:12px!important;
+  }
+  .accommodation-detail-card--compact .booking-fact-grid,
+  .accommodation-detail-card--compact .accommodation-facts{
+    gap:7px!important;
+  }
+  .accommodation-detail-card--compact .trip-action-row{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+
+
+/* RC24.7.5 in-page Guide overlay: preserve the originating Trip/Day page. */
+.guide-modal.show{z-index:5010!important;}
+.guide-content-section,.guide-stay-section{margin-top:18px;padding:18px 20px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.5)}
+.guide-content-section h3,.guide-stay-section h3{margin:0 0 8px}
+.guide-content-section p,.guide-stay-section p{margin:0}
+.guide-content-section ul,.guide-stay-section ul{margin:0;padding-left:20px}
+.guide-alternative-back{margin-bottom:14px}
+
+
+/* RC24.8 — compact accommodation payment summary */
+.accommodation-payment-block{margin-top:12px;padding:12px 13px;border-radius:14px;background:rgba(255,255,255,.72);border:1px solid rgba(31,93,89,.12)}
+.accommodation-payment-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:7px}
+.accommodation-payment-head h3{margin:0;font-size:.76rem;letter-spacing:.05em;text-transform:uppercase;opacity:.68}
+.accommodation-payment-head span{font-size:.72rem;font-weight:900;letter-spacing:.04em}
+.accommodation-payment-block dl{margin:0}.accommodation-payment-block dl>div{display:flex;justify-content:space-between;gap:14px;padding:5px 0;border-top:1px solid rgba(31,93,89,.08)}
+.accommodation-payment-block dt,.accommodation-payment-block dd{margin:0}.accommodation-payment-block dt{font-size:.82rem;opacity:.72}.accommodation-payment-block dd{font-size:.86rem;font-weight:800;text-align:right}
+.accommodation-payment-block .payment-net-row{margin-top:3px;padding-top:9px;border-top:1px solid rgba(31,93,89,.2)}
+.accommodation-payment-block .payment-net-row dt{font-weight:900;opacity:1;text-transform:uppercase}.accommodation-payment-block .payment-net-row dd{font-size:1.08rem;font-weight:950}
+.payment-fx-note{margin:6px 0 0;font-size:.68rem;opacity:.62;text-align:right}
+@media(max-width:370px){.timeline-action--alternative{font-size:.73rem;padding-inline:9px}.accommodation-payment-block dl>div{gap:8px}}
+
+/* RC25 modal stack freeze: Booking opened from a Guide stays above the Guide,
+   then closing Booking reveals the original Guide card and page context. */
+body.guide-booking-stack-open #guideModal{z-index:5000!important;}
+body.guide-booking-stack-open #tripModal{z-index:5100!important;}
+
+/* RC25.0.2 — keep final modal actions clear of the fixed app navigation. */
+:root{
+  --fixed-nav-safe-clearance: calc(126px + env(safe-area-inset-bottom, 0px));
+}
+#momentsModal .moments-sheet,
+#expenseModal .tools-sheet{
+  padding-bottom:var(--fixed-nav-safe-clearance)!important;
+  scroll-padding-bottom:var(--fixed-nav-safe-clearance)!important;
+}
+#momentsModal .moments-form,
+#expenseModal .expense-form{
+  padding-bottom:18px!important;
+}
+#momentsModal .moments-form>.btn:last-child,
+#expenseModal #expenseSaveButton{
+  position:relative!important;
+  z-index:2!important;
+  margin-bottom:12px!important;
+}
+@media(max-width:760px){
+  :root{
+    --fixed-nav-safe-clearance: calc(136px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* RC25.1.1 — canonical modal/menu visibility hotfix.
+   Prevent mixed legacy rules from collapsing an opened sheet to its handle. */
+.guide-modal,
+.trip-modal,
+.moments-modal,
+.tools-modal,
+.mama-modal{
+  position:fixed!important;
+  inset:0!important;
+}
+.guide-modal.show,
+.trip-modal.show,
+.moments-modal.show,
+.tools-modal.show,
+.mama-modal.show{
+  display:grid!important;
+  visibility:visible!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+  align-items:start!important;
+  justify-items:center!important;
+}
+#guideModal .guide-sheet,
+#tripModal .trip-sheet{
+  display:block!important;
+  width:min(760px,100%)!important;
+  min-height:180px!important;
+  height:auto!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  transform:none!important;
+  opacity:1!important;
+  visibility:visible!important;
+}
+#guideModalContent,
+#tripModalContent{
+  display:block!important;
+  min-height:80px!important;
+  visibility:visible!important;
+  opacity:1!important;
+}
+.mini-menu.show,
+#tripMenu.show,
+#guideMenu.show,
+#daysMenu.show{
+  display:block!important;
+  min-height:52px!important;
+  max-height:min(62dvh,520px)!important;
+  overflow-y:auto!important;
+  visibility:visible!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+}
+.mini-menu.show > *,
+#tripMenu.show > *,
+#guideMenu.show > *,
+#daysMenu.show > *{
+  visibility:visible!important;
+  opacity:1!important;
+}
+
+
+/* RC25.1.5 — balanced fixed-nav clearance for Moments and Expenses. */
+:root{--action-modal-nav-clearance:calc(104px + env(safe-area-inset-bottom,0px));}
+#momentsModal.show,#expenseModal.show{
+  align-items:flex-start!important;
+  padding:12px 12px var(--action-modal-nav-clearance)!important;
+  overflow:hidden!important;
+}
+#momentsModal .moments-sheet,#expenseModal .tools-sheet{
+  height:auto!important;
+  max-height:calc(100dvh - var(--action-modal-nav-clearance) - 24px)!important;
+  padding:18px 18px 16px!important;
+  scroll-padding-bottom:20px!important;
+}
+#momentsModal .moments-form,#expenseModal .expense-form{
+  min-height:0!important;
+  overflow-y:auto!important;
+  padding-bottom:20px!important;
+  scroll-padding-bottom:20px!important;
+}
+#momentsModal .moments-form>.btn:last-child,#expenseModal #expenseSaveButton{
+  flex:0 0 auto!important;
+  margin:8px 0 0!important;
+}
+@media(max-width:760px){
+  :root{--action-modal-nav-clearance:calc(110px + env(safe-area-inset-bottom,0px));}
+  #momentsModal .moments-sheet,#expenseModal .tools-sheet{
+    max-height:calc(100dvh - var(--action-modal-nav-clearance) - 16px)!important;
+  }
+}
+
+/* RC25.2.2 — Guide information hierarchy: core content lives inside the main card. */
+.quick-info-card .guide-content-section,.quick-info-card .guide-stay-section{margin:14px 0 0;padding:14px 0 0;border:0;border-top:1px solid var(--line);border-radius:0;background:transparent}
+.quick-info-card .guide-content-section h3,.quick-info-card .guide-stay-section h3{font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 7px}
+.quick-info-card .guide-content-section ul,.quick-info-card .guide-stay-section ul{margin:0;padding-left:20px}
+.timeline-action--route-option{white-space:nowrap}
+
+/* RC25.2.3 — canonical admin modal layer.
+   Admin/Studio sheets must sit above the fixed app navigation instead of
+   relying on page-specific bottom padding. This keeps every final action
+   (Apply, Save, Publish, Complete, Leave) reachable on mobile. */
+:root{--admin-modal-layer:7000;}
+.timeline-editor-modal,
+#mamaModal.studio-view,
+#mama-modal.studio-view{
+  z-index:var(--admin-modal-layer)!important;
+}
+.timeline-editor-modal.show,
+#mamaModal.studio-view.show,
+#mama-modal.studio-view.show{
+  isolation:isolate!important;
+}
+.timeline-editor-sheet{
+  max-height:calc(100dvh - 24px)!important;
+}
+.timeline-editor-scroll{
+  scroll-padding-bottom:24px!important;
+}
+.timeline-editor-actions{
+  position:relative!important;
+  z-index:3!important;
+  flex:0 0 auto!important;
+}
+#mamaModal.studio-view .guide-sheet{
+  max-height:calc(100dvh - 24px)!important;
+  padding-bottom:calc(22px + env(safe-area-inset-bottom,0px))!important;
+  scroll-padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))!important;
+}
+@media(max-width:620px){
+  .timeline-editor-sheet{
+    height:100dvh!important;
+    max-height:100dvh!important;
+  }
+  .timeline-editor-actions{
+    padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))!important;
+  }
+  #mamaModal.studio-view .guide-sheet{
+    max-height:calc(100dvh - 12px)!important;
+    padding-bottom:calc(28px + env(safe-area-inset-bottom,0px))!important;
+  }
+}
+
+/* === Engine Booking Centre v1 === */
+.bookings-content{padding-top:18px;padding-bottom:calc(150px + env(safe-area-inset-bottom))}
+#bookingList .booking-group:last-child .booking-card:last-child{margin-bottom:24px!important}
+.bookings-header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:4px 0 10px;padding:0 54px 0 2px;position:relative}
+.bookings-header h1{margin:0;font-size:clamp(42px,9vw,58px)}
+.booking-summary{display:inline-flex;padding:7px 11px;border-radius:999px;background:var(--paper);border:1px solid var(--line);font-size:12px;font-weight:800;color:var(--gold-deep);white-space:nowrap}
+.bookings-page-close{position:absolute;top:0;right:0;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-size:26px;line-height:1;display:grid;place-items:center;z-index:5}
+.booking-tabs{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:7px;margin:8px 0 12px;position:sticky;top:66px;z-index:5;padding:6px 0;background:linear-gradient(180deg,var(--bg) 76%,rgba(247,240,230,0))}
+.booking-tab{min-width:0;border:1px solid var(--line);border-radius:14px;background:var(--paper);color:var(--ink);padding:9px 6px;font:inherit;font-size:12px;font-weight:850;line-height:1.15}
+.booking-tab small{display:block;margin-top:3px;color:var(--muted);font-size:10px}
+.booking-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}.booking-tab.active small{color:#fff}
+.booking-group{margin:0}.booking-card{background:var(--paper);border:1px solid var(--line);border-radius:15px;margin:6px 0;overflow:hidden;box-shadow:0 6px 18px rgba(54,39,24,.045)}
+.booking-card-row{display:flex;align-items:stretch;min-width:0}.booking-card-main{border:0;background:transparent;width:100%;padding:11px 12px;text-align:left;display:flex;gap:8px;align-items:center;justify-content:space-between;color:var(--ink);font:inherit;min-width:0;flex:1}
+.booking-card-main strong{display:block;font-size:15px}.booking-card-main small{display:block;margin-top:2px;color:var(--muted);font-size:11px;font-weight:700}
+.booking-status{white-space:nowrap;border-radius:999px;padding:6px 8px;font-size:10px;font-weight:900}.booking-status.confirmed{background:#e5f4e9;color:#26663a}.booking-status.pending{background:#fff0c9;color:#8b5a00}
+.booking-day-label{color:var(--gold-deep)!important;font-size:9px!important;letter-spacing:.1em}.booking-day-button{display:inline-flex;align-items:center;justify-content:center;align-self:center;flex:0 0 auto;margin:8px 10px 8px 0;padding:7px 10px;border:1px solid var(--line);border-radius:999px;background:var(--paper);color:var(--gold-deep);font-size:10px;font-weight:900;white-space:nowrap}
+.booking-delete-btn{border-color:#b86565!important;color:#8b3535!important}
+@media(max-width:520px){.bookings-header{align-items:flex-start;flex-direction:column;gap:3px}.booking-tabs{display:flex;overflow-x:auto}.booking-tab{flex:0 0 112px;font-size:10px;padding:8px 4px}}

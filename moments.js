@@ -13,6 +13,20 @@
   const prototypePhotoUrls = new Map();
   function readJson(key, fallback){try{return STORAGE.local.readJSON(key,fallback);}catch(e){return fallback;}}
   function writeJson(key, value){STORAGE.local.writeJSON(key,value);}
+  function currentMomentParty(){
+    try{const ids=TRIP_CONFIG.participants?.identities||{};return (typeof getFriend==='function'?getFriend():STORAGE.local.get(STORAGE_CONFIG.keys.friend))||TRIP_CONFIG.participants?.defaultKey||Object.keys(ids)[0]||'unknown';}
+    catch(e){return 'unknown';}
+  }
+  function isStudioManager(){
+    try{return typeof window.isAdminMode==='function' && window.isAdminMode();}
+    catch(e){return false;}
+  }
+  function momentOwner(entry){
+    return (entry&&entry.createdBy) || '';
+  }
+  function canManageMoment(entry){
+    return !!entry && (isStudioManager() || momentOwner(entry)===currentMomentParty());
+  }
   function clearMomentPhoto(revoke=true){
     if(currentMomentPhoto?.url && revoke && ![...prototypePhotoUrls.values()].includes(currentMomentPhoto.url)){
       try{ URL.revokeObjectURL(currentMomentPhoto.url); }catch(e){}
@@ -264,9 +278,11 @@
       if(host.dataset.photoEnhanced==='true') return;
       host.dataset.photoEnhanced='true';
       host.classList.add('photo-capture-zone');
+      const cameraCapable = (navigator.maxTouchPoints || 0) > 0 || window.matchMedia?.('(pointer: coarse)').matches;
+      const primaryPhotoLabel = cameraCapable ? '📷 Take Photo' : '📤 Upload Photo';
       host.innerHTML=`<div class="photo-capture-heading"><span class="photo-capture-spark">📸</span><span><strong>Add a happy snap</strong><small>We compress it before anything is saved.</small></span></div>
         <div class="photo-capture-actions">
-          <label class="photo-capture-btn photo-capture-btn--camera">📷 Take Photo<input id="momentsPhotoCamera" type="file" accept="image/*" capture="environment" hidden></label>
+          <label class="photo-capture-btn photo-capture-btn--camera">${primaryPhotoLabel}<input id="momentsPhotoCamera" type="file" accept="image/*" ${cameraCapable ? 'capture="environment"' : ''} hidden></label>
           <label class="photo-capture-btn">🖼 Choose Photo<input id="momentsPhotoLibrary" type="file" accept="image/*" hidden></label>
         </div>
         <div id="momentsPhotoPreview" class="photo-prototype-preview" hidden></div>`;
@@ -320,13 +336,13 @@
       photoPrototype:currentMomentPhoto ? {...currentMomentPhoto.meta, retained:false} : null,
       createdAt:now,
       updatedAt:now,
-      createdBy:(typeof getFriend==='function'?getFriend():null),
-      editedBy:(typeof getFriend==='function'?getFriend():null)
+      createdBy:(typeof getFriend==='function'?getFriend():'lee'),
+      editedBy:(typeof getFriend==='function'?getFriend():'lee')
     };
     if(editingMomentId){
       const existing=arr.find(e=>e.id===editingMomentId);
       if(!currentMomentPhoto && existing?.photoPrototype) entry.photoPrototype=existing.photoPrototype;
-      arr=arr.map(e=> e.id===editingMomentId ? {...e,...entry,createdAt:e.createdAt||now,createdBy:e.createdBy||entry.createdBy,editedAt:now,updatedAt:now,editedBy:(typeof getFriend==='function'?getFriend():null)} : e);
+      arr=arr.map(e=> e.id===editingMomentId ? {...e,...entry,createdAt:e.createdAt||now,createdBy:e.createdBy||entry.createdBy,editedAt:now,updatedAt:now,editedBy:(typeof getFriend==='function'?getFriend():'lee')} : e);
     }else{
       arr.push(entry);
     }
@@ -338,7 +354,7 @@
     }
     writeJson(STORAGE_CONFIG.keys.momentsList,arr);
     window.MOMENT_SYNC?.queueSync();
-    STORAGE.local.writeJSON(STORAGE_CONFIG.latestMomentKey(key),entry);
+    STORAGE.local.writeJSON(STORAGE_CONFIG.keys.latestMomentPrefix+key,entry);
     editingMomentId=null;
     if(textEl) textEl.value='';
     currentMomentPhoto=null;
@@ -352,6 +368,7 @@
     const arr=readJson(STORAGE_CONFIG.keys.momentsList,[]);
     const e=arr.find(x=>x.id===id);
     if(!e) return;
+    if(!canManageMoment(e)) return alert('Only the party that added this Moment, or Trip Studio, can edit it.');
     editingMomentId=id;
     momentEntryIsPlanned = false; /* Stage 5B-2B2: editing an existing moment always keeps the full planned-activity picker */
     currentMomentKey=e.itemKey || 'general';
@@ -385,10 +402,12 @@
     let arr=readJson(STORAGE_CONFIG.keys.momentsList,[]);
     const before=arr.length;
     const deleting=arr.find(e=>e.id===idOrKey);
+    if(deleting && !canManageMoment(deleting)) return alert('Only the party that added this Moment, or Trip Studio, can delete it.');
+    if(deleting && !window.confirm(`Delete "${deleting.itemTitle||'this Moment'}"?\n\nThis cannot be undone.`)) return;
     window.MOMENT_SYNC?.markDeleted(deleting);
     arr=arr.filter(e=>e.id!==idOrKey);
     writeJson(STORAGE_CONFIG.keys.momentsList,arr);
-    if(before===arr.length && idOrKey && !idOrKey.startsWith('m_')) STORAGE.local.remove(STORAGE_CONFIG.momentKey(idOrKey));
+    if(before===arr.length && idOrKey && !idOrKey.startsWith('m_')) STORAGE.local.remove(STORAGE_CONFIG.keys.momentPrefix+idOrKey);
     const photoUrl=prototypePhotoUrls.get(idOrKey);
     if(photoUrl){try{URL.revokeObjectURL(photoUrl);}catch(e){} prototypePhotoUrls.delete(idOrKey);}
     window.MOMENT_SYNC?.queueSync();
@@ -397,15 +416,13 @@
   window.renderMoments = function(){
     const box=document.getElementById('momentsTimeline'); if(!box) return;
     let arr=readJson(STORAGE_CONFIG.keys.momentsList,[]);
-    // Include namespaced one-per-place compatibility moments once.
-    const momentPrefix=STORAGE_CONFIG.prefix+'moment.';
-    const latestPrefix=STORAGE_CONFIG.prefix+'moment-latest.';
+    // Include legacy one-per-place moments once so older saved data still appears.
     for(const k of STORAGE.local.keys()){
-      if(k && k.startsWith(momentPrefix) && !k.startsWith(latestPrefix)){
+      if(k && k.startsWith(STORAGE_CONFIG.keys.momentPrefix) && !k.startsWith(STORAGE_CONFIG.keys.latestMomentPrefix)){
         try{
           const e=STORAGE.local.readJSON(k,null);
           if(e && !arr.some(x=>x.id===e.id || (x.createdAt===e.createdAt && x.itemKey===e.itemKey && x.text===e.text))){
-            arr.push({...e,id:e.id||('legacy_'+k.slice(momentPrefix.length).replace(/\.v1$/,''))});
+            arr.push({...e,id:e.id||('legacy_'+k.replace(STORAGE_CONFIG.keys.momentPrefix,''))});
           }
         }catch(err){}
       }
@@ -419,7 +436,7 @@
       <p class="moment-mood">${moodLabel(e.moods||[])}</p>
       <p class="moment-stars">${'⭐'.repeat(e.rating||0)}</p>
       <p class="moment-copy">${escapeHTML(e.text||'')}</p>
-      <div class="entry-actions"><button class="mini-btn" onclick="editMoment('${e.id||e.itemKey}')">✏️ Edit</button><button class="mini-btn" onclick="deleteMoment('${e.id||e.itemKey}')">🗑 Delete</button></div>
+      ${canManageMoment(e)?`<div class="entry-actions"><button class="mini-btn" onclick="editMoment('${e.id||e.itemKey}')">✏️ Edit</button><button class="mini-btn" onclick="deleteMoment('${e.id||e.itemKey}')">🗑 Delete</button></div>`:`<p class="timestamp entry-owner-note">Added by ${escapeHTML(e.friendLabel||momentOwner(e)||'Traveller')} · View only</p>`}
     </div>`).join('');
   };
   /* Stage 4C-6: removed legacy v3.2 window.saveExpense; canonical handler is later in this file. */

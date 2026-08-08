@@ -1,2 +1,2 @@
-Travel Engine Stage E2C-Rebase Shared Popup Navigation
-Build: e2c-popup-rebase1
+Travel Engine 25.2.8 · Saigon Companion RC1
+VN Reference Implementation · 2026-08-08

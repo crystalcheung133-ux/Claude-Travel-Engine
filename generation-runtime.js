@@ -25,7 +25,7 @@
 
   const config=root.SYNC_CONFIG||{};
   const storage=root.STORAGE?.local;
-  const KEY=()=>root.STORAGE_CONFIG.keys.tripGeneration;
+  const KEY=()=>root.STORAGE_CONFIG?.keys?.tripGeneration||'travel_engine_trip_generation_v1';
   const LOG='[Generation]';
   const state={checkPromise:null};
 

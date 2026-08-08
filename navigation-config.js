@@ -20,11 +20,7 @@
       legacyPlaceId: 'place',
       placeIds: 'ids',
       source: 'source',
-      coldLaunch: 'coldLaunch',
-      category: 'category',
-      tripInfoId: 'tripInfoId',
-      bookingId: 'bookingId',
-      type: 'type'
+      coldLaunch: 'coldLaunch'
     }),
     hash: Object.freeze({
       shoppingDirectory: 'shopping-directory'

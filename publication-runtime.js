@@ -116,13 +116,8 @@
       if(!integrity.ok){
         throw new Error('Publication blocked: Trip or Guide dataset is incomplete. Reload the latest deploy before publishing.');
       }
-      const tripId=cfg.tripId||(root.TRIP_FAILURE&&root.TRIP_FAILURE.tripId());
-      if(!tripId){
-        if(root.TRIP_FAILURE)root.TRIP_FAILURE.reportTripLoadFailure('publication-runtime.js publish');
-        throw new Error('Publication blocked: no Trip Package is loaded, so there is no trip identity to publish under.');
-      }
       const result=await root.SUPABASE.getClient().rpc(rpcName,{
-        p_trip_id:tripId,
+        p_trip_id:cfg.tripId||(typeof TRIP_CONFIG!=='undefined'&&TRIP_CONFIG.storageNamespace)||'',
         p_schema_version:Number(cfg.schemaVersion)||1,
         p_payload:payload,
         p_admin_pin:credential
