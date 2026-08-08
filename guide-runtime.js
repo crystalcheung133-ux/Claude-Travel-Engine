@@ -330,9 +330,13 @@ function guideWhyGo(g){
  return tagged[0]||String(g.desc||'').trim();
 }
 function restaurantDishItems(g){
+ const explicit=uniqueGuideItems(g.signatureDishes||[]);
+ if(explicit.length)return explicit;
  const tagged=taggedGuideItems(g.signature||g.highlights||[],['TRY','FOOD','MUST ORDER','ORDER','SIGNATURE']);
  if(tagged.length)return uniqueGuideItems(tagged);
- return [];
+ // Reconciled Master files historically stored restaurant signatures as plain array items.
+ // Preserve those useful, curated items instead of rendering an empty section.
+ return uniqueGuideItems(g.signature||[]).map(cleanGuideLine);
 }
 function bookingAdviceItems(g){
  const all=[...(g.signature||[]),...(g.worth||[]),...(g.tips||[])];
@@ -376,7 +380,7 @@ function compactGuideSections(g){
   ? `<section class="guide-content-section guide-trading-hours"><h3>Trading Hours</h3><p>${String(g.hours).trim()}</p></section>`
   : '';
  const goodToKnow=g.cat==='DINING'?criticalGuideItems(g):practical;
- return `${(why&&(whyRequired||g.cat!=='STAY'))?`<section class="guide-content-section guide-why-go"><h3>Why Go</h3><p>${why}</p></section>`:''}${guideListSection('Suggested Dishes',dishes,'guide-suggested-dishes')}${hours}${guideListSection('Booking',booking,'guide-booking-advice')}${guideListSection(g.cat==='DINING'?'Good to Know':'Practical Info',goodToKnow,'guide-practical-info')}`;
+ return `${(why&&(whyRequired||g.cat!=='STAY'))?`<section class="guide-content-section guide-why-go"><h3>Why Go</h3><p>${why}</p></section>`:''}${guideListSection('Signature / Must Try',dishes,'guide-suggested-dishes')}${hours}${guideListSection('Booking',booking,'guide-booking-advice')}${guideListSection(g.cat==='DINING'?'Good to Know':'Practical Info',goodToKnow,'guide-practical-info')}`;
 }
 
 

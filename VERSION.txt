@@ -1,3 +1,3 @@
-Saigon Companion RC9
-Travel Engine 25.3.6
-V4 visual continuity + release-neutral browser CI
+Saigon Companion RC10
+Travel Engine 25.3.7
+Richer module theme + Guide Signature + configurable Trip grouping

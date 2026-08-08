@@ -333,31 +333,31 @@ const PLACES={
     "emoji": "🍣",
     "cat": "RESTAURANTS",
     "sub": "Day 1 · 已確認 17:30",
-    "hours": "出發前再確認營業時間",
+    "hours": "Reservation confirmed · 17:30",
     "maps": "https://www.google.com/maps/search/?api=1&query=Omakase%20Tiger%2085%2F9%20Ph%E1%BA%A1m%20Vi%E1%BA%BFt%20Ch%C3%A1nh%2C%20Th%E1%BA%A1nh%20M%E1%BB%B9%20T%C3%A2y%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "85/9 Phạm Viết Chánh, Thạnh Mỹ Tây, Hồ Chí Minh 700000, Vietnam",
-    "desc": "Day 1 晚餐已確認 17:30。Omakase Tiger 只有少量 counter seats，重點係近距離睇師傅出餐；正式營業時間出發前再確認即可。",
+    "desc": "Day 1 晚餐已確認 17:30。Omakase Tiger 係 Penthouse setting，黃昏入席啱啱由 sunset 食到入夜；少量 counter seats 可以近距離睇師傅出餐。",
     "signature": [
+      "Penthouse setting，黃昏由 sunset 食到入夜",
       "8-seat countertop，座位極少",
-      "17:30 日落場最有記憶點",
       "約 10–14 道 omakase，價格比澳港日同類體驗低"
     ],
     "worth": [
-      "已確認 30 Oct 17:30 場次。",
-      "正式營業時間出發前再確認。"
+      "已確認 30 Oct 17:30 場次，訂金已付。",
+      "17:30 入席最適合睇 Penthouse 黃昏景色。"
     ],
     "categoryLabel": "🍽 Restaurant",
     "price": "$$$",
     "transport": "Grab / walk depending on current route",
     "audit": "按旅客直接確認保留；已移除過時的暫停營業提示",
     "highlights": [
+      "Penthouse setting，黃昏由 sunset 食到入夜",
       "8-seat countertop，座位極少",
-      "17:30 日落場最有記憶點",
       "約 10–14 道 omakase，價格比澳港日同類體驗低"
     ],
     "tips": [
-      "已確認 30 Oct 17:30 場次。",
-      "正式營業時間出發前再確認。"
+      "已確認 30 Oct 17:30 場次，訂金已付。",
+      "17:30 入席最適合睇 Penthouse 黃昏景色。"
     ]
   },
   "pho-sol": {
@@ -2360,8 +2360,8 @@ const ITINERARY_DATA={
         "time": "17:30",
         "title": "🍣 Omakase Tiger",
         "details": [
-          "已直接確認 17:30 場次；訂位已確認。",
-          "正式營業時間出發前再確認。"
+          "已確認 17:30 場次；訂金已付。",
+          "Penthouse setting；17:30 啱啱由 sunset 食到入夜。"
         ],
         "route": "🚕 To next stop：Grab 約 15–20 分鐘返 Nguyễn Huệ / The Cafe Apartments 夜景。",
         "map": "https://www.google.com/maps/search/?api=1&query=Omakase%20Tiger%2085%2F9%20Ph%E1%BA%A1m%20Vi%E1%BA%BFt%20Ch%C3%A1nh%2C%20Th%E1%BA%A1nh%20M%E1%BB%B9%20T%C3%A2y%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
