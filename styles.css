@@ -2628,3 +2628,19 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
 
 /* FX helper shows a useful inverse rate, not 1 VND ≈ 0.00 AUD. */
 .expense-fx-helper{font-variant-numeric:tabular-nums!important;color:var(--muted)!important;font-weight:700!important;}
+
+
+/* Engine 25.4.1 / VN RC14 — cache-coherent identity, expense and timeline UI. */
+/* Traveller emoji is presentation, never a badge/chip. */
+.family-identity{display:inline-flex!important;align-items:center!important;gap:8px!important;min-width:0!important;}
+.family-identity .family-code,.family-choice .family-code,.friend-pill .family-code,#expenseModal .family-code,#momentsModal .family-code{border:0!important;background:transparent!important;box-shadow:none!important;border-radius:0!important;min-width:0!important;width:auto!important;height:auto!important;padding:0!important;margin:0!important;display:inline!important;line-height:1!important;font-size:20px!important;}
+.family-identity .family-name{display:inline!important;max-width:none!important;overflow:visible!important;text-overflow:clip!important;white-space:nowrap!important;}
+.family-choice .family-identity{padding:0!important;background:transparent!important;border:0!important;box-shadow:none!important;}
+#mamaModal .guide-sheet{position:relative!important;padding-top:68px!important;}
+#mamaModal .mama-close{position:absolute!important;top:16px!important;right:16px!important;z-index:300!important;pointer-events:auto!important;}
+.mama-modal.identity-required .mama-close,[data-identity-selection-required="true"] #mamaModal .mama-close{display:none!important;visibility:hidden!important;pointer-events:none!important;}
+#expenseModal .custom-split-row{grid-template-columns:150px minmax(0,1fr)!important;gap:10px!important;align-items:center!important;}
+#expenseModal .custom-split-row>span{min-width:0!important;width:150px!important;max-width:150px!important;overflow:visible!important;white-space:nowrap!important;}
+#expenseModal .custom-split-row>span .family-name{font-size:14px!important;overflow:visible!important;text-overflow:clip!important;white-space:nowrap!important;}
+@media(max-width:760px){#expenseModal .custom-split-row{display:grid!important;grid-template-columns:1fr!important;gap:6px!important;align-items:stretch!important;}#expenseModal .custom-split-row>span{width:100%!important;max-width:none!important;padding:0 2px 2px!important;}#expenseModal .custom-split-row .expense-money-field{display:grid!important;grid-template-columns:minmax(0,1fr) 54px 44px!important;gap:6px!important;width:100%!important;}}
+@media(max-width:760px){.timeline-item{display:grid!important;grid-template-columns:62px minmax(0,1fr)!important;column-gap:12px!important;align-items:start!important;}.timeline-time{display:block!important;width:62px!important;max-width:62px!important;min-width:0!important;white-space:normal!important;overflow:hidden!important;overflow-wrap:break-word!important;word-break:normal!important;font-size:11px!important;line-height:1.16!important;padding:1px 0!important;}.timeline-main{min-width:0!important;width:auto!important;overflow:visible!important;}.timeline-title-row,.timeline-title-row h3{min-width:0!important;max-width:100%!important;}}

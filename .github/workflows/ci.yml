@@ -76,5 +76,8 @@ jobs:
       - name: RC12 identity + UI contract
         run: node ci-tests/test-rc12-identity-ui-contract.js
 
+      - name: RC14 cache + visual acceptance contract
+        run: node ci-tests/test-rc14-cache-visual-contract.js
+
       - name: Dual-currency Expenses
         run: node ci-tests/test-dual-currency-expenses.js .
