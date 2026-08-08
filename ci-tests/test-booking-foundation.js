@@ -17,6 +17,6 @@ must(/function remove\(id,target\)/.test(authority)&&/deletedIds/.test(authority
 must(/choices:\['pending','confirmed'\]/.test(tripRuntime),'Studio booking status editor exposes Pending/Confirmed only');
 must(/Delete Booking/.test(tripRuntime)&&/deleteBookingRecord/.test(tripRuntime),'Studio booking editor supports delete instead of cancelled');
 must(/row\[1\].*trim/.test(tripRuntime)&&/if\(!status&&!rows\.length\)return ''/.test(tripRuntime),'blank booking/payment fields do not render');
-must(/href="bookings\.html"/.test(tripHtml),'Trip menu routes booking access through Booking Centre');
+must(/NAVIGATION\.build\('bookings'\)/.test(tripRuntime),'Trip menu routes booking access through Booking Centre');
 must(/id="bookingList"/.test(bookingsHtml)&&/id="bookingSummary"/.test(bookingsHtml),'Booking Centre page has list and summary hosts');
 if(!process.exitCode)console.log('BOOKING FOUNDATION: PASS — taxonomy, status, sparse rendering and deletion contracts verified.');

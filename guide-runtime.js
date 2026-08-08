@@ -111,13 +111,36 @@ function openRequestedGuideCard(){
 document.addEventListener('DOMContentLoaded',openRequestedGuideCard);
 
 
+function guideSemanticCategory(cat){
+ const raw=String(cat||'').toUpperCase();
+ if(['RESTAURANTS','CAFÉS','CAFES'].includes(raw))return 'DINING';
+ if(['EXPERIENCE','EXPERIENCES','SPA','WELLNESS'].includes(raw))return 'ACTIVITIES';
+ if(raw==='SHOPPING')return 'SHOP';
+ return raw;
+}
+function guideCategorySources(cat){
+ const semantic=guideSemanticCategory(cat);
+ const configured=TRIP_CONFIG.guide&&TRIP_CONFIG.guide.categoryMap&&TRIP_CONFIG.guide.categoryMap[semantic];
+ if(Array.isArray(configured)&&configured.length)return configured.map(String);
+ const defaults={
+  ATTRACTIONS:['ATTRACTIONS'],
+  ACTIVITIES:['ACTIVITIES','EXPERIENCE','EXPERIENCES','SPA','WELLNESS'],
+  DINING:['DINING','RESTAURANTS','CAFÉS','CAFES'],
+  STAY:['STAY'],
+  SHOP:['SHOP','SHOPPING']
+ };
+ return defaults[semantic]||[semantic];
+}
+function guideDisplayCategory(item){ return guideSemanticCategory(item&&item.cat); }
 function guideCategoryItems(cat){
  const excluded=new Set(TRIP_CONFIG.guide?.excludedPlaceIds||[]);
- return (PRODUCTION_GUIDE.categories[cat]||[])
-  .map(item=>{const key=typeof item==='string'?item:item&&item.key;return key&&PRODUCTION_GUIDE.places[key]?Object.assign({key},PRODUCTION_GUIDE.places[key]):null;})
+ const sourceRows=guideCategorySources(cat).flatMap(source=>PRODUCTION_GUIDE.categories[source]||[]);
+ const seen=new Set();
+ return sourceRows
+  .map(item=>{const key=typeof item==='string'?item:item&&item.key;if(!key||seen.has(key))return null;seen.add(key);return PRODUCTION_GUIDE.places[key]?Object.assign({key},PRODUCTION_GUIDE.places[key]):null;})
   .filter(item=>{
     if(!item||excluded.has(item.key))return false;
-    if(cat==='STAY'&&window.BOOKING_AUTHORITY){
+    if(guideSemanticCategory(cat)==='STAY'&&window.BOOKING_AUTHORITY){
       const booking=BOOKING_AUTHORITY.byPlace(item.key);
       // Guide Stay shows the current intended stay only: confirmed or primary choice.
       // Booked backups remain exclusively in Trip · Accommodation.
@@ -127,9 +150,9 @@ function guideCategoryItems(cat){
   });
 }
 function guideCategoryHeading(cat){
- if(cat==='ATTRACTIONS') return 'SIGHTS';
- if(cat==='ACTIVITIES') return 'ACTIVITIES';
- return cat;
+ const semantic=guideSemanticCategory(cat);
+ if(semantic==='ATTRACTIONS') return 'SIGHTS';
+ return semantic;
 }
 
 function guideDayNumber(item){
@@ -145,8 +168,9 @@ function guideActivityGroup(item){
 }
 function guideSortedCategoryItems(cat){
  const items=guideCategoryItems(cat).slice();
- if(cat==='ATTRACTIONS'||cat==='DINING'||cat==='STAY') return items.sort((a,b)=>guideDayNumber(a)-guideDayNumber(b)||String(a.title||'').localeCompare(String(b.title||'')));
- if(cat==='ACTIVITIES') return items.sort((a,b)=>guideActivityGroup(a).localeCompare(guideActivityGroup(b))||String(a.title||'').localeCompare(String(b.title||'')));
+ const semantic=guideSemanticCategory(cat);
+ if(semantic==='ATTRACTIONS'||semantic==='DINING'||semantic==='STAY') return items.sort((a,b)=>guideDayNumber(a)-guideDayNumber(b)||String(a.title||'').localeCompare(String(b.title||'')));
+ if(semantic==='ACTIVITIES') return items.sort((a,b)=>guideActivityGroup(a).localeCompare(guideActivityGroup(b))||String(a.title||'').localeCompare(String(b.title||'')));
  return items.sort((a,b)=>String(a.title||'').localeCompare(String(b.title||'')));
 }
 function guideStayStatusHTML(item){
@@ -166,17 +190,18 @@ function guideListRow(item){
  return `<button onclick="${action}"><span><span class="guide-list-title">${item.emoji} ${item.title}</span><span class="guide-list-sub">${subtitle}</span></span><span class="guide-list-meta">${status}<span class="guide-list-chevron">›</span></span></button>`;
 }
 function groupedGuideRows(cat,list){
- if(cat==='ATTRACTIONS'||cat==='DINING'||cat==='STAY'){
+ const semantic=guideSemanticCategory(cat);
+ if(semantic==='ATTRACTIONS'||semantic==='DINING'||semantic==='STAY'){
   const groups=new Map();
   list.forEach(item=>{
-   const booking=(cat==='STAY'&&window.BOOKING_AUTHORITY)?BOOKING_AUTHORITY.byPlace(item.key):null;
+   const booking=(semantic==='STAY'&&window.BOOKING_AUTHORITY)?BOOKING_AUTHORITY.byPlace(item.key):null;
    const day=guideDayNumber(item);
-   const label=(cat==='STAY'&&booking?.guideDayLabel)?booking.guideDayLabel:(day===999?'Optional / Flexible':`Day ${day}`);
+   const label=(semantic==='STAY'&&booking?.guideDayLabel)?booking.guideDayLabel:(day===999?'Optional / Flexible':`Day ${day}`);
    (groups.get(label)||groups.set(label,[]).get(label)).push(item);
   });
   return [...groups.entries()].map(([label,items])=>`<section class="guide-category-group"><h3 class="guide-category-group-title">${label}</h3>${items.map(guideListRow).join('')}</section>`).join('');
  }
- if(cat==='ACTIVITIES'){
+ if(semantic==='ACTIVITIES'){
   const groups=new Map();
   list.forEach(item=>{const label=guideActivityGroup(item);(groups.get(label)||groups.set(label,[]).get(label)).push(item);});
   return [...groups.entries()].map(([label,items])=>`<section class="guide-category-group"><h3 class="guide-category-group-title">${label}</h3>${items.map(guideListRow).join('')}</section>`).join('');
@@ -184,16 +209,19 @@ function groupedGuideRows(cat,list){
  return list.map(guideListRow).join('');
 }
 function openGuideCategory(cat){
- saveGuideNavigationContext(cat);
- const list=guideSortedCategoryItems(cat);
- if(cat==='SHOP'){
+ const semantic=guideSemanticCategory(cat);
+ saveGuideNavigationContext(semantic);
+ const list=guideSortedCategoryItems(semantic);
+ // A single-entry category is already the destination; skip a redundant chooser.
+ if(list.length===1){closeMiniMenus();openGuideModal(list[0].key);return;}
+ if(semantic==='SHOP'){
   const directoryRow=`<button onclick="openShoppingDirectoryView()"><span><span class="guide-list-title">🛍 Shopping Directory</span><span class="guide-list-sub">Optional shops · Near · Best with Day</span></span><span>↓</span></button>`;
   const rows=directoryRow+list.map(i=>`<button onclick="openGuideModal('${i.key}')"><span><span class="guide-list-title">${i.emoji} ${i.title}</span><span class="guide-list-sub">${i.sub||''}</span></span><span class="guide-list-meta">${guideStatusHTML(PRODUCTION_GUIDE.places[i.key]||{})}<span class="guide-list-chevron">›</span></span></button>`).join('');
   $('guideModalContent').innerHTML=`<p class="kicker">Guide</p><h2>SHOP</h2><div class="category-pop-list">${rows}</div>`;
   closeMiniMenus();$('guideModal').classList.add('show');return;
  }
- const rows=groupedGuideRows(cat,list);
- $('guideModalContent').innerHTML=`<p class="kicker">Guide</p><h2>${guideCategoryHeading(cat)}</h2><div class="category-pop-list guide-category-grouped">${rows}</div>`;
+ const rows=groupedGuideRows(semantic,list);
+ $('guideModalContent').innerHTML=`<p class="kicker">Guide</p><h2>${guideCategoryHeading(semantic)}</h2><div class="category-pop-list guide-category-grouped">${rows}</div>`;
  closeMiniMenus();$('guideModal').classList.add('show');
 }
 
@@ -216,11 +244,13 @@ function usefulGoodToKnow(items){
  return (items||[]).filter(x=>x&&generic.every(rule=>!rule.test(x)));
 }
 function guideCoreSections(g,key){
- if(g.cat==='STAY')return guideStaySections(Object.assign({key},g));
- if(g.cat==='ACTIVITIES')return guideExperienceSections(g,key);
- if(g.cat==='ATTRACTIONS')return guideAttractionSections(g);
- if(g.cat==='SHOP'||g.cat==='SHOPPING')return guideShopSections(g);
- return compactGuideSections(g);
+ const semantic=guideSemanticCategory(g.cat);
+ const normalized=semantic===g.cat?g:Object.assign({},g,{cat:semantic});
+ if(semantic==='STAY')return guideStaySections(Object.assign({key},normalized));
+ if(semantic==='ACTIVITIES')return guideExperienceSections(normalized,key);
+ if(semantic==='ATTRACTIONS')return guideAttractionSections(normalized);
+ if(semantic==='SHOP')return guideShopSections(normalized);
+ return compactGuideSections(normalized);
 }
 
 function quickInfoInnerHTML(g,key){

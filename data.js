@@ -1,4 +1,4 @@
-// data.js — Saigon Companion RC1 · generated from reconciled VN Master on Travel Engine 25.2.8
+// data.js — Saigon Companion RC2 · reconciled VN Master v4 on Travel Engine 25.2.9
 // Timeline is authoritative for itinerary content; booking linkage is reconciled to Booking Foundation IDs.
 
 const PLACES={
@@ -1914,6 +1914,7 @@ const BOOKINGS_DATA={
     "bookingName": "",
     "bookingCategory": "Accommodation",
     "category": "Accommodation",
+    "type": "accommodation",
     "title": "Fusion Original Saigon Centre",
     "depositPaid": "",
     "depositAmount": "",
@@ -1925,6 +1926,14 @@ const BOOKINGS_DATA={
     "notes": "2 Bedroom Suite · Pay at hotel. Total AUD 1,693; cashback AUD 215. Net is a calculated display value, not stored as source truth.",
     "totalAmount": "AUD 1,693",
     "cashbackAmount": "AUD 215",
+    "netTotalAUD": "AUD 1,478",
+    "price": "AUD 1,693",
+    "paymentLabel": "Pay at hotel",
+    "stayDates": "30 Oct – 3 Nov 2026",
+    "roomType": "2 Bedroom Suite",
+    "checkIn": "14:00",
+    "checkOut": "12:00",
+    "nights": 4,
     "placeId": "fusion",
     "paymentStatus": "pay_at_hotel"
   },
@@ -1940,6 +1949,7 @@ const BOOKINGS_DATA={
     "bookingName": "",
     "bookingCategory": "Restaurants",
     "category": "Restaurants",
+    "type": "restaurant",
     "title": "Omakase Tiger",
     "depositPaid": "VND 2,000,000",
     "depositAmount": "2000000",
@@ -1964,6 +1974,7 @@ const BOOKINGS_DATA={
     "bookingName": "",
     "bookingCategory": "Restaurants",
     "category": "Restaurants",
+    "type": "restaurant",
     "title": "LÜNE Restaurant & Bar",
     "depositPaid": "",
     "depositAmount": "",
@@ -1987,6 +1998,7 @@ const BOOKINGS_DATA={
     "bookingName": "",
     "bookingCategory": "Restaurants",
     "category": "Restaurants",
+    "type": "restaurant",
     "title": "Little Bear",
     "depositPaid": "",
     "depositAmount": "",
@@ -2010,6 +2022,7 @@ const BOOKINGS_DATA={
     "bookingName": "",
     "bookingCategory": "Restaurants",
     "category": "Restaurants",
+    "type": "restaurant",
     "title": "Pizza 4P’s Hai Bà Trưng",
     "depositPaid": "",
     "depositAmount": "",
@@ -2033,6 +2046,7 @@ const BOOKINGS_DATA={
     "bookingName": "",
     "bookingCategory": "Restaurants",
     "category": "Restaurants",
+    "type": "restaurant",
     "title": "Quince Saigon",
     "depositPaid": "",
     "depositAmount": "",
@@ -2056,6 +2070,7 @@ const BOOKINGS_DATA={
     "bookingName": "",
     "bookingCategory": "Spa",
     "category": "Spa",
+    "type": "spa",
     "title": "Spa Nhà Suga Premium Korea Headspa — Nguyễn Huệ",
     "depositPaid": "",
     "depositAmount": "",
@@ -2079,6 +2094,7 @@ const BOOKINGS_DATA={
     "bookingName": "",
     "bookingCategory": "Spa",
     "category": "Spa",
+    "type": "spa",
     "title": "Mộc Kim Spa & Beauty — Bến Thành",
     "depositPaid": "",
     "depositAmount": "",
@@ -2102,6 +2118,7 @@ const BOOKINGS_DATA={
     "bookingName": "",
     "bookingCategory": "Spa",
     "category": "Spa",
+    "type": "spa",
     "title": "Mộc Hương Wellness — Thảo Điền",
     "depositPaid": "",
     "depositAmount": "",
@@ -2125,6 +2142,7 @@ const BOOKINGS_DATA={
     "bookingName": "",
     "bookingCategory": "Spa",
     "category": "Spa",
+    "type": "spa",
     "title": "Tỉnh Thức Spa",
     "depositPaid": "",
     "depositAmount": "",
@@ -2148,6 +2166,7 @@ const BOOKINGS_DATA={
     "bookingName": "",
     "bookingCategory": "Spa",
     "category": "Spa",
+    "type": "spa",
     "title": "Hạ Spa — Tân Bình",
     "depositPaid": "",
     "depositAmount": "",
@@ -2171,6 +2190,7 @@ const BOOKINGS_DATA={
     "bookingName": "",
     "bookingCategory": "Activities",
     "category": "Activities",
+    "type": "activity",
     "title": "Saigon Cooking Class",
     "depositPaid": "",
     "depositAmount": "",
@@ -2194,6 +2214,7 @@ const BOOKINGS_DATA={
     "bookingName": "",
     "bookingCategory": "Transport",
     "category": "Transport",
+    "type": "transport",
     "title": "Airport transfer · Arrival",
     "depositPaid": "",
     "depositAmount": "",
@@ -2214,7 +2235,7 @@ const TRIP_DATA={
   },
   "emergency": {
     "title": "☎️ Emergency",
-    "body": "<div class='fact-grid trip-facts-compact'><div class='fact'><strong>Police</strong><a href='tel:113'>113</a></div><div class='fact'><strong>Fire</strong><a href='tel:114'>114</a></div><div class='fact'><strong>Ambulance</strong><a href='tel:115'>115</a></div><div class='fact'><strong>Hotel</strong><a href='tel:+842836222265'>+84 28 3622 2265</a></div><div class='fact'><strong>Australian Consulate-General</strong><a href='tel:+842835218100'>+84 28 3521 8100</a><br>20/F Vincom Centre, 47 Lý Tự Trọng, D1</div><div class='fact'><strong>24-hour Consular Emergency</strong><a href='tel:+61262613305'>+61 2 6261 3305</a></div><div class='fact'><strong>Nhà Suga Spa</strong><a href='tel:+84935227989'>+84 935 227 989</a></div><div class='fact'><strong>Mộc Hương Wellness</strong><a href='tel:+842837444550'>+84 28 3744 4550</a></div><div class='fact'><strong>Little Bear</strong><a href='tel:+84862512086'>+84 862 512 086</a></div><div class='fact'><strong>Pizza 4P’s Hai Bà Trưng</strong><a href='tel:+842836220500'>+84 28 3622 0500</a></div></div><p class='timestamp'>Local emergency lines may operate mainly in Vietnamese. Contact the hotel or travel insurer when practical.</p>"
+    "body": "<div class='fact-grid trip-facts-compact'><div class='fact'><strong>Police</strong><a href='tel:113'>113</a></div><div class='fact'><strong>Fire</strong><a href='tel:114'>114</a></div><div class='fact'><strong>Ambulance</strong><a href='tel:115'>115</a></div><div class='fact'><strong>Hotel</strong><a href='tel:+842836222265'>+84 28 3622 2265</a></div><div class='fact'><strong>Australian Consulate-General</strong><a href='tel:+842835218100'>+84 28 3521 8100</a><br>20/F Vincom Centre, 47 Lý Tự Trọng, D1</div><div class='fact'><strong>24-hour Consular Emergency</strong><a href='tel:+61262613305'>+61 2 6261 3305</a></div></div><p class='timestamp'>Local emergency lines may operate mainly in Vietnamese. Contact the hotel or travel insurer when practical.</p>"
   },
   "flights": {
     "title": "✈️ Flights",
@@ -2223,13 +2244,17 @@ const TRIP_DATA={
   "stay": {
     "title": "🏨 Stay",
     "body": "<p><strong>Fusion Original Saigon Centre</strong><br>今次四人行的城市 base。位置連住 Saigon Centre / Takashimaya，落雨、太熱或者夜晚返酒店都方便。</p><div class='hotel-card'><p class='kicker'>Hotel Address</p><p><strong>Fusion Original Saigon Centre</strong><br>65 Đường Lê Lợi<br>Takashimaya Saigon Centre<br>District 1, Ho Chi Minh City, Vietnam</p><div class='guide-next-row'><button class='pill' onclick=\"copyText('Fusion Original Saigon Centre, 65 Đường Lê Lợi, Takashimaya Saigon Centre, District 1, Ho Chi Minh City, Vietnam')\">📋 Copy Address</button></div></div><div class='fact-grid hotel-facts'><div class='fact'><strong>Phone</strong><a href='tel:+842836222265'>+84 28 3622 2265</a></div><div class='fact'><strong>Check-in</strong>2:00 pm – 12:00 am</div><div class='fact'><strong>Check-out</strong>Before 12:00 pm</div><div class='fact'><strong>Room</strong>2 Bedroom Suite</div></div>"
-  }
+  },
+  "activities": {"title":"🎟️ Activities","body":""},
+  "transport": {"title":"🚐 Transport","body":""}
 };
 
 const TRIP_ORDER=[
-  "checklist",
   "flights",
   "stay",
+  "activities",
+  "transport",
+  "checklist",
   "emergency"
 ];
 

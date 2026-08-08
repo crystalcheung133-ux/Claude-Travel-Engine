@@ -1,6 +1,6 @@
-Saigon Companion RC1 Production File Manifest
+Saigon Companion RC4 Production File Manifest
 Generated: 2026-08-08
-Base: Travel Engine 25.2.8
+Base: Travel Engine 25.3.1
 Reference trip: Vietnam
 
 Production root files:

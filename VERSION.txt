@@ -1,2 +1,1 @@
-Travel Engine 25.2.8 · Saigon Companion RC1
-VN Reference Implementation · 2026-08-08
+Saigon Companion RC4 — Travel Engine 25.3.1 Dual-Currency Expenses

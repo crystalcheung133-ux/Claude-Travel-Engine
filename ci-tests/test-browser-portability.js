@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+'use strict';
+const http=require('http'),fs=require('fs'),path=require('path'),assert=require('assert');
+const {chromium}=require('playwright');
+const ROOT=path.resolve(__dirname,'..');
+const MIME={'.html':'text/html','.js':'application/javascript','.css':'text/css','.json':'application/json','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webmanifest':'application/manifest+json'};
+function server(){return http.createServer((req,res)=>{const raw=(req.url||'/').split('?')[0];const rel=raw==='/'?'index.html':decodeURIComponent(raw.replace(/^\//,''));const file=path.join(ROOT,rel);if(!file.startsWith(ROOT)||!fs.existsSync(file)||fs.statSync(file).isDirectory()){res.writeHead(404);return res.end('not found')}res.writeHead(200,{'Content-Type':MIME[path.extname(file)]||'application/octet-stream','Cache-Control':'no-store'});fs.createReadStream(file).pipe(res);});}
+(async()=>{
+ const srv=server();await new Promise(r=>srv.listen(0,'127.0.0.1',r));const port=srv.address().port,base=`http://127.0.0.1:${port}`;
+ let browser;
+ try{
+  browser=await chromium.launch({headless:true});
+  const page=await browser.newPage({viewport:{width:390,height:844}});const errors=[];page.on('pageerror',e=>errors.push(String(e)));
+  await page.route('**/v1/latest**',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({rates:{AUD:0.000057},date:'2026-08-08'})}));
+  await page.route('**/currencies/*.json',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({date:'2026-08-08',vnd:{aud:0.000057},nzd:{aud:0.91}})}));
+  await page.goto(base+'/index.html',{waitUntil:'domcontentloaded'});await page.evaluate(()=>document.getElementById('ccmvSplash')?.remove());
+  const logo=await page.locator('.site-nav .brand-mark img').boundingBox(),host=await page.locator('.site-nav .brand-mark').boundingBox();assert(logo&&host&&logo.width<=host.width+1&&logo.height<=host.height+1,'Header logo overflows its safe area');
+  const currency=page.locator('#currencyCardMeta');await currency.waitFor({state:'visible'});await page.waitForTimeout(100);assert(!/unavailable/i.test(await currency.innerText()),'Currency converter has no usable rate');
+  await page.goto(base+'/day.html?day=2',{waitUntil:'domcontentloaded'});await page.waitForTimeout(80);
+  const first=page.locator('.timeline-item').first();if(await first.count()){const time=await first.locator('.timeline-time').boundingBox();assert(time&&time.width<=72,'Mobile timeline time rail is too wide');}
+  const actionButtons=page.locator('.timeline-actions button.timeline-action');for(let i=0;i<await actionButtons.count();i++){const el=actionButtons.nth(i);assert(await el.getAttribute('onclick'),'Timeline action button has no route');}
+  await page.goto(base+'/expenses.html',{waitUntil:'domcontentloaded'});await page.locator('button[onclick="openExpenseModal()"]') .click();await page.locator('[data-split-mode="custom"]').click();
+  const rows=page.locator('.custom-split-row');for(let i=0;i<await rows.count();i++){const row=rows.nth(i),box=await row.boundingBox(),field=await row.locator('.expense-money-field').boundingBox();assert(box&&field&&field.x>=box.x-1&&field.x+field.width<=box.x+box.width+1,'Custom split controls overflow row');}
+  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth+1),'Expenses page has horizontal overflow');
+  const tripId=await page.evaluate(()=>window.TRIP_CONFIG&&TRIP_CONFIG.id||TRIP_CONFIG.storageNamespace||'');
+  if(String(tripId).includes('vietnam')){
+    await page.goto(base+'/day.html?day=2',{waitUntil:'domcontentloaded'});await page.waitForTimeout(80);const text=(await page.locator('.timeline').innerText());assert(!/Grab\s*→\s*Mộc Kim|Grab\s*→\s*LÚNE/i.test(text),'Routine Grab transition rendered as standalone timeline card');
+  }
+  assert.equal(errors.length,0,'Browser page errors: '+errors.join(' | '));
+  console.log('BROWSER PORTABILITY SMOKE: PASS — mobile logo, FX, timeline rail/actions, expense custom split and transition filtering.');
+ }finally{if(browser)await browser.close();await new Promise(r=>srv.close(r));}
+})().catch(e=>{console.error(e);process.exit(1)});

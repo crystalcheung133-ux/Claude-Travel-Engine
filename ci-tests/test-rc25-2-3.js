@@ -10,7 +10,7 @@ must(/--admin-modal-layer\s*:\s*7000/, css, 'admin modal layer variable missing'
 must(/\.timeline-editor-modal[\s\S]*#mamaModal\.studio-view[\s\S]*z-index\s*:\s*var\(--admin-modal-layer\)/, css, 'timeline/studio modal layer contract missing');
 must(/\.timeline-editor-actions[\s\S]*position\s*:\s*relative[\s\S]*z-index\s*:\s*3/, css, 'timeline editor action footer protection missing');
 must(/#mamaModal\.studio-view \.guide-sheet[\s\S]*safe-area-inset-bottom/, css, 'studio safe-area padding missing');
-must(/rc25-2-3-admin-safe/, sw, 'service worker cache identity not updated');
+must(/TRIP_CONFIG\.version/, sw, 'service worker cache identity is not release-version driven');
 for(const f of htmls){
   const txt = fs.readFileSync(path.join(root,f),'utf8');
   if(/styles\.css/.test(txt) && !/styles\.css\?v=rc25-2-3-admin-safe/.test(txt)) fail.push(`${f}: stale styles cache key`);

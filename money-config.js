@@ -6,11 +6,15 @@
 
   const money = Object.freeze({
     homeCurrency: 'AUD',
+    settlementCurrency: 'AUD',
+    expenseCurrencyMode: 'home_and_destination',
     exchangeProvider: 'frankfurter',
     apiBase: 'https://api.frankfurter.dev/v1/latest',
+    fallbackApiBases: Object.freeze([
+      'https://latest.currency-api.pages.dev/v1/currencies/{base}.json'
+    ]),
     cacheHours: 12,
-    storageVersion: 1,
-    supportedCurrencies: Object.freeze(['AUD', 'NZD', 'JPY', 'VND'])
+    storageVersion: 2
   });
 
   root.MONEY_CONFIG = money;
