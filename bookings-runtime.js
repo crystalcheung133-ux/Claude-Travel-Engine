@@ -21,6 +21,8 @@
     const type=String(b&&b.type||'').toLowerCase(); if(type==='accommodation')return 'Accommodation'; if(type==='restaurant')return 'Restaurants';
     if(type==='spa')return 'Spa'; if(type==='transport'||type==='rentalcar')return 'Transport'; return 'Activities';
   }
+
+  function entityIcon(b){const t=String(b&&b.type||'').toLowerCase(),n=String(b&&b.title||'').toLowerCase(); if(t==='restaurant')return n.includes('omakase')?'🍣':n.includes('pizza')?'🍕':n.includes('lune')?'🥂':'🍽️'; if(t==='spa')return n.includes('suga')||n.includes('head')?'💆‍♀️':n.includes('wellness')?'🌿':'🧖‍♀️'; if(t==='transport')return n.includes('airport')?'✈️':'🚐'; if(t==='activity'||t==='experience')return n.includes('cooking')?'👩‍🍳':'🎟️'; return CATEGORY_META[category(b)]?.icon||'📌';}
   function rows(){return source().filter(Boolean).map(b=>Object.assign({},b,{_category:category(b),_status:status(b)})).sort((a,b)=>String(a.date||'').localeCompare(String(b.date||''))||String(a.time||'').localeCompare(String(b.time||'')));}
   function summary(all){const confirmed=all.filter(x=>x._status==='confirmed').length;return `${confirmed} confirmed · ${all.length-confirmed} pending`;}
   function dayNumber(b){return String(b.dayId||b.day||'').replace('day','').replace(/\D/g,'');}
@@ -35,7 +37,7 @@
   }
   function card(b){
     const day=dayNumber(b), dayBadge=day?`<span class="booking-day-button">DAY ${esc(day)}</span>`:'', deep=`trip.html?bookingId=${encodeURIComponent(b.id)}`;
-    return `<article class="booking-card ${b._status}"><div class="booking-card-row"><a class="booking-card-main" href="${esc(deep)}"><span>${day?`<small class="booking-day-label">DAY ${esc(day)}</small>`:''}<strong>${esc(b.title||'Booking')}</strong><small>${esc(metaText(b))}</small>${paymentLines(b)}</span><span class="booking-status ${b._status}">${b._status==='confirmed'?'✓ Confirmed':'• Pending'}</span></a>${dayBadge}</div></article>`;
+    return `<article class="booking-card ${b._status}"><div class="booking-card-row"><a class="booking-card-main" href="${esc(deep)}"><span>${day?`<small class="booking-day-label">DAY ${esc(day)}</small>`:''}<strong>${entityIcon(b)} ${esc(b.title||'Booking')}</strong><small>${esc(metaText(b))}</small>${paymentLines(b)}</span><span class="booking-status ${b._status}">${b._status==='confirmed'?'✓ Confirmed':'• Pending'}</span></a>${dayBadge}</div></article>`;
   }
   function group(key,items){const meta=CATEGORY_META[key];return `<section class="booking-category-section" data-booking-group="${esc(key)}"><header class="booking-category-heading"><h2>${meta.icon} ${esc(meta.label)}</h2><span>${items.length}</span></header><div class="booking-category-list">${items.map(card).join('')}</div></section>`;}
   function render(){

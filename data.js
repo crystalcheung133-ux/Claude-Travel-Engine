@@ -135,7 +135,7 @@ const PLACES={
     "emoji": "🍫",
     "cat": "CAFÉS",
     "sub": "朱古力甜點",
-    "hours": "Check official hours before visit",
+    "hours": "出發前再確認營業時間",
     "maps": "https://www.google.com/maps/search/?api=1&query=Maison%20Marou%20Level%20B2%2C%20Saigon%20Centre%20%E2%80%93%20Takashimaya%2C%2065%20L%C3%AA%20L%E1%BB%A3i%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "Level B2, Saigon Centre – Takashimaya, 65 Lê Lợi, Ho Chi Minh City, Vietnam",
     "desc": "Maison Marou 是越南精品朱古力品牌，今次最方便的分店就在 Saigon Centre / Fusion 附近。它適合兩種用途：一是旅行中段回酒店後飲杯熱朱古力，二是最後買手信。比起普通 souvenir，Marou 朱古力包裝靚、有越南產地特色，而且容易帶回澳洲。",
@@ -332,32 +332,32 @@ const PLACES={
     "title": "Omakase Tiger",
     "emoji": "🍣",
     "cat": "RESTAURANTS",
-    "sub": "Day 1 · Booked session 17:30",
-    "hours": "Check official hours before visit",
+    "sub": "Day 1 · 已確認 17:30",
+    "hours": "出發前再確認營業時間",
     "maps": "https://www.google.com/maps/search/?api=1&query=Omakase%20Tiger%2085%2F9%20Ph%E1%BA%A1m%20Vi%E1%BA%BFt%20Ch%C3%A1nh%2C%20Th%E1%BA%A1nh%20M%E1%BB%B9%20T%C3%A2y%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "85/9 Phạm Viết Chánh, Thạnh Mỹ Tây, Hồ Chí Minh 700000, Vietnam",
-    "desc": "Omakase Tiger remains the confirmed Day 1 restaurant. Booked session: 17:30 on 30 October 2026, based on the traveller’s direct confirmation. General venue trading hours are separate and should be reconfirmed before departure.",
+    "desc": "Day 1 晚餐已確認 17:30。Omakase Tiger 只有少量 counter seats，重點係近距離睇師傅出餐；正式營業時間出發前再確認即可。",
     "signature": [
       "8-seat countertop，座位極少",
       "17:30 日落場最有記憶點",
       "約 10–14 道 omakase，價格比澳港日同類體驗低"
     ],
     "worth": [
-      "Booked session: 17:30 on 30 October 2026.",
-      "General venue trading hours were not independently verified; reconfirm before departure."
+      "已確認 30 Oct 17:30 場次。",
+      "正式營業時間出發前再確認。"
     ],
     "categoryLabel": "🍽 Restaurant",
     "price": "$$$",
     "transport": "Grab / walk depending on current route",
-    "audit": "Retained per direct traveller confirmation; stale temporary-closure warning removed",
+    "audit": "按旅客直接確認保留；已移除過時的暫停營業提示",
     "highlights": [
       "8-seat countertop，座位極少",
       "17:30 日落場最有記憶點",
       "約 10–14 道 omakase，價格比澳港日同類體驗低"
     ],
     "tips": [
-      "Booked session: 17:30 on 30 October 2026.",
-      "General venue trading hours were not independently verified; reconfirm before departure."
+      "已確認 30 Oct 17:30 場次。",
+      "正式營業時間出發前再確認。"
     ]
   },
   "pho-sol": {
@@ -653,7 +653,7 @@ const PLACES={
     "emoji": "🌿",
     "cat": "SHOP",
     "sub": "Day 3 Thảo Điền 選物",
-    "hours": "Check official hours before visit",
+    "hours": "出發前再確認營業時間",
     "maps": "https://www.google.com/maps/search/?api=1&query=Saigon%20Concept%2014%20Tr%E1%BA%A7n%20Ng%E1%BB%8Dc%20Di%E1%BB%87n%2C%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "14 Trần Ngọc Diện, Thảo Điền, Ho Chi Minh City, Vietnam",
     "desc": "Saigon Concept 是 Thảo Điền 很適合慢逛的 lifestyle compound：紅磚庭園、棉麻服飾、家居選物與小型品牌集中在同一區。Day 3 到草田區後先放慢節奏，由這裡開始很舒服。",
@@ -781,7 +781,7 @@ const PLACES={
     "emoji": "👗",
     "cat": "SHOP",
     "sub": "Day 4 第二輪 · Trần Quang Diệu 女裝",
-    "hours": "Check official hours before visit",
+    "hours": "出發前再確認營業時間",
     "maps": "https://www.google.com/maps/search/?api=1&query=Dalla%20Saigon%2064%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%20Ph%C6%B0%E1%BB%9Dng%2014%20Qu%E1%BA%ADn%203%20H%E1%BB%93%20Ch%C3%AD%20Minh",
     "address": "64 Trần Quang Diệu, Phường 14, Quận 3, Hồ Chí Minh, Vietnam",
     "desc": "Dalla Saigon 是 Trần Quang Diệu 一帶熱門本地女裝品牌，主打 crop top、連身裙與日常穿搭單品，與 Tỉnh Thức Spa 同一條街，Spa 後順路開始第二輪 shopping 很方便。",
@@ -813,7 +813,7 @@ const PLACES={
     "emoji": "👚",
     "cat": "SHOP",
     "sub": "Day 4 第二輪 · Trần Quang Diệu 女裝",
-    "hours": "Check official hours before visit",
+    "hours": "出發前再確認營業時間",
     "maps": "https://www.google.com/maps/search/?api=1&query=Rubies%20Rubies%2047-49%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%20Ph%C6%B0%E1%BB%9Dng%2014%20Qu%E1%BA%ADn%203%20H%E1%BB%93%20Ch%C3%AD%20Minh",
     "address": "47–49 Trần Quang Diệu, Phường 14, Quận 3, Hồ Chí Minh, Vietnam",
     "desc": "Rubies Rubies 是越南本地連鎖女裝品牌，走年輕、俐落路線，辦公室與街拍都能穿。分店就在 Dalla Saigon 附近，可以走著逛完整條 Trần Quang Diệu shopping 段。",
@@ -845,7 +845,7 @@ const PLACES={
     "emoji": "🎀",
     "cat": "SHOP",
     "sub": "Day 4 第二輪 · Trần Quang Diệu 女裝",
-    "hours": "Check official hours before visit",
+    "hours": "出發前再確認營業時間",
     "maps": "https://www.google.com/maps/search/?api=1&query=LANE%20C%C3%AC%2027%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%20Ph%C6%B0%E1%BB%9Dng%2014%20Qu%E1%BA%ADn%203%20H%E1%BB%93%20Ch%C3%AD%20Minh",
     "address": "27 Trần Quang Diệu, Phường 14, Quận 3, Hồ Chí Minh, Vietnam",
     "desc": "LANE Cì 是同一條街上較細小的女裝選物店，款式較少女、甜美，適合作為第二輪 shopping 的最後一站，逛完直接叫 Grab 去 Quince。",
@@ -908,11 +908,11 @@ const PLACES={
     "title": "Spa Nhà Suga Premium Korea Headspa – Nguyễn Huệ",
     "emoji": "💆",
     "cat": "SPA",
-    "sub": "Day 1 · Scheduled head spa",
-    "hours": "Check official hours before visit",
+    "sub": "Day 1 · Head Spa",
+    "hours": "出發前再確認營業時間",
     "maps": "https://www.google.com/maps/search/?api=1&query=Spa%20Nh%C3%A0%20Suga%20Premium%20Korea%20Headspa%20%E2%80%93%20Nguy%E1%BB%85n%20Hu%E1%BB%87%208th%20Floor%2C%20The%20Caf%C3%A9%20Apartment%2C%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "8th Floor, The Café Apartment, 42 Nguyễn Huệ, District 1, Ho Chi Minh City, Vietnam",
-    "desc": "The Nguyễn Huệ branch is on the 8th Floor of The Café Apartment at 42 Nguyễn Huệ. This is the scheduled Day 1 Korean head-spa session. Current full weekly trading hours could not be confirmed from an official publication; reconfirm the booking and building access before departure.",
+    "desc": "Nguyễn Huệ 分店位於 The Cafe Apartments 8樓。Day 1 安排韓式 Head Spa，做完可直接接晚餐；出發前再確認預約及大廈入場方式。",
     "signature": [
       "Korean-style head spa / scalp care",
       "肩頸放鬆",
@@ -975,7 +975,7 @@ const PLACES={
     "emoji": "🏡",
     "cat": "SPA",
     "sub": "Day 3 Villa Wellness",
-    "hours": "Check official hours before visit",
+    "hours": "出發前再確認營業時間",
     "maps": "https://www.google.com/maps/search/?api=1&query=M%E1%BB%99c%20H%C6%B0%C6%A1ng%20Wellness%2061%20Xu%C3%A2n%20Th%E1%BB%A7y%2C%20Ph%C6%B0%E1%BB%9Dng%20An%20Kh%C3%A1nh%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "61 Xuân Thủy, Phường An Khánh, Ho Chi Minh City, Vietnam",
     "desc": "Mộc Hương Wellness Thảo Điền 走高級 villa spa 路線，環境比普通按摩店更度假。Day 3 逛草田區後在這裡做熱石／精油按摩，再去 Little Bear，整日節奏會很一致：慢、綠意、輕奢。",
@@ -1007,7 +1007,7 @@ const PLACES={
     "emoji": "💆",
     "cat": "SPA",
     "sub": "Day 4 足底按摩",
-    "hours": "Check official hours before visit",
+    "hours": "出發前再確認營業時間",
     "maps": "https://www.google.com/maps/search/?api=1&query=T%E1%BB%89nh%20Th%E1%BB%A9c%20Spa%20118%2F54%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%2C%20Ph%C6%B0%E1%BB%9Dng%20Nhi%C3%AAu%20L%E1%BB%99c%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "118/54 Trần Quang Diệu, Phường Nhiêu Lộc, Ho Chi Minh City, Vietnam",
     "desc": "Tỉnh Thức Spa is the scheduled Day 4 foot-massage venue. Scheduled treatment: 15:15–17:00. The spa is inside alley 118; from the alley entrance, continue to the end and turn left. Current regular hours and Monday operation were not published clearly enough to verify, so reconfirm directly before departure.",
@@ -1264,11 +1264,11 @@ const PLACES={
     "title": "Saigon Cooking Class",
     "emoji": "👩🏻‍🍳",
     "cat": "EXPERIENCE",
-    "sub": "Day 2 · Scheduled class 10:00–13:00",
-    "hours": "Check official hours before visit",
+    "sub": "Day 2 · 廚藝課 10:00–13:00",
+    "hours": "出發前再確認營業時間",
     "maps": "https://www.google.com/maps/search/?api=1&query=Saigon%20Cooking%20Class%2080%2F1%20Nguy%E1%BB%85n%20Tr%C3%A3i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20770000%2C%20Vietnam",
     "address": "80/1 Nguyễn Trãi, Bến Thành, Hồ Chí Minh 770000, Vietnam",
-    "desc": "Saigon Cooking Class is the fixed Day 2 experience at 80/1 Nguyễn Trãi. Scheduled class: 10:00–13:00. Reconfirm the meeting instructions before departure.",
+    "desc": "Day 2 固定行程，地址 80/1 Nguyễn Trãi，課堂 10:00–13:00。出發前再確認集合方式即可。",
     "signature": [
       "3 小時越菜體驗",
       "親手做菜，即場享用作午餐",
@@ -1443,7 +1443,7 @@ const PLACES={
     "sub": "Airport",
     "maps": "https://maps.google.com/?q=Tan+Son+Nhat+International+Airport",
     "address": "",
-    "desc": "Airport arrival / departure point used by the VN timeline."
+    "desc": "VN 行程抵達及離境使用的新山一機場。"
   },
   "social-club": {
     "title": "Social Club Rooftop",
@@ -1452,7 +1452,7 @@ const PLACES={
     "sub": "Optional rooftop",
     "maps": "https://maps.google.com/?q=Social+Club+Rooftop+Saigon",
     "address": "",
-    "desc": "Optional Day 4 rooftop stop from the reconciled timeline."
+    "desc": "Day 4 可選 rooftop stop；有精神先去，唔影響主行程。"
   },
   "takashimaya": {
     "title": "Takashimaya Saigon",
@@ -1461,7 +1461,7 @@ const PLACES={
     "sub": "Day 5 shopping",
     "maps": "https://maps.google.com/?q=Takashimaya+Saigon",
     "address": "",
-    "desc": "Day 5 final shopping stop from the reconciled timeline."
+    "desc": "Day 5 最後購物 stop，完成後返酒店提行李。"
   }
 };
 
@@ -1946,7 +1946,7 @@ const BOOKINGS_DATA={
     "status": "confirmed",
     "date": "2026-10-30",
     "time": "17:30",
-    "bookingName": "",
+    "bookingName": "Crystal Cheung",
     "bookingCategory": "Restaurants",
     "category": "Restaurants",
     "type": "restaurant",
@@ -1958,7 +1958,7 @@ const BOOKINGS_DATA={
     "bookingContact": "+84 93 201 4124",
     "secondaryContact": "",
     "bookingUrl": "https://omakasetiger.com/en",
-    "notes": "Booked for 17:30. Deposit paid: 2,000,000 VND.",
+    "notes": "已確認 17:30；訂金 2,000,000 VND 已付。",
     "paymentStatus": "deposit paid",
     "placeId": "omakase-tiger"
   },
@@ -2260,6 +2260,7 @@ const TRIP_ORDER=[
 
 const ITINERARY_DATA={
   "1": {
+    "dayEmoji": "🛬",
     "title": "Day 1 · Saigon Companion",
     "kicker": "Day 1 · 30 Oct • Friday",
     "heading": "Hello Saigon",
@@ -2359,8 +2360,8 @@ const ITINERARY_DATA={
         "time": "17:30",
         "title": "🍣 Omakase Tiger",
         "details": [
-          "Booked session: 17:30; availability confirmed directly by the traveller.",
-          "General trading hours: confirm before departure."
+          "已直接確認 17:30 場次；訂位已確認。",
+          "正式營業時間出發前再確認。"
         ],
         "route": "🚕 To next stop：Grab 約 15–20 分鐘返 Nguyễn Huệ / The Cafe Apartments 夜景。",
         "map": "https://www.google.com/maps/search/?api=1&query=Omakase%20Tiger%2085%2F9%20Ph%E1%BA%A1m%20Vi%E1%BA%BFt%20Ch%C3%A1nh%2C%20Th%E1%BA%A1nh%20M%E1%BB%B9%20T%C3%A2y%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
@@ -2386,7 +2387,7 @@ const ITINERARY_DATA={
       {
         "id": "return-hotel",
         "time": "20:15 onwards",
-        "title": "🛌 Return Hotel",
+        "title": "🛌 返回酒店",
         "details": [
           "第一晚重點是 settle in，不拖到太夜。"
         ],
@@ -2399,8 +2400,8 @@ const ITINERARY_DATA={
       },
       {
         "id": "late-night-supper",
-        "time": "Optional · After dinner",
-        "title": "🌙 Optional Hotel Supper",
+        "time": "Optional · 晚餐後",
+        "title": "🌙 Optional · 酒店宵夜",
         "details": [
           "想食鹹：Oanh Cua 蟹料理，可查官方 delivery／GrabFood。",
           "想食甜：GrabFood 搜 BINGO、Dessert、Chè、Tofu 或 Bingsu，篩選 Open Now。"
@@ -2416,6 +2417,7 @@ const ITINERARY_DATA={
     "dayId": "day1"
   },
   "2": {
+    "dayEmoji": "👩‍🍳",
     "title": "Day 2 · Saigon Companion",
     "kicker": "Day 2 · 31 Oct • Saturday",
     "heading": "Made in Saigon",
@@ -2531,8 +2533,8 @@ const ITINERARY_DATA={
       },
       {
         "id": "late-night-supper-day2",
-        "time": "Optional · After dinner",
-        "title": "🌙 Optional Hotel Supper",
+        "time": "Optional · 晚餐後",
+        "title": "🌙 Optional · 酒店宵夜",
         "details": [
           "想食鹹：Oanh Cua 蟹料理，可查官方 delivery／GrabFood。",
           "想食甜：GrabFood 搜 BINGO、Dessert、Chè、Tofu 或 Bingsu，篩選 Open Now。"
@@ -2548,6 +2550,7 @@ const ITINERARY_DATA={
     "dayId": "day2"
   },
   "3": {
+    "dayEmoji": "🌿",
     "title": "Day 3 · Saigon Companion",
     "kicker": "Day 3 · 1 Nov • Sunday",
     "heading": "A Slower Side",
@@ -2719,8 +2722,8 @@ const ITINERARY_DATA={
       },
       {
         "id": "late-night-supper-day3",
-        "time": "Optional · After dinner",
-        "title": "🌙 Optional Hotel Supper",
+        "time": "Optional · 晚餐後",
+        "title": "🌙 Optional · 酒店宵夜",
         "details": [
           "想食鹹：Oanh Cua 蟹料理，可查官方 delivery／GrabFood。",
           "想食甜：GrabFood 搜 BINGO、Dessert、Chè、Tofu 或 Bingsu，篩選 Open Now。"
@@ -2736,6 +2739,7 @@ const ITINERARY_DATA={
     "dayId": "day3"
   },
   "4": {
+    "dayEmoji": "🛍️",
     "title": "Day 4 · Saigon Companion",
     "kicker": "Day 4 · 2 Nov • Monday",
     "heading": "City Contrast",
@@ -2881,8 +2885,8 @@ const ITINERARY_DATA={
       },
       {
         "id": "late-night-supper-day4",
-        "time": "Optional · After dinner",
-        "title": "🌙 Optional Hotel Supper",
+        "time": "Optional · 晚餐後",
+        "title": "🌙 Optional · 酒店宵夜",
         "details": [
           "想食鹹：Oanh Cua 蟹料理，可查官方 delivery／GrabFood。",
           "想食甜：GrabFood 搜 BINGO、Dessert、Chè、Tofu 或 Bingsu，篩選 Open Now。"
@@ -2898,6 +2902,7 @@ const ITINERARY_DATA={
     "dayId": "day4"
   },
   "5": {
+    "dayEmoji": "✈️",
     "title": "Day 5 · Saigon Companion",
     "kicker": "Day 5 · 3 Nov • Tuesday",
     "heading": "One Last Look",
@@ -2967,7 +2972,7 @@ const ITINERARY_DATA={
       {
         "id": "hotel-luggage",
         "time": "14:15–14:45",
-        "title": "🧳 Return Hotel / Luggage",
+        "title": "🧳 返回酒店 · 提行李",
         "details": [
           "回 Fusion Original 提取寄存行李。"
         ],

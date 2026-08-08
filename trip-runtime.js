@@ -592,6 +592,15 @@ function renderDashboard(){
 
 
 
+function bookingEntityIcon(booking,category){
+  const type=String(booking&&booking.type||'').toLowerCase();
+  const title=String(booking&&booking.title||'').toLowerCase();
+  if(type==='restaurant')return title.includes('omakase')?'🍣':title.includes('pizza')?'🍕':title.includes('lune')?'🥂':'🍽️';
+  if(type==='spa')return title.includes('head')||title.includes('suga')?'💆‍♀️':title.includes('wellness')?'🌿':'🧖‍♀️';
+  if(type==='transport')return title.includes('airport')?'✈️':'🚐';
+  if(type==='activity'||type==='experience')return title.includes('cooking')?'👩‍🍳':'🎟️';
+  return bookingCategoryIcon(category);
+}
 function bookingCategoryIcon(category){
   const key=String(category||'').toLowerCase();
   return key==='restaurants'?'🍽️':key==='spa'?'💆':key==='activities'?'🎟️':key==='transport'?'🚐':'📋';
@@ -605,7 +614,7 @@ function buildBookingCategoryListHTML(category){
     if(booking.cashbackAmount||booking.cashback)priceParts.push(`Cashback ${booking.cashbackAmount||booking.cashback}`);
     if(booking.netTotalAUD||booking.netPrice)priceParts.push(`Net ${booking.netTotalAUD||booking.netPrice}`);
     const price=priceParts.join(' · ');
-    return `<button class="accommodation-picker-row booking-category-row" type="button" role="listitem" onclick="openGenericBookingDetail('${escapeTripHTML(booking.id)}')"><span class="accommodation-picker-icon" aria-hidden="true">${bookingCategoryIcon(category)}</span><span class="accommodation-picker-copy"><strong>${escapeTripHTML(booking.title)}</strong><small>${bookingDayNumber(booking)?`Day ${escapeTripHTML(bookingDayNumber(booking))} · `:''}${escapeTripHTML(booking.date||'')}${booking.time?` · ${escapeTripHTML(booking.time)}`:''}</small>${price?`<span class="accommodation-picker-price">${escapeTripHTML(price)}</span>`:''}</span><span class="accommodation-picker-meta"><span class="activity-status-badge">${escapeTripHTML(bookingStatusText(booking))}</span><b aria-hidden="true">›</b></span></button>`;
+    return `<button class="accommodation-picker-row booking-category-row" type="button" role="listitem" onclick="openGenericBookingDetail('${escapeTripHTML(booking.id)}')"><span class="accommodation-picker-icon" aria-hidden="true">${bookingEntityIcon(booking,category)}</span><span class="accommodation-picker-copy"><strong>${escapeTripHTML(booking.title)}</strong><small>${bookingDayNumber(booking)?`Day ${escapeTripHTML(bookingDayNumber(booking))} · `:''}${escapeTripHTML(booking.date||'')}${booking.time?` · ${escapeTripHTML(booking.time)}`:''}</small>${price?`<span class="accommodation-picker-price">${escapeTripHTML(price)}</span>`:''}</span><span class="accommodation-picker-meta"><span class="activity-status-badge">${escapeTripHTML(bookingStatusText(booking))}</span><b aria-hidden="true">›</b></span></button>`;
   }).join('')+'</div>';
 }
 function openBookingCategoryCard(category){

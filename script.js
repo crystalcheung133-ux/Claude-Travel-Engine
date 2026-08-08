@@ -7,7 +7,7 @@ function renderCanonicalDayNavigation(){
   const model=days.map(number=>{
     const day=productionItinerary[number]||{};
     const legend=Array.isArray(day.legend)?day.legend:[];
-    const icon=(String(legend[0]||'🗓').match(/^\S+/)||['🗓'])[0];
+    const icon=day.dayEmoji||(String(legend[0]||'🗓').match(/^\S+/)||['🗓'])[0];
     const date=String(day.kicker||'').split('·').slice(1).join('·').trim();
     const summary=legend.map(value=>String(value).replace(/^\S+\s*/,''));
     return {number,icon,date,heading:day.heading||`Day ${number}`,summary};
