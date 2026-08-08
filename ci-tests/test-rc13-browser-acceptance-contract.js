@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+'use strict';
+const fs=require('fs'),assert=require('assert');
+const read=f=>fs.readFileSync(f,'utf8');
+const root=__dirname+'/..';
+const cfg=read(root+'/trip-config.js'),css=read(root+'/styles.css'),core=read(root+'/core-runtime.js'),exp=read(root+'/expenses.js'),day=read(root+'/day.html'),storage=read(root+'/storage-config.js');
+assert(cfg.includes('RC13-25.4.0'),'RC13 version missing');
+assert(cfg.includes('\"presentation\":\"emoji-name\"'),'party presentation must be emoji-name');
+assert(core.includes("closeBtn.hidden=true")&&core.includes("closeBtn.style.display='none'"),'required traveller close must be DOM-disabled');
+assert(css.includes('.friend-pill .family-name{display:inline!important'),'header traveller name contract missing');
+assert(css.includes('#expenseModal .custom-split-row{display:grid!important;grid-template-columns:1fr!important'),'mobile custom split full-name layout missing');
+assert(exp.includes('destinationPerHome')&&exp.includes('1 ${home} ≈ ${FORMATTER.decimal(destinationPerHome,0)} ${code}'),'useful inverse FX rate missing');
+assert(day.includes("String(booking.status||booking.displayStatus||'pending')"),'timeline booking status must resolve canonical status first');
+assert(storage.includes("bookingOverrides:namespace+':booking_overrides:v2'"),'booking overrides must be trip namespaced');
+assert(!css.includes('\\n\\n/* Engine 25.3.9'),'escaped-newline CSS corruption still present');
+console.log('RC13 BROWSER ACCEPTANCE CONTRACT: PASS');

@@ -30,7 +30,7 @@
     canonicalExpenseState:namespace+':canonical_expenses:stage_3_2d:v1',
     expenseReadShadowState:namespace+':canonical_expense_read_shadow:stage_3_2e:v1',
     tripGeneration:'travel_engine_trip_generation_v1',
-    bookingOverrides:'travel_engine_booking_overrides_v1',
+    bookingOverrides:namespace+':booking_overrides:v2',
     analyticsQueue:namespace+':analytics_queue:v1',
     analyticsSession:'travel_engine_analytics_session_v1'
   });

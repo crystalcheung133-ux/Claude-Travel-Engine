@@ -174,7 +174,11 @@ let editingExpenseIndex=null;
     const rate=Number(record?.rate);
     if(rate>0){
       const converted=MONEY.convert(total||1,rate,code,home);
-      helper.textContent=total?`≈ ${FORMATTER.decimal(converted,2)} ${home}`:'';
+      const homePerDestination=MONEY.convert(1,rate,code,home);
+      const destinationPerHome=homePerDestination>0 ? (1/homePerDestination) : 0;
+      const rateText=destinationPerHome>0 ? `1 ${home} ≈ ${FORMATTER.decimal(destinationPerHome,0)} ${code}` : '';
+      const convertedText=total?`≈ ${FORMATTER.decimal(converted,2)} ${home}`:'';
+      helper.textContent=[convertedText,rateText].filter(Boolean).join(' · ');
     }else helper.textContent='';
   }
   async function getExpenseRateRecord(){

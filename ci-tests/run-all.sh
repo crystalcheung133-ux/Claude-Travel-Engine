@@ -26,3 +26,5 @@ if [ "$failed" -ne 0 ]; then echo; echo "ONE OR MORE TESTS FAILED"; exit 1; fi
 echo; echo "ALL VN REFERENCE TESTS PASSED"
 
 node ci-tests/test-rc11-sync-content-contract.js
+
+node ci-tests/test-rc13-browser-acceptance-contract.js
