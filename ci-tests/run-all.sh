@@ -21,10 +21,10 @@ run "14/18 Dual-currency Expenses" node ci-tests/test-dual-currency-expenses.js 
 run "15/18 RC9 presentation" node ci-tests/test-rc9-presentation-contract.js
 run "16/18 RC10 presentation + guide" node ci-tests/test-rc10-presentation-contract.js
 run "17/18 RC11 sync + content" node ci-tests/test-rc11-sync-content-contract.js
-run "18/18 RC12 identity + UI" node ci-tests/test-rc12-identity-ui-contract.js
+run "18/21 RC12 identity + UI" node ci-tests/test-rc12-identity-ui-contract.js
+run "19/21 RC13 browser acceptance contract" node ci-tests/test-rc13-browser-acceptance-contract.js
+run "20/21 RC14 cache + visual contract" node ci-tests/test-rc14-cache-visual-contract.js
+run "21/21 RC15 moments + timeline contract" node ci-tests/test-rc15-moments-timeline-contract.js
 if [ "$failed" -ne 0 ]; then echo; echo "ONE OR MORE TESTS FAILED"; exit 1; fi
 echo; echo "ALL VN REFERENCE TESTS PASSED"
 
-node ci-tests/test-rc11-sync-content-contract.js
-
-node ci-tests/test-rc13-browser-acceptance-contract.js

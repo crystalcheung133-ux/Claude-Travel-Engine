@@ -2400,8 +2400,8 @@ const ITINERARY_DATA={
       },
       {
         "id": "late-night-supper",
-        "time": "Optional · 晚餐後",
-        "title": "🌙 Optional · 酒店宵夜",
+        "time": "Optional",
+        "title": "🌙 酒店宵夜",
         "details": [
           "想食鹹：Oanh Cua 蟹料理，可查官方 delivery／GrabFood。",
           "想食甜：GrabFood 搜 BINGO、Dessert、Chè、Tofu 或 Bingsu，篩選 Open Now。"
@@ -2533,8 +2533,8 @@ const ITINERARY_DATA={
       },
       {
         "id": "late-night-supper-day2",
-        "time": "Optional · 晚餐後",
-        "title": "🌙 Optional · 酒店宵夜",
+        "time": "Optional",
+        "title": "🌙 酒店宵夜",
         "details": [
           "想食鹹：Oanh Cua 蟹料理，可查官方 delivery／GrabFood。",
           "想食甜：GrabFood 搜 BINGO、Dessert、Chè、Tofu 或 Bingsu，篩選 Open Now。"
@@ -2722,8 +2722,8 @@ const ITINERARY_DATA={
       },
       {
         "id": "late-night-supper-day3",
-        "time": "Optional · 晚餐後",
-        "title": "🌙 Optional · 酒店宵夜",
+        "time": "Optional",
+        "title": "🌙 酒店宵夜",
         "details": [
           "想食鹹：Oanh Cua 蟹料理，可查官方 delivery／GrabFood。",
           "想食甜：GrabFood 搜 BINGO、Dessert、Chè、Tofu 或 Bingsu，篩選 Open Now。"
@@ -2885,8 +2885,8 @@ const ITINERARY_DATA={
       },
       {
         "id": "late-night-supper-day4",
-        "time": "Optional · 晚餐後",
-        "title": "🌙 Optional · 酒店宵夜",
+        "time": "Optional",
+        "title": "🌙 酒店宵夜",
         "details": [
           "想食鹹：Oanh Cua 蟹料理，可查官方 delivery／GrabFood。",
           "想食甜：GrabFood 搜 BINGO、Dessert、Chè、Tofu 或 Bingsu，篩選 Open Now。"

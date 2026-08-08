@@ -2644,3 +2644,61 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
 #expenseModal .custom-split-row>span .family-name{font-size:14px!important;overflow:visible!important;text-overflow:clip!important;white-space:nowrap!important;}
 @media(max-width:760px){#expenseModal .custom-split-row{display:grid!important;grid-template-columns:1fr!important;gap:6px!important;align-items:stretch!important;}#expenseModal .custom-split-row>span{width:100%!important;max-width:none!important;padding:0 2px 2px!important;}#expenseModal .custom-split-row .expense-money-field{display:grid!important;grid-template-columns:minmax(0,1fr) 54px 44px!important;gap:6px!important;width:100%!important;}}
 @media(max-width:760px){.timeline-item{display:grid!important;grid-template-columns:62px minmax(0,1fr)!important;column-gap:12px!important;align-items:start!important;}.timeline-time{display:block!important;width:62px!important;max-width:62px!important;min-width:0!important;white-space:normal!important;overflow:hidden!important;overflow-wrap:break-word!important;word-break:normal!important;font-size:11px!important;line-height:1.16!important;padding:1px 0!important;}.timeline-main{min-width:0!important;width:auto!important;overflow:visible!important;}.timeline-title-row,.timeline-title-row h3{min-width:0!important;max-width:100%!important;}}
+
+/* RC15 / Engine 25.4.2 — Moments photo/timeline mobile polish. */
+@media(max-width:760px){
+  body.moments-page{
+    background:#fbf1f2!important;
+    background-image:linear-gradient(160deg,#f7e3e7 0%,#fbecef 48%,#fff8f4 100%)!important;
+  }
+  body.moments-page .page-hero,
+  body.moments-page .module-hero{
+    background:
+      radial-gradient(circle at 12% 0%,rgba(255,255,255,.62),transparent 34%),
+      linear-gradient(145deg,#e6b8c3 0%,#f0d2d9 54%,#fff5f2 100%)!important;
+    border-color:rgba(166,91,111,.28)!important;
+  }
+  body.moments-page #momentsModal .moments-sheet{
+    background:
+      radial-gradient(circle at 100% 100%,rgba(226,151,168,.14),transparent 34%),
+      linear-gradient(180deg,#fffaf7 0%,#fdf2f3 100%)!important;
+    border-color:rgba(190,111,132,.24)!important;
+  }
+  body.moments-page #momentsModal .mood-btn:not(.active){
+    background:#fffaf6!important;
+    border-color:rgba(189,135,119,.25)!important;
+  }
+
+  /* A time label owns its rail and may wrap, but can never paint into content. */
+  .timeline-item{
+    grid-template-columns:64px minmax(0,1fr)!important;
+    column-gap:12px!important;
+  }
+  .timeline-time{
+    width:64px!important;
+    max-width:64px!important;
+    min-width:0!important;
+    overflow:hidden!important;
+    white-space:normal!important;
+    overflow-wrap:anywhere!important;
+    word-break:normal!important;
+    line-height:1.12!important;
+    font-size:11px!important;
+    padding-right:2px!important;
+  }
+  .timeline-main{
+    min-width:0!important;
+    width:100%!important;
+    overflow:hidden!important;
+  }
+  .timeline-title-row,
+  .timeline-title-row h3{
+    min-width:0!important;
+    max-width:100%!important;
+  }
+}
+.route-hint--delivery{
+  background:#fff5e7!important;
+  border-color:rgba(218,151,74,.38)!important;
+  color:#6e431d!important;
+}
