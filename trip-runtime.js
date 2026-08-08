@@ -440,7 +440,7 @@ async function deleteBookingRecord(bookingId){
     }
     const result=BOOKING_AUTHORITY.remove(bookingId,liveTarget);
     if(!result||!result.ok)throw new Error((result&&result.reason)||'delete-failed');
-    clearBookingEditSession();activeBookingDetail=null;location.href='bookings.html';return true;
+    clearBookingEditSession();activeBookingDetail=null;closeTripModal();renderTripMenuFromConfig();return true;
   }catch(error){console.error('Booking delete failed',error);alert('Could not delete this booking. Please check your connection and try again.');return false;}
 }
 window.deleteBookingRecord=deleteBookingRecord;

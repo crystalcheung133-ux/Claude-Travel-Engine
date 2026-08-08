@@ -6,3 +6,6 @@ ci-tests/
 PRODUCTION-FILE-MANIFEST.txt
 SHA256SUMS.txt
 VERSION.txt
+
+bookings.html
+bookings-runtime.js

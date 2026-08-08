@@ -1,12 +1,11 @@
-Saigon Companion RC5 Production File Manifest
+Saigon Companion RC6 Production File Manifest
 Generated: 2026-08-08
-Base: Travel Engine 25.3.2
+Base: Travel Engine 25.3.3
 Reference trip: Vietnam
 
 Production root files:
 
 - .vercelignore
-- VERSION.txt
 - admin.js
 - analytics-runtime.js
 - app-runtime.js
@@ -14,8 +13,6 @@ Production root files:
 - booking-authority.js
 - booking-permissions.js
 - booking-sync-runtime.js
-- bookings-runtime.js
-- bookings.html
 - ccmv-logo-calibrated.png
 - complete-runtime.js
 - core-runtime.js

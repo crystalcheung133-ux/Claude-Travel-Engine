@@ -3,8 +3,8 @@
 const fs=require('fs'),vm=require('vm'),path=require('path'),assert=require('assert');
 const root=path.resolve(__dirname,'..');
 const read=f=>fs.readFileSync(path.join(root,f),'utf8');
-const trip=read('trip-config.js'), data=read('data.js'), bookings=read('bookings-runtime.js'), tripRuntime=read('trip-runtime.js');
-const html=read('index.html')+'\n'+read('trip.html')+'\n'+read('bookings.html');
+const trip=read('trip-config.js'), data=read('data.js'), tripRuntime=read('trip-runtime.js');
+const html=read('index.html')+'\n'+read('trip.html');
 assert.match(trip,/mode:'collaborative'/,'VN must use collaborative booking mode');
 assert.match(trip,/rentalCar:false/,'VN must explicitly disable rental car');
 assert.match(trip,/"code": "CRY"/,'Crystal selector code missing');
@@ -16,9 +16,10 @@ assert.match(tripRuntime,/openTripCard\('transport'\)/,'Trip runtime must expose
 assert.match(trip,/rentalCar:false/,'VN must disable Rental Car at config level');
 assert.match(data,/"netTotalAUD": "AUD 1,478"/,'Fusion net payment missing');
 assert.match(data,/"cashbackAmount": "AUD 215"/,'Fusion cashback missing');
-assert.match(bookings,/Net payment/,'Booking list must render net payment upfront');
-assert.doesNotMatch(bookings,/booking-tabs/,'Booking Centre must not use category tabs in VN reference build');
-assert.match(bookings,/booking-category-section/,'Booking Centre must render grouped booking sections');
+assert.doesNotMatch(read('navigation-config.js'),/bookings\.html/,'Standalone Bookings page must not be a navigable Engine route');
+assert.doesNotMatch(read('sw.js'),/bookings\.html/,'Standalone Bookings page must not be cached as production UI');
+assert.ok(!fs.existsSync(path.join(root,'bookings.html')),'Standalone Bookings page must not exist in the RC6 package');
+assert.match(tripRuntime,/openBookingCategoryCard/,'Trip semantic booking categories must open modal cards');
 assert.match(tripRuntime,/buildTransportBookingListHTML/,'Transport module runtime missing');
 
 const guideRuntime=read('guide-runtime.js'), partyRuntime=read('party-render-runtime.js');
@@ -41,4 +42,4 @@ assert.match(styles,/custom-split-row\{grid-template-columns:1fr/,'VN expense cu
 assert.match(expenses,/selected\.length===FRIEND_ORDER\.length\?'All'/,'VN expense split summary must support four travellers');
 assert.match(money,/live-fallback/,'VND currency converter fallback missing');
 
-console.log('VN REFERENCE INTEGRATION: PASS — selector, trip modules, booking price/net, no rental car, collaborative mode.');
+console.log('VN REFERENCE INTEGRATION: PASS — split Trip modules, modal booking UX, booking price/net, dual currency, no rental car, collaborative mode.');

@@ -12,7 +12,6 @@
       moments: 'moments.html',
       expenses: 'expenses.html',
       memory: 'memory.html',
-      bookings: 'bookings.html',
       offline: 'offline.html'
     }),
     query: Object.freeze({
@@ -40,7 +39,6 @@
       'moments.html',
       'expenses.html',
       'memory.html',
-      'bookings.html'
     ])
   });
 

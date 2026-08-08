@@ -7,7 +7,6 @@ const ASSETS = [
   './styles.css',
   './core-runtime.js',
   './trip-runtime.js',
-  './bookings-runtime.js',
   './moments-compat.js',
   './currency-runtime.js',
   './analytics-runtime.js',
@@ -62,8 +61,7 @@ const ASSETS = [
   './memory.html',
   './moments.html',
   './expenses.html',
-  './trip.html',
-  './bookings.html'
+  './trip.html'
 ];
 
 
