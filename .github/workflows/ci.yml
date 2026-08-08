@@ -60,3 +60,6 @@ jobs:
 
       - name: VN reference integration
         run: node ci-tests/test-vn-reference-integration.js
+
+      - name: RC8 presentation contract
+        run: node ci-tests/test-rc8-presentation-contract.js

@@ -39,6 +39,7 @@
   }
   function run(){
     const m=model(); if(!m)return;
+    if(document.documentElement)document.documentElement.dataset.partyPresentation=(root.TRIP_CONFIG&&root.TRIP_CONFIG.participants&&root.TRIP_CONFIG.participants.presentation)||'badge';
     document.querySelectorAll('select[data-party-options]').forEach(function(el){renderPartySelect(el,m);});
     document.querySelectorAll('[data-party-split-options]').forEach(function(holder){renderSplitOptions(holder,m);});
     renderFriends(m);

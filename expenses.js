@@ -174,8 +174,8 @@ let editingExpenseIndex=null;
     const rate=Number(record?.rate);
     if(rate>0){
       const converted=MONEY.convert(total||1,rate,code,home);
-      helper.textContent=total?`≈ ${FORMATTER.decimal(converted,2)} ${home} · rate saved with expense`:`1 ${code} ≈ ${FORMATTER.decimal(rate,6)} ${home}`;
-    }else helper.textContent=`${code} expenses settle in ${home} · rate loads when saved`;
+      helper.textContent=total?`≈ ${FORMATTER.decimal(converted,2)} ${home}`:'';
+    }else helper.textContent='';
   }
   async function getExpenseRateRecord(){
     if(expenseRateRecord&&Number(expenseRateRecord.rate)>0) return expenseRateRecord;
@@ -452,7 +452,7 @@ let editingExpenseIndex=null;
     const item=document.getElementById('expenseItem'); if(item) item.value='';
     window.setExpenseCategory('Meals');
     const total=document.getElementById('expenseTotal'); if(total) total.value='';
-    expenseCurrency=savedExpenseCurrencyPreference()||MONEY.getTripCurrency().code;
+    expenseCurrency=MONEY.getTripCurrency().code;
     expenseRateRecord=MONEY.readCachedRate();
     renderExpenseCurrencyToggle();
     updateExpenseFxHelper();

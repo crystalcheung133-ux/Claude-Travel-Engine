@@ -1,4 +1,4 @@
-// data.js — Saigon Companion RC2 · reconciled VN Master v4 on Travel Engine 25.2.9
+// data.js — Saigon Companion RC8 · reconciled VN Master v4 on Travel Engine 25.3.5
 // Timeline is authoritative for itinerary content; booking linkage is reconciled to Booking Foundation IDs.
 
 const PLACES={
@@ -262,7 +262,7 @@ const PLACES={
   },
   "little-bear": {
     "title": "Little Bear",
-    "emoji": "🐻",
+    "emoji": "🧸",
     "cat": "RESTAURANTS",
     "sub": "Michelin Guide 餐酒館",
     "hours": "Thu–Sun 18:00–22:00; Mon–Wed closed",
@@ -296,7 +296,7 @@ const PLACES={
   },
   "lune": {
     "title": "LÚNE Restaurant & Bar",
-    "emoji": "🍷",
+    "emoji": "🇫🇷",
     "cat": "RESTAURANTS",
     "sub": "現代越式餐廳",
     "hours": "Mon–Sat 11:30–14:00 & 17:00–22:30；Sunday closed",
@@ -906,7 +906,7 @@ const PLACES={
   },
   "nha-suga": {
     "title": "Spa Nhà Suga Premium Korea Headspa – Nguyễn Huệ",
-    "emoji": "💆",
+    "emoji": "🫧",
     "cat": "SPA",
     "sub": "Day 1 · Head Spa",
     "hours": "出發前再確認營業時間",
@@ -972,7 +972,7 @@ const PLACES={
   },
   "moc-huong": {
     "title": "Mộc Hương Wellness",
-    "emoji": "🏡",
+    "emoji": "🪨",
     "cat": "SPA",
     "sub": "Day 3 Villa Wellness",
     "hours": "出發前再確認營業時間",
@@ -1004,22 +1004,22 @@ const PLACES={
   },
   "tinh-thuc": {
     "title": "Tỉnh Thức Spa",
-    "emoji": "💆",
+    "emoji": "🦶",
     "cat": "SPA",
     "sub": "Day 4 足底按摩",
     "hours": "出發前再確認營業時間",
     "maps": "https://www.google.com/maps/search/?api=1&query=T%E1%BB%89nh%20Th%E1%BB%A9c%20Spa%20118%2F54%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%2C%20Ph%C6%B0%E1%BB%9Dng%20Nhi%C3%AAu%20L%E1%BB%99c%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "118/54 Trần Quang Diệu, Phường Nhiêu Lộc, Ho Chi Minh City, Vietnam",
-    "desc": "Tỉnh Thức Spa is the scheduled Day 4 foot-massage venue. Scheduled treatment: 15:15–17:00. The spa is inside alley 118; from the alley entrance, continue to the end and turn left. Current regular hours and Monday operation were not published clearly enough to verify, so reconfirm directly before departure.",
+    "desc": "Tỉnh Thức Spa 係 Day 4 下午嘅足底／身體按摩休息站，藏喺 Trần Quang Diệu 118 號巷內。15:15–17:00 做完可直接接第二輪 shopping；入口較隱蔽，預約時順便確認星期一營業及入巷指示。",
     "signature": [
-      "Scheduled treatment: 15:15–17:00",
-      "Quiet spa inside alley 118/54 Trần Quang Diệu",
-      "Body massage and foot-pressure treatments"
+      "15:15–17:00 足底／身體按摩時段",
+      "118/54 Trần Quang Diệu 巷內，環境較安靜",
+      "足底穴位與身體按摩為主"
     ],
     "worth": [
-      "Published regular Monday hours could not be verified; confirm the 2 November 2026 appointment before departure.",
-      "From the alley entrance, continue to the end and turn left.",
-      "Hotline / Zalo / WhatsApp: +84 989 611 854"
+      "星期一營業時間未完全確認，出發前再確認 2 Nov 預約。",
+      "由 118 號巷口行到底再左轉，預留少少時間搵入口。",
+      "Hotline / Zalo / WhatsApp：+84 989 611 854"
     ],
     "categoryLabel": "💆 Spa",
     "price": "$$",
@@ -1038,7 +1038,7 @@ const PLACES={
   },
   "ha-spa": {
     "title": "Hạ Spa",
-    "emoji": "✈️",
+    "emoji": "💆‍♀️",
     "cat": "SPA",
     "sub": "Day 5 · Pre-flight Spa",
     "hours": "09:00–21:00 daily",
@@ -2344,7 +2344,7 @@ const ITINERARY_DATA={
       {
         "id": "nha-suga",
         "time": "14:00–16:30",
-        "title": "💆 Spa Nhà Suga Premium Korea Headspa – Nguyễn Huệ · The Cafe Apartments",
+        "title": "🫧 Spa Nhà Suga Premium Korea Headspa – Nguyễn Huệ · The Cafe Apartments",
         "details": [
           "Spa 位於 The Cafe Apartments 內；可先逛 cafe / 小店，再入療程。"
         ],
@@ -2472,7 +2472,7 @@ const ITINERARY_DATA={
       {
         "id": "moc-kim",
         "time": "13:15–15:15",
-        "title": "💆 Mộc Kim Spa & Beauty",
+        "title": "🌿 Mộc Kim Spa & Beauty",
         "details": [
           "草本洗頭 / head spa，做完剛好整理狀態。"
         ],
@@ -2520,7 +2520,7 @@ const ITINERARY_DATA={
       {
         "id": "lune",
         "time": "19:00–21:00",
-        "title": "🍷 LÚNE Restaurant & Bar",
+        "title": "🇫🇷 LÚNE Restaurant & Bar",
         "details": [
           "Michelin selected contemporary French；預算約 800,000–1,500,000 VND pp。"
         ],
@@ -2666,7 +2666,7 @@ const ITINERARY_DATA={
       {
         "id": "moc-huong",
         "time": "15:30–17:30",
-        "title": "💆 Mộc Hương Wellness",
+        "title": "🪨 Mộc Hương Wellness",
         "details": [
           "白色法式別墅、蒸氣房、草本熱石療程。"
         ],
@@ -2809,10 +2809,10 @@ const ITINERARY_DATA={
       {
         "id": "tinh-thuc",
         "time": "15:15–17:00",
-        "title": "💆 Tỉnh Thức Spa",
+        "title": "🦶 Tỉnh Thức Spa",
         "details": [
-          "Scheduled foot massage: 15:15–17:00.",
-          "Confirm regular Monday hours and the appointment before departure."
+          "足底／身體按摩 15:15–17:00。",
+          "星期一營業時間未完全確認，出發前再確認預約。"
         ],
         "route": "🚶 To next stop：按摩後沿 Trần Quang Diệu 開始第二輪 shopping / 咖啡 buffer。",
         "map": "https://www.google.com/maps/search/?api=1&query=T%E1%BB%89nh%20Th%E1%BB%A9c%20Spa%20118%2F54%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%2C%20Ph%C6%B0%E1%BB%9Dng%20Nhi%C3%AAu%20L%E1%BB%99c%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
@@ -3000,7 +3000,7 @@ const ITINERARY_DATA={
       {
         "id": "ha-spa",
         "time": "15:30–17:30",
-        "title": "💆 Hạ Spa",
+        "title": "💆‍♀️ Hạ Spa",
         "details": [
           "草本洗頭 + 全身熱石按摩；近機場。"
         ],

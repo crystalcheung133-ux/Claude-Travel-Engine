@@ -595,8 +595,8 @@ function renderDashboard(){
 function bookingEntityIcon(booking,category){
   const type=String(booking&&booking.type||'').toLowerCase();
   const title=String(booking&&booking.title||'').toLowerCase();
-  if(type==='restaurant')return title.includes('omakase')?'🍣':title.includes('pizza')?'🍕':title.includes('lune')?'🥂':'🍽️';
-  if(type==='spa')return title.includes('head')||title.includes('suga')?'💆‍♀️':title.includes('wellness')?'🌿':'🧖‍♀️';
+  if(type==='restaurant')return title.includes('omakase')?'🍣':title.includes('little bear')?'🧸':title.includes('pizza')?'🍕':title.includes('lune')?'🇫🇷':title.includes('quince')?'🔥':'🍽️';
+  if(type==='spa')return title.includes('suga')||title.includes('head')?'🫧':title.includes('mộc kim')||title.includes('moc kim')?'🌿':title.includes('mộc hương')||title.includes('moc huong')||title.includes('wellness')?'🪨':title.includes('tỉnh thức')||title.includes('tinh thuc')?'🦶':title.includes('hạ spa')||title.includes('ha spa')?'💆‍♀️':'💆';
   if(type==='transport')return title.includes('airport')?'✈️':'🚐';
   if(type==='activity'||type==='experience')return title.includes('cooking')?'👩‍🍳':'🎟️';
   return bookingCategoryIcon(category);
