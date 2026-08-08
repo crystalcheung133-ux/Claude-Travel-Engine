@@ -1,11 +1,11 @@
 const fs=require('fs'),assert=require('assert');
 const data=fs.readFileSync('data.js','utf8'), guide=fs.readFileSync('guide-runtime.js','utf8'), home=fs.readFileSync('index.html','utf8'), cfg=fs.readFileSync('trip-config.js','utf8');
 assert.match(home,/openGuideCategory\('SHOP'\)/,'Guide must expose Shopping');
-assert.match(home,/openGuideCategory\('PRACTICAL'\)/,'Guide must expose Practical');
-assert.match(guide,/Shopping List/,'Shopping directory must render in Guide modal');
+assert.doesNotMatch(home,/openGuideCategory\('PRACTICAL'\)/,'FX/cash must stay out of the Guide menu');
+assert.match(guide,/Shopping Directory/,'Shopping directory must render in Guide modal');
 assert.match(guide,/BOOKED/,'Dining presentation supports Booked');
 assert.match(data,/"cash-backup"[\s\S]{0,250}"cat": "PRACTICAL"/,'Money backup must not be Activity');
 assert.doesNotMatch(data,/"fusion"[\s\S]{0,220}"hours": "24 Hours"/,'Stay must not show 24 Hours');
 assert.match(data,/Social Club Rooftop Bar[\s\S]{0,700}24\/F/,'Social rooftop needs useful identity');
-assert.match(cfg,/PRACTICAL:Object\.freeze/,'Practical must be a Guide category');
+assert.match(data,/\"cash-backup\"[\s\S]{0,250}\"cat\": \"PRACTICAL\"/,'Money backup remains Practical data even when hidden from Guide');
 console.log('RC16 Guide + Shopping contract PASS');

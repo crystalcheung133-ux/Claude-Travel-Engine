@@ -7,9 +7,9 @@ function record(key){
   const re=new RegExp('  "'+key.replace(/[.*+?^${}()|[\\]\\]/g,'\\$&')+'": \\{([\\s\\S]*?)(?=\\n  "[^"\\n]+": \\{|\\n\\};\\n\\nconst CATEGORIES)');
   const m=data.match(re); assert(m,'Missing place '+key); return m[0];
 }
-assert.match(cfg,/version:'RC17-25\.4\.4'/,'RC17 build identity missing');
-assert.match(home,/🛍 Shopping List/,'Home must expose Shopping List');
-assert.match(home,/openGuideCategory\('SHOP'\)/,'Shopping List button must open Guide shopping');
+assert.match(cfg,/version:'RC\d+-25\.4\.\d+'/,'Guide audit requires a valid release identity');
+assert.match(home,/openGuideCategory\('SHOP'\)/,'Guide menu must expose Shopping');
+assert.doesNotMatch(home,/home-shopping-button/,'Shopping must not be forced onto the Home hero');
 for(const key of ['libe','dauple','nosbyn','new-playground','push-push','saigon-concept','ohquao','louh','garmentory','dalla-saigon','rubies','lane-ci','takashimaya']){
   assert.match(record(key),/"shoppingRoute":/,'Shopping route metadata missing: '+key);
 }

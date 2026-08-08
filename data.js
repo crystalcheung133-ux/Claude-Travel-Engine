@@ -1,4 +1,4 @@
-// data.js — Saigon Companion RC17 · Guide audit complete on Travel Engine 25.4.5
+// data.js — Saigon Companion RC18 · V4 shopping navigation on Travel Engine 25.4.5
 // Timeline is authoritative for itinerary content; booking linkage is reconciled to Booking Foundation IDs.
 
 const PLACES={

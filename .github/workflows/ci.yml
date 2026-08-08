@@ -88,5 +88,8 @@ jobs:
       - name: RC17 Guide content audit
         run: node ci-tests/test-rc17-guide-content-audit.js
 
+      - name: RC18 Shopping navigation
+        run: node ci-tests/test-rc18-shopping-navigation.js
+
       - name: Dual-currency Expenses
         run: node ci-tests/test-dual-currency-expenses.js .

@@ -56,6 +56,7 @@ Production root files:
 - pwa.js
 - reset-runtime.js
 - script.js
+- shopping-directory-data.js
 - storage-config.js
 - storage.js
 - styles.css

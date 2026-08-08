@@ -26,7 +26,8 @@ run "19/21 RC13 browser acceptance contract" node ci-tests/test-rc13-browser-acc
 run "20/21 RC14 cache + visual contract" node ci-tests/test-rc14-cache-visual-contract.js
 run "21/21 RC15 moments + timeline contract" node ci-tests/test-rc15-moments-timeline-contract.js
 run "22/23 RC16 guide + shopping contract" node ci-tests/test-rc16-guide-shopping-contract.js
-run "23/23 RC17 Guide content audit" node ci-tests/test-rc17-guide-content-audit.js
+run "23/24 RC17 Guide content audit" node ci-tests/test-rc17-guide-content-audit.js
+run "24/24 RC18 Shopping navigation" node ci-tests/test-rc18-shopping-navigation.js
 if [ "$failed" -ne 0 ]; then echo; echo "ONE OR MORE TESTS FAILED"; exit 1; fi
 echo; echo "ALL VN REFERENCE TESTS PASSED"
 
