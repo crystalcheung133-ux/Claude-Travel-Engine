@@ -2735,3 +2735,20 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
 #dynamicDayRoot .day-area-label{margin:7px 0 0;font-size:13px;line-height:1.25;font-weight:850;letter-spacing:.055em;text-transform:uppercase;color:var(--accent)}
 .timeline-actions .timeline-action--copy{white-space:nowrap}
 @media(max-width:620px){#dynamicDayRoot .day-area-label{font-size:11px;letter-spacing:.04em;margin-top:5px}.timeline-actions .timeline-action--copy{font-size:13px!important}}
+
+/* RC23 — Timeline action feedback + rounded controls */
+.timeline-actions .timeline-action{
+  border-radius:999px!important;
+  transition:background .16s ease,border-color .16s ease,color .16s ease,transform .12s ease!important;
+}
+.timeline-actions .timeline-action:active{transform:translateY(1px)}
+.timeline-actions .timeline-action--copy[data-copy-state="success"]{
+  background:color-mix(in srgb,var(--green,#315f4e) 14%,white)!important;
+  border-color:color-mix(in srgb,var(--green,#315f4e) 42%,transparent)!important;
+  color:var(--green,#315f4e)!important;
+}
+.timeline-actions .timeline-action--copy[data-copy-state="failed"]{
+  background:#fff4f2!important;
+  border-color:#c75b4a!important;
+  color:#9c3529!important;
+}

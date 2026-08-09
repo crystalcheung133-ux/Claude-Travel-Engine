@@ -31,6 +31,7 @@ run "24/24 RC18 Shopping navigation" node ci-tests/test-rc18-shopping-navigation
 node ci-tests/test-rc19-guide-booking-contract.js
 run "RC21 Guide taxonomy" node ci-tests/test-rc21-guide-taxonomy-contract.js
 run "RC22 Trip + Day + Copy Address" node ci-tests/test-rc22-trip-day-address-contract.js
+run "RC23 Copy Feedback + Rounded Timeline Actions" node ci-tests/test-rc23-copy-feedback-rounded.js
 if [ "$failed" -ne 0 ]; then echo; echo "ONE OR MORE TESTS FAILED"; exit 1; fi
 echo; echo "ALL VN REFERENCE TESTS PASSED"
 
