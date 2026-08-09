@@ -128,6 +128,28 @@ let editingExpenseIndex=null;
   let expenseCurrency='';
   let expenseRateRecord=null;
   let expenseRatePromise=null;
+  let pendingExpenseSource=null;
+  let bookingExpenseFlowActive=false;
+
+  function bookingAmountSeed(booking){
+    const fields=[booking?.netTotalAUD,booking?.netPrice,booking?.totalAmount,booking?.price];
+    for(const value of fields){
+      const text=String(value||'').replace(/,/g,'');
+      const match=text.match(/\b(AUD|NZD|JPY|VND|USD|EUR|GBP)\s*\$?\s*([0-9]+(?:\.[0-9]+)?)/i)
+        || text.match(/\$\s*([0-9]+(?:\.[0-9]+)?)/);
+      if(match){
+        const currency=(match.length>2?match[1]:MONEY.getHomeCurrency()).toUpperCase();
+        const amount=Number(match.length>2?match[2]:match[1]);
+        if(amount>0)return {amount,currency};
+      }
+    }
+    return {amount:0,currency:MONEY.getTripCurrency().code};
+  }
+  function linkedExpensesForBooking(bookingId){
+    return readExpenses().filter(e=>e&&e.sourceType==='booking'&&e.sourceBookingId===bookingId&&!e.deletedAt);
+  }
+  window.getBookingExpenseLinks=linkedExpensesForBooking;
+
 
   function expenseCurrencyCode(record){
     return String(record?.currency||MONEY.getTripCurrency().code).toUpperCase();
@@ -163,23 +185,26 @@ let editingExpenseIndex=null;
     box.hidden=currencies.length<2;
     box.innerHTML=currencies.map(code=>`<button class="expense-currency-btn${code===expenseCurrency?' active':''}" type="button" data-expense-currency="${code}" onclick="setExpenseCurrency('${code}')">${code}</button>`).join('');
   }
+  function syncExpenseAmountCurrencyLabel(){
+    const input=document.getElementById('expenseTotal');
+    if(input)input.placeholder=`0.00 ${expenseCurrency||MONEY.getTripCurrency().code}`;
+  }
   function updateExpenseFxHelper(){
-    const helper=document.getElementById('expenseFxHelper');
-    if(!helper) return;
+    const helper=document.getElementById('expenseFxHelper');if(!helper)return;
     const code=expenseCurrency||MONEY.getTripCurrency().code;
+    const trip=MONEY.getTripCurrency().code;
     const home=MONEY.getHomeCurrency();
+    const other=code===home?trip:home;
     const total=expenseTotalValue();
-    if(code===home){helper.textContent=`Settlement currency · ${home}`;return;}
     const record=expenseRateRecord||MONEY.readCachedRate();
     const rate=Number(record?.rate);
     if(rate>0){
-      const converted=MONEY.convert(total||1,rate,code,home);
-      const homePerDestination=MONEY.convert(1,rate,code,home);
-      const destinationPerHome=homePerDestination>0 ? (1/homePerDestination) : 0;
-      const rateText=destinationPerHome>0 ? `1 ${home} ≈ ${FORMATTER.decimal(destinationPerHome,0)} ${code}` : '';
-      const convertedText=total?`≈ ${FORMATTER.decimal(converted,2)} ${home}`:'';
+      const converted=MONEY.convert(total||1,rate,code,other);
+      const unit=MONEY.convert(1,rate,code,other);
+      const rateText=unit>0?`1 ${code} ≈ ${FORMATTER.decimal(unit,2)} ${other}`:'';
+      const convertedText=total&&converted!==null?`≈ ${FORMATTER.decimal(converted,2)} ${other}`:'';
       helper.textContent=[convertedText,rateText].filter(Boolean).join(' · ');
-    }else helper.textContent='';
+    }else helper.textContent=total?'Live conversion unavailable':'';
   }
   async function getExpenseRateRecord(){
     if(expenseRateRecord&&Number(expenseRateRecord.rate)>0) return expenseRateRecord;
@@ -450,8 +475,10 @@ let editingExpenseIndex=null;
     }catch(e){alert('Please complete the calculation first.');}
   };
 
-  function resetExpenseForm(){
+  function resetExpenseForm(options){
     editingExpenseIndex=null;
+    if(!options?.preserveSource)pendingExpenseSource=null;
+    if(!options?.preserveBookingFlow)bookingExpenseFlowActive=false;
     const user=currentUser();
     const item=document.getElementById('expenseItem'); if(item) item.value='';
     window.setExpenseCategory('Meals');
@@ -459,6 +486,7 @@ let editingExpenseIndex=null;
     expenseCurrency=MONEY.getTripCurrency().code;
     expenseRateRecord=MONEY.readCachedRate();
     renderExpenseCurrencyToggle();
+    syncExpenseAmountCurrencyLabel();
     updateExpenseFxHelper();
     setSelectValue('expensePaidBy',user);
     setSelectValue('expensePersonalPaidBy',user);
@@ -478,13 +506,15 @@ let editingExpenseIndex=null;
     const split=e.split||[];
     const consumer=e.consumedBy || split[0] || e.paidBy;
     const who=personal ? `Consumed by ${identityFor(consumer,true)}` : `${e.splitMode==='custom'?'Custom':'Equal'} split: ${split.map(k=>identityFor(k,true)).join('<span class="identity-separator">·</span>')}`;
-    const latestId=e._latest?' id="latestExpenseCard"':'';
+    const cardId=e.id?` id="expense-${escapeHTML(e.id)}"`:(e._latest?' id="latestExpenseCard"':'');
+    const latestMarker=e._latest?' data-latest-expense="true"':'';
     const actions=canManageExpense(e)?`<div class="entry-actions"><button class="mini-btn" onclick="editExpense(${e._idx})">✏️ Edit</button><button class="mini-btn" onclick="deleteExpense(${e._idx})">🗑 Delete</button></div>`:`<p class="timestamp entry-owner-note">Added by ${identityFor(expenseOwner(e),true)} · View only</p>`;
     const code=expenseCurrencyCode(e);
     const home=MONEY.getHomeCurrency();
     const homeTotal=homeAmountFor(e);
     const equivalent=code!==home&&homeTotal!==null?`<p class="expense-home-equivalent">≈ ${FORMATTER.decimal(homeTotal,2)} ${home} for settlement</p>`:'';
-    return `<div class="expense-card"${latestId}><strong>${escapeHTML(e.item||'')}</strong><p class="timestamp">${timeLabel(e.createdAt)}${e.editedAt?` · Edited ${timeLabel(e.editedAt)}`:''}</p><p>${FORMATTER.number(MONEY.normalizeAmount(e.total))} ${code} · Paid by ${identityFor(e.paidBy,true)}</p>${equivalent}<p>${personal?'Personal Expense':'Shared Expense'} · ${who}</p>${actions}</div>`;
+    const source=e.sourceType==='booking'&&e.sourceBookingId?`<p class="expense-booking-source">🏨 From booking · <button type="button" class="expense-booking-inline-link" onclick="openExpenseSourceBooking('${escapeHTML(e.sourceBookingId)}')">${escapeHTML(e.sourceBookingTitle||'View booking')}</button></p>`:'';
+    return `<div class="expense-card"${cardId}${latestMarker}><strong>${escapeHTML(e.item||'')}</strong><p class="timestamp">${timeLabel(e.createdAt)}${e.editedAt?` · Edited ${timeLabel(e.editedAt)}`:''}</p><p>${FORMATTER.number(MONEY.normalizeAmount(e.total))} ${code} · Paid by ${identityFor(e.paidBy,true)}</p>${equivalent}<p>${personal?'Personal Expense':'Shared Expense'} · ${who}</p>${source}${actions}</div>`;
   }
   let expensePageScrollY=0;
   function lockExpensePage(){
@@ -518,6 +548,25 @@ let editingExpenseIndex=null;
     const modal=document.getElementById('expenseModal');
     if(modal) modal.classList.add('show');
   };
+  window.openBookingExpense=function(bookingId){
+    const booking=window.BOOKING_AUTHORITY?.get?window.BOOKING_AUTHORITY.get(bookingId):null;
+    if(!booking)return alert('Booking details are unavailable.');
+    bookingExpenseFlowActive=true;
+    document.getElementById('tripModal')?.classList.remove('show');
+    resetExpenseForm({preserveBookingFlow:true});
+    pendingExpenseSource={sourceType:'booking',sourceBookingId:booking.id,sourceBookingTitle:booking.title||'Booking',sourceBookingType:booking.type||''};
+    const seed=bookingAmountSeed(booking);
+    const item=document.getElementById('expenseItem');if(item)item.value=booking.title||'Booking payment';
+    window.setExpenseCategory(booking.type==='activity'?'Activities':'Other');
+    expenseCurrency=MONEY.getExpenseCurrencies().includes(seed.currency)?seed.currency:MONEY.getTripCurrency().code;
+    renderExpenseCurrencyToggle();syncExpenseAmountCurrencyLabel();
+    const total=document.getElementById('expenseTotal');if(total&&seed.amount>0)total.value=FORMATTER.decimal(seed.amount,2);
+    updateExpenseFxHelper();
+    const title=document.getElementById('expenseModalTitle');if(title)title.innerHTML='<span class="expense-title-emoji" aria-hidden="true">💳</span> Add booking payment';
+    const intro=document.getElementById('expenseIntro');if(intro)intro.textContent='Booking details are prefilled. Confirm who paid and who should share this payment before saving.';
+    lockExpensePage();document.getElementById('expenseModal')?.classList.add('show');
+  };
+
 
   window.saveExpense=async function(){
     const details=(document.getElementById('expenseItem')?.value||'').trim();
@@ -558,7 +607,9 @@ let editingExpenseIndex=null;
     const operationIndex=editingExpenseIndex;
     const operation=operationIndex!==null?'update':'create';
     const previousRecord=operationIndex!==null&&arr[operationIndex]?Object.assign({},arr[operationIndex]):null;
-    const data={item,details,category,total,currency,homeCurrency,homeTotal,fxRate:currency===homeCurrency?1:fxRate,fxRateDate:currency===homeCurrency?'':String(fxRecord?.date||''),fxRateSource:currency===homeCurrency?'native':String(fxRecord?.source||'cached'),paidBy,type:personal?'personal':'shared',split:personal?[consumedBy]:split,splitMode,shares:personal?null:shares,consumedBy:personal?consumedBy:null,createdAt:now,updatedAt:now,createdBy:currentUser(),editedBy:currentUser()};
+    const source=editingExpenseIndex!==null&&arr[editingExpenseIndex]?{sourceType:arr[editingExpenseIndex].sourceType||null,sourceBookingId:arr[editingExpenseIndex].sourceBookingId||null,sourceBookingTitle:arr[editingExpenseIndex].sourceBookingTitle||null,sourceBookingType:arr[editingExpenseIndex].sourceBookingType||null}:(pendingExpenseSource||{});
+    const data={item,details,category,total,currency,homeCurrency,homeTotal,fxRate:currency===homeCurrency?1:fxRate,fxRateDate:currency===homeCurrency?'':String(fxRecord?.date||''),fxRateSource:currency===homeCurrency?'native':String(fxRecord?.source||'cached'),paidBy,type:personal?'personal':'shared',split:personal?[consumedBy]:split,splitMode,shares:personal?null:shares,consumedBy:personal?consumedBy:null,createdAt:now,updatedAt:now,createdBy:currentUser(),editedBy:currentUser(),...source};
+    if(operation==='create'&&!data.id)data.id=(window.crypto?.randomUUID?window.crypto.randomUUID():`expense-${Date.now()}-${Math.random().toString(36).slice(2,8)}`);
     if(editingExpenseIndex!==null && arr[editingExpenseIndex]){
       data.id=arr[editingExpenseIndex].id;
       data.createdAt=arr[editingExpenseIndex].createdAt || now;
@@ -581,10 +632,14 @@ let editingExpenseIndex=null;
       });
     }catch(error){}
     window.renderExpenses(operation);
+    const savedId=data.id||'';
+    const cameFromBooking=bookingExpenseFlowActive&&data.sourceType==='booking';
     resetExpenseForm();
     closeExpenseModal();
+    document.getElementById('tripModal')?.classList.remove('show');
+    if(cameFromBooking&&savedId){window.location.href=`expenses.html?expenseId=${encodeURIComponent(savedId)}`;return;}
     setTimeout(()=>{
-      const latest=document.getElementById('latestExpenseCard');
+      const latest=document.querySelector('[data-latest-expense="true"]')||document.getElementById('latestExpenseCard');
       if(latest){
         latest.scrollIntoView({behavior:'auto',block:'center'});
         latest.classList.add('expense-card--new');
@@ -606,6 +661,7 @@ let editingExpenseIndex=null;
       const originalHtml=Object.entries(originalTotals).map(([code,value])=>`<span>${FORMATTER.number(value)} ${code}</span>`).join('');
       const pendingFx=unconverted?`<small>${unconverted} legacy expense${unconverted===1?'':'s'} waiting for an FX rate</small>`:'';
       pageBox.innerHTML=`<div class="expense-dashboard-v33 identity-dashboard"><div class="expense-total-card"><span>Trip Total · Settlement</span><strong>${FORMATTER.decimal(total,2)} ${home}</strong><div class="expense-original-totals">${originalHtml}</div>${pendingFx||'<small>Original currencies retained · final settlement in '+home+'</small>'}</div><div class="expense-focus-grid"><div class="expense-focus-card"><h3>Personal Spend</h3>${spendHtml}</div><div class="expense-focus-card"><h3>Settlement</h3>${balanceHtml}</div></div></div><div class="expense-history-block"><h3>Transaction History</h3><p class="timestamp">Newest transactions appear first.</p><div class="transaction-scroll">${sorted.length?sorted.map(expenseCard).join(''):'<p>No transactions yet.</p>'}</div></div>`;
+      focusExpenseFromURL();
     }
   };
 
@@ -674,6 +730,7 @@ let editingExpenseIndex=null;
     expenseCurrency=expenseCurrencyCode(e);
     expenseRateRecord=e.fxRate?{rate:Number(e.fxRate),date:e.fxRateDate||'',source:e.fxRateSource||'saved'}:MONEY.readCachedRate();
     renderExpenseCurrencyToggle();
+    syncExpenseAmountCurrencyLabel();
     updateExpenseFxHelper();
     setSelectValue('expensePaidBy',e.paidBy||currentUser());
     setSelectValue('expensePersonalPaidBy',e.paidBy||currentUser());

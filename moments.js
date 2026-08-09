@@ -336,13 +336,13 @@
       photoPrototype:currentMomentPhoto ? {...currentMomentPhoto.meta, retained:false} : null,
       createdAt:now,
       updatedAt:now,
-      createdBy:(typeof getFriend==='function'?getFriend():'lee'),
-      editedBy:(typeof getFriend==='function'?getFriend():'lee')
+      createdBy:(typeof getFriend==='function'?getFriend():(TRIP_CONFIG.participants?.defaultKey||Object.keys(TRIP_CONFIG.participants?.identities||{})[0]||'unknown')),
+      editedBy:(typeof getFriend==='function'?getFriend():(TRIP_CONFIG.participants?.defaultKey||Object.keys(TRIP_CONFIG.participants?.identities||{})[0]||'unknown'))
     };
     if(editingMomentId){
       const existing=arr.find(e=>e.id===editingMomentId);
       if(!currentMomentPhoto && existing?.photoPrototype) entry.photoPrototype=existing.photoPrototype;
-      arr=arr.map(e=> e.id===editingMomentId ? {...e,...entry,createdAt:e.createdAt||now,createdBy:e.createdBy||entry.createdBy,editedAt:now,updatedAt:now,editedBy:(typeof getFriend==='function'?getFriend():'lee')} : e);
+      arr=arr.map(e=> e.id===editingMomentId ? {...e,...entry,createdAt:e.createdAt||now,createdBy:e.createdBy||entry.createdBy,editedAt:now,updatedAt:now,editedBy:(typeof getFriend==='function'?getFriend():(TRIP_CONFIG.participants?.defaultKey||Object.keys(TRIP_CONFIG.participants?.identities||{})[0]||'unknown'))} : e);
     }else{
       arr.push(entry);
     }

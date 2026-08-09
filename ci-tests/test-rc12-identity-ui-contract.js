@@ -3,7 +3,7 @@ const assert=require('assert');
 const core=fs.readFileSync('core-runtime.js','utf8');
 const cfg=fs.readFileSync('trip-config.js','utf8');
 const css=fs.readFileSync('styles.css','utf8');
-assert(/version:'RC\d+-25\.\d+\.\d+'/.test(cfg),'Release build identity missing');
+assert(/version:'RC\d+-25\.\d+\.\d+(?:\.\d+)?'/.test(cfg),'Release build identity missing');
 assert(/identityStorageKey:'ccmv-vietnam-2026:traveller_identity:v1'/.test(cfg),'identity storage must be trip-scoped');
 assert(/function ensureFriendIdentity\(\)/.test(core),'first-device identity gate missing');
 assert(/getStoredFriend\(\)/.test(core),'stored identity resolver missing');

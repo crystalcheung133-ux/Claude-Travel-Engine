@@ -7,7 +7,7 @@ const data=read('data.js');
 const day=read('day.html');
 const css=read('styles.css');
 const trip=read('trip-config.js');
-const vm=trip.match(/version:'RC\d+-(\d+\.\d+\.\d+)'/);assert(vm,'Build identity missing');
+const vm=trip.match(/version:'RC\d+-(\d+\.\d+\.\d+(?:\.\d+)?)'/);assert(vm,'Build identity missing');
 const engine=vm[1], token=engine.replace(/\./g,'-')+'-rc'+((trip.match(/version:'RC(\d+)-/)||[])[1]||'');
 assert(!data.includes('"time": "Optional · 晚餐後"'),'Optional supper time still duplicates context');
 assert(!data.includes('"title": "🌙 Optional · 酒店宵夜"'),'Optional supper title still duplicates Optional');

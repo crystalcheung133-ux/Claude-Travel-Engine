@@ -2761,3 +2761,16 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
   .copy-label-mobile{display:inline}
   .timeline-action--copy{padding-left:12px;padding-right:12px;flex:0 1 auto}
 }
+
+/* Travel Engine 25.4.20.3 backport — genericity + Booking ↔ Expense */
+.timeline-open-state{display:flex;gap:14px;align-items:flex-start;margin:14px 0 18px;padding:16px 18px;border:1px dashed var(--theme-border,var(--line));border-radius:20px;background:rgba(255,255,255,.46)}
+.timeline-open-state h3{margin:2px 0 5px}.timeline-open-state p{margin:0;color:var(--theme-muted,var(--muted))}.timeline-open-icon{font-size:24px;line-height:1}
+.booking-expense-actions{margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.45)}
+.booking-expense-actions>div:first-child{font-size:.86rem;font-weight:800;margin-bottom:8px}.booking-expense-linked{color:#58745d}.booking-expense-unlinked{color:var(--muted)}
+.booking-expense-buttons{display:flex;gap:8px;flex-wrap:wrap}.expense-booking-source{margin:8px 0 2px;font-size:.84rem}
+.expense-booking-inline-link{appearance:none;border:0;background:transparent;padding:0;margin:0;font:inherit;font-weight:800;color:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.expense-card--focused{outline:3px solid rgba(54,140,153,.28);outline-offset:3px;box-shadow:0 12px 34px rgba(25,60,72,.12)}
+.expense-notice-modal{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:22px;background:rgba(24,29,31,.38);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+.expense-notice-sheet{position:relative;width:min(420px,100%);background:#fffaf2;border:1px solid rgba(210,190,169,.9);border-radius:26px;padding:24px;box-shadow:0 24px 70px rgba(25,30,32,.28)}
+.expense-notice-close{position:absolute;right:14px;top:14px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#fffaf2;font-size:26px}
+.expense-notice-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}

@@ -124,6 +124,8 @@ function normalizedBookingStatus(booking){
   return raw==='confirmed'?'confirmed':'pending';
 }
 function bookingStatusText(booking){
+  const raw=String((booking&&((booking.displayStatus||booking.status)))||'').replace(/-/g,' ').trim().toUpperCase();
+  if(raw==='OPEN'||raw==='UNBOOKED'||raw==='DECIDE LATER'||raw==='TBD')return 'OPEN';
   return normalizedBookingStatus(booking)==='confirmed'?'CONFIRMED':'PENDING';
 }
 function bookingDayNumber(booking){
@@ -168,6 +170,16 @@ function bookingDayButtonHTML(booking){
   const dayNumber=bookingDayNumber(booking);if(!dayNumber)return '';
   const anchor=booking.timelineItemId?`#${escapeTripHTML(booking.timelineItemId)}`:'';
   return `<a class="pill trip-action-btn trip-action-btn--day" href="day.html?day=${escapeTripHTML(dayNumber)}${anchor}">Day ${escapeTripHTML(dayNumber)} Timeline</a>`;
+}
+function bookingExpenseActionHTML(booking){
+  if(!booking||!booking.id||typeof window.openBookingExpense!=='function')return '';
+  const links=typeof window.getBookingExpenseLinks==='function'?window.getBookingExpenseLinks(booking.id):[];
+  const linked=links.length;
+  const status=linked?`<span class="booking-expense-linked">✓ ${linked} payment${linked===1?'':'s'} in Expenses</span>`:`<span class="booking-expense-unlinked">Not added to Expenses</span>`;
+  const newest=links.slice().sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')))[0]||null;
+  const viewHref=newest?.id?`expenses.html?expenseId=${encodeURIComponent(newest.id)}`:`expenses.html?bookingId=${encodeURIComponent(booking.id)}`;
+  const viewLabel=linked===1?'View Expense':`View ${linked} Expenses`;
+  return `<div class="booking-expense-actions"><div>${status}</div><div class="booking-expense-buttons">${linked?`<a class="pill trip-action-btn" href="${viewHref}">${viewLabel}</a>`:''}<button class="pill trip-action-btn" type="button" onclick="openBookingExpense('${escapeTripHTML(booking.id)}')">${linked?'Add another payment':'Add payment to Expenses'}</button></div></div>`;
 }
 function bookingActionButtonsHTML(booking,place,options={}){
   const address=bookingAddress(booking,place);
@@ -215,7 +227,7 @@ function buildAccommodationDetailHTML(booking){
     bookingSectionHTML('Important',operationalNotes),
     bookingSectionHTML('Address',address)
   ].join('');
-  return `<article class="fact stay-booking accommodation-detail-card accommodation-detail-card--compact"><div class="accommodation-detail-head"><div><span>${escapeTripHTML(booking.stayDates||booking.date||'')}</span></div>${nightsLabel?`<span class="accommodation-night-badge">${escapeTripHTML(nightsLabel)}</span>`:''}</div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place,{includeDay:false})}${accommodationDetailNavigationHTML(booking.id)}</article>`;
+  return `<article class="fact stay-booking accommodation-detail-card accommodation-detail-card--compact"><div class="accommodation-detail-head"><div><span>${escapeTripHTML(booking.stayDates||booking.date||'')}</span></div>${nightsLabel?`<span class="accommodation-night-badge">${escapeTripHTML(nightsLabel)}</span>`:''}</div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place,{includeDay:false})}${bookingExpenseActionHTML(booking)}${accommodationDetailNavigationHTML(booking.id)}</article>`;
 }
 
 function openAccommodationList(){
@@ -264,7 +276,7 @@ function buildActivityBookingDetailHTML(booking){
     accommodationPaymentHTML(booking),activityFamilyBreakdownHTML(booking),bookingSectionHTML('Pickup & drop-off',pickup),bookingSectionHTML('Lunch',booking.lunchStatus||''),
     bookingSectionHTML('Cancellation',booking.cancellation||''),bookingSectionHTML('Notes',booking.notes||'')
   ].join('');
-  return `<article class="fact stay-booking accommodation-detail-card activity-booking-detail"><div class="accommodation-detail-head"><div><strong>${escapeTripHTML(booking.title)}</strong><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge activity-confirmed-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place)}${activityDetailNavigationHTML(booking.id)}</article>`;
+  return `<article class="fact stay-booking accommodation-detail-card activity-booking-detail"><div class="accommodation-detail-head"><div><strong>${escapeTripHTML(booking.title)}</strong><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge activity-confirmed-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place)}${bookingExpenseActionHTML(booking)}${activityDetailNavigationHTML(booking.id)}</article>`;
 }
 function openActivityBookingDetail(bookingId,bookingOverride,showSaved){
   activeBookingDetail={type:'activity',id:bookingId};
@@ -310,7 +322,7 @@ function buildGenericBookingDetailHTML(booking){
   ]);
   const payment=normalizedBookingStatus(booking)==='confirmed'?accommodationPaymentHTML(booking):'';
   const sections=[payment,bookingSectionHTML('Address',bookingAddress(booking,place)),bookingSectionHTML('Notes',booking.notes||''),bookingSectionHTML('Cancellation',booking.cancellation||'')].join('');
-  return `<article class="fact stay-booking accommodation-detail-card generic-booking-detail"><div class="accommodation-detail-head"><div><strong>${escapeTripHTML(booking.title)}</strong><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place)}${genericBookingDetailNavigationHTML(booking)}</article>`;
+  return `<article class="fact stay-booking accommodation-detail-card generic-booking-detail"><div class="accommodation-detail-head"><div><strong>${escapeTripHTML(booking.title)}</strong><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place)}${bookingExpenseActionHTML(booking)}${genericBookingDetailNavigationHTML(booking)}</article>`;
 }
 function openGenericBookingDetail(bookingId,bookingOverride,showSaved){
   const booking=bookingOverride||getBookingById(bookingId);if(!booking)return;
@@ -433,6 +445,7 @@ function returnToBookingDetail(bookingId,bookingOverride,showSaved){
   if(booking.type==='rentalCar')return openTripCard('vehicle');
   return openGenericBookingDetail(bookingId,booking,showSaved);
 }
+window.returnToBookingDetail=returnToBookingDetail;
 async function deleteBookingRecord(bookingId){
   if(!(window.BOOKING_PERMISSIONS&&BOOKING_PERMISSIONS.canEdit()))return false;
   const booking=getBookingById(bookingId);if(!booking||!window.BOOKING_AUTHORITY||typeof BOOKING_AUTHORITY.remove!=='function')return false;

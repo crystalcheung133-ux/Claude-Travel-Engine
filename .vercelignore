@@ -1,11 +1,12 @@
-# Travel Engine source/repository artifacts — do not publish to the Companion.
-ci-tests/
+# Travel Engine production deploy hygiene
 .github/
+ci-tests/
+docs/
+supabase/
 *.md
 *.sql
-PRODUCTION-FILE-MANIFEST.txt
+*.zip
 SHA256SUMS.txt
+PRODUCTION-FILE-MANIFEST.txt
 VERSION.txt
-
-bookings.html
-bookings-runtime.js
+RELEASE.json

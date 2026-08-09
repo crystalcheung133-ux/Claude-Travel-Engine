@@ -1,0 +1,24 @@
+{
+  "engine_version": "25.4.20.3",
+  "artifact_version": "Saigon Companion RC26 \u00b7 Travel Engine 25.4.20.3 Backport",
+  "baseline_engine": "25.4.12",
+  "release_date": "2026-08-09",
+  "release_type": "engine-backport",
+  "runtime_behavior_change": true,
+  "ci_entrypoint": "sh ci-tests/run-all.sh",
+  "capabilities_changed": [
+    "portability hardening",
+    "runtime reliability gates",
+    "canonical capability CI",
+    "Stage 1 genericity",
+    "Booking \u2194 Expense linkage",
+    "shared-expense notification",
+    "bidirectional currency display"
+  ],
+  "explicitly_deferred": [
+    "parallel itinerary tracks",
+    "presence windows",
+    "enterprise device registration",
+    "database Reset RPC signature migration"
+  ]
+}
