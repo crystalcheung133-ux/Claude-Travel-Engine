@@ -2752,3 +2752,12 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
   border-color:#c75b4a!important;
   color:#9c3529!important;
 }
+
+/* RC25 — Timeline Copy Address mobile fit */
+.copy-label-mobile{display:none}
+.timeline-action--copy{white-space:nowrap;min-width:0;max-width:100%;overflow:visible;text-overflow:clip}
+@media(max-width:700px){
+  .copy-label-desktop{display:none}
+  .copy-label-mobile{display:inline}
+  .timeline-action--copy{padding-left:12px;padding-right:12px;flex:0 1 auto}
+}

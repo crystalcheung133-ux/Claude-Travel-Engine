@@ -33,6 +33,7 @@ run "RC21 Guide taxonomy" node ci-tests/test-rc21-guide-taxonomy-contract.js
 run "RC22 Trip + Day + Copy Address" node ci-tests/test-rc22-trip-day-address-contract.js
 run "RC23 Copy Feedback + Rounded Timeline Actions" node ci-tests/test-rc23-copy-feedback-rounded.js
 echo; run "RC24 Copy global click contract" node ci-tests/test-rc24-copy-global-click.js
+echo; run "RC25 Copy eligibility + mobile label" node ci-tests/test-rc25-copy-eligibility-mobile.js
 if [ "$failed" -ne 0 ]; then echo; echo "ONE OR MORE TESTS FAILED"; exit 1; fi
 echo "ALL VN REFERENCE TESTS PASSED"
 

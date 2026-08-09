@@ -1152,6 +1152,7 @@ const PLACES={
   },
   "book-street": {
     "title": "Nguyễn Văn Bình Book Street",
+        "copyAddressEligible": false,
     "emoji": "📚",
     "cat": "ATTRACTIONS",
     "sub": "書街散步",
@@ -2416,6 +2417,7 @@ const ITINERARY_DATA={
         "id": "post-office",
         "time": "12:30–14:00",
         "title": "🏛 Saigon Central Post Office → Notre-Dame Cathedral → Book Street",
+        "copyAddressEligible": false,
         "details": [
           "三個經典點集中在同一區，完成後可先回酒店 check-in 或直接繼續。"
         ],
@@ -2459,6 +2461,7 @@ const ITINERARY_DATA={
         "id": "cafe-apartments",
         "time": "19:45–20:15",
         "title": "📸 Nguyễn Huệ Night Walk",
+        "copyAddressEligible": false,
         "details": [
           "Optional：The Cafe Apartments 霓虹夜景與步行街合照。"
         ],

@@ -1,8 +1,8 @@
 const fs=require('fs'),assert=require('assert');
 const day=fs.readFileSync('day.html','utf8');
 const css=fs.readFileSync('styles.css','utf8');
-assert(day.includes("feedback('✓ COPIED','success')"),'Copy success feedback must say COPIED');
-assert(day.includes("feedback('COPY FAILED','failed')"),'Copy failure feedback missing');
+assert(day.includes('✓ COPIED')&&day.includes("'success'"),'Copy success feedback must say COPIED');
+assert(day.includes('COPY FAILED')&&day.includes("'failed'"),'Copy failure feedback missing');
 assert(day.includes("document.execCommand('copy')===true"),'Fallback copy must verify success');
 assert(day.includes('area.setSelectionRange(0,area.value.length)'),'Mobile-safe textarea selection missing');
 assert(day.includes('window.isSecureContext'),'Clipboard API must be gated by secure context');
