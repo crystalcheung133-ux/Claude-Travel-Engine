@@ -676,8 +676,6 @@ function renderTripMenuFromConfig(){
  if(!groupedModules.has('activities')&&enabled('activities',!!getActivityBookings().length))push("openTripCard('activities')",'🎟️','Activities','Activity bookings');
  if(!groupedModules.has('transport')&&enabled('transport',!!getTransportBookings().length))push("openTripCard('transport')",'🚐','Transport','Booked transport');
  if(enabled('rentalCar',!!cards.vehicle)&&cards.vehicle)push("openTripCard('vehicle')",'🚙','Rental Car','Vehicle details');
- if(cards.checklist)push("openTripCard('checklist')",'✅','Checklist','Before the trip');
- if(cards.emergency)push("openTripCard('emergency')",'☎️','Emergency','Contacts & medical care');
  host.innerHTML=rows.join('');
 }
 if(typeof document!=='undefined'){

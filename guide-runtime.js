@@ -134,7 +134,8 @@ document.addEventListener('DOMContentLoaded',openRequestedGuideCard);
 function guideSemanticCategory(cat){
  const raw=String(cat||'').toUpperCase();
  if(['RESTAURANTS','CAFÉS','CAFES'].includes(raw))return 'DINING';
- if(['EXPERIENCE','EXPERIENCES','SPA','WELLNESS'].includes(raw))return 'ACTIVITIES';
+ if(['ACTIVITIES','EXPERIENCE','EXPERIENCES'].includes(raw))return 'EXPERIENCES';
+ if(['SPA','WELLNESS'].includes(raw))return 'WELLNESS';
  if(raw==='SHOPPING')return 'SHOP';
  return raw;
 }
@@ -144,7 +145,8 @@ function guideCategorySources(cat){
  if(Array.isArray(configured)&&configured.length)return configured.map(String);
  const defaults={
   ATTRACTIONS:['ATTRACTIONS'],
-  ACTIVITIES:['ACTIVITIES','EXPERIENCE','EXPERIENCES','SPA','WELLNESS'],
+  EXPERIENCES:['ACTIVITIES','EXPERIENCE','EXPERIENCES'],
+  WELLNESS:['SPA','WELLNESS'],
   DINING:['DINING','RESTAURANTS','CAFÉS','CAFES'],
   STAY:['STAY'],
   SHOP:['SHOP','SHOPPING'],
@@ -191,7 +193,7 @@ function guideSortedCategoryItems(cat){
  const items=guideCategoryItems(cat).slice();
  const semantic=guideSemanticCategory(cat);
  if(semantic==='ATTRACTIONS'||semantic==='DINING'||semantic==='STAY') return items.sort((a,b)=>guideDayNumber(a)-guideDayNumber(b)||String(a.title||'').localeCompare(String(b.title||'')));
- if(semantic==='ACTIVITIES') return items.sort((a,b)=>guideActivityGroup(a).localeCompare(guideActivityGroup(b))||String(a.title||'').localeCompare(String(b.title||'')));
+ if(semantic==='EXPERIENCES') return items.sort((a,b)=>guideActivityGroup(a).localeCompare(guideActivityGroup(b))||String(a.title||'').localeCompare(String(b.title||'')));
  return items.sort((a,b)=>String(a.title||'').localeCompare(String(b.title||'')));
 }
 function guideStayStatusHTML(item){
@@ -222,7 +224,7 @@ function groupedGuideRows(cat,list){
   });
   return [...groups.entries()].map(([label,items])=>`<section class="guide-category-group"><h3 class="guide-category-group-title">${label}</h3>${items.map(guideListRow).join('')}</section>`).join('');
  }
- if(semantic==='ACTIVITIES'){
+ if(semantic==='EXPERIENCES'){
   const groups=new Map();
   list.forEach(item=>{const label=guideActivityGroup(item);(groups.get(label)||groups.set(label,[]).get(label)).push(item);});
   return [...groups.entries()].map(([label,items])=>`<section class="guide-category-group"><h3 class="guide-category-group-title">${label}</h3>${items.map(guideListRow).join('')}</section>`).join('');
