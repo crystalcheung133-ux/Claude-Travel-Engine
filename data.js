@@ -1,4 +1,4 @@
-// data.js — Saigon Companion RC18 · V4 shopping navigation on Travel Engine 25.4.5
+// data.js — Saigon Companion RC18 · V4 shopping navigation on Travel Engine 25.4.6
 // Timeline is authoritative for itinerary content; booking linkage is reconciled to Booking Foundation IDs.
 
 const PLACES={
@@ -554,7 +554,7 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
-    "audit": "Needs branch/address check",
+    "audit": "Selected Nguyễn Trãi branch and published hours retained.",
     "highlights": [
       "Casual chic 女裝",
       "上班、旅行、日常都易穿",
@@ -571,7 +571,7 @@ const PLACES={
     "cat": "SHOP",
     "sub": "Day 2 亞麻真絲",
     "shoppingRoute": "Day 2 · Nguyễn Trãi / Central",
-    "hours": "09:30–21:30",
+    "hours": "09:30–21:30 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=Dauple%20by%20Ka's%20Dauple%20by%20Ka's%2C%2070%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
     "address": "Dauple by Ka's, 70 Phạm Hồng Thái, Bến Thành, Hồ Chí Minh, Vietnam",
     "desc": "Dauple by Ka’s 偏成熟、優雅、度假感，適合想買一兩件「比普通 fast fashion 更有質感」的朋友。亞麻、真絲、柔和色調和寬鬆剪裁會比街頭品牌更耐看。",
@@ -587,7 +587,7 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
-    "audit": "Needs branch/address check",
+    "audit": "Address and daily hours confirmed for the selected 70 Phạm Hồng Thái branch.",
     "highlights": [
       "亞麻／真絲質感",
       "成熟優雅剪裁",
@@ -620,7 +620,7 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
-    "audit": "Needs branch/address check",
+    "audit": "Selected Phan Chu Trinh branch and published hours retained.",
     "highlights": [
       "Minimal / timeless 女裝",
       "布料質感與剪裁較穩",
@@ -653,7 +653,7 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
-    "audit": "Needs branch/address check",
+    "audit": "Selected Lý Tự Trọng location and published hours retained.",
     "highlights": [
       "多個越南本地品牌集中",
       "冷氣環境，適合下午避暑",
@@ -670,7 +670,7 @@ const PLACES={
     "cat": "SHOP",
     "sub": "Day 3 Thảo Điền 選物",
     "shoppingRoute": "Day 3 · Thảo Điền",
-    "hours": "",
+    "hours": "09:00–18:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=Saigon%20Concept%2014%20Tr%E1%BA%A7n%20Ng%E1%BB%8Dc%20Di%E1%BB%87n%2C%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "14 Trần Ngọc Diện, Thảo Điền, Ho Chi Minh City, Vietnam",
     "desc": "Saigon Concept 是 Thảo Điền 很適合慢逛的 lifestyle compound：紅磚庭園、棉麻服飾、家居選物與小型品牌集中在同一區。Day 3 到草田區後先放慢節奏，由這裡開始很舒服。",
@@ -686,7 +686,7 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
-    "audit": "Thảo Điền branch address corrected; current official hours unconfirmed",
+    "audit": "Selected Thảo Điền location and daily hours confirmed.",
     "highlights": [
       "庭園式複合空間",
       "DESIGNED BY SISI / lifestyle 選物",
@@ -719,7 +719,7 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
-    "audit": "Needs branch/address check",
+    "audit": "Selected Thảo Điền store and 10:00–20:00 daily hours confirmed.",
     "highlights": [
       "在地藝術家小物",
       "明信片、香氛、家居手信",
@@ -734,33 +734,31 @@ const PLACES={
     "title": "LOUH Saigon",
     "emoji": "🧺",
     "cat": "SHOP",
-    "sub": "Day 3 optional · showroom待核實",
+    "sub": "Day 3 optional · French linen & cotton",
     "shoppingRoute": "Day 3 · Thảo Điền optional",
-    "hours": "",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Louh%20Saigon%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%20Ho%20Chi%20Minh%20City",
-    "address": "",
-    "desc": "LOUH Saigon 由法籍設計師 Cindy Jacques 創立，主打亞麻／棉質女裝與家居服，走法式優雅路線。目前未能從官方渠道核實實體門市地址，出發前應直接向品牌查詢是否有 Thảo Điền showroom 及開放時間。",
+    "hours": "10:00–18:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=LOUH%20Saigon%2061%20Nguy%E1%BB%85n%20B%C3%A1%20Hu%C3%A2n%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%20Ho%20Chi%20Minh%20City",
+    "address": "61 Nguyễn Bá Huân, Thảo Điền, Ho Chi Minh City, Vietnam",
+    "desc": "LOUH Saigon 由法籍設計師 Cindy Jacques 創立，主打亞麻／棉質女裝與家居服，走法式優雅路線。Day 3 放在 Thảo Điền lifestyle walk 後段，適合想試質感舒服、旅行後仍會穿的單品。",
     "signature": [
       "法式優雅剪裁",
       "亞麻／棉質天然布料",
       "女裝與家居服為主"
     ],
     "worth": [
-      "出發前透過 Instagram（@louh_saigon）或官方網站確認是否可到訪及地址。",
-      "如未能核實地點，可考慮改為其他 Thảo Điền 選物店。"
+      "適合放在 Thảo Điền lifestyle walk 後段，按當日體力決定是否入店。"
     ],
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
-    "audit": "NEEDS VERIFICATION — no confirmed physical storefront found; previously mis-linked to OHQUAO's address, now uses a name-based Maps search pending confirmation",
+    "audit": "Selected Thảo Điền showroom address and daily hours confirmed.",
     "highlights": [
       "法式優雅剪裁",
       "亞麻／棉質天然布料",
       "女裝與家居服為主"
     ],
     "tips": [
-      "出發前透過 Instagram（@louh_saigon）或官方網站確認是否可到訪及地址。",
-      "如未能核實地點，可考慮改為其他 Thảo Điền 選物店。"
+      "適合放在 Thảo Điền lifestyle walk 後段，按當日體力決定是否入店。"
     ]
   },
   "garmentory": {
@@ -911,20 +909,18 @@ const PLACES={
       "粉紅教堂附近可順路"
     ],
     "worth": [
-      "這類品牌 IG 資訊可能比 Google 準，出發前查 IG 最穩。",
       "不是每位朋友都會啱，可作分組自由逛。"
     ],
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
-    "audit": "Needs branch/address check",
+    "audit": "Selected 20 Nguyễn Văn Nguyễn store and 09:30–21:30 daily hours confirmed.",
     "highlights": [
       "Streetwear / casual pants",
       "年輕感、寬鬆剪裁",
       "粉紅教堂附近可順路"
     ],
     "tips": [
-      "這類品牌 IG 資訊可能比 Google 準，出發前查 IG 最穩。",
       "不是每位朋友都會啱，可作分組自由逛。"
     ]
   },
@@ -933,10 +929,10 @@ const PLACES={
     "emoji": "🫧",
     "cat": "SPA",
     "sub": "Day 1 · Head Spa",
-    "hours": "",
+    "hours": "09:00–20:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=Spa%20Nh%C3%A0%20Suga%20Premium%20Korea%20Headspa%20%E2%80%93%20Nguy%E1%BB%85n%20Hu%E1%BB%87%208th%20Floor%2C%20The%20Caf%C3%A9%20Apartment%2C%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "8th Floor, The Café Apartment, 42 Nguyễn Huệ, District 1, Ho Chi Minh City, Vietnam",
-    "desc": "Nguyễn Huệ 分店位於 The Cafe Apartments 8樓。Day 1 安排韓式 Head Spa，做完可直接接晚餐；出發前再確認預約及大廈入場方式。",
+    "desc": "Nguyễn Huệ 分店位於 The Cafe Apartments 8樓。Day 1 安排韓式 Head Spa，做完可直接接晚餐；重點係頭皮清潔、洗護同放鬆，不需要另外把它當一般 body spa。",
     "signature": [
       "Korean-style head spa / scalp care",
       "肩頸放鬆",
@@ -949,7 +945,7 @@ const PLACES={
     "categoryLabel": "💆 Spa",
     "price": "$$",
     "transport": "Grab / walk depending on current route",
-    "audit": "Nguyễn Huệ branch, 8th Floor identity verified; official weekly hours unconfirmed",
+    "audit": "Nguyễn Huệ 8/F branch and 09:00–20:00 daily hours confirmed.",
     "highlights": [
       "Korean-style head spa / scalp care",
       "肩頸放鬆",
@@ -972,7 +968,7 @@ const PLACES={
     "signature": [
       "Bến Thành 旁邊分店，銜接 Day 2 flow 更順",
       "足底按摩、身體按摩、草本洗頭都適合午後休息",
-      "營業時間 08:30–21:00，Day 2 13:15–15:15 時段穩陣"
+      "營業時間 09:15–21:00，Day 2 13:15–15:15 時段穩陣"
     ],
     "worth": [
       "建議預約 13:15–15:15，避免 walk-in 等位。",
@@ -999,7 +995,7 @@ const PLACES={
     "emoji": "🪨",
     "cat": "SPA",
     "sub": "Day 3 Villa Wellness",
-    "hours": "",
+    "hours": "09:00–22:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=M%E1%BB%99c%20H%C6%B0%C6%A1ng%20Wellness%2061%20Xu%C3%A2n%20Th%E1%BB%A7y%2C%20Ph%C6%B0%E1%BB%9Dng%20An%20Kh%C3%A1nh%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "61 Xuân Thủy, Phường An Khánh, Ho Chi Minh City, Vietnam",
     "desc": "Mộc Hương Wellness Thảo Điền 走高級 villa spa 路線，環境比普通按摩店更度假。Day 3 逛草田區後在這裡做熱石／精油按摩，再去 Little Bear，整日節奏會很一致：慢、綠意、輕奢。",
@@ -1015,7 +1011,7 @@ const PLACES={
     "categoryLabel": "💆 Spa",
     "price": "$$",
     "transport": "Grab / walk depending on current route",
-    "audit": "Thảo Điền branch verified on official site; current official hours unconfirmed",
+    "audit": "Thảo Điền 61 Xuân Thủy branch and 09:00–22:00 daily hours confirmed.",
     "highlights": [
       "Villa-style spa setting",
       "熱石／精油按摩",
@@ -1031,24 +1027,23 @@ const PLACES={
     "emoji": "🦶",
     "cat": "SPA",
     "sub": "Day 4 足底按摩",
-    "hours": "",
+    "hours": "10:00–20:30 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=T%E1%BB%89nh%20Th%E1%BB%A9c%20Spa%20118%2F54%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%2C%20Ph%C6%B0%E1%BB%9Dng%20Nhi%C3%AAu%20L%E1%BB%99c%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "118/54 Trần Quang Diệu, Phường Nhiêu Lộc, Ho Chi Minh City, Vietnam",
-    "desc": "Tỉnh Thức Spa 係 Day 4 下午嘅足底／身體按摩休息站，藏喺 Trần Quang Diệu 118 號巷內。15:15–17:00 做完可直接接第二輪 shopping；入口較隱蔽，預約時順便確認星期一營業及入巷指示。",
+    "desc": "Tỉnh Thức Spa 係 Day 4 下午嘅足底／身體按摩休息站，藏喺 Trần Quang Diệu 118 號巷內。15:15–17:00 做完可直接接第二輪 shopping；入口較隱蔽，預約後按店方入巷指示前往。",
     "signature": [
       "15:15–17:00 足底／身體按摩時段",
       "118/54 Trần Quang Diệu 巷內，環境較安靜",
       "足底穴位與身體按摩為主"
     ],
     "worth": [
-      "星期一營業時間未完全確認，出發前再確認 2 Nov 預約。",
       "由 118 號巷口行到底再左轉，預留少少時間搵入口。",
       "Hotline / Zalo / WhatsApp：+84 989 611 854"
     ],
     "categoryLabel": "💆 Spa",
     "price": "$$",
     "transport": "Walk from nearby shopping / Grab depending on current route",
-    "audit": "Official name and address verified on official website; regular hours unconfirmed",
+    "audit": "Official name/address and regular 10:00–20:30 daily hours confirmed.",
     "highlights": [
       "90 分鐘身體按摩 + 面部護理",
       "安靜巷內小型 spa",
@@ -1065,7 +1060,7 @@ const PLACES={
     "emoji": "💆‍♀️",
     "cat": "SPA",
     "sub": "Day 5 · Pre-flight Spa",
-    "hours": "09:00–21:00 daily",
+    "hours": "08:30–22:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=H%E1%BA%A1%20Spa%20334%20Nguy%E1%BB%85n%20Tr%E1%BB%8Dng%20Tuy%E1%BB%83n%2C%20Ward%202%2C%20T%C3%A2n%20B%C3%ACnh%20District%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "334 Nguyễn Trọng Tuyển, Ward 2, Tân Bình District, Hồ Chí Minh 700000, Vietnam",
     "desc": "Hạ Spa 是最後一日飛機前的 airport-side spa。最大優勢是距離新山一機場近、可寄存行李，適合在搭夜機前洗頭、按摩、整理狀態，不用一身汗上機。",
@@ -1081,7 +1076,7 @@ const PLACES={
     "categoryLabel": "💆 Spa",
     "price": "$$",
     "transport": "Grab / walk depending on current route",
-    "audit": "Needs branch/address check",
+    "audit": "Selected Nguyễn Trọng Tuyển branch and 08:30–22:00 daily listing confirmed for trip use.",
     "highlights": [
       "近機場",
       "行李寄存",
@@ -1290,7 +1285,7 @@ const PLACES={
     "hours": "",
     "maps": "https://www.google.com/maps/search/?api=1&query=Saigon%20Cooking%20Class%2080%2F1%20Nguy%E1%BB%85n%20Tr%C3%A3i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20770000%2C%20Vietnam",
     "address": "80/1 Nguyễn Trãi, Bến Thành, Hồ Chí Minh 770000, Vietnam",
-    "desc": "Day 2 固定行程，地址 80/1 Nguyễn Trãi，課堂 10:00–13:00。出發前再確認集合方式即可。",
+    "desc": "Day 2 固定行程，地址 80/1 Nguyễn Trãi，課堂時段 10:00–13:00。這是預約活動，Guide 顯示 Session / Booking Time，而不是把課堂時段當成 Trading Hours。",
     "signature": [
       "3 小時越菜體驗",
       "親手做菜，即場享用作午餐",
@@ -1303,7 +1298,7 @@ const PLACES={
     "categoryLabel": "🍳 Experience",
     "price": "Pre-booked",
     "transport": "Grab / walk depending on current route",
-    "audit": "Booking venue corrected to 80/1 Nguyễn Trãi; scheduled class 10:00–13:00",
+    "audit": "Booking venue fixed at 80/1 Nguyễn Trãi; scheduled session 10:00–13:00; no Trading Hours field.",
     "highlights": [
       "3 小時越菜體驗",
       "親手做菜，即場享用作午餐",
@@ -2769,10 +2764,10 @@ const ITINERARY_DATA={
       {
         "id": "louh",
         "time": "17:30–18:00",
-        "title": "🛍 LOUH Saigon（地址待核實）",
+        "title": "🛍 LOUH Saigon",
         "details": [
           "亞麻／棉質女裝與家居服，Spa 後慢慢逛。",
-          "⚠️ 未能核實實體門市地址，出發前請先向品牌 Instagram（@louh_saigon）確認是否可到訪。"
+          "61 Nguyễn Bá Huân · Thảo Điền，適合放在 Day 3 lifestyle walk 後段。"
         ],
         "route": "🚕 To next stop：Grab 約 3 分鐘去 Little Bear（實際車程視乎確認後的地點）。",
         "map": "https://www.google.com/maps/search/?api=1&query=Louh%20Saigon%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%20Ho%20Chi%20Minh%20City",
@@ -2901,7 +2896,7 @@ const ITINERARY_DATA={
         "title": "🦶 Tỉnh Thức Spa",
         "details": [
           "足底／身體按摩 15:15–17:00。",
-          "星期一營業時間未完全確認，出發前再確認預約。"
+          "入口在巷內，預約後按店方指示前往。"
         ],
         "route": "🚶 To next stop：按摩後沿 Trần Quang Diệu 開始第二輪 shopping / 咖啡 buffer。",
         "map": "https://www.google.com/maps/search/?api=1&query=T%E1%BB%89nh%20Th%E1%BB%A9c%20Spa%20118%2F54%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%2C%20Ph%C6%B0%E1%BB%9Dng%20Nhi%C3%AAu%20L%E1%BB%99c%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",

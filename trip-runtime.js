@@ -106,13 +106,18 @@ function buildAccommodationListHTML(){
     return `<button class="accommodation-picker-row" type="button" role="listitem" onclick="openAccommodationDetail('${escapeTripHTML(booking.id)}')"><span class="accommodation-picker-icon" aria-hidden="true">🏨</span><span class="accommodation-picker-copy"><strong>${escapeTripHTML(booking.title)}</strong><small>${escapeTripHTML(booking.stayDates||booking.date||'')}</small><span class="accommodation-picker-price">${escapeTripHTML(price)}</span></span><span class="accommodation-picker-meta accommodation-picker-meta--stack">${statusLabel?`<span class="accommodation-status-badge accommodation-status-badge--${escapeTripHTML(statusClass)}">${escapeTripHTML(statusLabel)}</span>`:''}<span class="accommodation-night-line">${escapeTripHTML(nightsLabel)} <b aria-hidden="true">›</b></span></span></button>`;
   }).join('')+'</div>';
 }
+function bookingBrowseNavigationHTML(bookings,index,openFunction){
+  if(index<0)return '';
+  const previous=index>0?bookings[index-1]:null;
+  const next=index<bookings.length-1?bookings[index+1]:null;
+  const prevButton=previous?`<button class="pill" type="button" onclick="${openFunction}('${escapeTripHTML(previous.id)}')">‹ Previous</button>`:`<button class="pill" type="button" disabled aria-disabled="true">‹ Previous</button>`;
+  const nextButton=next?`<button class="pill" type="button" onclick="${openFunction}('${escapeTripHTML(next.id)}')">Next ›</button>`:`<button class="pill" type="button" disabled aria-disabled="true">Next ›</button>`;
+  return `<div class="guide-browse-meta">${index+1} / ${bookings.length}</div><div class="guide-next-row booking-detail-navigation">${prevButton}${nextButton}</div>`;
+}
 function accommodationDetailNavigationHTML(bookingId){
   const bookings=getAccommodationBookings();
   const index=bookings.findIndex(function(item){return item.id===bookingId;});
-  if(index<0||bookings.length<2)return '';
-  const previous=bookings[(index-1+bookings.length)%bookings.length];
-  const next=bookings[(index+1)%bookings.length];
-  return `<div class="guide-browse-meta">${index+1} / ${bookings.length}</div><div class="guide-next-row"><button class="pill" type="button" onclick="openAccommodationDetail('${escapeTripHTML(previous.id)}')">‹ Previous</button><button class="pill" type="button" onclick="openAccommodationDetail('${escapeTripHTML(next.id)}')">Next ›</button></div>`;
+  return bookingBrowseNavigationHTML(bookings,index,'openAccommodationDetail');
 }
 function normalizedBookingStatus(booking){
   const raw=String((booking&&booking.status)||'pending').toLowerCase();
@@ -305,7 +310,7 @@ function buildGenericBookingDetailHTML(booking){
   ]);
   const payment=normalizedBookingStatus(booking)==='confirmed'?accommodationPaymentHTML(booking):'';
   const sections=[payment,bookingSectionHTML('Address',bookingAddress(booking,place)),bookingSectionHTML('Notes',booking.notes||''),bookingSectionHTML('Cancellation',booking.cancellation||'')].join('');
-  return `<article class="fact stay-booking accommodation-detail-card generic-booking-detail"><div class="accommodation-detail-head"><div><strong>${escapeTripHTML(booking.title)}</strong><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place)}</article>`;
+  return `<article class="fact stay-booking accommodation-detail-card generic-booking-detail"><div class="accommodation-detail-head"><div><strong>${escapeTripHTML(booking.title)}</strong><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place)}${genericBookingDetailNavigationHTML(booking)}</article>`;
 }
 function openGenericBookingDetail(bookingId,bookingOverride,showSaved){
   const booking=bookingOverride||getBookingById(bookingId);if(!booking)return;
@@ -528,10 +533,14 @@ function buildRentalCarHTML(){
 function activityDetailNavigationHTML(bookingId){
   const bookings=getActivityBookings();
   const index=bookings.findIndex(function(item){return item.id===bookingId;});
-  if(index<0||bookings.length<2)return '';
-  const previous=bookings[(index-1+bookings.length)%bookings.length];
-  const next=bookings[(index+1)%bookings.length];
-  return `<div class="guide-browse-meta">${index+1} / ${bookings.length}</div><div class="guide-next-row"><button class="pill" type="button" onclick="openActivityBookingDetail('${escapeTripHTML(previous.id)}')">‹ Previous</button><button class="pill" type="button" onclick="openActivityBookingDetail('${escapeTripHTML(next.id)}')">Next ›</button></div>`;
+  return bookingBrowseNavigationHTML(bookings,index,'openActivityBookingDetail');
+}
+function genericBookingDetailNavigationHTML(booking){
+  if(!booking)return '';
+  const category=bookingCategoryLabel(booking);
+  const bookings=getBookingsByCategory(category);
+  const index=bookings.findIndex(function(item){return item.id===booking.id;});
+  return bookingBrowseNavigationHTML(bookings,index,'openGenericBookingDetail');
 }
 function openTripCard(key) {
   const guideModal=document.getElementById('guideModal');

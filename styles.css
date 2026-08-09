@@ -2726,3 +2726,6 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
 .directory-card strong{color:#7a4528}
 .directory-tag{display:inline-block;margin-top:7px;padding:5px 9px;border:1px solid rgba(139,83,52,.24);border-radius:999px;font-size:11px;font-weight:800;color:#7a4528}
 @media(max-width:700px){.directory-route-grid{grid-template-columns:1fr}.directory-card{padding:13px;border-radius:18px}.directory-card p{font-size:13px}}
+
+/* Engine 25.4.6 — Booking detail browse contract */
+.booking-detail-navigation .pill[disabled]{opacity:.38;cursor:default;pointer-events:none;filter:saturate(.45)}
