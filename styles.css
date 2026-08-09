@@ -2774,3 +2774,23 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
 .expense-notice-sheet{position:relative;width:min(420px,100%);background:#fffaf2;border:1px solid rgba(210,190,169,.9);border-radius:26px;padding:24px;box-shadow:0 24px 70px rgba(25,30,32,.28)}
 .expense-notice-close{position:absolute;right:14px;top:14px;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:#fffaf2;font-size:26px}
 .expense-notice-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+
+/* VN Guide menu alignment — fixed icon column so labels share one left edge */
+#guideMenu .guide-menu-title{
+  display:grid!important;
+  grid-template-columns:24px 1fr!important;
+  align-items:center!important;
+  column-gap:8px!important;
+  width:100%!important;
+}
+#guideMenu .guide-menu-icon{
+  width:24px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  line-height:1!important;
+}
+#guideMenu .guide-menu-label{
+  display:block!important;
+  text-align:left!important;
+}
