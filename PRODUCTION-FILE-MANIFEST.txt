@@ -1,6 +1,6 @@
 Travel Engine Production File Manifest
 Generated: 2026-08-09
-Release: VN-RC27-ENGINE-25.4.20.4
+Release: VN-RC28-ENGINE-25.4.20.5
 Production root files:
 
 - .vercelignore

@@ -133,7 +133,18 @@ let editingExpenseIndex=null;
   let expenseSaveInFlight=false;
 
   function bookingAmountSeed(booking){
-    const fields=[booking?.netTotalAUD,booking?.netPrice,booking?.totalAmount,booking?.price];
+    const explicitDeposit=MONEY.normalizeAmount(booking?.depositAmount);
+    const explicitDepositCurrency=String(booking?.depositCurrency||'').toUpperCase();
+    if(explicitDeposit>0){
+      return {
+        amount:explicitDeposit,
+        currency:MONEY.getExpenseCurrencies().includes(explicitDepositCurrency)
+          ? explicitDepositCurrency
+          : MONEY.getTripCurrency().code,
+        kind:'deposit'
+      };
+    }
+    const fields=[booking?.depositPaid,booking?.netTotalAUD,booking?.netPrice,booking?.totalAmount,booking?.price];
     for(const value of fields){
       const text=String(value||'').replace(/,/g,'');
       const match=text.match(/\b(AUD|NZD|JPY|VND|USD|EUR|GBP)\s*\$?\s*([0-9]+(?:\.[0-9]+)?)/i)
@@ -141,10 +152,10 @@ let editingExpenseIndex=null;
       if(match){
         const currency=(match.length>2?match[1]:MONEY.getHomeCurrency()).toUpperCase();
         const amount=Number(match.length>2?match[2]:match[1]);
-        if(amount>0)return {amount,currency};
+        if(amount>0)return {amount,currency,kind:'payment'};
       }
     }
-    return {amount:0,currency:MONEY.getTripCurrency().code};
+    return {amount:0,currency:MONEY.getTripCurrency().code,kind:'unknown'};
   }
   function linkedExpensesForBooking(bookingId){
     return readExpenses().filter(e=>e&&e.sourceType==='booking'&&e.sourceBookingId===bookingId&&!e.deletedAt);
@@ -579,7 +590,8 @@ let editingExpenseIndex=null;
     resetExpenseForm({preserveBookingFlow:true});
     pendingExpenseSource={sourceType:'booking',sourceBookingId:booking.id,sourceBookingTitle:booking.title||'Booking',sourceBookingType:booking.type||''};
     const seed=bookingAmountSeed(booking);
-    const item=document.getElementById('expenseItem');if(item)item.value=booking.title||'Booking payment';
+    const item=document.getElementById('expenseItem');
+    if(item)item.value=seed.kind==='deposit'?`${booking.title||'Booking'} · Deposit`:(booking.title||'Booking payment');
     window.setExpenseCategory(booking.type==='activity'?'Activities':'Other');
     expenseCurrency=MONEY.getExpenseCurrencies().includes(seed.currency)?seed.currency:MONEY.getTripCurrency().code;
     renderExpenseCurrencyToggle();syncExpenseAmountCurrencyLabel();
@@ -625,6 +637,7 @@ let editingExpenseIndex=null;
       if(!MONEY.amountsMatch(allocated,total))return fail('Custom split must equal the total.');
     }
 
+    let localCommitComplete=false;
     try{
       const currency=expenseCurrency||MONEY.getTripCurrency().code;
       const homeCurrency=MONEY.getHomeCurrency();
@@ -656,20 +669,26 @@ let editingExpenseIndex=null;
         arr.push(data);
       }
 
+      // LOCAL COMMIT BOUNDARY:
+      // once writeExpenses succeeds the Save is successful. Everything after this
+      // must never turn into a "Could not save" alert or leave the modal open.
       writeExpenses(arr);
+      localCommitComplete=true;
       editingExpenseIndex=null;
-      try{window.EXPENSE_NOTIFICATIONS?.markCurrentFamilySeen?.(data);}catch(e){}
-      window.renderExpenses(operation);
 
       const savedId=data.id||'';
       const cameFromBooking=bookingExpenseFlowActive&&data.sourceType==='booking';
+
+      try{window.EXPENSE_NOTIFICATIONS?.markCurrentFamilySeen?.(data);}catch(e){}
       resetExpenseForm();
       closeExpenseModal();
       document.getElementById('tripModal')?.classList.remove('show');
       unlockSave();
 
-      window.EXPENSE_SYNC?.queueSync();
-      try{window.CCMV_EXPENSE_DUAL_WRITE?.afterLegacyWrite({action:operation,legacyRecords:readExpenses(),targetIndex:operation==='update'?operationIndex:arr.length-1,previousRecord});}catch(error){}
+      // Post-commit UI refresh and cloud work are isolated from the Save result.
+      try{window.renderExpenses(operation);}catch(error){console.error('[Expenses] post-save render failed',error);}
+      try{window.EXPENSE_SYNC?.queueSync();}catch(error){console.error('[Expenses] sync queue failed',error);}
+      try{window.CCMV_EXPENSE_DUAL_WRITE?.afterLegacyWrite({action:operation,legacyRecords:readExpenses(),targetIndex:operation==='update'?operationIndex:arr.length-1,previousRecord});}catch(error){console.error('[Expenses] dual-write failed',error);}
 
       if(cameFromBooking&&savedId){window.location.href=`expenses.html?expenseId=${encodeURIComponent(savedId)}`;return;}
       setTimeout(()=>{
@@ -678,6 +697,12 @@ let editingExpenseIndex=null;
       },120);
     }catch(error){
       console.error('[Expenses] save failed',error);
+      if(localCommitComplete){
+        // Never ask the user to retry a transaction that is already persisted.
+        try{closeExpenseModal();}catch(e){}
+        unlockSave();
+        return;
+      }
       fail('Could not save this expense. Please try again.');
     }
   };

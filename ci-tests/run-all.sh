@@ -11,6 +11,7 @@ run "RUNTIME RELIABILITY" sh ci-tests/suites/06-runtime-reliability.sh
 run "GENERICITY" sh ci-tests/suites/07-genericity.sh
 run "BOOKING / EXPENSE" sh ci-tests/suites/08-booking-expense.sh
 run "EXPENSE SAVE SAFETY" sh ci-tests/suites/10-expense-save-safety.sh
+run "EXPENSE COMMIT BOUNDARY" sh ci-tests/suites/11-expense-commit-boundary.sh
 run "RELEASE" sh ci-tests/suites/09-release.sh
 [ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
 echo "MASTER CI SUITE PASSED"
