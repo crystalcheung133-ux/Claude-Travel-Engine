@@ -2729,3 +2729,9 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
 
 /* Engine 25.4.6 — Booking detail browse contract */
 .booking-detail-navigation .pill[disabled]{opacity:.38;cursor:default;pointer-events:none;filter:saturate(.45)}
+
+
+/* RC22 — VN day area + contextual address utility */
+#dynamicDayRoot .day-area-label{margin:7px 0 0;font-size:13px;line-height:1.25;font-weight:850;letter-spacing:.055em;text-transform:uppercase;color:var(--accent)}
+.timeline-actions .timeline-action--copy{white-space:nowrap}
+@media(max-width:620px){#dynamicDayRoot .day-area-label{font-size:11px;letter-spacing:.04em;margin-top:5px}.timeline-actions .timeline-action--copy{font-size:13px!important}}

@@ -1,4 +1,4 @@
-// data.js — Saigon Companion RC21 · Guide taxonomy on Travel Engine 25.4.8
+// data.js — Saigon Companion RC22 · Guide taxonomy on Travel Engine 25.4.9
 // Timeline is authoritative for itinerary content; booking linkage is reconciled to Booking Foundation IDs.
 
 const PLACES={
@@ -2348,6 +2348,7 @@ const ITINERARY_DATA={
     "title": "Day 1 · Saigon Companion",
     "kicker": "Day 1 · 30 Oct • Friday",
     "heading": "Hello Saigon",
+    "areaLabel": "DISTRICT 1 · CENTRAL SAIGON",
     "legend": [
       "☀️ Morning",
       "🍜 Midday",
@@ -2505,6 +2506,7 @@ const ITINERARY_DATA={
     "title": "Day 2 · Saigon Companion",
     "kicker": "Day 2 · 31 Oct • Saturday",
     "heading": "Made in Saigon",
+    "areaLabel": "BẾN THÀNH · NGUYỄN TRÃI",
     "legend": [
       "☀️ Morning",
       "🍜 Midday",
@@ -2638,6 +2640,7 @@ const ITINERARY_DATA={
     "title": "Day 3 · Saigon Companion",
     "kicker": "Day 3 · 1 Nov • Sunday",
     "heading": "A Slower Side",
+    "areaLabel": "THẢO ĐIỀN · DISTRICT 2",
     "legend": [
       "☀️ Morning",
       "🍜 Midday",
@@ -2827,6 +2830,7 @@ const ITINERARY_DATA={
     "title": "Day 4 · Saigon Companion",
     "kicker": "Day 4 · 2 Nov • Monday",
     "heading": "City Contrast",
+    "areaLabel": "PHÚ NHUẬN · DISTRICT 3 → DISTRICT 1",
     "legend": [
       "☀️ Morning",
       "🍜 Midday",
@@ -2990,6 +2994,7 @@ const ITINERARY_DATA={
     "title": "Day 5 · Saigon Companion",
     "kicker": "Day 5 · 3 Nov • Tuesday",
     "heading": "One Last Look",
+    "areaLabel": "DISTRICT 1 → TÂN BÌNH · AIRPORT",
     "legend": [
       "☀️ Morning",
       "🍜 Midday",

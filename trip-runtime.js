@@ -542,20 +542,50 @@ function genericBookingDetailNavigationHTML(booking){
   const index=bookings.findIndex(function(item){return item.id===booking.id;});
   return bookingBrowseNavigationHTML(bookings,index,'openGenericBookingDetail');
 }
+function tripHubEntries(){
+  const cards=PRODUCTION_TRIP.cards||{};
+  const modules=TRIP_CONFIG.tripModules||{};
+  const enabled=(name,fallback)=>Object.prototype.hasOwnProperty.call(modules,name)?modules[name]!==false:fallback;
+  const entries=[];
+  if(cards.flights)entries.push({id:'flights',action:"openTripCard('flights')"});
+  if(enabled('stay',!!getAccommodationBookings().length)&&getAccommodationBookings().length)entries.push({id:'stay',action:"openTripCard('stay')"});
+  if(getBookingsByCategory('restaurants').length)entries.push({id:'restaurants',action:"openBookingCategoryCard('Restaurants')"});
+  if(getBookingsByCategory('spa').length)entries.push({id:'spa',action:"openBookingCategoryCard('Spa')"});
+  const groups=Array.isArray(TRIP_CONFIG.tripMenuGroups)?TRIP_CONFIG.tripMenuGroups:[];
+  const groupedModules=new Set();
+  groups.forEach(group=>{
+    const mods=Array.isArray(group&&group.modules)?group.modules:[];
+    const hasActivity=mods.includes('activities')&&enabled('activities',!!getActivityBookings().length)&&getActivityBookings().length;
+    const hasTransport=mods.includes('transport')&&enabled('transport',!!getTransportBookings().length)&&getTransportBookings().length;
+    if(hasActivity||hasTransport){entries.push({id:'group:'+group.id,action:`openTripModuleGroup('${group.id}')`});mods.forEach(m=>groupedModules.add(m));}
+  });
+  if(!groupedModules.has('activities')&&enabled('activities',!!getActivityBookings().length)&&getActivityBookings().length)entries.push({id:'activities',action:"openTripCard('activities')"});
+  if(!groupedModules.has('transport')&&enabled('transport',!!getTransportBookings().length)&&getTransportBookings().length)entries.push({id:'transport',action:"openTripCard('transport')"});
+  if(enabled('rentalCar',!!cards.vehicle)&&cards.vehicle)entries.push({id:'vehicle',action:"openTripCard('vehicle')"});
+  return entries;
+}
+function tripHubNavigationHTML(currentId){
+  const entries=tripHubEntries();
+  const index=entries.findIndex(entry=>entry.id===currentId);
+  if(index<0||!entries.length)return '';
+  const previous=index>0?entries[index-1]:null,next=index<entries.length-1?entries[index+1]:null;
+  const prev=previous?`<button class="pill" type="button" onclick="${previous.action}">‹ Previous</button>`:`<button class="pill" type="button" disabled aria-disabled="true">‹ Previous</button>`;
+  const nxt=next?`<button class="pill" type="button" onclick="${next.action}">Next ›</button>`:`<button class="pill" type="button" disabled aria-disabled="true">Next ›</button>`;
+  return `<div class="guide-browse-meta">${index+1} / ${entries.length}</div><div class="guide-next-row trip-hub-navigation">${prev}${nxt}</div>`;
+}
+
 function openTripCard(key) {
   const guideModal=document.getElementById('guideModal');
   if(guideModal?.classList.contains('show')) guideModal.classList.remove('show');
   closeMiniMenus();
   const t = PRODUCTION_TRIP.cards[key];
   if (!t) return;
-  const idx = PRODUCTION_TRIP.order.indexOf(key);
-  const prev = PRODUCTION_TRIP.order[(idx - 1 + PRODUCTION_TRIP.order.length) % PRODUCTION_TRIP.order.length];
-  const next = PRODUCTION_TRIP.order[(idx + 1) % PRODUCTION_TRIP.order.length];
+
   const content = document.getElementById('tripModalContent');
   const modal = document.getElementById('tripModal');
   if (!content || !modal) return;
   const body=key==='emergency'?compactEmergencyHTML(t.body):(key==='stay'?buildAccommodationListHTML():(key==='activities'?buildActivityBookingListHTML():(key==='transport'?buildTransportBookingListHTML():(key==='vehicle'?buildRentalCarHTML():t.body))));
-  content.innerHTML = `<div class="trip-onepage trip-onepage-${key}"><p class="kicker">Trip</p><h2>${t.title}</h2>${body}<div class="guide-next-row"><button class="pill" onclick="openTripCard('${prev}')">‹ Previous</button><button class="pill" onclick="openTripCard('${next}')">Next ›</button></div><p class="timestamp trip-build-summary">${tripSyncSummary()}</p></div>`;
+  content.innerHTML = `<div class="trip-onepage trip-onepage-${key}"><p class="kicker">Trip</p><h2>${t.title}</h2>${body}${tripHubNavigationHTML(key)}<p class="timestamp trip-build-summary">${tripSyncSummary()}</p></div>`;
   modal.classList.add('show');
   const sheet=document.querySelector('#tripModal .trip-sheet');
   if(sheet){ sheet.scrollTop=0; if(typeof window.applyNearFitModal==='function') window.applyNearFitModal(sheet,'trip-near-fit'); }
@@ -630,7 +660,8 @@ function openBookingCategoryCard(category){
   closeMiniMenus();
   const content=document.getElementById('tripModalContent'),modal=document.getElementById('tripModal');
   if(!content||!modal)return;
-  content.innerHTML=`<div class="trip-onepage trip-onepage-booking-category"><p class="kicker">Trip · Booking</p><h2>${bookingCategoryIcon(category)} ${escapeTripHTML(category)}</h2>${buildBookingCategoryListHTML(category)}<p class="timestamp trip-build-summary">${tripSyncSummary()}</p></div>`;
+  const hubId=String(category||'').toLowerCase()==='restaurants'?'restaurants':String(category||'').toLowerCase()==='spa'?'spa':'';
+  content.innerHTML=`<div class="trip-onepage trip-onepage-booking-category"><p class="kicker">Trip · Booking</p><h2>${bookingCategoryIcon(category)} ${escapeTripHTML(category)}</h2>${buildBookingCategoryListHTML(category)}${hubId?tripHubNavigationHTML(hubId):''}<p class="timestamp trip-build-summary">${tripSyncSummary()}</p></div>`;
   modal.classList.add('show');
   const sheet=document.querySelector('#tripModal .trip-sheet');if(sheet)sheet.scrollTop=0;
 }
@@ -648,7 +679,7 @@ function openTripModuleGroup(groupId){
  const group=groups.find(g=>g&&g.id===groupId); if(!group)return;
  closeMiniMenus();
  const content=document.getElementById('tripModalContent'),modal=document.getElementById('tripModal'); if(!content||!modal)return;
- content.innerHTML=`<div class="trip-onepage trip-module-group"><p class="kicker">Trip</p><h2>${escapeTripHTML(group.icon||'📋')} ${escapeTripHTML(group.title||'Trip info')}</h2>${buildTripModuleGroupHTML(group)}</div>`;
+ content.innerHTML=`<div class="trip-onepage trip-module-group"><p class="kicker">Trip</p><h2>${escapeTripHTML(group.icon||'📋')} ${escapeTripHTML(group.title||'Trip info')}</h2>${buildTripModuleGroupHTML(group)}${tripHubNavigationHTML('group:'+group.id)}</div>`;
  modal.classList.add('show'); const sheet=document.querySelector('#tripModal .trip-sheet'); if(sheet)sheet.scrollTop=0;
 }
 

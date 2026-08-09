@@ -174,7 +174,7 @@ function guideCategoryItems(cat){
 }
 function guideCategoryHeading(cat){
  const semantic=guideSemanticCategory(cat);
- if(semantic==='ATTRACTIONS') return 'SIGHTS';
+ if(semantic==='ATTRACTIONS') return 'ATTRACTIONS';
  return semantic;
 }
 
