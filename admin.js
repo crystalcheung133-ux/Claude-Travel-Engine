@@ -373,27 +373,37 @@
   window.openFriendModal=function(){
     const modal=document.getElementById('mamaModal');
     if(modal) modal.classList.remove('studio-view');
+
     originalOpenFriendModal();
     updateUI();
 
     if(state.mode){
       const sheet=modal&&modal.querySelector('.guide-sheet');
-      const studioEntry=document.getElementById('tripStudioSelectorToggle');
+      const studio=document.getElementById('adminModeControl');
 
-      const scrollToStudioEntry=()=>{
-        if(!sheet) return;
-        if(studioEntry&&!studioEntry.hidden){
-          const top=Math.max(0,studioEntry.offsetTop-12);
-          sheet.scrollTop=top;
-        }else{
-          sheet.scrollTop=sheet.scrollHeight;
-        }
+      const scrollToStudioCard=()=>{
+        if(!sheet||!studio) return;
+
+        /*
+          Studio is intentionally a popup card inside the traveller selector sheet.
+          Re-entry opens the traveller selector at the Studio card itself:
+          - Studio controls are immediately usable;
+          - scrolling upward still exposes traveller choices so selecting another
+            traveller exits Studio mode through the existing setFriend contract.
+        */
+        const sheetRect=sheet.getBoundingClientRect();
+        const studioRect=studio.getBoundingClientRect();
+        const target=Math.max(
+          0,
+          sheet.scrollTop + (studioRect.top - sheetRect.top) - 12
+        );
+        sheet.scrollTop=target;
       };
 
-      /* Wait for the same multi-stage layout settling used by persistent chrome metrics. */
-      requestAnimationFrame(()=>requestAnimationFrame(scrollToStudioEntry));
-      setTimeout(scrollToStudioEntry,120);
-      setTimeout(scrollToStudioEntry,350);
+      /* Wait until the selector sheet and Studio card have finished layout. */
+      requestAnimationFrame(()=>requestAnimationFrame(scrollToStudioCard));
+      setTimeout(scrollToStudioCard,120);
+      setTimeout(scrollToStudioCard,350);
     }
   };
 
