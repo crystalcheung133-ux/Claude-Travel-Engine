@@ -213,7 +213,13 @@ let editingExpenseIndex=null;
     if(rate>0){
       const converted=MONEY.convert(total||1,rate,code,other);
       const unit=MONEY.convert(1,rate,code,other);
-      const rateText=unit>0?`1 ${code} ≈ ${FORMATTER.decimal(unit,2)} ${other}`:'';
+      let basis=1;
+      if(unit>0 && unit<0.0001) basis=100000;
+      else if(unit>0 && unit<0.001) basis=10000;
+      else if(unit>0 && unit<0.01) basis=1000;
+      else if(unit>0 && unit<0.1) basis=100;
+      const basisConverted=unit*basis;
+      const rateText=unit>0?`${FORMATTER.decimal(basis,0)} ${code} ≈ ${FORMATTER.decimal(basisConverted,2)} ${other}`:'';
       const convertedText=total&&converted!==null?`≈ ${FORMATTER.decimal(converted,2)} ${other}`:'';
       helper.textContent=[convertedText,rateText].filter(Boolean).join(' · ');
     }else helper.textContent=total?'Live conversion unavailable':'';

@@ -9,7 +9,7 @@ assert(cfg.includes('\"presentation\":\"emoji-name\"'),'party presentation must 
 assert(core.includes("closeBtn.hidden=true")&&core.includes("closeBtn.style.display='none'"),'required traveller close must be DOM-disabled');
 assert(css.includes('.friend-pill .family-name{display:inline!important'),'header traveller name contract missing');
 assert(css.includes('#expenseModal .custom-split-row{display:grid!important;grid-template-columns:1fr!important'),'mobile custom split full-name layout missing');
-assert(exp.includes('const other=code===home?trip:home')&&exp.includes('1 ${code} ≈ ${FORMATTER.decimal(unit,2)} ${other}'),'bidirectional input-currency FX rate missing');
+assert(exp.includes('const other=code===home?trip:home')&&exp.includes('${FORMATTER.decimal(basis,0)} ${code} ≈ ${FORMATTER.decimal(basisConverted,2)} ${other}'),'bidirectional input-currency FX rate missing');
 assert(day.includes("String(booking.status||booking.displayStatus||'pending')"),'timeline booking status must resolve canonical status first');
 assert(storage.includes("bookingOverrides:namespace+':booking_overrides:v2'"),'booking overrides must be trip namespaced');
 assert(!css.includes('\\n\\n/* Engine 25.3.9'),'escaped-newline CSS corruption still present');

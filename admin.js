@@ -166,6 +166,7 @@
     }
     const banner=document.getElementById('adminModeBanner');
     if(banner) banner.hidden=!state.mode;
+    document.body.classList.toggle('admin-mode',!!state.mode);
     const bar=document.getElementById('adminSaveBar');
     if(bar) bar.hidden=!(state.mode&&state.dirty);
     const status=document.getElementById('adminDirtyText');
