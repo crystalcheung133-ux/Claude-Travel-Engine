@@ -2864,3 +2864,62 @@ body.admin-mode:not(:has(#mamaModal.studio-view.show)){
     padding-top:calc(var(--studio-status-height,52px) + var(--studio-traveller-header-height,68px))!important;
   }
 }
+
+
+/* Travel Engine 25.4.22 — persistent-chrome modal viewport contract.
+   Any overlay opened while Studio mode is authenticated must respect the
+   persistent Studio status bar + traveller header/user selector. */
+body.admin-mode{
+  --engine-fixed-chrome-height:calc(var(--studio-status-height,52px) + var(--studio-traveller-header-height,68px));
+}
+
+/* Generic modal shells — applies to Expense, Booking/Trip, Guide, Moments,
+   Unexpected, tools and Studio/admin overlays. */
+body.admin-mode :is(
+  .guide-modal,
+  .moments-modal,
+  .unexpected-modal,
+  .tools-modal,
+  .mama-modal,
+  .trip-modal
+).show{
+  top:var(--engine-fixed-chrome-height)!important;
+  bottom:0!important;
+  height:auto!important;
+  max-height:calc(100dvh - var(--engine-fixed-chrome-height))!important;
+  padding-top:12px!important;
+  box-sizing:border-box!important;
+}
+
+/* Expense modal is a tools-modal, but its sheet is taller than most cards.
+   Keep all sheets within the remaining viewport rather than centering them
+   into the fixed chrome area. */
+body.admin-mode :is(
+  .guide-modal,
+  .moments-modal,
+  .unexpected-modal,
+  .tools-modal,
+  .mama-modal,
+  .trip-modal
+).show > :is(
+  .guide-sheet,
+  .moments-sheet,
+  .unexpected-sheet,
+  .tools-sheet,
+  .trip-sheet
+){
+  max-height:calc(100dvh - var(--engine-fixed-chrome-height) - 24px)!important;
+}
+
+/* When a modal is open, scroll happens inside the remaining modal viewport. */
+body.admin-mode :is(
+  .guide-modal,
+  .moments-modal,
+  .unexpected-modal,
+  .tools-modal,
+  .mama-modal,
+  .trip-modal
+).show{
+  overflow:auto!important;
+  overscroll-behavior:contain!important;
+}
