@@ -378,11 +378,10 @@
     updateUI();
 
     if(state.mode){
-      const sheet=modal&&modal.querySelector('.guide-sheet');
       const studio=document.getElementById('adminModeControl');
 
       const scrollToStudioCard=()=>{
-        if(!sheet||!studio) return;
+        if(!studio) return;
 
         /*
           Studio is intentionally a popup card inside the traveller selector sheet.
@@ -390,14 +389,16 @@
           - Studio controls are immediately usable;
           - scrolling upward still exposes traveller choices so selecting another
             traveller exits Studio mode through the existing setFriend contract.
+
+          Travel Engine 25.4.28's canonical full-overlay modal contract made
+          .guide-sheet a non-scrolling element for the combined
+          (.mama-modal:not(.studio-view)) view: max-height:none + overflow:visible.
+          The outer .mama-modal is the real scrolling container now, so computing
+          .guide-sheet's own scrollTop against its own rect silently no-ops.
+          scrollIntoView walks up to whichever ancestor is actually scrollable,
+          so this keeps working even if the scrolling container changes again.
         */
-        const sheetRect=sheet.getBoundingClientRect();
-        const studioRect=studio.getBoundingClientRect();
-        const target=Math.max(
-          0,
-          sheet.scrollTop + (studioRect.top - sheetRect.top) - 12
-        );
-        sheet.scrollTop=target;
+        studio.scrollIntoView({block:'start',inline:'nearest'});
       };
 
       /* Wait until the selector sheet and Studio card have finished layout. */
@@ -409,10 +410,30 @@
 
   const originalSetFriend=window.setFriend||setFriend;
   window.setFriend=function(key){
+    const wasStudioActive=state.mode;
+    const previousFriend=typeof getStoredFriend==='function'?getStoredFriend():null;
     if(state.mode&&state.dirty&&!confirmExit()) return;
     if(state.mode&&state.dirty) window.discardAdminChanges();
     originalSetFriend(key);
-    state.mode=readMode();
+
+    /*
+      Picking a different traveller from the selector while Studio is active
+      exits Studio Mode in the same tap. Without this, Studio stayed enabled
+      in the background (status bar + admin-mode body class stay on, PIN
+      stays "unlocked") even though its panel was hidden — the next Studio
+      re-entry would land right back where it left off instead of requiring
+      the PIN again. Re-tapping the currently active traveller (a no-op
+      identity change) does not exit Studio.
+    */
+    if(wasStudioActive && key!==previousFriend){
+      state.mode=false;
+      setStoredMode(false);
+      lockAdminSession();
+      closeTripStudioPanel();
+    }else{
+      state.mode=readMode();
+    }
+
     updateUI();
     if(typeof window.refreshExpenseAdminUI==='function') window.refreshExpenseAdminUI();
     document.dispatchEvent(new CustomEvent('travelengine:adminmodechange',{detail:{enabled:state.mode}}));
