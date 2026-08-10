@@ -1,6 +1,6 @@
 {
-  "engine_version": "25.4.30",
-  "artifact_version": "Saigon Companion RC28 \u00b7 Travel Engine 25.4.30.5 Production Freeze",
+  "engine_version": "25.4.32",
+  "artifact_version": "Saigon Companion RC29.12 \u00b7 Travel Engine 25.4.32 Studio Popup Workspace",
   "baseline_engine": "25.4.28",
   "release_date": "2026-08-09",
   "release_type": "studio-popup-reentry-target",

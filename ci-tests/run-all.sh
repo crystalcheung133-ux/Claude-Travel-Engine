@@ -15,3 +15,6 @@ run "EXPENSE COMMIT BOUNDARY" sh ci-tests/suites/11-expense-commit-boundary.sh
 run "RELEASE" sh ci-tests/suites/09-release.sh
 [ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
 echo "MASTER CI SUITE PASSED"
+
+echo "== ENGINE 25.4.32 STUDIO POPUP == "
+node ci-tests/test-engine-25.4.32-studio-popup-workspace.js
