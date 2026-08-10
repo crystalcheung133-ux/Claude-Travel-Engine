@@ -1293,11 +1293,11 @@ body:has(#dynamicDayRoot) .site-nav {margin-bottom:0!important;}#dynamicDayRoot.
 }
 @media(max-width:380px){.custom-split-row {grid-template-columns:82px minmax(0,1fr)!important;gap:7px!important;}.custom-split-row .expense-money-field {grid-template-columns:minmax(104px,1fr) 40px!important;gap:6px!important;}.custom-split-row input {min-width:104px!important;font-size:16px!important;}.custom-split-row .remainder-btn {width:40px!important;min-width:40px!important;}
 }/* NZ 0.6 RC11B — expense modal stability and control repair */
-body.expense-modal-open {position:fixed!important;left:0!important;right:0!important;width:100%!important;overflow:hidden!important;}#expenseModal {overscroll-behavior:none!important;}#expenseModal .tools-sheet {scroll-behavior:auto!important;overflow-anchor:none!important;}#expenseModal .expense-form {overflow-anchor:none!important;}.expense-total-field {display:grid!important;grid-template-columns:minmax(0,1fr) 46px!important;gap:8px!important;align-items:center!important;}.expense-total-field .amount-calc-btn {width:46px!important;min-width:46px!important;height:46px!important;}.custom-split-row {box-sizing:border-box!important;width:100%!important;max-width:none!important;grid-template-columns:104px minmax(0,1fr)!important;}.custom-split-row>span {width:104px!important;max-width:104px!important;}.custom-split-row .expense-money-field {box-sizing:border-box!important;width:100%!important;max-width:none!important;grid-template-columns:minmax(0,1fr) 42px!important;}.custom-split-row input {box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:none!important;}
+body.expense-modal-open {position:fixed!important;left:0!important;right:0!important;width:100%!important;overflow:hidden!important;}#expenseModal {overscroll-behavior:none!important;}#expenseModal .expense-form {overflow-anchor:none!important;}.expense-total-field {display:grid!important;grid-template-columns:minmax(0,1fr) 46px!important;gap:8px!important;align-items:center!important;}.expense-total-field .amount-calc-btn {width:46px!important;min-width:46px!important;height:46px!important;}.custom-split-row {box-sizing:border-box!important;width:100%!important;max-width:none!important;grid-template-columns:104px minmax(0,1fr)!important;}.custom-split-row>span {width:104px!important;max-width:104px!important;}.custom-split-row .expense-money-field {box-sizing:border-box!important;width:100%!important;max-width:none!important;grid-template-columns:minmax(0,1fr) 42px!important;}.custom-split-row input {box-sizing:border-box!important;width:100%!important;min-width:0!important;max-width:none!important;}
 @media(max-width:420px){.custom-split-row {grid-template-columns:96px minmax(0,1fr)!important;}.custom-split-row>span {width:96px!important;max-width:96px!important;}
 }/* NZ 0.6 RC11J1 — expense save unlock, compact categories and custom autofill */
-#expenseModal .tools-sheet {max-height:min(88dvh,760px)!important;padding:22px 20px 18px!important;}#expenseModal .kicker {margin-bottom:3px!important;}#expenseModal #expenseModalTitle {margin:0 42px 12px 0!important;font-size:clamp(1.7rem,7vw,2.15rem)!important;line-height:1.05!important;}#expenseModal .expense-form {gap:0!important;}#expenseModal .expense-form>label, #expenseModal .expense-form>div>label, #splitBetweenBlock>p {margin-top:10px!important;margin-bottom:5px!important;}#expenseModal .expense-type-toggle {margin-bottom:8px!important;gap:6px!important;}#expenseModal .expense-type-btn {min-height:40px!important;padding:7px 10px!important;}#expenseModal .expense-category-grid {grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important;margin:5px 0 8px!important;}#expenseModal .expense-category-btn, #expenseModal .expense-category-btn:last-child {grid-column:auto!important;min-height:38px!important;padding:5px 3px!important;border-radius:10px!important;font-size:11px!important;line-height:1.05!important;}.split-heading-row .expense-split-tools {margin:0!important;}.expense-split-tools .mini-btn {min-height:28px!important;padding:3px 8px!important;font-size:11px!important;}.expense-split-mode {display:grid!important;grid-template-columns:1fr 1fr!important;gap:0!important;padding:3px!important;border:1px solid rgba(0,124,145,.2)!important;border-radius:12px!important;background:#eef8f9!important;margin:6px 0 8px!important;}.expense-split-mode .split-mode-btn {min-height:36px!important;border:0!important;border-radius:9px!important;padding:5px 8px!important;}.custom-split-panel {gap:7px!important;padding:10px!important;margin-top:6px!important;}.custom-split-row {display:grid!important;grid-template-columns:88px minmax(0,1fr)!important;gap:7px!important;width:100%!important;}.custom-split-row>span {width:88px!important;max-width:88px!important;font-size:13px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;}.custom-split-row .expense-money-field {display:grid!important;grid-template-columns:minmax(0,1fr) 40px!important;gap:6px!important;width:100%!important;}.custom-split-row input {width:100%!important;min-width:0!important;max-width:none!important;height:44px!important;min-height:44px!important;padding:8px 11px!important;font-size:17px!important;}.custom-split-row .remainder-btn {width:40px!important;min-width:40px!important;height:40px!important;padding:8px!important;}#expenseSaveButton {width:100%!important;margin-top:12px!important;min-height:48px!important;}.expense-card {transition:box-shadow .25s ease,transform .25s ease,background .25s ease;}.expense-card--new {background:#fff7df!important;box-shadow:0 0 0 3px rgba(255,159,28,.35),0 12px 28px rgba(16,42,67,.14)!important;transform:translateY(-2px);}
-@media(max-width:380px){#expenseModal .tools-sheet {padding-inline:16px!important;}#expenseModal .expense-category-btn {font-size:10px!important;}.custom-split-row {grid-template-columns:80px minmax(0,1fr)!important;}.custom-split-row>span {width:80px!important;max-width:80px!important;}
+#expenseModal .kicker {margin-bottom:3px!important;}#expenseModal #expenseModalTitle {margin:0 42px 12px 0!important;font-size:clamp(1.7rem,7vw,2.15rem)!important;line-height:1.05!important;}#expenseModal .expense-form {gap:0!important;}#expenseModal .expense-form>label, #expenseModal .expense-form>div>label, #splitBetweenBlock>p {margin-top:10px!important;margin-bottom:5px!important;}#expenseModal .expense-type-toggle {margin-bottom:8px!important;gap:6px!important;}#expenseModal .expense-type-btn {min-height:40px!important;padding:7px 10px!important;}#expenseModal .expense-category-grid {grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important;margin:5px 0 8px!important;}#expenseModal .expense-category-btn, #expenseModal .expense-category-btn:last-child {grid-column:auto!important;min-height:38px!important;padding:5px 3px!important;border-radius:10px!important;font-size:11px!important;line-height:1.05!important;}.split-heading-row .expense-split-tools {margin:0!important;}.expense-split-tools .mini-btn {min-height:28px!important;padding:3px 8px!important;font-size:11px!important;}.expense-split-mode {display:grid!important;grid-template-columns:1fr 1fr!important;gap:0!important;padding:3px!important;border:1px solid rgba(0,124,145,.2)!important;border-radius:12px!important;background:#eef8f9!important;margin:6px 0 8px!important;}.expense-split-mode .split-mode-btn {min-height:36px!important;border:0!important;border-radius:9px!important;padding:5px 8px!important;}.custom-split-panel {gap:7px!important;padding:10px!important;margin-top:6px!important;}.custom-split-row {display:grid!important;grid-template-columns:88px minmax(0,1fr)!important;gap:7px!important;width:100%!important;}.custom-split-row>span {width:88px!important;max-width:88px!important;font-size:13px!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;}.custom-split-row .expense-money-field {display:grid!important;grid-template-columns:minmax(0,1fr) 40px!important;gap:6px!important;width:100%!important;}.custom-split-row input {width:100%!important;min-width:0!important;max-width:none!important;height:44px!important;min-height:44px!important;padding:8px 11px!important;font-size:17px!important;}.custom-split-row .remainder-btn {width:40px!important;min-width:40px!important;height:40px!important;padding:8px!important;}#expenseSaveButton {width:100%!important;margin-top:12px!important;min-height:48px!important;}.expense-card {transition:box-shadow .25s ease,transform .25s ease,background .25s ease;}.expense-card--new {background:#fff7df!important;box-shadow:0 0 0 3px rgba(255,159,28,.35),0 12px 28px rgba(16,42,67,.14)!important;transform:translateY(-2px);}
+@media(max-width:380px){#expenseModal .expense-category-btn {font-size:10px!important;}.custom-split-row {grid-template-columns:80px minmax(0,1fr)!important;}.custom-split-row>span {width:80px!important;max-width:80px!important;}
 }/* NZ 0.6 RC11J1 — deferred custom remainder and clear controls */
 .field-clear-btn {border:1px solid rgba(31,74,92,.22);background:#fff;color:#31556a;border-radius:12px;height:42px;min-width:46px;padding:0 8px;font:800 11px/1 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;cursor:pointer}.field-clear-btn:active {transform:translateY(1px)}.expense-total-field {display:grid!important;grid-template-columns:minmax(0,1fr) 48px 46px!important;gap:7px!important}.expense-total-field>input {min-width:0!important;width:100%!important}.custom-split-row .expense-money-field {grid-template-columns:minmax(0,1fr) 48px 40px!important}.custom-split-row .field-clear-btn {width:48px!important;min-width:48px!important;height:40px!important;padding:0 5px!important;font-size:10px!important}
 @media(max-width:390px){.custom-split-row {grid-template-columns:76px minmax(0,1fr)!important}.custom-split-row>span {width:76px!important;max-width:76px!important}.custom-split-row .expense-money-field {grid-template-columns:minmax(82px,1fr) 44px 38px!important;gap:5px!important}.custom-split-row .field-clear-btn {width:44px!important;min-width:44px!important}.custom-split-row .remainder-btn {width:38px!important;min-width:38px!important}.expense-total-field {grid-template-columns:minmax(0,1fr) 46px 44px!important;gap:6px!important}}/* NZ 0.6 RC11J1 — currency dashboard card and converter */
@@ -2160,7 +2160,7 @@ body.home-bg .live-currency-card #currencyCardMeta{position:relative;z-index:2;w
 #tripModal .trip-sheet{
   max-height:calc(100dvh - var(--app-nav-clearance) - 18px)!important;
   padding-bottom:24px!important;
-  scroll-padding-bottom:40px!important;
+  scroll-padding-bottom:28px!important;
   overscroll-behavior:contain!important;
 }
 #guideModal .guide-next-row,
@@ -2254,10 +2254,7 @@ body.guide-booking-stack-open #tripModal{z-index:5100!important;}
   --fixed-nav-safe-clearance: calc(126px + env(safe-area-inset-bottom, 0px));
 }
 #momentsModal .moments-sheet,
-#expenseModal .tools-sheet{
-  padding-bottom:var(--fixed-nav-safe-clearance)!important;
-  scroll-padding-bottom:var(--fixed-nav-safe-clearance)!important;
-}
+
 #momentsModal .moments-form,
 #expenseModal .expense-form{
   padding-bottom:18px!important;
@@ -2338,17 +2335,8 @@ body.guide-booking-stack-open #tripModal{z-index:5100!important;}
 
 /* RC25.1.5 — balanced fixed-nav clearance for Moments and Expenses. */
 :root{--action-modal-nav-clearance:calc(104px + env(safe-area-inset-bottom,0px));}
-#momentsModal.show,#expenseModal.show{
-  align-items:flex-start!important;
-  padding:12px 12px var(--action-modal-nav-clearance)!important;
-  overflow:hidden!important;
-}
-#momentsModal .moments-sheet,#expenseModal .tools-sheet{
-  height:auto!important;
-  max-height:calc(100dvh - var(--action-modal-nav-clearance) - 24px)!important;
-  padding:18px 18px 16px!important;
-  scroll-padding-bottom:20px!important;
-}
+
+#momentsModal .moments-sheet,
 #momentsModal .moments-form,#expenseModal .expense-form{
   min-height:0!important;
   overflow-y:auto!important;
@@ -2361,9 +2349,7 @@ body.guide-booking-stack-open #tripModal{z-index:5100!important;}
 }
 @media(max-width:760px){
   :root{--action-modal-nav-clearance:calc(110px + env(safe-area-inset-bottom,0px));}
-  #momentsModal .moments-sheet,#expenseModal .tools-sheet{
-    max-height:calc(100dvh - var(--action-modal-nav-clearance) - 16px)!important;
-  }
+  #momentsModal .moments-sheet,
 }
 
 /* RC25.2.2 — Guide information hierarchy: core content lives inside the main card. */
@@ -2514,7 +2500,7 @@ body.expenses-page .page-hero .kicker,body.expenses-page .module-hero .kicker{co
 body.expenses-page .page-hero h1,body.expenses-page .module-hero h1{color:#2d261f!important}
 body.expenses-page .page-hero .lead,body.expenses-page .module-hero .lead{color:#4f5c50!important}
 body.moments-page #momentsModal .moments-sheet{background:radial-gradient(circle at 100% 100%,rgba(245,211,217,.44),transparent 32%),linear-gradient(180deg,#fffaf4 0%,#fff8f3 100%)!important;border-color:rgba(183,107,82,.34)!important}
-body.expenses-page #expenseModal .tools-sheet{background:radial-gradient(circle at 100% 100%,rgba(202,225,199,.44),transparent 32%),linear-gradient(180deg,#fffaf4 0%,#fbfdf9 100%)!important;border-color:rgba(93,138,100,.34)!important}
+body.expenses-page 
 body.expenses-page #expenseModal .expense-type-btn.active,body.expenses-page #expenseModal .split-mode-btn.active,body.expenses-page #expenseModal #expenseSaveButton{background:linear-gradient(180deg,#7fa487 0%,#688e72 100%)!important;color:#fff!important}
 #expenseModal .split-picker-menu{grid-template-columns:repeat(2,minmax(0,1fr))!important;width:min(330px,calc(100vw - 40px))!important;min-width:250px!important;gap:7px!important}
 #expenseModal .split-picker-menu label,#expenseModal .split-picker-menu label:last-child{grid-column:auto!important;min-width:0!important;width:100%!important;overflow:visible!important;box-sizing:border-box!important}
@@ -2534,7 +2520,7 @@ body.expenses-page .page-hero .kicker,body.expenses-page .module-hero .kicker{co
 body.moments-page .page-hero .kicker,body.moments-page .module-hero .kicker{color:var(--rc10-moment-dark)!important}
 body.expenses-page .primary-action,body.expenses-page #expenseModal .expense-type-btn.active,body.expenses-page #expenseModal .split-mode-btn.active,body.expenses-page #expenseModal #expenseSaveButton,body.expenses-page #expenseModal .expense-currency-btn.active{background:linear-gradient(180deg,#5fae79 0%,#438b61 100%)!important;border-color:#438b61!important;color:#fff!important;box-shadow:0 8px 20px rgba(67,139,97,.18)!important}
 body.moments-page .primary-action,body.moments-page .moments-capture-choices .primary-action,body.moments-page #momentsModal .mood-btn.active,body.moments-page #momentsModal .btn.active{background:linear-gradient(180deg,#ec7898 0%,#d65379 100%)!important;border-color:#c64c70!important;color:#fff!important;box-shadow:0 8px 20px rgba(214,83,121,.17)!important}
-body.expenses-page #expenseModal .tools-sheet{background:radial-gradient(circle at 100% 100%,rgba(151,193,150,.34),transparent 34%),linear-gradient(180deg,#fffaf1 0%,#f0f6ed 100%)!important;border-color:rgba(67,139,97,.42)!important}
+body.expenses-page 
 body.moments-page #momentsModal .moments-sheet{background:radial-gradient(circle at 100% 100%,rgba(224,126,151,.26),transparent 34%),linear-gradient(180deg,#fff9f3 0%,#faecef 100%)!important;border-color:rgba(198,76,112,.34)!important}
 #expenseModal .expense-title-emoji{font-family:Apple Color Emoji,Segoe UI Emoji,Noto Color Emoji,sans-serif;font-size:.86em;vertical-align:.08em;margin-right:.08em}
 body.expenses-page #expenseModal .tools-sheet> .kicker{color:var(--rc10-expense-dark)!important}
@@ -2799,7 +2785,7 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
 body.admin-mode #adminModeBanner{position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:7300!important;min-height:52px!important;padding:calc(10px + env(safe-area-inset-top,0px)) 18px 10px!important;box-sizing:border-box!important;background:#245f49!important;color:#fff!important;display:flex!important;align-items:flex-end!important;justify-content:space-between!important;border:0!important;box-shadow:none!important}
 body.admin-mode #adminModeBanner strong,body.admin-mode #adminModeBanner span{color:#fff!important}
 #mamaModal.studio-view{position:fixed!important;inset:0!important;width:100%!important;height:100dvh!important;max-width:none!important;max-height:none!important;margin:0!important;padding:calc(52px + env(safe-area-inset-top,0px)) 0 0!important;border-radius:0!important;background:rgba(248,246,238,.98)!important;z-index:7200!important;align-items:stretch!important;justify-content:stretch!important;overflow:hidden!important}
-#mamaModal.studio-view .guide-sheet{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:12px 14px calc(24px + env(safe-area-inset-bottom,0px))!important;overflow-y:auto!important;overscroll-behavior:contain!important;scroll-padding-bottom:40px!important;background:linear-gradient(180deg,#f5faf5 0%,#fbfaf3 100%)!important}
+#mamaModal.studio-view .guide-sheet{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:12px 14px calc(24px + env(safe-area-inset-bottom,0px))!important;overflow-y:auto!important;overscroll-behavior:contain!important;scroll-padding-bottom:28px!important;background:linear-gradient(180deg,#f5faf5 0%,#fbfaf3 100%)!important}
 #mamaModal.studio-view .trip-studio{width:min(100%,760px)!important;margin:0 auto!important;border-radius:20px!important}
 #mamaModal.studio-view .trip-studio-head{padding:16px 16px 14px!important}
 #mamaModal.studio-view .trip-studio-head small{display:block!important}
@@ -2925,148 +2911,109 @@ body.admin-mode :is(
 }
 
 
-/* Travel Engine 25.4.23 — bounded overlay viewport contract.
-   Overlays respect both persistent TOP chrome and the visible MOBILE bottom nav.
-   Desktop behaviour remains unchanged. */
-body.admin-mode{
-  --engine-fixed-chrome-height:calc(var(--studio-status-height,52px) + var(--studio-traveller-header-height,68px));
-  --engine-mobile-bottom-clearance:0px;
+
+
+/* Travel Engine 25.4.28 — canonical full-overlay modal contract.
+   One modal model for normal and Studio mode:
+   persistent top chrome (if any) → modal overlay → screen bottom.
+   Bottom navigation is covered and unavailable until the modal closes. */
+
+body:has(:is(
+  .guide-modal,
+  .moments-modal,
+  .unexpected-modal,
+  .tools-modal,
+  .mama-modal,
+  .trip-modal
+).show) .app-nav{
+  pointer-events:none!important;
+  z-index:100!important;
 }
 
-@media(max-width:760px){
-  body.admin-mode{
-    --engine-mobile-bottom-clearance:var(--studio-bottom-nav-clearance,calc(104px + env(safe-area-inset-bottom,0px)));
-  }
-
-  body.admin-mode :is(
-    .guide-modal,
-    .moments-modal,
-    .unexpected-modal,
-    .tools-modal,
-    .mama-modal,
-    .trip-modal
-  ).show{
-    top:var(--engine-fixed-chrome-height)!important;
-    bottom:var(--engine-mobile-bottom-clearance)!important;
-    height:auto!important;
-    max-height:calc(
-      100dvh
-      - var(--engine-fixed-chrome-height)
-      - var(--engine-mobile-bottom-clearance)
-    )!important;
-    padding-top:10px!important;
-    padding-bottom:10px!important;
-    overflow:auto!important;
-    box-sizing:border-box!important;
-    overscroll-behavior:contain!important;
-  }
-
-  body.admin-mode :is(
-    .guide-modal,
-    .moments-modal,
-    .unexpected-modal,
-    .tools-modal,
-    .mama-modal,
-    .trip-modal
-  ).show > :is(
-    .guide-sheet,
-    .moments-sheet,
-    .unexpected-sheet,
-    .tools-sheet,
-    .trip-sheet
-  ){
-    max-height:calc(
-      100dvh
-      - var(--engine-fixed-chrome-height)
-      - var(--engine-mobile-bottom-clearance)
-      - 20px
-    )!important;
-    margin:auto!important;
-  }
+body :is(
+  .guide-modal,
+  .moments-modal,
+  .unexpected-modal,
+  .tools-modal,
+  .trip-modal,
+  .mama-modal:not(.studio-view)
+).show{
+  position:fixed!important;
+  left:0!important;
+  right:0!important;
+  bottom:0!important;
+  top:0!important;
+  z-index:7000!important;
+  display:block!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch!important;
+  box-sizing:border-box!important;
+  padding:12px 12px calc(22px + env(safe-area-inset-bottom,0px))!important;
+  background:rgba(43,37,31,.48)!important;
+  scroll-padding-top:12px!important;
+  scroll-padding-bottom:24px!important;
 }
 
-
-/* Travel Engine 25.4.25 — canonical scrollable modal sheet contract.
-   All modal cards use the same interaction model:
-   open at top → scroll the card → primary action lives at the real bottom.
-   No sticky/floating Save buttons. */
-@media(max-width:760px){
-  body.admin-mode :is(
-    .guide-modal,
-    .moments-modal,
-    .unexpected-modal,
-    .tools-modal,
-    .mama-modal,
-    .trip-modal
-  ).show{
-    display:flex!important;
-    align-items:stretch!important;
-    justify-content:center!important;
-    overflow:hidden!important;
-  }
-
-  body.admin-mode :is(
-    .guide-modal,
-    .moments-modal,
-    .unexpected-modal,
-    .tools-modal,
-    .mama-modal,
-    .trip-modal
-  ).show > :is(
-    .guide-sheet,
-    .moments-sheet,
-    .unexpected-sheet,
-    .tools-sheet,
-    .trip-sheet
-  ){
-    width:min(760px,100%)!important;
-    height:100%!important;
-    max-height:none!important;
-    margin:0!important;
-    overflow-y:auto!important;
-    overflow-x:hidden!important;
-    overscroll-behavior:contain!important;
-    -webkit-overflow-scrolling:touch!important;
-    box-sizing:border-box!important;
-    padding-bottom:28px!important;
-    scroll-padding-top:12px!important;
-    scroll-padding-bottom:28px!important;
-  }
-
-  /* Any modal action remains part of normal scroll flow. */
-  body.admin-mode :is(
-    .guide-modal,
-    .moments-modal,
-    .unexpected-modal,
-    .tools-modal,
-    .mama-modal,
-    .trip-modal
-  ) :is(
-    #expenseSaveButton,
-    .moments-form button[onclick*="saveMoments"],
-    .unexpected-sheet button[onclick*="saveUnexpected"],
-    .complete-trip-btn,
-    [data-modal-primary-action],
-    .modal-primary-action
-  ){
-    position:static!important;
-    inset:auto!important;
-  }
+/* In authenticated Studio mode, keep the two persistent top rows visible.
+   Popup begins immediately below them, but still extends to the real screen bottom. */
+body.admin-mode :is(
+  .guide-modal,
+  .moments-modal,
+  .unexpected-modal,
+  .tools-modal,
+  .trip-modal,
+  .mama-modal:not(.studio-view)
+).show{
+  top:calc(var(--studio-status-height,52px) + var(--studio-traveller-header-height,68px))!important;
 }
 
+body :is(
+  .guide-modal,
+  .moments-modal,
+  .unexpected-modal,
+  .tools-modal,
+  .trip-modal,
+  .mama-modal:not(.studio-view)
+).show > :is(
+  .guide-sheet,
+  .moments-sheet,
+  .unexpected-sheet,
+  .tools-sheet,
+  .trip-sheet
+){
+  width:min(760px,100%)!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  margin:0 auto!important;
+  overflow:visible!important;
+  box-sizing:border-box!important;
+  padding-bottom:30px!important;
+}
 
-/* Travel Engine 25.4.26 — resilient mobile bottom-nav clearance.
-   Never let an early 0px measurement disable the mobile fallback. */
-@media(max-width:760px){
-  body.admin-mode{
-    --engine-mobile-bottom-clearance:var(
-      --studio-bottom-nav-clearance,
-      calc(104px + env(safe-area-inset-bottom,0px))
-    );
-  }
-  body.admin-mode :is(
-    .guide-modal,.moments-modal,.unexpected-modal,.tools-modal,.mama-modal,.trip-modal
-  ).show{
-    bottom:var(--engine-mobile-bottom-clearance)!important;
-  }
+/* Modal actions remain in normal document flow at the real bottom. */
+body :is(
+  .guide-modal,
+  .moments-modal,
+  .unexpected-modal,
+  .tools-modal,
+  .trip-modal,
+  .mama-modal:not(.studio-view)
+) :is(
+  #expenseSaveButton,
+  .moments-form button[onclick*="saveMoments"],
+  .unexpected-sheet button[onclick*="saveUnexpected"],
+  .complete-trip-btn,
+  [data-modal-primary-action],
+  .modal-primary-action
+){
+  position:static!important;
+  inset:auto!important;
+}
+
+/* Studio workspace itself keeps its dedicated full-workspace geometry. */
+#mamaModal.studio-view.show{
+  z-index:7200!important;
 }

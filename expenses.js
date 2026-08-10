@@ -47,7 +47,13 @@ function markConsumedManual(){
    Active Expenses API lives in the Stage 4F-Q single canonical module
    near the end of this file. Keep closeExpenseModal as a simple modal
    utility because HTML buttons call it directly. */
-function closeExpenseModal(){const m=$('expenseModal'); if(m) m.classList.remove('show'); if(typeof window.unlockExpensePage==='function') window.unlockExpensePage();}
+function closeExpenseModal(){
+    expenseSheetFocusScroll=null;
+    const expenseModal=document.getElementById('expenseModal');
+    const expenseSheet=expenseModal?.querySelector('.tools-sheet');
+    if(expenseModal) expenseModal.scrollTop=0;
+    if(expenseSheet) expenseSheet.scrollTop=0;
+const m=$('expenseModal'); if(m) m.classList.remove('show'); if(typeof window.unlockExpensePage==='function') window.unlockExpensePage();}
 
 function splitAll() {
   document.querySelectorAll('#expenseModal input[data-split]').forEach(x => x.checked = true);
@@ -583,6 +589,12 @@ let editingExpenseIndex=null;
   });
 
   window.openExpenseModal=function(){
+    expenseSheetFocusScroll=null;
+    const expenseModal=document.getElementById('expenseModal');
+    const expenseSheet=expenseModal?.querySelector('.tools-sheet');
+    if(expenseModal) expenseModal.scrollTop=0;
+    if(expenseSheet) expenseSheet.scrollTop=0;
+
     resetExpenseForm();
     lockExpensePage();
     const modal=document.getElementById('expenseModal');

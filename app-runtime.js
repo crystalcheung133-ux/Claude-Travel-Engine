@@ -171,32 +171,36 @@
 })(typeof window!=='undefined' ? window : globalThis);
 
 
-/* Travel Engine 25.4.25 — modal scroll reset */
+/* Travel Engine 25.4.28 — modal open reset.
+   Generic content/form modals always open from the top.
+   Studio/traveller modal is excluded because admin.js owns its scroll target. */
 (function(root){
   'use strict';
-  const MODAL_SELECTOR='.guide-modal,.moments-modal,.unexpected-modal,.tools-modal,.mama-modal,.trip-modal';
-  const SHEET_SELECTOR='.guide-sheet,.moments-sheet,.unexpected-sheet,.tools-sheet,.trip-sheet';
+  const MODALS='.guide-modal,.moments-modal,.unexpected-modal,.tools-modal,.trip-modal';
+  const SHEETS='.guide-sheet,.moments-sheet,.unexpected-sheet,.tools-sheet,.trip-sheet';
 
-  function resetModalScroll(modal){
-    if(!modal?.matches?.(MODAL_SELECTOR)) return;
-    const sheet=modal.querySelector(SHEET_SELECTOR);
-    if(sheet){
-      sheet.scrollTop=0;
-      requestAnimationFrame(()=>{ sheet.scrollTop=0; });
-    }
+  function resetModalToTop(modal){
+    if(!modal?.matches?.(MODALS)) return;
+    modal.scrollTop=0;
+    const sheet=modal.querySelector(SHEETS);
+    if(sheet) sheet.scrollTop=0;
+    requestAnimationFrame(()=>{
+      modal.scrollTop=0;
+      if(sheet) sheet.scrollTop=0;
+    });
   }
 
-  root.TRAVEL_ENGINE_RESET_MODAL_SCROLL=resetModalScroll;
+  root.TRAVEL_ENGINE_RESET_MODAL_TO_TOP=resetModalToTop;
 
-  if(typeof document!=='undefined'&&!root.__travelEngineModalScrollResetBound){
-    root.__travelEngineModalScrollResetBound=true;
+  if(typeof document!=='undefined'&&!root.__travelEngineModalTopResetBound){
+    root.__travelEngineModalTopResetBound=true;
     const observer=new MutationObserver(records=>{
       for(const record of records){
         if(record.type==='attributes' &&
            record.attributeName==='class' &&
-           record.target?.matches?.(MODAL_SELECTOR) &&
+           record.target?.matches?.(MODALS) &&
            record.target.classList.contains('show')){
-          resetModalScroll(record.target);
+          resetModalToTop(record.target);
         }
       }
     });

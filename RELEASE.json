@@ -1,9 +1,9 @@
 {
-  "engine_version": "25.4.26",
-  "artifact_version": "Saigon Companion RC28 \u00b7 Travel Engine 25.4.20.5 Production Freeze",
-  "baseline_engine": "25.4.25",
+  "engine_version": "25.4.28",
+  "artifact_version": "Saigon Companion RC28 \u00b7 Travel Engine 25.4.28.5 Production Freeze",
+  "baseline_engine": "25.4.23",
   "release_date": "2026-08-09",
-  "release_type": "engine-mobile-bottom-clearance-resilience",
+  "release_type": "engine-canonical-full-overlay-modal-cleanup",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
@@ -19,13 +19,10 @@
     "mobile overlay modals reserve visible bottom navigation clearance",
     "overlay max-height is bounded between persistent top chrome and mobile bottom nav",
     "chrome metrics refresh on resize and orientation change",
-    "all modal cards open at their top",
-    "all modal cards scroll internally inside bounded viewport",
-    "primary actions remain at the real bottom of form rather than sticky",
-    "Expense, Moments and Unexpected share the same modal interaction contract",
-    "invalid zero bottom-nav measurements no longer override the mobile fallback",
-    "bottom-nav clearance is remeasured after layout settles",
-    "mobile modal end padding increased so final actions can clear persistent nav"
+    "legacy Expense/Moments ID-based modal layout overrides removed",
+    "all popup cards cover bottom navigation until closed",
+    "Expense modal resets both scroll state and focus-scroll state on open/close",
+    "Studio re-entry waits for settled layout before scrolling to Studio controls"
   ],
   "explicitly_deferred": [
     "parallel itinerary tracks",

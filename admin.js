@@ -167,7 +167,7 @@
     const banner=document.getElementById('adminModeBanner');
     if(banner) banner.hidden=!state.mode;
     document.body.classList.toggle('admin-mode',!!state.mode);
-    schedulePersistentChromeMetrics();
+    updatePersistentChromeMetrics();
     const bar=document.getElementById('adminSaveBar');
     if(bar) bar.hidden=!(state.mode&&state.dirty);
     const status=document.getElementById('adminDirtyText');
@@ -191,44 +191,24 @@
     const bottomNav=document.querySelector('.app-nav');
     const statusHeight=Math.ceil(statusBar?.getBoundingClientRect().height||52);
     const travellerHeaderHeight=Math.ceil(travellerHeader?.getBoundingClientRect().height||68);
-
-    let bottomClearance=null;
+    let bottomClearance=0;
     if(bottomNav){
       const style=getComputedStyle(bottomNav);
       const rect=bottomNav.getBoundingClientRect();
-      const visible=style.display!=='none'&&style.visibility!=='hidden'&&rect.height>0&&rect.top<window.innerHeight;
+      const visible=style.display!=='none'&&style.visibility!=='hidden'&&rect.height>0;
       if(visible){
-        const measured=Math.ceil(window.innerHeight-rect.top);
-        if(measured>24) bottomClearance=measured;
+        bottomClearance=Math.max(0,Math.ceil(window.innerHeight-rect.top));
       }
     }
-
     document.documentElement.style.setProperty('--studio-status-height',`${statusHeight}px`);
     document.documentElement.style.setProperty('--studio-traveller-header-height',`${travellerHeaderHeight}px`);
-
-    /* Important: do NOT publish 0px. A zero measurement usually means layout was
-       not ready yet; setting 0 would suppress the CSS fallback and let modals
-       run underneath the mobile navigation. */
-    if(bottomClearance!==null){
-      document.documentElement.style.setProperty('--studio-bottom-nav-clearance',`${bottomClearance}px`);
-    }else{
-      document.documentElement.style.removeProperty('--studio-bottom-nav-clearance');
-    }
+    document.documentElement.style.setProperty('--studio-bottom-nav-clearance',`${bottomClearance}px`);
   }
-  function schedulePersistentChromeMetrics(){
-    updatePersistentChromeMetrics();
-    requestAnimationFrame(()=>{
-      updatePersistentChromeMetrics();
-      requestAnimationFrame(updatePersistentChromeMetrics);
-    });
-    setTimeout(updatePersistentChromeMetrics,120);
-    setTimeout(updatePersistentChromeMetrics,350);
-  }
-  window.TRAVEL_ENGINE_UPDATE_CHROME_METRICS=schedulePersistentChromeMetrics;
+  window.TRAVEL_ENGINE_UPDATE_CHROME_METRICS=updatePersistentChromeMetrics;
   if(!window.__travelEngineChromeMetricsBound){
     window.__travelEngineChromeMetricsBound=true;
-    window.addEventListener('resize',schedulePersistentChromeMetrics,{passive:true});
-    window.addEventListener('orientationchange',schedulePersistentChromeMetrics,{passive:true});
+    window.addEventListener('resize',()=>requestAnimationFrame(updatePersistentChromeMetrics),{passive:true});
+    window.addEventListener('orientationchange',()=>setTimeout(updatePersistentChromeMetrics,120),{passive:true});
   }
 
   function buildShell(){
@@ -395,9 +375,25 @@
     if(modal) modal.classList.remove('studio-view');
     originalOpenFriendModal();
     updateUI();
+
     if(state.mode){
       const sheet=modal&&modal.querySelector('.guide-sheet');
-      if(sheet) window.requestAnimationFrame(()=>{ sheet.scrollTop=sheet.scrollHeight; });
+      const studioEntry=document.getElementById('tripStudioSelectorToggle');
+
+      const scrollToStudioEntry=()=>{
+        if(!sheet) return;
+        if(studioEntry&&!studioEntry.hidden){
+          const top=Math.max(0,studioEntry.offsetTop-12);
+          sheet.scrollTop=top;
+        }else{
+          sheet.scrollTop=sheet.scrollHeight;
+        }
+      };
+
+      /* Wait for the same multi-stage layout settling used by persistent chrome metrics. */
+      requestAnimationFrame(()=>requestAnimationFrame(scrollToStudioEntry));
+      setTimeout(scrollToStudioEntry,120);
+      setTimeout(scrollToStudioEntry,350);
     }
   };
 
