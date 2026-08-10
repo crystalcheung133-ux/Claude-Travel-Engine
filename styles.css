@@ -2923,3 +2923,64 @@ body.admin-mode :is(
   overflow:auto!important;
   overscroll-behavior:contain!important;
 }
+
+
+/* Travel Engine 25.4.23 — bounded overlay viewport contract.
+   Overlays respect both persistent TOP chrome and the visible MOBILE bottom nav.
+   Desktop behaviour remains unchanged. */
+body.admin-mode{
+  --engine-fixed-chrome-height:calc(var(--studio-status-height,52px) + var(--studio-traveller-header-height,68px));
+  --engine-mobile-bottom-clearance:0px;
+}
+
+@media(max-width:760px){
+  body.admin-mode{
+    --engine-mobile-bottom-clearance:var(--studio-bottom-nav-clearance,calc(92px + env(safe-area-inset-bottom,0px)));
+  }
+
+  body.admin-mode :is(
+    .guide-modal,
+    .moments-modal,
+    .unexpected-modal,
+    .tools-modal,
+    .mama-modal,
+    .trip-modal
+  ).show{
+    top:var(--engine-fixed-chrome-height)!important;
+    bottom:var(--engine-mobile-bottom-clearance)!important;
+    height:auto!important;
+    max-height:calc(
+      100dvh
+      - var(--engine-fixed-chrome-height)
+      - var(--engine-mobile-bottom-clearance)
+    )!important;
+    padding-top:10px!important;
+    padding-bottom:10px!important;
+    overflow:auto!important;
+    box-sizing:border-box!important;
+    overscroll-behavior:contain!important;
+  }
+
+  body.admin-mode :is(
+    .guide-modal,
+    .moments-modal,
+    .unexpected-modal,
+    .tools-modal,
+    .mama-modal,
+    .trip-modal
+  ).show > :is(
+    .guide-sheet,
+    .moments-sheet,
+    .unexpected-sheet,
+    .tools-sheet,
+    .trip-sheet
+  ){
+    max-height:calc(
+      100dvh
+      - var(--engine-fixed-chrome-height)
+      - var(--engine-mobile-bottom-clearance)
+      - 20px
+    )!important;
+    margin:auto!important;
+  }
+}

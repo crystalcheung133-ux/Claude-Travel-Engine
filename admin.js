@@ -167,12 +167,7 @@
     const banner=document.getElementById('adminModeBanner');
     if(banner) banner.hidden=!state.mode;
     document.body.classList.toggle('admin-mode',!!state.mode);
-    const statusBar=document.getElementById('adminModeBanner');
-    const travellerHeader=document.querySelector('.site-nav');
-    const statusHeight=Math.ceil(statusBar?.getBoundingClientRect().height||52);
-    const travellerHeaderHeight=Math.ceil(travellerHeader?.getBoundingClientRect().height||68);
-    document.documentElement.style.setProperty('--studio-status-height',`${statusHeight}px`);
-    document.documentElement.style.setProperty('--studio-traveller-header-height',`${travellerHeaderHeight}px`);
+    updatePersistentChromeMetrics();
     const bar=document.getElementById('adminSaveBar');
     if(bar) bar.hidden=!(state.mode&&state.dirty);
     const status=document.getElementById('adminDirtyText');
@@ -189,6 +184,33 @@
       if(group) group.hidden=!state.mode;
     });
   }
+
+  function updatePersistentChromeMetrics(){
+    const statusBar=document.getElementById('adminModeBanner');
+    const travellerHeader=document.querySelector('.site-nav');
+    const bottomNav=document.querySelector('.app-nav');
+    const statusHeight=Math.ceil(statusBar?.getBoundingClientRect().height||52);
+    const travellerHeaderHeight=Math.ceil(travellerHeader?.getBoundingClientRect().height||68);
+    let bottomClearance=0;
+    if(bottomNav){
+      const style=getComputedStyle(bottomNav);
+      const rect=bottomNav.getBoundingClientRect();
+      const visible=style.display!=='none'&&style.visibility!=='hidden'&&rect.height>0;
+      if(visible){
+        bottomClearance=Math.max(0,Math.ceil(window.innerHeight-rect.top));
+      }
+    }
+    document.documentElement.style.setProperty('--studio-status-height',`${statusHeight}px`);
+    document.documentElement.style.setProperty('--studio-traveller-header-height',`${travellerHeaderHeight}px`);
+    document.documentElement.style.setProperty('--studio-bottom-nav-clearance',`${bottomClearance}px`);
+  }
+  window.TRAVEL_ENGINE_UPDATE_CHROME_METRICS=updatePersistentChromeMetrics;
+  if(!window.__travelEngineChromeMetricsBound){
+    window.__travelEngineChromeMetricsBound=true;
+    window.addEventListener('resize',()=>requestAnimationFrame(updatePersistentChromeMetrics),{passive:true});
+    window.addEventListener('orientationchange',()=>setTimeout(updatePersistentChromeMetrics,120),{passive:true});
+  }
+
   function buildShell(){
     const familySheet=document.querySelector('#mamaModal .guide-sheet');
     const familyList=familySheet&&familySheet.querySelector('.friend-choice-list');
