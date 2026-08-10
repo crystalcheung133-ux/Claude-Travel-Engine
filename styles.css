@@ -2984,3 +2984,72 @@ body.admin-mode{
     margin:auto!important;
   }
 }
+
+
+/* Travel Engine 25.4.25 — canonical scrollable modal sheet contract.
+   All modal cards use the same interaction model:
+   open at top → scroll the card → primary action lives at the real bottom.
+   No sticky/floating Save buttons. */
+@media(max-width:760px){
+  body.admin-mode :is(
+    .guide-modal,
+    .moments-modal,
+    .unexpected-modal,
+    .tools-modal,
+    .mama-modal,
+    .trip-modal
+  ).show{
+    display:flex!important;
+    align-items:stretch!important;
+    justify-content:center!important;
+    overflow:hidden!important;
+  }
+
+  body.admin-mode :is(
+    .guide-modal,
+    .moments-modal,
+    .unexpected-modal,
+    .tools-modal,
+    .mama-modal,
+    .trip-modal
+  ).show > :is(
+    .guide-sheet,
+    .moments-sheet,
+    .unexpected-sheet,
+    .tools-sheet,
+    .trip-sheet
+  ){
+    width:min(760px,100%)!important;
+    height:100%!important;
+    max-height:none!important;
+    margin:0!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    overscroll-behavior:contain!important;
+    -webkit-overflow-scrolling:touch!important;
+    box-sizing:border-box!important;
+    padding-bottom:28px!important;
+    scroll-padding-top:12px!important;
+    scroll-padding-bottom:28px!important;
+  }
+
+  /* Any modal action remains part of normal scroll flow. */
+  body.admin-mode :is(
+    .guide-modal,
+    .moments-modal,
+    .unexpected-modal,
+    .tools-modal,
+    .mama-modal,
+    .trip-modal
+  ) :is(
+    #expenseSaveButton,
+    .moments-form button[onclick*="saveMoments"],
+    .unexpected-sheet button[onclick*="saveUnexpected"],
+    .complete-trip-btn,
+    [data-modal-primary-action],
+    .modal-primary-action
+  ){
+    position:static!important;
+    inset:auto!important;
+  }
+}

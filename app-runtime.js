@@ -169,3 +169,37 @@
   global.APP_RUNTIME=APP_RUNTIME;
   APP_RUNTIME.start();
 })(typeof window!=='undefined' ? window : globalThis);
+
+
+/* Travel Engine 25.4.25 — modal scroll reset */
+(function(root){
+  'use strict';
+  const MODAL_SELECTOR='.guide-modal,.moments-modal,.unexpected-modal,.tools-modal,.mama-modal,.trip-modal';
+  const SHEET_SELECTOR='.guide-sheet,.moments-sheet,.unexpected-sheet,.tools-sheet,.trip-sheet';
+
+  function resetModalScroll(modal){
+    if(!modal?.matches?.(MODAL_SELECTOR)) return;
+    const sheet=modal.querySelector(SHEET_SELECTOR);
+    if(sheet){
+      sheet.scrollTop=0;
+      requestAnimationFrame(()=>{ sheet.scrollTop=0; });
+    }
+  }
+
+  root.TRAVEL_ENGINE_RESET_MODAL_SCROLL=resetModalScroll;
+
+  if(typeof document!=='undefined'&&!root.__travelEngineModalScrollResetBound){
+    root.__travelEngineModalScrollResetBound=true;
+    const observer=new MutationObserver(records=>{
+      for(const record of records){
+        if(record.type==='attributes' &&
+           record.attributeName==='class' &&
+           record.target?.matches?.(MODAL_SELECTOR) &&
+           record.target.classList.contains('show')){
+          resetModalScroll(record.target);
+        }
+      }
+    });
+    observer.observe(document.documentElement,{subtree:true,attributes:true,attributeFilter:['class']});
+  }
+})(globalThis);
