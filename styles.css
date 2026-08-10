@@ -2160,7 +2160,7 @@ body.home-bg .live-currency-card #currencyCardMeta{position:relative;z-index:2;w
 #tripModal .trip-sheet{
   max-height:calc(100dvh - var(--app-nav-clearance) - 18px)!important;
   padding-bottom:24px!important;
-  scroll-padding-bottom:28px!important;
+  scroll-padding-bottom:40px!important;
   overscroll-behavior:contain!important;
 }
 #guideModal .guide-next-row,
@@ -2799,7 +2799,7 @@ body.home-bg .home-brand-card.v37-dashboard-home .home-trip-line span{
 body.admin-mode #adminModeBanner{position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:7300!important;min-height:52px!important;padding:calc(10px + env(safe-area-inset-top,0px)) 18px 10px!important;box-sizing:border-box!important;background:#245f49!important;color:#fff!important;display:flex!important;align-items:flex-end!important;justify-content:space-between!important;border:0!important;box-shadow:none!important}
 body.admin-mode #adminModeBanner strong,body.admin-mode #adminModeBanner span{color:#fff!important}
 #mamaModal.studio-view{position:fixed!important;inset:0!important;width:100%!important;height:100dvh!important;max-width:none!important;max-height:none!important;margin:0!important;padding:calc(52px + env(safe-area-inset-top,0px)) 0 0!important;border-radius:0!important;background:rgba(248,246,238,.98)!important;z-index:7200!important;align-items:stretch!important;justify-content:stretch!important;overflow:hidden!important}
-#mamaModal.studio-view .guide-sheet{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:12px 14px calc(24px + env(safe-area-inset-bottom,0px))!important;overflow-y:auto!important;overscroll-behavior:contain!important;scroll-padding-bottom:28px!important;background:linear-gradient(180deg,#f5faf5 0%,#fbfaf3 100%)!important}
+#mamaModal.studio-view .guide-sheet{width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:12px 14px calc(24px + env(safe-area-inset-bottom,0px))!important;overflow-y:auto!important;overscroll-behavior:contain!important;scroll-padding-bottom:40px!important;background:linear-gradient(180deg,#f5faf5 0%,#fbfaf3 100%)!important}
 #mamaModal.studio-view .trip-studio{width:min(100%,760px)!important;margin:0 auto!important;border-radius:20px!important}
 #mamaModal.studio-view .trip-studio-head{padding:16px 16px 14px!important}
 #mamaModal.studio-view .trip-studio-head small{display:block!important}
@@ -2935,7 +2935,7 @@ body.admin-mode{
 
 @media(max-width:760px){
   body.admin-mode{
-    --engine-mobile-bottom-clearance:var(--studio-bottom-nav-clearance,calc(92px + env(safe-area-inset-bottom,0px)));
+    --engine-mobile-bottom-clearance:var(--studio-bottom-nav-clearance,calc(104px + env(safe-area-inset-bottom,0px)));
   }
 
   body.admin-mode :is(
@@ -3051,5 +3051,22 @@ body.admin-mode{
   ){
     position:static!important;
     inset:auto!important;
+  }
+}
+
+
+/* Travel Engine 25.4.26 — resilient mobile bottom-nav clearance.
+   Never let an early 0px measurement disable the mobile fallback. */
+@media(max-width:760px){
+  body.admin-mode{
+    --engine-mobile-bottom-clearance:var(
+      --studio-bottom-nav-clearance,
+      calc(104px + env(safe-area-inset-bottom,0px))
+    );
+  }
+  body.admin-mode :is(
+    .guide-modal,.moments-modal,.unexpected-modal,.tools-modal,.mama-modal,.trip-modal
+  ).show{
+    bottom:var(--engine-mobile-bottom-clearance)!important;
   }
 }
