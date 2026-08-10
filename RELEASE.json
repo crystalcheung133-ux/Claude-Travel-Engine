@@ -10,7 +10,10 @@
     "booking deposit prefill from depositAmount/depositCurrency",
     "local Expense persistence is the Save success boundary",
     "post-save render/sync failures cannot trigger false retry alerts",
-    "saved Expense modal closes before post-commit refresh"
+    "saved Expense modal closes before post-commit refresh",
+    "Studio status bar stays visible on ordinary pages while Studio mode is authenticated",
+    "traveller header/user selector remains visible and interactive below Studio status bar",
+    "ordinary content and Studio workspace clear both fixed chrome rows"
   ],
   "explicitly_deferred": [
     "parallel itinerary tracks",

@@ -167,6 +167,12 @@
     const banner=document.getElementById('adminModeBanner');
     if(banner) banner.hidden=!state.mode;
     document.body.classList.toggle('admin-mode',!!state.mode);
+    const statusBar=document.getElementById('adminModeBanner');
+    const travellerHeader=document.querySelector('.site-nav');
+    const statusHeight=Math.ceil(statusBar?.getBoundingClientRect().height||52);
+    const travellerHeaderHeight=Math.ceil(travellerHeader?.getBoundingClientRect().height||68);
+    document.documentElement.style.setProperty('--studio-status-height',`${statusHeight}px`);
+    document.documentElement.style.setProperty('--studio-traveller-header-height',`${travellerHeaderHeight}px`);
     const bar=document.getElementById('adminSaveBar');
     if(bar) bar.hidden=!(state.mode&&state.dirty);
     const status=document.getElementById('adminDirtyText');
