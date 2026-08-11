@@ -17,4 +17,12 @@ run "RELEASE" sh ci-tests/suites/09-release.sh
 echo "MASTER CI SUITE PASSED"
 
 echo "== ENGINE 25.4.32 STUDIO POPUP == "
-node ci-tests/test-engine-25.4.32-studio-popup-workspace.js
+node ci-tests/test-engine-interaction-contract.js
+
+echo "== PRESENTATION SHELL OWNERSHIP =="
+node ci-tests/test-presentation-shell-ownership.js styles.css
+echo "== PRESENTATION SHELL INTERACTION =="
+node ci-tests/test-presentation-shell-interaction.js styles.css admin.js
+
+echo "== RELEASE HYGIENE =="
+node ci-tests/test-release-hygiene.js .

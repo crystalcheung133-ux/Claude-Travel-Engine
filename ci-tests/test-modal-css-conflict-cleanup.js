@@ -10,7 +10,7 @@ for(const re of forbidden){
   const m=css.match(re);
   if(m) bad.push(m[0].slice(0,180));
 }
-if(!css.includes('Travel Engine 25.4.28 — canonical full-overlay modal contract')) bad.push('canonical full-overlay contract missing');
+if(!css.includes('Travel Engine 25.4.34 — canonical presentation shell')) bad.push('canonical full-overlay contract missing');
 if(!css.includes('bottom:0!important')) bad.push('modal does not extend to screen bottom');
 if(!css.includes('pointer-events:none!important')) bad.push('bottom nav is not disabled while modal open');
 if(bad.length){console.error(bad.join('\n---\n'));process.exit(1)}
