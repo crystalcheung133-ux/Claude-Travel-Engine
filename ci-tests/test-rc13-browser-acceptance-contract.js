@@ -4,7 +4,7 @@ const fs=require('fs'),assert=require('assert');
 const read=f=>fs.readFileSync(f,'utf8');
 const root=__dirname+'/..';
 const cfg=read(root+'/trip-config.js'),css=read(root+'/styles.css'),core=read(root+'/core-runtime.js'),exp=read(root+'/expenses.js'),day=read(root+'/day.html'),storage=read(root+'/storage-config.js');
-assert(/version:'RC\d+-25\.4\.[0-9]+(?:\.[0-9]+)?'/.test(cfg),'25.4.x+ version missing');
+assert(/version:'RC\d+(?:\.\d+)?-25\.[45]\.[0-9]+(?:\.[0-9]+)?'/.test(cfg),'25.4.x+ version missing');
 assert(cfg.includes('\"presentation\":\"emoji-name\"'),'party presentation must be emoji-name');
 assert(core.includes("closeBtn.hidden=true")&&core.includes("closeBtn.style.display='none'"),'required traveller close must be DOM-disabled');
 assert(css.includes('.friend-pill .family-name{display:inline!important'),'header traveller name contract missing');

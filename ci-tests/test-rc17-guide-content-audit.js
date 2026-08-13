@@ -7,7 +7,7 @@ function record(key){
   const re=new RegExp('  "'+key.replace(/[.*+?^${}()|[\\]\\]/g,'\\$&')+'": \\{([\\s\\S]*?)(?=\\n  "[^"\\n]+": \\{|\\n\\};\\n\\nconst CATEGORIES)');
   const m=data.match(re); assert(m,'Missing place '+key); return m[0];
 }
-assert.match(cfg,/version:'RC\d+-25\.4\.\d+(?:\.\d+)?'/,'Guide audit requires a valid release identity');
+assert.match(cfg,/version:'RC\d+(?:\.\d+)?-25\.[45]\.\d+(?:\.\d+)?'/,'Guide audit requires a valid release identity');
 assert.match(home,/openGuideCategory\('SHOP'\)/,'Guide menu must expose Shopping');
 assert.doesNotMatch(home,/home-shopping-button/,'Shopping must not be forced onto the Home hero');
 for(const key of ['libe','dauple','nosbyn','new-playground','push-push','saigon-concept','ohquao','louh','garmentory','dalla-saigon','rubies','lane-ci','takashimaya']){

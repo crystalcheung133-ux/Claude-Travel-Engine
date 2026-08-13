@@ -1,10 +1,8 @@
 const assert=require('assert'),fs=require('fs'),path=require('path');
 const root=path.join(__dirname,'..'),read=f=>fs.readFileSync(path.join(root,f),'utf8');
-const trip=read('trip-config.js'),css=read('styles.css'),currency=read('currency-runtime.js');
-const version=(trip.match(/version:'(RC\d+-[0-9.]+)'/)||[])[1];
-assert(version,'Trip version missing');
-const m=version.match(/^RC(\d+)-([0-9.]+)$/);assert(m,'Trip version format invalid');
-const token=`${m[2].replace(/\./g,'-')}-rc${m[1]}`;
+const trip=read('trip-config.js'),css=read('styles.css'),currency=read('currency-runtime.js'),release=JSON.parse(read('RELEASE.json'));
+const token=release.asset_cache_token;assert(token,'Release asset_cache_token missing');
+assert(/version:'RC\d+(?:\.\d+)?-25\.5\.2'/.test(trip),'Trip version missing');
 for(const f of ['index.html','expenses.html','day.html','guide.html','moments.html','trip.html']){
   const h=read(f);
   assert(h.includes(`?v=${token}`),f+' missing current release cache token');

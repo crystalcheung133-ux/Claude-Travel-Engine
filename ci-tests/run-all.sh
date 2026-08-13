@@ -13,16 +13,14 @@ run "BOOKING / EXPENSE" sh ci-tests/suites/08-booking-expense.sh
 run "EXPENSE SAVE SAFETY" sh ci-tests/suites/10-expense-save-safety.sh
 run "EXPENSE COMMIT BOUNDARY" sh ci-tests/suites/11-expense-commit-boundary.sh
 run "RELEASE" sh ci-tests/suites/09-release.sh
+run "STUDIO POPUP WORKSPACE" node ci-tests/test-studio-popup-workspace-contract.js styles.css admin.js
+run "PRESENTATION SHELL OWNERSHIP" node ci-tests/test-presentation-shell-ownership.js styles.css
+run "PRESENTATION SHELL INTERACTION" node ci-tests/test-presentation-shell-interaction.js styles.css admin.js
+run "RELEASE HYGIENE" node ci-tests/test-release-hygiene.js .
+run "BOOKING / GUIDE MODAL STACKING" node ci-tests/test-booking-guide-modal-stacking.js styles.css
+run "TRIP / GUIDE SHELL CONSOLIDATION" node ci-tests/test-trip-guide-shell-consolidation.js styles.css
+run "STUDIO HOME PREVIEW BOUNDS" node ci-tests/test-studio-home-preview-fit.js styles.css admin.js
+run "STUDIO HEADER BADGE" node ci-tests/test-studio-header-badge.js styles.css admin.js
+run "VN HEADER THEME" node ci-tests/test-vn-header-theme.js styles.css
 [ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
 echo "MASTER CI SUITE PASSED"
-
-echo "== ENGINE 25.4.32 STUDIO POPUP == "
-node ci-tests/test-engine-interaction-contract.js
-
-echo "== PRESENTATION SHELL OWNERSHIP =="
-node ci-tests/test-presentation-shell-ownership.js styles.css
-echo "== PRESENTATION SHELL INTERACTION =="
-node ci-tests/test-presentation-shell-interaction.js styles.css admin.js
-
-echo "== RELEASE HYGIENE =="
-node ci-tests/test-release-hygiene.js .

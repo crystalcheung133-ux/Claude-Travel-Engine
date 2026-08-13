@@ -1,10 +1,12 @@
-Travel Engine Production File Manifest
-Generated: 2026-08-09
-Release: VN-RC28-ENGINE-25.4.20.5-PRODUCTION-FREEZE
+Saigon Companion Production File Manifest
+Generated: 2026-08-13
+Base: Saigon Companion RC29.16 · Travel Engine 25.5.2
+Reference trip: Vietnam
+
 Production root files:
 
 - .vercelignore
-- BOOKING-SYNC-EDGE-FUNCTION.ts
+- RELEASE.json
 - admin.js
 - analytics-runtime.js
 - app-runtime.js
@@ -12,7 +14,6 @@ Production root files:
 - booking-authority.js
 - booking-permissions.js
 - booking-sync-runtime.js
-- bookings-runtime.js
 - ccmv-logo-calibrated.png
 - complete-runtime.js
 - core-runtime.js

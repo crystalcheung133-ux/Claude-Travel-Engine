@@ -8,8 +8,8 @@ find . -maxdepth 1 -type f -printf '%f\n' \
  | sort > /tmp/travel-engine-prod-files.$$
 {
   echo 'Saigon Companion Production File Manifest'
-  echo 'Generated: 2026-08-08'
-  echo 'Base: current Travel Engine release identity from trip-config.js'
+  echo 'Generated: 2026-08-13'
+  echo 'Base: Saigon Companion RC29.16 · Travel Engine 25.5.2'
   echo 'Reference trip: Vietnam'
   echo
   echo 'Production root files:'
