@@ -1,13 +1,14 @@
 {
   "engine_version": "25.5.2",
-  "artifact_version": "Saigon Companion RC29.16 · Travel Engine 25.5.2 Shell Migration",
+  "artifact_version": "Saigon Companion RC29.17 · Travel Engine 25.5.2 Dedicated Studio Foreground Hotfix",
   "baseline_engine": "25.5.2",
   "release_date": "2026-08-13",
-  "release_type": "engine-25.5.2-presentation-shell-migration",
+  "release_type": "vn-dedicated-studio-foreground-hotfix",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
-    "Travel Engine 25.5.2 canonical presentation shell migration",
+    "Travel Engine 25.5.2 canonical presentation shell retained",
+    "VN dedicated Trip Studio foreground shell separated from Traveller Selector",
     "dedicated Traveller Selector centred overlay ownership",
     "single Studio header chrome with compact STUDIO ON badge",
     "Studio Home fit-to-view inside header-to-app-nav preview bounds",
@@ -31,5 +32,5 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "vn-rc29-16-engine-25-5-2-shell"
+  "asset_cache_token": "vn-rc29-17-engine-25-5-2-studio-foreground"
 }

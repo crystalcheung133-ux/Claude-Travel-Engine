@@ -7,9 +7,9 @@ const htmls = fs.readdirSync(root).filter(f => f.endsWith('.html'));
 const fail = [];
 function must(re, text, label){ if(!re.test(text)) fail.push(label); }
 must(/--admin-modal-layer\s*:\s*7000/, css, 'admin modal layer variable missing');
-must(/\.timeline-editor-modal[\s\S]*#mamaModal\.studio-view[\s\S]*z-index\s*:\s*var\(--admin-modal-layer\)/, css, 'timeline/studio modal layer contract missing');
+must(/\.timeline-editor-modal[\s\S]*#tripStudioModal[\s\S]*z-index\s*:\s*7800/, css, 'timeline/studio modal layer contract missing');
 must(/\.timeline-editor-actions[\s\S]*position\s*:\s*relative[\s\S]*z-index\s*:\s*3/, css, 'timeline editor action footer protection missing');
-must(/#mamaModal\.studio-view \.guide-sheet[\s\S]*safe-area-inset-bottom/, css, 'studio safe-area padding missing');
+must(/#tripStudioModal[\s\S]*safe-area-inset-bottom/, css, 'studio safe-area padding missing');
 must(/TRIP_CONFIG\.version/, sw, 'service worker cache identity is not release-version driven');
 for(const f of htmls){
   const txt = fs.readFileSync(path.join(root,f),'utf8');

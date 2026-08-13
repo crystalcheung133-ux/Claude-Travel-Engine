@@ -23,24 +23,23 @@
   function isAdminUser(){ return true; } // Studio access is PIN-based and independent of selected family.
   function isUnlocked(){ return sessionStorage.getItem(SESSION_KEY)==='1'; }
   function lockAdminSession(){ sessionStorage.removeItem(SESSION_KEY); }
+  function getTripStudioModal(){ return document.getElementById('tripStudioModal'); }
   function scrollTripStudioToBottom(){
-    const modal=document.getElementById('mamaModal');
-    const sheet=modal&&modal.querySelector('.guide-sheet');
+    const modal=getTripStudioModal();
     const studio=document.getElementById('adminModeControl');
-    if(!modal||!sheet||!studio) return;
+    if(!modal||!studio) return;
     window.requestAnimationFrame(()=>window.requestAnimationFrame(()=>{
-      sheet.scrollTop=0;
       modal.scrollTop=0;
       studio.scrollIntoView({block:'start'});
     }));
   }
   function closeTripStudioPanel(){
-    const modal=document.getElementById('mamaModal');
+    const modal=getTripStudioModal();
     const studio=document.getElementById('adminModeControl');
     if(studio) studio.hidden=true;
     if(modal){
-      modal.classList.remove('studio-view');
       modal.classList.remove('show');
+      modal.setAttribute('aria-hidden','true');
     }
     const selector=document.getElementById('tripStudioSelectorToggle');
     if(selector) selector.hidden=false;
@@ -53,14 +52,15 @@
   }
   function openTripStudioPanel(){
     if(typeof renderFriendChoices==='function') renderFriendChoices();
-    const modal=document.getElementById('mamaModal');
+    if(typeof window.closeFriendModal==='function') window.closeFriendModal();
+    const modal=getTripStudioModal();
     const studio=document.getElementById('adminModeControl');
     if(!modal||!studio) return false;
     studio.hidden=false;
     const selector=document.getElementById('tripStudioSelectorToggle');
     if(selector) selector.hidden=true;
-    modal.classList.add('studio-view');
     modal.classList.add('show');
+    modal.setAttribute('aria-hidden','false');
     scrollTripStudioToBottom();
     return true;
   }
@@ -251,7 +251,16 @@
         }
       });
     }
-    if(familySheet && !document.getElementById('adminModeControl')){
+    if(!document.getElementById('tripStudioModal')){
+      const studioModal=document.createElement('div');
+      studioModal.id='tripStudioModal';
+      studioModal.className='trip-studio-modal';
+      studioModal.setAttribute('aria-hidden','true');
+      studioModal.innerHTML='<div class="trip-studio-modal-inner"></div>';
+      document.body.appendChild(studioModal);
+      studioModal.addEventListener('click',event=>{ if(event.target===studioModal) closeTripStudioPanel(); });
+    }
+    if(!document.getElementById('adminModeControl')){
       const block=document.createElement('section');
       block.id='adminModeControl';
       block.className='admin-mode-control trip-studio';
@@ -280,7 +289,7 @@
             <span><strong>Leave Studio Mode</strong><small>Return to traveller mode. The Studio PIN will be required next time.</small></span><span aria-hidden="true">Leave</span>
           </button>
         </div>`;
-      familySheet.appendChild(block);
+      document.querySelector('#tripStudioModal .trip-studio-modal-inner').appendChild(block);
       block.querySelector('.trip-studio-close').addEventListener('click',closeTripStudioPanel);
       block.querySelector('#resetTripDataButton').addEventListener('click',window.resetTripData);
       block.querySelector('#exitTripStudioButton').addEventListener('click',exitTripStudioMode);
@@ -374,8 +383,6 @@
 
   const originalOpenFriendModal=window.openFriendModal||openFriendModal;
   window.openFriendModal=function(){
-    const modal=document.getElementById('mamaModal');
-    if(modal)modal.classList.remove('studio-view');
     originalOpenFriendModal();
     updateUI();
 

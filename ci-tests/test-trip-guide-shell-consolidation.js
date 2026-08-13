@@ -27,7 +27,8 @@ for(const [re,msg] of [
   [/#guideModal \.guide-sheet,\s*#tripModal \.trip-sheet\s*\{[^}]*min-height:180px/s,'legacy RC25.1.1 Trip/Guide sheet owner reintroduced']
 ]) if(re.test(css)) fail.push(msg);
 
-if(!/#mamaModal\.studio-view\.show \.guide-sheet\s*\{/.test(css)) fail.push('Studio-specific guide-sheet reuse was lost');
+if(!/#tripStudioModal \.trip-studio\s*\{/.test(css)) fail.push('dedicated Studio card shell was lost');
+if(/#mamaModal\.studio-view/.test(css)) fail.push('Studio must not reuse Traveller Selector/Guide sheet ownership');
 if(!/#guideModal \.guide-sheet\.guide-near-fit/.test(css)) fail.push('Guide near-fit adaptation was lost');
 if(!/#tripModal \.trip-sheet\.trip-near-fit/.test(css)) fail.push('Trip near-fit adaptation was lost');
 if(!/#guideModalContent \.guide-onepage/.test(css)) fail.push('Guide one-page content adaptation was lost');

@@ -8,6 +8,7 @@ Production root files:
 - .vercelignore
 - RELEASE.json
 - admin.js
+- admin.js.bak
 - analytics-runtime.js
 - app-runtime.js
 - asset-config.js
@@ -62,6 +63,7 @@ Production root files:
 - storage-config.js
 - storage.js
 - styles.css
+- styles.css.bak
 - supabase-client-runtime.js
 - sw.js
 - sync-config.js

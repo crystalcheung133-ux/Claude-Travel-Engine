@@ -22,6 +22,8 @@ req(/window\.addEventListener\('resize',scheduleStudioShellMetrics/,
   'Studio Home fit must recompute on viewport resize',admin);
 req(/body:has\(:is\(\.guide-modal,\.moments-modal,\.unexpected-modal,\.tools-modal,\.mama-modal,\.trip-modal\)\.show\)\s+\.app-nav\s*\{[\s\S]*?pointer-events\s*:\s*none\s*!important;[\s\S]*?z-index\s*:\s*100\s*!important;/,
   'open-popup app-nav visible/non-interactive contract missing');
+req(/body:has\(#tripStudioModal\.show\)\s+\.app-nav\s*\{[\s\S]*?pointer-events\s*:\s*none\s*!important;[\s\S]*?z-index\s*:\s*100\s*!important;/,
+  'Trip Studio app-nav visible/non-interactive contract missing');
 const navBlocks=[...css.matchAll(/body[^\{]*\.app-nav\s*\{[\s\S]*?\}/g)].map(m=>m[0]).filter(x=>/mamaModal|admin-mode|:has/.test(x));
 if(navBlocks.some(x=>/display\s*:\s*none|visibility\s*:\s*hidden|opacity\s*:\s*0/.test(x))) fail.push('Studio/modal shell must never hide app-nav');
 if(fail.length){ console.error('STUDIO HOME FIT-TO-VIEW FAIL'); fail.forEach(x=>console.error(' - '+x)); process.exit(1); }
