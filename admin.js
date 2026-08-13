@@ -35,14 +35,11 @@
   }
   function closeTripStudioPanel(){
     const modal=getTripStudioModal();
-    const studio=document.getElementById('adminModeControl');
-    if(studio) studio.hidden=true;
     if(modal){
       modal.classList.remove('show');
       modal.setAttribute('aria-hidden','true');
     }
-    const selector=document.getElementById('tripStudioSelectorToggle');
-    if(selector) selector.hidden=false;
+    updateUI();
   }
   function exitTripStudioMode(){
     const disabled=window.setAdminMode(false);
@@ -56,7 +53,6 @@
     const modal=getTripStudioModal();
     const studio=document.getElementById('adminModeControl');
     if(!modal||!studio) return false;
-    studio.hidden=false;
     const selector=document.getElementById('tripStudioSelectorToggle');
     if(selector) selector.hidden=true;
     modal.classList.add('show');
@@ -191,8 +187,8 @@
       selectorCard.setAttribute('aria-label',active?'Open Trip Studio':'Open Studio Mode');
       const status=selectorCard.querySelector('.trip-studio-selector-status');
       if(status) status.textContent=active?'Studio active · Tap to reopen Trip Studio':'PIN protected · Enter PIN to access';
-      const studio=document.getElementById('adminModeControl');
-      selectorCard.hidden=!!(active && studio && !studio.hidden);
+      const studioModal=getTripStudioModal();
+      selectorCard.hidden=!!(active && studioModal && studioModal.classList.contains('show'));
     }
     const bar=document.getElementById('adminSaveBar');
     if(bar) bar.hidden=!(state.mode&&state.dirty);
@@ -222,12 +218,13 @@
     }
     return badge;
   }
-  function buildShell(){
-    ensureStudioHeaderBadge();
+  function ensureStudioSelectorToggle(){
     const familySheet=document.querySelector('#mamaModal .guide-sheet');
     const familyList=familySheet&&familySheet.querySelector('.friend-choice-list');
-    if(familySheet && familyList && !document.getElementById('tripStudioSelectorToggle')){
-      const selectorToggle=document.createElement('div');
+    if(!familySheet||!familyList) return null;
+    let selectorToggle=document.getElementById('tripStudioSelectorToggle');
+    if(!selectorToggle){
+      selectorToggle=document.createElement('div');
       selectorToggle.id='tripStudioSelectorToggle';
       selectorToggle.className='trip-studio-selector-toggle';
       selectorToggle.setAttribute('role','button');
@@ -235,7 +232,6 @@
       selectorToggle.setAttribute('aria-label','Open Studio Mode');
       selectorToggle.setAttribute('aria-pressed','false');
       selectorToggle.innerHTML=`<span class="trip-studio-selector-copy"><strong>⚙ Studio Mode</strong><small>Editing, Complete Trip, Export Centre and trip controls</small><em class="trip-studio-selector-status">PIN protected · Enter PIN to access</em></span>`;
-      familyList.insertAdjacentElement('afterend',selectorToggle);
       const activateStudio=()=>{
         if(state.mode && isUnlocked() && isAdminUser()){
           openTripStudioPanel();
@@ -251,6 +247,18 @@
         }
       });
     }
+    /* Studio access is a selector-level action, not a fifth traveller. Keep it
+       before the traveller list so it remains discoverable after reload and on
+       shorter desktop viewports without relying on modal scrolling. */
+    if(selectorToggle.parentElement!==familySheet || selectorToggle.nextElementSibling!==familyList){
+      familyList.insertAdjacentElement('beforebegin',selectorToggle);
+    }
+    return selectorToggle;
+  }
+
+  function buildShell(){
+    ensureStudioHeaderBadge();
+    ensureStudioSelectorToggle();
     if(!document.getElementById('tripStudioModal')){
       const studioModal=document.createElement('div');
       studioModal.id='tripStudioModal';
@@ -264,7 +272,6 @@
       const block=document.createElement('section');
       block.id='adminModeControl';
       block.className='admin-mode-control trip-studio';
-      block.hidden=true;
       block.innerHTML=`
         <header class="trip-studio-head">
           <div>
@@ -384,20 +391,8 @@
   const originalOpenFriendModal=window.openFriendModal||openFriendModal;
   window.openFriendModal=function(){
     originalOpenFriendModal();
+    ensureStudioSelectorToggle();
     updateUI();
-
-    if(state.mode){
-      const studio=document.getElementById('adminModeControl');
-      const scrollToStudioCard=()=>{
-        if(!studio)return;
-        /* scrollIntoView follows the actual scrollable ancestor, so this remains
-           valid even when CSS changes scroll ownership between modal and sheet. */
-        studio.scrollIntoView({block:'start',inline:'nearest'});
-      };
-      requestAnimationFrame(()=>requestAnimationFrame(scrollToStudioCard));
-      setTimeout(scrollToStudioCard,120);
-      setTimeout(scrollToStudioCard,350);
-    }
   };
 
   const originalSetFriend=window.setFriend||setFriend;

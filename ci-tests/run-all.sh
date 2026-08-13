@@ -20,6 +20,7 @@ run "RELEASE HYGIENE" node ci-tests/test-release-hygiene.js .
 run "BOOKING / GUIDE MODAL STACKING" node ci-tests/test-booking-guide-modal-stacking.js styles.css
 run "TRIP / GUIDE SHELL CONSOLIDATION" node ci-tests/test-trip-guide-shell-consolidation.js styles.css
 run "STUDIO HOME PREVIEW BOUNDS" node ci-tests/test-studio-home-preview-fit.js styles.css admin.js
+run "STUDIO LIFECYCLE CONSOLIDATION" node ci-tests/test-studio-lifecycle-consolidation.js
 run "STUDIO HEADER BADGE" node ci-tests/test-studio-header-badge.js styles.css admin.js
 run "VN HEADER THEME" node ci-tests/test-vn-header-theme.js styles.css
 [ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }

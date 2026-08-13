@@ -1797,9 +1797,6 @@ body.admin-mode .app-nav .days-trigger small {color:#fff!important;opacity:.96!i
 .trip-studio-entry[hidden]{display:none!important}
 .trip-studio-entry>span:first-child{display:grid;gap:3px}.trip-studio-entry strong{font-size:15px;font-weight:850}.trip-studio-entry small{color:#71847b;font-size:11px;font-weight:650;line-height:1.35}.trip-studio-entry>span:last-child{font-size:22px;font-weight:800}
 .trip-studio-close{display:grid;place-items:center;width:38px;height:38px;flex:0 0 38px;border:0;border-radius:50%;background:rgba(255,255,255,.82);color:#294c3d;font:inherit;font-size:27px;line-height:1;cursor:pointer;box-shadow:0 2px 8px rgba(31,78,63,.10)}
-#tripStudioModal .guide-sheet>.mama-close,#tripStudioModal .guide-sheet>p.kicker,#tripStudioModal .guide-sheet>h2,#tripStudioModal .friend-choice-list,#tripStudioModal #tripStudioEntry{display:none!important}
-#tripStudioModal .guide-sheet{padding-top:12px}
-#tripStudioModal #adminModeControl{display:block!important;margin-top:0}
 
 /* RC17.5 — itinerary role badge */
 .itinerary-role-badge{display:inline-flex;align-items:center;min-height:28px;padding:5px 10px;border-radius:999px;background:rgba(176,111,43,.12);border:1px solid rgba(176,111,43,.24);color:#6d421d;font-size:12px;font-weight:850;line-height:1.15;letter-spacing:.01em;}
@@ -1849,8 +1846,6 @@ html{scrollbar-gutter:stable;}
 /* Stage 3.2H — Studio Mode lives directly inside the family selector. */
 .trip-studio-selector-toggle{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:16px 0 8px;padding:14px 15px;border:1px solid rgba(31,78,63,.18);border-radius:16px;background:rgba(246,250,246,.96);color:#28483b;box-shadow:0 5px 14px rgba(26,62,68,.06)}
 .trip-studio-selector-toggle>span:first-child{display:grid;gap:3px}.trip-studio-selector-toggle strong{font-size:15px;font-weight:850}.trip-studio-selector-toggle small{color:#71847b;font-size:11px;font-weight:650;line-height:1.35}
-#mamaModal #adminModeControl{margin-top:10px}
-#mamaModal #adminModeControl[hidden]{display:none!important}
 
 /* NZ Luxe Tours activity booking */
 .activity-status-badge,.activity-confirmed-badge{display:inline-flex;align-items:center;justify-content:center;padding:5px 8px;border-radius:999px;background:#e8f5e9;color:#246b38;font-size:11px;font-weight:900;letter-spacing:.04em}.activity-family-grid{display:grid;gap:8px}.activity-family-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;border:1px solid var(--surface-border);border-radius:12px;background:#fff}.activity-family-row span,.activity-family-row small{display:block}.activity-family-row small{margin-top:2px;font-size:12px;opacity:.72}.activity-family-row b{white-space:nowrap}.activity-booking-detail .accommodation-section p{white-space:normal}.activity-price-breakdown{margin-top:14px}@media(max-width:430px){.activity-family-row{align-items:flex-start}.activity-family-row b{font-size:14px}}
@@ -1871,11 +1866,6 @@ html{scrollbar-gutter:stable;}
 @media(max-width:430px){.trip-studio-selector-toggle{padding:13px 14px}.trip-studio-selector-arrow{flex-basis:28px;width:28px;height:28px}}
 
 /* STUDIO-UX2 — compact one-screen Studio panel and a real exit action. */
-#tripStudioModal .guide-sheet{
-  max-height:min(88dvh,680px)!important;
-  overflow-y:auto!important;
-  padding:10px!important;
-}
 #tripStudioModal .trip-studio{
   margin:0!important;
   border-radius:18px!important;
@@ -1927,7 +1917,6 @@ html{scrollbar-gutter:stable;}
 #tripStudioModal .trip-export-launch>span:last-child,
 #tripStudioModal .reset-trip-data-btn>span:last-child{font-size:17px!important;}
 @media(max-width:560px){
-  #tripStudioModal .guide-sheet{max-height:calc(100dvh - 24px)!important;}
   #tripStudioModal .trip-studio-head small{display:none!important;}
   #tripStudioModal .trip-studio-group{padding:7px 10px!important;}
   #tripStudioModal .complete-trip-control{flex-direction:row!important;}
@@ -2786,59 +2775,8 @@ body :is(.moments-modal,.unexpected-modal,.tools-modal) :is(
   box-sizing:border-box!important;
 }
 
-/* Studio management panel is a separate bounded workspace below fixed chrome. */
-#tripStudioModal.show{
-  position:fixed!important;
-  top:var(--engine-fixed-chrome-height)!important;
-  left:0!important;right:0!important;bottom:0!important;
-  z-index:var(--engine-studio-modal-layer)!important;
-  display:block!important;
-  width:auto!important;height:auto!important;max-width:none!important;max-height:none!important;
-  margin:0!important;
-  padding:14px 14px calc(22px + env(safe-area-inset-bottom,0px))!important;
-  overflow-y:auto!important;overflow-x:hidden!important;
-  overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;
-  isolation:isolate!important;
-  box-sizing:border-box!important;
-  background:rgba(43,37,31,.48)!important;
-  scroll-padding-top:14px!important;scroll-padding-bottom:24px!important;
-  pointer-events:auto!important;
-}
-#tripStudioModal.show .guide-sheet{
-  position:relative!important;
-  z-index:1!important;
-  display:block!important;
-  width:min(760px,100%)!important;
-  height:auto!important;min-height:0!important;max-height:none!important;
-  margin:0 auto!important;padding:0!important;
-  overflow:visible!important;
-  border:0!important;border-radius:0!important;box-shadow:none!important;
-  background:transparent!important;
-  transform:none!important;opacity:1!important;visibility:visible!important;
-}
-#tripStudioModal.show .trip-studio{
-  position:relative!important;
-  z-index:2!important;
-  display:block!important;width:100%!important;max-width:760px!important;margin:0 auto!important;
-  border-radius:24px!important;overflow:hidden!important;
-  background:linear-gradient(180deg,rgba(250,252,248,.98),rgba(244,248,244,.98))!important;
-  box-shadow:0 16px 36px rgba(22,54,43,.18)!important;
-}
-#tripStudioModal.show .trip-studio-head{padding:16px 18px 14px!important}
-#tripStudioModal.show .trip-studio-head small{display:block!important}
-#tripStudioModal.show .trip-studio-group{padding:14px 18px!important}
-#tripStudioModal.show .complete-trip-control{padding:13px 14px!important}
-#tripStudioModal.show .trip-export-launch,
-#tripStudioModal.show .reset-trip-data-btn,
-#tripStudioModal.show .exit-trip-studio-btn{min-height:58px!important;padding:12px 14px!important}
-@media(max-width:560px){
-  #tripStudioModal.show{padding:10px 10px calc(18px + env(safe-area-inset-bottom,0px))!important}
-  #tripStudioModal.show .trip-studio{border-radius:22px!important}
-  #tripStudioModal.show .trip-studio-head{padding:14px 14px 12px!important}
-  #tripStudioModal.show .trip-studio-group{padding:12px 14px!important}
-  #tripStudioModal.show .complete-trip-control{flex-direction:column!important;align-items:stretch!important}
-  #tripStudioModal.show .complete-trip-btn{width:100%!important}
-}
+/* Saigon RC29.18 — Trip Studio visibility/geometry is owned only by the dedicated
+   #tripStudioModal shell below. Historical shared workspace ownership removed. */
 
 /* Travel Engine 25.4.33 — self-contained shared-expense notification */
 .expense-notice-sheet{display:flex;flex-direction:column;max-height:min(78dvh,680px);overflow:hidden}
@@ -2938,7 +2876,7 @@ body.admin-mode .studio-on-badge:not([hidden]){
   color:#67391F!important;
 }
 
-/* Saigon Companion RC29.17 — dedicated Trip Studio foreground shell.
+/* Saigon Companion RC29.18 — dedicated Trip Studio foreground + lifecycle shell.
    Studio no longer reuses #mamaModal/.guide-sheet, eliminating historical
    Traveller/Guide stacking-context conflicts in the VN stylesheet. */
 #tripStudioModal{

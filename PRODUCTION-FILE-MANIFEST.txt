@@ -1,6 +1,6 @@
 Saigon Companion Production File Manifest
 Generated: 2026-08-13
-Base: Saigon Companion RC29.16 · Travel Engine 25.5.2
+Base: Saigon Companion RC29.18 · Travel Engine 25.5.2
 Reference trip: Vietnam
 
 Production root files:
@@ -8,7 +8,6 @@ Production root files:
 - .vercelignore
 - RELEASE.json
 - admin.js
-- admin.js.bak
 - analytics-runtime.js
 - app-runtime.js
 - asset-config.js
@@ -63,7 +62,6 @@ Production root files:
 - storage-config.js
 - storage.js
 - styles.css
-- styles.css.bak
 - supabase-client-runtime.js
 - sw.js
 - sync-config.js

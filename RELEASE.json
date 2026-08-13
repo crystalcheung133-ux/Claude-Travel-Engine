@@ -1,21 +1,22 @@
 {
   "engine_version": "25.5.2",
-  "artifact_version": "Saigon Companion RC29.17 · Travel Engine 25.5.2 Dedicated Studio Foreground Hotfix",
+  "artifact_version": "Saigon Companion RC29.18 \u00b7 Travel Engine 25.5.2 Studio Lifecycle Consolidation",
   "baseline_engine": "25.5.2",
   "release_date": "2026-08-13",
-  "release_type": "vn-dedicated-studio-foreground-hotfix",
+  "release_type": "vn-studio-lifecycle-consolidation",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
     "Travel Engine 25.5.2 canonical presentation shell retained",
-    "VN dedicated Trip Studio foreground shell separated from Traveller Selector",
-    "dedicated Traveller Selector centred overlay ownership",
+    "VN dedicated Trip Studio foreground shell retained",
+    "Studio open/close visibility consolidated to #tripStudioModal.show as the single lifecycle owner",
+    "Traveller Selector Studio entry is re-ensured on every selector open and remains visible before the traveller list",
+    "historical #mamaModal/#guide-sheet Studio lifecycle ownership removed",
     "single Studio header chrome with compact STUDIO ON badge",
     "Studio Home fit-to-view inside header-to-app-nav preview bounds",
     "dedicated Trip/Guide fixed isolated modal shell with internal sheet scrolling",
     "explicit Guide to Booking stacking contract",
-    "bottom navigation remains visible but non-interactive while popup or Studio overlay is open",
-    "VN-only warm ivory/champagne header theme refinement",
+    "VN-only warm ivory/champagne header theme retained",
     "existing Saigon trip data, booking content, Guide content, Supabase, Analytics and offline runtime preserved"
   ],
   "explicitly_deferred": [
@@ -32,5 +33,5 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "vn-rc29-17-engine-25-5-2-studio-foreground"
+  "asset_cache_token": "vn-rc29-18-engine-25-5-2-studio-lifecycle"
 }
