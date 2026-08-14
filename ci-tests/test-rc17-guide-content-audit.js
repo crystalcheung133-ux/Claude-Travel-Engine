@@ -16,7 +16,7 @@ for(const key of ['libe','dauple','nosbyn','new-playground','push-push','saigon-
 assert.doesNotMatch(data,/"hours":\s*"(?:出發前|Unconfirmed|[^\"]*出發前再確認)/,'Guide data must not expose generic/unverified hours as Trading Hours');
 for(const key of ['omakase-tiger']) assert.match(record(key),/"status": "booked"/,'Booked dining status missing: '+key);
 for(const key of ['late-night-supper','man-moi','social-club']) assert.match(record(key),/"status": "optional"/,'Optional dining status missing: '+key);
-for(const key of ['pho-sol','com-tam-moc','lune','quan-thuy','little-bear','running-bean','pizza4ps','quince','pho-vietnam','bep-me-in']) assert.match(record(key),/"status": "planned"/,'Planned dining status missing: '+key);
+for(const key of ['pho-sol','com-tam-moc','lune','quan-thuy','little-bear','running-bean','pizza4ps','oc-dao','pho-vietnam','bep-me-in']) assert.match(record(key),/"status": "planned"/,'Planned dining status missing: '+key);
 assert.match(guide,/explicit==='booked'/,'Guide renderer must honor explicit Booked status');
 assert.doesNotMatch(record('fusion'),/"hours":/,'Stay card must not carry opening-hours metadata');
 assert.match(record('cash-backup'),/"cat": "PRACTICAL"/,'Money exchange backup must be Practical');

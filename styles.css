@@ -2775,7 +2775,7 @@ body :is(.moments-modal,.unexpected-modal,.tools-modal) :is(
   box-sizing:border-box!important;
 }
 
-/* Saigon RC29.18 — Trip Studio visibility/geometry is owned only by the dedicated
+/* Saigon RC29.19 — Trip Studio visibility/geometry is owned only by the dedicated
    #tripStudioModal shell below. Historical shared workspace ownership removed. */
 
 /* Travel Engine 25.4.33 — self-contained shared-expense notification */
@@ -2876,7 +2876,7 @@ body.admin-mode .studio-on-badge:not([hidden]){
   color:#67391F!important;
 }
 
-/* Saigon Companion RC29.18 — dedicated Trip Studio foreground + lifecycle shell.
+/* Saigon Companion RC29.19 — dedicated Trip Studio foreground + lifecycle shell.
    Studio no longer reuses #mamaModal/.guide-sheet, eliminating historical
    Traveller/Guide stacking-context conflicts in the VN stylesheet. */
 #tripStudioModal{

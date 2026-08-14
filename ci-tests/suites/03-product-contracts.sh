@@ -24,5 +24,6 @@ node ci-tests/test-rc23-copy-feedback-rounded.js || failed=1
 node ci-tests/test-rc24-copy-global-click.js || failed=1
 node ci-tests/test-rc25-copy-eligibility-mobile.js || failed=1
 node ci-tests/test-guide-menu-alignment.js || failed=1
+node ci-tests/test-itinerary-d2-d4-reconciliation.js || failed=1
 [ "$failed" -eq 0 ] || exit 1
 echo "VN PRODUCT CONTRACTS: PASS"
