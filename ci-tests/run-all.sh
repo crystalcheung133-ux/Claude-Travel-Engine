@@ -23,6 +23,8 @@ run "STUDIO HOME PREVIEW BOUNDS" node ci-tests/test-studio-home-preview-fit.js s
 run "STUDIO LIFECYCLE CONSOLIDATION" node ci-tests/test-studio-lifecycle-consolidation.js
 run "STUDIO HEADER BADGE" node ci-tests/test-studio-header-badge.js styles.css admin.js
 run "VN HEADER THEME" node ci-tests/test-vn-header-theme.js styles.css
+run "CANONICAL STUDIO + EXPENSE DEEP-LINK" node ci-tests/test-canonical-studio-expense-deeplink.js
+run "CANONICAL STUDIO VISUAL CONTRACT 25.6.2" node ci-tests/test-studio-visual-contract-2562.js
 [ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
 echo "MASTER CI SUITE PASSED"
-run "CANONICAL STUDIO + EXPENSE DEEP-LINK" node ci-tests/test-canonical-studio-expense-deeplink.js
+

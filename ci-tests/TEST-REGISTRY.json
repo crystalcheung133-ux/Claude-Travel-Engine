@@ -262,5 +262,9 @@
   "test-canonical-studio-expense-deeplink.js": {
     "status": "active",
     "principle": "Canonical Studio presentation and exact Booking-to-Expense Transaction History deep-link"
+  },
+  "test-studio-visual-contract-2562.js": {
+    "status": "active",
+    "principle": "Canonical desktop Studio geometry and compact theme-aware Studio ON state indicator"
   }
 }

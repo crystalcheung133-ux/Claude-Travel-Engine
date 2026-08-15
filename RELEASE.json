@@ -1,10 +1,10 @@
 {
-  "engine_version": "25.6.1",
-  "artifact_version": "VN Companion RC29.38 · Travel Engine 25.6.1 Production Freeze",
+  "engine_version": "25.6.2",
+  "artifact_version": "VN Companion RC29.39 · Travel Engine 25.6.2 Production Freeze",
   "baseline_engine": "25.5.2",
-  "release_date": "2026-08-15",
+  "release_date": "2026-08-16",
   "release_type": "production-freeze",
-  "runtime_behavior_change": true,
+  "runtime_behavior_change": false,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
     "Day 4 redefined as Thảo Điền Open Day: only Tân Định morning anchors plus one Thảo Điền Open List",
@@ -51,20 +51,22 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc2938-2561",
-  "release_status": "PRODUCTION FREEZE — static CI + independent Chromium desktop/mobile PASS",
+  "asset_cache_token": "rc2939-2562",
+  "release_status": "PRODUCTION FREEZE — static CI + independent Chromium desktop/mobile Studio visual validation PASS; CI orchestration gate corrected",
   "changes": [
-    "Canonical theme-aware Trip Studio presentation shared by Engine/NZ/VN",
-    "Booking View Expense action aligned to Booking action language",
-    "Booking → Expense deep-link targets and focuses the exact Transaction History card on desktop/mobile"
+    "Canonical desktop Trip Studio geometry: 760px",
+    "Canonical mobile Trip Studio cap: 430px",
+    "STUDIO ON standardized as a compact theme-aware pill",
+    "Studio visual contract enforced by CI"
   ],
   "validation": {
-    "chromium_desktop_1280x800": "PASS",
-    "chromium_mobile_390x844": "PASS",
-    "studio_lifecycle": "PASS",
-    "booking_expense_exact_card_deeplink": "PASS",
-    "console_application_errors": "PASS — zero JS page errors",
-    "cross_companion_studio_consistency": "PASS — same Engine-level Studio geometry/layout",
-    "validator": "Independent Codex Chromium/Playwright validation of unchanged CI-gate candidates"
-  }
+    "chromium_desktop_1280x800": "PASS — NZ/VN Studio rendered 760px width",
+    "chromium_mobile_390x844": "PASS — NZ/VN Studio rendered 374.4px width, no horizontal overflow",
+    "studio_on_badge": "PASS — identical NZ/VN geometry, compact theme-aware pill",
+    "studio_lifecycle": "PASS — entry/close/re-entry/leave, no ghost overlay",
+    "console_application_errors": "PASS — zero uncaught JS page errors",
+    "booking_expense_regression": "25.6.2 did not modify Booking/Expenses runtime; 25.6.1 exact-card browser evidence retained and 25.6.2 static contract PASS",
+    "validator": "Independent Claude Chromium/Playwright validation of unchanged 25.6.2 visual candidates"
+  },
+  "ci_hygiene_fix": "Moved canonical Studio/Expense and 25.6.2 Studio Visual tests before Master CI pass/fail gate; negative control confirmed failure now propagates."
 }
