@@ -136,11 +136,13 @@
     const match=String(dayId||'').match(/day(10|[1-9])/);
     return match ? match[1] : null;
   }
-  const MOMENT_PLANNED_EXCLUDED_TYPES=new Set(['money','transport','buffer','rest','stay']);
+  const MOMENT_PLANNED_ALLOWED_TYPES=new Set([
+    'meal','experience','shoppingWindow','spa','openList','optional'
+  ]);
   function isMomentPlannable(item){
-    if(!item) return false;
-    if(item.momentsEligible===false) return false;
-    return !MOMENT_PLANNED_EXCLUDED_TYPES.has(String(item.type||'').trim());
+    if(!item || item.momentsEligible===false) return false;
+    if(item.momentsEligible===true) return true;
+    return MOMENT_PLANNED_ALLOWED_TYPES.has(String(item.type||'').trim());
   }
   function currentDayItems(dayNumber){
     const key=String(dayNumber);

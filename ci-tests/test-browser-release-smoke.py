@@ -152,13 +152,12 @@ def run_viewport(browser,base,viewport,label):
         close_studio(page)
         assert_studio_closed_clean(page,label+' first Close')
 
-        open_selector(page)
-        toggle=page.locator('#tripStudioSelectorToggle')
-        check(shown(page,'#tripStudioSelectorToggle'),label+': reopen Studio selector entry missing')
-        check(toggle.evaluate("el=>el.classList.contains('is-active')"),label+': Studio selector did not reflect active session')
-        toggle.click()
+        # Active Studio session: User Selector is direct Studio re-entry.
+        page.locator('.friend-pill').click()
         page.wait_for_selector('#tripStudioModal.show')
-        assert_studio_foreground(page,label+' selector reopen')
+        check(not page.locator('#mamaModal').evaluate("el=>el.classList.contains('show')"),
+              label+': active User Selector incorrectly opened traveller selector')
+        assert_studio_foreground(page,label+' active User Selector reopen')
         close_studio(page)
         assert_studio_closed_clean(page,label+' second Close')
 
@@ -166,11 +165,11 @@ def run_viewport(browser,base,viewport,label):
         page.evaluate("document.getElementById('ccmvSplash')?.remove()")
         page.wait_for_timeout(100)
         assert_studio_closed_clean(page,label+' reload')
-        open_selector(page)
-        check(shown(page,'#tripStudioSelectorToggle'),label+': reload Studio selector entry missing')
-        page.locator('#tripStudioSelectorToggle').click()
+        page.locator('.friend-pill').click()
         page.wait_for_selector('#tripStudioModal.show')
-        assert_studio_foreground(page,label+' reload reopen')
+        check(not page.locator('#mamaModal').evaluate("el=>el.classList.contains('show')"),
+              label+': reload active User Selector incorrectly opened traveller selector')
+        assert_studio_foreground(page,label+' reload active re-entry')
         close_studio(page)
         page.evaluate("window.exitTripStudioMode && window.exitTripStudioMode()")
         page.wait_for_timeout(50)

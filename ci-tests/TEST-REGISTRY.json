@@ -185,7 +185,7 @@
   },
   "test-studio-lifecycle-consolidation.js": {
     "status": "active",
-    "note": "invoked by current Master CI suite"
+    "note": "Studio shell/session lifecycle including selector ordering and active-session re-entry"
   },
   "test-studio-popup-workspace-contract.js": {
     "status": "active",
@@ -300,12 +300,12 @@
     "note": "Old local booking state cannot roll back current deploy-master itinerary identity"
   },
   "test-booking-handoff-completeness.js": {
-    "status": "active",
-    "note": "Every Booking card must contain actionable friend-ready booking channels and valid timeline linkage"
+    "status": "retired",
+    "note": "absorbed by Booking surface allow-list contract"
   },
   "test-booking-detail-compact-contract.js": {
     "status": "active",
-    "note": "Compact booking detail + Omakase regression invariants"
+    "note": "Generic Booking legal-surface allow-list + usable booking channels + targeted Omakase regression"
   },
   "test-cross-surface-day-consistency.js": {
     "status": "active",
@@ -313,18 +313,18 @@
   },
   "test-moments-plan-activity-canonical.js": {
     "status": "active",
-    "note": "Moments Planned Activity must inherit canonical D4 Open List rather than stale pre-open-day stops"
+    "note": "Moments canonical projection + explicit activity-type allow-list"
   },
   "test-open-day-and-arrival-flow.js": {
     "status": "active",
     "note": "D1 reset/Cafe Apartment/sunset flow and D4 single Open List contract"
   },
   "test-moments-plan-activity-filter.js": {
-    "status": "active",
-    "note": "Moments Planned Activity excludes money, transport, buffer, rest and stay logistics"
+    "status": "retired",
+    "note": "absorbed by Moments activity semantics allow-list"
   },
   "test-studio-selector-product-rules.js": {
-    "status": "active",
-    "note": "Studio Mode is last in User Selector; active Studio makes User Selector reopen workspace directly"
+    "status": "retired",
+    "note": "absorbed by Studio lifecycle consolidation"
   }
 }
