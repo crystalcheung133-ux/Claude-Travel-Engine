@@ -9,7 +9,7 @@ if(/#tripStudioModal\s+\.guide-sheet/.test(css)) fail.push('Dedicated Studio she
 if(!admin.includes("selectorCard.hidden=!!(active && studioModal && studioModal.classList.contains('show'))")) fail.push('Selector visibility must derive from dedicated modal open state');
 if(!admin.includes('function ensureStudioSelectorToggle()')) fail.push('Studio selector re-ensure helper missing');
 if((admin.match(/ensureStudioSelectorToggle\(\);/g)||[]).length<2) fail.push('Studio selector must be ensured at build and every User Selector open');
-if(!admin.includes("familyList.insertAdjacentElement('beforebegin',selectorToggle)")) fail.push('Studio entry must stay visible before traveller list');
+if(!admin.includes("familyList.insertAdjacentElement('afterend',selectorToggle)")) fail.push('Studio entry must stay below traveller list');
 const openFriend=admin.match(/window\.openFriendModal=function\(\)\{[\s\S]*?\n  \};/);
 if(!openFriend) fail.push('wrapped User Selector open lifecycle missing');
 else if(/scrollIntoView/.test(openFriend[0])) fail.push('User Selector open must not scroll/reopen hidden Studio workspace');

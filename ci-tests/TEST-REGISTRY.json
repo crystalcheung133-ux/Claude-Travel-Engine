@@ -318,5 +318,13 @@
   "test-open-day-and-arrival-flow.js": {
     "status": "active",
     "note": "D1 reset/Cafe Apartment/sunset flow and D4 single Open List contract"
+  },
+  "test-moments-plan-activity-filter.js": {
+    "status": "active",
+    "note": "Moments Planned Activity excludes money, transport, buffer, rest and stay logistics"
+  },
+  "test-studio-selector-product-rules.js": {
+    "status": "active",
+    "note": "Studio Mode is last in User Selector; active Studio makes User Selector reopen workspace directly"
   }
 }

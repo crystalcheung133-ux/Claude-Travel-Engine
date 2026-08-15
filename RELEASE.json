@@ -1,9 +1,9 @@
 {
   "engine_version": "25.5.2",
-  "artifact_version": "Saigon Companion RC29.35 · Travel Engine 25.5.2 Thảo Điền Spa Walk-in",
+  "artifact_version": "Saigon Companion RC29.36 · Travel Engine 25.5.2 Moments + Studio Rules",
   "baseline_engine": "25.5.2",
   "release_date": "2026-08-15",
-  "release_type": "open-list-spa-options",
+  "release_type": "product-rule-regression-guards",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
@@ -22,7 +22,11 @@
     "Day 4 Open List now offers four distinct spa choices instead of implying Mộc Hương is the spa plan",
     "Added Mojo Spa & Foot Massage, Thao Dien Spa and Golden Lotus Healing World Guide cards",
     "All D4 spa options link back to the single Thảo Điền Open List rather than becoming scheduled Timeline activities",
-    "Mộc Hương remains Guide-only / optional; no Day 4 spa Booking is created"
+    "Mộc Hương remains Guide-only / optional; no Day 4 spa Booking is created",
+    "Moments Planned Activity excludes cash/ATM, transport, buffer, hotel reset/rest and stay logistics",
+    "Studio Mode is always rendered below all traveller choices in User Selector",
+    "When Studio is already unlocked, pressing User Selector reopens Studio Workspace directly",
+    "New static CI guards all three product rules; browser smoke definition also checks active-session User Selector re-entry"
   ],
   "explicitly_deferred": [
     "parallel itinerary tracks",
@@ -38,5 +42,5 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "vn-rc29-35-engine-25-5-2-thao-dien-spa-walkin"
+  "asset_cache_token": "vn-rc29-36-engine-25-5-2-moments-studio-rules"
 }

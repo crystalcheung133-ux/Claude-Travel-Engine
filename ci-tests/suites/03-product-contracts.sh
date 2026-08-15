@@ -36,3 +36,7 @@ node ci-tests/test-cross-surface-day-consistency.js || failed=1
 node ci-tests/test-moments-plan-activity-canonical.js || failed=1
 
 node ci-tests/test-open-day-and-arrival-flow.js || failed=1
+
+node ci-tests/test-moments-plan-activity-filter.js || failed=1
+
+node ci-tests/test-studio-selector-product-rules.js || failed=1

@@ -247,11 +247,10 @@
         }
       });
     }
-    /* Studio access is a selector-level action, not a fifth traveller. Keep it
-       before the traveller list so it remains discoverable after reload and on
-       shorter desktop viewports without relying on modal scrolling. */
-    if(selectorToggle.parentElement!==familySheet || selectorToggle.nextElementSibling!==familyList){
-      familyList.insertAdjacentElement('beforebegin',selectorToggle);
+    /* Product rule: Studio is a selector-level action, not a traveller.
+       Keep it visually last, underneath every traveller choice. */
+    if(selectorToggle.parentElement!==familySheet || familyList.nextElementSibling!==selectorToggle){
+      familyList.insertAdjacentElement('afterend',selectorToggle);
     }
     return selectorToggle;
   }
@@ -390,6 +389,13 @@
 
   const originalOpenFriendModal=window.openFriendModal||openFriendModal;
   window.openFriendModal=function(){
+    /* Product rule: once Studio is unlocked, User Selector is the re-entry
+       affordance for the Studio workspace rather than another selector step. */
+    if(state.mode && isUnlocked() && isAdminUser()){
+      closeFriendModal();
+      openTripStudioPanel();
+      return;
+    }
     originalOpenFriendModal();
     ensureStudioSelectorToggle();
     updateUI();
