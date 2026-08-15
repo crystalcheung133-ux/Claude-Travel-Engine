@@ -4,7 +4,7 @@ const retired=['cooking','moc-kim','tinh-thuc','quince']; for(const k of retired
 for(const k of ['moc-healing','cu-chi','nara-spa','oc-dao']) assert(PLACES[k],`new Guide missing: ${k}`);
 for(const k of ['bk-cooking','bk-moc-kim','bk-tinh-thuc','bk-quince']) assert(!BOOKINGS_DATA[k],`retired booking remains: ${k}`);
 for(const k of ['bk-moc-healing','bk-cu-chi','bk-nara']) assert(BOOKINGS_DATA[k],`new booking missing: ${k}`);
-assert.equal(BOOKINGS_DATA['bk-pizza4ps'].day,4);assert.equal(BOOKINGS_DATA['bk-pizza4ps'].time,'13:00');assert.equal(BOOKINGS_DATA['bk-lune'].time,'18:30');assert.equal(BOOKINGS_DATA['bk-moc-huong'].day,2);assert.equal(BOOKINGS_DATA['bk-little-bear'].day,2);assert.equal(BOOKINGS_DATA['bk-moc-healing'].day,4);
+assert.equal(BOOKINGS_DATA['bk-pizza4ps'].day,4);assert.equal(BOOKINGS_DATA['bk-pizza4ps'].time,'13:00');assert.equal(BOOKINGS_DATA['bk-moc-healing'].time,'14:20');assert.equal(BOOKINGS_DATA['bk-lune'].time,'18:30');assert.equal(BOOKINGS_DATA['bk-moc-huong'].day,2);assert.equal(BOOKINGS_DATA['bk-little-bear'].day,2);assert.equal(BOOKINGS_DATA['bk-moc-healing'].day,4);
 const ids=d=>ITINERARY_DATA[String(d)].items.map(x=>x.id);
 assert.equal(JSON.stringify(ids(2)),JSON.stringify(['running-bean','pink-church','push-push','quan-thuy','thao-dien-walk-1','bakes','moc-huong','thao-dien-walk-2','little-bear']));
 assert.equal(JSON.stringify(ids(3)),JSON.stringify(['cu-chi','man-moi','war-museum','nara-spa','oc-dao']));

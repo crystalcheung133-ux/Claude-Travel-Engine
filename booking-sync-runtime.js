@@ -38,18 +38,16 @@
   function sourceTarget(){
     try{const view=root.GenerationSelectionAdapter&&root.GenerationSelectionAdapter.view?root.GenerationSelectionAdapter.view('bookings'):null;return view&&view.byId?view.byId:null;}catch(_){return null;}
   }
-  const CANONICAL_MASTER_FIELDS=Object.freeze([
-    'eventId','timelineItemId','placeId','day','dayId','date','time',
-    'bookingCategory','category','type','emoji','title','address',
-    'bookingUrl','signatureDishes'
-  ]);
   function mergeRemoteWithDeployMaster(record,target){
-    const master=(target&&record&&target[record.id])||(root.BOOKINGS_DATA&&record&&root.BOOKINGS_DATA[record.id])||null;
+    const master=root.BOOKING_AUTHORITY&&root.BOOKING_AUTHORITY.deployMaster?root.BOOKING_AUTHORITY.deployMaster(record&&record.id):null;
     if(!master)return record;
-    const merged=Object.assign({},record);
-    CANONICAL_MASTER_FIELDS.forEach(function(field){
-      if(Object.prototype.hasOwnProperty.call(master,field))merged[field]=clone(master[field]);
-    });
+    const currentRevision=root.BOOKING_AUTHORITY.masterRevision();
+    const remoteRevision=Number(record&&((record._masterRevision!=null?record._masterRevision:record.masterRevision))||0);
+    if(remoteRevision===currentRevision)return Object.assign({},master,record,{_masterRevision:currentRevision});
+    const merged=Object.assign({},master);
+    const editable=root.BOOKING_AUTHORITY.editableStateFields||[];
+    editable.forEach(function(field){if(Object.prototype.hasOwnProperty.call(record,field))merged[field]=clone(record[field]);});
+    merged._masterRevision=currentRevision;
     return merged;
   }
   function applyRemote(row){
@@ -81,6 +79,7 @@
     const copy=clone(record)||{};
     delete copy._category;delete copy._status;delete copy._remoteVersion;delete copy._remoteDeletedAt;
     copy.id=record.id||record.bookingId;copy.bookingId=copy.id;
+    copy._masterRevision=root.BOOKING_AUTHORITY&&root.BOOKING_AUTHORITY.masterRevision?root.BOOKING_AUTHORITY.masterRevision():1;
     copy.updatedByPartyId=partyId();copy.updatedAt=new Date().toISOString();
     return copy;
   }

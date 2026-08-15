@@ -2235,7 +2235,7 @@ const BOOKINGS_DATA={
     "dayId": "day4",
     "status": "pending",
     "date": "2026-11-02",
-    "time": "16:45",
+    "time": "14:20",
     "bookingName": "",
     "bookingCategory": "Spa",
     "category": "Spa",

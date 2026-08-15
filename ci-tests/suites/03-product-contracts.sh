@@ -24,3 +24,5 @@ node ci-tests/test-vn-restaurant-booking-guide-contract.js || failed=1
 echo "VN PRODUCT CONTRACTS: PASS"
 
 node ci-tests/test-booking-sync-canonical-master-contract.js || failed=1
+
+node ci-tests/test-booking-authority-stale-poisoning.js || failed=1

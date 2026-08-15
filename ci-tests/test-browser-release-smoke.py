@@ -207,6 +207,35 @@ def run_viewport(browser,base,viewport,label):
         check(page.evaluate("window.GUIDE_MODAL_ORIGIN") is None,label+': Timeline Guide origin was not cleared')
         check(nav_visible(page),label+': bottom nav missing after Timeline return')
 
+        # Change Effect Gate: poison persisted booking state with pre-reconciliation values,
+        # reload, then assert the actual rendered Booking UI still reflects current deploy master.
+        page.evaluate("""() => {
+          const stale={
+            'bk-pizza4ps':{id:'bk-pizza4ps',bookingId:'bk-pizza4ps',title:'Pizza 4P’s Hai Bà Trưng',day:4,dayId:'day4',date:'2026-11-02',time:'11:30',status:'pending',notes:'Reserve lunch for 4 guests.'},
+            'bk-moc-huong':{id:'bk-moc-huong',bookingId:'bk-moc-huong',title:'Mộc Hương Wellness',day:3,dayId:'day3',date:'2026-11-01',time:'15:30',status:'pending'},
+            'bk-moc-healing':{id:'bk-moc-healing',bookingId:'bk-moc-healing',title:'Mộc Healing Spa',day:4,dayId:'day4',date:'2026-11-02',time:'16:45',status:'pending'}
+          };
+          STORAGE.local.writeJSON(BOOKING_AUTHORITY.key,{version:1,overrides:stale,deletedIds:[],updatedAt:'2026-08-01T00:00:00Z'});
+        }""")
+        page.reload(wait_until='domcontentloaded')
+        page.evaluate("document.getElementById('ccmvSplash')?.remove()")
+        page.evaluate("openBookingCategoryCard('Restaurants')")
+        page.wait_for_selector('#tripModal.show')
+        restaurant_text=page.locator('#tripModalContent').inner_text()
+        check('Pizza 4P’s Bến Thành' in restaurant_text,label+': rendered Restaurants rolled back Pizza branch')
+        check('13:00' in restaurant_text,label+': rendered Restaurants rolled back Pizza time')
+        check('Hai Bà Trưng' not in restaurant_text,label+': stale Pizza title survived into rendered UI')
+        check('11:30' not in restaurant_text,label+': stale Pizza time survived into rendered UI')
+        page.locator('#tripModal .trip-close').click()
+
+        page.evaluate("openBookingCategoryCard('Spa')")
+        page.wait_for_selector('#tripModal.show')
+        spa_text=page.locator('#tripModalContent').inner_text()
+        check('Mộc Hương Wellness' in spa_text and 'Day 2' in spa_text,label+': Mộc Hương did not render on Day 2')
+        check('Mộc Healing Spa' in spa_text and '14:20' in spa_text,label+': Mộc Healing did not render at 14:20')
+        check('16:45' not in spa_text,label+': stale Mộc Healing time survived into rendered UI')
+        page.locator('#tripModal .trip-close').click()
+
         check(not errors,label+': Browser page errors: '+' | '.join(errors))
         print(f'BROWSER VIEWPORT {label}: PASS')
       finally:
