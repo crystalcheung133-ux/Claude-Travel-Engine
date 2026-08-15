@@ -23,22 +23,6 @@
     "status": "active",
     "note": "invoked by current Master CI suite"
   },
-  "test-bounded-overlay-viewport.js": {
-    "status": "retired",
-    "note": "historical 25.4.23 version-string shell contract"
-  },
-  "test-browser-portability.js": {
-    "status": "retired",
-    "note": "superseded by canonical Python browser release smoke; Node Playwright dependency was not portable"
-  },
-  "test-browser-rc24-7-2.js": {
-    "status": "retired",
-    "note": "NZ/Southwark historical browser test"
-  },
-  "test-browser-rc24-7.js": {
-    "status": "retired",
-    "note": "NZ/Southwark historical browser test"
-  },
   "test-build-meta-consistency.js": {
     "status": "active",
     "note": "release/build identity consistency"
@@ -54,10 +38,6 @@
   "test-dual-currency-expenses.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"
-  },
-  "test-engine-interaction-contract.js": {
-    "status": "retired",
-    "note": "requires removed Studio selector scroll/re-entry architecture"
   },
   "test-entity-integrity.js": {
     "status": "active",
@@ -99,10 +79,6 @@
     "status": "active",
     "note": "invoked by current Master CI suite"
   },
-  "test-persistent-chrome-modal-viewport.js": {
-    "status": "retired",
-    "note": "requires removed Studio status bar"
-  },
   "test-portability-completeness.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"
@@ -118,26 +94,6 @@
   "test-presentation-shell-ownership.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"
-  },
-  "test-rc24-7-2.js": {
-    "status": "retired",
-    "note": "NZ accommodation historical contract"
-  },
-  "test-rc24-7.js": {
-    "status": "retired",
-    "note": "NZ accommodation historical contract"
-  },
-  "test-rc25-1-6.js": {
-    "status": "retired",
-    "note": "NZ Alpine/rental historical contract"
-  },
-  "test-rc25-1.js": {
-    "status": "retired",
-    "note": "NZ Quake/road-trip historical contract"
-  },
-  "test-rc25-2-2.js": {
-    "status": "retired",
-    "note": "NZ Alpine/route historical contract"
   },
   "test-release-hygiene.js": {
     "status": "active",
@@ -171,10 +127,6 @@
     "status": "active",
     "note": "invoked by current Master CI suite"
   },
-  "test-studio-global-chrome-stack.js": {
-    "status": "retired",
-    "note": "requires removed Studio status bar"
-  },
   "test-studio-header-badge.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"
@@ -190,14 +142,6 @@
   "test-studio-popup-workspace-contract.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"
-  },
-  "test-studio-reentry-layout-sync.js": {
-    "status": "retired",
-    "note": "requires removed shared-selector Studio lifecycle"
-  },
-  "test-studio-selector-card-reentry.js": {
-    "status": "retired",
-    "note": "requires removed selector-card Studio architecture"
   },
   "test-syntax.sh": {
     "status": "active",
@@ -277,7 +221,7 @@
   },
   "test-guide-booking-return-contract.js": {
     "status": "active",
-    "note": "origin-aware Guide→Booking close: Timeline origin returns directly to Timeline"
+    "note": "origin-aware Guide\u2192Booking close: Timeline origin returns directly to Timeline"
   },
   "test-python-ci-syntax.sh": {
     "status": "active",
@@ -299,10 +243,6 @@
     "status": "active",
     "note": "Old local booking state cannot roll back current deploy-master itinerary identity"
   },
-  "test-booking-handoff-completeness.js": {
-    "status": "retired",
-    "note": "absorbed by Booking surface allow-list contract"
-  },
   "test-booking-detail-compact-contract.js": {
     "status": "active",
     "note": "Generic Booking legal-surface allow-list + usable booking channels + targeted Omakase regression"
@@ -319,12 +259,8 @@
     "status": "active",
     "note": "D1 reset/Cafe Apartment/sunset flow and D4 single Open List contract"
   },
-  "test-moments-plan-activity-filter.js": {
-    "status": "retired",
-    "note": "absorbed by Moments activity semantics allow-list"
-  },
-  "test-studio-selector-product-rules.js": {
-    "status": "retired",
-    "note": "absorbed by Studio lifecycle consolidation"
+  "test-canonical-studio-expense-deeplink.js": {
+    "status": "active",
+    "principle": "Canonical Studio presentation and exact Booking-to-Expense Transaction History deep-link"
   }
 }

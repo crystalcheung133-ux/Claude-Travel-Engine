@@ -11,7 +11,7 @@ assert.match(guide,/BOOKED/,'Dining presentation supports Booked');
 assert.match(data,/"cash-backup"[\s\S]{0,250}"cat": "PRACTICAL"/,'Money backup must remain Practical data');
 assert.doesNotMatch(data,/"fusion"[\s\S]{0,220}"hours": "24 Hours"/,'Stay must not show 24 Hours');
 assert.match(data,/Social Club Rooftop Bar[\s\S]{0,700}24\/F/,'Social rooftop needs useful identity');
-assert.match(cfg,/version:'RC\d+(?:\.\d+)?-25\.[45]\.\d+(?:\.\d+)?'/,'Guide audit requires valid release identity');
+assert.match(cfg,/version:'RC\d+(?:\.\d+)?-25\.[456]\.\d+(?:\.\d+)?'/,'Guide audit requires valid release identity');
 assert.doesNotMatch(home,/home-shopping-button/,'Shopping must not be forced onto Home hero');
 for(const key of ['libe','dauple','nosbyn','new-playground','push-push','saigon-concept','ohquao','louh','garmentory','dalla-saigon','rubies','lane-ci','takashimaya']) assert.match(record(key),/"shoppingRoute":/,'Shopping route metadata missing: '+key);
 assert.doesNotMatch(data,/"hours":\s*"(?:出發前|Unconfirmed|[^\"]*出發前再確認)/,'Guide must not expose generic/unverified hours as Trading Hours');

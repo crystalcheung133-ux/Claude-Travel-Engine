@@ -64,7 +64,7 @@ assert(!css.includes('\\n\\n/* Engine 25.3.9'),'escaped-newline CSS corruption s
 
 // Cache + visual release contract
 const token=release.asset_cache_token; assert(token,'Release asset_cache_token missing');
-assert(/version:'RC\d+(?:\.\d+)?-25\.5\.2'/.test(cfg),'Trip version missing');
+assert(/version:'RC\d+(?:\.\d+)?-25\.6\.1'/.test(cfg),'Trip version missing');
 for(const f of ['index.html','expenses.html','day.html','guide.html','moments.html','trip.html']){
   const h=read(f); assert(h.includes(`?v=${token}`),f+' missing current release cache token');
   assert(!/\?v=(rc25|stage3|nz1|engine-booking)/.test(h),f+' has stale cache token');

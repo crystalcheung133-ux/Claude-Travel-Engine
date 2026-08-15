@@ -25,3 +25,4 @@ run "STUDIO HEADER BADGE" node ci-tests/test-studio-header-badge.js styles.css a
 run "VN HEADER THEME" node ci-tests/test-vn-header-theme.js styles.css
 [ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
 echo "MASTER CI SUITE PASSED"
+run "CANONICAL STUDIO + EXPENSE DEEP-LINK" node ci-tests/test-canonical-studio-expense-deeplink.js
