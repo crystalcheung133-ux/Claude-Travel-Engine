@@ -185,17 +185,14 @@ function bookingActionButtonsHTML(booking,place,options={}){
   const address=bookingAddress(booking,place);
   const includeDay=options.includeDay!==false;
   const includeGuide=options.includeGuide!==false;
-  const method=String(booking&&booking.bookingMethod||'').toLowerCase();
-  const contact=String(booking&&booking.bookingContact||'').trim();
-  const digits=contact.replace(/[^0-9]/g,'');
-  const whatsapp=(contact&&method.includes('whatsapp')&&digits)?`https://wa.me/${digits}`:'';
-  const call=(contact&&digits)?`tel:${escapeTripHTML(contact.replace(/\s+/g,''))}`:'';
+  const whatsappContact=String(booking&&booking.whatsapp||'').trim();
+  const whatsappDigits=whatsappContact.replace(/[^0-9]/g,'');
+  const whatsapp=(whatsappContact&&whatsappDigits)?`https://wa.me/${whatsappDigits}`:'';
   const buttons=[
     includeGuide?bookingGuideButtonHTML(booking):'',
     includeDay?bookingDayButtonHTML(booking):'',
     booking&&booking.bookingUrl?`<a class="pill trip-action-btn trip-action-btn--book" href="${escapeTripHTML(booking.bookingUrl)}" target="_blank" rel="noopener">Book Online</a>`:'',
     whatsapp?`<a class="pill trip-action-btn trip-action-btn--whatsapp" href="${escapeTripHTML(whatsapp)}" target="_blank" rel="noopener">WhatsApp</a>`:'',
-    (!whatsapp&&call)?`<a class="pill trip-action-btn trip-action-btn--call" href="${escapeTripHTML(call)}">Call</a>`:'',
     booking&&booking.email?`<a class="pill trip-action-btn trip-action-btn--email" href="mailto:${escapeTripHTML(booking.email)}">Email</a>`:'',
     address?`<a class="pill trip-action-btn" href="${escapeTripHTML(accommodationMapURL(address))}" target="_blank" rel="noopener">Navigate</a>`:'',
     address?`<button class="pill trip-action-btn" type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText(${JSON.stringify(address).replace(/"/g,'&quot;')})">Copy Address</button>`:'',
@@ -325,11 +322,10 @@ function bookingCategoryLabel(booking){
 function buildGenericBookingDetailHTML(booking){
   if(!booking)return '<p class="timestamp">Booking not found.</p>';
   const place=bookingPlace(booking);
-  const contact=[booking.bookingContact||booking.phone||'',booking.secondaryContact||''].filter(Boolean).join(' / ');
   const facts=bookingFactGridHTML([
     ['Status',bookingStatusText(booking)],['Day',bookingDayNumber(booking)?'Day '+bookingDayNumber(booking):''],['Date',booking.date||''],['Time',booking.time||''],
     ['Booked under',booking.bookingName||''],[bookingReferenceLabel(booking),booking.reference||''],['Booking method',booking.bookingMethod||booking.bookingViaOther||booking.bookingWay||booking.platform||''],
-    ['Booking contact',contact],['Email',booking.email||'']
+    ['WhatsApp',booking.whatsapp||''],['Email',booking.email||'']
   ]);
   const payment=normalizedBookingStatus(booking)==='confirmed'?accommodationPaymentHTML(booking):'';
   const sections=[

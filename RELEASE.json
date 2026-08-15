@@ -1,19 +1,21 @@
 {
   "engine_version": "25.5.2",
-  "artifact_version": "Saigon Companion RC29.30 · Travel Engine 25.5.2 Booking Handoff Audit",
+  "artifact_version": "Saigon Companion RC29.31 · Travel Engine 25.5.2 Booking Contact Usability",
   "baseline_engine": "25.5.2",
   "release_date": "2026-08-15",
-  "release_type": "booking-handoff-completeness",
+  "release_type": "booking-contact-usability",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
-    "Every Booking record now contains friend-ready booking instructions and at least one actionable booking channel",
-    "Generic Booking detail now renders Book Online / WhatsApp / Call / Email actions when applicable",
-    "Booking detail exposes a dedicated How to book / handoff section",
-    "Booking Master Revision advanced to 3 so stale contact/method/notes cannot overwrite current handoff data",
-    "Mặn Mòi official reservation page/phone, Pizza 4P’s reservation line, Fusion reservations email/site, and Spa booking channels audited",
-    "Cu Chi and airport transfer pending cards now tell the traveller exactly which Klook flow to use and what to confirm after booking",
-    "Timeline-linked bookings must resolve to their own exact Timeline card"
+    "Booking usability contract is now website OR email OR explicitly verified WhatsApp",
+    "Phone-only and Zalo-only contacts no longer count as actionable booking channels",
+    "Generic Booking detail no longer renders Call actions",
+    "WhatsApp actions require an explicit verified booking.whatsapp field and are never inferred from a phone number",
+    "Online/website booking methods must have a real bookingUrl",
+    "Pizza 4P’s Bến Thành online booking must render a Book Online action pointing to its reservation URL",
+    "Mộc Healing uses official website + email only; no WhatsApp is claimed",
+    "Mộc Hương, Hạ Spa and Nara retain WhatsApp because their current official sites explicitly support it",
+    "Booking Master Revision advanced to 4 so stale contact/method data cannot overwrite current usable channels"
   ],
   "explicitly_deferred": [
     "parallel itinerary tracks",
@@ -29,5 +31,5 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "vn-rc29-30-engine-25-5-2-booking-handoff-audit"
+  "asset_cache_token": "vn-rc29-31-engine-25-5-2-booking-contact-usability"
 }

@@ -8,8 +8,8 @@ assert.equal(P['moc-healing'].address,'39–41 Thủ Khoa Huân, Bến Thành, H
 assert.equal(P['war-museum'].price,'40,000 VND / adult');
 assert(!JSON.stringify(P['war-museum']).includes('Pizza 4P'),'War Museum contains stale Pizza routing');
 assert.equal(P['nara-spa'].address,'595/74 Nguyễn Đình Chiểu, Bàn Cờ, District 3, Ho Chi Minh City');
-assert.equal(B['bk-nara'].bookingContact,'+84 903 877 906');
-assert.equal(B['bk-moc-healing'].bookingContact,'+84 28 3535 4436');
+assert.equal(B['bk-nara'].whatsapp,'+84 903 877 906');
+assert(B['bk-moc-healing'].bookingUrl&&B['bk-moc-healing'].email,'Mộc Healing must use website/email rather than unverified WhatsApp');
 assert.equal(B['bk-pizza4ps'].title,'Pizza 4P’s Bến Thành');
 const d4=I['4'].items;
 assert.deepEqual(Array.from(d4.map(x=>x.id)),['com-tam-moc','garmentory','shopping-tqd','pizza4ps','moc-healing','shopping-nguyen-trai','hotel-reset','lune']);

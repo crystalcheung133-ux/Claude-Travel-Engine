@@ -9,8 +9,18 @@ for(const id of ids){
   const b=B[id];
   assert(String(b.bookingMethod||'').trim(),id+': bookingMethod missing');
   assert(String(b.bookingHandoff||'').trim(),id+': friend handoff instructions missing');
-  const actionable=String(b.bookingUrl||'').trim()||String(b.bookingContact||'').trim()||String(b.email||'').trim();
-  assert(actionable,id+': no actionable booking channel (URL/contact/email)');
+
+  // User contract: website OR email OR confirmed WhatsApp. Phone/Zalo alone do not count.
+  const usable=String(b.bookingUrl||'').trim()||String(b.email||'').trim()||String(b.whatsapp||'').trim();
+  assert(usable,id+': no usable booking channel (website/email/WhatsApp)');
+  assert(!/\bzalo\b/i.test(String(b.bookingMethod||'')) || usable,id+': Zalo must never be the only usable channel');
+
+  if(/\bonline\b|website|klook/i.test(String(b.bookingMethod||'')))
+    assert(String(b.bookingUrl||'').trim(),id+': method says online/website but bookingUrl is missing');
+
+  if(/whatsapp/i.test(String(b.bookingMethod||'')))
+    assert(String(b.whatsapp||'').trim(),id+': method says WhatsApp but explicit verified whatsapp field is missing');
+
   if(b.timelineItemId){
     const day=String(b.day||String(b.dayId||'').replace(/\D/g,''));
     const items=I[day]&&I[day].items||[];
@@ -18,20 +28,17 @@ for(const id of ids){
   }
 }
 
-// Branch / channel truth that must not drift.
-assert.equal(B['bk-pizza4ps'].title,'Pizza 4P’s Bến Thành');
-assert.equal(B['bk-pizza4ps'].bookingContact,'19006043');
-assert(B['bk-pizza4ps'].bookingUrl.includes('ben-thanh'));
-assert.equal(B['bk-man-moi'].bookingContact,'+84 899 189 218');
-assert(B['bk-man-moi'].bookingUrl.includes('manmoi.vn'));
-assert.equal(B['bk-moc-huong'].bookingContact,'+84 90 975 5877');
-assert(B['bk-moc-huong'].bookingUrl.includes('mochuongwellness.vn'));
-assert.equal(B['bk-nara'].bookingContact,'+84 903 877 906');
-assert.equal(B['bk-ha-spa'].bookingContact,'+84 908 661 683');
-assert.equal(B['bk-moc-healing'].bookingContact,'+84 28 3535 4436');
+assert(B['bk-pizza4ps'].bookingUrl.includes('ben-thanh'),'Pizza Bến Thành online booking missing');
+assert(!B['bk-pizza4ps'].bookingContact,'Pizza phone-only contact should not be surfaced');
+assert.equal(B['bk-moc-huong'].whatsapp,'+84 90 975 5877');
+assert.equal(B['bk-ha-spa'].whatsapp,'+84 908 661 683');
+assert.equal(B['bk-nara'].whatsapp,'+84 903 877 906');
+assert(!B['bk-moc-healing'].whatsapp,'Mộc Healing must not be labelled WhatsApp without verified support');
+assert(B['bk-moc-healing'].bookingUrl && B['bk-moc-healing'].email,'Mộc Healing should use website/email');
 
 const trip=fs.readFileSync('trip-runtime.js','utf8');
-for(const token of ['Book Online','WhatsApp','How to book / handoff','booking.secondaryContact'])
-  assert(trip.includes(token),'Booking detail runtime missing handoff UI token: '+token);
+for(const token of ['Book Online','WhatsApp','Email','How to book / handoff','booking.whatsapp'])
+  assert(trip.includes(token),'Booking detail runtime missing usability UI token: '+token);
+assert(!trip.includes('trip-action-btn--call'),'Phone-only Call action must not be rendered');
 
-console.log('BOOKING HANDOFF COMPLETENESS: PASS — every booking has actionable channel + friend-ready instructions + timeline linkage.');
+console.log('BOOKING CONTACT USABILITY: PASS — every booking has website/email/verified WhatsApp; phone/Zalo alone never count.');

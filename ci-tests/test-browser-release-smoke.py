@@ -226,6 +226,14 @@ def run_viewport(browser,base,viewport,label):
         check('13:00' in restaurant_text,label+': rendered Restaurants rolled back Pizza time')
         check('Hai Bà Trưng' not in restaurant_text,label+': stale Pizza title survived into rendered UI')
         check('11:30' not in restaurant_text,label+': stale Pizza time survived into rendered UI')
+
+        # Open Pizza detail and prove "Online" produces a real clickable booking action.
+        page.locator("#tripModalContent button, #tripModalContent .booking-picker-row").filter(has_text="Pizza 4P’s Bến Thành").first.click()
+        page.wait_for_timeout(50)
+        check(page.locator('#tripModalContent a.trip-action-btn--book',has_text='Book Online').count()>0,
+              label+': Pizza says online but rendered no Book Online action')
+        check('tablecheck.com' in (page.locator('#tripModalContent a.trip-action-btn--book').first.get_attribute('href') or ''),
+              label+': Pizza Book Online does not point to reservation URL')
         page.locator('#tripModal .trip-close').click()
 
         page.evaluate("openBookingCategoryCard('Spa')")
@@ -234,6 +242,18 @@ def run_viewport(browser,base,viewport,label):
         check('Mộc Hương Wellness' in spa_text and 'Day 2' in spa_text,label+': Mộc Hương did not render on Day 2')
         check('Mộc Healing Spa' in spa_text and '14:20' in spa_text,label+': Mộc Healing did not render at 14:20')
         check('16:45' not in spa_text,label+': stale Mộc Healing time survived into rendered UI')
+
+        # Mộc Healing: website/email yes; no invented WhatsApp/phone action.
+        page.locator("#tripModalContent button, #tripModalContent .booking-picker-row").filter(has_text="Mộc Healing Spa").first.click()
+        page.wait_for_timeout(50)
+        check(page.locator('#tripModalContent a.trip-action-btn--book',has_text='Book Online').count()>0,
+              label+': Mộc Healing website action missing')
+        check(page.locator('#tripModalContent a.trip-action-btn--email',has_text='Email').count()>0,
+              label+': Mộc Healing email action missing')
+        check(page.locator('#tripModalContent a.trip-action-btn--whatsapp').count()==0,
+              label+': Mộc Healing incorrectly exposes WhatsApp')
+        check(page.locator('#tripModalContent a.trip-action-btn--call').count()==0,
+              label+': phone-only Call action should not exist')
         page.locator('#tripModal .trip-close').click()
 
         check(not errors,label+': Browser page errors: '+' | '.join(errors))
