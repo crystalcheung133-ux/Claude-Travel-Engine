@@ -286,5 +286,9 @@
   "test-vn-route-first-spa-contract.js": {
     "status": "active",
     "note": "D4 route-first spa, factual corrections and exact Timeline return"
+  },
+  "test-vn-restaurant-booking-guide-contract.js": {
+    "status": "active",
+    "note": "Restaurant booking identity, emojis and signature dishes"
   }
 }

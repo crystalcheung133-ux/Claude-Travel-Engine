@@ -274,9 +274,9 @@ const PLACES={
     "address": "36 Nguyễn Bá Huân, Thảo Điền, Ho Chi Minh City, Vietnam",
     "desc": "Thảo Điền 由中午一路慢慢行到黃昏，Little Bear 就是這條 lifestyle walk 的句號。小型 wine bar / modern Vietnamese bistro，用分享盤、酒與年輕主廚的越南味，把一日的慢節奏留到晚餐。",
     "signature": [
-      "Michelin Selected / Young Chef 話題",
-      "小型空間，counter/table seating 氣氛親近",
-      "越南味道 + bistro 手法，適合 share plates"
+      "House-made noodles｜Michelin Guide 特別提到",
+      "Tagliolini with clams｜白酒蜆汁＋菊花，評論點名",
+      "Natural / biodynamic wine｜by-the-glass 選擇是 Little Bear 一半靈魂"
     ],
     "worth": [
       "星期一休息，必須訂位。",
@@ -309,9 +309,9 @@ const PLACES={
     "address": "17/14 Lê Thánh Tôn, Sài Gòn, Hồ Chí Minh 70000, Vietnam",
     "desc": "一整日試衫、走街、按摩完雙腳，LÚNE 是 Fashion Day 最後一個換景。現代法式／fusion 的細緻感剛好把白天的街頭節奏收住；18:30 開餐，最遲不要過 19:00。",
     "signature": [
-      "Michelin Selected 話題餐廳",
-      "法式技巧結合越南／亞洲食材",
-      "Bar + restaurant 氣氛，適合四人換裝後晚餐"
+      "Canadian lobster raviolo｜Michelin Guide 點名 standout",
+      "Phở foie gras terrine｜法式技巧 × 越南味",
+      "Sea urchin + A5 wagyu｜近期食客特別提到"
     ],
     "worth": [
       "建議提前 2–4 週預約，週日休息要留意。",
@@ -344,9 +344,9 @@ const PLACES={
     "address": "85/9 Phạm Viết Chánh, Thạnh Mỹ Tây, Hồ Chí Minh 700000, Vietnam",
     "desc": "Day 1 晚餐已確認 17:30。Omakase Tiger 係 Penthouse setting，黃昏入席啱啱由 sunset 食到入夜；少量 counter seats 可以近距離睇師傅出餐。",
     "signature": [
-      "Penthouse setting，黃昏由 sunset 食到入夜",
-      "8-seat countertop，座位極少",
-      "約 10–14 道 omakase，價格比澳港日同類體驗低"
+      "季節 Omakase course｜當日魚料與出品跟季節走",
+      "Sake pairing｜近期食客特別推薦",
+      "Penthouse counter｜由黃昏一路看到 Saigon 入夜"
     ],
     "worth": [
       "已確認 30 Oct 17:30 場次，訂金已付。",
@@ -443,9 +443,9 @@ const PLACES={
     "address": "8 Thủ Khoa Huân, Bến Thành, District 1, Ho Chi Minh City",
     "desc": "上午在 Trần Quang Diệu 收好第一輪戰利品，13:00 轉入 Bến Thành。這餐是 Fashion Day 的冷氣停頓；食完不用再叫車，同一條 Thủ Khoa Huân 走去 Mộc Healing。",
     "signature": [
-      "House-made cheese",
-      "Burrata / 4-cheese pizza",
-      "食完步行接 Mộc Healing"
+      "Crab tomato cream spaghetti｜近期評論反覆點名",
+      "House-made 4-cheese pizza + honey｜4P’s 經典",
+      "Burrata / Parma ham pizza｜第一次去最值得 share"
     ],
     "worth": [
       "Day 4 使用 Bến Thành branch。",
@@ -1296,9 +1296,9 @@ const PLACES={
     "address": "Level 3, VNPT Building, Gate 6, Nguyễn Văn Bình Street, Ho Chi Minh City, Vietnam",
     "desc": "Cu Chi 回城後，不先返酒店。14:30 直接在 Mặn Mòi 坐低，一桌越南家常菜把早上的塵與熱慢慢放下；60–65 分鐘食好，再步行／短車去 War Remnants Museum。",
     "signature": [
-      "南部家常菜，味道細緻而不過重",
-      "木質與綠意交疊的老西貢氛圍",
-      "多人分享最有感覺"
+      "Pork jowl｜近期食客點名好食",
+      "Sticky rice chicken｜適合四人分食",
+      "家常 claypot / soup｜Mặn Mòi 最有代表性的越南家常路線"
     ],
     "worth": [
       "Day 5 備選；Bếp Mẹ Ỉn 仍是原定午餐。",
@@ -2002,6 +2002,7 @@ const BOOKINGS_DATA={
     "bookingCategory": "Restaurants",
     "category": "Restaurants",
     "type": "restaurant",
+    "emoji": "🍣",
     "title": "Omakase Tiger",
     "depositPaid": "VND 2,000,000",
     "depositAmount": "2000000",
@@ -2012,6 +2013,7 @@ const BOOKINGS_DATA={
     "bookingUrl": "https://omakasetiger.com/en",
     "notes": "已確認 17:30；訂金 2,000,000 VND 已付。",
     "paymentStatus": "deposit paid",
+    "signatureDishes": ["Seasonal omakase course", "Sake pairing", "Penthouse sunset counter"],
     "placeId": "omakase-tiger"
   },
   "bk-lune": {
@@ -2028,6 +2030,7 @@ const BOOKINGS_DATA={
     "bookingCategory": "Restaurants",
     "category": "Restaurants",
     "type": "restaurant",
+    "emoji": "🥂",
     "title": "LÜNE Restaurant & Bar",
     "depositPaid": "",
     "depositAmount": "",
@@ -2037,6 +2040,7 @@ const BOOKINGS_DATA={
     "secondaryContact": "",
     "bookingUrl": "https://www.adrienguenzi.com/reservations",
     "notes": "18:30 dinner for 4; Monday dinner service is open. Fashion Day shopping後先返 Fusion 放低戰利品 / freshen up，再輕身 Grab 去 LÚNE。",
+    "signatureDishes": ["Canadian lobster raviolo", "Phở foie gras terrine", "Sea urchin + A5 wagyu"],
     "placeId": "lune"
   },
   "bk-little-bear": {
@@ -2053,6 +2057,7 @@ const BOOKINGS_DATA={
     "bookingCategory": "Restaurants",
     "category": "Restaurants",
     "type": "restaurant",
+    "emoji": "🧸",
     "title": "Little Bear",
     "depositPaid": "",
     "depositAmount": "",
@@ -2062,6 +2067,7 @@ const BOOKINGS_DATA={
     "secondaryContact": "",
     "bookingUrl": "",
     "notes": "18:30 dinner for 4 after the Thảo Điền lifestyle walk. Intimate contemporary plates + wine; Saturday suits the room better than Monday, when Little Bear is closed.",
+    "signatureDishes": ["House-made noodles", "Tagliolini with clams", "Natural / biodynamic wine"],
     "placeId": "little-bear"
   },
   "bk-pizza4ps": {
@@ -2078,7 +2084,9 @@ const BOOKINGS_DATA={
     "bookingCategory": "Restaurants",
     "category": "Restaurants",
     "type": "restaurant",
+    "emoji": "🍕",
     "title": "Pizza 4P’s Bến Thành",
+    "address": "8 Thủ Khoa Huân, Bến Thành, District 1, Ho Chi Minh City",
     "depositPaid": "",
     "depositAmount": "",
     "depositCurrency": "",
@@ -2087,6 +2095,7 @@ const BOOKINGS_DATA={
     "secondaryContact": "",
     "bookingUrl": "https://www.tablecheck.com/vi/pizza-4ps-hcm-ben-thanh/reserve/landing",
     "notes": "Bến Thành branch · 8 Thủ Khoa Huân。Reserve lunch for 4 at 13:00；食完步行接 Mộc Healing。",
+    "signatureDishes": ["Crab tomato cream spaghetti", "House-made 4-cheese pizza + honey", "Burrata / Parma ham pizza"],
     "placeId": "pizza4ps"
   },
   "bk-nha-suga": {
@@ -2214,6 +2223,7 @@ const BOOKINGS_DATA={
     "secondaryContact": "",
     "bookingUrl": "",
     "notes": "14:30 late lunch · 4 人。Cu Chi tour 直接 drop 到餐廳；預留 60–65 分鐘，15:40 左右接 War Remnants Museum。",
+    "signatureDishes": ["Pork jowl", "Sticky rice chicken", "Vietnamese home-style claypot / soup"],
     "placeId": "man-moi"
   },
   "bk-moc-healing": {

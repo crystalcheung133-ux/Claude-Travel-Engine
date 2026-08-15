@@ -1,19 +1,17 @@
 {
   "engine_version": "25.5.2",
-  "artifact_version": "Saigon Companion RC29.26 · Travel Engine 25.5.2 Route-First Spa & Timeline Return",
+  "artifact_version": "Saigon Companion RC29.27 · Travel Engine 25.5.2 Restaurant Guide & Booking Audit",
   "baseline_engine": "25.5.2",
   "release_date": "2026-08-15",
-  "release_type": "itinerary-route-factual-return-fix",
+  "release_type": "restaurant-content-booking-correction",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
-    "Day 4 now uses Pizza 4P’s Bến Thành → walk to Mộc Healing → walk Bến Thành/Nguyễn Trãi fashion corridor → Fusion bag drop → LÚNE",
-    "KOCOCHI removed from active Guide/Booking route and replaced by Mộc Healing at 39–41 Thủ Khoa Huân",
-    "War Remnants Museum price corrected to 40,000 VND/adult and stale Pizza routing removed",
-    "Nara Spa corrected to 595/74 Nguyễn Đình Chiểu with WhatsApp/Zalo booking contacts",
-    "Timeline-origin Guide/Booking close now hardens exact scroll-position restoration",
-    "Traveller-facing planning-instruction copy removed from affected D2/D4 timeline cards",
-    "No Studio/modal shell geometry redesign"
+    "Pizza 4P’s Booking identity corrected to Bến Thành with explicit 8 Thủ Khoa Huân address",
+    "Restaurant Booking list now uses distinct restaurant emojis",
+    "Restaurant Guide cards audited for evidence-led signature dishes",
+    "Restaurant Booking records carry concise signature-dish data",
+    "No itinerary route, Studio shell, modal geometry, Supabase, Analytics or storage architecture changes"
   ],
   "explicitly_deferred": [
     "parallel itinerary tracks",
@@ -29,5 +27,5 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "vn-rc29-26-engine-25-5-2-route-first-spa"
+  "asset_cache_token": "vn-rc29-27-engine-25-5-2-restaurant-guide-booking-audit"
 }
