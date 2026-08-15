@@ -433,36 +433,36 @@ const PLACES={
     ]
   },
   "pizza4ps": {
-    "title": "Pizza 4P’s Hai Bà Trưng",
+    "title": "Pizza 4P’s Bến Thành",
     "emoji": "🍕",
     "cat": "RESTAURANTS",
     "sub": "Day 4 · Indoor Lunch Break",
     "status": "planned",
-    "hours": "Mon–Fri 11:00–23:00；Sat–Sun 10:00–23:00",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%E2%80%99s%20Hai%20B%C3%A0%20Tr%C6%B0ng%20151B%20Hai%20B%C3%A0%20Tr%C6%B0ng%2C%20V%C3%B5%20Th%E1%BB%8B%20S%C3%A1u%20Ward%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
-    "address": "151B Hai Bà Trưng, Võ Thị Sáu Ward, District 3, Ho Chi Minh City",
-    "desc": "Fashion Day 中段需要一個真正坐低的冷氣站。Hai Bà Trưng 這餐用窯烤 pizza、自家芝士把越南菜節奏暫停一下；13:00–14:15 留在室內，也避開最熱的一段。",
+    "hours": "11:00–00:00 Mon–Sat · 11:00–23:00 Sun",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20Ben%20Thanh%208%20Thu%20Khoa%20Huan%20Ho%20Chi%20Minh%20City",
+    "address": "8 Thủ Khoa Huân, Bến Thành, District 1, Ho Chi Minh City",
+    "desc": "上午在 Trần Quang Diệu 收好第一輪戰利品，13:00 轉入 Bến Thành。這餐是 Fashion Day 的冷氣停頓；食完不用再叫車，同一條 Thủ Khoa Huân 走去 Mộc Healing。",
     "signature": [
       "House-made cheese",
       "Burrata / 4-cheese pizza",
-      "Pasta 與 sharing dishes"
+      "食完步行接 Mộc Healing"
     ],
     "worth": [
-      "只用 Hai Bà Trưng branch。",
-      "下午還有 Nguyễn Trãi shopping，午餐舒服但不要拖過 14:15。"
+      "Day 4 使用 Bến Thành branch。",
+      "13:00–14:15 留在室內，避開最熱的一段。"
     ],
     "categoryLabel": "🍽 Restaurant",
     "price": "$$",
-    "transport": "Grab / walk depending on current route",
-    "audit": "Route-ready; check live hours before visit",
+    "transport": "Grab from Trần Quang Diệu · then walk",
+    "audit": "Bến Thành branch: 8 Thủ Khoa Huân.",
     "highlights": [
       "House-made cheese",
       "Burrata / 4-cheese pizza",
-      "Pasta 與 sharing dishes"
+      "食完步行接 Mộc Healing"
     ],
     "tips": [
-      "只用 Hai Bà Trưng branch。",
-      "下午還有 Nguyễn Trãi shopping，午餐舒服但不要拖過 14:15。"
+      "Day 4 使用 Bến Thành branch。",
+      "午餐後沿同一條街步行去 Spa。"
     ]
   },
   "quan-thuy": {
@@ -1122,21 +1122,21 @@ const PLACES={
     "desc": "上午在 Cu Chi 看戰爭如何藏進地下，下午回城看它留下來的影像與物件。War Remnants Museum 放在同一天，目的不是多打一個景點，而是讓 War Day 有完整的前後文。",
     "signature": [
       "越戰相關照片與史料",
-      "館內有冷氣，適合上午安排",
-      "與 District 3 / Pizza 4P’s 動線順"
+      "館內展覽以照片、文件與戰爭遺物為主",
+      "Cu Chi 後接著看，War Day 前後文完整"
     ],
     "worth": [
       "15:40–17:00 是主參觀時段；Mặn Mòi 早完就把時間留給 museum。",
       "看完直接去 Nara 做 90 分鐘 reset，不再塞其他 sightseeing。"
     ],
     "categoryLabel": "📍 Attraction",
-    "price": "Ticketed",
+    "price": "40,000 VND / adult",
     "transport": "Grab / walk depending on current route",
     "audit": "Route-ready; check live hours before visit",
     "highlights": [
       "越戰相關照片與史料",
-      "館內有冷氣，適合上午安排",
-      "與 District 3 / Pizza 4P’s 動線順"
+      "館內展覽以照片、文件與戰爭遺物為主",
+      "Cu Chi 後接著看，War Day 前後文完整"
     ],
     "tips": [
       "15:40–17:00 是主參觀時段；Mặn Mòi 早完就把時間留給 museum。"
@@ -1161,7 +1161,7 @@ const PLACES={
       "建議停留 60–90 分鐘。"
     ],
     "categoryLabel": "📍 Attraction",
-    "price": "Ticketed",
+    "price": "40,000 VND / adult",
     "transport": "Grab / walk depending on current route",
     "audit": "Route-ready; check live hours before visit",
     "highlights": [
@@ -1368,32 +1368,35 @@ const PLACES={
       "最後一日以補貨為主，不需要為購物特別繞路。"
     ]
   },
-  "kocochi": {
-    "title": "KOCOCHI Spa & Wellness",
+  "moc-healing": {
+    "title": "Mộc Healing Spa",
     "emoji": "🦶",
     "cat": "SPA",
-    "sub": "Day 4 · Fashion Day Foot Reset",
+    "sub": "Day 4 · Bến Thành Foot Reset",
     "status": "planned",
-    "hours": "09:30–22:30 daily · last entry 21:20",
-    "maps": "https://www.google.com/maps/search/?api=1&query=KOCOCHI%20Spa%20%26%20Wellness%208%2F1%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%20Ho%20Chi%20Minh%20City",
-    "address": "8/1 Lê Thánh Tôn, District 1, Ho Chi Minh City, Vietnam",
-    "desc": "行完一整日 local fashion，呢一站只做一件事：把雙腳交出去。KOCOCHI 藏在 Lê Thánh Tôn 小巷，60 分鐘 foot massage 剛好把 shopping 的疲倦收好，再慢慢行去 LÚNE。",
+    "hours": "11:00–23:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Moc%20Healing%20Spa%2039%2041%20Thu%20Khoa%20Huan%20Ben%20Thanh%20Ho%20Chi%20Minh",
+    "address": "39–41 Thủ Khoa Huân, Bến Thành, Ho Chi Minh City, Vietnam",
+    "desc": "Pizza 4P’s 食完沿 Thủ Khoa Huân 行過來，不為按摩多叫一程車。這站放在下午 shopping 前，先把腳鬆開，再一路步行接 Bến Thành / Nguyễn Trãi 一帶的 local fashion。",
     "signature": [
-      "60 分鐘 Foot Massage",
-      "Lê Thánh Tôn 小巷內，接 LÚNE 動線自然"
+      "Foot massage / body massage",
+      "與 Pizza 4P’s Bến Thành 同一條街",
+      "Spa 後直接開始步行 shopping corridor"
     ],
     "worth": [
-      "目標約 16:45–17:45；不要把療程拉長，18:30 要坐低食 dinner。",
-      "官方列明 Foot Massage 為疲累雙腿而設。"
+      "約 14:20 入場，目標 60 分鐘。",
+      "Hotline / Zalo：+84 28 3535 4436。"
     ],
     "categoryLabel": "💆 Spa",
-    "transport": "Walk / short Grab depending on Nguyễn Trãi finish point",
+    "transport": "Walk from Pizza 4P’s Bến Thành",
     "highlights": [
-      "60 分鐘 Foot Massage",
-      "Lê Thánh Tôn 小巷內，接 LÚNE 動線自然"
+      "Foot massage / body massage",
+      "與 Pizza 4P’s Bến Thành 同一條街",
+      "Spa 後直接開始步行 shopping corridor"
     ],
     "tips": [
-      "目標約 16:45–17:45；不要把療程拉長，18:30 要坐低食 dinner。"
+      "預約時確認 60 分鐘 foot-focused treatment。",
+      "做完不用叫 Grab，直接開始下午 shopping。"
     ]
   },
   "cu-chi": {
@@ -1431,8 +1434,8 @@ const PLACES={
     "cat": "SPA",
     "sub": "Day 3 · Hair Reset",
     "status": "planned",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Nara%20Spa%209%20%C4%90%E1%BB%97%20Quang%20%C4%90%E1%BA%A9u%20Ho%20Chi%20Minh%20City",
-    "address": "9 Đỗ Quang Đẩu, Ho Chi Minh City, Vietnam",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Nara%20Spa%20595%2F74%20Nguyen%20Dinh%20Chieu%20Ho%20Chi%20Minh%20City",
+    "address": "595/74 Nguyễn Đình Chiểu, Bàn Cờ, District 3, Ho Chi Minh City",
     "desc": "Cu Chi 的熱、塵與一整個 War Day，到這裡才真正停低。90 分鐘要揀 Massage + Hair Wash / Hair Spa，一次過洗走汗氣，也讓晚上的 ốc + beer 重新有精神。",
     "signature": [
       "Massage + Hair Wash / Hair Spa",
@@ -1599,7 +1602,7 @@ const CATEGORIES={
       "key": "nha-suga"
     },
     {
-      "key": "kocochi"
+      "key": "moc-healing"
     },
     {
       "key": "nara-spa"
@@ -1671,7 +1674,7 @@ const GUIDE_ORDER=[
   "pink-church",
   "war-museum",
   "social-club",
-  "kocochi",
+  "moc-healing",
   "cu-chi",
   "nara-spa",
   "oc-dao"
@@ -1816,44 +1819,38 @@ const DAY_LINKS={
   ],
   "pizza4ps": [
     [
-      "Day 2",
-      "day.html?day=2#pizza4ps"
+      "Day 4",
+      "day.html?day=4#pizza4ps"
     ]
   ],
   "libe": [
     [
-      "Day 2",
-      "day.html?day=2#libe"
+      "Day 4",
+      "day.html?day=4#shopping-nguyen-trai"
     ]
   ],
   "dauple": [
     [
-      "Day 2",
-      "day.html?day=2#shopping-nguyen-trai"
+      "Day 4",
+      "day.html?day=4#shopping-nguyen-trai"
     ]
   ],
   "nosbyn": [
     [
-      "Day 2",
-      "day.html?day=2#shopping-nguyen-trai"
+      "Day 4",
+      "day.html?day=4#shopping-nguyen-trai"
     ]
   ],
-  "new-playground": [
+  "moc-healing": [
     [
-      "Day 2",
-      "day.html?day=2#shopping-nguyen-trai"
-    ]
-  ],
-  "kocochi": [
-    [
-      "Day 2",
-      "day.html?day=2#kocochi"
+      "Day 4",
+      "day.html?day=4#moc-healing"
     ]
   ],
   "lune": [
     [
-      "Day 2",
-      "day.html?day=2#lune"
+      "Day 4",
+      "day.html?day=4#lune"
     ]
   ],
   "cu-chi": [
@@ -2039,7 +2036,7 @@ const BOOKINGS_DATA={
     "bookingContact": "+84 28 7777 2022",
     "secondaryContact": "",
     "bookingUrl": "https://www.adrienguenzi.com/reservations",
-    "notes": "18:30 dinner for 4; Monday dinner service is open. KOCOCHI is nearby, so foot massage → short walk → LÚNE keeps the Fashion Day finish compact.",
+    "notes": "18:30 dinner for 4; Monday dinner service is open. Fashion Day shopping後先返 Fusion 放低戰利品 / freshen up，再輕身 Grab 去 LÚNE。",
     "placeId": "lune"
   },
   "bk-little-bear": {
@@ -2081,15 +2078,15 @@ const BOOKINGS_DATA={
     "bookingCategory": "Restaurants",
     "category": "Restaurants",
     "type": "restaurant",
-    "title": "Pizza 4P’s Hai Bà Trưng",
+    "title": "Pizza 4P’s Bến Thành",
     "depositPaid": "",
     "depositAmount": "",
     "depositCurrency": "",
     "bookingMethod": "Official TableCheck reservation",
     "bookingContact": "",
     "secondaryContact": "",
-    "bookingUrl": "https://www.tablecheck.com/vi/pizza-4ps-hcm-hai-ba-trung/reserve/landing",
-    "notes": "Hai Bà Trưng branch only. Reserve lunch for 4 at 13:00.",
+    "bookingUrl": "https://www.tablecheck.com/vi/pizza-4ps-hcm-ben-thanh/reserve/landing",
+    "notes": "Bến Thành branch · 8 Thủ Khoa Huân。Reserve lunch for 4 at 13:00；食完步行接 Mộc Healing。",
     "placeId": "pizza4ps"
   },
   "bk-nha-suga": {
@@ -2219,11 +2216,11 @@ const BOOKINGS_DATA={
     "notes": "14:30 late lunch · 4 人。Cu Chi tour 直接 drop 到餐廳；預留 60–65 分鐘，15:40 左右接 War Remnants Museum。",
     "placeId": "man-moi"
   },
-  "bk-kocochi": {
-    "id": "bk-kocochi",
-    "bookingId": "bk-kocochi",
-    "eventId": "kocochi",
-    "timelineItemId": "kocochi",
+  "bk-moc-healing": {
+    "id": "bk-moc-healing",
+    "bookingId": "bk-moc-healing",
+    "eventId": "moc-healing",
+    "timelineItemId": "moc-healing",
     "day": 4,
     "dayId": "day4",
     "status": "pending",
@@ -2234,16 +2231,16 @@ const BOOKINGS_DATA={
     "category": "Spa",
     "type": "spa",
     "emoji": "🦶",
-    "title": "KOCOCHI Spa & Wellness",
+    "title": "Mộc Healing Spa",
     "depositPaid": "",
     "depositAmount": "",
     "depositCurrency": "",
-    "bookingMethod": "Phone / official contact",
-    "bookingContact": "+84 28 3535 5809",
-    "secondaryContact": "+84 963 999 842",
-    "bookingUrl": "https://kocochispa.com/contacts.html",
-    "notes": "16:45/17:00 · 60 分鐘 Foot Massage。主打足底與小腿放鬆，Fashion Day 行足一日後最對症；做完步行去 LÚNE。",
-    "placeId": "kocochi"
+    "bookingMethod": "Hotline / Zalo",
+    "bookingContact": "+84 28 3535 4436",
+    "secondaryContact": "",
+    "bookingUrl": "https://mochealingspa.com/",
+    "notes": "14:20–15:20 · 約 60 分鐘 foot-focused treatment。Pizza 4P’s Bến Thành 食完沿同一條 Thủ Khoa Huân 步行過來；做完直接開始 Bến Thành → Nguyễn Trãi shopping walk。",
+    "placeId": "moc-healing"
   },
   "bk-cu-chi": {
     "id": "bk-cu-chi",
@@ -2289,11 +2286,11 @@ const BOOKINGS_DATA={
     "depositPaid": "",
     "depositAmount": "",
     "depositCurrency": "",
-    "bookingMethod": "Direct booking",
-    "bookingContact": "",
-    "secondaryContact": "",
-    "bookingUrl": "",
-    "notes": "17:15–18:45 · 約 90 分鐘。指定 Massage + Hair Wash / Hair Spa；Cu Chi 的熱與塵之後，一次把肩頸、頭皮和頭髮 reset。",
+    "bookingMethod": "WhatsApp / Zalo / Phone / Online",
+    "bookingContact": "+84 903 877 906",
+    "secondaryContact": "+84 369 750 993",
+    "bookingUrl": "https://www.naraspasaigon.com/",
+    "notes": "17:15–18:45 · 約 90 分鐘。指定 Massage + Hair Wash / Hair Spa；地址 595/74 Nguyễn Đình Chiểu。WhatsApp / Zalo：+84 903 877 906。",
     "placeId": "nara-spa"
   }
 };
@@ -2554,7 +2551,7 @@ const ITINERARY_DATA={
         "details": [
           "蟹肉粉絲做今日主 lunch；食完先正式轉場 Thảo Điền。"
         ],
-        "route": "🚕 下一站：約 12:00 Grab 去 OHQUAO，從 19 Đường Số 38 開始 Thảo Điền Lifestyle Walk。",
+        "route": "🚕 下一站：約 12:00 Grab → OHQUAO · 19 Đường Số 38, Thảo Điền。落車後開始 Lifestyle Walk。",
         "map": "https://www.google.com/maps/search/?api=1&query=Qu%C3%A1n%20Thu%C3%BD%2094%2084%20%C4%90inh%20Ti%C3%AAn%20Ho%C3%A0ng%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
         "type": "meal",
         "dayId": "day2",
@@ -2614,7 +2611,7 @@ const ITINERARY_DATA={
         "time": "16:00–17:45",
         "title": "🌿 Thảo Điền · Lifestyle Walk II",
         "details": [
-          "黃昏再走第二段；店可以 skip，步調不用。"
+          "黃昏再走第二段，留一點時間給真正想逛的店。"
         ],
         "route": "🚶 下一站：慢慢行／短程移動去 Little Bear，18:00–18:30 入座。",
         "map": "https://www.google.com/maps/search/?api=1&query=LOUH%20Saigon%2061%20Nguy%E1%BB%85n%20B%C3%A1%20Hu%C3%A2n%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%20Ho%20Chi%20Minh%20City",
@@ -2748,113 +2745,75 @@ const ITINERARY_DATA={
         "id": "com-tam-moc",
         "time": "09:00–10:00",
         "title": "🍚 Cơm Tấm Mộc",
-        "details": [
-          "炭香碎米飯先墊底；今日主角是 shopping，不把早餐拖長。"
-        ],
+        "details": ["炭香碎米飯先墊底；今日主角是 shopping，不把早餐拖長。"],
         "route": "🚕 下一站：Grab 去 11 Garmentory，10:15 開始 Fashion Day。",
         "map": "https://www.google.com/maps/search/?api=1&query=C%C6%A1m%20T%E1%BA%A5m%20M%E1%BB%99c%2085%20L%C3%BD%20T%E1%BB%B1%20Tr%E1%BB%8Dng%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
-        "type": "meal",
-        "dayId": "day4",
-        "placeId": "com-tam-moc",
-        "bookingId": null
+        "type": "meal", "dayId": "day4", "placeId": "com-tam-moc", "bookingId": null
       },
       {
         "id": "garmentory",
         "time": "10:15–11:15",
         "title": "🧥 11 Garmentory",
-        "details": [
-          "先由本地設計選物定調；值得試的慢慢試，不追件數。"
-        ],
-        "route": "🚕 下一站：Grab 去 Dalla Saigon（64 Trần Quang Diệu），由這裡開始上午 shopping cluster。",
+        "details": ["先由本地設計選物開始，看看今日第一輪 local fashion。"],
+        "route": "🚕 下一站：Grab → Dalla Saigon · 64 Trần Quang Diệu，從這裡開始上午 shopping cluster。",
         "map": "https://www.google.com/maps/search/?api=1&query=11%20Garmentory%20117B%20Nguy%E1%BB%85n%20%C4%90%C3%ACnh%20Ch%C3%ADnh%2C%20Ph%C6%B0%E1%BB%9Dng%20C%E1%BA%A7u%20Ki%E1%BB%87u%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
-        "type": "shoppingWindow",
-        "dayId": "day4",
-        "placeId": "garmentory",
-        "bookingId": null,
-        "showShoppingDirectory": true
+        "type": "shoppingWindow", "dayId": "day4", "placeId": "garmentory", "bookingId": null, "showShoppingDirectory": true
       },
       {
         "id": "shopping-tqd",
         "time": "11:30–12:45",
         "title": "🛍 Trần Quang Diệu · Fashion Cluster",
-        "details": [
-          "Dalla → RUBIES → Lane Cì；同一段路自由 browse，喜歡才停。"
-        ],
-        "route": "🚕 下一站：12:45 左右收尾，Grab 去 Pizza 4P’s Hai Bà Trưng。",
+        "details": ["Dalla → RUBIES → Lane Cì；三間沿同一段 Trần Quang Diệu 逛過去。"],
+        "route": "🚕 下一站：12:45 左右 Grab → Pizza 4P’s Bến Thành · 8 Thủ Khoa Huân。",
         "map": "https://www.google.com/maps/search/?api=1&query=Dalla%20Saigon%2064%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%20Ph%C6%B0%E1%BB%9Dng%2014%20Qu%E1%BA%ADn%203%20H%E1%BB%93%20Ch%C3%AD%20Minh",
-        "type": "shoppingWindow",
-        "dayId": "day4",
-        "placeId": "dalla-saigon",
-        "bookingId": null,
-        "guideIds": [
-          "dalla-saigon",
-          "rubies",
-          "lane-ci"
-        ],
-        "showShoppingDirectory": true
+        "type": "shoppingWindow", "dayId": "day4", "placeId": "dalla-saigon", "bookingId": null,
+        "guideIds": ["dalla-saigon","rubies","lane-ci"], "showShoppingDirectory": true
       },
       {
         "id": "pizza4ps",
         "time": "13:00–14:15",
-        "title": "🍕 Pizza 4P’s · Hai Bà Trưng",
-        "details": [
-          "最熱的時段留在冷氣裡；pizza + 自家芝士，讓腳也休息一餐。"
-        ],
-        "route": "🚕 下一站：Grab 去 LIBÉ Nguyễn Trãi，14:30 左右開始下午 shopping。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%E2%80%99s%20Hai%20B%C3%A0%20Tr%C6%B0ng%20151B%20Hai%20B%C3%A0%20Tr%C6%B0ng%2C%20V%C3%B5%20Th%E1%BB%8B%20S%C3%A1u%20Ward%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
-        "type": "meal",
-        "dayId": "day4",
-        "placeId": "pizza4ps",
-        "bookingId": "bk-pizza4ps"
+        "title": "🍕 Pizza 4P’s · Bến Thành",
+        "details": ["最熱的時段留在冷氣裡；pizza + 自家芝士，讓腳也休息一餐。"],
+        "route": "🚶 下一站：沿 Thủ Khoa Huân 步行去 Mộc Healing Spa · 39–41 Thủ Khoa Huân。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20Ben%20Thanh%208%20Thu%20Khoa%20Huan%20Ho%20Chi%20Minh%20City",
+        "type": "meal", "dayId": "day4", "placeId": "pizza4ps", "bookingId": "bk-pizza4ps"
+      },
+      {
+        "id": "moc-healing",
+        "time": "14:20–15:20",
+        "title": "🦶 Mộc Healing · Foot Reset",
+        "details": ["60 分鐘 foot-focused reset；食完飯行過來，下午再開第二輪 shopping。"],
+        "route": "🚶 下一站：由 Bến Thành 一路步行逛 NOSBYN → Dauple by Ka’s → LIBÉ；不為每間店重新叫車。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Moc%20Healing%20Spa%2039%2041%20Thu%20Khoa%20Huan%20Ben%20Thanh%20Ho%20Chi%20Minh",
+        "type": "spa", "dayId": "day4", "placeId": "moc-healing", "bookingId": "bk-moc-healing"
       },
       {
         "id": "shopping-nguyen-trai",
-        "time": "14:30–16:30",
-        "title": "🛍 Nguyễn Trãi · Local Fashion",
-        "details": [
-          "LIBÉ / Dauple by Ka’s / NOSBYN / The New Playground；下午由 Nguyễn Trãi 一路看 local fashion。"
-        ],
-        "route": "🚕 下一站：約 16:30 收尾，前往 KOCOCHI 做 60 分鐘 foot massage。",
-        "map": "https://www.google.com/maps/search/?api=1&query=LIB%C3%89%20LIB%C3%89%20Nguy%E1%BB%85n%20Tr%C3%A3i%2C%2052%20Nguy%E1%BB%85n%20Tr%C3%A3i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
-        "type": "shoppingWindow",
-        "dayId": "day4",
-        "placeId": "libe",
-        "bookingId": null,
-        "guideIds": [
-          "libe",
-          "dauple",
-          "nosbyn",
-          "new-playground"
-        ],
-        "showShoppingDirectory": true
+        "time": "15:25–17:15",
+        "title": "🛍 Bến Thành → Nguyễn Trãi · Local Fashion Walk",
+        "details": ["NOSBYN · 9 Phan Chu Trinh → Dauple by Ka’s · 70 Phạm Hồng Thái → LIBÉ · 52 Nguyễn Trãi。一路向 Nguyễn Trãi 行，沿途先逛真正順路的店。"],
+        "route": "🚕 下一站：約 17:15 Grab 返回 Fusion Original，放低戰利品、補妝再出門。",
+        "map": "https://www.google.com/maps/search/?api=1&query=NOSBYN%209%20Phan%20Chu%20Trinh%20Ho%20Chi%20Minh%20City",
+        "type": "shoppingWindow", "dayId": "day4", "placeId": "nosbyn", "bookingId": null,
+        "guideIds": ["nosbyn","dauple","libe"], "showShoppingDirectory": true
       },
       {
-        "id": "kocochi",
-        "time": "16:45–17:45",
-        "title": "🦶 KOCOCHI · Foot Reset",
-        "details": [
-          "60 分鐘 foot massage；把一日走路的重量留在這裡。"
-        ],
-        "route": "🚶 下一站：沿 Lê Thánh Tôn 慢慢行去 LÚNE，預留約 15 分鐘。",
-        "map": "https://www.google.com/maps/search/?api=1&query=KOCOCHI%20Spa%20%26%20Wellness%208%2F1%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%20Ho%20Chi%20Minh%20City",
-        "type": "spa",
-        "dayId": "day4",
-        "placeId": "kocochi",
-        "bookingId": "bk-kocochi"
+        "id": "hotel-reset",
+        "time": "17:25–18:05",
+        "title": "🛍️ → 🏨 Fusion · Drop Bags & Freshen Up",
+        "details": ["把今日戰利品留在房間，補妝、換口氣，再輕身去晚餐。"],
+        "route": "🚕 下一站：18:10 左右 Grab → LÚNE · 17/14 Lê Thánh Tôn，18:30 入席。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%2065%20Le%20Loi%20Ho%20Chi%20Minh",
+        "type": "stay", "dayId": "day4", "placeId": "fusion", "bookingId": null
       },
       {
         "id": "lune",
         "time": "18:30–20:30",
         "title": "🥂 LÚNE",
-        "details": [
-          "Fashion Day 最後換成一張安靜餐桌；18:30 入席，讓夜晚慢下來。"
-        ],
+        "details": ["放低 shopping bags 再來；Fashion Day 最後換成一張安靜餐桌。"],
         "route": "🏨 下一站：Dinner 後 Grab 返回 Fusion。",
         "map": "https://www.google.com/maps/search/?api=1&query=L%C3%9ANE%20Restaurant%20%26%20Bar%2017%2F14%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20S%C3%A0i%20G%C3%B2n%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
-        "type": "meal",
-        "dayId": "day4",
-        "placeId": "lune",
-        "bookingId": "bk-lune"
+        "type": "meal", "dayId": "day4", "placeId": "lune", "bookingId": "bk-lune"
       }
     ],
     "dayId": "day4"

@@ -617,11 +617,7 @@ function closeTripModal() {
   if(guideModal&&!returnToGuide){
     guideModal.classList.remove('show');
     window.GUIDE_MODAL_ORIGIN=null;
-    const returnScroll=Number(window.GUIDE_MODAL_RETURN_SCROLL_Y);
-    if(Number.isFinite(returnScroll)){
-      window.GUIDE_MODAL_RETURN_SCROLL_Y=null;
-      requestAnimationFrame(()=>requestAnimationFrame(()=>window.scrollTo({top:returnScroll,left:0,behavior:'auto'})));
-    }
+    if(typeof window.restoreGuideTimelineOrigin==='function') window.restoreGuideTimelineOrigin();
   }
   closeMiniMenus();
   document.body.classList.remove('admin-overlay-open');

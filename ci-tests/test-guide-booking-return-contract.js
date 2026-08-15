@@ -5,5 +5,7 @@ assert(guide.includes("window.GUIDE_MODAL_ORIGIN='guide'"),'Guide menu must reco
 assert(guide.includes("window.TRIP_MODAL_RETURN_TO_GUIDE=window.GUIDE_MODAL_ORIGIN!=='timeline'"),'Linked Booking return policy must derive from Guide origin');
 assert(trip.includes("if(guideModal&&!returnToGuide)"),'Booking close must close intermediate Guide when return-to-Guide is false');
 assert(trip.includes("window.GUIDE_MODAL_ORIGIN=null"),'Booking close must clear consumed Guide origin');
-assert(trip.includes("window.GUIDE_MODAL_RETURN_SCROLL_Y=null"),'Timeline return must consume saved scroll position');
+assert(guide.includes("window.GUIDE_MODAL_RETURN_SCROLL_Y=null"),'Timeline return helper must consume saved scroll position');
+assert(guide.includes("window.GUIDE_MODAL_RETURN_ITEM_ID=null"),'Timeline return helper must consume saved item context');
+assert(trip.includes("restoreGuideTimelineOrigin"),'Booking close must invoke canonical Timeline-origin restoration');
 console.log('GUIDE → BOOKING RETURN CONTRACT: PASS — Timeline origin returns directly to Timeline; Guide origin may return to Guide.');

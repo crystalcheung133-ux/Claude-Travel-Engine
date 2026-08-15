@@ -282,5 +282,9 @@
   "test-python-ci-syntax.sh": {
     "status": "active",
     "note": "parse-check Python browser CI before release"
+  },
+  "test-vn-route-first-spa-contract.js": {
+    "status": "active",
+    "note": "D4 route-first spa, factual corrections and exact Timeline return"
   }
 }

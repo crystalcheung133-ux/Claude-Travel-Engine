@@ -18,5 +18,6 @@ node ci-tests/test-guide-menu-alignment.js || failed=1
 node ci-tests/test-itinerary-d2-d4-reconciliation.js || failed=1
 node ci-tests/test-vn-content-contract.js || failed=1
 node ci-tests/test-guide-booking-return-contract.js || failed=1
+node ci-tests/test-vn-route-first-spa-contract.js || failed=1
 [ "$failed" -eq 0 ] || exit 1
 echo "VN PRODUCT CONTRACTS: PASS"

@@ -54,6 +54,7 @@ function saveGuideNavigationContext(category, options){
 function openGuideGroupFromDay(keys,itemId){
   window.GUIDE_MODAL_ORIGIN='timeline';
   window.GUIDE_MODAL_RETURN_SCROLL_Y=window.scrollY||window.pageYOffset||0;
+  window.GUIDE_MODAL_RETURN_ITEM_ID=itemId||null;
   const excluded=new Set(TRIP_CONFIG.guide?.excludedPlaceIds||[]);
   const clean=[...new Set((Array.isArray(keys)?keys:[]).filter(key=>key&&typeof PRODUCTION_GUIDE.places!=='undefined'&&PRODUCTION_GUIDE.places[key]&&!excluded.has(key)))];
   if(!clean.length)return;
@@ -495,18 +496,25 @@ function openGuideModal(key,options){
  const sheet=document.querySelector('#guideModal .guide-sheet');
  if(sheet){sheet.scrollTop=0;if(typeof window.applyNearFitModal==='function')window.applyNearFitModal(sheet,'guide-near-fit');}
 }
+function restoreGuideTimelineOrigin(){
+ const raw=window.GUIDE_MODAL_RETURN_SCROLL_Y;
+ const returnScroll=(typeof raw==='number'&&Number.isFinite(raw))?raw:null;
+ const itemId=window.GUIDE_MODAL_RETURN_ITEM_ID||null;
+ window.GUIDE_MODAL_RETURN_SCROLL_Y=null;
+ window.GUIDE_MODAL_RETURN_ITEM_ID=null;
+ if(returnScroll===null)return;
+ const restore=()=>window.scrollTo({top:returnScroll,left:0,behavior:'auto'});
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{restore();setTimeout(restore,60);}));
+}
 function closeGuideModal(){
- const returnScroll=Number(window.GUIDE_MODAL_RETURN_SCROLL_Y);
+ const shouldRestore=window.GUIDE_MODAL_ORIGIN==='timeline';
  window.GUIDE_MODAL_ORIGIN=null;
  const modal=$('guideModal');if(modal)modal.classList.remove('show');
  guideAlternativeKeys=[];
  closeMiniMenus();
  document.body.classList.remove('admin-overlay-open');
  clearGuideNavigationContext();
- if(Number.isFinite(returnScroll)){
-  window.GUIDE_MODAL_RETURN_SCROLL_Y=null;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>window.scrollTo({top:returnScroll,left:0,behavior:'auto'})));
- }
+ if(shouldRestore)restoreGuideTimelineOrigin();
 }
 
 function renderPlacePage(key){
