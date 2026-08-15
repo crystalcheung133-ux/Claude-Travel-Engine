@@ -27,7 +27,9 @@ function guideBookingHref(bookingId){
 function openGuideLinkedBooking(bookingId){
   const booking=window.BOOKING_AUTHORITY?BOOKING_AUTHORITY.get(bookingId):null;
   if(!booking)return;
-  window.TRIP_MODAL_RETURN_TO_GUIDE=true;
+  // Navigation contract: a Guide opened from Day Timeline is an intermediate layer.
+  // Closing its linked Booking returns directly to Timeline; Guide-origin flows return to Guide.
+  window.TRIP_MODAL_RETURN_TO_GUIDE=window.GUIDE_MODAL_ORIGIN!=='timeline';
   document.body.classList.add('guide-booking-stack-open');
   if(booking.type==='activity'){
     openActivityBookingDetail(bookingId,booking);
@@ -50,6 +52,7 @@ function saveGuideNavigationContext(category, options){
   }catch(e){}
 }
 function openGuideGroupFromDay(keys,itemId){
+  window.GUIDE_MODAL_ORIGIN='timeline';
   window.GUIDE_MODAL_RETURN_SCROLL_Y=window.scrollY||window.pageYOffset||0;
   const excluded=new Set(TRIP_CONFIG.guide?.excludedPlaceIds||[]);
   const clean=[...new Set((Array.isArray(keys)?keys:[]).filter(key=>key&&typeof PRODUCTION_GUIDE.places!=='undefined'&&PRODUCTION_GUIDE.places[key]&&!excluded.has(key)))];
@@ -99,24 +102,26 @@ function openShoppingDirectoryView(requestedDay){
  const raw=Array.isArray(globalThis.VN_SHOPPING_DIRECTORY_CARDS)?globalThis.VN_SHOPPING_DIRECTORY_CARDS:[];
  const day=Number(requestedDay)||0;
  const cards=day?raw.filter(card=>shoppingDirectoryDay(card)===day):raw;
- const groups=[
-  ['Day 2 · Nguyễn Trãi & Central D1',2],
-  ['Day 3 · Thảo Điền Lifestyle Walk',3],
-  ['Day 4 · Phú Nhuận & District 3',4]
- ];
- const grouped=groups.map(([label,n])=>{
-   if(day&&day!==n)return '';
-   const rows=cards.filter(card=>shoppingDirectoryDay(card)===n).join('');
-   return rows?`<section class="directory-route-group"><h3>${label}</h3><div class="directory-route-grid">${rows}</div></section>`:'';
- }).join('');
- const detours=day?'':cards.filter(card=>!shoppingDirectoryDay(card)).join('');
- const optional=detours?`<section class="directory-route-group"><h3>Optional Detours</h3><div class="directory-route-grid">${detours}</div></section>`:'';
+ function section(label,rows){return rows.length?`<section class="directory-route-group"><h3>${label}</h3><div class="directory-route-grid">${rows.join('')}</div></section>`:'';}
+ let grouped='';
+ if(day===4){
+   const morning=cards.filter(card=>/11 Garmentory|Trần Quang Diệu|Dalla Saigon|RUBIES|Lane Cì/i.test(card));
+   const afternoon=cards.filter(card=>!morning.includes(card));
+   grouped=section('Morning · 11 Garmentory + Trần Quang Diệu',morning)+section('Afternoon · Nguyễn Trãi + nearby fashion',afternoon);
+ }else if(day===2){
+   grouped=section('Tân Định Morning + Thảo Điền Lifestyle Walk',cards);
+ }else if(day){grouped=section(`Day ${day}`,cards);}
+ else{
+   grouped=section('Day 2 · Slow Lifestyle Day',raw.filter(card=>shoppingDirectoryDay(card)===2))+section('Day 4 · Fashion Day',raw.filter(card=>shoppingDirectoryDay(card)===4));
+ }
+ const optional=day?'':section('Optional Detours',raw.filter(card=>!shoppingDirectoryDay(card)));
  const title=day?`🛍 Day ${day} Shopping Directory`:'🛍 Optional Shopping Directory';
- const lead=day?`只顯示 Day ${day} 當日順路店舖；按體力取捨，不需要逐間完成。`:'按當日路線分組；近邊去邊，唔需要逐間完成。';
+ const lead=day===4?'上午走 11 Garmentory + Trần Quang Diệu，下午轉 Nguyễn Trãi；兩段 shopping，各有自己的節奏。':day===2?'Tân Định 之後進 Thảo Điền，從街區一路慢慢走到黃昏。':'按當日街區收好，打開就知道下一段往哪裡走。';
  $('guideModalContent').innerHTML=`<p class="kicker">Shopping Directory</p><h2>${title}</h2><p class="lead">${lead}</p><div class="directory-grid">${grouped}${optional}</div>`;
  closeMiniMenus();$('guideModal').classList.add('show');
- const sheet=document.querySelector('#guideModal .guide-sheet'); if(sheet)sheet.scrollTop=0;
+ const sheet=document.querySelector('#guideModal .guide-sheet');if(sheet)sheet.scrollTop=0;
 }
+
 window.addEventListener('hashchange',applyGuideHashView);
 document.addEventListener('DOMContentLoaded',applyGuideHashView);
 function openRequestedGuideCard(){
@@ -232,6 +237,7 @@ function groupedGuideRows(cat,list){
  return list.map(guideListRow).join('');
 }
 function openGuideCategory(cat){
+ window.GUIDE_MODAL_ORIGIN='guide';
  const semantic=guideSemanticCategory(cat);
  saveGuideNavigationContext(semantic);
  const list=guideSortedCategoryItems(semantic);
@@ -491,6 +497,7 @@ function openGuideModal(key,options){
 }
 function closeGuideModal(){
  const returnScroll=Number(window.GUIDE_MODAL_RETURN_SCROLL_Y);
+ window.GUIDE_MODAL_ORIGIN=null;
  const modal=$('guideModal');if(modal)modal.classList.remove('show');
  guideAlternativeKeys=[];
  closeMiniMenus();

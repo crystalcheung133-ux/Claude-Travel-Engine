@@ -614,7 +614,15 @@ function closeTripModal() {
   const returnToGuide=window.TRIP_MODAL_RETURN_TO_GUIDE===true;
   window.TRIP_MODAL_RETURN_TO_GUIDE=false;
   const guideModal=document.getElementById('guideModal');
-  if(guideModal&&!returnToGuide) guideModal.classList.remove('show');
+  if(guideModal&&!returnToGuide){
+    guideModal.classList.remove('show');
+    window.GUIDE_MODAL_ORIGIN=null;
+    const returnScroll=Number(window.GUIDE_MODAL_RETURN_SCROLL_Y);
+    if(Number.isFinite(returnScroll)){
+      window.GUIDE_MODAL_RETURN_SCROLL_Y=null;
+      requestAnimationFrame(()=>requestAnimationFrame(()=>window.scrollTo({top:returnScroll,left:0,behavior:'auto'})));
+    }
+  }
   closeMiniMenus();
   document.body.classList.remove('admin-overlay-open');
   if(returnToGuide){
@@ -647,8 +655,8 @@ function renderDashboard(){
 function bookingEntityIcon(booking,category){
   const type=String(booking&&booking.type||'').toLowerCase();
   const title=String(booking&&booking.title||'').toLowerCase();
-  if(type==='restaurant')return title.includes('omakase')?'🍣':title.includes('little bear')?'🧸':title.includes('pizza')?'🍕':title.includes('lune')?'🇫🇷':title.includes('quince')?'🔥':'🍽️';
-  if(type==='spa')return title.includes('suga')||title.includes('head')?'🫧':title.includes('mộc kim')||title.includes('moc kim')?'🌿':title.includes('mộc hương')||title.includes('moc huong')||title.includes('wellness')?'🪨':title.includes('tỉnh thức')||title.includes('tinh thuc')?'🦶':title.includes('hạ spa')||title.includes('ha spa')?'💆‍♀️':'💆';
+  if(type==='restaurant')return title.includes('omakase')?'🍣':title.includes('little bear')?'🧸':title.includes('pizza')?'🍕':title.includes('lune')?'🇫🇷':'🍽️';
+  if(type==='spa')return title.includes('suga')||title.includes('head')?'🫧':title.includes('mộc hương')||title.includes('moc huong')||title.includes('wellness')?'🌿':title.includes('hạ spa')||title.includes('ha spa')?'💆‍♀️':'💆';
   if(type==='transport')return title.includes('airport')?'✈️':'🚐';
   if(type==='activity'||type==='experience')return title.includes('cooking')?'👩‍🍳':'🎟️';
   return bookingCategoryIcon(category);

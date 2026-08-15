@@ -1,19 +1,15 @@
 {
   "engine_version": "25.5.2",
-  "artifact_version": "Saigon Companion RC29.19 · Travel Engine 25.5.2 Itinerary D2-D4 Reconciliation",
+  "artifact_version": "Saigon Companion RC29.25 · Travel Engine 25.5.2 Browser Gate Syntax Fix",
   "baseline_engine": "25.5.2",
   "release_date": "2026-08-15",
-  "release_type": "vn-itinerary-d2-d4-reconciliation",
+  "release_type": "browser-gate-syntax-fix",
   "runtime_behavior_change": false,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
-    "D2–D4 itinerary replaced with approved Fashion Day / War Day / Slow Lifestyle Day plan",
-    "Guide cards and shopping directory reconciled to the new day roles",
-    "Retired Cooking Class, Mộc Kim, Tỉnh Thức and Quince active Guide/Booking records removed",
-    "Added KOCOCHI, Cu Chi, Nara Spa and Ốc Đào Guide/Booking relationships",
-    "All D2–D4 Next Leg instructions recomputed from the new active order",
-    "Day 1 and Day 5 itinerary content unchanged",
-    "Travel Engine 25.5.2 presentation shell and Studio lifecycle retained unchanged"
+    "Fixed Python syntax error in canonical browser release smoke (=== → ==)",
+    "Added static Python py_compile gate so parse-time browser-test errors fail Master CI",
+    "No production UI, modal, navigation, itinerary, Guide or Booking behaviour changed"
   ],
   "explicitly_deferred": [
     "parallel itinerary tracks",
@@ -29,5 +25,5 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "vn-rc29-19-engine-25-5-2-studio-lifecycle"
+  "asset_cache_token": "vn-rc29-25-engine-25-5-2-browser-syntax"
 }

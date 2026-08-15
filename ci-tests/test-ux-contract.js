@@ -26,9 +26,9 @@ if(!expenses.includes('canManageExpense') || !expenses.includes('This cannot be 
 if(!moments.includes('canManageMoment') || !moments.includes('This cannot be undone.')) failures.push('Moment ownership/delete confirmation contract missing.');
 
 
-if(!guide.includes("openGuideLinkedBooking") || !guide.includes("TRIP_MODAL_RETURN_TO_GUIDE=true")) failures.push('Stay Guide Booking must open the in-page booking modal and preserve Guide context.');
+if(!guide.includes("openGuideLinkedBooking") || !guide.includes("TRIP_MODAL_RETURN_TO_GUIDE=window.GUIDE_MODAL_ORIGIN!=='timeline'")) failures.push('Guide Booking must use origin-aware in-page return context.');
 if(!guide.includes("BOOKING_AUTHORITY.get(bookingId)") || guide.includes("BOOKING_AUTHORITY.byId(bookingId)")) failures.push('Guide → Booking must resolve booking IDs through BOOKING_AUTHORITY.get().');
-if(!trip.includes("const returnToGuide=window.TRIP_MODAL_RETURN_TO_GUIDE===true") || !trip.includes("if(guideModal&&!returnToGuide)")) failures.push('Closing a booking opened from Guide must return to the original Guide card.');
+if(!trip.includes("const returnToGuide=window.TRIP_MODAL_RETURN_TO_GUIDE===true") || !trip.includes("if(guideModal&&!returnToGuide)")) failures.push('Closing a linked booking must honor the recorded Guide return policy.');
 
 if(!guide.includes("document.body.classList.add('guide-booking-stack-open')")) failures.push('Guide → Booking stacked modal state is missing.');
 if(!trip.includes("document.body.classList.remove('guide-booking-stack-open')")) failures.push('Closing Booking does not clear stacked modal state.');

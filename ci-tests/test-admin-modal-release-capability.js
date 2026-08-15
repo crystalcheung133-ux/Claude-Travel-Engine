@@ -15,5 +15,5 @@ for(const f of htmls){
   const txt = fs.readFileSync(path.join(root,f),'utf8');
   if(/styles\.css/.test(txt) && !/styles\.css\?v=[^"'\s>]+/.test(txt)) fail.push(`${f}: styles cache key missing`);
 }
-if(fail.length){ console.error('RC25.2.3 CONTRACT: FAILED'); fail.forEach(x=>console.error('- '+x)); process.exit(1); }
-console.log('RC25.2.3 CONTRACT: PASS — admin modal actions remain above fixed navigation');
+if(fail.length){ console.error('ADMIN MODAL + RELEASE ASSET CAPABILITY: FAILED'); fail.forEach(x=>console.error('- '+x)); process.exit(1); }
+console.log('ADMIN MODAL + RELEASE ASSET CAPABILITY: PASS');
