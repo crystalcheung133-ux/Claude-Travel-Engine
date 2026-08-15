@@ -649,6 +649,7 @@ function renderDashboard(){
 
 
 function bookingEntityIcon(booking,category){
+  if(booking&&booking.emoji)return String(booking.emoji);
   const type=String(booking&&booking.type||'').toLowerCase();
   const title=String(booking&&booking.title||'').toLowerCase();
   if(type==='restaurant')return title.includes('omakase')?'🍣':title.includes('little bear')?'🧸':title.includes('pizza')?'🍕':title.includes('lune')?'🇫🇷':'🍽️';

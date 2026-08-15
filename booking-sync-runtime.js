@@ -38,11 +38,26 @@
   function sourceTarget(){
     try{const view=root.GenerationSelectionAdapter&&root.GenerationSelectionAdapter.view?root.GenerationSelectionAdapter.view('bookings'):null;return view&&view.byId?view.byId:null;}catch(_){return null;}
   }
+  const CANONICAL_MASTER_FIELDS=Object.freeze([
+    'eventId','timelineItemId','placeId','day','dayId','date','time',
+    'bookingCategory','category','type','emoji','title','address',
+    'bookingUrl','signatureDishes'
+  ]);
+  function mergeRemoteWithDeployMaster(record,target){
+    const master=(target&&record&&target[record.id])||(root.BOOKINGS_DATA&&record&&root.BOOKINGS_DATA[record.id])||null;
+    if(!master)return record;
+    const merged=Object.assign({},record);
+    CANONICAL_MASTER_FIELDS.forEach(function(field){
+      if(Object.prototype.hasOwnProperty.call(master,field))merged[field]=clone(master[field]);
+    });
+    return merged;
+  }
   function applyRemote(row){
-    const record=mapRow(row);
+    let record=mapRow(row);
     if(!root.BOOKING_AUTHORITY)return record;
     const target=sourceTarget();
     if(row.deleted_at){root.BOOKING_AUTHORITY.remove(record.id,target,{silent:true,remote:true});return record;}
+    record=mergeRemoteWithDeployMaster(record,target);
     root.BOOKING_AUTHORITY.save(record.id,record,target,{silent:true,remote:true});
     return record;
   }

@@ -1,17 +1,17 @@
 {
   "engine_version": "25.5.2",
-  "artifact_version": "Saigon Companion RC29.27 · Travel Engine 25.5.2 Restaurant Guide & Booking Audit",
+  "artifact_version": "Saigon Companion RC29.28 · Travel Engine 25.5.2 Canonical Booking Sync Fix",
   "baseline_engine": "25.5.2",
   "release_date": "2026-08-15",
-  "release_type": "restaurant-content-booking-correction",
+  "release_type": "booking-authority-runtime-fix",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
-    "Pizza 4P’s Booking identity corrected to Bến Thành with explicit 8 Thủ Khoa Huân address",
-    "Restaurant Booking list now uses distinct restaurant emojis",
-    "Restaurant Guide cards audited for evidence-led signature dishes",
-    "Restaurant Booking records carry concise signature-dish data",
-    "No itinerary route, Studio shell, modal geometry, Supabase, Analytics or storage architecture changes"
+    "Deploy-master itinerary identity now wins over stale remote booking rows",
+    "Remote booking sync still preserves mutable reservation state while preventing old title/day/date/time/branch rollback",
+    "Trip Booking list now respects per-booking emoji before fallback inference",
+    "Pizza 4P’s remains canonical Bến Thành / 8 Thủ Khoa Huân / Day 4 13:00",
+    "No Studio shell, modal geometry, itinerary route, Supabase schema, Analytics or storage-key changes"
   ],
   "explicitly_deferred": [
     "parallel itinerary tracks",
@@ -27,5 +27,5 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "vn-rc29-27-engine-25-5-2-restaurant-guide-booking-audit"
+  "asset_cache_token": "vn-rc29-28-engine-25-5-2-canonical-booking-sync"
 }

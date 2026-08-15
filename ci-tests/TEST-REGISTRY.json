@@ -290,5 +290,9 @@
   "test-vn-restaurant-booking-guide-contract.js": {
     "status": "active",
     "note": "Restaurant booking identity, emojis and signature dishes"
+  },
+  "test-booking-sync-canonical-master-contract.js": {
+    "status": "active",
+    "note": "Stale remote booking state cannot roll back deploy-master itinerary identity"
   }
 }
