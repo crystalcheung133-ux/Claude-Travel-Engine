@@ -185,9 +185,18 @@ function bookingActionButtonsHTML(booking,place,options={}){
   const address=bookingAddress(booking,place);
   const includeDay=options.includeDay!==false;
   const includeGuide=options.includeGuide!==false;
+  const method=String(booking&&booking.bookingMethod||'').toLowerCase();
+  const contact=String(booking&&booking.bookingContact||'').trim();
+  const digits=contact.replace(/[^0-9]/g,'');
+  const whatsapp=(contact&&method.includes('whatsapp')&&digits)?`https://wa.me/${digits}`:'';
+  const call=(contact&&digits)?`tel:${escapeTripHTML(contact.replace(/\s+/g,''))}`:'';
   const buttons=[
     includeGuide?bookingGuideButtonHTML(booking):'',
     includeDay?bookingDayButtonHTML(booking):'',
+    booking&&booking.bookingUrl?`<a class="pill trip-action-btn trip-action-btn--book" href="${escapeTripHTML(booking.bookingUrl)}" target="_blank" rel="noopener">Book Online</a>`:'',
+    whatsapp?`<a class="pill trip-action-btn trip-action-btn--whatsapp" href="${escapeTripHTML(whatsapp)}" target="_blank" rel="noopener">WhatsApp</a>`:'',
+    (!whatsapp&&call)?`<a class="pill trip-action-btn trip-action-btn--call" href="${escapeTripHTML(call)}">Call</a>`:'',
+    booking&&booking.email?`<a class="pill trip-action-btn trip-action-btn--email" href="mailto:${escapeTripHTML(booking.email)}">Email</a>`:'',
     address?`<a class="pill trip-action-btn" href="${escapeTripHTML(accommodationMapURL(address))}" target="_blank" rel="noopener">Navigate</a>`:'',
     address?`<button class="pill trip-action-btn" type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText(${JSON.stringify(address).replace(/"/g,'&quot;')})">Copy Address</button>`:'',
     bookingEditButtonHTML(booking)
@@ -224,6 +233,7 @@ function buildAccommodationDetailHTML(booking){
   const operationalNotes=[booking.cancellation||'',booking.notes||''].filter(Boolean).join('\n');
   const sections=[
     accommodationPaymentHTML(booking),
+    bookingSectionHTML('How to book / handoff',booking.bookingHandoff||''),
     bookingSectionHTML('Important',operationalNotes),
     bookingSectionHTML('Address',address)
   ].join('');
@@ -315,13 +325,20 @@ function bookingCategoryLabel(booking){
 function buildGenericBookingDetailHTML(booking){
   if(!booking)return '<p class="timestamp">Booking not found.</p>';
   const place=bookingPlace(booking);
+  const contact=[booking.bookingContact||booking.phone||'',booking.secondaryContact||''].filter(Boolean).join(' / ');
   const facts=bookingFactGridHTML([
     ['Status',bookingStatusText(booking)],['Day',bookingDayNumber(booking)?'Day '+bookingDayNumber(booking):''],['Date',booking.date||''],['Time',booking.time||''],
     ['Booked under',booking.bookingName||''],[bookingReferenceLabel(booking),booking.reference||''],['Booking method',booking.bookingMethod||booking.bookingViaOther||booking.bookingWay||booking.platform||''],
-    ['Phone / WhatsApp',booking.bookingContact||booking.phone||''],['Email',booking.email||'']
+    ['Booking contact',contact],['Email',booking.email||'']
   ]);
   const payment=normalizedBookingStatus(booking)==='confirmed'?accommodationPaymentHTML(booking):'';
-  const sections=[payment,bookingSectionHTML('Address',bookingAddress(booking,place)),bookingSectionHTML('Notes',booking.notes||''),bookingSectionHTML('Cancellation',booking.cancellation||'')].join('');
+  const sections=[
+    payment,
+    bookingSectionHTML('How to book / handoff',booking.bookingHandoff||''),
+    bookingSectionHTML('Address',bookingAddress(booking,place)),
+    bookingSectionHTML('Notes',booking.notes||''),
+    bookingSectionHTML('Cancellation',booking.cancellation||'')
+  ].join('');
   return `<article class="fact stay-booking accommodation-detail-card generic-booking-detail"><div class="accommodation-detail-head"><div><strong>${escapeTripHTML(booking.title)}</strong><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place)}${bookingExpenseActionHTML(booking)}${genericBookingDetailNavigationHTML(booking)}</article>`;
 }
 function openGenericBookingDetail(bookingId,bookingOverride,showSaved){

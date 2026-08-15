@@ -298,5 +298,9 @@
   "test-booking-authority-stale-poisoning.js": {
     "status": "active",
     "note": "Old local booking state cannot roll back current deploy-master itinerary identity"
+  },
+  "test-booking-handoff-completeness.js": {
+    "status": "active",
+    "note": "Every Booking card must contain actionable friend-ready booking channels and valid timeline linkage"
   }
 }

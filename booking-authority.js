@@ -12,7 +12,6 @@
   const EDITABLE_STATE_FIELDS=Object.freeze([
     'status','displayStatus','bookingName',
     'depositPaid','depositAmount','depositCurrency','paymentStatus',
-    'bookingMethod','bookingContact','secondaryContact','notes',
     'reference','referenceLabel','bookingReference',
     'totalAmount','cashbackAmount','netTotalAUD','price','paymentLabel'
   ]);

@@ -36,8 +36,9 @@ assert(/expense-title-emoji[^>]*[^]*?💰[^]*?Add expense/.test(expenses),'Add e
 assert(/replace\(\/To next stop/.test(day),'Timeline renderer must strip duplicated To next stop prefix');
 const transfer=data.match(/"bk-transfer-in": \{[\s\S]*?\n  \}/)?.[0]||'';
 assert(/"status": "pending"/.test(transfer),'Arrival transfer must remain pending');
-assert(/"bookingMethod": ""/.test(transfer),'Arrival transfer must not invent booking method');
-assert(/未預約/.test(transfer),'Arrival transfer should explicitly remain not booked');
+assert(/"bookingMethod": "Klook airport transfer"/.test(transfer),'Arrival transfer must expose the intended booking channel without pretending it is booked');
+assert(/"status": "pending"/.test(transfer),'Arrival transfer must remain pending until actually booked');
+assert(/未訂|未預約/.test(transfer),'Arrival transfer handoff must explicitly remain not booked');
 
 // Traveller identity / home UI
 assert(/version:'RC\d+(?:\.\d+)?-25\.\d+\.\d+(?:\.\d+)?'/.test(cfg),'Release build identity missing');

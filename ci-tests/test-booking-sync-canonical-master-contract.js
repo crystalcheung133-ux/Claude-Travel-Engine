@@ -7,8 +7,10 @@ assert(authority.includes('const DEPLOY_MASTER=clone(master()||{})'),'immutable 
 assert(authority.includes('bookingMasterRevision'),'booking master revision contract missing');
 assert(authority.includes('mergeStaleState'),'stale-state merge missing');
 assert(authority.includes('recordRevision(override)===masterRevision()'),'current-revision override gate missing');
-for(const field of ['status','bookingName','depositPaid','depositAmount','depositCurrency','paymentStatus','bookingMethod','bookingContact','secondaryContact','notes'])
-  assert(authority.includes("'"+field+"'"),'editable booking state field missing: '+field);
+for(const field of ['status','bookingName','depositPaid','depositAmount','depositCurrency','paymentStatus','reference','bookingReference'])
+  assert(authority.includes("'"+field+"'"),'stale reservation-state field missing: '+field);
+for(const field of ['bookingMethod','bookingContact','secondaryContact','notes'])
+  assert(!authority.match(new RegExp("EDITABLE_STATE_FIELDS=[\\s\\S]{0,900}'"+field+"'")),'stale revisions must not preserve old handoff field: '+field);
 assert(sync.includes('BOOKING_AUTHORITY.deployMaster'),'remote sync must resolve against immutable deploy master');
 assert(sync.includes('remoteRevision===currentRevision'),'remote revision gate missing');
 assert(sync.includes('copy._masterRevision'),'outgoing remote payload must carry master revision');

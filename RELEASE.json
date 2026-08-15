@@ -1,20 +1,19 @@
 {
   "engine_version": "25.5.2",
-  "artifact_version": "Saigon Companion RC29.29 · Travel Engine 25.5.2 Booking Master Revision",
+  "artifact_version": "Saigon Companion RC29.30 · Travel Engine 25.5.2 Booking Handoff Audit",
   "baseline_engine": "25.5.2",
   "release_date": "2026-08-15",
-  "release_type": "booking-master-revision-authority-fix",
+  "release_type": "booking-handoff-completeness",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
-    "Booking Authority now keeps an immutable deploy-master snapshot",
-    "Local and remote booking overrides are revisioned via TRIP_CONFIG.bookingMasterRevision",
-    "Stale pre-revision booking state can preserve reservation status/deposit/contact notes but cannot roll back itinerary identity",
-    "Current-revision user edits remain editable and persist normally",
-    "Pizza 4P’s canonical Booking remains Bến Thành · Day 4 · 13:00",
-    "Mộc Hương canonical Booking is Day 2 · 14:00 with own timeline anchor",
-    "Mộc Healing canonical Booking corrected to Day 4 · 14:20 with own timeline anchor",
-    "Browser Change Effect Gate poisons stale booking state and verifies rendered Restaurants/Spa UI"
+    "Every Booking record now contains friend-ready booking instructions and at least one actionable booking channel",
+    "Generic Booking detail now renders Book Online / WhatsApp / Call / Email actions when applicable",
+    "Booking detail exposes a dedicated How to book / handoff section",
+    "Booking Master Revision advanced to 3 so stale contact/method/notes cannot overwrite current handoff data",
+    "Mặn Mòi official reservation page/phone, Pizza 4P’s reservation line, Fusion reservations email/site, and Spa booking channels audited",
+    "Cu Chi and airport transfer pending cards now tell the traveller exactly which Klook flow to use and what to confirm after booking",
+    "Timeline-linked bookings must resolve to their own exact Timeline card"
   ],
   "explicitly_deferred": [
     "parallel itinerary tracks",
@@ -30,5 +29,5 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "vn-rc29-29-engine-25-5-2-booking-master-revision"
+  "asset_cache_token": "vn-rc29-30-engine-25-5-2-booking-handoff-audit"
 }

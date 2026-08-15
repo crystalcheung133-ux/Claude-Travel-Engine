@@ -10,7 +10,7 @@ const stale={
 let stored={version:1,overrides:stale,deletedIds:[],updatedAt:'2026-08-01T00:00:00Z'};
 const context={
   console,
-  TRIP_CONFIG:{bookingMasterRevision:2},
+  TRIP_CONFIG:{bookingMasterRevision:3},
   STORAGE_CONFIG:{keys:{bookingOverrides:'test-booking-overrides'}},
   STORAGE:{local:{
     readJSON:(k,f)=>JSON.parse(JSON.stringify(stored)),
@@ -50,6 +50,6 @@ assert.equal(pizza.time,'13:15');
 assert.equal(pizza.bookingName,'Crystal');
 assert.equal(pizza.status,'confirmed');
 assert.equal(pizza.title,'Pizza 4P’s Bến Thành');
-assert.equal(stored.overrides['bk-pizza4ps']._masterRevision,2);
+assert.equal(stored.overrides['bk-pizza4ps']._masterRevision,3);
 
 console.log('BOOKING AUTHORITY STALE-STATE POISONING: PASS');
