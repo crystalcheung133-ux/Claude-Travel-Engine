@@ -302,5 +302,21 @@
   "test-booking-handoff-completeness.js": {
     "status": "active",
     "note": "Every Booking card must contain actionable friend-ready booking channels and valid timeline linkage"
+  },
+  "test-booking-detail-compact-contract.js": {
+    "status": "active",
+    "note": "Compact booking detail + Omakase regression invariants"
+  },
+  "test-cross-surface-day-consistency.js": {
+    "status": "active",
+    "note": "Timeline / Booking / Guide / Shopping Directory must agree on canonical day ownership after itinerary moves"
+  },
+  "test-moments-plan-activity-canonical.js": {
+    "status": "active",
+    "note": "Moments Planned Activity must inherit canonical D4 Open List rather than stale pre-open-day stops"
+  },
+  "test-open-day-and-arrival-flow.js": {
+    "status": "active",
+    "note": "D1 reset/Cafe Apartment/sunset flow and D4 single Open List contract"
   }
 }

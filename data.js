@@ -35,7 +35,7 @@ const PLACES={
     "title": "Bakes Thảo Điền",
     "emoji": "🥐",
     "cat": "CAFÉS",
-    "sub": "Day 2 · Thảo Điền pastry break",
+    "sub": "Day 4 · Thảo Điền pastry break",
     "status": "planned",
     "hours": "07:30–22:30 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=Bakes%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2016%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20An%20Kh%C3%A1nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
@@ -167,12 +167,12 @@ const PLACES={
     "title": "The Running Bean",
     "emoji": "☕",
     "cat": "CAFÉS",
-    "sub": "Day 2 · Slow Morning Coffee",
+    "sub": "Day 4 · Slow Morning Coffee",
     "status": "planned",
     "hours": "07:30–22:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=The%20Running%20Bean%20115%20H%E1%BB%93%20T%C3%B9ng%20M%E1%BA%ADu%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "115 Hồ Tùng Mậu, Ho Chi Minh City, Vietnam",
-    "desc": "Day 2 故意慢一點。The Running Bean 是早晨第一杯，不趕 brunch、不趕景點；坐低醒神，再去看粉紅教堂，讓城市先從咖啡香開始。",
+    "desc": "Day 4 故意慢一點。The Running Bean 是早晨第一杯，不趕 brunch、不趕景點；坐低醒神，再去看粉紅教堂，讓城市先從咖啡香開始。",
     "signature": [
       "越式蛋咖啡",
       "椰子咖啡／冰沙咖啡",
@@ -234,7 +234,7 @@ const PLACES={
     "title": "Cơm Tấm Mộc",
     "emoji": "🍚",
     "cat": "RESTAURANTS",
-    "sub": "Day 4 · Fashion Day Breakfast",
+    "sub": "Day 2 · Fashion Day Breakfast",
     "status": "planned",
     "hours": "09:00–21:30 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=C%C6%A1m%20T%E1%BA%A5m%20M%E1%BB%99c%2085%20L%C3%BD%20T%E1%BB%B1%20Tr%E1%BB%8Dng%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
@@ -267,19 +267,19 @@ const PLACES={
     "title": "Little Bear",
     "emoji": "🧸",
     "cat": "RESTAURANTS",
-    "sub": "Day 2 · Thảo Điền Dinner",
+    "sub": "Thảo Điền dinner shortlist · Closed Monday",
     "status": "planned",
     "hours": "Tue–Sun 18:00–22:00; Monday off",
     "maps": "https://www.google.com/maps/search/?api=1&query=Little%20Bear%2036%20Nguy%E1%BB%85n%20B%C3%A1%20Hu%C3%A2n%2C%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "36 Nguyễn Bá Huân, Thảo Điền, Ho Chi Minh City, Vietnam",
-    "desc": "Thảo Điền 由中午一路慢慢行到黃昏，Little Bear 就是這條 lifestyle walk 的句號。小型 wine bar / modern Vietnamese bistro，用分享盤、酒與年輕主廚的越南味，把一日的慢節奏留到晚餐。",
+    "desc": "小型 wine bar / modern Vietnamese bistro，以分享盤、酒與年輕主廚的越南味見長。可留作 Thảo Điền 其他日子的 dinner shortlist；Monday closed，所以今次 Day 4 farewell 不排它。",
     "signature": [
       "House-made noodles｜Michelin Guide 特別提到",
       "Tagliolini with clams｜白酒蜆汁＋菊花，評論點名",
       "Natural / biodynamic wine｜by-the-glass 選擇是 Little Bear 一半靈魂"
     ],
     "worth": [
-      "星期一休息，必須訂位。",
+      "星期一休息；今次 Day 4 是 Monday，所以不列入 farewell dinner 候選。",
       "份量偏精緻，建議不要期待傳統大份量越菜。",
       "不飲酒也可以去，重點是食物和氣氛。"
     ],
@@ -293,7 +293,7 @@ const PLACES={
       "越南味道 + bistro 手法，適合 share plates"
     ],
     "tips": [
-      "星期一休息，必須訂位。",
+      "星期一休息；今次 Day 4 是 Monday，所以不列入 farewell dinner 候選。",
       "份量偏精緻，建議不要期待傳統大份量越菜。",
       "不飲酒也可以去，重點是食物和氣氛。"
     ]
@@ -302,7 +302,7 @@ const PLACES={
     "title": "LÚNE Restaurant & Bar",
     "emoji": "🇫🇷",
     "cat": "RESTAURANTS",
-    "sub": "Day 4 · Fashion Day Dinner",
+    "sub": "Day 2 · Fashion Day Dinner",
     "status": "planned",
     "hours": "Mon–Sat 11:30–14:00 & 17:00–22:30；Sunday closed",
     "maps": "https://www.google.com/maps/search/?api=1&query=L%C3%9ANE%20Restaurant%20%26%20Bar%2017%2F14%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20S%C3%A0i%20G%C3%B2n%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
@@ -436,7 +436,7 @@ const PLACES={
     "title": "Pizza 4P’s Bến Thành",
     "emoji": "🍕",
     "cat": "RESTAURANTS",
-    "sub": "Day 4 · Indoor Lunch Break",
+    "sub": "Day 2 · Indoor Lunch Break",
     "status": "planned",
     "hours": "11:00–00:00 Mon–Sat · 11:00–23:00 Sun",
     "maps": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20Ben%20Thanh%208%20Thu%20Khoa%20Huan%20Ho%20Chi%20Minh%20City",
@@ -448,7 +448,7 @@ const PLACES={
       "Burrata / Parma ham pizza｜第一次去最值得 share"
     ],
     "worth": [
-      "Day 4 使用 Bến Thành branch。",
+      "Day 2 使用 Bến Thành branch。",
       "13:00–14:15 留在室內，避開最熱的一段。"
     ],
     "categoryLabel": "🍽 Restaurant",
@@ -461,7 +461,7 @@ const PLACES={
       "食完步行接 Mộc Healing"
     ],
     "tips": [
-      "Day 4 使用 Bến Thành branch。",
+      "Day 2 使用 Bến Thành branch。",
       "午餐後沿同一條街步行去 Spa。"
     ]
   },
@@ -469,12 +469,12 @@ const PLACES={
     "title": "Quán Thuý 94",
     "emoji": "🦀",
     "cat": "RESTAURANTS",
-    "sub": "Day 2 · Early Crab Lunch",
+    "sub": "Optional · Crab stop before Thảo Điền",
     "status": "planned",
     "hours": "09:00–21:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=Qu%C3%A1n%20Thu%C3%BD%2094%2084%20%C4%90inh%20Ti%C3%AAn%20Ho%C3%A0ng%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
     "address": "84 Đinh Tiên Hoàng, Tân Định, Hồ Chí Minh, Vietnam",
-    "desc": "粉紅教堂一帶走完，11:00 就坐低食蟹肉粉絲。Quán Thuý 94 今次不是早餐，而是 Day 2 的 early lunch；一碗鮮甜蟹湯把 Tân Định 收尾，食完才一次 Grab 入 Thảo Điền。",
+    "desc": "粉紅教堂一帶走完，11:00 就坐低食蟹肉粉絲。Quán Thuý 94 今次不是早餐，而是 Day 4 的 early lunch；一碗鮮甜蟹湯把 Tân Định 收尾，食完才一次 Grab 入 Thảo Điền。",
     "signature": [
       "Miến cua 蟹肉粉絲",
       "炸蟹肉春捲",
@@ -502,8 +502,8 @@ const PLACES={
     "title": "LIBÉ",
     "emoji": "👗",
     "cat": "SHOP",
-    "sub": "Day 4 · Nguyễn Trãi Fashion Cluster",
-    "shoppingRoute": "Day 4 · Nguyễn Trãi",
+    "sub": "Day 2 · Nguyễn Trãi Fashion Cluster",
+    "shoppingRoute": "Day 2 · Nguyễn Trãi",
     "hours": "09:30–21:30",
     "maps": "https://www.google.com/maps/search/?api=1&query=LIB%C3%89%20LIB%C3%89%20Nguy%E1%BB%85n%20Tr%C3%A3i%2C%2052%20Nguy%E1%BB%85n%20Tr%C3%A3i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
     "address": "LIBÉ Nguyễn Trãi, 52 Nguyễn Trãi, Bến Thành, Hồ Chí Minh, Vietnam",
@@ -535,8 +535,8 @@ const PLACES={
     "title": "Dauple by Ka's",
     "emoji": "🧵",
     "cat": "SHOP",
-    "sub": "Day 4 · Nguyễn Trãi Fashion Cluster",
-    "shoppingRoute": "Day 4 · Nguyễn Trãi",
+    "sub": "Day 2 · Nguyễn Trãi Fashion Cluster",
+    "shoppingRoute": "Day 2 · Nguyễn Trãi",
     "hours": "09:30–21:30 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=Dauple%20by%20Ka's%20Dauple%20by%20Ka's%2C%2070%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
     "address": "Dauple by Ka's, 70 Phạm Hồng Thái, Bến Thành, Hồ Chí Minh, Vietnam",
@@ -568,8 +568,8 @@ const PLACES={
     "title": "NOSBYN",
     "emoji": "🤎",
     "cat": "SHOP",
-    "sub": "Day 4 · Nguyễn Trãi Fashion Cluster",
-    "shoppingRoute": "Day 4 · Nguyễn Trãi",
+    "sub": "Day 2 · Nguyễn Trãi Fashion Cluster",
+    "shoppingRoute": "Day 2 · Nguyễn Trãi",
     "hours": "10:00–21:00",
     "maps": "https://www.google.com/maps/search/?api=1&query=NOSBYN%20Nosbyn%2C%209%20Phan%20Chu%20Trinh%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20Ho%20Chi%20Minh%20City",
     "address": "Nosbyn, 9 Phan Chu Trinh, Bến Thành, Ho Chi Minh City",
@@ -601,8 +601,8 @@ const PLACES={
     "title": "The New Playground",
     "emoji": "🛍",
     "cat": "SHOP",
-    "sub": "Day 4 · Nguyễn Trãi Fashion Cluster",
-    "shoppingRoute": "Day 4 · Nguyễn Trãi",
+    "sub": "Day 2 · Nguyễn Trãi Fashion Cluster",
+    "shoppingRoute": "Day 2 · Nguyễn Trãi",
     "hours": "10:00–21:00",
     "maps": "https://www.google.com/maps/search/?api=1&query=The%20New%20Playground%2026%20L%C3%BD%20T%E1%BB%B1%20Tr%E1%BB%8Dng%2C%20S%C3%A0i%20G%C3%B2n%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "26 Lý Tự Trọng, Sài Gòn, Hồ Chí Minh 700000, Vietnam",
@@ -634,8 +634,8 @@ const PLACES={
     "title": "Saigon Concept",
     "emoji": "🌿",
     "cat": "SHOP",
-    "sub": "Day 2 · Thảo Điền Lifestyle Walk",
-    "shoppingRoute": "Day 2 · Thảo Điền walk",
+    "sub": "Day 4 · Thảo Điền Lifestyle Walk",
+    "shoppingRoute": "Day 4 · Thảo Điền walk",
     "hours": "09:00–18:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=Saigon%20Concept%2014%20Tr%E1%BA%A7n%20Ng%E1%BB%8Dc%20Di%E1%BB%87n%2C%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "14 Trần Ngọc Diện, Thảo Điền, Ho Chi Minh City, Vietnam",
@@ -667,12 +667,12 @@ const PLACES={
     "title": "OHQUAO",
     "emoji": "🎁",
     "cat": "SHOP",
-    "sub": "Day 2 · Thảo Điền Lifestyle Walk",
-    "shoppingRoute": "Day 2 · Thảo Điền walk",
+    "sub": "Day 4 · Thảo Điền Lifestyle Walk",
+    "shoppingRoute": "Day 4 · Thảo Điền walk",
     "hours": "10:00–20:00",
     "maps": "https://www.google.com/maps/search/?api=1&query=OHQUAO%2019%20%C4%90%C6%B0%E1%BB%9Dng%20S%E1%BB%91%2038%2C%20P.%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Qu%E1%BA%ADn%202%2C%20TP.%20H%E1%BB%93%20Ch%C3%AD%20Minh",
     "address": "19 Đường Số 38, P. Thảo Điền, Quận 2, TP. Hồ Chí Minh",
-    "desc": "OHQUAO 把插畫、家品、文具與小禮物放進一個很 Thảo Điền 的生活感空間。Day 2 從插畫、家品到小手信都有地方感；這種隨意很像 Thảo Điền 的節奏。",
+    "desc": "OHQUAO 把插畫、家品、文具與小禮物放進一個很 Thảo Điền 的生活感空間。Day 4 從插畫、家品到小手信都有地方感；這種隨意很像 Thảo Điền 的節奏。",
     "signature": [
       "在地藝術家小物",
       "明信片、香氛、家居手信",
@@ -700,8 +700,8 @@ const PLACES={
     "title": "LOUH Saigon",
     "emoji": "🧺",
     "cat": "SHOP",
-    "sub": "Day 2 · Thảo Điền Lifestyle Walk",
-    "shoppingRoute": "Day 2 · Thảo Điền walk",
+    "sub": "Day 4 · Thảo Điền Lifestyle Walk",
+    "shoppingRoute": "Day 4 · Thảo Điền walk",
     "hours": "10:00–18:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=LOUH%20Saigon%2061%20Nguy%E1%BB%85n%20B%C3%A1%20Hu%C3%A2n%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%20Ho%20Chi%20Minh%20City",
     "address": "61 Nguyễn Bá Huân, Thảo Điền, Ho Chi Minh City, Vietnam",
@@ -731,8 +731,8 @@ const PLACES={
     "title": "11 Garmentory",
     "emoji": "🧥",
     "cat": "SHOP",
-    "sub": "Day 4 · Fashion Day First Stop",
-    "shoppingRoute": "Day 4 · 11 Garmentory → Trần Quang Diệu",
+    "sub": "Day 2 · Fashion Day First Stop",
+    "shoppingRoute": "Day 2 · 11 Garmentory → Trần Quang Diệu",
     "hours": "10:00–21:30 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=11%20Garmentory%20117B%20Nguy%E1%BB%85n%20%C4%90%C3%ACnh%20Ch%C3%ADnh%2C%20Ph%C6%B0%E1%BB%9Dng%20C%E1%BA%A7u%20Ki%E1%BB%87u%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "117B Nguyễn Đình Chính, Phường Cầu Kiệu, Ho Chi Minh City, Vietnam",
@@ -764,8 +764,8 @@ const PLACES={
     "title": "Dalla Saigon",
     "emoji": "👗",
     "cat": "SHOP",
-    "sub": "Day 4 · Trần Quang Diệu Fashion Cluster",
-    "shoppingRoute": "Day 4 · Trần Quang Diệu",
+    "sub": "Day 2 · Trần Quang Diệu Fashion Cluster",
+    "shoppingRoute": "Day 2 · Trần Quang Diệu",
     "hours": "",
     "maps": "https://www.google.com/maps/search/?api=1&query=Dalla%20Saigon%2064%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%20Ph%C6%B0%E1%BB%9Dng%2014%20Qu%E1%BA%ADn%203%20H%E1%BB%93%20Ch%C3%AD%20Minh",
     "address": "64 Trần Quang Diệu, Phường 14, Quận 3, Hồ Chí Minh, Vietnam",
@@ -795,8 +795,8 @@ const PLACES={
     "title": "Rubies Rubies",
     "emoji": "👚",
     "cat": "SHOP",
-    "sub": "Day 4 · Trần Quang Diệu Fashion Cluster",
-    "shoppingRoute": "Day 4 · Trần Quang Diệu",
+    "sub": "Day 2 · Trần Quang Diệu Fashion Cluster",
+    "shoppingRoute": "Day 2 · Trần Quang Diệu",
     "hours": "",
     "maps": "https://www.google.com/maps/search/?api=1&query=Rubies%20Rubies%2047-49%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%20Ph%C6%B0%E1%BB%9Dng%2014%20Qu%E1%BA%ADn%203%20H%E1%BB%93%20Ch%C3%AD%20Minh",
     "address": "47–49 Trần Quang Diệu, Phường 14, Quận 3, Hồ Chí Minh, Vietnam",
@@ -828,8 +828,8 @@ const PLACES={
     "title": "LANE Cì",
     "emoji": "🎀",
     "cat": "SHOP",
-    "sub": "Day 4 · Trần Quang Diệu Fashion Cluster",
-    "shoppingRoute": "Day 4 · Trần Quang Diệu",
+    "sub": "Day 2 · Trần Quang Diệu Fashion Cluster",
+    "shoppingRoute": "Day 2 · Trần Quang Diệu",
     "hours": "",
     "maps": "https://www.google.com/maps/search/?api=1&query=LANE%20C%C3%AC%2027%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%20Ph%C6%B0%E1%BB%9Dng%2014%20Qu%E1%BA%ADn%203%20H%E1%BB%93%20Ch%C3%AD%20Minh",
     "address": "27 Trần Quang Diệu, Phường 14, Quận 3, Hồ Chí Minh, Vietnam",
@@ -861,8 +861,8 @@ const PLACES={
     "title": "Push Push Official",
     "emoji": "👖",
     "cat": "SHOP",
-    "sub": "Day 2 · Tân Định Shopping",
-    "shoppingRoute": "Day 2 · Tân Định",
+    "sub": "Day 4 · Tân Định Shopping",
+    "shoppingRoute": "Day 4 · Tân Định",
     "hours": "09:30–21:30",
     "maps": "https://www.google.com/maps/search/?api=1&query=Push%20Push%20Official%2020%20Nguy%E1%BB%85n%20V%C4%83n%20Nguy%E1%BB%85n%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "20 Nguyễn Văn Nguyễn, Tân Định, Hồ Chí Minh 700000, Vietnam",
@@ -924,32 +924,32 @@ const PLACES={
     "title": "Mộc Hương Wellness",
     "emoji": "🌿",
     "cat": "SPA",
-    "sub": "Day 2 · Hottest-Hours Wellness",
+    "sub": "Day 4 Open List · Villa wellness",
     "hours": "09:00–22:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=M%E1%BB%99c%20H%C6%B0%C6%A1ng%20Wellness%2061%20Xu%C3%A2n%20Th%E1%BB%A7y%2C%20Ph%C6%B0%E1%BB%9Dng%20An%20Kh%C3%A1nh%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "61 Xuân Thủy, Phường An Khánh, Ho Chi Minh City, Vietnam",
-    "desc": "14:00–16:00 把最熱的兩小時藏進 Mộc Hương 的 villa 裡。Spa 今次不是行程高潮，而是刻意留白：按摩、降溫、把上午的街路放低，黃昏再出去慢慢逛。",
+    "desc": "61 Xuân Thủy 的 villa-style wellness。四人同行想做完整 treatment，可臨近先 WhatsApp 問位；不需要把它鎖成 Day 4 行程。",
     "signature": [
       "Villa-style spa setting",
       "熱石／精油按摩",
       "Thảo Điền 動線極順"
     ],
     "worth": [
-      "14:00–16:00 留給完整 wellness session。",
-      "Spa 後直接接回 Thảo Điền 黃昏散步。"
+      "四人想同時做完整 treatment，臨近先 WhatsApp 問 availability。",
+      "有位就做；無位就繼續 Open List，附近另有 walk-in fallback。"
     ],
     "categoryLabel": "💆 Spa",
     "price": "$$",
-    "transport": "Grab / walk depending on current route",
-    "audit": "Thảo Điền 61 Xuân Thủy branch and 09:00–22:00 daily hours confirmed.",
+    "transport": "Walk-in option · 61 Xuân Thủy",
+    "audit": "Thảo Điền branch confirmed; official booking accepts 36h+ advance, direct WhatsApp available for sooner sessions.",
     "highlights": [
       "Villa-style spa setting",
       "熱石／精油按摩",
       "Thảo Điền 動線極順"
     ],
     "tips": [
-      "14:00–16:00 留給完整 wellness session。",
-      "Spa 後直接接回 Thảo Điền 黃昏散步。"
+      "四人想同時做完整 treatment，臨近先 WhatsApp 問 availability。",
+      "有位就做；無位就繼續 Open List，附近另有 walk-in fallback。"
     ]
   },
   "ha-spa": {
@@ -1338,7 +1338,7 @@ const PLACES={
     "maps": "https://maps.google.com/?q=Social+Club+Rooftop+Bar+Hotel+des+Arts+Saigon",
     "address": "24/F, Hôtel des Arts Saigon, 76–78 Nguyễn Thị Minh Khai, Ho Chi Minh City",
     "phone": "0901 379 129",
-    "desc": "Hôtel des Arts Saigon 24樓 rooftop bar，以 Saigon skyline、sunset cocktails 同夜景氣氛做主角。Day 4 只作 optional after-dinner drink：有精神先去，唔影響主行程。",
+    "desc": "Hôtel des Arts Saigon 24樓 rooftop bar，以 Saigon skyline、sunset cocktails 同夜景氣氛做主角。Day 2 只作 optional after-dinner drink：有精神先去，唔影響主行程。",
     "signature": [
       "24樓開揚 Saigon skyline，黃昏至入夜最有氣氛",
       "Signature cocktails；15:00–19:00 daily Happy Hour（公眾假期／special events除外）",
@@ -1372,7 +1372,7 @@ const PLACES={
     "title": "Mộc Healing Spa",
     "emoji": "🦶",
     "cat": "SPA",
-    "sub": "Day 4 · Bến Thành Foot Reset",
+    "sub": "Day 2 · Bến Thành Foot Reset",
     "status": "planned",
     "hours": "11:00–23:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=Moc%20Healing%20Spa%2039%2041%20Thu%20Khoa%20Huan%20Ben%20Thanh%20Ho%20Chi%20Minh",
@@ -1483,6 +1483,54 @@ const PLACES={
     "tips": [
       "Dinner 後直接返 Fusion。"
     ]
+  },
+  "mojo-spa": {
+    "title": "Mojo Spa & Foot Massage",
+    "emoji": "🦶",
+    "cat": "SPA",
+    "sub": "Day 4 Open List · Easy walk-in reset",
+    "hours": "11:00–22:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Mojo%20Spa%20%26%20Foot%20Massage%202%20Le%20Van%20Mien%20Thao%20Dien%20Ho%20Chi%20Minh",
+    "address": "2 Lê Văn Miến, Thảo Điền, Ho Chi Minh City, Vietnam",
+    "desc": "最適合行街途中突然想停一停的一間。主打 foot massage，位置在 Thảo Điền 核心區，不需要為 Spa 特登離開 Open List 動線。",
+    "signature": ["Foot massage", "短休息容易插入", "核心區 walk-in fallback"],
+    "worth": ["行攰先去，不用預先把下午切成一節。", "四人未必即時同時有位；到附近才問最符合 Open Day 玩法。"],
+    "categoryLabel": "🦶 Spa",
+    "price": "$–$$",
+    "transport": "Walk-in option · 2 Lê Văn Miến",
+    "audit": "Address and daily 11:00–22:00 hours confirmed."
+  },
+  "thao-dien-spa": {
+    "title": "Thao Dien Spa",
+    "emoji": "💆",
+    "cat": "SPA",
+    "sub": "Day 4 Open List · Massage fallback",
+    "hours": "09:00–21:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Thao%20Dien%20Spa%2047%2F1%2F13%20Quoc%20Huong%20Ho%20Chi%20Minh",
+    "address": "47/1/13 Quốc Hương, Thảo Điền, Ho Chi Minh City, Vietnam",
+    "desc": "傳統 massage fallback。比 Mộc Hương 更像『附近有位就入』的選擇；適合 Open List 行到 Quốc Hương 一帶時再決定。",
+    "signature": ["Body massage", "Established local spa", "Quốc Hương fallback"],
+    "worth": ["不需要為它改整日路線。", "如果四人想同時做，去到附近先問當刻 capacity。"],
+    "categoryLabel": "💆 Spa",
+    "price": "$–$$",
+    "transport": "Walk-in option · 47/1/13 Quốc Hương",
+    "audit": "Address and daily 09:00–21:00 hours confirmed."
+  },
+  "golden-lotus-thao-dien": {
+    "title": "Golden Lotus Healing World",
+    "emoji": "♨️",
+    "cat": "SPA",
+    "sub": "Day 4 Open List · Big-capacity backup",
+    "hours": "09:00–00:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Golden%20Lotus%20Healing%20World%2016A%20Street%2010%20Thao%20Dien%20Ho%20Chi%20Minh",
+    "address": "16A Street No. 10, Thảo Điền, Ho Chi Minh City, Vietnam",
+    "desc": "大型 Korean-style healing complex，massage 之外亦有 sauna、bathhouse、jjimjilbang。唔係 boutique spa 氣氛，但勝在規模大、開得夜，適合其他細 Spa 無四人位時做 backup。",
+    "signature": ["Massage", "Sauna / bathhouse", "Jjimjilbang · large complex"],
+    "worth": ["四人臨時想一起休息時，規模較大的實用後備。", "開到午夜，唔需要為它鎖死下午時間。"],
+    "categoryLabel": "♨️ Spa",
+    "price": "$$",
+    "transport": "Walk-in backup · 16A Street No. 10",
+    "audit": "Official site confirms Thảo Điền address, 09:00–00:00 daily and massage / sauna / bathhouse services."
   }
 };
 
@@ -1606,6 +1654,15 @@ const CATEGORIES={
     },
     {
       "key": "nara-spa"
+    },
+    {
+      "key": "mojo-spa"
+    },
+    {
+      "key": "thao-dien-spa"
+    },
+    {
+      "key": "golden-lotus-thao-dien"
     }
   ],
   "ATTRACTIONS": [
@@ -1630,7 +1687,9 @@ const CATEGORIES={
     {
       "key": "cu-chi"
     }
-  ]
+  ],
+
+
 };
 
 const GUIDE_ORDER=[
@@ -1666,6 +1725,9 @@ const GUIDE_ORDER=[
   "takashimaya",
   "ha-spa",
   "moc-huong",
+  "mojo-spa",
+  "thao-dien-spa",
+  "golden-lotus-thao-dien",
   "nha-suga",
   "fine-arts",
   "book-street",
@@ -1726,7 +1788,7 @@ const DAY_LINKS={
   "cafe-apartments": [
     [
       "Day 1",
-      "day.html?day=1#cafe-apartments"
+      "day.html?day=1#nha-suga"
     ]
   ],
   "marou": [
@@ -1789,67 +1851,67 @@ const DAY_LINKS={
   ],
   "com-tam-moc": [
     [
-      "Day 2",
+      "Day 4",
       "day.html?day=2#com-tam-moc"
     ]
   ],
   "garmentory": [
     [
-      "Day 2",
+      "Day 4",
       "day.html?day=2#garmentory"
     ]
   ],
   "dalla-saigon": [
     [
-      "Day 2",
+      "Day 4",
       "day.html?day=2#dalla-saigon"
     ]
   ],
   "rubies": [
     [
-      "Day 2",
+      "Day 4",
       "day.html?day=2#shopping-tqd"
     ]
   ],
   "lane-ci": [
     [
-      "Day 2",
+      "Day 4",
       "day.html?day=2#shopping-tqd"
     ]
   ],
   "pizza4ps": [
     [
-      "Day 4",
+      "Day 2",
       "day.html?day=4#pizza4ps"
     ]
   ],
   "libe": [
     [
-      "Day 4",
+      "Day 2",
       "day.html?day=4#shopping-nguyen-trai"
     ]
   ],
   "dauple": [
     [
-      "Day 4",
+      "Day 2",
       "day.html?day=4#shopping-nguyen-trai"
     ]
   ],
   "nosbyn": [
     [
-      "Day 4",
+      "Day 2",
       "day.html?day=4#shopping-nguyen-trai"
     ]
   ],
   "moc-healing": [
     [
-      "Day 4",
+      "Day 2",
       "day.html?day=4#moc-healing"
     ]
   ],
   "lune": [
     [
-      "Day 4",
+      "Day 2",
       "day.html?day=4#lune"
     ]
   ],
@@ -1879,7 +1941,7 @@ const DAY_LINKS={
   ],
   "running-bean": [
     [
-      "Day 4",
+      "Day 2",
       "day.html?day=4#running-bean"
     ]
   ],
@@ -1901,48 +1963,40 @@ const DAY_LINKS={
       "day.html?day=4#push-push"
     ]
   ],
-  "quan-thuy": [
-    [
-      "Day 4",
-      "day.html?day=4#quan-thuy"
-    ]
-  ],
   "saigon-concept": [
     [
       "Day 4",
-      "day.html?day=4#thao-dien-walk-1"
+      "day.html?day=4#thao-dien-open-list"
     ]
   ],
   "ohquao": [
     [
       "Day 4",
-      "day.html?day=4#thao-dien-walk-1"
+      "day.html?day=4#thao-dien-open-list"
     ]
   ],
   "louh": [
     [
       "Day 4",
-      "day.html?day=4#thao-dien-walk-1"
+      "day.html?day=4#thao-dien-open-list"
     ]
   ],
   "bakes": [
     [
       "Day 4",
-      "day.html?day=4#bakes"
+      "day.html?day=4#thao-dien-open-list"
     ]
   ],
   "moc-huong": [
     [
       "Day 4",
-      "day.html?day=4#moc-huong"
+      "day.html?day=4#thao-dien-open-list"
     ]
   ],
-  "little-bear": [
-    [
-      "Day 4",
-      "day.html?day=4#little-bear"
-    ]
-  ]
+
+  "mojo-spa": [["Day 4","day.html?day=4#thao-dien-open-list"]],
+  "thao-dien-spa": [["Day 4","day.html?day=4#thao-dien-open-list"]],
+  "golden-lotus-thao-dien": [["Day 4","day.html?day=4#thao-dien-open-list"]],
 };
 
 const FRIENDS={
@@ -2007,18 +2061,20 @@ const BOOKINGS_DATA={
     "type": "restaurant",
     "emoji": "🍣",
     "title": "Omakase Tiger",
-    "depositPaid": "VND 2,000,000",
+    "depositPaid": "Paid",
     "depositAmount": "2000000",
     "depositCurrency": "VND",
-    "bookingMethod": "Already confirmed · Official website / Email",
+    "bookingMethod": "WhatsApp",
     "bookingContact": "",
     "secondaryContact": "",
     "bookingUrl": "https://omakasetiger.com/en",
-    "notes": "已確認 17:30；訂金 2,000,000 VND 已付。",
+    "notes": "已確認 30 Oct 17:30；訂金 2,000,000 VND（約 AUD 112）已付。",
     "paymentStatus": "deposit paid",
     "signatureDishes": ["Seasonal omakase course", "Sake pairing", "Penthouse sunset counter"],
     "bookingHandoff": "已確認 30 Oct 17:30，訂金 2,000,000 VND 已付。唔需要重新訂；如要改資料，用 official website 或 email omakasetigersgn@gmail.com。",
-    "email": "omakasetigersgn@gmail.com",
+    "email": "",
+    "whatsapp": "+84 93 201 4124",
+    "depositAUD": "AUD 112",
     "placeId": "omakase-tiger"
   },
   "bk-lune": {
@@ -2026,10 +2082,10 @@ const BOOKINGS_DATA={
     "bookingId": "bk-lune",
     "eventId": "lune",
     "timelineItemId": "lune",
-    "day": 4,
-    "dayId": "day4",
+    "day": 2,
+    "dayId": "day2",
     "status": "pending",
-    "date": "2026-11-02",
+    "date": "2026-10-31",
     "time": "18:30",
     "bookingName": "",
     "bookingCategory": "Restaurants",
@@ -2051,45 +2107,15 @@ const BOOKINGS_DATA={
     "bookingHandoff": "未訂。首選 official reservation page；4人，2 Nov 18:30。需要直接聯絡可 email contact-lune@hdnt.vn。",
     "placeId": "lune"
   },
-  "bk-little-bear": {
-    "id": "bk-little-bear",
-    "bookingId": "bk-little-bear",
-    "eventId": "little-bear",
-    "timelineItemId": "little-bear",
-    "day": 2,
-    "dayId": "day2",
-    "status": "pending",
-    "date": "2026-10-31",
-    "time": "18:30",
-    "bookingName": "",
-    "bookingCategory": "Restaurants",
-    "category": "Restaurants",
-    "type": "restaurant",
-    "emoji": "🧸",
-    "title": "Little Bear",
-    "depositPaid": "",
-    "depositAmount": "",
-    "depositCurrency": "",
-    "bookingMethod": "Official website / Email",
-    "bookingContact": "",
-    "secondaryContact": "",
-    "bookingUrl": "https://littlebearsgn.com/",
-    "notes": "18:30 dinner for 4 after the Thảo Điền lifestyle walk. Intimate contemporary plates + wine; Saturday suits the room better than Monday, when Little Bear is closed.",
-    "signatureDishes": ["House-made noodles", "Tagliolini with clams", "Natural / biodynamic wine"],
-    "email": "admin@littlebearsgn.com",
-    "address": "36 Nguyễn Bá Huân, Thảo Điền, Ho Chi Minh City, Vietnam",
-    "bookingHandoff": "未訂。首選 Little Bear official Book a Table；4人，31 Oct 18:30。網站有問題可 email admin@littlebearsgn.com。",
-    "placeId": "little-bear"
-  },
   "bk-pizza4ps": {
     "id": "bk-pizza4ps",
     "bookingId": "bk-pizza4ps",
     "eventId": "pizza4ps",
     "timelineItemId": "pizza4ps",
-    "day": 4,
-    "dayId": "day4",
+    "day": 2,
+    "dayId": "day2",
     "status": "pending",
-    "date": "2026-11-02",
+    "date": "2026-10-31",
     "time": "13:00",
     "bookingName": "",
     "bookingCategory": "Restaurants",
@@ -2119,7 +2145,7 @@ const BOOKINGS_DATA={
     "dayId": "day1",
     "status": "pending",
     "date": "2026-10-30",
-    "time": "14:00",
+    "time": "14:30",
     "bookingName": "",
     "bookingCategory": "Spa",
     "category": "Spa",
@@ -2132,40 +2158,11 @@ const BOOKINGS_DATA={
     "bookingContact": "",
     "secondaryContact": "",
     "bookingUrl": "",
-    "notes": "Timeline: 14:00–16:30. Address: 8th Floor, 42 Nguyễn Huệ, Bến Nghé, District 1, Ho Chi Minh City\nHours: daily 09:00–20:00\nConfirm treatment duration and arrival time.",
+    "notes": "Hours: daily 09:00–20:00。Confirm treatment duration and arrival time。",
     "email": "nhasuga2021@gmail.com",
     "address": "8th Floor, 42 Nguyễn Huệ, Bến Nghé, District 1, Ho Chi Minh City",
-    "bookingHandoff": "未訂。現時可用 email：nhasuga2021@gmail.com。4人，30 Oct 14:00；寫明 Nguyễn Huệ branch、想做 head spa，並確認 treatment duration / arrival instructions。",
+    "bookingHandoff": "未訂。現時可用 email：nhasuga2021@gmail.com。4人，30 Oct 下午；寫明 Nguyễn Huệ branch、想做 head spa，並確認 treatment duration / arrival instructions。",
     "placeId": "nha-suga"
-  },
-  "bk-moc-huong": {
-    "id": "bk-moc-huong",
-    "bookingId": "bk-moc-huong",
-    "eventId": "moc-huong",
-    "timelineItemId": "moc-huong",
-    "day": 2,
-    "dayId": "day2",
-    "status": "pending",
-    "date": "2026-10-31",
-    "time": "14:00",
-    "bookingName": "",
-    "bookingCategory": "Spa",
-    "category": "Spa",
-    "type": "spa",
-    "emoji": "🌿",
-    "title": "Mộc Hương Wellness — Thảo Điền",
-    "depositPaid": "",
-    "depositAmount": "",
-    "depositCurrency": "",
-    "bookingMethod": "Official online booking / WhatsApp",
-    "bookingContact": "",
-    "secondaryContact": "",
-    "bookingUrl": "https://mochuongwellness.vn/booking/",
-    "notes": "14:00–16:00 · Thảo Điền wellness。主打完整 body wellness；午後在 villa 裡慢下來，Spa 後直接接黃昏 Lifestyle Walk。",
-    "address": "61 Xuân Thủy, Thảo Điền, Ho Chi Minh City",
-    "bookingHandoff": "未訂。首選 official booking page（至少提前36小時）；需要直接聯絡可 WhatsApp +84 90 975 5877。4人，31 Oct 14:00，Thảo Điền branch。",
-    "whatsapp": "+84 90 975 5877",
-    "placeId": "moc-huong"
   },
   "bk-ha-spa": {
     "id": "bk-ha-spa",
@@ -2189,7 +2186,7 @@ const BOOKINGS_DATA={
     "bookingContact": "",
     "secondaryContact": "",
     "bookingUrl": "https://haspamassage.vn/lien-he/",
-    "notes": "Timeline: 15:30–17:30. Confirm timing against airport transfer.",
+    "notes": "Confirm timing against airport transfer.",
     "address": "334 Nguyễn Trọng Tuyển, Ward 2, Tân Bình, Ho Chi Minh City",
     "bookingHandoff": "未訂。Tân Bình branch；可用 official website 或 WhatsApp +84 908 661 683。4人，3 Nov 15:30；預約時確認療程長度同機場 transfer timing。",
     "whatsapp": "+84 908 661 683",
@@ -2256,10 +2253,10 @@ const BOOKINGS_DATA={
     "bookingId": "bk-moc-healing",
     "eventId": "moc-healing",
     "timelineItemId": "moc-healing",
-    "day": 4,
-    "dayId": "day4",
+    "day": 2,
+    "dayId": "day2",
     "status": "pending",
-    "date": "2026-11-02",
+    "date": "2026-10-31",
     "time": "14:20",
     "bookingName": "",
     "bookingCategory": "Spa",
@@ -2329,7 +2326,7 @@ const BOOKINGS_DATA={
     "bookingContact": "",
     "secondaryContact": "",
     "bookingUrl": "https://www.naraspasaigon.com/",
-    "notes": "17:15–18:45 · 約 90 分鐘。指定 Massage + Hair Wash / Hair Spa；地址 595/74 Nguyễn Đình Chiểu。WhatsApp / Zalo：+84 903 877 906。",
+    "notes": "17:15–18:45 · 約 90 分鐘。指定 Massage + Hair Wash / Hair Spa。",
     "email": "paperplanes198gg@gmail.com",
     "address": "595/74 Nguyễn Đình Chiểu, Bàn Cờ, District 3, Ho Chi Minh City",
     "bookingHandoff": "未訂。4人，1 Nov 17:15，目標90分鐘 Massage + Hair Wash / Hair Spa。可用 official online form、WhatsApp +84 903 877 906，或 email paperplanes198gg@gmail.com。入口在巷內，預約後問清楚到店指示。",
@@ -2446,7 +2443,7 @@ const ITINERARY_DATA={
         "details": [
           "三個經典點集中在同一區，完成後可先回酒店 check-in 或直接繼續。"
         ],
-        "route": "🚕 To next stop：Grab 約 5 分鐘去 The Cafe Apartments / Nhà Suga，約 40,000–60,000 VND。",
+        "route": "🏨 To next stop：返 Fusion check-in。入房、放低嘢、freshen up，再步行去 The Cafe Apartments。",
         "map": "https://www.google.com/maps/search/?api=1&query=Saigon%20Central%20Post%20Office%20Saigon%20Central%20Post%20Office%2C%202%20C%C3%B4ng%20x%C3%A3%20Paris%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
         "type": "experience",
         "dayId": "day1",
@@ -2454,49 +2451,46 @@ const ITINERARY_DATA={
         "bookingId": null
       },
       {
-        "id": "nha-suga",
-        "time": "14:00–16:30",
-        "title": "🫧 Spa Nhà Suga Premium Korea Headspa – Nguyễn Huệ · The Cafe Apartments",
-        "details": [
-          "Spa 位於 The Cafe Apartments 內；可先逛 cafe / 小店，再入療程。"
-        ],
-        "route": "🚕 To next stop：Grab 約 15 分鐘去 Omakase Tiger（16:30 完，17:30 開場，預留約 45 分鐘 buffer），約 60,000–90,000 VND。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Spa%20Nh%C3%A0%20Suga%20Premium%20Korea%20Headspa%20%E2%80%93%20Nguy%E1%BB%85n%20Hu%E1%BB%87%208th%20Floor%2C%20The%20Caf%C3%A9%20Apartment%2C%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
-        "type": "spa",
+        "id": "day1-hotel-reset",
+        "time": "~14:00",
+        "title": "🏨 Fusion · Check-in & Reset",
+        "details": ["正式入房、放低嘢、換衫／freshen up。", "之後步行去 Nguyễn Huệ；下午只需要記住 17:00 左右離開 Cafe Apartment。"],
+        "route": "🚶 To next stop：由 Fusion 步行去 The Cafe Apartments · 42 Nguyễn Huệ。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%2065%20Le%20Loi%20Ho%20Chi%20Minh%20City",
+        "type": "rest",
         "dayId": "day1",
-        "placeId": "nha-suga",
-        "bookingId": "bk-nha-suga"
+        "placeId": "fusion",
+        "bookingId": "bk-fusion-original"
+      },
+      {
+        "id": "nha-suga",
+        "time": "~14:30–17:00",
+        "title": "☕🫧 The Cafe Apartments · Explore / Headspa",
+        "details": ["下午自由分流：想做 Headspa 就去 Nhà Suga；不做 Spa 就慢慢行 Cafe Apartment。", "兩樣都想做，就按自己的 treatment 時間分配。", "17:00 左右集合離開，第一輪 Tiger 是為了 17:30 sunset seating。"],
+        "route": "🚕 To next stop：17:00 左右由 42 Nguyễn Huệ 叫 Grab → Omakase Tiger；目標 17:15–17:20 到。",
+        "map": "https://www.google.com/maps/search/?api=1&query=The%20Cafe%20Apartments%2042%20Nguyen%20Hue%20District%201%20Ho%20Chi%20Minh%20City",
+        "type": "experience",
+        "dayId": "day1",
+        "placeId": "cafe-apartments",
+        "bookingId": "bk-nha-suga",
+        "guideIds": ["cafe-apartments","nha-suga"]
       },
       {
         "id": "omakase-tiger",
         "time": "17:30",
-        "title": "🍣 Omakase Tiger",
+        "title": "🌇🍣 Omakase Tiger · First Seating",
         "details": [
           "已確認 17:30 場次；訂金已付。",
           "Penthouse setting；17:30 啱啱由 sunset 食到入夜。"
         ],
-        "route": "🚕 To next stop：Grab 約 15–20 分鐘返 Nguyễn Huệ / The Cafe Apartments 夜景。",
+        "route": "🌇 17:30 first seating：Penthouse sunset Omakase。食完之後再按 energy 決定夜晚。",
         "map": "https://www.google.com/maps/search/?api=1&query=Omakase%20Tiger%2085%2F9%20Ph%E1%BA%A1m%20Vi%E1%BA%BFt%20Ch%C3%A1nh%2C%20Th%E1%BA%A1nh%20M%E1%BB%B9%20T%C3%A2y%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
         "type": "meal",
         "dayId": "day1",
         "placeId": "omakase-tiger",
         "bookingId": "bk-omakase-tiger"
       },
-      {
-        "id": "cafe-apartments",
-        "time": "19:45–20:15",
-        "title": "📸 Nguyễn Huệ Night Walk",
-        "copyAddressEligible": false,
-        "details": [
-          "Optional：The Cafe Apartments 霓虹夜景與步行街合照。"
-        ],
-        "route": "🚶 To next stop：步行約 5 分鐘返回酒店。",
-        "map": "https://www.google.com/maps/search/?api=1&query=The%20Cafe%20Apartments%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
-        "type": "experience",
-        "dayId": "day1",
-        "placeId": "cafe-apartments",
-        "bookingId": null
-      },
+
       {
         "id": "return-hotel",
         "time": "20:15 onwards",
@@ -2530,158 +2524,90 @@ const ITINERARY_DATA={
     "dayId": "day1"
   },
   "2": {
-    "dayEmoji": "🌿",
+    "dayEmoji": "🛍️",
     "title": "Day 2 · Saigon Companion",
     "kicker": "Day 2 · 31 Oct • Saturday",
-    "heading": "Slow Lifestyle Day",
-    "areaLabel": "TÂN ĐỊNH → THẢO ĐIỀN",
+    "heading": "Fashion Day",
+    "areaLabel": "LOCAL FASHION · FOOT RESET · LÚNE",
     "legend": [
-      "🌸 Tân Định",
-      "🌿 Lifestyle Walk",
-      "💆‍♀️ Wellness"
+      "🛍️ Fashion",
+      "🍕 Indoor Break",
+      "🌙 Dinner"
     ],
     "items": [
       {
-        "id": "running-bean",
-        "time": "08:30–09:15",
-        "title": "☕ The Running Bean",
-        "details": [
-          "慢慢食早餐、飲第一杯咖啡；今日不需要一早追時間。"
-        ],
-        "route": "🚕 下一站：Grab 去 Tân Định Pink Church，09:30 左右到。",
-        "map": "https://www.google.com/maps/search/?api=1&query=The%20Running%20Bean%20115%20H%E1%BB%93%20T%C3%B9ng%20M%E1%BA%ADu%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
-        "type": "meal",
-        "dayId": "day2",
-        "placeId": "running-bean",
-        "bookingId": null
+        "id": "com-tam-moc",
+        "time": "09:00–10:00",
+        "title": "🍚 Cơm Tấm Mộc",
+        "details": ["炭香碎米飯先墊底；今日主角是 shopping，不把早餐拖長。"],
+        "route": "🚕 下一站：Grab 去 11 Garmentory，10:15 開始 Fashion Day。",
+        "map": "https://www.google.com/maps/search/?api=1&query=C%C6%A1m%20T%E1%BA%A5m%20M%E1%BB%99c%2085%20L%C3%BD%20T%E1%BB%B1%20Tr%E1%BB%8Dng%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
+        "type": "meal", "dayId": "day2", "placeId": "com-tam-moc", "bookingId": null
       },
       {
-        "id": "pink-church",
-        "time": "09:30–10:00",
-        "title": "🩷 Tân Định Pink Church",
-        "details": [
-          "短停、影相；Cộng 只作 optional，想看高位角度才上樓。"
-        ],
-        "route": "🚶 下一站：Cộng 可快閃；之後步行／短 Grab 去 PUSH PUSH。",
-        "map": "https://www.google.com/maps/search/?api=1&query=T%C3%A2n%20%C4%90%E1%BB%8Bnh%20Church%20Tan%20Dinh%20Church%2C%20289%20Hai%20B%C3%A0%20Tr%C6%B0ng%2C%20Ward%208%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
-        "type": "experience",
-        "dayId": "day2",
-        "placeId": "pink-church",
-        "bookingId": null,
-        "guideIds": [
-          "pink-church",
-          "cong"
-        ]
+        "id": "garmentory",
+        "time": "10:15–11:15",
+        "title": "🧥 11 Garmentory",
+        "details": ["先由本地設計選物開始，看看今日第一輪 local fashion。"],
+        "route": "🚕 下一站：Grab → Dalla Saigon · 64 Trần Quang Diệu，從這裡開始上午 shopping cluster。",
+        "map": "https://www.google.com/maps/search/?api=1&query=11%20Garmentory%20117B%20Nguy%E1%BB%85n%20%C4%90%C3%ACnh%20Ch%C3%ADnh%2C%20Ph%C6%B0%E1%BB%9Dng%20C%E1%BA%A7u%20Ki%E1%BB%87u%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+        "type": "shoppingWindow", "dayId": "day2", "placeId": "garmentory", "bookingId": null, "showShoppingDirectory": true
       },
       {
-        "id": "push-push",
-        "time": "10:15–10:45",
-        "title": "👖 PUSH PUSH Official",
-        "details": [
-          "還在 Tân Định，順手看一輪年輕 local fashion；有感覺才試。"
-        ],
-        "route": "🚕 下一站：去 Quán Thuý 94，11:00 食 early lunch。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Push%20Push%20Official%2020%20Nguy%E1%BB%85n%20V%C4%83n%20Nguy%E1%BB%85n%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
-        "type": "shoppingWindow",
-        "dayId": "day2",
-        "placeId": "push-push",
-        "bookingId": null
+        "id": "shopping-tqd",
+        "time": "11:30–12:45",
+        "title": "🛍 Trần Quang Diệu · Fashion Cluster",
+        "details": ["Dalla → RUBIES → Lane Cì；三間沿同一段 Trần Quang Diệu 逛過去。"],
+        "route": "🚕 下一站：12:45 左右 Grab → Pizza 4P’s Bến Thành · 8 Thủ Khoa Huân。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Dalla%20Saigon%2064%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%20Ph%C6%B0%E1%BB%9Dng%2014%20Qu%E1%BA%ADn%203%20H%E1%BB%93%20Ch%C3%AD%20Minh",
+        "type": "shoppingWindow", "dayId": "day2", "placeId": "dalla-saigon", "bookingId": null,
+        "guideIds": ["dalla-saigon","rubies","lane-ci"], "showShoppingDirectory": true
       },
       {
-        "id": "quan-thuy",
-        "time": "11:00–11:45",
-        "title": "🦀 Quán Thuý 94",
-        "details": [
-          "蟹肉粉絲做今日主 lunch；食完先正式轉場 Thảo Điền。"
-        ],
-        "route": "🚕 下一站：約 12:00 Grab → OHQUAO · 19 Đường Số 38, Thảo Điền。落車後開始 Lifestyle Walk。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Qu%C3%A1n%20Thu%C3%BD%2094%2084%20%C4%90inh%20Ti%C3%AAn%20Ho%C3%A0ng%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
-        "type": "meal",
-        "dayId": "day2",
-        "placeId": "quan-thuy",
-        "bookingId": null
+        "id": "pizza4ps",
+        "time": "13:00–14:15",
+        "title": "🍕 Pizza 4P’s · Bến Thành",
+        "details": ["最熱的時段留在冷氣裡；pizza + 自家芝士，讓腳也休息一餐。"],
+        "route": "🚶 下一站：沿 Thủ Khoa Huân 步行去 Mộc Healing Spa · 39–41 Thủ Khoa Huân。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20Ben%20Thanh%208%20Thu%20Khoa%20Huan%20Ho%20Chi%20Minh%20City",
+        "type": "meal", "dayId": "day2", "placeId": "pizza4ps", "bookingId": "bk-pizza4ps"
       },
       {
-        "id": "thao-dien-walk-1",
-        "time": "12:30–13:30",
-        "title": "🌿 Thảo Điền · Lifestyle Walk I",
-        "details": [
-          "OHQUAO / LOUH / Saigon Concept 一帶慢逛，留時間給街角與小店。"
-        ],
-        "route": "🚶 下一站：13:30 行去 Bakes，入冷氣食件 pastry。",
-        "map": "https://www.google.com/maps/search/?api=1&query=OHQUAO%2019%20%C4%90%C6%B0%E1%BB%9Dng%20S%E1%BB%91%2038%2C%20P.%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Qu%E1%BA%ADn%202%2C%20TP.%20H%E1%BB%93%20Ch%C3%AD%20Minh",
-        "type": "shoppingWindow",
-        "dayId": "day2",
-        "placeId": "ohquao",
-        "bookingId": null,
-        "guideIds": [
-          "ohquao",
-          "louh",
-          "saigon-concept"
-        ],
-        "showShoppingDirectory": true
+        "id": "moc-healing",
+        "time": "14:20–15:20",
+        "title": "🦶 Mộc Healing · Foot Reset",
+        "details": ["60 分鐘 foot-focused reset；食完飯行過來，下午再開第二輪 shopping。"],
+        "route": "🚶 下一站：由 Bến Thành 一路步行逛 NOSBYN → Dauple by Ka’s → LIBÉ；不為每間店重新叫車。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Moc%20Healing%20Spa%2039%2041%20Thu%20Khoa%20Huan%20Ben%20Thanh%20Ho%20Chi%20Minh",
+        "type": "spa", "dayId": "day2", "placeId": "moc-healing", "bookingId": "bk-moc-healing"
       },
       {
-        "id": "bakes",
-        "time": "13:30–14:00",
-        "title": "🥐 Bakes Thảo Điền",
-        "details": [
-          "咖啡、pastry、冷氣；午後在 Bakes 坐半小時，剛好換一口氣。"
-        ],
-        "route": "🚶 下一站：去 Mộc Hương；14:00–16:00 把最熱的時段留在 Spa。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Bakes%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2016%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20An%20Kh%C3%A1nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
-        "type": "meal",
-        "dayId": "day2",
-        "placeId": "bakes",
-        "bookingId": null
+        "id": "shopping-nguyen-trai",
+        "time": "15:25–17:15",
+        "title": "🛍 Bến Thành → Nguyễn Trãi · Local Fashion Walk",
+        "details": ["NOSBYN · 9 Phan Chu Trinh → Dauple by Ka’s · 70 Phạm Hồng Thái → LIBÉ · 52 Nguyễn Trãi。一路向 Nguyễn Trãi 行，沿途先逛真正順路的店。"],
+        "route": "🚕 下一站：約 17:15 Grab 返回 Fusion Original，放低戰利品、補妝再出門。",
+        "map": "https://www.google.com/maps/search/?api=1&query=NOSBYN%209%20Phan%20Chu%20Trinh%20Ho%20Chi%20Minh%20City",
+        "type": "shoppingWindow", "dayId": "day2", "placeId": "nosbyn", "bookingId": null,
+        "guideIds": ["nosbyn","dauple","libe"], "showShoppingDirectory": true
       },
       {
-        "id": "moc-huong",
-        "time": "14:00–16:00",
-        "title": "🌿 Mộc Hương Wellness",
-        "details": [
-          "兩小時 wellness；把最熱的午後藏進 villa，按摩完再迎黃昏。"
-        ],
-        "route": "🚶 下一站：16:00 回到 Thảo Điền 街上，繼續 Lifestyle Walk II。",
-        "map": "https://www.google.com/maps/search/?api=1&query=M%E1%BB%99c%20H%C6%B0%C6%A1ng%20Wellness%2061%20Xu%C3%A2n%20Th%E1%BB%A7y%2C%20Ph%C6%B0%E1%BB%9Dng%20An%20Kh%C3%A1nh%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
-        "type": "spa",
-        "dayId": "day2",
-        "placeId": "moc-huong",
-        "bookingId": "bk-moc-huong"
+        "id": "hotel-reset",
+        "time": "17:25–18:05",
+        "title": "🛍️ → 🏨 Fusion · Drop Bags & Freshen Up",
+        "details": ["把今日戰利品留在房間，補妝、換口氣，再輕身去晚餐。"],
+        "route": "🚕 下一站：18:10 左右 Grab → LÚNE · 17/14 Lê Thánh Tôn，18:30 入席。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%2065%20Le%20Loi%20Ho%20Chi%20Minh",
+        "type": "stay", "dayId": "day2", "placeId": "fusion", "bookingId": null
       },
       {
-        "id": "thao-dien-walk-2",
-        "time": "16:00–17:45",
-        "title": "🌿 Thảo Điền · Lifestyle Walk II",
-        "details": [
-          "黃昏再走第二段，留一點時間給真正想逛的店。"
-        ],
-        "route": "🚶 下一站：慢慢行／短程移動去 Little Bear，18:00–18:30 入座。",
-        "map": "https://www.google.com/maps/search/?api=1&query=LOUH%20Saigon%2061%20Nguy%E1%BB%85n%20B%C3%A1%20Hu%C3%A2n%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%20Ho%20Chi%20Minh%20City",
-        "type": "shoppingWindow",
-        "dayId": "day2",
-        "placeId": "louh",
-        "bookingId": null,
-        "guideIds": [
-          "louh",
-          "ohquao",
-          "saigon-concept"
-        ],
-        "showShoppingDirectory": true
-      },
-      {
-        "id": "little-bear",
+        "id": "lune",
         "time": "18:30–20:30",
-        "title": "🍷 Little Bear",
-        "details": [
-          "一杯酒、幾碟 share plates，把 Thảo Điền 的慢留到晚餐。"
-        ],
+        "title": "🥂 LÚNE",
+        "details": ["放低 shopping bags 再來；Fashion Day 最後換成一張安靜餐桌。"],
         "route": "🏨 下一站：Dinner 後 Grab 返回 Fusion。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Little%20Bear%2036%20Nguy%E1%BB%85n%20B%C3%A1%20Hu%C3%A2n%2C%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
-        "type": "meal",
-        "dayId": "day2",
-        "placeId": "little-bear",
-        "bookingId": "bk-little-bear"
+        "map": "https://www.google.com/maps/search/?api=1&query=L%C3%9ANE%20Restaurant%20%26%20Bar%2017%2F14%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20S%C3%A0i%20G%C3%B2n%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
+        "type": "meal", "dayId": "day2", "placeId": "lune", "bookingId": "bk-lune"
       }
     ],
     "dayId": "day2"
@@ -2773,90 +2699,83 @@ const ITINERARY_DATA={
     "dayId": "day3"
   },
   "4": {
-    "dayEmoji": "🛍️",
+    "dayEmoji": "🌿",
     "title": "Day 4 · Saigon Companion",
     "kicker": "Day 4 · 2 Nov • Monday",
-    "heading": "Fashion Day",
-    "areaLabel": "LOCAL FASHION · FOOT RESET · LÚNE",
+    "heading": "Thảo Điền Open Day",
+    "areaLabel": "TÂN ĐỊNH → THẢO ĐIỀN",
     "legend": [
-      "🛍️ Fashion",
-      "🍕 Indoor Break",
-      "🌙 Dinner"
+      "🌸 Tân Định Morning",
+      "🎲 Thảo Điền Open List",
+      "🌿 No Checklist"
     ],
     "items": [
       {
-        "id": "com-tam-moc",
-        "time": "09:00–10:00",
-        "title": "🍚 Cơm Tấm Mộc",
-        "details": ["炭香碎米飯先墊底；今日主角是 shopping，不把早餐拖長。"],
-        "route": "🚕 下一站：Grab 去 11 Garmentory，10:15 開始 Fashion Day。",
-        "map": "https://www.google.com/maps/search/?api=1&query=C%C6%A1m%20T%E1%BA%A5m%20M%E1%BB%99c%2085%20L%C3%BD%20T%E1%BB%B1%20Tr%E1%BB%8Dng%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
-        "type": "meal", "dayId": "day4", "placeId": "com-tam-moc", "bookingId": null
+        "id": "running-bean",
+        "time": "08:30–09:15",
+        "title": "☕ The Running Bean",
+        "details": [
+          "慢慢食早餐、飲第一杯咖啡；今日不需要一早追時間。"
+        ],
+        "route": "🚕 下一站：Grab 去 Tân Định Pink Church，09:30 左右到。",
+        "map": "https://www.google.com/maps/search/?api=1&query=The%20Running%20Bean%20115%20H%E1%BB%93%20T%C3%B9ng%20M%E1%BA%ADu%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+        "type": "meal",
+        "dayId": "day4",
+        "placeId": "running-bean",
+        "bookingId": null
       },
       {
-        "id": "garmentory",
-        "time": "10:15–11:15",
-        "title": "🧥 11 Garmentory",
-        "details": ["先由本地設計選物開始，看看今日第一輪 local fashion。"],
-        "route": "🚕 下一站：Grab → Dalla Saigon · 64 Trần Quang Diệu，從這裡開始上午 shopping cluster。",
-        "map": "https://www.google.com/maps/search/?api=1&query=11%20Garmentory%20117B%20Nguy%E1%BB%85n%20%C4%90%C3%ACnh%20Ch%C3%ADnh%2C%20Ph%C6%B0%E1%BB%9Dng%20C%E1%BA%A7u%20Ki%E1%BB%87u%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
-        "type": "shoppingWindow", "dayId": "day4", "placeId": "garmentory", "bookingId": null, "showShoppingDirectory": true
+        "id": "pink-church",
+        "time": "09:30–10:00",
+        "title": "🩷 Tân Định Pink Church",
+        "details": [
+          "短停、影相；Cộng 只作 optional，想看高位角度才上樓。"
+        ],
+        "route": "🚶 下一站：Cộng 可快閃；之後步行／短 Grab 去 PUSH PUSH。",
+        "map": "https://www.google.com/maps/search/?api=1&query=T%C3%A2n%20%C4%90%E1%BB%8Bnh%20Church%20Tan%20Dinh%20Church%2C%20289%20Hai%20B%C3%A0%20Tr%C6%B0ng%2C%20Ward%208%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
+        "type": "experience",
+        "dayId": "day4",
+        "placeId": "pink-church",
+        "bookingId": null,
+        "guideIds": [
+          "pink-church",
+          "cong"
+        ]
       },
       {
-        "id": "shopping-tqd",
-        "time": "11:30–12:45",
-        "title": "🛍 Trần Quang Diệu · Fashion Cluster",
-        "details": ["Dalla → RUBIES → Lane Cì；三間沿同一段 Trần Quang Diệu 逛過去。"],
-        "route": "🚕 下一站：12:45 左右 Grab → Pizza 4P’s Bến Thành · 8 Thủ Khoa Huân。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Dalla%20Saigon%2064%20Tr%E1%BA%A7n%20Quang%20Di%E1%BB%87u%20Ph%C6%B0%E1%BB%9Dng%2014%20Qu%E1%BA%ADn%203%20H%E1%BB%93%20Ch%C3%AD%20Minh",
-        "type": "shoppingWindow", "dayId": "day4", "placeId": "dalla-saigon", "bookingId": null,
-        "guideIds": ["dalla-saigon","rubies","lane-ci"], "showShoppingDirectory": true
+        "id": "push-push",
+        "time": "10:15–10:45",
+        "title": "👖 PUSH PUSH Official",
+        "details": [
+          "還在 Tân Định，順手看一輪年輕 local fashion；有感覺才試。"
+        ],
+        "route": "🚕 下一站：由這裡 Grab 入 Thảo Điền。落車後不再跟時間表。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Push%20Push%20Official%2020%20Nguy%E1%BB%85n%20V%C4%83n%20Nguy%E1%BB%85n%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
+        "type": "shoppingWindow",
+        "dayId": "day4",
+        "placeId": "push-push",
+        "bookingId": null
       },
       {
-        "id": "pizza4ps",
-        "time": "13:00–14:15",
-        "title": "🍕 Pizza 4P’s · Bến Thành",
-        "details": ["最熱的時段留在冷氣裡；pizza + 自家芝士，讓腳也休息一餐。"],
-        "route": "🚶 下一站：沿 Thủ Khoa Huân 步行去 Mộc Healing Spa · 39–41 Thủ Khoa Huân。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20Ben%20Thanh%208%20Thu%20Khoa%20Huan%20Ho%20Chi%20Minh%20City",
-        "type": "meal", "dayId": "day4", "placeId": "pizza4ps", "bookingId": "bk-pizza4ps"
-      },
-      {
-        "id": "moc-healing",
-        "time": "14:20–15:20",
-        "title": "🦶 Mộc Healing · Foot Reset",
-        "details": ["60 分鐘 foot-focused reset；食完飯行過來，下午再開第二輪 shopping。"],
-        "route": "🚶 下一站：由 Bến Thành 一路步行逛 NOSBYN → Dauple by Ka’s → LIBÉ；不為每間店重新叫車。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Moc%20Healing%20Spa%2039%2041%20Thu%20Khoa%20Huan%20Ben%20Thanh%20Ho%20Chi%20Minh",
-        "type": "spa", "dayId": "day4", "placeId": "moc-healing", "bookingId": "bk-moc-healing"
-      },
-      {
-        "id": "shopping-nguyen-trai",
-        "time": "15:25–17:15",
-        "title": "🛍 Bến Thành → Nguyễn Trãi · Local Fashion Walk",
-        "details": ["NOSBYN · 9 Phan Chu Trinh → Dauple by Ka’s · 70 Phạm Hồng Thái → LIBÉ · 52 Nguyễn Trãi。一路向 Nguyễn Trãi 行，沿途先逛真正順路的店。"],
-        "route": "🚕 下一站：約 17:15 Grab 返回 Fusion Original，放低戰利品、補妝再出門。",
-        "map": "https://www.google.com/maps/search/?api=1&query=NOSBYN%209%20Phan%20Chu%20Trinh%20Ho%20Chi%20Minh%20City",
-        "type": "shoppingWindow", "dayId": "day4", "placeId": "nosbyn", "bookingId": null,
-        "guideIds": ["nosbyn","dauple","libe"], "showShoppingDirectory": true
-      },
-      {
-        "id": "hotel-reset",
-        "time": "17:25–18:05",
-        "title": "🛍️ → 🏨 Fusion · Drop Bags & Freshen Up",
-        "details": ["把今日戰利品留在房間，補妝、換口氣，再輕身去晚餐。"],
-        "route": "🚕 下一站：18:10 左右 Grab → LÚNE · 17/14 Lê Thánh Tôn，18:30 入席。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%2065%20Le%20Loi%20Ho%20Chi%20Minh",
-        "type": "stay", "dayId": "day4", "placeId": "fusion", "bookingId": null
-      },
-      {
-        "id": "lune",
-        "time": "18:30–20:30",
-        "title": "🥂 LÚNE",
-        "details": ["放低 shopping bags 再來；Fashion Day 最後換成一張安靜餐桌。"],
-        "route": "🏨 下一站：Dinner 後 Grab 返回 Fusion。",
-        "map": "https://www.google.com/maps/search/?api=1&query=L%C3%9ANE%20Restaurant%20%26%20Bar%2017%2F14%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20S%C3%A0i%20G%C3%B2n%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
-        "type": "meal", "dayId": "day4", "placeId": "lune", "bookingId": "bk-lune"
+        "id": "thao-dien-open-list",
+        "time": "~11:00 onwards",
+        "title": "🎲 Thảo Điền · Open List",
+        "summary": "由入 Thảo Điền 開始，不跟時間表。行到哪裡、肚餓就食、想坐就飲、想做 Spa 才做。",
+        "details": [
+          "🛍 Browse · OHQUAO · Saigon Concept · LOUH · Shopping Directory 裏其他順路小店",
+          "🥐 Coffee / Sweet · Bakes，或者沿途見到想坐的 café",
+          "🍽 Eat · 不設固定 lunch；行到哪裡，按當時胃口選",
+          "🌿 Spa · Walk-in Picks · Mộc Hương · Mojo · Thao Dien Spa · Golden Lotus；行到附近、想休息先揀",
+          "🥂 Farewell · 可以正式食 dinner、wine + small plates、買個蛋糕返 Fusion，甚至不再食一餐"
+        ],
+        "route": "🏨 收尾時由當時位置 Grab 返回 Fusion。",
+        "map": "https://www.google.com/maps/search/?api=1&query=OHQUAO%2019%20Duong%20So%2038%20Thao%20Dien%20Ho%20Chi%20Minh%20City",
+        "type": "openList",
+        "dayId": "day4",
+        "placeId": "ohquao",
+        "bookingId": null,
+        "guideIds": ["ohquao","saigon-concept","louh","bakes","moc-huong","mojo-spa","thao-dien-spa","golden-lotus-thao-dien"],
+        "showShoppingDirectory": true
       }
     ],
     "dayId": "day4"

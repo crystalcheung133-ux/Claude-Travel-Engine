@@ -1,19 +1,37 @@
-const fs=require('fs'),assert=require('assert'),vm=require('vm');
-let s=fs.readFileSync('data.js','utf8')+'\n;globalThis.__x={PLACES,CATEGORIES,GUIDE_ORDER,DAY_LINKS,BOOKINGS_DATA,ITINERARY_DATA};';let c={};vm.createContext(c);vm.runInContext(s,c);const {PLACES,GUIDE_ORDER,DAY_LINKS,BOOKINGS_DATA,ITINERARY_DATA}=c.__x;
-const retired=['cooking','moc-kim','tinh-thuc','quince']; for(const k of retired){assert(!PLACES[k],`retired Guide remains: ${k}`);assert(!GUIDE_ORDER.includes(k),`retired Guide order remains: ${k}`)}
-for(const k of ['moc-healing','cu-chi','nara-spa','oc-dao']) assert(PLACES[k],`new Guide missing: ${k}`);
-for(const k of ['bk-cooking','bk-moc-kim','bk-tinh-thuc','bk-quince']) assert(!BOOKINGS_DATA[k],`retired booking remains: ${k}`);
-for(const k of ['bk-moc-healing','bk-cu-chi','bk-nara']) assert(BOOKINGS_DATA[k],`new booking missing: ${k}`);
-assert.equal(BOOKINGS_DATA['bk-pizza4ps'].day,4);assert.equal(BOOKINGS_DATA['bk-pizza4ps'].time,'13:00');assert.equal(BOOKINGS_DATA['bk-moc-healing'].time,'14:20');assert.equal(BOOKINGS_DATA['bk-lune'].time,'18:30');assert.equal(BOOKINGS_DATA['bk-moc-huong'].day,2);assert.equal(BOOKINGS_DATA['bk-little-bear'].day,2);assert.equal(BOOKINGS_DATA['bk-moc-healing'].day,4);
-const ids=d=>ITINERARY_DATA[String(d)].items.map(x=>x.id);
-assert.equal(JSON.stringify(ids(2)),JSON.stringify(['running-bean','pink-church','push-push','quan-thuy','thao-dien-walk-1','bakes','moc-huong','thao-dien-walk-2','little-bear']));
-assert.equal(JSON.stringify(ids(3)),JSON.stringify(['cu-chi','man-moi','war-museum','nara-spa','oc-dao']));
-assert.equal(JSON.stringify(ids(4)),JSON.stringify(['com-tam-moc','garmentory','shopping-tqd','pizza4ps','moc-healing','shopping-nguyen-trai','hotel-reset','lune']));
-for(const d of [2,3,4]){const a=ITINERARY_DATA[String(d)].items;for(let i=0;i<a.length-1;i++)assert(a[i].route&&a[i].route.trim(),`Day ${d} missing Next Leg after ${a[i].id}`)}
-assert(ITINERARY_DATA['3'].items[0].details.join(' ').includes('14:30'), 'Cu Chi anchor missing');
-assert(ITINERARY_DATA['2'].items.find(x=>x.id==='quan-thuy').route.includes('OHQUAO'),'Day 2 Thảo Điền transfer must name OHQUAO start');
-assert(ITINERARY_DATA['4'].items.find(x=>x.id==='pizza4ps').route.includes('Mộc Healing'),'Day 4 lunch must walk to Mộc Healing');
-assert(BOOKINGS_DATA['bk-man-moi']&&BOOKINGS_DATA['bk-man-moi'].timelineItemId==='man-moi','Mặn Mòi booking/deep-link missing');
-for(const id of ['bk-moc-healing','bk-nara','bk-moc-huong'])assert(BOOKINGS_DATA[id].timelineItemId,`${id} own-card timeline link missing`);
-const sd=fs.readFileSync('shopping-directory-data.js','utf8');for(const stale of ['Day 3 · Thảo Điền','Day 4 · Phú Nhuận 第一輪','Tỉnh Thức Spa → Dalla','Grab to Quince'])assert(!sd.includes(stale),`stale shopping route remains: ${stale}`);
-console.log('D2–D4 ITINERARY RECONCILIATION: PASS');
+const fs=require('fs'),vm=require('vm'),assert=require('assert');
+const src=fs.readFileSync('data.js','utf8')+'\n;globalThis.__I=ITINERARY_DATA;globalThis.__B=BOOKINGS_DATA;globalThis.__P=PLACES;';
+const c={console};vm.createContext(c);vm.runInContext(src,c);
+const I=c.__I,B=c.__B,P=c.__P;
+const ids=d=>Array.from(I[String(d)].items,x=>x.id);
+
+assert.equal(I['2'].heading,'Fashion Day');
+assert.equal(I['2'].kicker,'Day 2 · 31 Oct • Saturday');
+assert.deepEqual(ids(2),['com-tam-moc','garmentory','shopping-tqd','pizza4ps','moc-healing','shopping-nguyen-trai','hotel-reset','lune']);
+
+assert.equal(I['4'].heading,'Thảo Điền Open Day');
+assert.equal(I['4'].kicker,'Day 4 · 2 Nov • Monday');
+assert.deepEqual(ids(4),['running-bean','pink-church','push-push','thao-dien-open-list']);
+assert(!ids(4).includes('little-bear'),'Little Bear is closed Monday and must not be scheduled');
+
+for(const [id,day,date,time,event] of [
+ ['bk-pizza4ps',2,'2026-10-31','13:00','pizza4ps'],
+ ['bk-moc-healing',2,'2026-10-31','14:20','moc-healing'],
+ ['bk-lune',2,'2026-10-31','18:30','lune'],
+]){
+ assert(B[id],id+' missing');
+ assert.equal(B[id].day,day,id+' day drift');
+ assert.equal(B[id].date,date,id+' date drift');
+ assert.equal(B[id].time,time,id+' time drift');
+ assert.equal(B[id].timelineItemId,event,id+' timeline anchor drift');
+ assert(ids(day).includes(event),id+' anchor does not exist on assigned day');
+}
+assert(!B['bk-little-bear']); assert(!B['bk-moc-huong'],'D4 open day must not carry a pending spa booking');
+
+assert(I['2'].items.find(x=>x.id==='pizza4ps').route.includes('Mộc Healing'),'D2 lunch must walk to Mộc Healing');
+assert(I['4'].items.find(x=>x.id==='thao-dien-open-list').type==='openList','D4 must collapse Thảo Điền into one open-list card');
+
+const sd=fs.readFileSync('shopping-directory-data.js','utf8');
+assert(sd.includes('Day 2 · Nguyễn Trãi'),'Shopping Directory must move Fashion route to D2');
+assert(sd.includes('Day 4 · Thảo Điền'),'Shopping Directory must move Thảo Điền route to D4');
+assert(!sd.includes('Pizza 4P’s Hai Bà Trưng'),'stale Pizza branch route survived');
+console.log('D2/D4 CANONICAL RECONCILIATION: PASS');

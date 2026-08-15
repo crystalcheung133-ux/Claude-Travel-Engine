@@ -13,5 +13,5 @@ assert(day.includes('function timelineCopyEligible(item,place)'),'Copy eligibili
 assert(day.includes('copyAddressEligible===false'),'Explicit eligibility override missing');
 assert(day.includes('copy-label-desktop')&&day.includes('copy-label-mobile'),'Responsive copy labels missing');
 assert(css.includes('.copy-label-mobile{display:none}')&&css.includes('@media(max-width:700px)'),'Mobile copy CSS missing');
-assert(/Night Walk[\s\S]{0,180}copyAddressEligible/.test(data)||/copyAddressEligible[\s\S]{0,180}Night Walk/.test(data),'Night Walk should explicitly suppress Copy Address');
+assert(/post-office[\s\S]{0,500}copyAddressEligible[^\n]*false/.test(data),'Old Saigon cluster should explicitly suppress Copy Address');
 console.log('TIMELINE COPY ADDRESS CAPABILITY: PASS');

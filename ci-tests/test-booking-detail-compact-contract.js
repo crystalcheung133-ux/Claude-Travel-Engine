@@ -1,0 +1,26 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert');
+const data=fs.readFileSync('data.js','utf8')+'\n;globalThis.__B=BOOKINGS_DATA;';
+const c={console};vm.createContext(c);vm.runInContext(data,c);
+const B=c.__B,t=B['bk-omakase-tiger'];
+assert.equal(t.bookingName,'Crystal Cheung');
+assert.equal(t.bookingMethod,'WhatsApp');
+assert.equal(t.whatsapp,'+84 93 201 4124');
+assert.equal(t.depositPaid,'Paid');
+assert.equal(t.depositAmount,'2000000');
+assert.equal(t.depositCurrency,'VND');
+assert.equal(t.depositAUD,'AUD 112');
+assert.notEqual(typeof t.depositPaid,'boolean');
+
+const trip=fs.readFileSync('trip-runtime.js','utf8');
+assert(trip.includes('function bookingHumanValue'),'human booking formatter missing');
+assert(trip.includes('function bookingDepositDisplay'),'deposit formatter missing');
+assert(!trip.includes("bookingSectionHTML('How to book / handoff'"),'handoff paragraph should be removed');
+const action=(trip.match(/function bookingActionButtonsHTML\(booking,place,options=\{\}\)\{[\s\S]*?\n\}/)||[''])[0];
+assert(action,'booking action renderer missing');
+assert(!action.includes('bookingGuideButtonHTML'),'Booking detail Guide button should be removed');
+assert(!action.includes('Navigate</a>'),'Booking detail Navigate button should be removed');
+assert(!action.includes('Copy Address'),'Booking detail Copy Address button should be removed');
+assert(!action.includes('bookingEditButtonHTML'),'Edit Booking must not render from detail actions');
+assert(trip.includes('booking-expense-buttons--compact'),'Expense linkage must use compact action');
+assert(trip.includes("if(!hasPayment)return ''"),'Untouched pending bookings must not render expense panel');
+console.log('BOOKING DETAIL COMPACT CONTRACT: PASS');

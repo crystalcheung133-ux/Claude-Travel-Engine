@@ -18,10 +18,19 @@
   function masterRevision(){return Number(root.TRIP_CONFIG&&root.TRIP_CONFIG.bookingMasterRevision||1);}
   function recordRevision(record){return Number(record&&((record._masterRevision!=null?record._masterRevision:record.masterRevision))||0);}
   function stamp(record){const out=clone(record)||{};out._masterRevision=masterRevision();return out;}
+  function meaningful(value){
+    return !(value===undefined||value===null||value===''||value===false);
+  }
   function mergeStaleState(base,override){
     const out=Object.assign({},clone(base));
-    EDITABLE_STATE_FIELDS.forEach(function(field){
-      if(override&&Object.prototype.hasOwnProperty.call(override,field))out[field]=clone(override[field]);
+    if(!override||typeof override!=='object')return out;
+    ['status','displayStatus'].forEach(function(field){
+      if(Object.prototype.hasOwnProperty.call(override,field))out[field]=clone(override[field]);
+    });
+    ['bookingName','reference','referenceLabel','bookingReference',
+     'depositPaid','depositAmount','depositCurrency','paymentStatus',
+     'totalAmount','cashbackAmount','netTotalAUD','price','paymentLabel'].forEach(function(field){
+      if(!meaningful(base&&base[field])&&Object.prototype.hasOwnProperty.call(override,field))out[field]=clone(override[field]);
     });
     return out;
   }

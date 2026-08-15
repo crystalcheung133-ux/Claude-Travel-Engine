@@ -28,3 +28,11 @@ node ci-tests/test-booking-sync-canonical-master-contract.js || failed=1
 node ci-tests/test-booking-authority-stale-poisoning.js || failed=1
 
 node ci-tests/test-booking-handoff-completeness.js || failed=1
+
+node ci-tests/test-booking-detail-compact-contract.js || failed=1
+
+node ci-tests/test-cross-surface-day-consistency.js || failed=1
+
+node ci-tests/test-moments-plan-activity-canonical.js || failed=1
+
+node ci-tests/test-open-day-and-arrival-flow.js || failed=1

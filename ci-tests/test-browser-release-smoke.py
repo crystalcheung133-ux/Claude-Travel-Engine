@@ -176,13 +176,13 @@ def run_viewport(browser,base,viewport,label):
         page.wait_for_timeout(50)
 
         # Timeline → direct Booking.
-        page.goto(base+'/day.html?day=4',wait_until='domcontentloaded')
+        page.goto(base+'/day.html?day=2',wait_until='domcontentloaded')
         page.wait_for_timeout(120)
         card=page.locator('#pizza4ps')
-        check(card.count()==1,label+': D4 Pizza 4P’s timeline card missing')
+        check(card.count()==1,label+': D2 Pizza 4P’s timeline card missing')
         booking=card.locator('.timeline-action--trip')
         guide=card.locator('.timeline-action--guide')
-        check(booking.count()>0 and guide.count()>0,label+': D4 Pizza must expose Guide and Booking')
+        check(booking.count()>0 and guide.count()>0,label+': D2 Pizza must expose Guide and Booking')
         booking.click(); page.wait_for_selector('#tripModal.show')
         check(top_owner(page,'#tripModal .trip-sheet'),label+': Direct Booking sheet is behind page/hero')
         check(nav_visible(page),label+': bottom nav disappeared during direct Booking')
@@ -239,7 +239,7 @@ def run_viewport(browser,base,viewport,label):
         page.evaluate("openBookingCategoryCard('Spa')")
         page.wait_for_selector('#tripModal.show')
         spa_text=page.locator('#tripModalContent').inner_text()
-        check('Mộc Hương Wellness' in spa_text and 'Day 2' in spa_text,label+': Mộc Hương did not render on Day 2')
+        check('Mộc Hương Wellness' not in spa_text,label+': obsolete D4 Mộc Hương booking resurrected from stale state')
         check('Mộc Healing Spa' in spa_text and '14:20' in spa_text,label+': Mộc Healing did not render at 14:20')
         check('16:45' not in spa_text,label+': stale Mộc Healing time survived into rendered UI')
 
