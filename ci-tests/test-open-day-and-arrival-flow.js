@@ -4,8 +4,8 @@ vm.runInContext(fs.readFileSync('data.js','utf8')+'\n;globalThis.__X={I:ITINERAR
 const {I,B,L}=c.__X;
 const ids=d=>Array.from(I[String(d)].items,x=>x.id);
 
-// D1: Old Saigon -> hotel reset -> Cafe Apartments split -> 17:30 sunset Omakase.
-assert.deepEqual(ids(1).slice(3,8),['pho-sol','post-office','day1-hotel-reset','nha-suga','omakase-tiger']);
+// D1: arrival/currency -> Phở SOL -> Old Saigon -> optional Ivoire -> hotel reset -> Cafe Apartments -> 17:30 sunset Omakase.
+assert.deepEqual(ids(1).slice(3,9),['pho-sol','post-office','ivoire','day1-hotel-reset','nha-suga','omakase-tiger']);
 const cafe=I['1'].items.find(x=>x.id==='nha-suga');
 assert(cafe.title.includes('Cafe Apartments')&&cafe.title.includes('Headspa'));
 assert(cafe.time.includes('17:00'));

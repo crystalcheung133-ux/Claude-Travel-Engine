@@ -366,6 +366,39 @@ const PLACES={
       "17:30 入席最適合睇 Penthouse 黃昏景色。"
     ]
   },
+  "ivoire": {
+    "title": "Ivoire Pastry Boutique",
+    "emoji": "🍰",
+    "cat": "CAFÉS",
+    "sub": "Day 1 · Post Office 後甜點 stop",
+    "status": "planned",
+    "hours": "Fri 10:30–19:00",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Ivoire%20Pastry%20Boutique%2028%20Cao%20Ba%20Quat%20Ho%20Chi%20Minh%20City",
+    "address": "28 Cao Bá Quát, Bến Nghé, District 1, Ho Chi Minh City",
+    "desc": "Ivoire 是 Day 1 行完郵局、書街與紅教堂後的 optional pastry stop。時間鬆動就坐低慢慢食；如果已經攰、房間 ready，或者想早點返酒店，就直接 takeaway 幾件 cake 回 Fusion。重點係留彈性，不為甜點拖慢第一日節奏。",
+    "signature": [
+      "精緻法式 pastry，造型感強",
+      "適合四個人 share 幾款，不需要當成另一餐",
+      "Dine-in / takeaway 都成立"
+    ],
+    "worth": [
+      "星期五 10:30 開門，放在 Post Office / Book Street 後剛好。",
+      "有時間就坐低；冇時間就外賣返 Fusion，唔需要為 guide card 變成硬行程。"
+    ],
+    "categoryLabel": "☕ Cafe · Optional",
+    "price": "$$",
+    "transport": "Walk from Post Office / Book Street; then Grab back to Fusion",
+    "audit": "Address and Friday hours cross-checked July/Aug 2026; takeaway supported",
+    "highlights": [
+      "精緻法式 pastry，造型感強",
+      "適合四個人 share 幾款，不需要當成另一餐",
+      "Dine-in / takeaway 都成立"
+    ],
+    "tips": [
+      "星期五 10:30 開門。",
+      "如果酒店通知房間 ready，買 cake 外賣返房食會更舒服。"
+    ]
+  },
   "pho-sol": {
     "title": "Phở SOL",
     "emoji": "🍜",
@@ -1219,36 +1252,19 @@ const PLACES={
     ]
   },
   "cash-backup": {
-    "title": "Cash Backup · Saigon Centre",
+    "title": "Cash / Currency Backup",
     "emoji": "💵",
     "cat": "PRACTICAL",
-    "sub": "Day 1 · Licensed FX backup",
-    "hours": "Ask hotel concierge or Takashimaya Information Desk during opening hours",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Saigon%20Centre%20Takashimaya%2065%20L%C3%AA%20L%E1%BB%A3i%20Ho%20Chi%20Minh%20City",
-    "address": "Saigon Centre / Takashimaya Information Desk, 65 Lê Lợi, District 1",
-    "desc": "機場 ATM 仍然係首選。若取款失敗，返到 Fusion Original 後可先問酒店 concierge，或者到 Takashimaya Information Desk 查詢最近的持牌銀行／獲授權外幣兌換櫃位。唔再將金舖當作正式換錢後備。",
-    "signature": [
-      "Airport ATM first；Wise 卡優先",
-      "向 Fusion Original concierge 或 Takashimaya Information Desk 查詢",
-      "只使用 licensed bank / authorised FX counter"
-    ],
-    "worth": [
-      "不要假設 Takashimaya B2 一定有固定兌換櫃位；以當日資訊為準。",
-      "若 ATM 已成功取款，直接略過呢個 optional backup。"
-    ],
-    "categoryLabel": "💵 Practical · Optional",
-    "price": "Exchange rate varies",
-    "transport": "Inside / next to the hotel",
-    "audit": "Safe backup wording; no jewellery-shop exchange recommendation",
-    "highlights": [
-      "Airport ATM first；Wise 卡優先",
-      "向 Fusion Original concierge 或 Takashimaya Information Desk 查詢",
-      "只使用 licensed bank / authorised FX counter"
-    ],
-    "tips": [
-      "不要假設 Takashimaya B2 一定有固定兌換櫃位；以當日資訊為準。",
-      "若 ATM 已成功取款，直接略過呢個 optional backup。"
-    ]
+    "sub": "Reference only · not Guide inventory",
+    "maps": "",
+    "address": "",
+    "desc": "Day 1 currency choices are shown directly on the Timeline; this record is retained only for engine compatibility and is not exposed as Guide inventory.",
+    "signature": [],
+    "worth": [],
+    "categoryLabel": "Practical",
+    "transport": "",
+    "highlights": [],
+    "tips": []
   },
   "late-night-supper": {
     "title": "Late-night Hotel Supper",
@@ -1545,6 +1561,9 @@ const CATEGORIES={
       "key": "bakes"
     },
     {
+      "key": "ivoire"
+    },
+    {
       "key": "cong"
     },
     {
@@ -1706,6 +1725,7 @@ const GUIDE_ORDER=[
   "lune",
   "man-moi",
   "omakase-tiger",
+  "ivoire",
   "pho-sol",
   "pho-vietnam",
   "pizza4ps",
@@ -1747,6 +1767,12 @@ const DAY_LINKS={
     [
       "Day 1",
       "day.html?day=1#fusion"
+    ]
+  ],
+  "ivoire": [
+    [
+      "Day 1",
+      "day.html?day=1#ivoire"
     ]
   ],
   "pho-sol": [
@@ -1835,12 +1861,6 @@ const DAY_LINKS={
     [
       "Day 3",
       "day.html?day=3#man-moi"
-    ]
-  ],
-  "cash-backup": [
-    [
-      "Day 1",
-      "day.html?day=1#cash-backup"
     ]
   ],
   "late-night-supper": [
@@ -2379,56 +2399,60 @@ const ITINERARY_DATA={
     ],
     "items": [
       {
-        "id": "airport-atm",
-        "time": "09:30–10:00",
-        "title": "💵 Airport ATM 取款",
+        "id": "airport-arrival",
+        "time": "06:00",
+        "title": "🛬 Arrive Ho Chi Minh City",
         "details": [
-          "Tien Phong Bank LiveBank 取 VND；Wise 卡優先。"
+          "抵達 SGN；預留 immigration、行李與接送集合時間。"
         ],
-        "route": "🚶 To next stop：完成取款後前往接送集合點。",
-        "map": "https://maps.google.com/?q=Tien+Phong+Bank+LiveBank+Tan+Son+Nhat+Airport",
-        "type": "money",
+        "route": "🚐 To next stop：出關後乘已預訂 Klook Private Transfer → Fusion Original。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Tan%20Son%20Nhat%20International%20Airport",
+        "type": "transport",
         "dayId": "day1",
         "placeId": "tan-son-nhat-airport",
         "bookingId": null
       },
       {
         "id": "airport-transfer",
-        "time": "10:00–10:45",
-        "title": "🚐 Airport Transfer → Fusion Original",
+        "time": "~07:15–08:00",
+        "title": "🚐 Klook Private Transfer → Fusion",
         "details": [
-          "Klook 接送直達酒店，先 drop luggage。"
+          "Private transfer 直達 Fusion Original；到酒店先 drop luggage。",
+          "正式 check-in 14:00；如果約 12:00 已有房就提早入房，唔需要硬等到 14:00。"
         ],
-        "route": "🚶 To next stop：寄放行李後，若機場未能取款，先問酒店 concierge／Takashimaya Information Desk；否則直接去 Phở SOL。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%20Fusion%20Original%20Saigon%20Centre%2C%2065%20L%C3%AA%20L%E1%BB%A3i%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
+        "route": "💵 To next stop：放低行李後先處理 VND；三個選項按當日方便／rate 揀一個。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%2065%20Le%20Loi%20Ho%20Chi%20Minh%20City",
         "type": "transport",
         "dayId": "day1",
         "placeId": "fusion",
         "bookingId": "bk-transfer-in"
       },
       {
-        "id": "cash-backup",
-        "time": "10:45–11:15",
-        "title": "💵 Cash Backup · Saigon Centre",
+        "id": "day1-currency",
+        "time": "~08:00–08:45",
+        "title": "💵 VND · Pick One",
         "details": [
-          "只在機場 ATM 未成功時使用；向酒店 concierge 或 Takashimaya Information Desk 查詢最近的持牌銀行／獲授權外幣兌換櫃位。",
-          "Wise／ATM 優先；不再到金舖換錢。"
+          "🏧 VPBank · 165–167–169 Hàm Nghi — Wise withdrawal；首選 no-operator-fee ATM。",
+          "💱 Takashimaya B2 — 最方便的 cash exchange option；開門後先睇 AUD rate。",
+          "💱 Hà Tâm · 2 Nguyễn An Ninh — rate-check option；近期營業狀態曾反覆，當日開門先用。",
+          "三個都只係 Timeline options，不開 Guide；揀一個搞掂就繼續早餐。"
         ],
-        "route": "🚶 To next stop：由酒店／Saigon Centre 步行約 5–10 分鐘去 Phở SOL。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Saigon%20Centre%20Takashimaya%2065%20L%C3%AA%20L%E1%BB%A3i%20Ho%20Chi%20Minh%20City",
+        "route": "🚶 To next stop：處理好現金後去 Phở SOL Bến Thành。",
         "type": "money",
         "dayId": "day1",
-        "placeId": "cash-backup",
+        "nonPlace": true,
+        "nonPlaceRole": "preparation",
+        "placeId": null,
         "bookingId": null
       },
       {
         "id": "pho-sol",
-        "time": "11:15–12:15",
-        "title": "🍜 Phở SOL - Bến Thành",
+        "time": "~09:00–10:00",
+        "title": "🍜 Phở SOL · Bến Thành",
         "details": [
-          "酒店附近第一餐；石鍋河粉可 share。"
+          "第一餐慢慢食；唔需要趕住開始 sightseeing。"
         ],
-        "route": "🚕 To next stop：Grab 約 5 分鐘去中央郵局，約 40,000–60,000 VND。",
+        "route": "🚕 To next stop：食完直接 Grab → Central Post Office / Book Street。",
         "map": "https://www.google.com/maps/search/?api=1&query=Ph%E1%BB%9F%20SOL%2032%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
         "type": "meal",
         "dayId": "day1",
@@ -2437,25 +2461,46 @@ const ITINERARY_DATA={
       },
       {
         "id": "post-office",
-        "time": "12:30–14:00",
-        "title": "🏛 Saigon Central Post Office → Notre-Dame Cathedral → Book Street",
+        "time": "~10:15–11:30",
+        "title": "📮 Post Office · Book Street · Cathedral",
         "copyAddressEligible": false,
         "details": [
-          "三個經典點集中在同一區，完成後可先回酒店 check-in 或直接繼續。"
+          "三個經典點集中同一區；按當日精神慢慢行、影相。"
         ],
-        "route": "🏨 To next stop：返 Fusion check-in。入房、放低嘢、freshen up，再步行去 The Cafe Apartments。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Saigon%20Central%20Post%20Office%20Saigon%20Central%20Post%20Office%2C%202%20C%C3%B4ng%20x%C3%A3%20Paris%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
+        "route": "🚶 To next stop：行去 Ivoire；想快返酒店亦可以直接 skip。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Saigon%20Central%20Post%20Office%202%20Cong%20xa%20Paris%20Ho%20Chi%20Minh%20City",
         "type": "experience",
         "dayId": "day1",
         "placeId": "post-office",
         "bookingId": null
       },
       {
+        "id": "ivoire",
+        "time": "~11:30–12:15",
+        "title": "🍰 Ivoire Pastry · Optional",
+        "details": [
+          "有時間、有精神：坐低食 cake / coffee。",
+          "想返酒店：直接 takeaway 幾件 cake，返房慢慢食。",
+          "如果酒店已通知房間 ready，可以縮短甚至 skip。"
+        ],
+        "route": "🏨 To next stop：Grab / walk back to Fusion，睇房間是否已 ready。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Ivoire%20Pastry%20Boutique%2028%20Cao%20Ba%20Quat%20Ho%20Chi%20Minh%20City",
+        "type": "meal",
+        "dayId": "day1",
+        "placeId": "ivoire",
+        "bookingId": null,
+        "guideIds": ["ivoire"]
+      },
+      {
         "id": "day1-hotel-reset",
-        "time": "~14:00",
-        "title": "🏨 Fusion · Check-in & Reset",
-        "details": ["正式入房、放低嘢、換衫／freshen up。", "之後步行去 Nguyễn Huệ；下午只需要記住 17:00 左右離開 Cafe Apartment。"],
-        "route": "🚶 To next stop：由 Fusion 步行去 The Cafe Apartments · 42 Nguyễn Huệ。",
+        "time": "~12:30–14:30",
+        "title": "🏨 Fusion · Early Check-in if Ready + Reset",
+        "details": [
+          "目標約 12:30 返酒店；有房就直接 early check-in。",
+          "Guaranteed check-in 14:00；未 ready 就在酒店／Takashimaya 輕鬆等，不另塞景點。",
+          "入房後沖涼、換衫、休息；第一日留返體力俾 17:30 Omakase。"
+        ],
+        "route": "🚶 To next stop：休息後先去 Nguyễn Huệ / The Cafe Apartments；17:00 左右離開去 Tiger。",
         "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%2065%20Le%20Loi%20Ho%20Chi%20Minh%20City",
         "type": "rest",
         "dayId": "day1",
@@ -2466,8 +2511,12 @@ const ITINERARY_DATA={
         "id": "nha-suga",
         "time": "~14:30–17:00",
         "title": "☕🫧 The Cafe Apartments · Explore / Headspa",
-        "details": ["下午自由分流：想做 Headspa 就去 Nhà Suga；不做 Spa 就慢慢行 Cafe Apartment。", "兩樣都想做，就按自己的 treatment 時間分配。", "17:00 左右集合離開，第一輪 Tiger 是為了 17:30 sunset seating。"],
-        "route": "🚕 To next stop：17:00 左右由 42 Nguyễn Huệ 叫 Grab → Omakase Tiger；目標 17:15–17:20 到。",
+        "details": [
+          "下午保持彈性：有精神先去 Cafe Apartments；想做 Headspa 就去 Nhà Suga。",
+          "如果第一日太攰，寧願酒店休息耐啲，唔需要為咗填滿 timeline 硬去。",
+          "17:00 左右離開，第一輪 Tiger 是 17:30 sunset seating。"
+        ],
+        "route": "🚕 To next stop：17:00 左右由 Nguyễn Huệ 叫 Grab → Omakase Tiger；目標 17:15–17:20 到。",
         "map": "https://www.google.com/maps/search/?api=1&query=The%20Cafe%20Apartments%2042%20Nguyen%20Hue%20District%201%20Ho%20Chi%20Minh%20City",
         "type": "experience",
         "dayId": "day1",
