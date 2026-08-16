@@ -2451,7 +2451,7 @@ const ITINERARY_DATA={
         "title": "🏨 Fusion Original · Check-in & Rest",
         "details": [
           "約 12:30 回到酒店；若房間已備妥，便提早 check-in。",
-          "Guaranteed check-in 為 14:00；若仍未可入房，就在酒店或 Takashimaya 稍坐片刻。",
+          "Guaranteed check-in 為 14:00；若房間尚未準備好，可到 Lê Lợi 對面的 Routine 隨意逛逛，或留在 Saigon Centre / Takashimaya 消磨午後時光。",
           "入房後沖涼、換衫、休息，留一段安靜的午後給自己。"
         ],
         "route": "🚶 To next stop · 約 10–12 min：步行往 Nguyễn Huệ · The Cafe Apartments。",
