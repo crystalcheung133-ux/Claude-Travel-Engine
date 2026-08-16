@@ -1,6 +1,6 @@
 {
   "engine_version": "25.6.2",
-  "artifact_version": "VN Companion RC29.40 · Travel Engine 25.6.2 Production Freeze",
+  "artifact_version": "VN Companion RC29.41 · Travel Engine 25.6.2 Production Freeze",
   "baseline_engine": "25.5.2",
   "release_date": "2026-08-16",
   "release_type": "production-freeze",
@@ -56,7 +56,7 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc2940-2562",
+  "asset_cache_token": "rc2941-2562",
   "release_status": "PRODUCTION FREEZE — static CI + independent Chromium desktop/mobile Studio visual validation PASS; CI orchestration gate corrected",
   "changes": [
     "Day 1 arrival corrected to 06:00 with Klook private transfer to Fusion before breakfast",

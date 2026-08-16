@@ -2,6 +2,16 @@
 // Timeline is authoritative for itinerary content; booking linkage is reconciled to Booking Foundation IDs.
 
 const PLACES={
+  "vpbank-ham-nghi": {
+    "title": "VPBank ATM · Hàm Nghi",
+    "emoji": "🏧",
+    "cat": "PRACTICAL",
+    "sub": "Wise cash withdrawal",
+    "maps": "https://www.google.com/maps/search/?api=1&query=VPBank%20ATM%20165-167-169%20Ham%20Nghi%20District%201%20Ho%20Chi%20Minh%20City",
+    "address": "165–167–169 Hàm Nghi, District 1, Ho Chi Minh City",
+    "desc": "Day 1 的現金補給點；不列入 Guide。",
+    "categoryLabel": "Practical"
+  },
   "fusion": {
     "title": "Fusion Original Saigon Centre",
     "emoji": "🏨",
@@ -2415,12 +2425,12 @@ const ITINERARY_DATA={
       {
         "id": "airport-transfer",
         "time": "~07:15–08:00",
-        "title": "🚐 Klook Private Transfer → Fusion",
+        "title": "🚐 Private Transfer · Fusion Original Saigon Centre",
         "details": [
-          "Private transfer 直達 Fusion Original；到酒店先 drop luggage。",
-          "正式 check-in 14:00；如果約 12:00 已有房就提早入房，唔需要硬等到 14:00。"
+          "Klook Private Transfer 直達 Fusion Original Saigon Centre；抵埗先寄存行李。",
+          "正式 check-in 為 14:00；若房間提早準備好，約中午便可先回房安頓。"
         ],
-        "route": "💵 To next stop：放低行李後先處理 VND；三個選項按當日方便／rate 揀一個。",
+        "route": "🚶 To next stop · 約 10 min：步行往 VPBank ATM · 165–167–169 Hàm Nghi。",
         "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%2065%20Le%20Loi%20Ho%20Chi%20Minh%20City",
         "type": "transport",
         "dayId": "day1",
@@ -2430,19 +2440,17 @@ const ITINERARY_DATA={
       {
         "id": "day1-currency",
         "time": "~08:00–08:45",
-        "title": "💵 VND · Pick One",
+        "title": "💵 VND · Currency Exchange",
         "details": [
-          "🏧 VPBank · 165–167–169 Hàm Nghi — Wise withdrawal；首選 no-operator-fee ATM。",
-          "💱 Takashimaya B2 — 最方便的 cash exchange option；開門後先睇 AUD rate。",
-          "💱 Hà Tâm · 2 Nguyễn An Ninh — rate-check option；近期營業狀態曾反覆，當日開門先用。",
-          "三個都只係 Timeline options，不開 Guide；揀一個搞掂就繼續早餐。"
+          "🏧 VPBank · 165–167–169 Hàm Nghi — Wise 提款首選；no operator fee。",
+          "💱 Takashimaya B2 — 酒店相連，09:30 開門；若時間合適，可先比較 AUD 現金匯率。",
+          "💱 Hà Tâm · 2 Nguyễn An Ninh — 另一個現金換匯選擇；到埗當日再看營業情況與匯率。"
         ],
-        "route": "🚶 To next stop：處理好現金後去 Phở SOL Bến Thành。",
+        "route": "🚶 To next stop · 約 5 min：步行往 Phở SOL · Bến Thành。",
+        "map": "https://www.google.com/maps/search/?api=1&query=VPBank%20ATM%20165-167-169%20Ham%20Nghi%20District%201%20Ho%20Chi%20Minh%20City",
         "type": "money",
         "dayId": "day1",
-        "nonPlace": true,
-        "nonPlaceRole": "preparation",
-        "placeId": null,
+        "placeId": "vpbank-ham-nghi",
         "bookingId": null
       },
       {
@@ -2450,9 +2458,9 @@ const ITINERARY_DATA={
         "time": "~09:00–10:00",
         "title": "🍜 Phở SOL · Bến Thành",
         "details": [
-          "第一餐慢慢食；唔需要趕住開始 sightseeing。"
+          "落機後的第一碗熱湯；慢慢坐下，讓 Saigon 的早晨正式開始。"
         ],
-        "route": "🚕 To next stop：食完直接 Grab → Central Post Office / Book Street。",
+        "route": "🚕 To next stop · 約 10 min：Grab → Central Post Office / Book Street。",
         "map": "https://www.google.com/maps/search/?api=1&query=Ph%E1%BB%9F%20SOL%2032%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
         "type": "meal",
         "dayId": "day1",
@@ -2465,9 +2473,9 @@ const ITINERARY_DATA={
         "title": "📮 Post Office · Book Street · Cathedral",
         "copyAddressEligible": false,
         "details": [
-          "三個經典點集中同一區；按當日精神慢慢行、影相。"
+          "郵局、書街與紅教堂相連成一段老城散步；不趕路，留一點時間看街景與光影。"
         ],
-        "route": "🚶 To next stop：行去 Ivoire；想快返酒店亦可以直接 skip。",
+        "route": "🚶 To next stop · 約 8 min：步行往 Ivoire Pastry Boutique。",
         "map": "https://www.google.com/maps/search/?api=1&query=Saigon%20Central%20Post%20Office%202%20Cong%20xa%20Paris%20Ho%20Chi%20Minh%20City",
         "type": "experience",
         "dayId": "day1",
@@ -2479,11 +2487,10 @@ const ITINERARY_DATA={
         "time": "~11:30–12:15",
         "title": "🍰 Ivoire Pastry · Optional",
         "details": [
-          "有時間、有精神：坐低食 cake / coffee。",
-          "想返酒店：直接 takeaway 幾件 cake，返房慢慢食。",
-          "如果酒店已通知房間 ready，可以縮短甚至 skip。"
+          "時間寬裕，便坐下吃一件 pastry、喝杯 coffee。",
+          "若已想回酒店，挑幾件 cake takeaway，帶回房間慢慢吃便好。"
         ],
-        "route": "🏨 To next stop：Grab / walk back to Fusion，睇房間是否已 ready。",
+        "route": "🚕 To next stop · 約 10 min：Grab 返回 Fusion Original Saigon Centre。",
         "map": "https://www.google.com/maps/search/?api=1&query=Ivoire%20Pastry%20Boutique%2028%20Cao%20Ba%20Quat%20Ho%20Chi%20Minh%20City",
         "type": "meal",
         "dayId": "day1",
@@ -2494,13 +2501,13 @@ const ITINERARY_DATA={
       {
         "id": "day1-hotel-reset",
         "time": "~12:30–14:30",
-        "title": "🏨 Fusion · Early Check-in if Ready + Reset",
+        "title": "🏨 Fusion Original · Check-in & Rest",
         "details": [
-          "目標約 12:30 返酒店；有房就直接 early check-in。",
-          "Guaranteed check-in 14:00；未 ready 就在酒店／Takashimaya 輕鬆等，不另塞景點。",
-          "入房後沖涼、換衫、休息；第一日留返體力俾 17:30 Omakase。"
+          "約 12:30 回到酒店；若房間已備妥，便提早 check-in。",
+          "Guaranteed check-in 為 14:00；若仍未可入房，就在酒店或 Takashimaya 稍坐片刻。",
+          "入房後沖涼、換衫、休息，留一段安靜的午後給自己。"
         ],
-        "route": "🚶 To next stop：休息後先去 Nguyễn Huệ / The Cafe Apartments；17:00 左右離開去 Tiger。",
+        "route": "🚶 To next stop · 約 10–12 min：步行往 Nguyễn Huệ · The Cafe Apartments。",
         "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%2065%20Le%20Loi%20Ho%20Chi%20Minh%20City",
         "type": "rest",
         "dayId": "day1",
@@ -2512,11 +2519,11 @@ const ITINERARY_DATA={
         "time": "~14:30–17:00",
         "title": "☕🫧 The Cafe Apartments · Explore / Headspa",
         "details": [
-          "下午保持彈性：有精神先去 Cafe Apartments；想做 Headspa 就去 Nhà Suga。",
-          "如果第一日太攰，寧願酒店休息耐啲，唔需要為咗填滿 timeline 硬去。",
-          "17:00 左右離開，第一輪 Tiger 是 17:30 sunset seating。"
+          "午後沿 Nguyễn Huệ 慢慢走到 The Cafe Apartments；想做 Headspa，可到 Nhà Suga。",
+          "若旅途的倦意仍在，就把這段留白，繼續在酒店休息。",
+          "約 17:00 離開，迎接 17:30 的 sunset seating。"
         ],
-        "route": "🚕 To next stop：17:00 左右由 Nguyễn Huệ 叫 Grab → Omakase Tiger；目標 17:15–17:20 到。",
+        "route": "🚕 To next stop · 約 10–15 min：17:00 左右由 Nguyễn Huệ Grab → Omakase Tiger。",
         "map": "https://www.google.com/maps/search/?api=1&query=The%20Cafe%20Apartments%2042%20Nguyen%20Hue%20District%201%20Ho%20Chi%20Minh%20City",
         "type": "experience",
         "dayId": "day1",
@@ -2530,7 +2537,7 @@ const ITINERARY_DATA={
         "title": "🌇🍣 Omakase Tiger · First Seating",
         "details": [
           "已確認 17:30 場次；訂金已付。",
-          "Penthouse setting；17:30 啱啱由 sunset 食到入夜。"
+          "Penthouse 之上，從黃昏入席，一路看天色由 sunset 轉入夜。"
         ],
         "route": "🌇 17:30 first seating：Penthouse sunset Omakase。食完之後再按 energy 決定夜晚。",
         "map": "https://www.google.com/maps/search/?api=1&query=Omakase%20Tiger%2085%2F9%20Ph%E1%BA%A1m%20Vi%E1%BA%BFt%20Ch%C3%A1nh%2C%20Th%E1%BA%A1nh%20M%E1%BB%B9%20T%C3%A2y%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
@@ -2545,7 +2552,7 @@ const ITINERARY_DATA={
         "time": "20:15 onwards",
         "title": "🛌 返回酒店",
         "details": [
-          "第一晚重點是 settle in，不拖到太夜。"
+          "第一晚留給休息；把 Saigon 的夜色停在剛剛好的地方。"
         ],
         "route": "",
         "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%20Fusion%20Original%20Saigon%20Centre%2C%2065%20L%C3%AA%20L%E1%BB%A3i%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
