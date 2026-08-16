@@ -13,7 +13,9 @@ assert.doesNotMatch(data,/"fusion"[\s\S]{0,220}"hours": "24 Hours"/,'Stay must n
 assert.match(data,/Social Club Rooftop Bar[\s\S]{0,700}24\/F/,'Social rooftop needs useful identity');
 assert.match(cfg,/version:'RC\d+(?:\.\d+)?-25\.[456]\.\d+(?:\.\d+)?'/,'Guide audit requires valid release identity');
 assert.doesNotMatch(home,/home-shopping-button/,'Shopping must not be forced onto Home hero');
-for(const key of ['libe','dauple','nosbyn','new-playground','push-push','saigon-concept','ohquao','louh','garmentory','dalla-saigon','rubies','lane-ci','takashimaya']) assert.match(record(key),/"shoppingRoute":/,'Shopping route metadata missing: '+key);
+for(const key of ['new-playground','ohquao','takashimaya']) assert.match(record(key),/"shoppingRoute":/,'Destination shopping route metadata missing: '+key);
+for(const brand of ['Dalla Saigon','RUBIES Studio','Mì Workshop','Lane Cì','LESPOIR Studios']) assert(directory.includes(brand),'Route-led Shopping Directory missing: '+brand);
+for(const obsolete of ['Mộc Healing Spa','Mojo Spa & Foot Massage','Thao Dien Spa','Golden Lotus Healing World']) assert(!new RegExp('\"key\": \"'+obsolete+'\"').test(data),'Obsolete wellness option leaked into Guide inventory');
 assert.doesNotMatch(data,/"hours":\s*"(?:出發前|Unconfirmed|[^\"]*出發前再確認)/,'Guide must not expose generic/unverified hours as Trading Hours');
 assert.match(record('omakase-tiger'),/"status": "booked"/,'Booked dining status missing');
 for(const key of ['late-night-supper','man-moi','social-club']) assert.match(record(key),/"status": "optional"/,'Optional dining status missing: '+key);

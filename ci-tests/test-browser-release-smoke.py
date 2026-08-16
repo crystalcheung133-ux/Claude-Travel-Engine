@@ -222,7 +222,7 @@ def run_viewport(browser,base,viewport,label):
         page.wait_for_selector('#tripModal.show')
         restaurant_text=page.locator('#tripModalContent').inner_text()
         check('Pizza 4P’s Hai Bà Trưng' in restaurant_text,label+': rendered Restaurants rolled back Pizza branch')
-        check('13:00' in restaurant_text,label+': rendered Restaurants rolled back Pizza time')
+        check('12:45' in restaurant_text,label+': rendered Restaurants rolled back Pizza time')
         check('Hai Bà Trưng' not in restaurant_text,label+': stale Pizza title survived into rendered UI')
         check('11:30' not in restaurant_text,label+': stale Pizza time survived into rendered UI')
 

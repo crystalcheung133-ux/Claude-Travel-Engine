@@ -50,7 +50,7 @@ const PLACES={
     "hours": "07:30–22:30 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=Bakes%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2016%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20An%20Kh%C3%A1nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "16 Thảo Điền, An Khánh, Hồ Chí Minh 700000, Vietnam",
-    "desc": "Quán Thuý 94 已經食過 early lunch，Bakes 今次不負責填飽肚。13:30 入來吹冷氣、分一兩件 pastry、喝杯咖啡，讓 Thảo Điền 的慢步調有一個真正停頓。",
+    "desc": "Quán Thuý 94 之後，Bakes 留作 Thảo Điền 路上的甜點停頓。想坐低就分一兩件 pastry、喝杯咖啡；不必為它鎖住午後時間。",
     "signature": [
       "多款法式甜點與千層 croissant",
       "冷氣座位，適合午后避暑",
@@ -58,7 +58,7 @@ const PLACES={
     ],
     "worth": [
       "當作 cool-down break，不是第二餐。",
-      "約 30 分鐘即可，14:00 要到 Mộc Hương。"
+      "沿 Thảo Điền 主街走到附近再決定；Open Day 不設固定到店時間。"
     ],
     "categoryLabel": "☕ Cafe",
     "price": "$–$$",
@@ -71,7 +71,7 @@ const PLACES={
     ],
     "tips": [
       "當作 cool-down break，不是第二餐。",
-      "約 30 分鐘即可，14:00 要到 Mộc Hương。"
+      "沿 Thảo Điền 主街走到附近再決定；Open Day 不設固定到店時間。"
     ]
   },
   "cafe-apartments": {
@@ -999,8 +999,8 @@ const PLACES={
       "Thảo Điền 動線極順"
     ],
     "worth": [
-      "四人想同時做完整 treatment，臨近先 WhatsApp 問 availability。",
-      "有位就做；無位就繼續 Open List，附近另有 walk-in fallback。"
+      "四人想同時做完整 treatment，走到 Xuân Thủy 一帶再 WhatsApp 問 availability。",
+      "有位就留約 120 分鐘；無位就繼續沿原本 walking line 慢慢走。"
     ],
     "categoryLabel": "💆 Spa",
     "price": "$$",
@@ -1012,8 +1012,8 @@ const PLACES={
       "Thảo Điền 動線極順"
     ],
     "tips": [
-      "四人想同時做完整 treatment，臨近先 WhatsApp 問 availability。",
-      "有位就做；無位就繼續 Open List，附近另有 walk-in fallback。"
+      "四人想同時做完整 treatment，走到 Xuân Thủy 一帶再 WhatsApp 問 availability。",
+      "有位就留約 120 分鐘；無位就繼續沿原本 walking line 慢慢走。"
     ]
   },
   "ha-spa": {
@@ -1692,20 +1692,8 @@ const CATEGORIES={
       "key": "norah-spa-2"
     },
     {
-      "key": "moc-healing"
-    },
-    {
       "key": "nara-spa"
     },
-    {
-      "key": "mojo-spa"
-    },
-    {
-      "key": "thao-dien-spa"
-    },
-    {
-      "key": "golden-lotus-thao-dien"
-    }
   ],
   "ATTRACTIONS": [
     {
@@ -1759,9 +1747,6 @@ const GUIDE_ORDER=[
   "takashimaya",
   "ha-spa",
   "moc-huong",
-  "mojo-spa",
-  "thao-dien-spa",
-  "golden-lotus-thao-dien",
   "nha-suga",
   "fine-arts",
   "book-street",
@@ -1771,7 +1756,6 @@ const GUIDE_ORDER=[
   "war-museum",
   "social-club",
   "norah-spa-2",
-  "moc-healing",
   "cu-chi",
   "nara-spa",
   "oc-dao"
@@ -2572,7 +2556,7 @@ const ITINERARY_DATA={
       },
       {
         "id":"shopping-tqd","time":"11:30–12:30","title":"🛍 Trần Quang Diệu · Fashion Walk",
-        "details":["由 Dalla · 64 Trần Quang Diệu 起步，沿同一條街往 RUBIES、Sibling House，再到 Lane Cì · 27 Trần Quang Diệu 收尾。"],
+        "details":["由 Dalla · 64 Trần Quang Diệu 起步，沿街經 ERA · 60、RUBIES · 47–49、Mì Workshop · 29，再到 Lane Cì · 27 收尾。"],
         "route":"🚕 To next stop · 約 10–15 min：由 Lane Cì Grab → Pizza 4P’s Hai Bà Trưng。",
         "map":"https://www.google.com/maps/search/?api=1&query=Dalla%20Saigon%2064%20Tran%20Quang%20Dieu%20Ho%20Chi%20Minh","type":"shoppingWindow","dayId":"day2","placeId":"dalla-saigon","bookingId":null,"showShoppingDirectory":true
       },
@@ -2770,10 +2754,10 @@ const ITINERARY_DATA={
         "title": "🎲 Thảo Điền · Open List",
         "summary": "由入 Thảo Điền 開始，不跟時間表。行到哪裡、肚餓就食、想坐就飲、想做 Spa 才做。",
         "details": [
-          "🛍 Browse · OHQUAO · Saigon Concept · LOUH · Shopping Directory 裏其他順路小店",
+          "🛍 Browse · 從 OHQUAO 開始；沿線小店全部收在 Shopping List",
           "🥐 Coffee / Sweet · Bakes，或者沿途見到想坐的 café",
           "🍽 Eat · 不設固定 lunch；行到哪裡，按當時胃口選",
-          "🌿 Spa · Walk-in Picks · Mộc Hương · Mojo · Thao Dien Spa · Golden Lotus；一旦決定做 Spa，預留約 120 分鐘",
+          "🌿 Spa · Mộc Hương Wellness；走到 Xuân Thủy 一帶想停下來，就預留約 120 分鐘",
           "🥂 Farewell · 可以正式食 dinner、wine + small plates、買個蛋糕返 Fusion，甚至不再食一餐"
         ],
         "route": "🏨 收尾時由當時位置 Grab 返回 Fusion。",
@@ -2782,11 +2766,11 @@ const ITINERARY_DATA={
         "dayId": "day4",
         "placeId": "ohquao",
         "bookingId": null,
-        "guideIds": ["ohquao","saigon-concept","louh","bakes","moc-huong","mojo-spa","thao-dien-spa","golden-lotus-thao-dien"],
+        "guideIds": ["ohquao","bakes","moc-huong"],
         "guideGroups": [
-          {"label":"🛍 Browse","guideIds":["ohquao","saigon-concept","louh"]},
+          {"label":"🛍 OHQUAO","guideIds":["ohquao"]},
           {"label":"🥐 Bakes","guideIds":["bakes"]},
-          {"label":"🌿 Spa Picks","guideIds":["moc-huong","mojo-spa","thao-dien-spa","golden-lotus-thao-dien"]}
+          {"label":"🌿 Mộc Hương","guideIds":["moc-huong"]}
         ],
         "showShoppingDirectory": true
       }

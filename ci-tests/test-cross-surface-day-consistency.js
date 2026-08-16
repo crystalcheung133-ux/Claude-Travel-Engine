@@ -17,7 +17,7 @@ for(const id of ['com-tam-moc','pizza4ps','norah-spa-2','lune'])
   assert(String(P[id].sub||'').includes('Day 2'),`${id}: Guide did not move to Day 2`);
 
 // D4 Slow Lifestyle Guide ownership.
-for(const id of ['running-bean','push-push','bakes','moc-huong','mojo-spa','thao-dien-spa','golden-lotus-thao-dien','ohquao','louh'])
+for(const id of ['running-bean','push-push','bakes','moc-huong','ohquao'])
   assert((String(P[id].sub||'')+' '+String(P[id].shoppingRoute||'')).includes('Day 4'),`${id}: Guide did not move to Day 4`);
 
 assert(!B['bk-little-bear'],'Little Bear booking survived Monday closure');
@@ -27,8 +27,9 @@ assert(String(P['little-bear'].sub).includes('Closed Monday'),'Little Bear Guide
 assert(!B['bk-moc-huong'],'Mộc Hương must be an option, not a pending D4 booking');
 
 const sd=fs.readFileSync('shopping-directory-data.js','utf8');
-assert(sd.includes('Day 1 · Nguyễn Trãi Walk'),'Directory Nguyễn Trãi route must be Day 1');
-assert(sd.includes('Day 2 · Trần Quang Diệu Walk'),'Directory TQD route must be Day 2');
+assert(sd.includes('Day 1 · Nguyễn Trãi Morning Walk'),'Directory Nguyễn Trãi route must be Day 1');
+assert(sd.includes('Day 2 · Morning Run'),'Directory Day 2 Morning Run missing');
+assert(sd.includes('Day 2 · Afternoon Cluster'),'Directory Day 2 Afternoon Cluster missing');
 assert(sd.includes('Day 4 · Thảo Điền'),'Directory Thảo Điền route missing');
 
 console.log('CROSS-SURFACE DAY CONSISTENCY: PASS — Timeline / Booking / Guide / Shopping Directory agree.');

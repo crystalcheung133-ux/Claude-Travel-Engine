@@ -105,19 +105,23 @@ function openShoppingDirectoryView(requestedDay){
  const cards=day?raw.filter(card=>shoppingDirectoryDay(card)===day):raw;
  function section(label,rows){return rows.length?`<section class="directory-route-group"><h3>${label}</h3><div class="directory-route-grid">${rows.join('')}</div></section>`:'';}
  let grouped='';
- if(day===4){
-   const morning=cards.filter(card=>/11 Garmentory|Trần Quang Diệu|Dalla Saigon|RUBIES|Lane Cì/i.test(card));
-   const afternoon=cards.filter(card=>!morning.includes(card));
-   grouped=section('Morning · 11 Garmentory + Trần Quang Diệu',morning)+section('Afternoon · Nguyễn Trãi + nearby fashion',afternoon);
+ if(day===1){
+   const main=cards.filter(card=>/Nguyễn Trãi Morning Walk/i.test(card));
+   const extension=cards.filter(card=>/Nguyễn Trãi Extension/i.test(card));
+   grouped=section('Morning · Nguyễn Trãi Main Line',main)+section('If Time · Nguyễn Trãi Extension',extension);
  }else if(day===2){
-   grouped=section('Tân Định Morning + Thảo Điền Lifestyle Walk',cards);
+   const morning=cards.filter(card=>/Morning Run/i.test(card));
+   const afternoon=cards.filter(card=>/Afternoon Cluster/i.test(card));
+   grouped=section('Morning Run · 11 Garmentory + Trần Quang Diệu',morning)+section('Afternoon Cluster · Near Norah',afternoon);
+ }else if(day===4){
+   grouped=section('Thảo Điền · Walking Line',cards);
  }else if(day){grouped=section(`Day ${day}`,cards);}
  else{
-   grouped=section('Day 2 · Slow Lifestyle Day',raw.filter(card=>shoppingDirectoryDay(card)===2))+section('Day 4 · Fashion Day',raw.filter(card=>shoppingDirectoryDay(card)===4));
+   grouped=section('Day 1 · Nguyễn Trãi',raw.filter(card=>shoppingDirectoryDay(card)===1))+section('Day 2 · Fashion Day',raw.filter(card=>shoppingDirectoryDay(card)===2))+section('Day 4 · Thảo Điền',raw.filter(card=>shoppingDirectoryDay(card)===4));
  }
- const optional=day?'':section('Optional Detours',raw.filter(card=>!shoppingDirectoryDay(card)));
- const title=day?`🛍 Day ${day} Shopping Directory`:'🛍 Optional Shopping Directory';
- const lead=day===4?'上午走 11 Garmentory + Trần Quang Diệu，下午轉 Nguyễn Trãi；兩段 shopping，各有自己的節奏。':day===2?'Tân Định 之後進 Thảo Điền，從街區一路慢慢走到黃昏。':'按當日街區收好，打開就知道下一段往哪裡走。';
+ const optional=day?'':section('Near Hotel / Flexible',raw.filter(card=>!shoppingDirectoryDay(card)));
+ const title=day?`🛍 Day ${day} Shopping Directory`:'🛍 Shopping Directory';
+ const lead=day===1?'由 Nguyễn Trãi 的第一間店開始，沿門牌一路往前；主線與延伸線分開，時間自然就好。':day===2?'上午是一條完整的 Fashion Run；下午只留 Norah 附近的自由 cluster。':day===4?'從 OHQUAO 落腳，沿 Thảo Điền 主街慢慢走；只留下這天真正會經過的店。':'按真正會走到的街區收好，打開就知道從哪裡開始。';
  $('guideModalContent').innerHTML=`<p class="kicker">Shopping Directory</p><h2>${title}</h2><p class="lead">${lead}</p><div class="directory-grid">${grouped}${optional}</div>`;
  closeMiniMenus();$('guideModal').classList.add('show');
  const sheet=document.querySelector('#guideModal .guide-sheet');if(sheet)sheet.scrollTop=0;
