@@ -221,7 +221,7 @@
   },
   "test-guide-booking-return-contract.js": {
     "status": "active",
-    "note": "origin-aware Guide\u2192Booking close: Timeline origin returns directly to Timeline"
+    "note": "origin-aware Guide→Booking close: Timeline origin returns directly to Timeline"
   },
   "test-python-ci-syntax.sh": {
     "status": "active",
@@ -266,5 +266,9 @@
   "test-studio-visual-contract-2562.js": {
     "status": "active",
     "principle": "Canonical desktop Studio geometry and compact theme-aware Studio ON state indicator"
+  },
+  "test-timeline-contextual-guide-groups.js": {
+    "status": "active",
+    "note": "Multi-entity Timeline cards expose every Guide through contextual named groups while preserving direct Booking access"
   }
 }

@@ -14,6 +14,7 @@ node ci-tests/test-guide-trip-navigation-capability.js || failed=1
 node ci-tests/test-timeline-copy-capability.js || failed=1
 node ci-tests/test-guide-booking-capability.js || failed=1
 node ci-tests/test-vn-itinerary-content-contract.js || failed=1
+node ci-tests/test-timeline-contextual-guide-groups.js || failed=1
 node ci-tests/test-guide-menu-alignment.js || failed=1
 node ci-tests/test-itinerary-d2-d4-reconciliation.js || failed=1
 node ci-tests/test-vn-content-contract.js || failed=1

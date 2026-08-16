@@ -2480,7 +2480,13 @@ const ITINERARY_DATA={
         "type": "experience",
         "dayId": "day1",
         "placeId": "post-office",
-        "bookingId": null
+        "bookingId": null,
+        "guideIds": ["post-office","book-street","notre-dame"],
+        "guideGroups": [
+          {"label":"📮 Post Office","guideIds":["post-office"]},
+          {"label":"📚 Book Street","guideIds":["book-street"]},
+          {"label":"⛪ Cathedral","guideIds":["notre-dame"]}
+        ]
       },
       {
         "id": "ivoire",
@@ -2529,7 +2535,11 @@ const ITINERARY_DATA={
         "dayId": "day1",
         "placeId": "cafe-apartments",
         "bookingId": "bk-nha-suga",
-        "guideIds": ["cafe-apartments","nha-suga"]
+        "guideIds": ["cafe-apartments","nha-suga"],
+        "guideGroups": [
+          {"label":"☕ Cafe Apartments","guideIds":["cafe-apartments"]},
+          {"label":"🫧 Headspa","guideIds":["nha-suga"]}
+        ]
       },
       {
         "id": "omakase-tiger",
@@ -2796,6 +2806,10 @@ const ITINERARY_DATA={
         "guideIds": [
           "pink-church",
           "cong"
+        ],
+        "guideGroups": [
+          {"label":"🩷 Pink Church","guideIds":["pink-church"]},
+          {"label":"☕ Cộng","guideIds":["cong"]}
         ]
       },
       {
@@ -2831,6 +2845,11 @@ const ITINERARY_DATA={
         "placeId": "ohquao",
         "bookingId": null,
         "guideIds": ["ohquao","saigon-concept","louh","bakes","moc-huong","mojo-spa","thao-dien-spa","golden-lotus-thao-dien"],
+        "guideGroups": [
+          {"label":"🛍 Browse","guideIds":["ohquao","saigon-concept","louh"]},
+          {"label":"🥐 Bakes","guideIds":["bakes"]},
+          {"label":"🌿 Spa Picks","guideIds":["moc-huong","mojo-spa","thao-dien-spa","golden-lotus-thao-dien"]}
+        ],
         "showShoppingDirectory": true
       }
     ],
