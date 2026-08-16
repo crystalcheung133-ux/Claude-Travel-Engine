@@ -13,7 +13,7 @@ for(const [id,b] of Object.entries(B)){
 }
 
 // D2 Fashion Guide ownership.
-for(const id of ['com-tam-moc','garmentory','pizza4ps','moc-healing','lune'])
+for(const id of ['com-tam-moc','pizza4ps','norah-spa-2','lune'])
   assert(String(P[id].sub||'').includes('Day 2'),`${id}: Guide did not move to Day 2`);
 
 // D4 Slow Lifestyle Guide ownership.
@@ -27,7 +27,8 @@ assert(String(P['little-bear'].sub).includes('Closed Monday'),'Little Bear Guide
 assert(!B['bk-moc-huong'],'Mộc Hương must be an option, not a pending D4 booking');
 
 const sd=fs.readFileSync('shopping-directory-data.js','utf8');
-assert(sd.includes('Day 2 · Nguyễn Trãi shopping'),'Directory Fashion route did not move to D2');
-assert(sd.includes('Day 4 · Thảo Điền Lifestyle Walk'),'Directory Thảo Điền route did not move to D4');
+assert(sd.includes('Day 1 · Nguyễn Trãi Walk'),'Directory Nguyễn Trãi route must be Day 1');
+assert(sd.includes('Day 2 · Trần Quang Diệu Walk'),'Directory TQD route must be Day 2');
+assert(sd.includes('Day 4 · Thảo Điền'),'Directory Thảo Điền route missing');
 
 console.log('CROSS-SURFACE DAY CONSISTENCY: PASS — Timeline / Booking / Guide / Shopping Directory agree.');

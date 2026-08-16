@@ -4,7 +4,7 @@ function has(x,msg){assert(data.includes(x),msg);}
 has('"hours": "09:00–22:00 daily"','Mộc Hương hours missing');
 has('"hours": "09:00–20:00 daily"','Nha Suga hours missing');
 has('"hours": "08:30–22:00 daily"','Hạ Spa hours missing');
-has('"hours": "11:00–23:00 daily"','Mộc Healing hours missing');
+has('"hours": "09:30–23:00 daily"','Norah Spa 2 hours missing');
 has('"address": "61 Nguyễn Bá Huân, Thảo Điền, Ho Chi Minh City, Vietnam"','LOUH address missing');
 has('"hours": "10:00–18:00 daily"','LOUH hours missing');
 assert(!data.includes('LOUH Saigon（地址待核實）'),'Timeline still labels LOUH address unverified');

@@ -16,9 +16,9 @@ assert(sync.includes('remoteRevision===currentRevision'),'remote revision gate m
 assert(sync.includes('copy._masterRevision'),'outgoing remote payload must carry master revision');
 assert(trip.includes("if(booking&&booking.emoji)return String(booking.emoji)"),'Trip Booking must respect booking emoji');
 for(const x of [
- '"title": "Pizza 4P’s Bến Thành"',
- '"time": "13:00"',
- '"time": "14:20"',
+ '"title": "Pizza 4P’s Hai Bà Trưng"',
+ '"time": "12:45"',
+ '"time":"14:00"',
  '"emoji": "🥂"',
  '"emoji": "🍲"'
 ]) assert(data.includes(x),'master booking correction missing: '+x);

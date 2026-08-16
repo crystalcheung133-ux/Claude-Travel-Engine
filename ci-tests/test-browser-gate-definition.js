@@ -24,10 +24,10 @@ for(const token of [
  "openBookingCategoryCard('Restaurants')",
  "openBookingCategoryCard('Spa')",
  "rendered Restaurants rolled back Pizza branch",
- "Mộc Healing did not render at 14:20",
+ "Norah Spa 2 did not render at 14:00",
  "Pizza says online but rendered no Book Online action",
- "Mộc Healing email action missing",
- "Mộc Healing incorrectly exposes WhatsApp",
+ "Norah WhatsApp action missing",
+ "Norah website action missing",
  "phone-only Call action should not exist"
 ]) assert(gate.includes(token),`Browser smoke lost required coverage token: ${token}`);
 assert(runner.includes('test-browser-release-smoke.py'),'Browser runner must execute the canonical release smoke');

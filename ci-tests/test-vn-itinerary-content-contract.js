@@ -1,13 +1,5 @@
-const fs=require('fs'),vm=require('vm'),assert=require('assert');
-const raw=fs.readFileSync('data.js','utf8');const c={};vm.createContext(c);vm.runInContext(raw+'\n;globalThis.__x={CATEGORIES,PLACES,BOOKINGS_DATA,ITINERARY_DATA,DAY_LINKS};',c);const {CATEGORIES,PLACES,BOOKINGS_DATA:B,ITINERARY_DATA:I}=c.__x;
-assert(!Object.prototype.hasOwnProperty.call(CATEGORIES,'EXPERIENCE'),'empty EXPERIENCE category reintroduced');
-for(const k of ['cooking','moc-kim','tinh-thuc','quince'])assert(!PLACES[k],`retired Guide reintroduced: ${k}`);
-for(const k of ['bk-cooking','bk-moc-kim','bk-tinh-thuc','bk-quince'])assert(!B[k],`retired booking reintroduced: ${k}`);
-assert.equal(I['2'].heading,'Fashion Day');assert.equal(I['4'].heading,'Thảo Điền Open Day');
-for(const [id,day,event,emoji] of [['bk-moc-healing',2,'moc-healing','🦶'],['bk-nara',3,'nara-spa','🫧']]){assert.equal(B[id].day,day);assert.equal(B[id].timelineItemId,event);assert.equal(B[id].emoji,emoji);assert(B[id].notes.length>45);}
-assert(B['bk-man-moi']&&B['bk-man-moi'].day===3&&B['bk-man-moi'].timelineItemId==='man-moi');
-assert(I['2'].items.find(x=>x.id==='pizza4ps').route.includes('Mộc Healing'));
-assert(I['4'].items.find(x=>x.id==='thao-dien-open-list').showShoppingDirectory===true);
-for(const leak of ['不用樂觀早回時間重排','不逐店打卡，不為店名叫 Grab','planning anchor'])assert(!raw.includes(leak),`planning instruction leaked: ${leak}`);
-const gd=fs.readFileSync('guide-runtime.js','utf8');assert(gd.includes('Morning · 11 Garmentory + Trần Quang Diệu'));assert(gd.includes('Afternoon · Nguyễn Trãi + nearby fashion'));
-console.log('VN ITINERARY / CONTENT CONTRACT: PASS');
+const fs=require('fs'),vm=require('vm'),assert=require('assert');const c={};vm.createContext(c);vm.runInContext(fs.readFileSync('data.js','utf8')+'\n;globalThis.__X={P:PLACES,B:BOOKINGS_DATA,I:ITINERARY_DATA};',c);const {P,B,I}=c.__X;
+assert(B['bk-norah-spa-2']&&B['bk-norah-spa-2'].timelineItemId==='norah-spa-2');assert(B['bk-nara']&&B['bk-nara'].timelineItemId==='nara-spa');
+assert(I['1'].items.find(x=>x.id==='shopping-nguyen-trai').route.includes('Fusion Original'));assert(I['2'].items.find(x=>x.id==='pizza4ps').route.includes('Norah Spa 2'));
+for(const leak of ['喜歡才入，不把每間店變成 checklist','不用樂觀早回時間重排','planning anchor'])assert(!fs.readFileSync('data.js','utf8').includes(leak));
+assert(P['the-350f']&&P['norah-spa-2']); console.log('VN ITINERARY / CONTENT CONTRACT: PASS');

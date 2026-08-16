@@ -212,7 +212,7 @@ def run_viewport(browser,base,viewport,label):
           const stale={
             'bk-pizza4ps':{id:'bk-pizza4ps',bookingId:'bk-pizza4ps',title:'Pizza 4P’s Hai Bà Trưng',day:4,dayId:'day4',date:'2026-11-02',time:'11:30',status:'pending',notes:'Reserve lunch for 4 guests.'},
             'bk-moc-huong':{id:'bk-moc-huong',bookingId:'bk-moc-huong',title:'Mộc Hương Wellness',day:3,dayId:'day3',date:'2026-11-01',time:'15:30',status:'pending'},
-            'bk-moc-healing':{id:'bk-moc-healing',bookingId:'bk-moc-healing',title:'Mộc Healing Spa',day:4,dayId:'day4',date:'2026-11-02',time:'16:45',status:'pending'}
+            'bk-norah-spa-2':{id:'bk-norah-spa-2',bookingId:'bk-norah-spa-2',title:'Old Norah',day:4,dayId:'day4',date:'2026-11-02',time:'16:45',status:'pending'}
           };
           STORAGE.local.writeJSON(BOOKING_AUTHORITY.key,{version:1,overrides:stale,deletedIds:[],updatedAt:'2026-08-01T00:00:00Z'});
         }""")
@@ -221,13 +221,13 @@ def run_viewport(browser,base,viewport,label):
         page.evaluate("openBookingCategoryCard('Restaurants')")
         page.wait_for_selector('#tripModal.show')
         restaurant_text=page.locator('#tripModalContent').inner_text()
-        check('Pizza 4P’s Bến Thành' in restaurant_text,label+': rendered Restaurants rolled back Pizza branch')
+        check('Pizza 4P’s Hai Bà Trưng' in restaurant_text,label+': rendered Restaurants rolled back Pizza branch')
         check('13:00' in restaurant_text,label+': rendered Restaurants rolled back Pizza time')
         check('Hai Bà Trưng' not in restaurant_text,label+': stale Pizza title survived into rendered UI')
         check('11:30' not in restaurant_text,label+': stale Pizza time survived into rendered UI')
 
         # Open Pizza detail and prove "Online" produces a real clickable booking action.
-        page.locator("#tripModalContent button, #tripModalContent .booking-picker-row").filter(has_text="Pizza 4P’s Bến Thành").first.click()
+        page.locator("#tripModalContent button, #tripModalContent .booking-picker-row").filter(has_text="Pizza 4P’s Hai Bà Trưng").first.click()
         page.wait_for_timeout(50)
         check(page.locator('#tripModalContent a.trip-action-btn--book',has_text='Book Online').count()>0,
               label+': Pizza says online but rendered no Book Online action')
@@ -239,18 +239,16 @@ def run_viewport(browser,base,viewport,label):
         page.wait_for_selector('#tripModal.show')
         spa_text=page.locator('#tripModalContent').inner_text()
         check('Mộc Hương Wellness' not in spa_text,label+': obsolete D4 Mộc Hương booking resurrected from stale state')
-        check('Mộc Healing Spa' in spa_text and '14:20' in spa_text,label+': Mộc Healing did not render at 14:20')
-        check('16:45' not in spa_text,label+': stale Mộc Healing time survived into rendered UI')
+        check('Norah Spa 2' in spa_text and '14:00' in spa_text,label+': Norah Spa 2 did not render at 14:00')
+        check('16:45' not in spa_text,label+': stale Norah time survived into rendered UI')
 
-        # Mộc Healing: website/email yes; no invented WhatsApp/phone action.
-        page.locator("#tripModalContent button, #tripModalContent .booking-picker-row").filter(has_text="Mộc Healing Spa").first.click()
+        # Norah Spa 2: official booking + WhatsApp.
+        page.locator("#tripModalContent button, #tripModalContent .booking-picker-row").filter(has_text="Norah Spa 2").first.click()
         page.wait_for_timeout(50)
         check(page.locator('#tripModalContent a.trip-action-btn--book',has_text='Book Online').count()>0,
-              label+': Mộc Healing website action missing')
-        check(page.locator('#tripModalContent a.trip-action-btn--email',has_text='Email').count()>0,
-              label+': Mộc Healing email action missing')
-        check(page.locator('#tripModalContent a.trip-action-btn--whatsapp').count()==0,
-              label+': Mộc Healing incorrectly exposes WhatsApp')
+              label+': Norah website action missing')
+        check(page.locator('#tripModalContent a.trip-action-btn--whatsapp').count()>0,
+              label+': Norah WhatsApp action missing')
         check(page.locator('#tripModalContent a.trip-action-btn--call').count()==0,
               label+': phone-only Call action should not exist')
         page.locator('#tripModal .trip-close').click()
