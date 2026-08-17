@@ -1,6 +1,6 @@
 Saigon Companion Production File Manifest
-Generated: 2026-08-16
-Base: VN Companion RC29.45 · Travel Engine 25.6.2 Production Freeze
+Generated: 2026-08-17
+Base: VN Companion RC29.47 · Travel Engine 25.6.2 Production Freeze
 Reference trip: Vietnam
 
 Production root files:

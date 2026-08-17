@@ -2149,7 +2149,7 @@ const BOOKINGS_DATA={
     "bookingMethod": "Official online reservation",
     "bookingContact": "",
     "secondaryContact": "",
-    "bookingUrl": "https://pizza4ps.com/vn/location/935/",
+    "bookingUrl": "https://www.tablecheck.com/vi/pizza-4ps-hcm-hai-ba-trung/reserve",
     "notes": "Hai Bà Trưng branch · 151A–151B Hai Bà Trưng。Reserve lunch for 4 around 12:45；食完步行接 Norah Spa 2。",
     "signatureDishes": ["Crab tomato cream spaghetti", "House-made 4-cheese pizza + honey", "Burrata / Parma ham pizza"],
     "bookingHandoff": "未訂。一定揀 Hai Bà Trưng branch · 151A–151B Hai Bà Trưng；4人，31 Oct 約12:45。用 Pizza 4P’s official reservation flow。",
@@ -2454,7 +2454,7 @@ const ITINERARY_DATA={
           "Guaranteed check-in 為 14:00；若房間尚未準備好，可到 Lê Lợi 對面的 Routine 隨意逛逛，或留在 Saigon Centre / Takashimaya 消磨午後時光。",
           "入房後沖涼、換衫、休息，留一段安靜的午後給自己。"
         ],
-        "route": "🚶 To next stop · 約 10–12 min：步行往 Nguyễn Huệ · The Cafe Apartments。",
+        "route": "🚶 To next stop · 約 10–12 min：步行往 Nguyễn Huệ · The Cafe Apartments。若朝早未換夠現金，可先順道到 Hung Long Money Exchange，再往 Cafe Apartments。",
         "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%2065%20Le%20Loi%20Ho%20Chi%20Minh%20City",
         "type": "rest",
         "dayId": "day1",

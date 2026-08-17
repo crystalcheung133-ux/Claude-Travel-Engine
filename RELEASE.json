@@ -1,12 +1,13 @@
 {
   "engine_version": "25.6.2",
-  "artifact_version": "VN Companion RC29.45 · Travel Engine 25.6.2 Production Freeze",
+  "artifact_version": "VN Companion RC29.47 · Travel Engine 25.6.2 Production Freeze",
   "baseline_engine": "25.5.2",
   "release_date": "2026-08-16",
   "release_type": "production-freeze",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
+    "Pizza 4P’s Hai Bà Trưng Booking now points directly to the live TableCheck reservation URL, matching the Book Online browser contract",
     "Day 1 room-not-ready contingency now points to Routine Lê Lợi opposite Fusion, with Routine retained in Shopping Directory as a near-hotel option",
     "Browser release smoke stale-Pizza negative assertion corrected so the current Hai Bà Trưng branch is not rejected by its own regression test",
     "Day 1 Old Saigon sightseeing moved to Day 2; Day 1 now uses a route-led Nguyễn Trãi shopping walk after Phở SOL",
@@ -68,8 +69,8 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc2943-2562",
-  "release_status": "PRODUCTION FREEZE — static CI + independent Chromium desktop/mobile Studio visual validation PASS; CI orchestration gate corrected",
+  "asset_cache_token": "rc2947-2562",
+  "release_status": "PRODUCTION FREEZE CANDIDATE — static CI PASS; GitHub real-browser release gate must confirm direct Pizza TableCheck handoff",
   "changes": [
     "Day 1 arrival corrected to 06:00 with Klook private transfer to Fusion before breakfast",
     "Day 1 currency handling simplified to Timeline-only options: VPBank Hàm Nghi, Takashimaya B2, and Hà Tâm if open",
@@ -87,7 +88,7 @@
     "studio_on_badge": "PASS — identical NZ/VN geometry, compact theme-aware pill",
     "studio_lifecycle": "PASS — entry/close/re-entry/leave, no ghost overlay",
     "console_application_errors": "PASS — zero uncaught JS page errors",
-    "booking_expense_regression": "25.6.2 did not modify Booking/Expenses runtime; 25.6.1 exact-card browser evidence retained and 25.6.2 static contract PASS",
+    "booking_expense_regression": "RC29.47 updates only Pizza 4P’s booking handoff URL; static booking contracts PASS; real-browser gate pending GitHub confirmation; TEST BUILD only",
     "validator": "Independent Claude Chromium/Playwright validation of unchanged 25.6.2 visual candidates"
   },
   "ci_hygiene_fix": "Moved canonical Studio/Expense and 25.6.2 Studio Visual tests before Master CI pass/fail gate; negative control confirmed failure now propagates."
