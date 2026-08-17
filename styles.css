@@ -3097,3 +3097,5 @@ body.admin-mode .studio-on-badge:not([hidden]){display:inline-flex!important;}
   #tripStudioModal .trip-studio-modal-inner{width:min(96vw,430px)!important;}
   #tripStudioModal .trip-studio{max-width:430px!important;}
 }
+/* RC29.48 consolidated currency guide */
+.currency-option-list{display:grid;gap:12px;margin-top:14px}.currency-option-card{padding:14px;border:1px solid var(--line,#ded8cf);border-radius:16px;background:rgba(255,255,255,.58)}.currency-option-head{display:flex;flex-direction:column;gap:3px}.currency-option-head span{font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;opacity:.72}.currency-option-card p{margin:8px 0}.currency-option-address{font-size:.9rem;opacity:.82}.timeline-action--currency{font-weight:700}

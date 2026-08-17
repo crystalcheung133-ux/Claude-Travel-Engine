@@ -270,5 +270,9 @@
   "test-timeline-contextual-guide-groups.js": {
     "status": "active",
     "note": "Multi-entity Timeline cards expose every Guide through contextual named groups while preserving direct Booking access"
+  },
+  "test-vn-currency-guide-contract.js": {
+    "status": "active",
+    "note": "Consolidated Cash & Currency Guide, contextual Timeline buttons and per-option navigation"
   }
 }

@@ -1,6 +1,6 @@
 {
   "engine_version": "25.6.2",
-  "artifact_version": "VN Companion RC29.47 · Travel Engine 25.6.2 Production Freeze",
+  "artifact_version": "VN Companion RC29.48 · Travel Engine 25.6.2 Production Freeze",
   "baseline_engine": "25.5.2",
   "release_date": "2026-08-16",
   "release_type": "production-freeze",
@@ -88,8 +88,9 @@
     "studio_on_badge": "PASS — identical NZ/VN geometry, compact theme-aware pill",
     "studio_lifecycle": "PASS — entry/close/re-entry/leave, no ghost overlay",
     "console_application_errors": "PASS — zero uncaught JS page errors",
-    "booking_expense_regression": "RC29.47 updates only Pizza 4P’s booking handoff URL; static booking contracts PASS; real-browser gate pending GitHub confirmation; TEST BUILD only",
+    "booking_expense_regression": "RC29.48 updates only Pizza 4P’s booking handoff URL; static booking contracts PASS; real-browser gate pending GitHub confirmation; TEST BUILD only",
     "validator": "Independent Claude Chromium/Playwright validation of unchanged 25.6.2 visual candidates"
   },
-  "ci_hygiene_fix": "Moved canonical Studio/Expense and 25.6.2 Studio Visual tests before Master CI pass/fail gate; negative control confirmed failure now propagates."
+  "ci_hygiene_fix": "Moved canonical Studio/Expense and 25.6.2 Studio Visual tests before Master CI pass/fail gate; negative control confirmed failure now propagates.",
+  "currency_guide": "RC29.48 consolidates VPBank, Hà Tâm, Hung Long, TPBank LiveBank and Takashimaya B2 into one Cash & Currency Guide with contextual Timeline Currency buttons and per-option navigation."
 }

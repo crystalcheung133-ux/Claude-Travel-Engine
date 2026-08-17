@@ -2,15 +2,20 @@
 // Timeline is authoritative for itinerary content; booking linkage is reconciled to Booking Foundation IDs.
 
 const PLACES={
-  "vpbank-ham-nghi": {
-    "title": "VPBank ATM · Hàm Nghi",
-    "emoji": "🏧",
+  "currency-guide": {
+    "title": "Cash & Currency",
+    "emoji": "💱",
     "cat": "PRACTICAL",
-    "sub": "Wise cash withdrawal",
-    "maps": "https://www.google.com/maps/search/?api=1&query=VPBank%20ATM%20165-167-169%20Ham%20Nghi%20District%201%20Ho%20Chi%20Minh%20City",
-    "address": "165–167–169 Hàm Nghi, District 1, Ho Chi Minh City",
-    "desc": "Day 1 的現金補給點；不列入 Guide。",
-    "categoryLabel": "Practical"
+    "sub": "5 useful options · choose by where you are",
+    "categoryLabel": "💱 Currency",
+    "desc": "不用特地為換錢改路線。Day 1 有三個自然選擇，Day 2 另有一個順路 ATM；Takashimaya 則是任何一天回到 Fusion 附近都方便的 fallback。",
+    "currencyOptions": [
+      {"name":"VPBank ATM · Hàm Nghi","icon":"🏧","best":"Day 1 morning · before Phở SOL","note":"Wise 提款首選。現時 Wise 顯示 VPBank 為 no operator fee；提款前仍以 ATM 畫面為準。","address":"165–167–169 Hàm Nghi, District 1","maps":"https://www.google.com/maps/search/?api=1&query=VPBank%20ATM%20165-167-169%20Ham%20Nghi%20District%201%20Ho%20Chi%20Minh%20City"},
+      {"name":"Hà Tâm","icon":"💵","best":"Day 1 · Bến Thành / Nguyễn Trãi","note":"想用 AUD 現金比較匯率時的 Day 1 選擇；到埗再看當日 rate。","address":"2 Nguyễn An Ninh, District 1","maps":"https://www.google.com/maps/search/?api=1&query=Ha%20Tam%202%20Nguyen%20An%20Ninh%20Ho%20Chi%20Minh%20City"},
+      {"name":"Hung Long Money Exchange","icon":"💱","best":"Day 1 afternoon · before Cafe Apartments","note":"若朝早未換夠，從 Fusion 前往 Nguyễn Huệ / Cafe Apartments 時順道最自然。","address":"86 Mạc Thị Bưởi, District 1","maps":"https://www.google.com/maps/search/?api=1&query=Hung%20Long%20Money%20Exchange%2086%20Mac%20Thi%20Buoi%20Ho%20Chi%20Minh%20City"},
+      {"name":"TPBank LiveBank · Hai Bà Trưng","icon":"🏧","best":"Day 2 · Pizza 4P’s → Norah","note":"沿 Hai Bà Trưng 往 Norah 的途中選擇。現時 Wise 顯示 TPBank 為 no operator fee；提款前仍以 ATM 畫面為準。","address":"125 Hai Bà Trưng, District 1","maps":"https://www.google.com/maps/search/?api=1&query=TPBank%20LiveBank%20125%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh%20City"},
+      {"name":"Takashimaya B2 Exchange","icon":"💱","best":"Any day · around Fusion","note":"酒店相連的最方便 cash-exchange fallback；09:30 後經過 Saigon Centre 時再處理即可。","address":"Saigon Centre / Takashimaya B2, 65 Lê Lợi, District 1","maps":"https://www.google.com/maps/search/?api=1&query=Takashimaya%20Saigon%20Centre%2065%20Le%20Loi%20Ho%20Chi%20Minh%20City"}
+    ]
   },
   "fusion": {
     "title": "Fusion Original Saigon Centre",
@@ -1598,6 +1603,7 @@ const PLACES={
 };
 
 const CATEGORIES={
+  "PRACTICAL": [{"key":"currency-guide"}],
   "STAY": [
     {
       "key": "fusion"
@@ -1723,6 +1729,7 @@ const CATEGORIES={
 };
 
 const GUIDE_ORDER=[
+  "currency-guide",
   "fusion",
   "bakes",
   "cong",
@@ -2400,35 +2407,38 @@ const ITINERARY_DATA={
           "Klook Private Transfer 直達 Fusion Original Saigon Centre；抵埗先寄存行李。",
           "正式 check-in 為 14:00；若房間提早準備好，約中午便可先回房安頓。"
         ],
-        "route": "🚶 To next stop · 約 10 min：步行往 VPBank ATM · 165–167–169 Hàm Nghi。",
+        "route": "🚶 To next stop · 約 10 min：步行往 VPBank ATM。",
         "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%2065%20Le%20Loi%20Ho%20Chi%20Minh%20City",
         "type": "transport",
         "dayId": "day1",
         "placeId": "fusion",
-        "bookingId": "bk-transfer-in"
+        "bookingId": "bk-transfer-in",
+        "currencyGuide": true
       },
       {
         "id": "day1-currency",
         "time": "~08:00–08:45",
         "title": "💵 VND · Currency Exchange",
         "details": [
-          "🏧 VPBank · 165–167–169 Hàm Nghi — Wise 提款首選；no operator fee。",
-          "💱 Takashimaya B2 — 酒店相連，09:30 開門；若時間合適，可先比較 AUD 現金匯率。",
-          "💱 Hà Tâm · 2 Nguyễn An Ninh — 另一個現金換匯選擇；到埗當日再看營業情況與匯率。"
+          "Day 1 朝早先處理現金：VPBank ATM 是 Wise 提款首選；Hà Tâm 可比較 AUD 現金匯率。",
+          "Takashimaya B2 09:30 開門；住 Fusion 期間任何一天經過酒店都可再換。",
+          "五個順路選擇、適合日子與導航都收在 Currency Guide。"
         ],
         "route": "🚶 To next stop · 約 5 min：步行往 Phở SOL · Bến Thành。",
         "map": "https://www.google.com/maps/search/?api=1&query=VPBank%20ATM%20165-167-169%20Ham%20Nghi%20District%201%20Ho%20Chi%20Minh%20City",
         "type": "money",
         "dayId": "day1",
-        "placeId": "vpbank-ham-nghi",
-        "bookingId": null
+        "placeId": "currency-guide",
+        "bookingId": null,
+        "guideIds": ["currency-guide"],
+        "currencyGuide": true
       },
       {
         "id": "pho-sol",
         "time": "~09:00–10:00",
         "title": "🍜 Phở SOL · Bến Thành",
         "details": ["落機後的第一碗熱湯；慢慢坐下，讓 Saigon 的早晨正式開始。"],
-        "route": "🚶 To next stop · 約 3–5 min：步行往 Clothes Bar · 24 Nguyễn Trãi，從這裡開始 Nguyễn Trãi Shopping Walk。",
+        "route": "🚶 To next stop · 約 3–5 min：步行往 Clothes Bar，從這裡開始 Nguyễn Trãi Shopping Walk。",
         "map": "https://www.google.com/maps/search/?api=1&query=Ph%E1%BB%9F%20SOL%2032%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
         "type": "meal", "dayId": "day1", "placeId": "pho-sol", "bookingId": null
       },
@@ -2454,12 +2464,13 @@ const ITINERARY_DATA={
           "Guaranteed check-in 為 14:00；若房間尚未準備好，可到 Lê Lợi 對面的 Routine 隨意逛逛，或留在 Saigon Centre / Takashimaya 消磨午後時光。",
           "入房後沖涼、換衫、休息，留一段安靜的午後給自己。"
         ],
-        "route": "🚶 To next stop · 約 10–12 min：步行往 Nguyễn Huệ · The Cafe Apartments。若朝早未換夠現金，可先順道到 Hung Long Money Exchange，再往 Cafe Apartments。",
+        "route": "🚶 To next stop · 約 10–12 min：步行往 The Cafe Apartments。",
         "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%2065%20Le%20Loi%20Ho%20Chi%20Minh%20City",
         "type": "rest",
         "dayId": "day1",
         "placeId": "fusion",
-        "bookingId": "bk-fusion-original"
+        "bookingId": "bk-fusion-original",
+        "currencyGuide": true
       },
       {
         "id": "nha-suga",
@@ -2551,7 +2562,7 @@ const ITINERARY_DATA={
       {
         "id":"garmentory","time":"10:15–11:15","title":"🧥 11 Garmentory",
         "details":["先從選物店打開今日的 local-fashion 視野；不同品牌放在一起看，會比逐間追名字更有趣。"],
-        "route":"🚕 To next stop · 約 10–15 min：Grab → Dalla Saigon · 64 Trần Quang Diệu，Fashion Walk 從這裡開始。",
+        "route":"🚕 To next stop · 約 10–15 min：Grab → Dalla Saigon，Fashion Walk 從這裡開始。",
         "map":"https://www.google.com/maps/search/?api=1&query=11%20Garmentory%20117B%20Nguyen%20Dinh%20Chinh%20Ho%20Chi%20Minh","type":"shoppingWindow","dayId":"day2","placeId":"garmentory","bookingId":null,"showShoppingDirectory":true
       },
       {
@@ -2563,8 +2574,8 @@ const ITINERARY_DATA={
       {
         "id":"pizza4ps","time":"12:45–14:00","title":"🍕 Pizza 4P’s · Hai Bà Trưng",
         "details":["中午把腳步收進冷氣裡；pizza、自家芝士，讓上午的 shopping 在這裡停一停。"],
-        "route":"🚶 To next stop · 約 10–12 min：沿 Hai Bà Trưng 步行往 Norah Spa 2 · 74C Hai Bà Trưng。",
-        "map":"https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20151B%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh","type":"meal","dayId":"day2","placeId":"pizza4ps","bookingId":"bk-pizza4ps"
+        "route":"🚶 To next stop · 約 10–12 min：沿 Hai Bà Trưng 步行往 Norah Spa 2。",
+        "map":"https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20151B%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh","type":"meal","dayId":"day2","placeId":"pizza4ps","bookingId":"bk-pizza4ps","currencyGuide":true
       },
       {
         "id":"norah-spa-2","time":"14:00–16:00","title":"🌿 Norah Spa 2 · Afternoon Reset",
@@ -2589,7 +2600,7 @@ const ITINERARY_DATA={
         "id":"hotel-reset","time":"17:55–18:25","title":"🏨 Fusion · Freshen Up",
         "details":["把 shopping bags 留在房間，換一點夜晚的節奏，再輕身出門。"],
         "route":"🚕 To next stop · 約 10–15 min：Grab → LÚNE。",
-        "map":"https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre","type":"stay","dayId":"day2","placeId":"fusion","bookingId":null
+        "map":"https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre","type":"stay","dayId":"day2","placeId":"fusion","bookingId":null,"currencyGuide":true
       },
       {
         "id":"lune","time":"18:45–20:45","title":"🥂 LÚNE",
@@ -2858,7 +2869,8 @@ const ITINERARY_DATA={
         "type": "buffer",
         "dayId": "day5",
         "placeId": "fusion",
-        "bookingId": null
+        "bookingId": null,
+        "currencyGuide": true
       },
       {
         "id": "grab-ha-spa",
