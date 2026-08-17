@@ -2575,7 +2575,7 @@ const ITINERARY_DATA={
         "id":"pizza4ps","time":"12:45–14:00","title":"🍕 Pizza 4P’s · Hai Bà Trưng",
         "details":["中午把腳步收進冷氣裡；pizza、自家芝士，讓上午的 shopping 在這裡停一停。"],
         "route":"🚶 To next stop · 約 10–12 min：沿 Hai Bà Trưng 步行往 Norah Spa 2。",
-        "map":"https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20151B%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh","type":"meal","dayId":"day2","placeId":"pizza4ps","bookingId":"bk-pizza4ps","currencyGuide":true
+        "map":"https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20151B%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh","type":"meal","dayId":"day2","placeId":"pizza4ps","bookingId":"bk-pizza4ps","guideIds":["pizza4ps"],"currencyGuide":true
       },
       {
         "id":"norah-spa-2","time":"14:00–16:00","title":"🌿 Norah Spa 2 · Afternoon Reset",
