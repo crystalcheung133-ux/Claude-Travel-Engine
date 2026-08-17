@@ -74,7 +74,7 @@
   const lastDayNumber=dayNumbers[dayNumbers.length-1]||firstDayNumber;
 
   function resolveGuideButtons(item,nonPlace){
-    if(nonPlace||item.currencyGuide)return {primaryGuideId:'',alternativeGuideIds:[]};
+    if(nonPlace||item.placeId==='currency-guide')return {primaryGuideId:'',alternativeGuideIds:[]};
     const requested=Array.isArray(item.guideIds)&&item.guideIds.length
       ? item.guideIds
       : (guideExcludedPlaceIds.has(item.placeId)?[]:[item.placeId||item.id]);

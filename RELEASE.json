@@ -1,12 +1,13 @@
 {
   "engine_version": "25.6.2",
-  "artifact_version": "VN Companion RC29.48 · Travel Engine 25.6.2 Production Freeze",
+  "artifact_version": "VN Companion RC29.48c · Travel Engine 25.6.2 Production Freeze",
   "baseline_engine": "25.5.2",
   "release_date": "2026-08-16",
-  "release_type": "production-freeze",
+  "release_type": "test-build",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
+    "Contextual Currency buttons no longer suppress the destination Guide; Pizza 4P’s now exposes Currency + Guide + Booking together.",
     "Pizza 4P’s Hai Bà Trưng Booking now points directly to the live TableCheck reservation URL, matching the Book Online browser contract",
     "Day 1 room-not-ready contingency now points to Routine Lê Lợi opposite Fusion, with Routine retained in Shopping Directory as a near-hotel option",
     "Browser release smoke stale-Pizza negative assertion corrected so the current Hai Bà Trưng branch is not rejected by its own regression test",
