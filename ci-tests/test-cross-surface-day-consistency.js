@@ -27,9 +27,10 @@ assert(String(P['little-bear'].sub).includes('Closed Monday'),'Little Bear Guide
 assert(!B['bk-moc-huong'],'Mộc Hương must be an option, not a pending D4 booking');
 
 const sd=fs.readFileSync('shopping-directory-data.js','utf8');
-assert(sd.includes('Day 1 · Nguyễn Trãi Morning Walk'),'Directory Nguyễn Trãi route must be Day 1');
-assert(sd.includes('Day 2 · Morning Run'),'Directory Day 2 Morning Run missing');
-assert(sd.includes('Day 2 · Afternoon Cluster'),'Directory Day 2 Afternoon Cluster missing');
-assert(sd.includes('Day 4 · Thảo Điền'),'Directory Thảo Điền route missing');
+assert(sd.includes('Day 1 · Nguyễn Trãi Local Fashion Walk'),'Directory Nguyễn Trãi route must be Day 1');
+assert(sd.includes('Day 2 · Fashion + City'),'Directory Day 2 Fashion + City missing');
+assert(sd.includes('The New Playground · Vincom Đồng Khởi'),'Directory Day 2 Vincom cluster missing');
+assert(sd.includes('Day 4 · Thảo Điền Lifestyle'),'Directory Thảo Điền route missing');
+assert(sd.includes('Day 5 · Last Shopping'),'Directory Day 5 last shopping missing');
 
 console.log('CROSS-SURFACE DAY CONSISTENCY: PASS — Timeline / Booking / Guide / Shopping Directory agree.');

@@ -104,25 +104,20 @@ function openShoppingDirectoryView(requestedDay){
  const day=Number(requestedDay)||0;
  const cards=day?raw.filter(card=>shoppingDirectoryDay(card)===day):raw;
  function section(label,rows){return rows.length?`<section class="directory-route-group"><h3>${label}</h3><div class="directory-route-grid">${rows.join('')}</div></section>`:'';}
+ const planned=rows=>rows.filter(card=>/PLANNED ·/i.test(card));
+ const optional=rows=>rows.filter(card=>/OPTIONAL ·/i.test(card));
  let grouped='';
- if(day===1){
-   const main=cards.filter(card=>/Nguyễn Trãi Morning Walk/i.test(card));
-   const extension=cards.filter(card=>/Nguyễn Trãi Extension/i.test(card));
-   grouped=section('Morning · Nguyễn Trãi Main Line',main)+section('If Time · Nguyễn Trãi Extension',extension);
- }else if(day===2){
-   const morning=cards.filter(card=>/Morning Run/i.test(card));
-   const afternoon=cards.filter(card=>/Afternoon Cluster/i.test(card));
-   grouped=section('Morning Run · 11 Garmentory + Trần Quang Diệu',morning)+section('Afternoon Cluster · Near Norah',afternoon);
- }else if(day===4){
-   grouped=section('Thảo Điền · Walking Line',cards);
- }else if(day){grouped=section(`Day ${day}`,cards);}
+ if(day===1){ grouped=section('PLANNED · Nguyễn Trãi Local Fashion Walk',planned(cards))+section('OPTIONAL · If Time / Near Hotel',optional(cards)); }
+ else if(day===2){ grouped=section('PLANNED · Morning Run · 11 Garmentory + Trần Quang Diệu',planned(cards).filter(card=>/MORNING/i.test(card)))+section('PLANNED · Afternoon · Vincom Đồng Khởi + The New Playground',planned(cards).filter(card=>/AFTERNOON/i.test(card))); }
+ else if(day===4){ grouped=section('PLANNED · Thảo Điền Lifestyle',planned(cards))+section('OPTIONAL',optional(cards)); }
+ else if(day===5){ grouped=section('PLANNED · Last Shopping',planned(cards))+section('OPTIONAL',optional(cards)); }
+ else if(day){ grouped=section(`PLANNED · Day ${day}`,planned(cards))+section('OPTIONAL',optional(cards)); }
  else{
-   grouped=section('Day 1 · Nguyễn Trãi',raw.filter(card=>shoppingDirectoryDay(card)===1))+section('Day 2 · Fashion Day',raw.filter(card=>shoppingDirectoryDay(card)===2))+section('Day 4 · Thảo Điền',raw.filter(card=>shoppingDirectoryDay(card)===4));
+   grouped=section('PLANNED BY DAY · Day 1',planned(raw.filter(card=>shoppingDirectoryDay(card)===1)))+section('PLANNED BY DAY · Day 2',planned(raw.filter(card=>shoppingDirectoryDay(card)===2)))+section('PLANNED BY DAY · Day 4',planned(raw.filter(card=>shoppingDirectoryDay(card)===4)))+section('PLANNED BY DAY · Day 5',planned(raw.filter(card=>shoppingDirectoryDay(card)===5)))+section('OPTIONAL / NEARBY',optional(raw));
  }
- const optional=day?'':section('Near Hotel / Flexible',raw.filter(card=>!shoppingDirectoryDay(card)));
  const title=day?`🛍 Day ${day} Shopping Directory`:'🛍 Shopping Directory';
- const lead=day===1?'由 Nguyễn Trãi 的第一間店開始，沿門牌一路往前；主線與延伸線分開，時間自然就好。':day===2?'上午是一條完整的 Fashion Run；下午只留 Norah 附近的自由 cluster。':day===4?'從 OHQUAO 落腳，沿 Thảo Điền 主街慢慢走；只留下這天真正會經過的店。':'按真正會走到的街區收好，打開就知道從哪裡開始。';
- $('guideModalContent').innerHTML=`<p class="kicker">Shopping Directory</p><h2>${title}</h2><p class="lead">${lead}</p><div class="directory-grid">${grouped}${optional}</div>`;
+ const lead=day===1?'Nguyễn Trãi 是已定好的 Day 1 local-fashion line；主線與 optional extension 分開。':day===2?'上午走 11 Garmentory + Trần Quang Diệu；下午 Norah 後先接 Vincom / The New Playground，再步行去 Post Office / Book Street，最後往 LÚNE。':day===4?'只收 Thảo Điền 當日 walking line 真正會經過的店。':day===5?'最後補貨集中在酒店旁，不再為 shopping 多繞一程。':'先看 PLANNED BY DAY；真正未排入 itinerary 的店才放 OPTIONAL。';
+ $('guideModalContent').innerHTML=`<p class="kicker">Shopping Directory</p><h2>${title}</h2><p class="lead">${lead}</p><div class="directory-grid">${grouped}</div>`;
  closeMiniMenus();$('guideModal').classList.add('show');
  const sheet=document.querySelector('#guideModal .guide-sheet');if(sheet)sheet.scrollTop=0;
 }
@@ -249,7 +244,7 @@ function openGuideCategory(cat){
  // A single-entry category is already the destination; skip a redundant chooser.
  if(list.length===1){closeMiniMenus();openGuideModal(list[0].key);return;}
  if(semantic==='SHOP'){
-  const directoryRow=`<button onclick="openShoppingDirectoryView()"><span><span class="guide-list-title">🛍 Shopping Directory</span><span class="guide-list-sub">Optional shops · Near · Best with Day</span></span><span>↓</span></button>`;
+  const directoryRow=`<button onclick="openShoppingDirectoryView()"><span><span class="guide-list-title">🛍 Shopping Directory</span><span class="guide-list-sub">Planned by Day · Optional / Nearby</span></span><span>↓</span></button>`;
   const rows=directoryRow+list.map(i=>guideListRow(i)).join('');
   $('guideModalContent').innerHTML=`<p class="kicker">Guide</p><h2>SHOP</h2><div class="category-pop-list">${rows}</div>`;
   closeMiniMenus();$('guideModal').classList.add('show');return;

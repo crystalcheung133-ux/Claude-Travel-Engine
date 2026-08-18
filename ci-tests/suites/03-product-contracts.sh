@@ -39,3 +39,5 @@ node ci-tests/test-moments-plan-activity-canonical.js || failed=1
 node ci-tests/test-open-day-and-arrival-flow.js || failed=1
 
 
+
+node ci-tests/test-day2-vincom-shopping-contract.js

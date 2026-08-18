@@ -322,7 +322,7 @@ const PLACES={
     "hours": "Mon–Sat 11:30–14:00 & 17:00–22:30；Sunday closed",
     "maps": "https://www.google.com/maps/search/?api=1&query=L%C3%9ANE%20Restaurant%20%26%20Bar%2017%2F14%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20S%C3%A0i%20G%C3%B2n%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
     "address": "17/14 Lê Thánh Tôn, Sài Gòn, Hồ Chí Minh 70000, Vietnam",
-    "desc": "一整日試衫、走街、按摩完雙腳，LÚNE 是 Fashion Day 最後一個換景。現代法式／fusion 的細緻感剛好把白天的街頭節奏收住；18:30 開餐，最遲不要過 19:00。",
+    "desc": "一整日試衫、走街、按摩完雙腳，LÚNE 是 Fashion Day 最後一個換景。由 Vincom / The New Playground 收好 shopping，再經 Cathedral / Post Office / Book Street 後直接步行過來，現代法式／fusion 的細緻感剛好把白天的街頭節奏收住。",
     "signature": [
       "Canadian lobster raviolo｜Michelin Guide 點名 standout",
       "Phở foie gras terrine｜法式技巧 × 越南味",
@@ -331,7 +331,7 @@ const PLACES={
     "worth": [
       "建議提前 2–4 週預約，週日休息要留意。",
       "Smart casual 已足夠，不需要太正式。",
-      "如果行街時間 delay，要預留回酒店換裝與 Grab 時間。"
+      "Cathedral / Post Office / Book Street 行完直接步行過來，不再折返酒店。"
     ],
     "categoryLabel": "🍽 Restaurant",
     "price": "$$$",
@@ -345,7 +345,7 @@ const PLACES={
     "tips": [
       "建議提前 2–4 週預約，週日休息要留意。",
       "Smart casual 已足夠，不需要太正式。",
-      "Vincom → LÚNE 約 5 分鐘 Grab。"
+      "Post Office / Book Street → LÚNE 直接步行，毋須 Grab。"
     ]
   },
   "omakase-tiger": {
@@ -670,12 +670,12 @@ const PLACES={
     "title": "The New Playground",
     "emoji": "🛍",
     "cat": "SHOP",
-    "sub": "Day 2 · Nguyễn Trãi Fashion Cluster",
-    "shoppingRoute": "Day 2 · Nguyễn Trãi",
-    "hours": "10:00–21:00",
-    "maps": "https://www.google.com/maps/search/?api=1&query=The%20New%20Playground%2026%20L%C3%BD%20T%E1%BB%B1%20Tr%E1%BB%8Dng%2C%20S%C3%A0i%20G%C3%B2n%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
-    "address": "26 Lý Tự Trọng, Sài Gòn, Hồ Chí Minh 700000, Vietnam",
-    "desc": "The New Playground 適合把選擇交給同行的年輕人。多個本地品牌集中在同一處，不必逐間追地址；有人看衣服、有人看帽袋，也可以約好時間再集合。",
+    "sub": "Day 2 · Vincom Đồng Khởi Local Fashion",
+    "shoppingRoute": "Day 2 · Fashion + City",
+    "hours": "10:00–22:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=The%20New%20Playground%20Vincom%20Center%20Dong%20Khoi%2072%20Le%20Thanh%20Ton%20Ho%20Chi%20Minh%20City",
+    "address": "Vincom Center Đồng Khởi, 72 Lê Thánh Tôn, District 1, Ho Chi Minh City",
+    "desc": "Day 2 sightseeing 後直接走進 Vincom，把黃昏留給一整片 Vietnamese local fashion。The New Playground 集中多個本地品牌；PUSH PUSH 在場內有 selected range，適合一站慢慢掃。",
     "signature": [
       "多個越南本地品牌集中",
       "冷氣環境，適合下午避暑",
@@ -1775,12 +1775,7 @@ const DAY_LINKS={
       "day.html?day=1#fusion"
     ]
   ],
-  "ivoire": [
-    [
-      "Day 1",
-      "day.html?day=1#ivoire"
-    ]
-  ],
+  "ivoire": [],
   "pho-sol": [
     [
       "Day 1",
@@ -1789,20 +1784,20 @@ const DAY_LINKS={
   ],
   "post-office": [
     [
-      "Day 1",
-      "day.html?day=1#post-office"
+      "Day 2",
+      "day.html?day=2#post-office"
     ]
   ],
   "notre-dame": [
     [
-      "Day 1",
-      "day.html?day=1#post-office"
+      "Day 2",
+      "day.html?day=2#post-office"
     ]
   ],
   "book-street": [
     [
-      "Day 1",
-      "day.html?day=1#post-office"
+      "Day 2",
+      "day.html?day=2#post-office"
     ]
   ],
   "nha-suga": [
@@ -1971,6 +1966,7 @@ const DAY_LINKS={
       "day.html?day=4#running-bean"
     ]
   ],
+  "new-playground": [["Day 2","day.html?day=2#vincom-new-playground"]],
   "pink-church": [
     [
       "Day 4",
@@ -2112,7 +2108,7 @@ const BOOKINGS_DATA={
     "dayId": "day2",
     "status": "pending",
     "date": "2026-10-31",
-    "time": "18:30",
+    "time": "18:45",
     "bookingName": "",
     "bookingCategory": "Restaurants",
     "category": "Restaurants",
@@ -2126,7 +2122,7 @@ const BOOKINGS_DATA={
     "bookingContact": "",
     "secondaryContact": "",
     "bookingUrl": "https://www.adrienguenzi.com/reservations",
-    "notes": "18:30 dinner for 4; Monday dinner service is open. Fashion Day shopping後先返 Fusion 放低戰利品 / freshen up，再輕身 Grab 去 LÚNE。",
+    "notes": "18:45 dinner for 4. Day 2 由 Vincom Center Đồng Khởi / The New Playground 行到 Cathedral / Post Office / Book Street，再直接步行去 LÚNE；不返 Fusion、不再叫 Grab。",
     "signatureDishes": ["Canadian lobster raviolo", "Phở foie gras terrine", "Sea urchin + A5 wagyu"],
     "email": "contact-lune@hdnt.vn",
     "address": "17/14 Lê Thánh Tôn, Sài Gòn, Ho Chi Minh City, Vietnam",
@@ -2579,28 +2575,22 @@ const ITINERARY_DATA={
       },
       {
         "id":"norah-spa-2","time":"14:00–16:00","title":"🌿 Norah Spa 2 · Afternoon Reset",
-        "details":["午後完整留兩小時給 Spa；每個人可按自己想要的 60 / 90 分鐘療程慢慢選。","較早完成的人，可沿 Lý Tự Trọng 看 The New Playground / 26 Lý Tự Trọng 一帶；16:00 再會合。"],
-        "route":"🚕 To next stop · 約 5–10 min：16:00 會合後前往 Central Post Office / Book Street。",
+        "details":["午後完整留兩小時給 Spa；每個人可按自己想要的 60 / 90 分鐘療程慢慢選。","較早完成的人可在附近短逛；16:00 再會合，之後一起步行進 Central D1。"],
+        "route":"🚶 To next stop · 約 8–10 min：16:00 會合後步行往 Vincom Center Đồng Khởi · The New Playground。",
         "map":"https://www.google.com/maps/search/?api=1&query=Norah%20Spa%202%2074C%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh","type":"spa","dayId":"day2","placeId":"norah-spa-2","bookingId":"bk-norah-spa-2","guideIds":["norah-spa-2"],"showShoppingDirectory":true
       },
       {
-        "id":"post-office","time":"16:10–17:20","title":"📮 Post Office · Book Street · Cathedral","copyAddressEligible":false,
-        "details":["午後的光線柔下來，才走進郵局、書街與紅教堂這一小段老城。"],
-        "route":"🚶 To next stop · 約 8 min：步行往 Ivoire Pastry Boutique。",
+        "id":"vincom-new-playground","time":"16:10–17:05","title":"🛍 Vincom Center Đồng Khởi · The New Playground",
+        "details":["Norah 之後先走進 Vincom 的冷氣裡，把午後 shopping 收在 Vietnamese local brands。","The New Playground 是主場；PUSH PUSH 與 BLACKORP 都可在 Vincom 找到，其他 local brands 自由看。"],
+        "route":"🚶 To next stop · 約 5–8 min：由 Vincom 步行往 Cathedral / Central Post Office / Book Street。",
+        "map":"https://www.google.com/maps/search/?api=1&query=The%20New%20Playground%20Vincom%20Center%20Dong%20Khoi%2072%20Le%20Thanh%20Ton%20Ho%20Chi%20Minh%20City","type":"shoppingWindow","dayId":"day2","placeId":"new-playground","bookingId":null,"guideIds":["new-playground"],"showShoppingDirectory":true
+      },
+      {
+        "id":"post-office","time":"17:15–18:05","title":"📮 Post Office · Book Street · Cathedral","copyAddressEligible":false,
+        "details":["Shopping 收好後，再走進郵局、書街與紅教堂這一小段老城；黃昏的光線剛好柔下來。"],
+        "route":"🚶 To next stop · 約 8–12 min：沿 Central D1 步行往 LÚNE。",
         "map":"https://www.google.com/maps/search/?api=1&query=Saigon%20Central%20Post%20Office","type":"experience","dayId":"day2","placeId":"post-office","bookingId":null,
         "guideIds":["post-office","book-street","notre-dame"],"guideGroups":[{"label":"📮 Post Office","guideIds":["post-office"]},{"label":"📚 Book Street","guideIds":["book-street"]},{"label":"⛪ Cathedral","guideIds":["notre-dame"]}]
-      },
-      {
-        "id":"ivoire","time":"~17:20–17:45","title":"🍰 Ivoire Pastry · Optional",
-        "details":["還有胃口便坐一會；想把位置留給今晚的 LÚNE，就挑幾件帶回酒店。"],
-        "route":"🚕 To next stop · 約 8–12 min：Grab 返回 Fusion Original，放低戰利品、稍作整理。",
-        "map":"https://www.google.com/maps/search/?api=1&query=Ivoire%20Pastry%20Boutique%2028%20Cao%20Ba%20Quat%20Ho%20Chi%20Minh","type":"optional","dayId":"day2","placeId":"ivoire","bookingId":null,"guideIds":["ivoire"]
-      },
-      {
-        "id":"hotel-reset","time":"17:55–18:25","title":"🏨 Fusion · Freshen Up",
-        "details":["把 shopping bags 留在房間，換一點夜晚的節奏，再輕身出門。"],
-        "route":"🚕 To next stop · 約 10–15 min：Grab → LÚNE。",
-        "map":"https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre","type":"stay","dayId":"day2","placeId":"fusion","bookingId":null,"currencyGuide":true
       },
       {
         "id":"lune","time":"18:45–20:45","title":"🥂 LÚNE",

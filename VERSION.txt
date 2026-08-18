@@ -1,1 +1,1 @@
-VN Companion RC29.48c · Travel Engine 25.6.2 Production Freeze
+VN Companion RC29.50 · Travel Engine 25.6.2 TEST BUILD
