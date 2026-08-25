@@ -11,7 +11,7 @@ const stale={
 let stored={version:1,overrides:stale,deletedIds:[],updatedAt:'2026-08-01T00:00:00Z'};
 const context={
   console,
-  TRIP_CONFIG:{bookingMasterRevision:7},
+  TRIP_CONFIG:{bookingMasterRevision:9},
   STORAGE_CONFIG:{keys:{bookingOverrides:'test-booking-overrides'}},
   STORAGE:{local:{
     readJSON:(k,f)=>JSON.parse(JSON.stringify(stored)),
@@ -41,10 +41,10 @@ assert(pizza.address.includes('151A–151B Hai Bà Trưng'));
 
 assert.equal(A.get('bk-moc-huong'),null,'obsolete Mộc Hương booking must not resurrect from stale state');
 
-let heal=A.get('bk-norah-spa-2');
-assert.equal(heal.day,2);
-assert.equal(heal.time,'14:00');
-assert.equal(heal.timelineItemId,'norah-spa-2');
+assert.equal(A.get('bk-norah-spa-2'),null,'obsolete Norah booking must not resurrect from stale state');
+let heal=A.get('bk-qspa');
+assert.equal(heal.status,'planned');
+assert.equal(heal.timelineItemId,'qspa-d1');
 
 // A fresh edit authored against the current master revision may override editable schedule fields.
 const save=A.save('bk-pizza4ps',Object.assign({},pizza,{time:'13:15',bookingName:'Crystal',status:'confirmed'}),context.BOOKINGS_DATA);
@@ -54,6 +54,6 @@ assert.equal(pizza.time,'13:15');
 assert.equal(pizza.bookingName,'Crystal');
 assert.equal(pizza.status,'confirmed');
 assert.equal(pizza.title,'Pizza 4P’s Hai Bà Trưng');
-assert.equal(stored.overrides['bk-pizza4ps']._masterRevision,7);
+assert.equal(stored.overrides['bk-pizza4ps']._masterRevision,9);
 
 console.log('BOOKING AUTHORITY STALE-STATE POISONING: PASS');

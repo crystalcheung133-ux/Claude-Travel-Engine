@@ -10,7 +10,8 @@ const trip=fs.readFileSync('trip-runtime.js','utf8');
 // Phone/Zalo alone never satisfy the contract.
 for(const [id,b] of Object.entries(B)){
   const usable=String(b.bookingUrl||'').trim()||String(b.email||'').trim()||String(b.whatsapp||'').trim();
-  assert(usable,id+': requires website/email/verified WhatsApp');
+  if(String(b.status||'').toLowerCase()!=='planned') assert(usable,id+': requires website/email/verified WhatsApp');
+  else assert(b.placeId,id+': planned Guide-led booking requires canonical placeId');
   if(/\bonline\b|website|klook/i.test(String(b.bookingMethod||'')))
     assert(String(b.bookingUrl||'').trim(),id+': online/website method requires bookingUrl');
   if(/whatsapp/i.test(String(b.bookingMethod||'')))
@@ -43,7 +44,8 @@ for(const label of sectionLabels) assert(allowedSections.has(label),'Generic Boo
 assert(actions.includes('bookingDayButtonHTML(booking)'),'Timeline action missing');
 for(const required of ['trip-action-btn--book','trip-action-btn--whatsapp','trip-action-btn--email'])
   assert(actions.includes(required),'Booking action channel missing: '+required);
-for(const forbidden of ['bookingGuideButtonHTML','Navigate</a>','Copy Address','trip-action-btn--call'])
+assert(actions.includes('bookingGuideButtonHTML(booking)'),'Guide-led planned Booking must expose View Guide');
+for(const forbidden of ['Navigate</a>','Copy Address','trip-action-btn--call'])
   assert(!actions.includes(forbidden),'Generic Booking action outside allow-list: '+forbidden);
 assert(actions.includes('bookingEditButtonHTML(booking)'),'Studio Edit Booking action is not wired into Booking detail actions');
 const editBlock=(trip.match(/function bookingEditButtonHTML\(booking\)\{[\s\S]*?\n\}/)||[''])[0];

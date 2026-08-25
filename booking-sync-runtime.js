@@ -30,7 +30,7 @@
   function mapRow(row){
     const payload=row&&row.payload&&typeof row.payload==='object'&&!Array.isArray(row.payload)?clone(row.payload):{};
     const record=Object.assign({},legacyRow(row||{}),payload,{id:(payload.id||payload.bookingId||row.booking_id),bookingId:(payload.bookingId||payload.id||row.booking_id)});
-    record.status=String(record.status||'pending').toLowerCase()==='confirmed'?'confirmed':'pending';
+    {const rawStatus=String(record.status||'pending').toLowerCase();record.status=rawStatus==='confirmed'?'confirmed':(rawStatus==='planned'?'planned':'pending');}
     record._remoteVersion=Number(row.version||1);record._remoteDeletedAt=row.deleted_at||'';
     state.versions[record.id]=record._remoteVersion;
     return record;

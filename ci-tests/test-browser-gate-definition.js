@@ -24,11 +24,11 @@ for(const token of [
  "openBookingCategoryCard('Restaurants')",
  "openBookingCategoryCard('Spa')",
  "rendered Restaurants rolled back Pizza branch",
- "Norah Spa 2 did not render at 14:00",
+ "canonical Qspa booking missing",
  "Pizza says online but rendered no Book Online action",
- "Norah WhatsApp action missing",
- "Norah website action missing",
- "phone-only Call action should not exist"
+ "Qspa View Guide action missing",
+ "Qspa D2 Norah Guide alternative missing",
+ "Qspa shared three-day plan missing"
 ]) assert(gate.includes(token),`Browser smoke lost required coverage token: ${token}`);
 assert(runner.includes('test-browser-release-smoke.py'),'Browser runner must execute the canonical release smoke');
 assert(gate.includes('BROWSER_BASE_URL'),'Browser smoke must support validating a deployed production URL');

@@ -116,7 +116,7 @@ function openShoppingDirectoryView(requestedDay){
    grouped=section('PLANNED BY DAY · Day 1',planned(raw.filter(card=>shoppingDirectoryDay(card)===1)))+section('PLANNED BY DAY · Day 2',planned(raw.filter(card=>shoppingDirectoryDay(card)===2)))+section('PLANNED BY DAY · Day 4',planned(raw.filter(card=>shoppingDirectoryDay(card)===4)))+section('PLANNED BY DAY · Day 5',planned(raw.filter(card=>shoppingDirectoryDay(card)===5)))+section('OPTIONAL / NEARBY',optional(raw));
  }
  const title=day?`🛍 Day ${day} Shopping Directory`:'🛍 Shopping Directory';
- const lead=day===1?'Nguyễn Trãi 是已定好的 Day 1 local-fashion line；主線與 optional extension 分開。':day===2?'上午走 11 Garmentory + Trần Quang Diệu；下午 Norah 後先接 Vincom / The New Playground，再步行去 Post Office / Book Street，最後往 LÚNE。':day===4?'只收 Thảo Điền 當日 walking line 真正會經過的店。':day===5?'最後補貨集中在酒店旁，不再為 shopping 多繞一程。':'先看 PLANNED BY DAY；真正未排入 itinerary 的店才放 OPTIONAL。';
+ const lead=day===1?'Nguyễn Trãi 是已定好的 Day 1 local-fashion line；主線與 optional extension 分開。':day===2?'上午走 11 Garmentory + Trần Quang Diệu；Pizza 4P’s 後到 Qspa 做 Afternoon Reset，再走 Cathedral / Post Office / Book Street sightseeing cluster，之後步行接 Vincom / The New Playground，最後往 LÚNE。':day===4?'只收 Thảo Điền 當日 walking line 真正會經過的店。':day===5?'最後補貨集中在酒店旁，不再為 shopping 多繞一程。':'先看 PLANNED BY DAY；真正未排入 itinerary 的店才放 OPTIONAL。';
  $('guideModalContent').innerHTML=`<p class="kicker">Shopping Directory</p><h2>${title}</h2><p class="lead">${lead}</p><div class="directory-grid">${grouped}</div>`;
  closeMiniMenus();$('guideModal').classList.add('show');
  const sheet=document.querySelector('#guideModal .guide-sheet');if(sheet)sheet.scrollTop=0;
@@ -286,6 +286,15 @@ function guideCoreSections(g,key){
  return compactGuideSections(normalized);
 }
 
+function guideAlternativeLinksHTML(g){
+ const rows=Array.isArray(g&&g.alternativeGuides)?g.alternativeGuides:[];
+ if(!rows.length)return '';
+ return `<section class="guide-content-section guide-alternatives-by-day"><h3>Alternatives by Day</h3><div class="quick-info-actions">${rows.map(function(row){
+   const prefix=row.day?`${row.day} · `:'';
+   const note=row.note?` — ${row.note}`:'';
+   return `<button class="utility-button" type="button" onclick="openGuideModal('${String(row.placeId||'').replace(/'/g,"\'")}')">${prefix}${row.label||'Alternative'}${note} · Open Guide</button>`;
+ }).join('')}</div></section>`;
+}
 function quickInfoInnerHTML(g,key){
  const phoneRow=g.phone?`<div class="quick-info-row"><span class="quick-info-icon">☎️</span><span><span class="quick-info-label">Phone</span><span class="quick-info-value">${g.phone}</span></span></div>`:'';
  const callButton=g.phone?`<a class="utility-button" href="tel:${String(g.phone).replace(/[^+\d]/g,'')}">☎️ Call</a>`:'';
@@ -317,7 +326,7 @@ function quickInfoInnerHTML(g,key){
  const coreSections=guideCoreSections(g,key);
  const currencyOptions=Array.isArray(g.currencyOptions)?g.currencyOptions:[];
  const currencyOptionsHTML=currencyOptions.length?`<div class="currency-option-list">${currencyOptions.map(option=>`<article class="currency-option-card"><div class="currency-option-head"><strong>${option.icon||'💱'} ${option.name||''}</strong><span>${option.best||''}</span></div><p>${option.note||''}</p><p class="currency-option-address">📍 ${option.address||''}</p>${option.maps?`<a class="map-button" href="${option.maps}" target="_blank" rel="noopener">🧭 Navigate</a>`:''}</article>`).join('')}</div>`:'';
- return `<div class="quick-info-top"><span class="category-tag">${g.categoryLabel||g.cat||'Guide'}</span>${roleBadge}${detailStatus}</div><div class="quick-info-grid">${addressRow}${phoneRow}${hoursRow}${priceRow}${bookingRow}${visitDayHTML(key)}</div>${coreSections}${currencyOptionsHTML}${reminderRow}${parkingHTML}<div class="quick-info-actions">${navButton}${bookingButton}</div>`;
+ return `<div class="quick-info-top"><span class="category-tag">${g.categoryLabel||g.cat||'Guide'}</span>${roleBadge}${detailStatus}</div><div class="quick-info-grid">${addressRow}${phoneRow}${hoursRow}${priceRow}${bookingRow}${visitDayHTML(key)}</div>${coreSections}${guideAlternativeLinksHTML(g)}${currencyOptionsHTML}${reminderRow}${parkingHTML}<div class="quick-info-actions">${navButton}${bookingButton}</div>`;
 }
 
 function quickInfoHTML(g,key){

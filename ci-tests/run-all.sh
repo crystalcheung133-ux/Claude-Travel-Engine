@@ -27,6 +27,8 @@ run "CANONICAL STUDIO + EXPENSE DEEP-LINK" node ci-tests/test-canonical-studio-e
 run "CANONICAL STUDIO VISUAL CONTRACT 25.6.2" node ci-tests/test-studio-visual-contract-2562.js
 run "BOOKING MASTER STATUS + STUDIO EDIT" node ci-tests/test-booking-master-status-studio-edit.js
 run "BOOKING SINGLE STATUS AUTHORITY" node ci-tests/test-booking-single-status-authority.js
+run "QSPA D1-D3 RECONCILIATION" node ci-tests/test-qspa-d1-d3-reconciliation.js
+run "EXPENSE SUITE FAILURE ACCUMULATION" node ci-tests/test-expense-suite-failure-accumulation.js
 [ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
 echo "MASTER CI SUITE PASSED"
 

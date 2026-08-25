@@ -22,9 +22,6 @@ node ci-tests/test-guide-booking-return-contract.js || failed=1
 node ci-tests/test-vn-route-first-spa-contract.js || failed=1
 node ci-tests/test-vn-restaurant-booking-guide-contract.js || failed=1
 node ci-tests/test-vn-currency-guide-contract.js || failed=1
-[ "$failed" -eq 0 ] || exit 1
-echo "VN PRODUCT CONTRACTS: PASS"
-
 node ci-tests/test-booking-sync-canonical-master-contract.js || failed=1
 
 node ci-tests/test-booking-authority-stale-poisoning.js || failed=1
@@ -40,4 +37,6 @@ node ci-tests/test-open-day-and-arrival-flow.js || failed=1
 
 
 
-node ci-tests/test-day2-vincom-shopping-contract.js
+node ci-tests/test-day2-vincom-shopping-contract.js || failed=1
+[ "$failed" -eq 0 ] || exit 1
+echo "VN PRODUCT CONTRACTS: PASS"

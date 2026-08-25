@@ -18,7 +18,8 @@ assert(trip.includes("if(booking&&booking.emoji)return String(booking.emoji)"),'
 for(const x of [
  '"title": "Pizza 4P’s Hai Bà Trưng"',
  '"time": "12:45"',
- '"time":"14:00"',
+ '"title": "Qspa · Rediscover Your Soul"',
+ '"status": "planned"',
  '"emoji": "🥂"',
  '"emoji": "🍲"'
 ]) assert(data.includes(x),'master booking correction missing: '+x);

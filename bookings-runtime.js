@@ -12,7 +12,7 @@
     const byId=view&&view.byId?view.byId:(root.BOOKINGS_DATA||{});
     return root.BOOKING_AUTHORITY?BOOKING_AUTHORITY.all(byId):Object.values(byId||{});
   }
-  function status(b){return String(b&&b.status||'pending').toLowerCase()==='confirmed'?'confirmed':'pending';}
+  function status(b){const raw=String(b&&b.status||'pending').toLowerCase();return raw==='confirmed'?'confirmed':(raw==='planned'?'planned':'pending');}
   function category(b){
     const explicit=String((b&&b.bookingCategory)||(b&&b.category)||'').trim().toLowerCase();
     if(explicit==='restaurant'||explicit==='restaurants')return 'Restaurants'; if(explicit==='spa')return 'Spa';

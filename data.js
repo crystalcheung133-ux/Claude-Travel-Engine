@@ -13,7 +13,7 @@ const PLACES={
       {"name":"VPBank ATM · Hàm Nghi","icon":"🏧","best":"Day 1 morning · before Phở SOL","note":"Wise 提款首選。現時 Wise 顯示 VPBank 為 no operator fee；提款前仍以 ATM 畫面為準。","address":"165–167–169 Hàm Nghi, District 1","maps":"https://www.google.com/maps/search/?api=1&query=VPBank%20ATM%20165-167-169%20Ham%20Nghi%20District%201%20Ho%20Chi%20Minh%20City"},
       {"name":"Hà Tâm","icon":"💵","best":"Day 1 · Bến Thành / Nguyễn Trãi","note":"想用 AUD 現金比較匯率時的 Day 1 選擇；到埗再看當日 rate。","address":"2 Nguyễn An Ninh, District 1","maps":"https://www.google.com/maps/search/?api=1&query=Ha%20Tam%202%20Nguyen%20An%20Ninh%20Ho%20Chi%20Minh%20City"},
       {"name":"Hung Long Money Exchange","icon":"💱","best":"Day 1 afternoon · before Cafe Apartments","note":"若朝早未換夠，從 Fusion 前往 Nguyễn Huệ / Cafe Apartments 時順道最自然。","address":"86 Mạc Thị Bưởi, District 1","maps":"https://www.google.com/maps/search/?api=1&query=Hung%20Long%20Money%20Exchange%2086%20Mac%20Thi%20Buoi%20Ho%20Chi%20Minh%20City"},
-      {"name":"TPBank LiveBank · Hai Bà Trưng","icon":"🏧","best":"Day 2 · Pizza 4P’s → Norah","note":"沿 Hai Bà Trưng 往 Norah 的途中選擇。現時 Wise 顯示 TPBank 為 no operator fee；提款前仍以 ATM 畫面為準。","address":"125 Hai Bà Trưng, District 1","maps":"https://www.google.com/maps/search/?api=1&query=TPBank%20LiveBank%20125%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh%20City"},
+      {"name":"TPBank LiveBank · Hai Bà Trưng","icon":"🏧","best":"Day 2 · Hai Bà Trưng lunch area","note":"Pizza 4P’s Hai Bà Trưng 附近的提款選擇。現時 Wise 顯示 TPBank 為 no operator fee；提款前仍以 ATM 畫面為準。","address":"125 Hai Bà Trưng, District 1","maps":"https://www.google.com/maps/search/?api=1&query=TPBank%20LiveBank%20125%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh%20City"},
       {"name":"Takashimaya B2 Exchange","icon":"💱","best":"Any day · around Fusion","note":"酒店相連的最方便 cash-exchange fallback；09:30 後經過 Saigon Centre 時再處理即可。","address":"Saigon Centre / Takashimaya B2, 65 Lê Lợi, District 1","maps":"https://www.google.com/maps/search/?api=1&query=Takashimaya%20Saigon%20Centre%2065%20Le%20Loi%20Ho%20Chi%20Minh%20City"}
     ]
   },
@@ -83,34 +83,25 @@ const PLACES={
     "title": "The Cafe Apartments",
     "emoji": "🌃",
     "cat": "CAFÉS",
-    "sub": "老公寓咖啡樓",
-    "status": "planned",
+    "sub": "Day 1 · Flexible / optional Nguyễn Huệ stop",
+    "status": "optional",
     "hours": "Individual venues vary; most operate about 08:00–22:00",
     "maps": "https://www.google.com/maps/search/?api=1&query=The%20Cafe%20Apartments%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "42 Nguyễn Huệ, District 1, Ho Chi Minh City, Vietnam",
-    "desc": "The Cafe Apartments 係阮惠步行街最有代表性的老公寓改造景點。白天入內是迷宮式小店與 cafe，夜晚外牆一格格招牌亮起，反而成為最經典的西貢夜景背景。今次 Day 1 將 Spa 同夜景安排在同一棟樓，動線很聰明：下午上樓放鬆，晚上食完飯回來影霓虹燈。",
+    "desc": "A flexible Day 1 energy-dependent stop, not a fixed afternoon block. If everyone still has energy after Fusion check-in, do a short browse / photos / coffee; after Omakase it can reappear as an optional Nguyễn Huệ evening wander.",
     "signature": [
-      "夜晚外牆最上鏡",
-      "每層都有不同 cafe、選物店、香氛小店",
-      "電梯可能收小額費用，亦可逐層行樓梯探索"
+      "Short browse, photos and coffee if energy allows",
+      "Optional evening Nguyễn Huệ wander after Omakase",
+      "Individual cafés and shops across the old apartment building"
     ],
     "worth": [
-      "建議先搭到高層，再慢慢向下行，體力消耗較少。",
-      "不建議一入門就坐第一間；先逛一圈再決定。"
+      "Cafe Apartments is the flexible element; protect Qspa and the 17:30 Omakase seating.",
+      "If tired, stay at Fusion and rest."
     ],
     "categoryLabel": "☕ Cafe",
     "price": "$–$$",
-    "transport": "Grab / walk depending on current route",
-    "audit": "Building address verified; hours correctly remain venue-dependent",
-    "highlights": [
-      "夜晚外牆最上鏡",
-      "每層都有不同 cafe、選物店、香氛小店",
-      "電梯可能收小額費用，亦可逐層行樓梯探索"
-    ],
-    "tips": [
-      "建議先搭到高層，再慢慢向下行，體力消耗較少。",
-      "不建議一入門就坐第一間；先逛一圈再決定。"
-    ]
+    "transport": "Walk from Fusion when energy allows",
+    "audit": "Building address retained; Day 1 role is now optional / flexible."
   },
   "cong": {
     "title": "Cộng Cà Phê Tân Định",
@@ -510,7 +501,7 @@ const PLACES={
     "hours": "11:00–00:00 Mon–Sat · 11:00–23:00 Sun",
     "maps": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20151B%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh%20City",
     "address": "151A–151B Hai Bà Trưng, Ho Chi Minh City, Vietnam",
-    "desc": "上午在 Trần Quang Diệu 收好第一輪戰利品，中午轉入 Hai Bà Trưng。這餐是 Fashion Day 的冷氣停頓；食完沿同一條街慢慢走去 Norah Spa 2。",
+    "desc": "上午在 Trần Quang Diệu 收好第一輪戰利品，中午轉入 Hai Bà Trưng。這餐是 Fashion Day 的冷氣停頓；食完 Grab 去 Qspa，保留完整兩小時 Afternoon Reset。",
     "signature": [
       "Crab tomato cream spaghetti｜近期評論反覆點名",
       "House-made 4-cheese pizza + honey｜4P’s 經典",
@@ -522,16 +513,16 @@ const PLACES={
     ],
     "categoryLabel": "🍽 Restaurant",
     "price": "$$",
-    "transport": "Grab from Trần Quang Diệu · then walk to Norah Spa 2",
+    "transport": "Grab from Trần Quang Diệu · lunch at Hai Bà Trưng · then Grab to Qspa",
     "audit": "Hai Bà Trưng branch: 151A–151B Hai Bà Trưng.",
     "highlights": [
       "House-made cheese",
       "Burrata / 4-cheese pizza",
-      "食完沿 Hai Bà Trưng 步行接 Norah Spa 2"
+      "食完由 Hai Bà Trưng Grab 接 Qspa"
     ],
     "tips": [
       "Day 2 使用 Hai Bà Trưng branch。",
-      "午餐後沿 Hai Bà Trưng 步行去 Norah Spa 2。"
+      "午餐後由 Hai Bà Trưng Grab 去 Qspa。"
     ]
   },
   "quan-thuy": {
@@ -961,33 +952,21 @@ const PLACES={
     "title": "Spa Nhà Suga Premium Korea Headspa – Nguyễn Huệ",
     "emoji": "🫧",
     "cat": "SPA",
-    "sub": "Day 1 · Head Spa",
+    "sub": "Reference only · The Cafe Apartments",
+    "status": "optional",
     "hours": "09:00–20:00 daily",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Spa%20Nh%C3%A0%20Suga%20Premium%20Korea%20Headspa%20%E2%80%93%20Nguy%E1%BB%85n%20Hu%E1%BB%87%208th%20Floor%2C%20The%20Caf%C3%A9%20Apartment%2C%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Spa%20Nh%C3%A0%20Suga%20Premium%20Korea%20Headspa%20Nguyen%20Hue%2042%20Nguyen%20Hue%20Ho%20Chi%20Minh%20City",
     "address": "8th Floor, The Café Apartment, 42 Nguyễn Huệ, District 1, Ho Chi Minh City, Vietnam",
-    "desc": "Nguyễn Huệ 分店位於 The Cafe Apartments 8樓。Day 1 安排韓式 Head Spa，做完可直接接晚餐；重點係頭皮清潔、洗護同放鬆，不需要另外把它當一般 body spa。",
+    "desc": "Reference-only head-spa entry inside The Cafe Apartments. It is no longer a planned or suggested Day 1 spa; Qspa is the canonical D1 recovery treatment.",
     "signature": [
       "Korean-style head spa / scalp care",
-      "肩頸放鬆",
-      "位於 The Cafe Apartments，同日夜景動線順"
+      "Shoulder / neck relaxation"
     ],
     "worth": [
-      "評論提過可能 overbook，出發前務必 WhatsApp 確認。",
-      "做完頭髮要確認有足夠時間吹乾再去晚餐。"
+      "Not planned on D1."
     ],
     "categoryLabel": "💆 Spa",
-    "price": "$$",
-    "transport": "Grab / walk depending on current route",
-    "audit": "Nguyễn Huệ 8/F branch and 09:00–20:00 daily hours confirmed.",
-    "highlights": [
-      "Korean-style head spa / scalp care",
-      "肩頸放鬆",
-      "位於 The Cafe Apartments，同日夜景動線順"
-    ],
-    "tips": [
-      "評論提過可能 overbook，出發前務必 WhatsApp 確認。",
-      "做完頭髮要確認有足夠時間吹乾再去晚餐。"
-    ]
+    "transport": "Inside The Cafe Apartments"
   },
   "moc-huong": {
     "title": "Mộc Hương Wellness",
@@ -1196,7 +1175,7 @@ const PLACES={
     ],
     "worth": [
       "15:40–17:00 是主參觀時段；Mặn Mòi 早完就把時間留給 museum。",
-      "看完直接去 Nara 做 90 分鐘 reset，不再塞其他 sightseeing。"
+      "看完直接去 Qspa 做 120 分鐘 War Day Recovery；如果當日只想專注洗頭／hair spa，Nara 才是 optional alternative。"
     ],
     "categoryLabel": "📍 Attraction",
     "price": "40,000 VND / adult",
@@ -1420,21 +1399,69 @@ const PLACES={
       "最後一日以補貨為主，不需要為購物特別繞路。"
     ]
   },
+  "qspa": {
+    "title": "Qspa · Retreat & Beauty Care Center",
+    "emoji": "🌿",
+    "cat": "SPA",
+    "sub": "Rediscover Your Soul · Planned D1 · D2 · D3",
+    "status": "planned",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Qspa%2025%2F1%20Truong%20Dinh%20Ho%20Chi%20Minh%20City",
+    "address": "25/1 Trương Định, Xuân Hòa, Hồ Chí Minh City",
+    "desc": "Qspa · Rediscover Your Soul is the shared recovery anchor for Days 1–3: a full arrival reset after the overnight flight, an afternoon reset on Fashion Day, and a post-Cu-Chi / War Museum recovery. Keep each visit flexible: massage, body / beauty treatment or hair-care can be chosen according to how everyone feels that day.",
+    "signature": [
+      "D1 · Arrival Recovery · 120 min",
+      "D2 · Afternoon Reset · up to ~120 min",
+      "D3 · War Day Recovery · 120 min",
+      "Body / beauty / hair-care choices · no mandatory treatment"
+    ],
+    "worth": [
+      "Planned on D1, D2 and D3 using one canonical Guide entity.",
+      "Membership reference only — no assumption that the group has purchased a membership.",
+      "Silver · 5,000,000 VND stored value · 10% service discount · unlimited validity",
+      "Gold · 10,000,000 VND · 20% service discount · unlimited validity",
+      "Diamond · 20,000,000 VND · 25% service discount · unlimited validity",
+      "Platinum · 40,000,000 VND · 30% service discount · unlimited validity",
+      "Service vouchers: Buy 10 + 2 complimentary · Buy 20 + 5 complimentary"
+    ],
+    "categoryLabel": "💆 Spa",
+    "transport": "Grab according to the day route",
+    "alternativeGuides": [
+      {
+        "day": "D2",
+        "placeId": "norah-spa-2",
+        "label": "Norah Spa 2",
+        "note": "Route-friendly alternative"
+      },
+      {
+        "day": "D3",
+        "placeId": "nara-spa",
+        "label": "Nara Spa",
+        "note": "Hair / hair-spa alternative"
+      }
+    ]
+  },
   "norah-spa-2": {
     "title": "Norah Spa 2",
     "emoji": "🌿",
     "cat": "SPA",
-    "sub": "Day 2 · Hai Bà Trưng afternoon reset",
-    "status": "planned",
+    "sub": "OPTIONAL · D2 route-friendly alternative",
+    "status": "optional",
     "hours": "09:30–23:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=Norah%20Spa%202%2074C%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh%20City",
     "address": "74C Hai Bà Trưng, Sài Gòn, Ho Chi Minh City, Vietnam",
     "phone": "+84 70 544 0248",
-    "desc": "午飯後沿 Hai Bà Trưng 慢慢走來，把最熱的午後交給按摩。四個人可各自選 60 / 90 分鐘療程，Timeline 一律留足兩小時；早完成的人，附近就是 Lý Tự Trọng 的 local-fashion 小店。",
-    "signature": ["Foot Therapy · 60 / 90 min", "Foot + Head + Neck + Shoulders", "Full-body / hair-spa / 120-min packages"],
-    "worth": ["Day 2 預留完整 120 分鐘，不把療程時間當成集合時間。", "早完成可去 26 Lý Tự Trọng / The New Playground，16:00 再會合。"],
+    "desc": "Optional Day 2 alternative if the group prefers to stay closer to the Central D1 walking route rather than returning to Qspa. It is a route-friendly spa choice, not a separate booking task.",
+    "signature": [
+      "Foot Therapy · 60 / 90 min",
+      "Foot + Head + Neck + Shoulders",
+      "Full-body / hair-spa / 120-min packages"
+    ],
+    "worth": [
+      "OPTIONAL · Best with D2.",
+      "Choose this only if route convenience matters more than the planned Qspa visit."
+    ],
     "categoryLabel": "💆 Spa",
-    "transport": "Walk from Pizza 4P’s Hai Bà Trưng; continue toward Central D1"
+    "transport": "Route-friendly alternative near the Central D1 walking route"
   },
   "moc-healing": {
     "title": "Mộc Healing Spa",
@@ -1500,28 +1527,21 @@ const PLACES={
     "title": "Nara Spa",
     "emoji": "🫧",
     "cat": "SPA",
-    "sub": "Day 3 · Hair Reset",
-    "status": "planned",
+    "sub": "OPTIONAL · D3 hair-reset alternative",
+    "status": "optional",
     "maps": "https://www.google.com/maps/search/?api=1&query=Nara%20Spa%20595%2F74%20Nguyen%20Dinh%20Chieu%20Ho%20Chi%20Minh%20City",
     "address": "595/74 Nguyễn Đình Chiểu, Bàn Cờ, District 3, Ho Chi Minh City",
-    "desc": "Cu Chi 的熱、塵與一整個 War Day，到這裡才真正停低。療程可約 90 分鐘，Timeline 留足兩小時；要揀 Massage + Hair Wash / Hair Spa，一次過洗走汗氣，也讓晚上的 ốc + beer 重新有精神。",
+    "desc": "Optional Day 3 alternative when the priority after Cu Chi is specifically a hair wash, hair spa or dedicated hair reset. Qspa remains the planned War Day recovery.",
     "signature": [
       "Massage + Hair Wash / Hair Spa",
-      "療程約 90 分鐘 · Timeline 預留 120 分鐘"
+      "Dedicated post-Cu-Chi hair-reset option"
     ],
     "worth": [
-      "Timeline 17:15–19:15；預約時直接確認 combo 與實際 treatment 時長。",
-      "這站不是加行程，是把白天的疲累留在門外。"
+      "OPTIONAL · Best with D3.",
+      "Use when hair wash / hair spa becomes the priority; this is not a separate booking task."
     ],
     "categoryLabel": "💆 Spa",
-    "transport": "Short Grab from War Remnants Museum",
-    "highlights": [
-      "Massage + Hair Wash / Hair Spa",
-      "療程約 90 分鐘 · Timeline 預留 120 分鐘"
-    ],
-    "tips": [
-      "預約時確認 combo 與總時長。"
-    ]
+    "transport": "Optional short Grab from War Remnants Museum"
   },
   "oc-dao": {
     "title": "Ốc Đào · Nguyễn Trãi",
@@ -1543,7 +1563,7 @@ const PLACES={
     ],
     "categoryLabel": "🍽 Restaurant",
     "price": "$",
-    "transport": "Grab from Nara Spa",
+    "transport": "Grab from Qspa",
     "highlights": [
       "各式 ốc／貝類／海鮮",
       "越式醬汁 + beer"
@@ -1686,6 +1706,9 @@ const CATEGORIES={
   ],
   "SPA": [
     {
+      "key": "qspa"
+    },
+    {
       "key": "ha-spa"
     },
     {
@@ -1752,6 +1775,7 @@ const GUIDE_ORDER=[
   "ohquao",
   "new-playground",
   "takashimaya",
+  "qspa",
   "ha-spa",
   "moc-huong",
   "nha-suga",
@@ -1800,24 +1824,15 @@ const DAY_LINKS={
       "day.html?day=2#post-office"
     ]
   ],
-  "nha-suga": [
-    [
-      "Day 1",
-      "day.html?day=1#nha-suga"
-    ]
-  ],
+  "qspa": [["Day 1","day.html?day=1#qspa-d1"],["Day 2","day.html?day=2#qspa-d2"],["Day 3","day.html?day=3#qspa-d3"]],
+  "nha-suga": [],
   "omakase-tiger": [
     [
       "Day 1",
       "day.html?day=1#omakase-tiger"
     ]
   ],
-  "cafe-apartments": [
-    [
-      "Day 1",
-      "day.html?day=1#nha-suga"
-    ]
-  ],
+  "cafe-apartments": [["Day 1","day.html?day=1#cafe-apartments-optional"],["Day 1 · Evening","day.html?day=1#cafe-apartments-evening"]],
   "marou": [
     [
       "Day 5",
@@ -1948,12 +1963,7 @@ const DAY_LINKS={
       "day.html?day=3#war-museum"
     ]
   ],
-  "nara-spa": [
-    [
-      "Day 3",
-      "day.html?day=3#nara-spa"
-    ]
-  ],
+  "nara-spa": [["Day 3 · Optional","day.html?day=3#qspa-d3"]],
   "oc-dao": [
     [
       "Day 3",
@@ -2162,33 +2172,57 @@ const BOOKINGS_DATA={
     "bookingHandoff": "未訂。一定揀 Hai Bà Trưng branch · 151A–151B Hai Bà Trưng；4人，31 Oct 約12:45。用 Pizza 4P’s official reservation flow。",
     "placeId": "pizza4ps"
   },
-  "bk-nha-suga": {
-    "id": "bk-nha-suga",
-    "bookingId": "bk-nha-suga",
-    "eventId": "nha-suga",
-    "timelineItemId": "nha-suga",
+  "bk-qspa": {
+    "id": "bk-qspa",
+    "bookingId": "bk-qspa",
+    "eventId": "qspa-d1",
+    "timelineItemId": "qspa-d1",
     "day": 1,
     "dayId": "day1",
-    "status": "pending",
-    "date": "2026-10-30",
-    "time": "14:30",
-    "bookingName": "",
+    "status": "planned",
+    "date": "30 Oct – 1 Nov 2026",
+    "time": "D1 · D2 · D3",
     "bookingCategory": "Spa",
     "category": "Spa",
     "type": "spa",
-    "title": "Spa Nhà Suga Premium Korea Headspa — Nguyễn Huệ",
-    "depositPaid": "",
-    "depositAmount": "",
-    "depositCurrency": "",
-    "bookingMethod": "Email",
-    "bookingContact": "",
-    "secondaryContact": "",
-    "bookingUrl": "",
-    "notes": "Hours: daily 09:00–20:00。Confirm treatment duration and arrival time。",
-    "email": "nhasuga2021@gmail.com",
-    "address": "8th Floor, 42 Nguyễn Huệ, Bến Nghé, District 1, Ho Chi Minh City",
-    "bookingHandoff": "未訂。現時可用 email：nhasuga2021@gmail.com。4人，30 Oct 下午；寫明 Nguyễn Huệ branch、想做 head spa，並確認 treatment duration / arrival instructions。",
-    "placeId": "nha-suga"
+    "emoji": "🌿",
+    "title": "Qspa · Rediscover Your Soul",
+    "bookingMethod": "Plan / contact Qspa",
+    "placeId": "qspa",
+    "notes": "ONE venue planned across THREE days. D1 · Arrival Recovery · 120 min. D2 · Afternoon Reset · up to ~120 min. D3 · War Day Recovery · 120 min. Treatment remains flexible: massage, body / beauty treatment or hair-care according to how everyone feels.",
+    "plannedDays": "D1 · D2 · D3",
+    "standalone": true,
+    "plannedVisits": [
+      {
+        "day": "D1",
+        "label": "Arrival Recovery",
+        "duration": "120 min"
+      },
+      {
+        "day": "D2",
+        "label": "Afternoon Reset",
+        "duration": "up to ~120 min"
+      },
+      {
+        "day": "D3",
+        "label": "War Day Recovery",
+        "duration": "120 min"
+      }
+    ],
+    "alternativeGuides": [
+      {
+        "day": "D2",
+        "placeId": "norah-spa-2",
+        "label": "Norah Spa 2",
+        "note": "Route-friendly alternative"
+      },
+      {
+        "day": "D3",
+        "placeId": "nara-spa",
+        "label": "Nara Spa",
+        "note": "Hair-reset alternative"
+      }
+    ]
   },
   "bk-ha-spa": {
     "id": "bk-ha-spa",
@@ -2285,16 +2319,6 @@ const BOOKINGS_DATA={
     "bookingHandoff": "未訂。用 Mặn Mòi official Book a Table，選 Bến Nghé branch（唔好揀其他 branch），4人，1 Nov 14:30。",
     "placeId": "man-moi"
   },
-  "bk-norah-spa-2": {
-    "id":"bk-norah-spa-2","bookingId":"bk-norah-spa-2","eventId":"norah-spa-2","timelineItemId":"norah-spa-2",
-    "day":2,"dayId":"day2","status":"pending","date":"2026-10-31","time":"14:00",
-    "bookingCategory":"Spa","category":"Spa","type":"spa","emoji":"🌿","title":"Norah Spa 2",
-    "bookingMethod":"Official online booking / WhatsApp","bookingUrl":"https://www.norahspa.com/bookandcontactus",
-    "notes":"14:00–16:00 planning block · 4 人。各自可選 60 / 90 分鐘療程；整體保留 120 分鐘，16:00 再會合。",
-    "address":"74C Hai Bà Trưng, Sài Gòn, Ho Chi Minh City, Vietnam","whatsapp":"+84 70 544 0248",
-    "bookingHandoff":"未訂。4人，31 Oct 14:00。用 Norah official booking page 或 WhatsApp +84 70 544 0248；可各自選不同療程，並以 16:00 全員完成為會合時間。",
-    "placeId":"norah-spa-2"
-  },
   "bk-cu-chi": {
     "id": "bk-cu-chi",
     "bookingId": "bk-cu-chi",
@@ -2337,36 +2361,6 @@ const BOOKINGS_DATA={
     "bookingHandoff": "已訂。Klook booking TUM556012；1 Nov 08:00 Fusion Original Saigon Centre 出發，4人 Private Tour、English Guide。Operator: SST Travel。",
     "placeId": "cu-chi"
   },
-  "bk-nara": {
-    "id": "bk-nara",
-    "bookingId": "bk-nara",
-    "eventId": "nara-spa",
-    "timelineItemId": "nara-spa",
-    "day": 3,
-    "dayId": "day3",
-    "status": "pending",
-    "date": "2026-11-01",
-    "time": "17:15",
-    "bookingName": "",
-    "bookingCategory": "Spa",
-    "category": "Spa",
-    "type": "spa",
-    "emoji": "🫧",
-    "title": "Nara Spa",
-    "depositPaid": "",
-    "depositAmount": "",
-    "depositCurrency": "",
-    "bookingMethod": "Official online form / WhatsApp / Email",
-    "bookingContact": "",
-    "secondaryContact": "",
-    "bookingUrl": "https://www.naraspasaigon.com/",
-    "notes": "17:15–19:15 planning block · treatment 可約 90 分鐘，整體預留 120 分鐘。指定 Massage + Hair Wash / Hair Spa。",
-    "email": "paperplanes198gg@gmail.com",
-    "address": "595/74 Nguyễn Đình Chiểu, Bàn Cờ, District 3, Ho Chi Minh City",
-    "bookingHandoff": "未訂。4人，1 Nov 17:15，目標約90分鐘 Massage + Hair Wash / Hair Spa；Timeline 預留至 19:15。可用 official online form、WhatsApp +84 903 877 906，或 email paperplanes198gg@gmail.com。入口在巷內，預約後問清楚到店指示。",
-    "whatsapp": "+84 903 877 906",
-    "placeId": "nara-spa"
-  }
 };
 
 const TRIP_DATA={
@@ -2469,7 +2463,7 @@ const ITINERARY_DATA={
         "map": "https://www.google.com/maps/search/?api=1&query=Ph%E1%BB%9F%20SOL%2032%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
         "type": "meal", "dayId": "day1", "placeId": "pho-sol", "bookingId": null
       },
-      {
+            {
         "id": "shopping-nguyen-trai",
         "time": "~10:00–12:00",
         "title": "🛍 Nguyễn Trãi · Local Fashion Walk",
@@ -2477,21 +2471,41 @@ const ITINERARY_DATA={
           "由 24 Nguyễn Trãi 開始，沿街向前：Clothes Bar → LESPOIR → The 350F → Dear José / KIDO → LIBÉ。",
           "Shopping List 收好沿線店舖與風格；The 350F 剛好落在中段，想停下來吃甜點或 takeaway 都自然。"
         ],
-        "route": "🚕 To next stop · 約 8–12 min：由 shopping line 終點 Grab 返回 Fusion Original Saigon Centre。",
+        "route": "🚕 To next stop · 約 10–15 min：由 Nguyễn Trãi shopping line Grab → Qspa · 25/1 Trương Định。",
         "map": "https://www.google.com/maps/search/?api=1&query=Clothes%20Bar%2024%20Nguyen%20Trai%20Ho%20Chi%20Minh%20City",
-        "type": "shoppingWindow", "dayId": "day1", "placeId": "clothes-bar", "bookingId": null,
+        "type": "shoppingWindow",
+        "dayId": "day1",
+        "placeId": "clothes-bar",
+        "bookingId": null,
         "showShoppingDirectory": true
+      },
+            {
+        "id": "qspa-d1",
+        "time": "~12:15–14:15",
+        "title": "🌿 Qspa · Arrival Recovery",
+        "details": [
+          "PLANNED · Full 120 minutes after the overnight flight, breakfast and Nguyễn Trãi shopping.",
+          "Choose massage / body / beauty / hair-care according to how everyone feels; do not compress this block to reach the hotel at 14:00."
+        ],
+        "route": "🚕 To next stop：Qspa 完成後 Grab → Fusion Original；約 14:30 check-in。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Qspa%2025%2F1%20Truong%20Dinh%20Ho%20Chi%20Minh%20City",
+        "type": "spa",
+        "dayId": "day1",
+        "placeId": "qspa",
+        "bookingId": "bk-qspa",
+        "guideIds": [
+          "qspa"
+        ]
       },
       {
         "id": "day1-hotel-reset",
-        "time": "~12:30–14:30",
+        "time": "~14:30",
         "title": "🏨 Fusion Original · Check-in & Rest",
         "details": [
-          "約 12:30 回到酒店；若房間已備妥，便提早 check-in。",
-          "Guaranteed check-in 為 14:00；若房間尚未準備好，可到 Lê Lợi 對面的 Routine 隨意逛逛，或留在 Saigon Centre / Takashimaya 消磨午後時光。",
-          "入房後沖涼、換衫、休息，留一段安靜的午後給自己。"
+          "Qspa 完成後約 14:30 回 Fusion check-in；Guaranteed check-in 14:00，所以刻意把酒店時間移後，不壓縮兩小時 Spa。",
+          "入房後沖涼、換衫、休息；Cafe Apartments 只按 energy 決定是否短去。"
         ],
-        "route": "🚶 To next stop · 約 10–12 min：步行往 The Cafe Apartments。",
+        "route": "☕ Optional next：有精神約 15:15–16:15 步行去 The Cafe Apartments；攰就留在 Fusion 休息。",
         "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%2065%20Le%20Loi%20Ho%20Chi%20Minh%20City",
         "type": "rest",
         "dayId": "day1",
@@ -2499,28 +2513,25 @@ const ITINERARY_DATA={
         "bookingId": "bk-fusion-original",
         "currencyGuide": true
       },
-      {
-        "id": "nha-suga",
-        "time": "~14:30–17:00",
-        "title": "☕🫧 The Cafe Apartments · Explore / Headspa",
+            {
+        "id": "cafe-apartments-optional",
+        "time": "~15:15–16:15 · Optional",
+        "title": "☕ The Cafe Apartments · Quick Explore",
         "details": [
-          "午後沿 Nguyễn Huệ 慢慢走到 The Cafe Apartments；想做 Headspa，可到 Nhà Suga。",
-          "若旅途的倦意仍在，就把這段留白，繼續在酒店休息。",
-          "約 17:00 離開，迎接 17:30 的 sunset seating。"
+          "OPTION A · 有精神：短逛 Nguyễn Huệ / Cafe Apartments、影相、飲杯咖啡；這是一個 light stop，不是 2.5 小時 destination。",
+          "OPTION B · 攰：留在 Fusion 休息，直接準備 17:30 Omakase。"
         ],
-        "route": "🚕 To next stop · 約 10–15 min：17:00 左右由 Nguyễn Huệ Grab → Omakase Tiger。",
-        "map": "https://www.google.com/maps/search/?api=1&query=The%20Cafe%20Apartments%2042%20Nguyen%20Hue%20District%201%20Ho%20Chi%20Minh%20City",
-        "type": "experience",
+        "route": "🚕 Protect 17:30 Omakase：如有去 Cafe Apartments，約 16:15 收尾，預留充足時間去 Omakase Tiger。",
+        "map": "https://www.google.com/maps/search/?api=1&query=The%20Cafe%20Apartments%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+        "type": "optional",
         "dayId": "day1",
         "placeId": "cafe-apartments",
-        "bookingId": "bk-nha-suga",
-        "guideIds": ["cafe-apartments","nha-suga"],
-        "guideGroups": [
-          {"label":"☕ Cafe Apartments","guideIds":["cafe-apartments"]},
-          {"label":"🫧 Headspa","guideIds":["nha-suga"]}
+        "bookingId": null,
+        "guideIds": [
+          "cafe-apartments"
         ]
       },
-      {
+            {
         "id": "omakase-tiger",
         "time": "17:30",
         "title": "🌇🍣 Omakase Tiger · First Seating",
@@ -2528,27 +2539,31 @@ const ITINERARY_DATA={
           "已確認 17:30 場次；訂金已付。",
           "Penthouse 之上，從黃昏入席，一路看天色由 sunset 轉入夜。"
         ],
-        "route": "🌇 17:30 first seating：Penthouse sunset Omakase。食完之後再按 energy 決定夜晚。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Omakase%20Tiger%2085%2F9%20Ph%E1%BA%A1m%20Vi%E1%BA%BFt%20Ch%C3%A1nh%2C%20Th%E1%BA%A1nh%20M%E1%BB%B9%20T%C3%A2y%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
+        "route": "🌇 17:30 fixed first seating。食完按 energy 決定：Nguyễn Huệ / Cafe Apartments evening wander，或直接返 Fusion。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Omakase%20Tiger%2085%2F9%20Pham%20Viet%20Chanh%20Ho%20Chi%20Minh",
         "type": "meal",
         "dayId": "day1",
         "placeId": "omakase-tiger",
         "bookingId": "bk-omakase-tiger"
       },
 
-      {
-        "id": "return-hotel",
-        "time": "20:15 onwards",
-        "title": "🛌 返回酒店",
+            {
+        "id": "cafe-apartments-evening",
+        "time": "After Omakase · Optional",
+        "title": "🌃 Nguyễn Huệ / Cafe Apartments · Evening Wander",
         "details": [
-          "第一晚留給休息；把 Saigon 的夜色停在剛剛好的地方。"
+          "Still awake? Take an easy Nguyễn Huệ / Cafe Apartments evening wander.",
+          "Otherwise return to Fusion — this is never mandatory."
         ],
-        "route": "",
-        "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%20Fusion%20Original%20Saigon%20Centre%2C%2065%20L%C3%AA%20L%E1%BB%A3i%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
-        "type": "rest",
+        "route": "🏨 When ready：Grab / walk back to Fusion。",
+        "map": "https://www.google.com/maps/search/?api=1&query=The%20Cafe%20Apartments%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
+        "type": "optional",
         "dayId": "day1",
-        "placeId": "fusion",
-        "bookingId": "bk-fusion-original"
+        "placeId": "cafe-apartments",
+        "bookingId": null,
+        "guideIds": [
+          "cafe-apartments"
+        ]
       },
       {
         "id": "late-night-supper",
@@ -2598,30 +2613,104 @@ const ITINERARY_DATA={
         "route":"🚕 To next stop · 約 10–15 min：由 Lane Cì Grab → Pizza 4P’s Hai Bà Trưng。",
         "map":"https://www.google.com/maps/search/?api=1&query=Dalla%20Saigon%2064%20Tran%20Quang%20Dieu%20Ho%20Chi%20Minh","type":"shoppingWindow","dayId":"day2","placeId":"dalla-saigon","bookingId":null,"showShoppingDirectory":true
       },
-      {
-        "id":"pizza4ps","time":"12:45–14:00","title":"🍕 Pizza 4P’s · Hai Bà Trưng",
-        "details":["中午把腳步收進冷氣裡；pizza、自家芝士，讓上午的 shopping 在這裡停一停。"],
-        "route":"🚶 To next stop · 約 10–12 min：沿 Hai Bà Trưng 步行往 Norah Spa 2。",
-        "map":"https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20151B%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh","type":"meal","dayId":"day2","placeId":"pizza4ps","bookingId":"bk-pizza4ps","guideIds":["pizza4ps"],"currencyGuide":true
+            {
+        "id": "pizza4ps",
+        "time": "12:45–14:00",
+        "title": "🍕 Pizza 4P’s · Hai Bà Trưng",
+        "details": [
+          "中午把腳步收進冷氣裡；pizza、自家芝士，讓上午的 shopping 在這裡停一停。"
+        ],
+        "route": "🚕 To next stop · 約 10–15 min：Grab → Qspa · 25/1 Trương Định。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20151B%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh",
+        "type": "meal",
+        "dayId": "day2",
+        "placeId": "pizza4ps",
+        "bookingId": "bk-pizza4ps",
+        "guideIds": [
+          "pizza4ps"
+        ],
+        "currencyGuide": true
       },
-      {
-        "id":"norah-spa-2","time":"14:00–16:00","title":"🌿 Norah Spa 2 · Afternoon Reset",
-        "details":["午後完整留兩小時給 Spa；每個人可按自己想要的 60 / 90 分鐘療程慢慢選。","較早完成的人可在附近短逛；16:00 再會合，之後一起步行進 Central D1。"],
-        "route":"🚶 To next stop · 約 8–10 min：16:00 會合後步行往 Vincom Center Đồng Khởi · The New Playground。",
-        "map":"https://www.google.com/maps/search/?api=1&query=Norah%20Spa%202%2074C%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh","type":"spa","dayId":"day2","placeId":"norah-spa-2","bookingId":"bk-norah-spa-2","guideIds":["norah-spa-2"],"showShoppingDirectory":true
+            {
+        "id": "qspa-d2",
+        "time": "~14:15–16:15",
+        "title": "🌿 Qspa · Afternoon Reset",
+        "details": [
+          "PLANNED · Keep a realistic two-hour spa block; Qspa is preferred even though Norah Spa 2 is more route-friendly.",
+          "Prefer the more route-friendly option? Open Norah Spa 2 in Guide."
+        ],
+        "route": "🚕 To next stop：Qspa → Cathedral / Central Post Office / Book Street cluster；之後一路步行接 Vincom / The New Playground → LÚNE。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Qspa%2025%2F1%20Truong%20Dinh%20Ho%20Chi%20Minh%20City",
+        "type": "spa",
+        "dayId": "day2",
+        "placeId": "qspa",
+        "bookingId": "bk-qspa",
+        "guideIds": [
+          "qspa",
+          "norah-spa-2"
+        ],
+        "alternativeGuideIds": [
+          "norah-spa-2"
+        ]
       },
-      {
-        "id":"vincom-new-playground","time":"16:10–17:05","title":"🛍 Vincom Center Đồng Khởi · The New Playground",
-        "details":["Norah 之後先走進 Vincom 的冷氣裡，把午後 shopping 收在 Vietnamese local brands。","The New Playground 是主場；PUSH PUSH 與 BLACKORP 都可在 Vincom 找到，其他 local brands 自由看。"],
-        "route":"🚶 To next stop · 約 5–8 min：由 Vincom 步行往 Cathedral / Central Post Office / Book Street。",
-        "map":"https://www.google.com/maps/search/?api=1&query=The%20New%20Playground%20Vincom%20Center%20Dong%20Khoi%2072%20Le%20Thanh%20Ton%20Ho%20Chi%20Minh%20City","type":"shoppingWindow","dayId":"day2","placeId":"new-playground","bookingId":null,"guideIds":["new-playground"],"showShoppingDirectory":true
+            {
+        "id": "post-office",
+        "time": "~16:30–17:10",
+        "title": "📮 Cathedral · Central Post Office · Book Street",
+        "copyAddressEligible": false,
+        "details": [
+          "Qspa 後先進 sightseeing cluster；Cathedral、Central Post Office、Book Street 集中完成，減少來回。"
+        ],
+        "route": "🚶 To next stop · 約 5–8 min：步行往 Vincom Center Đồng Khởi / The New Playground。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Saigon%20Central%20Post%20Office",
+        "type": "experience",
+        "dayId": "day2",
+        "placeId": "post-office",
+        "bookingId": null,
+        "guideIds": [
+          "notre-dame",
+          "post-office",
+          "book-street"
+        ],
+        "guideGroups": [
+          {
+            "label": "⛪ Cathedral",
+            "guideIds": [
+              "notre-dame"
+            ]
+          },
+          {
+            "label": "📮 Post Office",
+            "guideIds": [
+              "post-office"
+            ]
+          },
+          {
+            "label": "📚 Book Street",
+            "guideIds": [
+              "book-street"
+            ]
+          }
+        ]
       },
-      {
-        "id":"post-office","time":"17:15–18:05","title":"📮 Post Office · Book Street · Cathedral","copyAddressEligible":false,
-        "details":["Shopping 收好後，再走進郵局、書街與紅教堂這一小段老城；黃昏的光線剛好柔下來。"],
-        "route":"🚶 To next stop · 約 8–12 min：沿 Central D1 步行往 LÚNE。",
-        "map":"https://www.google.com/maps/search/?api=1&query=Saigon%20Central%20Post%20Office","type":"experience","dayId":"day2","placeId":"post-office","bookingId":null,
-        "guideIds":["post-office","book-street","notre-dame"],"guideGroups":[{"label":"📮 Post Office","guideIds":["post-office"]},{"label":"📚 Book Street","guideIds":["book-street"]},{"label":"⛪ Cathedral","guideIds":["notre-dame"]}]
+            {
+        "id": "vincom-new-playground",
+        "time": "~17:15–18:10",
+        "title": "🛍 Vincom Center Đồng Khởi · The New Playground",
+        "details": [
+          "Sightseeing 後走進 Vincom，把黃昏 shopping 留給 Vietnamese local brands。",
+          "The New Playground 是主場；PUSH PUSH、BLACKORP 與其他 local brands 自由 browse，不是 rigid checklist。"
+        ],
+        "route": "🚶 To next stop · 約 8–12 min：由 Vincom / The New Playground 步行往 LÚNE；18:45 fixed。",
+        "map": "https://www.google.com/maps/search/?api=1&query=The%20New%20Playground%20Vincom%20Center%20Dong%20Khoi%2072%20Le%20Thanh%20Ton%20Ho%20Chi%20Minh%20City",
+        "type": "shoppingWindow",
+        "dayId": "day2",
+        "placeId": "new-playground",
+        "bookingId": null,
+        "guideIds": [
+          "new-playground"
+        ],
+        "showShoppingDirectory": true
       },
       {
         "id":"lune","time":"18:45–20:45","title":"🥂 LÚNE",
@@ -2673,33 +2762,42 @@ const ITINERARY_DATA={
         "placeId": "man-moi",
         "bookingId": null
       },
-      {
+            {
         "id": "war-museum",
         "time": "15:40–17:00",
         "title": "🏛 War Remnants Museum",
         "details": [
           "Cu Chi 看現場，museum 看留下來的記憶；War Day 在這裡補完另一半。"
         ],
-        "route": "🚕 下一站：短 Grab 去 Nara Spa，17:15 開始 full reset。",
-        "map": "https://www.google.com/maps/search/?api=1&query=War%20Remnants%20Museum%20War%20Remnants%20Museum%2C%2028%20V%C3%B5%20V%C4%83n%20T%E1%BA%A7n%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
+        "route": "🚕 下一站：短 Grab → Qspa，17:15 開始 full 120-minute recovery。",
+        "map": "https://www.google.com/maps/search/?api=1&query=War%20Remnants%20Museum%2028%20Vo%20Van%20Tan%20Ho%20Chi%20Minh%20City",
         "type": "experience",
         "dayId": "day3",
         "placeId": "war-museum",
         "bookingId": null
       },
-      {
-        "id": "nara-spa",
-        "time": "17:15–19:15",
-        "title": "🫧 Nara Spa · Hair Reset",
+            {
+        "id": "qspa-d3",
+        "time": "~17:15–19:15",
+        "title": "🌿 Qspa · War Day Recovery",
         "details": [
-          "Massage + Hair Wash / Hair Spa；Timeline 留足 120 分鐘，把 Cu Chi 的熱與塵慢慢洗走。"
+          "PLANNED · Full 120 minutes after Cu Chi heat / dust and the War Remnants Museum.",
+          "Choose massage / body treatment / hair-care according to how everyone feels; no mandatory treatment.",
+          "Prefer a dedicated hair reset? Open Nara Spa in Guide."
         ],
-        "route": "🚕 下一站：Grab 去 Ốc Đào；19:30 左右到就好。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Nara%20Spa%209%20%C4%90%E1%BB%97%20Quang%20%C4%90%E1%BA%A9u%20Ho%20Chi%20Minh%20City",
+        "route": "🚕 下一站：Grab → Ốc Đào；19:30 左右到就好。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Qspa%2025%2F1%20Truong%20Dinh%20Ho%20Chi%20Minh%20City",
         "type": "spa",
         "dayId": "day3",
-        "placeId": "nara-spa",
-        "bookingId": "bk-nara"
+        "placeId": "qspa",
+        "bookingId": "bk-qspa",
+        "guideIds": [
+          "qspa",
+          "nara-spa"
+        ],
+        "alternativeGuideIds": [
+          "nara-spa"
+        ]
       },
       {
         "id": "oc-dao",

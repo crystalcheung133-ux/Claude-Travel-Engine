@@ -6,15 +6,18 @@ const ids=d=>Array.from(I[String(d)].items,x=>x.id);
 
 // Booking → Timeline exact ownership.
 for(const [id,b] of Object.entries(B)){
-  if(!b.timelineItemId)continue;
+  if(!b.timelineItemId||b.standalone&&b.plannedDays)continue;
   assert(ids(b.day).includes(b.timelineItemId),`${id}: timeline anchor ${b.timelineItemId} not on assigned Day ${b.day}`);
   const expectedDate={1:'2026-10-30',2:'2026-10-31',3:'2026-11-01',4:'2026-11-02',5:'2026-11-03'}[b.day];
   assert.equal(b.date,expectedDate,`${id}: booking date/day mismatch`);
 }
 
 // D2 Fashion Guide ownership.
-for(const id of ['com-tam-moc','pizza4ps','norah-spa-2','lune'])
+for(const id of ['com-tam-moc','pizza4ps','lune'])
   assert(String(P[id].sub||'').includes('Day 2'),`${id}: Guide did not move to Day 2`);
+
+assert(String(P.qspa.sub||'').includes('D1 · D2 · D3'),'Qspa Guide must advertise shared D1-D3 ownership');
+assert.equal(P['norah-spa-2'].status,'optional');assert.equal(P['nara-spa'].status,'optional');
 
 // D4 Slow Lifestyle Guide ownership.
 for(const id of ['running-bean','push-push','bakes','moc-huong','ohquao'])

@@ -286,5 +286,13 @@
   "test-booking-single-status-authority.js": {
     "status": "active",
     "principle": "Booking status is the single authoritative state; stale displayStatus cannot poison rendered state"
+  },
+  "test-qspa-d1-d3-reconciliation.js": {
+    "status": "active",
+    "note": "Qspa D1-D3 single Guide/Booking authority and optional alternative reconciliation"
+  },
+  "test-expense-suite-failure-accumulation.js": {
+    "status": "active",
+    "principle": "Expense safety/commit suite child-test failures must propagate to the Master CI gate"
   }
 }

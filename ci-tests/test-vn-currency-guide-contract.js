@@ -9,6 +9,5 @@ assert(day.includes('💱 Currency'),'timeline currency action missing');
 assert(guide.includes('currency-option-card'),'currency guide option renderer missing');
 assert(!data.includes('Day 1 的現金補給點；不列入 Guide。'),'contradictory VPBank guide copy remains');
 assert(!data.includes('若朝早未換夠現金，可先順道到 Hung Long Money Exchange'),'Hung Long leaked into To next stop copy');
-const pizza=data.slice(data.indexOf('"id":"pizza4ps"'),data.indexOf('\n      },',data.indexOf('"id":"pizza4ps"')));
-assert(pizza.includes('"currencyGuide":true'),'Pizza timeline missing contextual Currency action');
+const c={};vm.createContext(c);vm.runInContext(data+'\n;globalThis.__I=ITINERARY_DATA;',c);const pizza=c.__I['2'].items.find(x=>x.id==='pizza4ps');assert(pizza&&pizza.currencyGuide===true,'Pizza timeline missing contextual Currency action');
 console.log('VN currency guide contract passed');
