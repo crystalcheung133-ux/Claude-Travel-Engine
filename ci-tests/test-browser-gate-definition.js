@@ -37,3 +37,5 @@ const workflow=fs.readFileSync('.github/workflows/browser-release-smoke.yml','ut
 assert(workflow.includes('sh ci-tests/run-browser.sh'),'GitHub browser workflow must execute canonical browser runner');
 assert(workflow.includes('playwright install --with-deps chromium'),'GitHub browser workflow must provision a real Chromium');
 console.log('BROWSER GATE DEFINITION: PASS — Studio lifecycle/reload, Booking foreground, Guide→Booking stacking and nav visibility are mandatory.');
+
+if(!gate.includes('booking-edit-btn')) throw new Error('Browser gate must verify Studio-only Booking Edit entry');

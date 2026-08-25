@@ -10,7 +10,7 @@
   function master(){try{return typeof BOOKINGS_DATA!=='undefined'?BOOKINGS_DATA:(root.BOOKINGS_DATA||{});}catch(error){return root.BOOKINGS_DATA||{};}}
   const DEPLOY_MASTER=clone(master()||{});
   const EDITABLE_STATE_FIELDS=Object.freeze([
-    'status','displayStatus','bookingName',
+    'status','bookingName',
     'depositPaid','depositAmount','depositCurrency','paymentStatus',
     'reference','referenceLabel','bookingReference',
     'totalAmount','cashbackAmount','netTotalAUD','price','paymentLabel'
@@ -21,13 +21,18 @@
   function meaningful(value){
     return !(value===undefined||value===null||value===''||value===false);
   }
+  function canonicalStatusRecord(record){
+    const out=clone(record);
+    if(out&&meaningful(out.status))delete out.displayStatus;
+    return out;
+  }
   function mergeStaleState(base,override){
-    const out=Object.assign({},clone(base));
+    const out=Object.assign({},canonicalStatusRecord(base));
     if(!override||typeof override!=='object')return out;
-    ['status','displayStatus'].forEach(function(field){
-      if(Object.prototype.hasOwnProperty.call(override,field))out[field]=clone(override[field]);
-    });
-    ['bookingName','reference','referenceLabel','bookingReference',
+    // A stale override may fill details that the current deploy master does not know,
+    // but it must never roll an authoritative master status backwards (e.g. confirmed → pending).
+    // Current-revision edits still use the full-override path in mergeOverride().
+    ['status','bookingName','reference','referenceLabel','bookingReference',
      'depositPaid','depositAmount','depositCurrency','paymentStatus',
      'totalAmount','cashbackAmount','netTotalAUD','price','paymentLabel'].forEach(function(field){
       if(!meaningful(base&&base[field])&&Object.prototype.hasOwnProperty.call(override,field))out[field]=clone(override[field]);
@@ -36,7 +41,7 @@
   }
   function mergeOverride(base,override){
     if(!override||typeof override!=='object')return clone(base);
-    if(recordRevision(override)===masterRevision())return Object.assign({},clone(base),clone(override));
+    if(recordRevision(override)===masterRevision())return canonicalStatusRecord(Object.assign({},clone(base),clone(override)));
     return mergeStaleState(base,override);
   }
   function read(){
@@ -45,7 +50,7 @@
     return {version:1,overrides:clone(raw.overrides),deletedIds:Array.isArray(raw.deletedIds)?raw.deletedIds.slice():[],updatedAt:raw.updatedAt||null};
   }
   function write(state){return !!(store()&&store().writeJSON(KEY,state));}
-  function canonicalBase(id,source){return clone((DEPLOY_MASTER&&DEPLOY_MASTER[id])||(source&&source[id])||null);}
+  function canonicalBase(id,source){return canonicalStatusRecord((DEPLOY_MASTER&&DEPLOY_MASTER[id])||(source&&source[id])||null);}
   function resolvedSource(target){
     const source=target||master();
     const output={};
@@ -80,7 +85,7 @@
     const base=canonicalBase(id,source);
     if(!id||!base||!record||typeof record!=='object')return {ok:false,reason:'invalid-booking'};
     const current=resolvedSource(source)[id]||base;
-    const complete=stamp(Object.assign({},current,clone(record),{id:id}));
+    const complete=canonicalStatusRecord(stamp(Object.assign({},current,clone(record),{id:id})));
     const state=read();
     state.overrides[id]=complete;
     state.deletedIds=(state.deletedIds||[]).filter(function(item){return item!==id;});

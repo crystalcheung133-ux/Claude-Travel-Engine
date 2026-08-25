@@ -171,8 +171,25 @@ def run_viewport(browser,base,viewport,label):
               label+': reload active User Selector incorrectly opened traveller selector')
         assert_studio_foreground(page,label+' reload active re-entry')
         close_studio(page)
+
+        # Studio-only Booking edit entry: while Studio session is active, Booking detail exposes Edit Booking.
+        page.goto(base+'/trip.html',wait_until='domcontentloaded')
+        page.evaluate("openGenericBookingDetail('bk-transfer-in')")
+        page.wait_for_selector('#tripModal.show')
+        check(page.locator('#tripModalContent .booking-edit-btn',has_text='Edit Booking').count()==1,
+              label+': Studio mode did not expose Edit Booking for confirmed airport transfer')
+        transfer_text=page.locator('#tripModalContent').inner_text()
+        check('CONFIRMED' in transfer_text.upper(),label+': airport transfer did not render confirmed in Studio')
+        page.locator('#tripModal .trip-close').click()
         page.evaluate("window.exitTripStudioMode && window.exitTripStudioMode()")
         page.wait_for_timeout(50)
+
+        # Outside Studio the same Booking must not expose Edit Booking.
+        page.evaluate("openGenericBookingDetail('bk-transfer-in')")
+        page.wait_for_selector('#tripModal.show')
+        check(page.locator('#tripModalContent .booking-edit-btn').count()==0,
+              label+': Edit Booking leaked outside Studio mode')
+        page.locator('#tripModal .trip-close').click()
 
         # Timeline → direct Booking.
         page.goto(base+'/day.html?day=2',wait_until='domcontentloaded')
@@ -212,12 +229,26 @@ def run_viewport(browser,base,viewport,label):
           const stale={
             'bk-pizza4ps':{id:'bk-pizza4ps',bookingId:'bk-pizza4ps',title:'Pizza 4P’s Hai Bà Trưng',day:4,dayId:'day4',date:'2026-11-02',time:'11:30',status:'pending',notes:'Reserve lunch for 4 guests.'},
             'bk-moc-huong':{id:'bk-moc-huong',bookingId:'bk-moc-huong',title:'Mộc Hương Wellness',day:3,dayId:'day3',date:'2026-11-01',time:'15:30',status:'pending'},
-            'bk-norah-spa-2':{id:'bk-norah-spa-2',bookingId:'bk-norah-spa-2',title:'Old Norah',day:4,dayId:'day4',date:'2026-11-02',time:'16:45',status:'pending'}
+            'bk-norah-spa-2':{id:'bk-norah-spa-2',bookingId:'bk-norah-spa-2',title:'Old Norah',day:4,dayId:'day4',date:'2026-11-02',time:'16:45',status:'pending'},
+            'bk-transfer-in':{id:'bk-transfer-in',bookingId:'bk-transfer-in',title:'Old Airport Transfer',day:1,dayId:'day1',date:'2026-10-30',time:'05:55',status:'pending',displayStatus:'Pending',_masterRevision:7},
+            'bk-fusion-original':{id:'bk-fusion-original',bookingId:'bk-fusion-original',title:'Old Fusion',status:'pending',displayStatus:'Pending',_masterRevision:7}
           };
           STORAGE.local.writeJSON(BOOKING_AUTHORITY.key,{version:1,overrides:stale,deletedIds:[],updatedAt:'2026-08-01T00:00:00Z'});
         }""")
         page.reload(wait_until='domcontentloaded')
         page.evaluate("document.getElementById('ccmvSplash')?.remove()")
+        page.evaluate("openGenericBookingDetail('bk-transfer-in')")
+        page.wait_for_selector('#tripModal.show')
+        transfer_after_stale=page.locator('#tripModalContent').inner_text().upper()
+        check('CONFIRMED' in transfer_after_stale,label+': stale pending override rolled airport transfer back from confirmed')
+        check('TKB045199' in page.locator('#tripModalContent').inner_text(),label+': deploy-master airport reference lost after stale override')
+        page.locator('#tripModal .trip-close').click()
+        page.evaluate("openAccommodationDetail('bk-fusion-original')")
+        page.wait_for_selector('#tripModal.show')
+        fusion_after_stale=page.locator('#tripModalContent').inner_text().upper()
+        check('CONFIRMED' in fusion_after_stale,label+': stale displayStatus poisoned confirmed accommodation rendering')
+        check('PENDING' not in fusion_after_stale,label+': accommodation renderer still exposes stale displayStatus')
+        page.locator('#tripModal .trip-close').click()
         page.evaluate("openBookingCategoryCard('Restaurants')")
         page.wait_for_selector('#tripModal.show')
         restaurant_text=page.locator('#tripModalContent').inner_text()

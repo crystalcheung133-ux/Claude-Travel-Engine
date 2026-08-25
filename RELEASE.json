@@ -1,9 +1,9 @@
 {
-  "engine_version": "25.6.2",
-  "artifact_version": "VN Companion RC29.50 · Travel Engine 25.6.2 Klook Booking Release Candidate",
+  "engine_version": "25.6.3",
+  "artifact_version": "VN Companion RC29.52 · Travel Engine 25.6.3 Hotel Booking Update Candidate",
   "baseline_engine": "25.5.2",
-  "release_date": "2026-08-16",
-  "release_type": "release-candidate",
+  "release_date": "2026-08-25",
+  "release_type": "validated-release",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
@@ -28,30 +28,30 @@
     "enterprise device registration",
     "database Reset RPC signature migration"
   ],
-  "frozen": false,
-  "freeze_date": null,
+  "frozen": true,
+  "freeze_date": "2026-08-25",
   "obsolete_or_rejected": [
     "separate Studio status bar",
     "historical shared Trip/Guide overlay geometry ownership",
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc2947-2562",
-  "release_status": "RELEASE CANDIDATE — packaging repair complete; Master CI PASS; final real-browser gate not verified in this environment (localhost blocked)",
+  "asset_cache_token": "rc2952-2563",
+  "release_status": "VALIDATED — static Master CI and real browser release gate both PASS; Fusion Expedia paid/confirmed booking replaces prior hotel booking",
   "changes": [
-    "Klook private airport transfer confirmed: TKB045199, Easycar, AUD 10.55",
-    "Airport 05:55 preserved as flight-arrival time; pickup described as within 1 hour after arrival with pillar 9 meeting point",
-    "Klook Cu Chi Tunnels half-day private tour confirmed: TUM556012, SST Travel, AUD 229.20",
-    "Cu Chi itinerary authority synchronized to 08:00 departure from Fusion Original Saigon Centre",
-    "Traveller Cu Chi preferences remain explicitly separated from operator-confirmed booking facts",
-    "Release packaging infrastructure restored: .vercelignore and GitHub browser-release workflow",
-    "Production manifest and SHA256 checksums regenerated against current candidate data"
+    "Booking status is the single authoritative reservation state",
+    "Legacy displayStatus is removed from resolved/saved booking authority state when status exists",
+    "Accommodation list/detail derive status only through bookingStatusText(status)",
+    "Runtime regression test covers stale transport + accommodation poisoning and current-revision edit persistence",
+    "Fusion Original accommodation booking replaced with paid and confirmed Expedia reservation 73529525237453",
+    "Fusion total updated to AUD 1,542.08; cashback AUD 180.17; net cost AUD 1,361.91",
+    "Stale prior Fusion pay-at-hotel booking details removed from production booking data"
   ],
   "validation": {
     "klook_data_audit": "PASS — independent Claude audit confirmed both authoritative booking records, no stale duplicates, and correct itinerary sync",
     "klook_render_audit": "PASS — independent Claude Chromium session rendered both confirmed booking details correctly with zero pageerror exceptions",
-    "browser_release_smoke": "NOT VERIFIED on repackaged artifact in this environment — Playwright/Chromium available but localhost navigation blocked by ERR_BLOCKED_BY_ADMINISTRATOR; independent Claude browser PASS applies to pre-repack runtime/data, and packaging repair made no runtime/data/UI changes",
-    "static_master_ci": "PASS — full supplied Master CI after packaging repair",
+    "browser_release_smoke": "PASS — real browser gate executed via ci-tests/run-browser.sh (Playwright/Chromium, local server, no external blockers): desktop 1280x800 PASS, mobile 390x844 PASS, browser interaction smoke PASS (Studio lifecycle and Timeline -> Guide -> Booking return contract), browser release gate PASS",
+    "static_master_ci": "PASS — full supplied Master CI (sh ci-tests/run-all.sh) re-run clean on this artifact",
     "packaging_audit": "Previous candidate failed because .vercelignore/.github workflow were omitted and checksums were stale; this candidate restores/regenerates those artifacts"
   },
   "ci_hygiene_fix": "Moved canonical Studio/Expense and 25.6.2 Studio Visual tests before Master CI pass/fail gate; negative control confirmed failure now propagates.",

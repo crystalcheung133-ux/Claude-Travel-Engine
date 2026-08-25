@@ -221,7 +221,7 @@
   },
   "test-guide-booking-return-contract.js": {
     "status": "active",
-    "note": "origin-aware Guide→Booking close: Timeline origin returns directly to Timeline"
+    "note": "origin-aware Guide\u2192Booking close: Timeline origin returns directly to Timeline"
   },
   "test-python-ci-syntax.sh": {
     "status": "active",
@@ -278,5 +278,13 @@
   "test-day2-vincom-shopping-contract.js": {
     "status": "active",
     "note": "Day 2 Vincom shopping + planned/optional directory reconciliation"
+  },
+  "test-booking-master-status-studio-edit.js": {
+    "status": "active",
+    "principle": "Deploy-master booking status beats stale overrides; Edit Booking is Studio-only"
+  },
+  "test-booking-single-status-authority.js": {
+    "status": "active",
+    "principle": "Booking status is the single authoritative state; stale displayStatus cannot poison rendered state"
   }
 }

@@ -25,6 +25,8 @@ run "STUDIO HEADER BADGE" node ci-tests/test-studio-header-badge.js styles.css a
 run "VN HEADER THEME" node ci-tests/test-vn-header-theme.js styles.css
 run "CANONICAL STUDIO + EXPENSE DEEP-LINK" node ci-tests/test-canonical-studio-expense-deeplink.js
 run "CANONICAL STUDIO VISUAL CONTRACT 25.6.2" node ci-tests/test-studio-visual-contract-2562.js
+run "BOOKING MASTER STATUS + STUDIO EDIT" node ci-tests/test-booking-master-status-studio-edit.js
+run "BOOKING SINGLE STATUS AUTHORITY" node ci-tests/test-booking-single-status-authority.js
 [ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
 echo "MASTER CI SUITE PASSED"
 

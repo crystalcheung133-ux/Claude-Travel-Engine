@@ -101,7 +101,7 @@ function buildAccommodationListHTML(){
     if(booking.cashbackAmount||booking.cashback)priceParts.push(`Cashback ${booking.cashbackAmount||booking.cashback}`);
     if(booking.netTotalAUD||booking.netPrice)priceParts.push(`${booking.approximateNet?'≈ ':''}Net ${booking.netTotalAUD||booking.netPrice}`);
     const price=priceParts.join(' · ')||'Price not added yet';
-    const statusLabel=booking.displayStatus||bookingStatusText(booking)||'';
+    const statusLabel=bookingStatusText(booking)||'';
     const statusClass=String(booking.status||'').replace(/[^a-z0-9-]/gi,'').toLowerCase();
     return `<button class="accommodation-picker-row" type="button" role="listitem" onclick="openAccommodationDetail('${escapeTripHTML(booking.id)}')"><span class="accommodation-picker-icon" aria-hidden="true">🏨</span><span class="accommodation-picker-copy"><strong>${escapeTripHTML(booking.title)}</strong><small>${escapeTripHTML(booking.stayDates||booking.date||'')}</small><span class="accommodation-picker-price">${escapeTripHTML(price)}</span></span><span class="accommodation-picker-meta accommodation-picker-meta--stack">${statusLabel?`<span class="accommodation-status-badge accommodation-status-badge--${escapeTripHTML(statusClass)}">${escapeTripHTML(statusLabel)}</span>`:''}<span class="accommodation-night-line">${escapeTripHTML(nightsLabel)} <b aria-hidden="true">›</b></span></span></button>`;
   }).join('')+'</div>';
@@ -124,7 +124,7 @@ function normalizedBookingStatus(booking){
   return raw==='confirmed'?'confirmed':'pending';
 }
 function bookingStatusText(booking){
-  const raw=String((booking&&((booking.displayStatus||booking.status)))||'').replace(/-/g,' ').trim().toUpperCase();
+  const raw=String((booking&&booking.status)||'').replace(/-/g,' ').trim().toUpperCase();
   if(raw==='OPEN'||raw==='UNBOOKED'||raw==='DECIDE LATER'||raw==='TBD')return 'OPEN';
   return normalizedBookingStatus(booking)==='confirmed'?'CONFIRMED':'PENDING';
 }
@@ -214,7 +214,8 @@ function bookingActionButtonsHTML(booking,place,options={}){
     includeDay?bookingDayButtonHTML(booking):'',
     booking&&booking.bookingUrl?`<a class="pill trip-action-btn trip-action-btn--book" href="${escapeTripHTML(booking.bookingUrl)}" target="_blank" rel="noopener">Book Online</a>`:'',
     whatsapp?`<a class="pill trip-action-btn trip-action-btn--whatsapp" href="${escapeTripHTML(whatsapp)}" target="_blank" rel="noopener">WhatsApp</a>`:'',
-    booking&&booking.email?`<a class="pill trip-action-btn trip-action-btn--email" href="mailto:${escapeTripHTML(booking.email)}">Email</a>`:''
+    booking&&booking.email?`<a class="pill trip-action-btn trip-action-btn--email" href="mailto:${escapeTripHTML(booking.email)}">Email</a>`:'',
+    bookingEditButtonHTML(booking)
   ].filter(Boolean);
   return buttons.length?`<div class="trip-action-row trip-action-row--booking-compact">${buttons.join('')}</div>`:'';
 }
@@ -236,7 +237,7 @@ function buildAccommodationDetailHTML(booking){
   const arrival=[booking.checkIn||'',booking.checkOut||''].filter(Boolean).join(' → ');
   const reference=[booking.bookingName?`Booked under · ${booking.bookingName}`:'',booking.reference?`${bookingReferenceLabel(booking)} · ${booking.reference}`:''].filter(Boolean).join('\n');
   const facts=bookingFactGridHTML([
-    ['Status',booking.displayStatus||bookingStatusText(booking)],
+    ['Status',bookingStatusText(booking)],
     ['Room',booking.roomType||''],
     ['Guests',booking.guestSummary||''],
     ['Host',booking.host||''],
@@ -393,8 +394,9 @@ window.requestBookingEditClose=requestBookingEditClose;
 
 
 function bookingEditButtonHTML(booking){
-  return booking&&window.BOOKING_PERMISSIONS&&BOOKING_PERMISSIONS.canEdit()
-    ?`<button class="pill trip-action-btn booking-edit-btn" type="button" onclick="openBookingEdit('${escapeTripHTML(booking.id)}')">${escapeTripHTML(BOOKING_PERMISSIONS.editLabel())}</button>`:'';
+  const studioActive=!!(window.isAdminMode&&window.isAdminMode());
+  return booking&&studioActive&&window.BOOKING_PERMISSIONS&&BOOKING_PERMISSIONS.canEdit()
+    ?`<button class="pill trip-action-btn booking-edit-btn trip-action-btn--edit" type="button" onclick="openBookingEdit('${escapeTripHTML(booking.id)}')">${escapeTripHTML(BOOKING_PERMISSIONS.editLabel())}</button>`:'';
 }
 function bookingField(label,name,value,options){
   const opts=options||{};

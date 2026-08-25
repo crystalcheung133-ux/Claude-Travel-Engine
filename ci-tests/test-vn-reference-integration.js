@@ -14,8 +14,14 @@ assert.match(tripRuntime,/openTripCard\('stay'\)/,'Trip runtime must expose Stay
 assert.match(tripRuntime,/openTripCard\('activities'\)/,'Trip runtime must expose Activities');
 assert.match(tripRuntime,/openTripCard\('transport'\)/,'Trip runtime must expose Transport');
 assert.match(trip,/rentalCar:false/,'VN must disable Rental Car at config level');
-assert.match(data,/"netTotalAUD": "AUD 1,478"/,'Fusion net payment missing');
-assert.match(data,/"cashbackAmount": "AUD 215"/,'Fusion cashback missing');
+assert.match(data,/"reference": "73529525237453"/,'Fusion Expedia itinerary missing');
+assert.match(data,/"platform": "Expedia"/,'Fusion Expedia platform missing');
+assert.match(data,/"paymentStatus": "paid"/,'Fusion paid state missing');
+assert.match(data,/"totalAmount": "AUD 1,542\.08"/,'Fusion paid total missing');
+assert.match(data,/"cashbackAmount": "AUD 180\.17"/,'Fusion cashback missing');
+assert.match(data,/"netTotalAUD": "AUD 1,361\.91"/,'Fusion net payment missing');
+assert.doesNotMatch(data,/2 Bedroom Suite · Pay at hotel/,'Stale Fusion booking details remain');
+assert.doesNotMatch(data,/"totalAmount": "AUD 1,693"/,'Stale Fusion total remains');
 assert.doesNotMatch(read('navigation-config.js'),/bookings\.html/,'Standalone Bookings page must not be a navigable Engine route');
 assert.doesNotMatch(read('sw.js'),/bookings\.html/,'Standalone Bookings page must not be cached as production UI');
 assert.ok(!fs.existsSync(path.join(root,'bookings.html')),'Standalone Bookings page must not exist in the RC6 package');

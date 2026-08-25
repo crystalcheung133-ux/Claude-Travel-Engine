@@ -43,8 +43,12 @@ for(const label of sectionLabels) assert(allowedSections.has(label),'Generic Boo
 assert(actions.includes('bookingDayButtonHTML(booking)'),'Timeline action missing');
 for(const required of ['trip-action-btn--book','trip-action-btn--whatsapp','trip-action-btn--email'])
   assert(actions.includes(required),'Booking action channel missing: '+required);
-for(const forbidden of ['bookingGuideButtonHTML','bookingEditButtonHTML','Navigate</a>','Copy Address','trip-action-btn--call'])
+for(const forbidden of ['bookingGuideButtonHTML','Navigate</a>','Copy Address','trip-action-btn--call'])
   assert(!actions.includes(forbidden),'Generic Booking action outside allow-list: '+forbidden);
+assert(actions.includes('bookingEditButtonHTML(booking)'),'Studio Edit Booking action is not wired into Booking detail actions');
+const editBlock=(trip.match(/function bookingEditButtonHTML\(booking\)\{[\s\S]*?\n\}/)||[''])[0];
+assert(editBlock.includes('window.isAdminMode&&window.isAdminMode()'),'Edit Booking action must be Studio-only');
+assert(editBlock.includes('BOOKING_PERMISSIONS.canEdit()'),'Edit Booking action must honor Booking permissions');
 assert(!generic.includes('How to book / handoff')&&!trip.includes("bookingSectionHTML('How to book / handoff'"),
   'HOW TO BOOK / HANDOFF paragraph is outside Booking allow-list');
 
