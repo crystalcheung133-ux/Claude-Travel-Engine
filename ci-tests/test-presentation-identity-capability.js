@@ -35,11 +35,12 @@ assert(expenses.includes('basis=100000')&&expenses.includes('basisConverted'),'E
 assert(/expense-title-emoji[^>]*[^]*?💰[^]*?Add expense/.test(expenses),'Add expense reset must preserve money-bag emoji');
 assert(/replace\(\/To next stop/.test(day),'Timeline renderer must strip duplicated To next stop prefix');
 const transfer=data.match(/"bk-transfer-in": \{[\s\S]*?\n  \}/)?.[0]||'';
-assert(/"status": "pending"/.test(transfer),'Arrival transfer must remain pending');
-assert(/"bookingMethod": "Klook online booking"/.test(transfer),'Arrival transfer must expose the intended online booking channel without pretending it is booked');
-assert(/"bookingUrl": "https:\/\/www\.klook\.com\//.test(transfer),'Arrival transfer online method must have a real booking URL');
-assert(/"status": "pending"/.test(transfer),'Arrival transfer must remain pending until actually booked');
-assert(/未訂|未預約/.test(transfer),'Arrival transfer handoff must explicitly remain not booked');
+assert(/"status": "confirmed"/.test(transfer),'Arrival transfer must remain confirmed after Klook booking');
+assert(/"bookingMethod": "Klook"/.test(transfer),'Arrival transfer must expose Klook as the confirmed booking channel');
+assert(/"bookingUrl": "https:\/\/www\.klook\.com\//.test(transfer),'Arrival transfer booking must retain a Klook URL');
+assert(/"reference": "TKB045199"/.test(transfer),'Arrival transfer must retain the confirmed Klook booking number');
+assert(/"time": "05:55"/.test(transfer),'Arrival transfer booking time must preserve 05:55 as the supplied flight arrival time');
+assert(/within 1 hour after arrival/.test(transfer),'Arrival transfer must distinguish flight arrival time from the pickup window');
 
 // Traveller identity / home UI
 assert(/version:'RC\d+(?:\.\d+)?-25\.\d+\.\d+(?:\.\d+)?'/.test(cfg),'Release build identity missing');
