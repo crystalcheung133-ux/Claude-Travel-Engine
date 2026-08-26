@@ -3109,3 +3109,7 @@ body.admin-mode .studio-on-badge:not([hidden]){display:inline-flex!important;}
   .generic-booking-detail .trip-action-row--booking-compact .trip-action-btn{width:auto}
   .generic-booking-detail .trip-action-row--booking-compact .trip-action-btn--day{width:auto!important}
 }
+
+.booking-shared-plan{display:flex;align-items:center;gap:8px;margin:4px 0 10px;padding:0 2px;font-size:12px;line-height:1.2}
+.booking-shared-plan strong{font-size:10px;letter-spacing:.08em;text-transform:uppercase}
+.booking-shared-plan span{font-weight:800}

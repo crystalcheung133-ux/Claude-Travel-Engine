@@ -373,6 +373,9 @@ function buildGenericBookingDetailHTML(booking){
   if(!booking)return '<p class="timestamp">Booking not found.</p>';
   const place=bookingPlace(booking);
   const hasPlannedVisits=Array.isArray(booking.plannedVisits)&&booking.plannedVisits.length>0;
+  const plannedDaySummary=hasPlannedVisits
+    ? [...new Set(booking.plannedVisits.map(row=>String(row.day||'').trim()).filter(Boolean))].join(' · ')
+    : '';
   const facts=bookingFactGridHTML([
     ['Status',bookingStatusText(booking)],
     ...(!hasPlannedVisits?[['Day',booking.plannedDays||(bookingDayNumber(booking)?'Day '+bookingDayNumber(booking):'')],['Date',booking.date||''],['Time',booking.time||'']]:[]),
@@ -389,7 +392,8 @@ function buildGenericBookingDetailHTML(booking){
     bookingPlannedVisitsHTML(booking),
     bookingAlternativeGuidesHTML(booking)
   ].join('');
-  return `<article class="fact stay-booking accommodation-detail-card generic-booking-detail"><div class="accommodation-detail-head"><div><strong>${escapeTripHTML(booking.title)}</strong><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div><div class="accommodation-facts">${facts}</div>${bookingActionButtonsHTML(booking,place)}${sections}${bookingExpenseActionHTML(booking)}${genericBookingDetailNavigationHTML(booking)}</article>`;
+  const sharedPlan=plannedDaySummary?`<div class="booking-shared-plan"><strong>${escapeTripHTML(bookingStatusText(booking))}</strong><span>${escapeTripHTML(plannedDaySummary)}</span></div>`:'';
+  return `<article class="fact stay-booking accommodation-detail-card generic-booking-detail"><div class="accommodation-detail-head"><div><strong>${escapeTripHTML(booking.title)}</strong><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div>${sharedPlan}<div class="accommodation-facts">${facts}</div>${bookingActionButtonsHTML(booking,place)}${sections}${bookingExpenseActionHTML(booking)}${genericBookingDetailNavigationHTML(booking)}</article>`;
 }
 function openGenericBookingDetail(bookingId,bookingOverride,showSaved){
   const booking=bookingOverride||getBookingById(bookingId);if(!booking)return;
