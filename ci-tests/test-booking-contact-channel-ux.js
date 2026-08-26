@@ -1,0 +1,16 @@
+const fs=require('fs'),assert=require('assert');
+const trip=fs.readFileSync('trip-runtime.js','utf8'), css=fs.readFileSync('styles.css','utf8'), data=fs.readFileSync('data.js','utf8');
+const q=(data.match(/"bk-qspa"\s*:\s*\{[\s\S]*?\n\s*\},\n\s*"bk-/)||[''])[0];
+const place=(data.match(/"qspa"\s*:\s*\{[\s\S]*?\n\s*\},\n\s*"[a-z0-9-]+"\s*:/)||[''])[0];
+assert(q,'Qspa booking missing'); assert(place,'Qspa place missing');
+for(const x of ['"bookingMethod": "Facebook Messenger / Instagram"','"messengerUrl": "https://m.me/QspaCenter"','"instagramUrl": "https://www.instagram.com/qspacenter/"']) assert(q.includes(x),x);
+assert(place.includes('"facebookUrl": "https://www.facebook.com/QspaCenter/"'));
+assert(trip.includes('trip-action-btn--messenger'));
+assert(trip.includes('trip-action-btn--instagram'));
+assert(!trip.includes('href="tel:'));
+assert(trip.includes("['Phone · reference'"));
+assert(trip.includes("const hasPlannedVisits=Array.isArray(booking.plannedVisits)"));
+assert(trip.includes('>D${escapeTripHTML(rawDay)} Timeline</a>'));
+assert(css.includes('.generic-booking-detail .trip-action-btn--day'));
+assert(!q.includes('ONE venue planned across THREE days'));
+console.log('BOOKING CONTACT CHANNEL UX: PASS');

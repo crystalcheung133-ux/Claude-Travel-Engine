@@ -185,6 +185,14 @@ function bookingGuideButtonHTML(booking){
   return booking&&booking.placeId?`<button class="pill trip-action-btn trip-action-btn--guide" type="button" onclick="openGuideModal('${escapeTripHTML(booking.placeId)}')">View Guide</button>`:'';
 }
 function bookingDayButtonHTML(booking){
+  const visits=Array.isArray(booking&&booking.plannedVisits)?booking.plannedVisits:[];
+  const multi=visits.map(function(row){
+    const rawDay=String(row&&((row.dayId||row.day))||'').replace(/^day/i,'').replace(/^d/i,'').replace(/\D/g,'');
+    if(!rawDay)return '';
+    const anchor=row&&row.timelineItemId?`#${escapeTripHTML(row.timelineItemId)}`:'';
+    return `<a class="pill trip-action-btn trip-action-btn--day" href="day.html?day=${escapeTripHTML(rawDay)}${anchor}">D${escapeTripHTML(rawDay)} Timeline</a>`;
+  }).filter(Boolean);
+  if(multi.length)return [...new Set(multi)].join('');
   const dayNumber=bookingDayNumber(booking);if(!dayNumber)return '';
   const anchor=booking.timelineItemId?`#${escapeTripHTML(booking.timelineItemId)}`:'';
   return `<a class="pill trip-action-btn trip-action-btn--day" href="day.html?day=${escapeTripHTML(dayNumber)}${anchor}">Day ${escapeTripHTML(dayNumber)} Timeline</a>`;
@@ -211,13 +219,17 @@ function bookingActionButtonsHTML(booking,place,options={}){
   const whatsappContact=String(booking&&booking.whatsapp||'').trim();
   const whatsappDigits=whatsappContact.replace(/[^0-9]/g,'');
   const whatsapp=(whatsappContact&&whatsappDigits)?`https://wa.me/${whatsappDigits}`:'';
+  const messenger=String(booking&&booking.messengerUrl||place&&place.messengerUrl||'').trim();
+  const instagram=String(booking&&booking.instagramUrl||place&&place.instagramUrl||'').trim();
   const buttons=[
-    includeDay?bookingDayButtonHTML(booking):'',
-    bookingGuideButtonHTML(booking),
-    booking&&booking.bookingUrl?`<a class="pill trip-action-btn trip-action-btn--book" href="${escapeTripHTML(booking.bookingUrl)}" target="_blank" rel="noopener">Book Online</a>`:'',
+    booking&&booking.bookingUrl?`<a class="pill trip-action-btn trip-action-btn--book" href="${escapeTripHTML(booking.bookingUrl)}" target="_blank" rel="noopener">${escapeTripHTML(booking.bookingLabel||'Book Online')}</a>`:'',
+    messenger?`<a class="pill trip-action-btn trip-action-btn--messenger" href="${escapeTripHTML(messenger)}" target="_blank" rel="noopener">Messenger</a>`:'',
+    instagram?`<a class="pill trip-action-btn trip-action-btn--instagram" href="${escapeTripHTML(instagram)}" target="_blank" rel="noopener">Instagram</a>`:'',
     whatsapp?`<a class="pill trip-action-btn trip-action-btn--whatsapp" href="${escapeTripHTML(whatsapp)}" target="_blank" rel="noopener">WhatsApp</a>`:'',
     booking&&booking.email?`<a class="pill trip-action-btn trip-action-btn--email" href="mailto:${escapeTripHTML(booking.email)}">Email</a>`:'',
-    bookingEditButtonHTML(booking)
+    bookingGuideButtonHTML(booking),
+    bookingEditButtonHTML(booking),
+    includeDay?bookingDayButtonHTML(booking):''
   ].filter(Boolean);
   return buttons.length?`<div class="trip-action-row trip-action-row--booking-compact">${buttons.join('')}</div>`:'';
 }
@@ -342,7 +354,11 @@ function bookingCategoryLabel(booking){
 function bookingPlannedVisitsHTML(booking){
   const rows=Array.isArray(booking&&booking.plannedVisits)?booking.plannedVisits:[];
   if(!rows.length)return '';
-  return `<section class="accommodation-section booking-planned-visits"><h3>Planned visits</h3><div class="accommodation-facts">${rows.map(function(row){return `<div class="accommodation-fact"><small>${escapeTripHTML(row.day||'')}</small><strong>${escapeTripHTML(row.label||'')}</strong><span>${escapeTripHTML(row.duration||'')}</span></div>`;}).join('')}</div></section>`;
+  return `<section class="accommodation-section booking-planned-visits"><h3>Planned visits</h3><div class="accommodation-facts">${rows.map(function(row){
+    const dayDate=[row.day||'',row.date||''].filter(Boolean).join(' · ');
+    const labelTime=[row.label||'',row.time||''].filter(Boolean).join(' · ');
+    return `<div class="accommodation-fact"><small>${escapeTripHTML(dayDate)}</small><strong>${escapeTripHTML(labelTime)}</strong><span>${escapeTripHTML(row.duration||'')}</span></div>`;
+  }).join('')}</div></section>`;
 }
 function bookingAlternativeGuidesHTML(booking){
   const rows=Array.isArray(booking&&booking.alternativeGuides)?booking.alternativeGuides:[];
@@ -356,10 +372,13 @@ function bookingAlternativeGuidesHTML(booking){
 function buildGenericBookingDetailHTML(booking){
   if(!booking)return '<p class="timestamp">Booking not found.</p>';
   const place=bookingPlace(booking);
+  const hasPlannedVisits=Array.isArray(booking.plannedVisits)&&booking.plannedVisits.length>0;
   const facts=bookingFactGridHTML([
-    ['Status',bookingStatusText(booking)],['Day',booking.plannedDays||(bookingDayNumber(booking)?'Day '+bookingDayNumber(booking):'')],['Date',booking.date||''],['Time',booking.time||''],
-    ['Booked under',booking.bookingName||''],[bookingReferenceLabel(booking),booking.reference||''],['Booking method',booking.bookingMethod||booking.bookingViaOther||booking.bookingWay||booking.platform||''],
-    ['WhatsApp',booking.whatsapp||''],['Email',booking.email||'']
+    ['Status',bookingStatusText(booking)],
+    ...(!hasPlannedVisits?[['Day',booking.plannedDays||(bookingDayNumber(booking)?'Day '+bookingDayNumber(booking):'')],['Date',booking.date||''],['Time',booking.time||'']]:[]),
+    ['Booked under',booking.bookingName||''],[bookingReferenceLabel(booking),booking.reference||''],
+    ['Booking method',booking.bookingMethod||booking.bookingViaOther||booking.bookingWay||booking.platform||''],
+    ['Phone · reference',booking.phone||booking.bookingContact||place?.phone||'']
   ]);
   const payment=normalizedBookingStatus(booking)==='confirmed'?accommodationPaymentHTML(booking):'';
   const sections=[
@@ -370,7 +389,7 @@ function buildGenericBookingDetailHTML(booking){
     bookingPlannedVisitsHTML(booking),
     bookingAlternativeGuidesHTML(booking)
   ].join('');
-  return `<article class="fact stay-booking accommodation-detail-card generic-booking-detail"><div class="accommodation-detail-head"><div><strong>${escapeTripHTML(booking.title)}</strong><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place)}${bookingExpenseActionHTML(booking)}${genericBookingDetailNavigationHTML(booking)}</article>`;
+  return `<article class="fact stay-booking accommodation-detail-card generic-booking-detail"><div class="accommodation-detail-head"><div><strong>${escapeTripHTML(booking.title)}</strong><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div><div class="accommodation-facts">${facts}</div>${bookingActionButtonsHTML(booking,place)}${sections}${bookingExpenseActionHTML(booking)}${genericBookingDetailNavigationHTML(booking)}</article>`;
 }
 function openGenericBookingDetail(bookingId,bookingOverride,showSaved){
   const booking=bookingOverride||getBookingById(bookingId);if(!booking)return;

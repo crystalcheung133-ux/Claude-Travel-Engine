@@ -3099,3 +3099,13 @@ body.admin-mode .studio-on-badge:not([hidden]){display:inline-flex!important;}
 }
 /* RC29.48 consolidated currency guide */
 .currency-option-list{display:grid;gap:12px;margin-top:14px}.currency-option-card{padding:14px;border:1px solid var(--line,#ded8cf);border-radius:16px;background:rgba(255,255,255,.58)}.currency-option-head{display:flex;flex-direction:column;gap:3px}.currency-option-head span{font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;opacity:.72}.currency-option-card p{margin:8px 0}.currency-option-address{font-size:.9rem;opacity:.82}.timeline-action--currency{font-weight:700}
+
+/* Engine 25.6.4 — practical booking contact + compact multi-day navigation */
+.generic-booking-detail .trip-action-row--booking-compact{align-items:center}
+.generic-booking-detail .trip-action-btn--day{min-height:30px!important;padding:6px 9px!important;border-radius:999px!important;font-size:11px!important;width:auto!important;flex:0 0 auto}
+.trip-action-btn--messenger,.trip-action-btn--instagram{background:#eef3ff!important;border-color:rgba(49,78,145,.24)!important;color:#314e91!important}
+@media(max-width:430px){
+  .generic-booking-detail .trip-action-row--booking-compact{display:flex!important;flex-wrap:wrap!important}
+  .generic-booking-detail .trip-action-row--booking-compact .trip-action-btn{width:auto}
+  .generic-booking-detail .trip-action-row--booking-compact .trip-action-btn--day{width:auto!important}
+}

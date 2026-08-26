@@ -29,7 +29,7 @@ assert(generic&&actions,'generic Booking renderer missing');
 
 // Fact labels: only this operational set may be rendered for generic bookings.
 // bookingReferenceLabel(booking) is the one intentional dynamic label.
-const allowedFacts=new Set(['Status','Day','Date','Time','Booked under','Booking method','WhatsApp','Email']);
+const allowedFacts=new Set(['Status','Day','Date','Time','Booked under','Booking method','Phone','WhatsApp','Email']);
 const factBlock=(generic.match(/bookingFactGridHTML\(\[([\s\S]*?)\]\)/)||[])[1]||'';
 const factLabels=[...factBlock.matchAll(/\['([^']+)'/g)].map(m=>m[1]);
 for(const label of factLabels) assert(allowedFacts.has(label),'Generic Booking added unapproved fact: '+label);

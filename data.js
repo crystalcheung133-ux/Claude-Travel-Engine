@@ -1407,6 +1407,11 @@ const PLACES={
     "status": "planned",
     "maps": "https://www.google.com/maps/search/?api=1&query=Qspa%2025%2F1%20Truong%20Dinh%20Ho%20Chi%20Minh%20City",
     "address": "25/1 Trương Định, Xuân Hòa, Hồ Chí Minh City",
+    "phone": "028 3535 9727",
+    "website": "https://qspa.com.vn/",
+    "facebookUrl": "https://www.facebook.com/QspaCenter/",
+    "messengerUrl": "https://m.me/QspaCenter",
+    "instagramUrl": "https://www.instagram.com/qspacenter/",
     "desc": "Qspa · Rediscover Your Soul is the shared recovery anchor for Days 1–3: a full arrival reset after the overnight flight, an afternoon reset on Fashion Day, and a post-Cu-Chi / War Museum recovery. Keep each visit flexible: massage, body / beauty treatment or hair-care can be chosen according to how everyone feels that day.",
     "signature": [
       "D1 · Arrival Recovery · 120 min",
@@ -2187,26 +2192,43 @@ const BOOKINGS_DATA={
     "type": "spa",
     "emoji": "🌿",
     "title": "Qspa · Rediscover Your Soul",
-    "bookingMethod": "Plan / contact Qspa",
+    "bookingMethod": "Facebook Messenger / Instagram",
+    "bookingContact": "028 3535 9727",
+    "phone": "028 3535 9727",
+    "website": "https://qspa.com.vn/",
+    "messengerUrl": "https://m.me/QspaCenter",
+    "instagramUrl": "https://www.instagram.com/qspacenter/",
     "placeId": "qspa",
-    "notes": "ONE venue planned across THREE days. D1 · Arrival Recovery · 120 min. D2 · Afternoon Reset · up to ~120 min. D3 · War Day Recovery · 120 min. Treatment remains flexible: massage, body / beauty treatment or hair-care according to how everyone feels.",
+    "notes": "Three recovery visits are planned at the same spa. Choose the treatment on the day according to how everyone feels.",
     "plannedDays": "D1 · D2 · D3",
     "standalone": true,
     "plannedVisits": [
       {
         "day": "D1",
+        "date": "Fri 30 Oct 2026",
+        "time": "~12:15–14:15",
         "label": "Arrival Recovery",
-        "duration": "120 min"
+        "duration": "120 min",
+        "dayId": "day1",
+        "timelineItemId": "qspa-d1"
       },
       {
         "day": "D2",
+        "date": "Sat 31 Oct 2026",
+        "time": "~14:15–16:15",
         "label": "Afternoon Reset",
-        "duration": "up to ~120 min"
+        "duration": "up to ~120 min",
+        "dayId": "day2",
+        "timelineItemId": "qspa-d2"
       },
       {
         "day": "D3",
+        "date": "Sun 1 Nov 2026",
+        "time": "~17:15–19:15",
         "label": "War Day Recovery",
-        "duration": "120 min"
+        "duration": "120 min",
+        "dayId": "day3",
+        "timelineItemId": "qspa-d3"
       }
     ],
     "alternativeGuides": [

@@ -31,11 +31,15 @@ function openGuideLinkedBooking(bookingId){
   // Closing its linked Booking returns directly to Timeline; Guide-origin flows return to Guide.
   window.TRIP_MODAL_RETURN_TO_GUIDE=window.GUIDE_MODAL_ORIGIN!=='timeline';
   document.body.classList.add('guide-booking-stack-open');
-  if(booking.type==='activity'){
+  if(booking.type==='accommodation'){
+    openAccommodationDetail(bookingId,booking);
+    return;
+  }
+  if(booking.type==='activity'&&typeof bookingCategoryLabel==='function'&&bookingCategoryLabel(booking)==='Activities'){
     openActivityBookingDetail(bookingId,booking);
     return;
   }
-  openAccommodationDetail(bookingId,booking);
+  openGenericBookingDetail(bookingId,booking);
 }
 const GUIDE_NAV_CONTEXT_KEY=STORAGE_CONFIG.keys.guideNavContext;
 const GUIDE_NAV_REOPEN_KEY=STORAGE_CONFIG.keys.guideNavReopen;

@@ -59,7 +59,9 @@ assert(css.includes('.friend-pill .family-name{display:inline!important'),'heade
 // Expense / timeline browser-facing behaviour
 assert(css.includes('#expenseModal .custom-split-row{display:grid!important;grid-template-columns:1fr!important'),'mobile custom split full-name layout missing');
 assert(expenses.includes('const other=code===home?trip:home')&&expenses.includes('${FORMATTER.decimal(basis,0)} ${code} ≈ ${FORMATTER.decimal(basisConverted,2)} ${other}'),'bidirectional input-currency FX rate missing');
-assert(day.includes("String(booking.status||booking.displayStatus||'pending')"),'timeline booking status must resolve canonical status first');
+assert(day.includes("String(booking.status||'pending')"),'timeline booking status must resolve canonical status only');
+assert(day.includes("raw==='planned'?'PLANNED':'PENDING'"),'timeline must preserve PLANNED distinctly from PENDING');
+assert(!day.includes("booking.status||booking.displayStatus"),'timeline must not resurrect displayStatus as a second authority');
 assert(storage.includes("bookingOverrides:namespace+':booking_overrides:v2'"),'booking overrides must be trip namespaced');
 assert(!css.includes('\\n\\n/* Engine 25.3.9'),'escaped-newline CSS corruption still present');
 
