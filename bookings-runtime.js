@@ -12,7 +12,7 @@
     const byId=view&&view.byId?view.byId:(root.BOOKINGS_DATA||{});
     return root.BOOKING_AUTHORITY?BOOKING_AUTHORITY.all(byId):Object.values(byId||{});
   }
-  function status(b){return String(b&&b.status||'pending').toLowerCase()==='confirmed'?'confirmed':'pending';}
+  function status(b){const raw=String(b&&b.status||'pending').toLowerCase();return raw==='confirmed'?'confirmed':(raw==='planned'?'planned':'pending');}
   function category(b){
     const explicit=String((b&&b.bookingCategory)||(b&&b.category)||'').trim().toLowerCase();
     if(explicit==='restaurant'||explicit==='restaurants')return 'Restaurants'; if(explicit==='spa')return 'Spa';
@@ -22,7 +22,7 @@
     if(type==='spa')return 'Spa'; if(type==='transport'||type==='rentalcar')return 'Transport'; return 'Activities';
   }
 
-  function entityIcon(b){const t=String(b&&b.type||'').toLowerCase(),n=String(b&&b.title||'').toLowerCase(); if(t==='restaurant')return n.includes('omakase')?'🍣':n.includes('pizza')?'🍕':n.includes('lune')?'🥂':'🍽️'; if(t==='spa')return n.includes('suga')||n.includes('head')?'💆‍♀️':n.includes('wellness')?'🌿':'🧖‍♀️'; if(t==='transport')return n.includes('airport')?'✈️':'🚐'; if(t==='activity'||t==='experience')return n.includes('cooking')?'👩‍🍳':'🎟️'; return CATEGORY_META[category(b)]?.icon||'📌';}
+  function entityIcon(b){if(b&&b.emoji)return String(b.emoji);const t=String(b&&b.type||'').toLowerCase(),n=String(b&&b.title||'').toLowerCase(); if(t==='restaurant')return n.includes('omakase')?'🍣':n.includes('pizza')?'🍕':n.includes('lune')?'🥂':'🍽️'; if(t==='spa')return n.includes('suga')||n.includes('head')?'💆‍♀️':n.includes('wellness')?'🌿':'🧖‍♀️'; if(t==='transport')return n.includes('airport')?'✈️':'🚐'; if(t==='activity'||t==='experience')return n.includes('cooking')?'👩‍🍳':'🎟️'; return CATEGORY_META[category(b)]?.icon||'📌';}
   function rows(){return source().filter(Boolean).map(b=>Object.assign({},b,{_category:category(b),_status:status(b)})).sort((a,b)=>String(a.date||'').localeCompare(String(b.date||''))||String(a.time||'').localeCompare(String(b.time||'')));}
   function summary(all){const confirmed=all.filter(x=>x._status==='confirmed').length;return `${confirmed} confirmed · ${all.length-confirmed} pending`;}
   function dayNumber(b){return String(b.dayId||b.day||'').replace('day','').replace(/\D/g,'');}

@@ -12,7 +12,7 @@ must(/getActivityBookings/.test(tripRuntime)&&/getTransportBookings/.test(tripRu
 must(/function openTripModuleGroup\(groupId\)/.test(tripRuntime),'Trip presentation can group sparse modules without merging taxonomy');
 must(!/location\.href='bookings\.html'/.test(tripRuntime),'booking detail never navigates to deleted consolidated page');
 must(/function remove\(id,target\)/.test(authority)&&/deletedIds/.test(authority),'Booking Authority supports persistent delete tombstones');
-must(/choices:\['pending','confirmed'\]/.test(tripRuntime),'Studio booking status editor exposes Pending/Confirmed only');
+must(/choices:\['pending','planned','confirmed'\]/.test(tripRuntime),'Studio booking status editor exposes Pending/Planned/Confirmed');
 must(/Delete Booking/.test(tripRuntime)&&/deleteBookingRecord/.test(tripRuntime),'Studio booking editor supports delete instead of cancelled');
 must(/row\[1\].*trim/.test(tripRuntime)&&/if\(!status&&!rows\.length\)return ''/.test(tripRuntime),'blank booking/payment fields do not render');
 if(!process.exitCode)console.log('BOOKING FOUNDATION: PASS — modal-first categories, sparse grouping, status and deletion contracts verified.');

@@ -30,7 +30,7 @@
   function mapRow(row){
     const payload=row&&row.payload&&typeof row.payload==='object'&&!Array.isArray(row.payload)?clone(row.payload):{};
     const record=Object.assign({},legacyRow(row||{}),payload,{id:(payload.id||payload.bookingId||row.booking_id),bookingId:(payload.bookingId||payload.id||row.booking_id)});
-    record.status=String(record.status||'pending').toLowerCase()==='confirmed'?'confirmed':'pending';
+    {const rawStatus=String(record.status||'pending').toLowerCase();record.status=rawStatus==='confirmed'?'confirmed':(rawStatus==='planned'?'planned':'pending');}
     record._remoteVersion=Number(row.version||1);record._remoteDeletedAt=row.deleted_at||'';
     state.versions[record.id]=record._remoteVersion;
     return record;
@@ -38,11 +38,24 @@
   function sourceTarget(){
     try{const view=root.GenerationSelectionAdapter&&root.GenerationSelectionAdapter.view?root.GenerationSelectionAdapter.view('bookings'):null;return view&&view.byId?view.byId:null;}catch(_){return null;}
   }
+  function mergeRemoteWithDeployMaster(record,target){
+    const master=root.BOOKING_AUTHORITY&&root.BOOKING_AUTHORITY.deployMaster?root.BOOKING_AUTHORITY.deployMaster(record&&record.id):null;
+    if(!master)return record;
+    const currentRevision=root.BOOKING_AUTHORITY.masterRevision();
+    const remoteRevision=Number(record&&((record._masterRevision!=null?record._masterRevision:record.masterRevision))||0);
+    if(remoteRevision===currentRevision)return Object.assign({},master,record,{_masterRevision:currentRevision});
+    const merged=Object.assign({},master);
+    const editable=root.BOOKING_AUTHORITY.editableStateFields||[];
+    editable.forEach(function(field){if(Object.prototype.hasOwnProperty.call(record,field))merged[field]=clone(record[field]);});
+    merged._masterRevision=currentRevision;
+    return merged;
+  }
   function applyRemote(row){
-    const record=mapRow(row);
+    let record=mapRow(row);
     if(!root.BOOKING_AUTHORITY)return record;
     const target=sourceTarget();
     if(row.deleted_at){root.BOOKING_AUTHORITY.remove(record.id,target,{silent:true,remote:true});return record;}
+    record=mergeRemoteWithDeployMaster(record,target);
     root.BOOKING_AUTHORITY.save(record.id,record,target,{silent:true,remote:true});
     return record;
   }
@@ -66,6 +79,7 @@
     const copy=clone(record)||{};
     delete copy._category;delete copy._status;delete copy._remoteVersion;delete copy._remoteDeletedAt;
     copy.id=record.id||record.bookingId;copy.bookingId=copy.id;
+    copy._masterRevision=root.BOOKING_AUTHORITY&&root.BOOKING_AUTHORITY.masterRevision?root.BOOKING_AUTHORITY.masterRevision():1;
     copy.updatedByPartyId=partyId();copy.updatedAt=new Date().toISOString();
     return copy;
   }

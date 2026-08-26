@@ -1,31 +1,18 @@
 {
-  "engine_version": "25.4.30",
-  "artifact_version": "Saigon Companion RC28 \u00b7 Travel Engine 25.4.30.5 Production Freeze",
-  "baseline_engine": "25.4.28",
-  "release_date": "2026-08-09",
-  "release_type": "studio-popup-reentry-target",
+  "engine_version": "25.6.3",
+  "artifact_version": "VN Companion RC29.53 REV3 · Travel Engine 25.6.3 Multi-Day Booking / Spa Routing Candidate",
+  "baseline_engine": "25.5.2",
+  "release_date": "2026-08-26",
+  "release_type": "ci-gate-candidate",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
-    "booking deposit prefill from depositAmount/depositCurrency",
-    "local Expense persistence is the Save success boundary",
-    "post-save render/sync failures cannot trigger false retry alerts",
-    "saved Expense modal closes before post-commit refresh",
-    "Studio status bar stays visible on ordinary pages while Studio mode is authenticated",
-    "traveller header/user selector remains visible and interactive below Studio status bar",
-    "ordinary content and Studio workspace clear both fixed chrome rows",
-    "all overlay modals respect persistent Studio status + traveller header chrome",
-    "modal sheets are constrained to the remaining viewport below fixed chrome",
-    "mobile overlay modals reserve visible bottom navigation clearance",
-    "overlay max-height is bounded between persistent top chrome and mobile bottom nav",
-    "chrome metrics refresh on resize and orientation change",
-    "legacy Expense/Moments ID-based modal layout overrides removed",
-    "all popup cards cover bottom navigation until closed",
-    "Expense modal resets both scroll state and focus-scroll state on open/close",
-    "Studio re-entry waits for settled layout before scrolling to Studio controls",
-    "Studio remains a popup card after PIN authentication",
-    "authenticated traveller-selector re-entry opens directly at the Studio popup card",
-    "users can scroll upward from Studio card to switch traveller and exit Studio mode"
+    "Qspa · Rediscover Your Soul is the single planned D1-D3 spa Guide/Booking authority.",
+    "Booking status taxonomy now preserves PLANNED without collapsing it to PENDING.",
+    "Booking and Guide surfaces support data-driven Guide-only alternatives by day.",
+    "D1 protects a full 120-minute Qspa recovery, moves Fusion check-in to ~14:30, and makes Cafe Apartments optional.",
+    "D2 keeps Pizza 4P’s Hai Bà Trưng, then routes Qspa → Cathedral/Post Office/Book Street → Vincom/The New Playground → LÚNE.",
+    "D3 replaces planned Nara with a 120-minute Qspa War Day Recovery; Nara remains Guide-only optional hair-reset alternative."
   ],
   "explicitly_deferred": [
     "parallel itinerary tracks",
@@ -33,6 +20,28 @@
     "enterprise device registration",
     "database Reset RPC signature migration"
   ],
-  "frozen": true,
-  "freeze_date": "2026-08-09"
+  "frozen": false,
+  "freeze_date": null,
+  "obsolete_or_rejected": [
+    "separate Studio status bar",
+    "historical shared Trip/Guide overlay geometry ownership",
+    "Studio translateY viewport positioning workarounds",
+    "cold-white Saigon header treatment"
+  ],
+  "asset_cache_token": "rc2953-2563",
+  "release_status": "RC29.53 REV3 CANDIDATE — Qspa multi-day Booking detail + contact + Guide→Spa routing",
+  "changes": [
+    "Qspa Booking now exposes source-backed Trương Định direct phone contact and booking method",
+    "Qspa plannedVisits carry D1/D2/D3 date/time/timeline anchors and Booking detail renders all three Timeline buttons",
+    "Guide→Booking dispatch is type/category aware; Spa no longer falls through to Accommodation",
+    "Daily timeline Booking badges preserve PLANNED instead of collapsing to PENDING",
+    "Browser/static regression coverage added for D1/D2/D3 shared booking linkage, Qspa contact and Spa routing"
+  ],
+  "validation": {
+    "static_master_ci": "PASS — full sh ci-tests/run-all.sh after Qspa reconciliation and CI orchestration correction",
+    "browser_release_smoke": "NOT VERIFIED — local Playwright/Chromium launch succeeds but localhost navigation is blocked by ERR_BLOCKED_BY_ADMINISTRATOR in this environment",
+    "scope_sanity": "PASS — D4 and D5 itinerary JSON byte-semantically unchanged; shopping-directory-data.js unchanged"
+  },
+  "ci_hygiene_fix": "VN product-contract suite tail tests are now included in the suite failure accumulator; stale post-PASS false-green behavior removed.",
+  "currency_guide": "RC29.48 consolidates VPBank, Hà Tâm, Hung Long, TPBank LiveBank and Takashimaya B2 into one Cash & Currency Guide with contextual Timeline Currency buttons and per-option navigation."
 }

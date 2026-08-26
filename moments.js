@@ -136,13 +136,21 @@
     const match=String(dayId||'').match(/day(10|[1-9])/);
     return match ? match[1] : null;
   }
+  const MOMENT_PLANNED_ALLOWED_TYPES=new Set([
+    'meal','experience','shoppingWindow','spa','openList','optional'
+  ]);
+  function isMomentPlannable(item){
+    if(!item || item.momentsEligible===false) return false;
+    if(item.momentsEligible===true) return true;
+    return MOMENT_PLANNED_ALLOWED_TYPES.has(String(item.type||'').trim());
+  }
   function currentDayItems(dayNumber){
     const key=String(dayNumber);
     const master=((typeof ITINERARY_DATA!=='undefined'&&ITINERARY_DATA)||{})[key];
-    if(window.ITINERARY_AUTHORITY&&typeof ITINERARY_AUTHORITY.resolveDayItems==='function'){
-      return ITINERARY_AUTHORITY.resolveDayItems(key,master?.items||[]);
-    }
-    return (master?.items||[]).map(item=>({...item}));
+    const resolved=(window.ITINERARY_AUTHORITY&&typeof ITINERARY_AUTHORITY.resolveDayItems==='function')
+      ? ITINERARY_AUTHORITY.resolveDayItems(key,master?.items||[])
+      : (master?.items||[]).map(item=>({...item}));
+    return resolved.filter(isMomentPlannable);
   }
   function itineraryItems(){
     const out=[];

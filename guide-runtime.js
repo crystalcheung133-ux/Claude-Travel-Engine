@@ -27,13 +27,19 @@ function guideBookingHref(bookingId){
 function openGuideLinkedBooking(bookingId){
   const booking=window.BOOKING_AUTHORITY?BOOKING_AUTHORITY.get(bookingId):null;
   if(!booking)return;
-  window.TRIP_MODAL_RETURN_TO_GUIDE=true;
+  // Navigation contract: a Guide opened from Day Timeline is an intermediate layer.
+  // Closing its linked Booking returns directly to Timeline; Guide-origin flows return to Guide.
+  window.TRIP_MODAL_RETURN_TO_GUIDE=window.GUIDE_MODAL_ORIGIN!=='timeline';
   document.body.classList.add('guide-booking-stack-open');
-  if(booking.type==='activity'){
+  if(booking.type==='accommodation'){
+    openAccommodationDetail(bookingId,booking);
+    return;
+  }
+  if(booking.type==='activity'&&typeof bookingCategoryLabel==='function'&&bookingCategoryLabel(booking)==='Activities'){
     openActivityBookingDetail(bookingId,booking);
     return;
   }
-  openAccommodationDetail(bookingId,booking);
+  openGenericBookingDetail(bookingId,booking);
 }
 const GUIDE_NAV_CONTEXT_KEY=STORAGE_CONFIG.keys.guideNavContext;
 const GUIDE_NAV_REOPEN_KEY=STORAGE_CONFIG.keys.guideNavReopen;
@@ -50,7 +56,9 @@ function saveGuideNavigationContext(category, options){
   }catch(e){}
 }
 function openGuideGroupFromDay(keys,itemId){
+  window.GUIDE_MODAL_ORIGIN='timeline';
   window.GUIDE_MODAL_RETURN_SCROLL_Y=window.scrollY||window.pageYOffset||0;
+  window.GUIDE_MODAL_RETURN_ITEM_ID=itemId||null;
   const excluded=new Set(TRIP_CONFIG.guide?.excludedPlaceIds||[]);
   const clean=[...new Set((Array.isArray(keys)?keys:[]).filter(key=>key&&typeof PRODUCTION_GUIDE.places!=='undefined'&&PRODUCTION_GUIDE.places[key]&&!excluded.has(key)))];
   if(!clean.length)return;
@@ -99,24 +107,25 @@ function openShoppingDirectoryView(requestedDay){
  const raw=Array.isArray(globalThis.VN_SHOPPING_DIRECTORY_CARDS)?globalThis.VN_SHOPPING_DIRECTORY_CARDS:[];
  const day=Number(requestedDay)||0;
  const cards=day?raw.filter(card=>shoppingDirectoryDay(card)===day):raw;
- const groups=[
-  ['Day 2 · Nguyễn Trãi & Central D1',2],
-  ['Day 3 · Thảo Điền Lifestyle Walk',3],
-  ['Day 4 · Phú Nhuận & District 3',4]
- ];
- const grouped=groups.map(([label,n])=>{
-   if(day&&day!==n)return '';
-   const rows=cards.filter(card=>shoppingDirectoryDay(card)===n).join('');
-   return rows?`<section class="directory-route-group"><h3>${label}</h3><div class="directory-route-grid">${rows}</div></section>`:'';
- }).join('');
- const detours=day?'':cards.filter(card=>!shoppingDirectoryDay(card)).join('');
- const optional=detours?`<section class="directory-route-group"><h3>Optional Detours</h3><div class="directory-route-grid">${detours}</div></section>`:'';
- const title=day?`🛍 Day ${day} Shopping Directory`:'🛍 Optional Shopping Directory';
- const lead=day?`只顯示 Day ${day} 當日順路店舖；按體力取捨，不需要逐間完成。`:'按當日路線分組；近邊去邊，唔需要逐間完成。';
- $('guideModalContent').innerHTML=`<p class="kicker">Shopping Directory</p><h2>${title}</h2><p class="lead">${lead}</p><div class="directory-grid">${grouped}${optional}</div>`;
+ function section(label,rows){return rows.length?`<section class="directory-route-group"><h3>${label}</h3><div class="directory-route-grid">${rows.join('')}</div></section>`:'';}
+ const planned=rows=>rows.filter(card=>/PLANNED ·/i.test(card));
+ const optional=rows=>rows.filter(card=>/OPTIONAL ·/i.test(card));
+ let grouped='';
+ if(day===1){ grouped=section('PLANNED · Nguyễn Trãi Local Fashion Walk',planned(cards))+section('OPTIONAL · If Time / Near Hotel',optional(cards)); }
+ else if(day===2){ grouped=section('PLANNED · Morning Run · 11 Garmentory + Trần Quang Diệu',planned(cards).filter(card=>/MORNING/i.test(card)))+section('PLANNED · Afternoon · Vincom Đồng Khởi + The New Playground',planned(cards).filter(card=>/AFTERNOON/i.test(card))); }
+ else if(day===4){ grouped=section('PLANNED · Thảo Điền Lifestyle',planned(cards))+section('OPTIONAL',optional(cards)); }
+ else if(day===5){ grouped=section('PLANNED · Last Shopping',planned(cards))+section('OPTIONAL',optional(cards)); }
+ else if(day){ grouped=section(`PLANNED · Day ${day}`,planned(cards))+section('OPTIONAL',optional(cards)); }
+ else{
+   grouped=section('PLANNED BY DAY · Day 1',planned(raw.filter(card=>shoppingDirectoryDay(card)===1)))+section('PLANNED BY DAY · Day 2',planned(raw.filter(card=>shoppingDirectoryDay(card)===2)))+section('PLANNED BY DAY · Day 4',planned(raw.filter(card=>shoppingDirectoryDay(card)===4)))+section('PLANNED BY DAY · Day 5',planned(raw.filter(card=>shoppingDirectoryDay(card)===5)))+section('OPTIONAL / NEARBY',optional(raw));
+ }
+ const title=day?`🛍 Day ${day} Shopping Directory`:'🛍 Shopping Directory';
+ const lead=day===1?'Nguyễn Trãi 是已定好的 Day 1 local-fashion line；主線與 optional extension 分開。':day===2?'上午走 11 Garmentory + Trần Quang Diệu；Pizza 4P’s 後到 Qspa 做 Afternoon Reset，再走 Cathedral / Post Office / Book Street sightseeing cluster，之後步行接 Vincom / The New Playground，最後往 LÚNE。':day===4?'只收 Thảo Điền 當日 walking line 真正會經過的店。':day===5?'最後補貨集中在酒店旁，不再為 shopping 多繞一程。':'先看 PLANNED BY DAY；真正未排入 itinerary 的店才放 OPTIONAL。';
+ $('guideModalContent').innerHTML=`<p class="kicker">Shopping Directory</p><h2>${title}</h2><p class="lead">${lead}</p><div class="directory-grid">${grouped}</div>`;
  closeMiniMenus();$('guideModal').classList.add('show');
- const sheet=document.querySelector('#guideModal .guide-sheet'); if(sheet)sheet.scrollTop=0;
+ const sheet=document.querySelector('#guideModal .guide-sheet');if(sheet)sheet.scrollTop=0;
 }
+
 window.addEventListener('hashchange',applyGuideHashView);
 document.addEventListener('DOMContentLoaded',applyGuideHashView);
 function openRequestedGuideCard(){
@@ -232,13 +241,14 @@ function groupedGuideRows(cat,list){
  return list.map(guideListRow).join('');
 }
 function openGuideCategory(cat){
+ window.GUIDE_MODAL_ORIGIN='guide';
  const semantic=guideSemanticCategory(cat);
  saveGuideNavigationContext(semantic);
  const list=guideSortedCategoryItems(semantic);
  // A single-entry category is already the destination; skip a redundant chooser.
  if(list.length===1){closeMiniMenus();openGuideModal(list[0].key);return;}
  if(semantic==='SHOP'){
-  const directoryRow=`<button onclick="openShoppingDirectoryView()"><span><span class="guide-list-title">🛍 Shopping Directory</span><span class="guide-list-sub">Optional shops · Near · Best with Day</span></span><span>↓</span></button>`;
+  const directoryRow=`<button onclick="openShoppingDirectoryView()"><span><span class="guide-list-title">🛍 Shopping Directory</span><span class="guide-list-sub">Planned by Day · Optional / Nearby</span></span><span>↓</span></button>`;
   const rows=directoryRow+list.map(i=>guideListRow(i)).join('');
   $('guideModalContent').innerHTML=`<p class="kicker">Guide</p><h2>SHOP</h2><div class="category-pop-list">${rows}</div>`;
   closeMiniMenus();$('guideModal').classList.add('show');return;
@@ -280,6 +290,15 @@ function guideCoreSections(g,key){
  return compactGuideSections(normalized);
 }
 
+function guideAlternativeLinksHTML(g){
+ const rows=Array.isArray(g&&g.alternativeGuides)?g.alternativeGuides:[];
+ if(!rows.length)return '';
+ return `<section class="guide-content-section guide-alternatives-by-day"><h3>Alternatives by Day</h3><div class="quick-info-actions">${rows.map(function(row){
+   const prefix=row.day?`${row.day} · `:'';
+   const note=row.note?` — ${row.note}`:'';
+   return `<button class="utility-button" type="button" onclick="openGuideModal('${String(row.placeId||'').replace(/'/g,"\'")}')">${prefix}${row.label||'Alternative'}${note} · Open Guide</button>`;
+ }).join('')}</div></section>`;
+}
 function quickInfoInnerHTML(g,key){
  const phoneRow=g.phone?`<div class="quick-info-row"><span class="quick-info-icon">☎️</span><span><span class="quick-info-label">Phone</span><span class="quick-info-value">${g.phone}</span></span></div>`:'';
  const callButton=g.phone?`<a class="utility-button" href="tel:${String(g.phone).replace(/[^+\d]/g,'')}">☎️ Call</a>`:'';
@@ -309,7 +328,9 @@ function quickInfoInnerHTML(g,key){
  const parkingHTML=parking?`<div class="recommended-parking"><div class="recommended-parking-head"><span>🚗</span><span><strong>Recommended Parking</strong><small>${parking.name||''}</small></span></div><div class="recommended-parking-grid"><p><span>📍</span><span>${parking.address||''}</span></p><p><span>🚶</span><span>${parking.walk||''}</span></p><p><span>💰</span><span>${parking.fee||''}</span></p></div>${parking.note?`<p class="recommended-parking-note">${parking.note}</p>`:''}${parking.maps?`<a class="map-button recommended-parking-nav" href="${parking.maps}" target="_blank" rel="noopener">🧭 Navigate to Parking</a>`:''}</div>`:'';
  const detailStatus=g.cat==='STAY'?guideStayStatusHTML(Object.assign({key},g)):guideStatusHTML(Object.assign({key},g));
  const coreSections=guideCoreSections(g,key);
- return `<div class="quick-info-top"><span class="category-tag">${g.categoryLabel||g.cat||'Guide'}</span>${roleBadge}${detailStatus}</div><div class="quick-info-grid">${addressRow}${phoneRow}${hoursRow}${priceRow}${bookingRow}${visitDayHTML(key)}</div>${coreSections}${reminderRow}${parkingHTML}<div class="quick-info-actions">${navButton}${bookingButton}</div>`;
+ const currencyOptions=Array.isArray(g.currencyOptions)?g.currencyOptions:[];
+ const currencyOptionsHTML=currencyOptions.length?`<div class="currency-option-list">${currencyOptions.map(option=>`<article class="currency-option-card"><div class="currency-option-head"><strong>${option.icon||'💱'} ${option.name||''}</strong><span>${option.best||''}</span></div><p>${option.note||''}</p><p class="currency-option-address">📍 ${option.address||''}</p>${option.maps?`<a class="map-button" href="${option.maps}" target="_blank" rel="noopener">🧭 Navigate</a>`:''}</article>`).join('')}</div>`:'';
+ return `<div class="quick-info-top"><span class="category-tag">${g.categoryLabel||g.cat||'Guide'}</span>${roleBadge}${detailStatus}</div><div class="quick-info-grid">${addressRow}${phoneRow}${hoursRow}${priceRow}${bookingRow}${visitDayHTML(key)}</div>${coreSections}${guideAlternativeLinksHTML(g)}${currencyOptionsHTML}${reminderRow}${parkingHTML}<div class="quick-info-actions">${navButton}${bookingButton}</div>`;
 }
 
 function quickInfoHTML(g,key){
@@ -489,17 +510,25 @@ function openGuideModal(key,options){
  const sheet=document.querySelector('#guideModal .guide-sheet');
  if(sheet){sheet.scrollTop=0;if(typeof window.applyNearFitModal==='function')window.applyNearFitModal(sheet,'guide-near-fit');}
 }
+function restoreGuideTimelineOrigin(){
+ const raw=window.GUIDE_MODAL_RETURN_SCROLL_Y;
+ const returnScroll=(typeof raw==='number'&&Number.isFinite(raw))?raw:null;
+ const itemId=window.GUIDE_MODAL_RETURN_ITEM_ID||null;
+ window.GUIDE_MODAL_RETURN_SCROLL_Y=null;
+ window.GUIDE_MODAL_RETURN_ITEM_ID=null;
+ if(returnScroll===null)return;
+ const restore=()=>window.scrollTo({top:returnScroll,left:0,behavior:'auto'});
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{restore();setTimeout(restore,60);}));
+}
 function closeGuideModal(){
- const returnScroll=Number(window.GUIDE_MODAL_RETURN_SCROLL_Y);
+ const shouldRestore=window.GUIDE_MODAL_ORIGIN==='timeline';
+ window.GUIDE_MODAL_ORIGIN=null;
  const modal=$('guideModal');if(modal)modal.classList.remove('show');
  guideAlternativeKeys=[];
  closeMiniMenus();
  document.body.classList.remove('admin-overlay-open');
  clearGuideNavigationContext();
- if(Number.isFinite(returnScroll)){
-  window.GUIDE_MODAL_RETURN_SCROLL_Y=null;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>window.scrollTo({top:returnScroll,left:0,behavior:'auto'})));
- }
+ if(shouldRestore)restoreGuideTimelineOrigin();
 }
 
 function renderPlacePage(key){

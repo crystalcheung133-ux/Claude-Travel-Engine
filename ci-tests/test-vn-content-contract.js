@@ -4,7 +4,7 @@ assert(!data.includes('Booked session: 17:30'),'Omakase timeline must not fall b
 assert(data.includes('"bookingName": "Crystal Cheung"'),'Omakase booked-under must remain a person, not payment data');
 assert(data.includes('"depositAmount": "2000000"')&&data.includes('"depositCurrency": "VND"'),'Omakase deposit must remain structured');
 for(const token of ['🧸','👓','✝️','👟']) assert(config.includes(token),`Missing traveller emoji ${token}`);
-for(const token of ['🛬','👩‍🍳','🌿','🛍️','✈️']) assert(data.includes(`"dayEmoji": "${token}"`),`Missing day emoji ${token}`);
+for(const token of ['🛬','🌿','🪖','🛍️','✈️']) assert(data.includes(`"dayEmoji": "${token}"`),`Missing day emoji ${token}`);
 assert(script.includes('day.dayEmoji||'),'Day navigation must prefer explicit day emoji');
 assert(core.includes('identity.emoji||identity.code'),'Party renderer must show configured emoji');
-console.log('VN CONTENT CONTRACT: PASS — language, Omakase booking fields, traveller emoji and per-day emoji enforced.');
+console.log('VN CONTENT CONTRACT: PASS — language, Omakase booking fields, traveller emoji and current per-day identities enforced.');

@@ -101,7 +101,7 @@ function buildAccommodationListHTML(){
     if(booking.cashbackAmount||booking.cashback)priceParts.push(`Cashback ${booking.cashbackAmount||booking.cashback}`);
     if(booking.netTotalAUD||booking.netPrice)priceParts.push(`${booking.approximateNet?'≈ ':''}Net ${booking.netTotalAUD||booking.netPrice}`);
     const price=priceParts.join(' · ')||'Price not added yet';
-    const statusLabel=booking.displayStatus||bookingStatusText(booking)||'';
+    const statusLabel=bookingStatusText(booking)||'';
     const statusClass=String(booking.status||'').replace(/[^a-z0-9-]/gi,'').toLowerCase();
     return `<button class="accommodation-picker-row" type="button" role="listitem" onclick="openAccommodationDetail('${escapeTripHTML(booking.id)}')"><span class="accommodation-picker-icon" aria-hidden="true">🏨</span><span class="accommodation-picker-copy"><strong>${escapeTripHTML(booking.title)}</strong><small>${escapeTripHTML(booking.stayDates||booking.date||'')}</small><span class="accommodation-picker-price">${escapeTripHTML(price)}</span></span><span class="accommodation-picker-meta accommodation-picker-meta--stack">${statusLabel?`<span class="accommodation-status-badge accommodation-status-badge--${escapeTripHTML(statusClass)}">${escapeTripHTML(statusLabel)}</span>`:''}<span class="accommodation-night-line">${escapeTripHTML(nightsLabel)} <b aria-hidden="true">›</b></span></span></button>`;
   }).join('')+'</div>';
@@ -121,12 +121,13 @@ function accommodationDetailNavigationHTML(bookingId){
 }
 function normalizedBookingStatus(booking){
   const raw=String((booking&&booking.status)||'pending').toLowerCase();
-  return raw==='confirmed'?'confirmed':'pending';
+  return raw==='confirmed'?'confirmed':(raw==='planned'?'planned':'pending');
 }
 function bookingStatusText(booking){
-  const raw=String((booking&&((booking.displayStatus||booking.status)))||'').replace(/-/g,' ').trim().toUpperCase();
+  const raw=String((booking&&booking.status)||'').replace(/-/g,' ').trim().toUpperCase();
   if(raw==='OPEN'||raw==='UNBOOKED'||raw==='DECIDE LATER'||raw==='TBD')return 'OPEN';
-  return normalizedBookingStatus(booking)==='confirmed'?'CONFIRMED':'PENDING';
+  const normalized=normalizedBookingStatus(booking);
+  return normalized==='confirmed'?'CONFIRMED':(normalized==='planned'?'PLANNED':'PENDING');
 }
 function bookingDayNumber(booking){
   const raw=String((booking&&booking.dayId)||'').replace('day','').replace(/\D/g,'');
@@ -149,24 +150,49 @@ function bookingSectionHTML(title,content,options){
   return `<div class="accommodation-section"><h3>${escapeTripHTML(title)}</h3><p>${safe}</p></div>`;
 }
 
+function bookingHumanValue(value,trueLabel){
+  if(value===true)return trueLabel||'PAID';
+  if(value===false||value===null||value===undefined)return '';
+  return String(value);
+}
+function bookingDepositDisplay(booking){
+  const amount=String(booking&&booking.depositAmount||'').replace(/,/g,'').trim();
+  const currency=String(booking&&booking.depositCurrency||'').trim();
+  let main='';
+  if(amount&&/^\d+(?:\.\d+)?$/.test(amount)){
+    main=`${Number(amount).toLocaleString('en-US')}${currency?` ${currency}`:''}`;
+  }else{
+    main=bookingHumanValue(booking&&booking.depositPaid,'PAID');
+  }
+  const aud=String(booking&&booking.depositAUD||'').trim();
+  return [main,aud].filter(Boolean).join(' · ');
+}
 function accommodationPaymentHTML(booking){
-  const status=booking.paymentLabel||booking.paymentStatus||'';
+  const status=bookingHumanValue(booking.paymentLabel||booking.paymentStatus||'');
   const rows=[
-    ['Charge date',booking.chargeDate||''],
-    ['Total',booking.totalAmount||''],
-    ['Deposit paid',booking.depositPaid||''],
-    ['Balance due',booking.balanceDue||booking.payAtPickup||''],
-    [booking.discountLabel||'Discount',booking.discountAmount||''],
-    ['Cashback',booking.cashbackAmount||booking.cashback||''],
-    [booking.approximateNet?'≈ Net cost':'Net cost',booking.netTotalAUD||booking.netPrice||'']
+    ['Charge date',bookingHumanValue(booking.chargeDate||'')],
+    ['Total',bookingHumanValue(booking.totalAmount||'')],
+    ['Deposit',bookingDepositDisplay(booking)],
+    ['Balance due',bookingHumanValue(booking.balanceDue||booking.payAtPickup||'')],
+    [booking.discountLabel||'Discount',bookingHumanValue(booking.discountAmount||'')],
+    ['Cashback',bookingHumanValue(booking.cashbackAmount||booking.cashback||'')],
+    [booking.approximateNet?'≈ Net cost':'Net cost',bookingHumanValue(booking.netTotalAUD||booking.netPrice||'')]
   ].filter(function(row){return String(row[1]||'').trim();});
   if(!status&&!rows.length)return '';
   return `<section class="accommodation-payment-block"><div class="accommodation-payment-head"><h3>Payment</h3>${status?`<span>${escapeTripHTML(String(status).toUpperCase())}</span>`:''}</div>${rows.length?`<dl>${rows.map(function(row,index){return `<div class="${index===rows.length-1?'payment-net-row':''}"><dt>${escapeTripHTML(row[0])}</dt><dd>${escapeTripHTML(row[1])}</dd></div>`;}).join('')}</dl>`:''}${booking.fxNote?`<p class="payment-fx-note">${escapeTripHTML(booking.fxNote)}</p>`:''}</section>`;
 }
 function bookingGuideButtonHTML(booking){
-  return booking&&booking.placeId?`<button class="pill trip-action-btn trip-action-btn--guide" type="button" onclick="openGuideModal('${escapeTripHTML(booking.placeId)}')">Guide</button>`:'';
+  return booking&&booking.placeId?`<button class="pill trip-action-btn trip-action-btn--guide" type="button" onclick="openGuideModal('${escapeTripHTML(booking.placeId)}')">View Guide</button>`:'';
 }
 function bookingDayButtonHTML(booking){
+  const visits=Array.isArray(booking&&booking.plannedVisits)?booking.plannedVisits:[];
+  const multi=visits.map(function(row){
+    const rawDay=String(row&&((row.dayId||row.day))||'').replace(/^day/i,'').replace(/^d/i,'').replace(/\D/g,'');
+    if(!rawDay)return '';
+    const anchor=row&&row.timelineItemId?`#${escapeTripHTML(row.timelineItemId)}`:'';
+    return `<a class="pill trip-action-btn trip-action-btn--day" href="day.html?day=${escapeTripHTML(rawDay)}${anchor}">Day ${escapeTripHTML(rawDay)} Timeline</a>`;
+  }).filter(Boolean);
+  if(multi.length)return [...new Set(multi)].join('');
   const dayNumber=bookingDayNumber(booking);if(!dayNumber)return '';
   const anchor=booking.timelineItemId?`#${escapeTripHTML(booking.timelineItemId)}`:'';
   return `<a class="pill trip-action-btn trip-action-btn--day" href="day.html?day=${escapeTripHTML(dayNumber)}${anchor}">Day ${escapeTripHTML(dayNumber)} Timeline</a>`;
@@ -175,24 +201,33 @@ function bookingExpenseActionHTML(booking){
   if(!booking||!booking.id||typeof window.openBookingExpense!=='function')return '';
   const links=typeof window.getBookingExpenseLinks==='function'?window.getBookingExpenseLinks(booking.id):[];
   const linked=links.length;
-  const status=linked?`<span class="booking-expense-linked">✓ ${linked} payment${linked===1?'':'s'} in Expenses</span>`:`<span class="booking-expense-unlinked">Not added to Expenses</span>`;
   const newest=links.slice().sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')))[0]||null;
   const viewHref=newest?.id?`expenses.html?expenseId=${encodeURIComponent(newest.id)}`:`expenses.html?bookingId=${encodeURIComponent(booking.id)}`;
-  const viewLabel=linked===1?'View Expense':`View ${linked} Expenses`;
-  return `<div class="booking-expense-actions"><div>${status}</div><div class="booking-expense-buttons">${linked?`<a class="pill trip-action-btn" href="${viewHref}">${viewLabel}</a>`:''}<button class="pill trip-action-btn" type="button" onclick="openBookingExpense('${escapeTripHTML(booking.id)}')">${linked?'Add another payment':'Add payment to Expenses'}</button></div></div>`;
+  if(linked){
+    const label=linked===1?'View Expense':`View ${linked} Expenses`;
+    return `<div class="trip-action-row trip-action-row--booking-compact booking-expense-buttons booking-expense-buttons--compact"><a class="pill trip-action-btn trip-action-btn--expense" href="${viewHref}">${label}</a></div>`;
+  }
+  const hasPayment=Boolean(
+    booking.depositPaid||booking.depositAmount||booking.paymentStatus||
+    booking.totalAmount||booking.price||booking.cashbackAmount||booking.netTotalAUD
+  );
+  if(!hasPayment)return '';
+  return `<div class="trip-action-row trip-action-row--booking-compact booking-expense-buttons booking-expense-buttons--compact"><button class="pill trip-action-btn trip-action-btn--expense" type="button" onclick="openBookingExpense('${escapeTripHTML(booking.id)}')">Add payment to Expenses</button></div>`;
 }
 function bookingActionButtonsHTML(booking,place,options={}){
-  const address=bookingAddress(booking,place);
   const includeDay=options.includeDay!==false;
-  const includeGuide=options.includeGuide!==false;
+  const whatsappContact=String(booking&&booking.whatsapp||'').trim();
+  const whatsappDigits=whatsappContact.replace(/[^0-9]/g,'');
+  const whatsapp=(whatsappContact&&whatsappDigits)?`https://wa.me/${whatsappDigits}`:'';
   const buttons=[
-    includeGuide?bookingGuideButtonHTML(booking):'',
     includeDay?bookingDayButtonHTML(booking):'',
-    address?`<a class="pill trip-action-btn" href="${escapeTripHTML(accommodationMapURL(address))}" target="_blank" rel="noopener">Navigate</a>`:'',
-    address?`<button class="pill trip-action-btn" type="button" onclick="navigator.clipboard&&navigator.clipboard.writeText(${JSON.stringify(address).replace(/"/g,'&quot;')})">Copy Address</button>`:'',
+    bookingGuideButtonHTML(booking),
+    booking&&booking.bookingUrl?`<a class="pill trip-action-btn trip-action-btn--book" href="${escapeTripHTML(booking.bookingUrl)}" target="_blank" rel="noopener">Book Online</a>`:'',
+    whatsapp?`<a class="pill trip-action-btn trip-action-btn--whatsapp" href="${escapeTripHTML(whatsapp)}" target="_blank" rel="noopener">WhatsApp</a>`:'',
+    booking&&booking.email?`<a class="pill trip-action-btn trip-action-btn--email" href="mailto:${escapeTripHTML(booking.email)}">Email</a>`:'',
     bookingEditButtonHTML(booking)
   ].filter(Boolean);
-  return buttons.length?`<div class="trip-action-row">${buttons.join('')}</div>`:'';
+  return buttons.length?`<div class="trip-action-row trip-action-row--booking-compact">${buttons.join('')}</div>`:'';
 }
 function bookingContactSectionsHTML(booking,place){
   const phone=(booking&&booking.phone)||(place&&place.phone)||'';
@@ -212,7 +247,7 @@ function buildAccommodationDetailHTML(booking){
   const arrival=[booking.checkIn||'',booking.checkOut||''].filter(Boolean).join(' → ');
   const reference=[booking.bookingName?`Booked under · ${booking.bookingName}`:'',booking.reference?`${bookingReferenceLabel(booking)} · ${booking.reference}`:''].filter(Boolean).join('\n');
   const facts=bookingFactGridHTML([
-    ['Status',booking.displayStatus||bookingStatusText(booking)],
+    ['Status',bookingStatusText(booking)],
     ['Room',booking.roomType||''],
     ['Guests',booking.guestSummary||''],
     ['Host',booking.host||''],
@@ -312,16 +347,41 @@ function bookingCategoryLabel(booking){
   if(type==='transport'||type==='rentalcar')return 'Transport';
   return 'Activities';
 }
+function bookingPlannedVisitsHTML(booking){
+  const rows=Array.isArray(booking&&booking.plannedVisits)?booking.plannedVisits:[];
+  if(!rows.length)return '';
+  return `<section class="accommodation-section booking-planned-visits"><h3>Planned visits</h3><div class="accommodation-facts">${rows.map(function(row){
+    const dayDate=[row.day||'',row.date||''].filter(Boolean).join(' · ');
+    const labelTime=[row.label||'',row.time||''].filter(Boolean).join(' · ');
+    return `<div class="accommodation-fact"><small>${escapeTripHTML(dayDate)}</small><strong>${escapeTripHTML(labelTime)}</strong><span>${escapeTripHTML(row.duration||'')}</span></div>`;
+  }).join('')}</div></section>`;
+}
+function bookingAlternativeGuidesHTML(booking){
+  const rows=Array.isArray(booking&&booking.alternativeGuides)?booking.alternativeGuides:[];
+  if(!rows.length)return '';
+  return `<section class="accommodation-section booking-alternative-guides"><h3>Optional alternatives</h3><div class="trip-action-row trip-action-row--booking-compact">${rows.map(function(row){
+    const day=row.day?`${escapeTripHTML(row.day)} · `:'';
+    const note=row.note?`<small>${day}${escapeTripHTML(row.note)}</small>`:`<small>${day}Guide only</small>`;
+    return `<button class="pill trip-action-btn trip-action-btn--guide" type="button" onclick="openGuideModal('${escapeTripHTML(row.placeId||'')}')"><span>${escapeTripHTML(row.label||'Alternative')}</span>${note}</button>`;
+  }).join('')}</div></section>`;
+}
 function buildGenericBookingDetailHTML(booking){
   if(!booking)return '<p class="timestamp">Booking not found.</p>';
   const place=bookingPlace(booking);
   const facts=bookingFactGridHTML([
-    ['Status',bookingStatusText(booking)],['Day',bookingDayNumber(booking)?'Day '+bookingDayNumber(booking):''],['Date',booking.date||''],['Time',booking.time||''],
+    ['Status',bookingStatusText(booking)],['Day',booking.plannedDays||(bookingDayNumber(booking)?'Day '+bookingDayNumber(booking):'')],['Date',booking.date||''],['Time',booking.time||''],
     ['Booked under',booking.bookingName||''],[bookingReferenceLabel(booking),booking.reference||''],['Booking method',booking.bookingMethod||booking.bookingViaOther||booking.bookingWay||booking.platform||''],
-    ['Phone / WhatsApp',booking.bookingContact||booking.phone||''],['Email',booking.email||'']
+    ['Phone',booking.phone||booking.bookingContact||place?.phone||''],['WhatsApp',booking.whatsapp||''],['Email',booking.email||'']
   ]);
   const payment=normalizedBookingStatus(booking)==='confirmed'?accommodationPaymentHTML(booking):'';
-  const sections=[payment,bookingSectionHTML('Address',bookingAddress(booking,place)),bookingSectionHTML('Notes',booking.notes||''),bookingSectionHTML('Cancellation',booking.cancellation||'')].join('');
+  const sections=[
+    payment,
+    bookingSectionHTML('Address',bookingAddress(booking,place)),
+    bookingSectionHTML('Notes',booking.notes||''),
+    bookingSectionHTML('Cancellation',booking.cancellation||''),
+    bookingPlannedVisitsHTML(booking),
+    bookingAlternativeGuidesHTML(booking)
+  ].join('');
   return `<article class="fact stay-booking accommodation-detail-card generic-booking-detail"><div class="accommodation-detail-head"><div><strong>${escapeTripHTML(booking.title)}</strong><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place)}${bookingExpenseActionHTML(booking)}${genericBookingDetailNavigationHTML(booking)}</article>`;
 }
 function openGenericBookingDetail(bookingId,bookingOverride,showSaved){
@@ -364,8 +424,9 @@ window.requestBookingEditClose=requestBookingEditClose;
 
 
 function bookingEditButtonHTML(booking){
-  return booking&&window.BOOKING_PERMISSIONS&&BOOKING_PERMISSIONS.canEdit()
-    ?`<button class="pill trip-action-btn booking-edit-btn" type="button" onclick="openBookingEdit('${escapeTripHTML(booking.id)}')">${escapeTripHTML(BOOKING_PERMISSIONS.editLabel())}</button>`:'';
+  const studioActive=!!(window.isAdminMode&&window.isAdminMode());
+  return booking&&studioActive&&window.BOOKING_PERMISSIONS&&BOOKING_PERMISSIONS.canEdit()
+    ?`<button class="pill trip-action-btn booking-edit-btn trip-action-btn--edit" type="button" onclick="openBookingEdit('${escapeTripHTML(booking.id)}')">${escapeTripHTML(BOOKING_PERMISSIONS.editLabel())}</button>`:'';
 }
 function bookingField(label,name,value,options){
   const opts=options||{};
@@ -390,7 +451,7 @@ function bookingEditFields(booking){
   const via=bookingViaValue(booking);
   const rawVia=String(booking.bookingViaOther||booking.bookingWay||booking.platform||'').trim();
   const common=[
-    bookingField('Status','status',normalizedBookingStatus(booking),{type:'select',choices:['pending','confirmed']}),
+    bookingField('Status','status',normalizedBookingStatus(booking),{type:'select',choices:['pending','planned','confirmed']}),
     bookingField('Date','date',booking.date),
     bookingField('Booking title','title',booking.title,{wide:true}),
     bookingField('Booked under','bookingName',booking.bookingName),bookingField('Booking reference','reference',booking.reference),
@@ -468,7 +529,7 @@ async function saveBookingEdit(event,bookingId){
   const form=event.currentTarget;const current=getBookingById(bookingId);if(!current||!window.BOOKING_AUTHORITY){alert('Booking editor is not ready. Please close and reopen this booking.');return false;}
   const formData=new FormData(form);const next=Object.assign({},current);
   formData.forEach(function(value,key){next[key]=String(value).trim();});
-  next.status=String(next.status||'pending').toLowerCase()==='confirmed'?'confirmed':'pending';
+  {const rawStatus=String(next.status||'pending').toLowerCase();next.status=rawStatus==='confirmed'?'confirmed':(rawStatus==='planned'?'planned':'pending');}
   const viaChoice=next.bookingVia||'';
   const viaOther=next.bookingViaOther||'';
   const viaValue=viaChoice==='Other'?viaOther:viaChoice;
@@ -614,7 +675,11 @@ function closeTripModal() {
   const returnToGuide=window.TRIP_MODAL_RETURN_TO_GUIDE===true;
   window.TRIP_MODAL_RETURN_TO_GUIDE=false;
   const guideModal=document.getElementById('guideModal');
-  if(guideModal&&!returnToGuide) guideModal.classList.remove('show');
+  if(guideModal&&!returnToGuide){
+    guideModal.classList.remove('show');
+    window.GUIDE_MODAL_ORIGIN=null;
+    if(typeof window.restoreGuideTimelineOrigin==='function') window.restoreGuideTimelineOrigin();
+  }
   closeMiniMenus();
   document.body.classList.remove('admin-overlay-open');
   if(returnToGuide){
@@ -645,10 +710,11 @@ function renderDashboard(){
 
 
 function bookingEntityIcon(booking,category){
+  if(booking&&booking.emoji)return String(booking.emoji);
   const type=String(booking&&booking.type||'').toLowerCase();
   const title=String(booking&&booking.title||'').toLowerCase();
-  if(type==='restaurant')return title.includes('omakase')?'🍣':title.includes('little bear')?'🧸':title.includes('pizza')?'🍕':title.includes('lune')?'🇫🇷':title.includes('quince')?'🔥':'🍽️';
-  if(type==='spa')return title.includes('suga')||title.includes('head')?'🫧':title.includes('mộc kim')||title.includes('moc kim')?'🌿':title.includes('mộc hương')||title.includes('moc huong')||title.includes('wellness')?'🪨':title.includes('tỉnh thức')||title.includes('tinh thuc')?'🦶':title.includes('hạ spa')||title.includes('ha spa')?'💆‍♀️':'💆';
+  if(type==='restaurant')return title.includes('omakase')?'🍣':title.includes('little bear')?'🧸':title.includes('pizza')?'🍕':title.includes('lune')?'🇫🇷':'🍽️';
+  if(type==='spa')return title.includes('suga')||title.includes('head')?'🫧':title.includes('mộc hương')||title.includes('moc huong')||title.includes('wellness')?'🌿':title.includes('hạ spa')||title.includes('ha spa')?'💆‍♀️':'💆';
   if(type==='transport')return title.includes('airport')?'✈️':'🚐';
   if(type==='activity'||type==='experience')return title.includes('cooking')?'👩‍🍳':'🎟️';
   return bookingCategoryIcon(category);
