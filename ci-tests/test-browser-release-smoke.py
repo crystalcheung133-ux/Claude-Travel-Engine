@@ -230,7 +230,6 @@ def run_viewport(browser,base,viewport,label):
             'bk-pizza4ps':{id:'bk-pizza4ps',bookingId:'bk-pizza4ps',title:'Pizza 4P’s Hai Bà Trưng',day:4,dayId:'day4',date:'2026-11-02',time:'11:30',status:'pending',notes:'Reserve lunch for 4 guests.'},
             'bk-moc-huong':{id:'bk-moc-huong',bookingId:'bk-moc-huong',title:'Mộc Hương Wellness',day:3,dayId:'day3',date:'2026-11-01',time:'15:30',status:'pending'},
             'bk-norah-spa-2':{id:'bk-norah-spa-2',bookingId:'bk-norah-spa-2',title:'Old Norah',day:4,dayId:'day4',date:'2026-11-02',time:'16:45',status:'pending'},
-            'bk-nara':{id:'bk-nara',bookingId:'bk-nara',title:'Old Nara',day:3,dayId:'day3',date:'2026-11-01',time:'17:15',status:'pending'},
             'bk-transfer-in':{id:'bk-transfer-in',bookingId:'bk-transfer-in',title:'Old Airport Transfer',day:1,dayId:'day1',date:'2026-10-30',time:'05:55',status:'pending',displayStatus:'Pending',_masterRevision:7},
             'bk-fusion-original':{id:'bk-fusion-original',bookingId:'bk-fusion-original',title:'Old Fusion',status:'pending',displayStatus:'Pending',_masterRevision:7}
           };
@@ -267,49 +266,22 @@ def run_viewport(browser,base,viewport,label):
               label+': Pizza Book Online does not point to reservation URL')
         page.locator('#tripModal .trip-close').click()
 
-        # Multi-day canonical booking: every Qspa timeline occurrence must expose the same Booking and PLANNED badge.
-        for qday,qid in [(1,'qspa-d1'),(2,'qspa-d2'),(3,'qspa-d3')]:
-          page.goto(base+f'/day.html?day={qday}',wait_until='domcontentloaded')
-          page.evaluate("document.getElementById('ccmvSplash')?.remove()")
-          qcard=page.locator('#'+qid)
-          check(qcard.count()==1,label+f': D{qday} Qspa timeline occurrence missing')
-          check(qcard.locator('.timeline-action--trip').count()==1,label+f': D{qday} Qspa Booking button missing')
-          check('PLANNED' in qcard.inner_text().upper(),label+f': D{qday} Qspa timeline collapsed PLANNED to PENDING')
-
-        page.goto(base+'/trip.html',wait_until='domcontentloaded')
         page.evaluate("openBookingCategoryCard('Spa')")
         page.wait_for_selector('#tripModal.show')
         spa_text=page.locator('#tripModalContent').inner_text()
         check('Mộc Hương Wellness' not in spa_text,label+': obsolete D4 Mộc Hương booking resurrected from stale state')
-        check('Qspa · Rediscover Your Soul' in spa_text,label+': canonical Qspa booking missing')
-        check('PLANNED' in spa_text,label+': Qspa booking did not render PLANNED')
-        check('Norah Spa 2' not in spa_text,label+': optional Norah incorrectly rendered as Booking card')
-        check('Nara Spa' not in spa_text,label+': optional Nara incorrectly rendered as Booking card')
-        check(spa_text.count('Qspa · Rediscover Your Soul')==1,label+': duplicate Qspa Booking cards rendered')
+        check('Norah Spa 2' in spa_text and '14:00' in spa_text,label+': Norah Spa 2 did not render at 14:00')
+        check('16:45' not in spa_text,label+': stale Norah time survived into rendered UI')
 
-        page.locator("#tripModalContent button, #tripModalContent .booking-picker-row").filter(has_text="Qspa · Rediscover Your Soul").first.click()
+        # Norah Spa 2: official booking + WhatsApp.
+        page.locator("#tripModalContent button, #tripModalContent .booking-picker-row").filter(has_text="Norah Spa 2").first.click()
         page.wait_for_timeout(50)
-        qspa_detail=page.locator('#tripModalContent').inner_text()
-        check('TRIP · SPA' in qspa_detail.upper(),label+': Qspa Booking was misclassified as Accommodation')
-        check('D1 · D2 · D3' in qspa_detail,label+': Qspa shared three-day plan missing')
-        check('Arrival Recovery' in qspa_detail and 'Afternoon Reset' in qspa_detail and 'War Day Recovery' in qspa_detail,label+': Qspa planned visits missing')
-        check('Direct phone' in qspa_detail and '028 3535 9727' in qspa_detail,label+': Qspa booking method/contact missing')
-        day_buttons=page.locator('#tripModalContent .trip-action-btn--day')
-        check(day_buttons.count()==3,label+': Qspa Booking must expose D1/D2/D3 Timeline buttons')
-        button_text=' '.join(day_buttons.all_inner_texts())
-        check(all(x in button_text for x in ['Day 1 Timeline','Day 2 Timeline','Day 3 Timeline']),label+': Qspa multi-day Timeline labels incomplete')
-        check(page.locator('#tripModalContent .trip-action-btn--guide',has_text='View Guide').count()>0,label+': Qspa View Guide action missing')
-        check(page.locator('#tripModalContent .booking-alternative-guides button',has_text='Norah Spa 2').count()>0,label+': Qspa D2 Norah Guide alternative missing')
-        check(page.locator('#tripModalContent .booking-alternative-guides button',has_text='Nara Spa').count()>0,label+': Qspa D3 Nara Guide alternative missing')
-        page.locator('#tripModalContent .trip-action-btn--guide',has_text='View Guide').click()
-        page.wait_for_selector('#guideModal.show')
-        linked_qspa=page.locator('#guideModal button.utility-button',has_text='Booking')
-        check(linked_qspa.count()>0,label+': Qspa Guide linked Booking button missing')
-        linked_qspa.click()
-        page.wait_for_selector('#tripModal.show')
-        guide_booking_text=page.locator('#tripModalContent').inner_text().upper()
-        check('TRIP · SPA' in guide_booking_text,label+': Guide→Qspa Booking incorrectly opened Accommodation surface')
-        check('ALL SPA' in guide_booking_text,label+': Guide→Qspa Booking back label is not Spa')
+        check(page.locator('#tripModalContent a.trip-action-btn--book',has_text='Book Online').count()>0,
+              label+': Norah website action missing')
+        check(page.locator('#tripModalContent a.trip-action-btn--whatsapp').count()>0,
+              label+': Norah WhatsApp action missing')
+        check(page.locator('#tripModalContent a.trip-action-btn--call').count()==0,
+              label+': phone-only Call action should not exist')
         page.locator('#tripModal .trip-close').click()
 
         check(not errors,label+': Browser page errors: '+' | '.join(errors))

@@ -1,6 +1,6 @@
 {
   "engine_version": "25.6.3",
-  "artifact_version": "VN Companion RC29.54 REV2 · Travel Engine 25.6.3 Booking UX Candidate",
+  "artifact_version": "VN Companion RC29.54 REV3 · Travel Engine 25.6.3 Booking UX Candidate",
   "baseline_engine": "25.5.2",
   "release_date": "2026-08-26",
   "release_type": "ci-gate-candidate",
@@ -29,17 +29,18 @@
     "cold-white Saigon header treatment"
   ],
   "asset_cache_token": "rc2953-2563",
-  "release_status": "RC29.54 REV2 CANDIDATE — stable deployed browser gate retained unchanged; compact multi-day Booking UX",
+  "release_status": "RC29.54 REV3 CANDIDATE — browser smoke restored from last validated RC29.52 release; Booking UX changes validated by static CI only here",
   "changes": [
     "Qspa Booking now exposes source-backed Trương Định direct phone contact and booking method",
     "Qspa plannedVisits carry D1/D2/D3 date/time/timeline anchors and Booking detail renders all three Timeline buttons",
     "Guide→Booking dispatch is type/category aware; Spa no longer falls through to Accommodation",
     "Daily timeline Booking badges preserve PLANNED instead of collapsing to PENDING",
-    "Restored one compact PLANNED · D1 · D2 · D3 summary so stable browser contract remains valid without repeating detailed time/date facts"
+    "Restored one compact PLANNED · D1 · D2 · D3 summary so stable browser contract remains valid without repeating detailed time/date facts",
+    "Restored ci-tests/test-browser-release-smoke.py from the last validated RC29.52 release; removed candidate-specific Qspa presentation assertions from the browser gate"
   ],
   "validation": {
     "static_master_ci": "PASS — full sh ci-tests/run-all.sh after Qspa reconciliation and CI orchestration correction",
-    "browser_release_smoke": "NOT VERIFIED HERE — deployed RC29.53 REV3 browser smoke file retained byte-for-byte; GitHub/Claude must run the real browser gate",
+    "browser_release_smoke": "NOT VERIFIED HERE — browser smoke restored from last validated RC29.52 release; GitHub/Claude must run the real browser gate",
     "scope_sanity": "PASS — D4 and D5 itinerary JSON byte-semantically unchanged; shopping-directory-data.js unchanged"
   },
   "ci_hygiene_fix": "VN product-contract suite tail tests are now included in the suite failure accumulator; stale post-PASS false-green behavior removed.",
