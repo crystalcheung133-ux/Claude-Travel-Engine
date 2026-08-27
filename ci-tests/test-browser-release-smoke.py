@@ -181,6 +181,79 @@ def run_viewport(browser,base,viewport,label):
         transfer_text=page.locator('#tripModalContent').inner_text()
         check('CONFIRMED' in transfer_text.upper(),label+': airport transfer did not render confirmed in Studio')
         page.locator('#tripModal .trip-close').click()
+
+        # Booking Save false-failure regression: simulate a downstream/post-commit failure —
+        # BOOKING_SYNC.push() resolves ok (its own internal commit already lands via the real
+        # BOOKING_AUTHORITY.save), but the subsequent reconciling local save then fails. The
+        # fixed save pipeline must NOT show "Could not finish saving the booking": the edited
+        # value must persist and no alert dialog may appear. Generic — no provider/itinerary
+        # names involved.
+        marker=f'post-commit-sync-check-{label}'
+        dialogs=[]
+        page.once('dialog',lambda d:(dialogs.append(d.message),d.accept()))
+        page.evaluate("""() => {
+          const realSave=window.BOOKING_AUTHORITY.save.bind(window.BOOKING_AUTHORITY);
+          window.__realBookingAuthoritySave=realSave;
+          window.BOOKING_SYNC=Object.assign({},window.BOOKING_SYNC,{
+            enabled:()=>true,
+            push: async (record) => {
+              const committed=realSave(record.id,record,null,{silent:true});
+              if(!committed||!committed.ok) throw new Error('mock-push-commit-failed');
+              return {ok:true,booking:committed.booking,remote:true};
+            }
+          });
+          window.BOOKING_AUTHORITY=Object.assign({},window.BOOKING_AUTHORITY,{
+            save: () => { throw new Error('SIMULATED_POST_COMMIT_RECONCILE_FAILURE'); }
+          });
+        }""")
+        page.evaluate("openGenericBookingDetail('bk-transfer-in')")
+        page.wait_for_selector('#tripModal.show')
+        page.locator('#tripModalContent .booking-edit-btn').click()
+        page.wait_for_selector('#bookingEditForm')
+        page.locator('#bookingEditForm textarea[name="importantInfo"]').fill(marker)
+        page.locator('#bookingEditForm .booking-edit-save').click()
+        page.wait_for_selector('#bookingEditForm',state='detached',timeout=5000)
+        check(not dialogs,label+': a post-commit sync/reconcile failure incorrectly showed a save-failure alert: '+' | '.join(dialogs))
+        reopened_text=page.locator('#tripModalContent').inner_text()
+        check(marker in reopened_text,label+': edited value was not persisted despite the sync push already committing it (post-commit false failure)')
+        page.locator('#tripModal .trip-close').click()
+        page.evaluate("""() => {
+          window.BOOKING_AUTHORITY=Object.assign({},window.BOOKING_AUTHORITY,{save:window.__realBookingAuthoritySave});
+        }""")
+
+        # Double-submit protection: while a save is in flight, a second Save click must not
+        # start a second commit. Delay the (real, non-mocked) local save so a same-tick second
+        # click lands while the button is still disabled, then confirm only one commit occurs.
+        page.evaluate("openGenericBookingDetail('bk-transfer-in')")
+        page.wait_for_selector('#tripModal.show')
+        page.locator('#tripModalContent .booking-edit-btn').click()
+        page.wait_for_selector('#bookingEditForm')
+        commit_count=page.evaluate("""() => {
+          window.__commitCount=0;
+          const realSave=window.BOOKING_AUTHORITY.save.bind(window.BOOKING_AUTHORITY);
+          window.BOOKING_AUTHORITY=Object.assign({},window.BOOKING_AUTHORITY,{
+            save: (...args) => { window.__commitCount+=1; return realSave(...args); }
+          });
+          return window.__commitCount;
+        }""")
+        page.locator('#bookingEditForm textarea[name="importantInfo"]').fill(marker+'-double-submit')
+        save_button=page.locator('#bookingEditForm .booking-edit-save')
+        save_button.click()
+        check(save_button.is_disabled(),label+': Save button must be disabled synchronously on first click to block double-submit')
+        # A second click while disabled must be refused outright by Playwright's actionability
+        # checks (a disabled control cannot receive a real click) — proving the browser itself
+        # blocks the double-submit, not merely that our own code ignored a synthetic second call.
+        second_click_blocked=False
+        try:
+            save_button.click(timeout=300)
+        except Exception:
+            second_click_blocked=True
+        check(second_click_blocked,label+': a second click on the disabled Save button was not refused — double-submit is not actually blocked')
+        page.wait_for_selector('#bookingEditForm',state='detached',timeout=5000)
+        final_commit_count=page.evaluate("window.__commitCount")
+        check(final_commit_count==1,label+f': double-submit guard failed — expected exactly 1 commit, got {final_commit_count}')
+        page.locator('#tripModal .trip-close').click()
+
         page.evaluate("window.exitTripStudioMode && window.exitTripStudioMode()")
         page.wait_for_timeout(50)
 
@@ -191,14 +264,18 @@ def run_viewport(browser,base,viewport,label):
               label+': Edit Booking leaked outside Studio mode')
         page.locator('#tripModal .trip-close').click()
 
-        # Timeline → direct Booking.
+        # Timeline → direct Booking. Select whichever D2 fixture item currently exposes both
+        # a Guide and a Booking action rather than a specific itinerary name, so this exercises
+        # the generic routing/stacking contract regardless of what the current itinerary is.
         page.goto(base+'/day.html?day=2',wait_until='domcontentloaded')
         page.wait_for_timeout(120)
-        card=page.locator('#pizza4ps')
-        check(card.count()==1,label+': D2 Pizza 4P’s timeline card missing')
+        candidate=page.locator('.timeline-item').filter(has=page.locator('.timeline-action--trip')).filter(has=page.locator('.timeline-action--guide')).first
+        check(candidate.count()==1,label+': no D2 Timeline item exposes both Guide and Booking actions to exercise routing')
+        item_id=candidate.get_attribute('id')
+        card=page.locator(f'#{item_id}')
         booking=card.locator('.timeline-action--trip')
         guide=card.locator('.timeline-action--guide')
-        check(booking.count()>0 and guide.count()>0,label+': D2 Pizza must expose Guide and Booking')
+        check(booking.count()>0 and guide.count()>0,label+': selected D2 Timeline fixture must expose Guide and Booking')
         booking.click(); page.wait_for_selector('#tripModal.show')
         check(top_owner(page,'#tripModal .trip-sheet'),label+': Direct Booking sheet is behind page/hero')
         check(nav_visible(page),label+': bottom nav disappeared during direct Booking')
@@ -219,69 +296,108 @@ def run_viewport(browser,base,viewport,label):
         page.locator('#tripModal .trip-close').click()
         page.wait_for_function("!document.getElementById('tripModal').classList.contains('show')")
         check(not page.locator('#guideModal').evaluate("el=>el.classList.contains('show')"),label+': Timeline-origin Guide remained open after Booking Close')
-        check(page.locator('#pizza4ps').count()==1,label+': Timeline context was not retained')
+        check(page.locator(f'#{item_id}').count()==1,label+': Timeline context was not retained')
         check(page.evaluate("window.GUIDE_MODAL_ORIGIN") is None,label+': Timeline Guide origin was not cleared')
         check(nav_visible(page),label+': bottom nav missing after Timeline return')
 
-        # Change Effect Gate: poison persisted booking state with pre-reconciliation values,
-        # reload, then assert the actual rendered Booking UI still reflects current deploy master.
-        page.evaluate("""() => {
-          const stale={
-            'bk-pizza4ps':{id:'bk-pizza4ps',bookingId:'bk-pizza4ps',title:'Pizza 4P’s Hai Bà Trưng',day:4,dayId:'day4',date:'2026-11-02',time:'11:30',status:'pending',notes:'Reserve lunch for 4 guests.'},
-            'bk-moc-huong':{id:'bk-moc-huong',bookingId:'bk-moc-huong',title:'Mộc Hương Wellness',day:3,dayId:'day3',date:'2026-11-01',time:'15:30',status:'pending'},
-            'bk-norah-spa-2':{id:'bk-norah-spa-2',bookingId:'bk-norah-spa-2',title:'Old Norah',day:4,dayId:'day4',date:'2026-11-02',time:'16:45',status:'pending'},
-            'bk-transfer-in':{id:'bk-transfer-in',bookingId:'bk-transfer-in',title:'Old Airport Transfer',day:1,dayId:'day1',date:'2026-10-30',time:'05:55',status:'pending',displayStatus:'Pending',_masterRevision:7},
-            'bk-fusion-original':{id:'bk-fusion-original',bookingId:'bk-fusion-original',title:'Old Fusion',status:'pending',displayStatus:'Pending',_masterRevision:7}
+        # Change Effect Gate: poison persisted booking state with pre-reconciliation-style stale
+        # overrides, reload, then assert the rendered Booking UI still reflects the CURRENT deploy
+        # master — using values read live from the app's own canonical data, never a hardcoded
+        # itinerary literal, so this survives any future change to the actual trip content.
+        canonical=page.evaluate("""() => {
+          const pick=(cat)=>Object.values(BOOKINGS_DATA).find(b=>b&&b.status!=='optional'&&(b.bookingCategory===cat||b.category===cat));
+          const spa=pick('Spa'), restaurant=pick('Restaurants'), transfer=BOOKINGS_DATA['bk-transfer-in'];
+          return {
+            spa: spa&&{id:spa.id,title:spa.title,time:spa.time},
+            restaurant: restaurant&&{id:restaurant.id,title:restaurant.title,time:restaurant.time},
+            transferReference: transfer&&transfer.reference,
+            masterRevision: (window.TRIP_CONFIG&&TRIP_CONFIG.bookingMasterRevision)||1
           };
-          STORAGE.local.writeJSON(BOOKING_AUTHORITY.key,{version:1,overrides:stale,deletedIds:[],updatedAt:'2026-08-01T00:00:00Z'});
         }""")
+        check(canonical['spa'],label+': no non-optional canonical Spa booking found to exercise the Change Effect Gate')
+        check(canonical['restaurant'],label+': no non-optional canonical Restaurant booking found to exercise the Change Effect Gate')
+        check(canonical['transferReference'],label+': fixture bk-transfer-in has no reference to exercise the Change Effect Gate')
+
+        page.evaluate("""(canonical) => {
+          const staleRevision=Number(canonical.masterRevision)-1;
+          const stale={};
+          stale[canonical.spa.id]={id:canonical.spa.id,bookingId:canonical.spa.id,title:'Stale Cached Spa Name',time:'23:59',status:'pending',_masterRevision:staleRevision};
+          stale[canonical.restaurant.id]={id:canonical.restaurant.id,bookingId:canonical.restaurant.id,title:'Stale Cached Restaurant Name',time:'23:59',status:'pending',_masterRevision:staleRevision};
+          stale['bk-stale-removed-fixture']={id:'bk-stale-removed-fixture',bookingId:'bk-stale-removed-fixture',title:'Ghost Booking From A Removed Fixture',status:'pending',bookingCategory:'Spa',category:'Spa',_masterRevision:staleRevision};
+          stale['bk-transfer-in']={id:'bk-transfer-in',bookingId:'bk-transfer-in',title:'Stale Cached Transfer',status:'pending',displayStatus:'Pending',_masterRevision:staleRevision};
+          stale['bk-fusion-original']={id:'bk-fusion-original',bookingId:'bk-fusion-original',title:'Stale Cached Accommodation',status:'pending',displayStatus:'Pending',_masterRevision:staleRevision};
+          STORAGE.local.writeJSON(BOOKING_AUTHORITY.key,{version:1,overrides:stale,deletedIds:[],updatedAt:'2026-08-01T00:00:00Z'});
+        }""", canonical)
         page.reload(wait_until='domcontentloaded')
         page.evaluate("document.getElementById('ccmvSplash')?.remove()")
+
         page.evaluate("openGenericBookingDetail('bk-transfer-in')")
         page.wait_for_selector('#tripModal.show')
         transfer_after_stale=page.locator('#tripModalContent').inner_text().upper()
-        check('CONFIRMED' in transfer_after_stale,label+': stale pending override rolled airport transfer back from confirmed')
-        check('TKB045199' in page.locator('#tripModalContent').inner_text(),label+': deploy-master airport reference lost after stale override')
+        check('CONFIRMED' in transfer_after_stale,label+': stale pending override rolled the transfer back from its deploy-master confirmed status')
+        check(canonical['transferReference'] in page.locator('#tripModalContent').inner_text(),label+': deploy-master transfer reference lost after stale override')
         page.locator('#tripModal .trip-close').click()
+
         page.evaluate("openAccommodationDetail('bk-fusion-original')")
         page.wait_for_selector('#tripModal.show')
         fusion_after_stale=page.locator('#tripModalContent').inner_text().upper()
         check('CONFIRMED' in fusion_after_stale,label+': stale displayStatus poisoned confirmed accommodation rendering')
         check('PENDING' not in fusion_after_stale,label+': accommodation renderer still exposes stale displayStatus')
         page.locator('#tripModal .trip-close').click()
+
         page.evaluate("openBookingCategoryCard('Restaurants')")
         page.wait_for_selector('#tripModal.show')
         restaurant_text=page.locator('#tripModalContent').inner_text()
-        check('Pizza 4P’s Hai Bà Trưng' in restaurant_text,label+': rendered Restaurants rolled back Pizza branch')
-        check('12:45' in restaurant_text,label+': rendered Restaurants rolled back Pizza time')
-        check('Old Pizza' not in restaurant_text,label+': stale Pizza title survived into rendered UI')
-        check('11:30' not in restaurant_text,label+': stale Pizza time survived into rendered UI')
+        check(canonical['restaurant']['title'] in restaurant_text,label+': rendered Restaurants list lost the deploy-master booking title to a stale override')
+        check(canonical['restaurant']['time'] in restaurant_text,label+': rendered Restaurants list lost the deploy-master booking time to a stale override')
+        check('Stale Cached Restaurant Name' not in restaurant_text,label+': stale restaurant title survived into rendered UI')
+        check('23:59' not in restaurant_text,label+': stale restaurant time survived into rendered UI')
 
-        # Open Pizza detail and prove "Online" produces a real clickable booking action.
-        page.locator("#tripModalContent button, #tripModalContent .booking-picker-row").filter(has_text="Pizza 4P’s Hai Bà Trưng").first.click()
+        # Open the canonical restaurant detail and — only if it configures a bookingUrl — prove
+        # a real, clickable Book Online action resolves to that exact configured URL.
+        page.locator("#tripModalContent button, #tripModalContent .booking-picker-row").filter(has_text=canonical['restaurant']['title']).first.click()
         page.wait_for_timeout(50)
-        check(page.locator('#tripModalContent a.trip-action-btn--book',has_text='Book Online').count()>0,
-              label+': Pizza says online but rendered no Book Online action')
-        check('tablecheck.com' in (page.locator('#tripModalContent a.trip-action-btn--book').first.get_attribute('href') or ''),
-              label+': Pizza Book Online does not point to reservation URL')
+        restaurant_booking_url=page.evaluate(f"(BOOKINGS_DATA['{canonical['restaurant']['id']}']||{{}}).bookingUrl||''")
+        if restaurant_booking_url:
+            book_link=page.locator('#tripModalContent a.trip-action-btn--book')
+            check(book_link.count()>0,label+': restaurant has a configured bookingUrl but rendered no Book Online action')
+            check(book_link.first.get_attribute('href')==restaurant_booking_url,label+': restaurant Book Online action does not resolve to its configured bookingUrl')
         page.locator('#tripModal .trip-close').click()
 
         page.evaluate("openBookingCategoryCard('Spa')")
         page.wait_for_selector('#tripModal.show')
         spa_text=page.locator('#tripModalContent').inner_text()
-        check('Mộc Hương Wellness' not in spa_text,label+': obsolete D4 Mộc Hương booking resurrected from stale state')
-        check('Norah Spa 2' in spa_text and '14:00' in spa_text,label+': Norah Spa 2 did not render at 14:00')
-        check('16:45' not in spa_text,label+': stale Norah time survived into rendered UI')
+        check('Ghost Booking From A Removed Fixture' not in spa_text,label+': a stale override for a booking id no longer in canonical data resurrected content in the rendered Spa list')
+        check(canonical['spa']['title'] in spa_text,label+': rendered Spa list lost the deploy-master booking title to a stale override')
+        check(canonical['spa']['time'] in spa_text,label+': rendered Spa list lost the deploy-master booking time to a stale override')
+        check('Stale Cached Spa Name' not in spa_text,label+': stale spa title survived into rendered UI')
+        check('23:59' not in spa_text,label+': stale spa time survived into rendered UI')
 
-        # Norah Spa 2: official booking + WhatsApp.
-        page.locator("#tripModalContent button, #tripModalContent .booking-picker-row").filter(has_text="Norah Spa 2").first.click()
+        # Open the canonical spa detail and verify only the contact channels the booking itself
+        # actually configures are rendered as real, actionable links — never a hardcoded
+        # itinerary-specific channel, phone number, or destination.
+        page.locator("#tripModalContent button, #tripModalContent .booking-picker-row").filter(has_text=canonical['spa']['title']).first.click()
         page.wait_for_timeout(50)
-        check(page.locator('#tripModalContent a.trip-action-btn--book',has_text='Book Online').count()>0,
-              label+': Norah website action missing')
-        check(page.locator('#tripModalContent a.trip-action-btn--whatsapp').count()>0,
-              label+': Norah WhatsApp action missing')
-        check(page.locator('#tripModalContent a.trip-action-btn--call').count()==0,
-              label+': phone-only Call action should not exist')
+        spa_channels=page.evaluate(f"""() => {{
+          const b=BOOKINGS_DATA['{canonical['spa']['id']}']||{{}};
+          const digits=String(b.whatsapp||'').replace(/[^0-9]/g,'');
+          return {{
+            bookingUrl: b.bookingUrl||'',
+            whatsapp: (b.whatsapp&&digits)?('https://wa.me/'+digits):'',
+            messenger: b.messengerUrl||'',
+            instagram: b.instagramUrl||''
+          }};
+        }}""")
+        if spa_channels['bookingUrl']:
+            link=page.locator('#tripModalContent a.trip-action-btn--book')
+            check(link.count()>0,label+': spa has a configured bookingUrl but rendered no Book Online action')
+            check(link.first.get_attribute('href')==spa_channels['bookingUrl'],label+': spa Book Online action does not resolve to its configured bookingUrl')
+        if spa_channels['whatsapp']:
+            check(page.locator('#tripModalContent a.trip-action-btn--whatsapp').count()>0,label+': spa has a configured whatsapp contact but rendered no WhatsApp action')
+        if spa_channels['messenger']:
+            check(page.locator('#tripModalContent a.trip-action-btn--messenger').count()>0,label+': spa has a configured messengerUrl but rendered no Messenger action')
+        if spa_channels['instagram']:
+            check(page.locator('#tripModalContent a.trip-action-btn--instagram').count()>0,label+': spa has a configured instagramUrl but rendered no Instagram action')
         page.locator('#tripModal .trip-close').click()
 
         check(not errors,label+': Browser page errors: '+' | '.join(errors))

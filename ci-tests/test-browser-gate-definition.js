@@ -7,7 +7,6 @@ for(const token of [
  '#tripStudioSelectorToggle',
  '#tripStudioModal.show',
  'assert_studio_closed_clean',
- '#pizza4ps',
  '.timeline-action--trip',
  '.timeline-action--guide',
  "has_text='Booking'",
@@ -20,22 +19,43 @@ for(const token of [
  "'desktop-1280x800'",
  "window.GUIDE_MODAL_ORIGIN",
  "Timeline-origin Guide remained open after Booking Close",
- "Pizza 4P’s Hai Bà Trưng",
  "openBookingCategoryCard('Restaurants')",
  "openBookingCategoryCard('Spa')",
- "rendered Restaurants rolled back Pizza branch",
- "Norah Spa 2 did not render at 14:00",
- "Pizza says online but rendered no Book Online action",
- "Norah WhatsApp action missing",
- "Norah website action missing",
- "phone-only Call action should not exist"
+ "Change Effect Gate",
+ "canonical['spa']",
+ "canonical['restaurant']",
+ "a stale override for a booking id no longer in canonical data resurrected content",
+ "rendered Spa list lost the deploy-master booking title to a stale override",
+ "rendered Restaurants list lost the deploy-master booking title to a stale override",
+ "has a configured bookingUrl but rendered no Book Online action",
+ "has a configured whatsapp contact but rendered no WhatsApp action",
+ "has a configured messengerUrl but rendered no Messenger action",
+ "stale pending override rolled the transfer back from its deploy-master confirmed status",
+ "stale displayStatus poisoned confirmed accommodation rendering",
+ "no D2 Timeline item exposes both Guide and Booking actions",
+ "a post-commit sync/reconcile failure incorrectly showed a save-failure alert",
+ "edited value was not persisted despite the sync push already committing it",
+ "double-submit is not actually blocked",
+ "double-submit guard failed",
+ "SIMULATED_POST_COMMIT_RECONCILE_FAILURE"
 ]) assert(gate.includes(token),`Browser smoke lost required coverage token: ${token}`);
+// The generic browser release gate must never be re-pinned to a specific mutable VN/NZ
+// itinerary name, exact reservation domain, or a status-taxonomy contact channel (e.g. a
+// phone-only "Call" action) that the runtime does not even implement. Those belong in
+// static Companion-content CI (see test-qspa-d1-d3-reconciliation.js), not here.
+for(const forbidden of [
+ 'Norah Spa 2',
+ "'14:00'",
+ 'tablecheck.com',
+ 'trip-action-btn--call',
+ "'#pizza4ps'"
+]) assert(!gate.includes(forbidden),`Browser smoke must not hard-code obsolete/itinerary-specific content: ${forbidden}`);
 assert(runner.includes('test-browser-release-smoke.py'),'Browser runner must execute the canonical release smoke');
 assert(gate.includes('BROWSER_BASE_URL'),'Browser smoke must support validating a deployed production URL');
 assert(!runner.includes('|| true'),'Browser runner must never convert a failed browser test into PASS');
 const workflow=fs.readFileSync('.github/workflows/browser-release-smoke.yml','utf8');
 assert(workflow.includes('sh ci-tests/run-browser.sh'),'GitHub browser workflow must execute canonical browser runner');
 assert(workflow.includes('playwright install --with-deps chromium'),'GitHub browser workflow must provision a real Chromium');
-console.log('BROWSER GATE DEFINITION: PASS — Studio lifecycle/reload, Booking foreground, Guide→Booking stacking and nav visibility are mandatory.');
+console.log('BROWSER GATE DEFINITION: PASS — Studio lifecycle/reload, Booking foreground, Guide→Booking stacking and nav visibility are mandatory; itinerary-specific content is excluded from the generic gate.');
 
 if(!gate.includes('booking-edit-btn')) throw new Error('Browser gate must verify Studio-only Booking Edit entry');

@@ -534,10 +534,52 @@ async function deleteBookingRecord(bookingId){
   }catch(error){console.error('Booking delete failed',error);alert('Could not delete this booking. Please check your connection and try again.');return false;}
 }
 window.deleteBookingRecord=deleteBookingRecord;
+/* commitBookingSave — generic Engine save orchestration (no provider/itinerary-specific
+   branching). Distinguishes PRE-COMMIT failure (nothing has been durably written anywhere;
+   the caller must report failure and keep the prior value) from POST-COMMIT failure (an
+   authoritative write already landed — either via deps.localSave() succeeding directly, or
+   because deps.syncPush() resolved ok, which for this Engine's BOOKING_SYNC.push() means its
+   own internal applyRemote() already performed that write — and a failure past that point is
+   a downstream/best-effort hiccup, never a save failure).
+   deps: {
+     syncEnabled: boolean,
+     syncPush: async (record) => {ok, booking} | throws,
+     localSave: (record) => {ok, booking, reason?} | throws,
+     validate?: (record) => boolean | throws   // optional pre-commit gate
+   }
+   Returns {ok:true, committed:true, degraded, booking} once anything has been durably saved,
+   or {ok:false, committed:false, reason} only when nothing has been written anywhere. */
+async function commitBookingSave(record,deps){
+  deps=deps||{};
+  if(typeof deps.validate==='function'){
+    let valid;
+    try{valid=deps.validate(record);}
+    catch(validationError){return {ok:false,committed:false,reason:(validationError&&validationError.message)||'validation-failed'};}
+    if(valid===false)return {ok:false,committed:false,reason:'validation-failed'};
+  }
+  let payload=record,committed=false;
+  if(deps.syncEnabled){
+    let remote;
+    try{remote=await deps.syncPush(payload);}
+    catch(syncError){return {ok:false,committed:false,reason:(syncError&&syncError.message)||'remote-save-failed'};}
+    if(!remote||!remote.ok)return {ok:false,committed:false,reason:'remote-save-failed'};
+    payload=remote.booking||payload;
+    committed=true;
+  }
+  let localResult=null,localError=null;
+  try{localResult=deps.localSave(payload);}
+  catch(error){localError=error;}
+  if(localResult&&localResult.ok)return {ok:true,committed:true,degraded:false,booking:localResult.booking||payload};
+  if(committed)return {ok:true,committed:true,degraded:true,booking:payload};
+  return {ok:false,committed:false,reason:(localError&&localError.message)||(localResult&&localResult.reason)||'save-failed'};
+}
+window.commitBookingSave=commitBookingSave;
 async function saveBookingEdit(event,bookingId){
   event.preventDefault();
   if(!(window.BOOKING_PERMISSIONS&&BOOKING_PERMISSIONS.canEdit())){alert(window.BOOKING_PERMISSIONS?BOOKING_PERMISSIONS.denialMessage():'Booking editing is not available.');return false;}
   const form=event.currentTarget;const current=getBookingById(bookingId);if(!current||!window.BOOKING_AUTHORITY){alert('Booking editor is not ready. Please close and reopen this booking.');return false;}
+  const saveButton=form.querySelector('.booking-edit-save');
+  if(saveButton&&saveButton.disabled)return false;
   const formData=new FormData(form);const next=Object.assign({},current);
   formData.forEach(function(value,key){next[key]=String(value).trim();});
   {const rawStatus=String(next.status||'pending').toLowerCase();next.status=rawStatus==='confirmed'?'confirmed':(rawStatus==='planned'?'planned':'pending');}
@@ -551,26 +593,26 @@ async function saveBookingEdit(event,bookingId){
   if(next.dayId&&!/^day\d+$/.test(next.dayId))next.dayId='day'+String(next.dayId).replace(/\D/g,'');
   next.updatedBy=(window.getFriend&&window.getFriend())||'admin';next.updatedAt=new Date().toISOString();
   const liveTarget=typeof PRODUCTION_BOOKINGS!=='undefined'&&PRODUCTION_BOOKINGS&&PRODUCTION_BOOKINGS.byId?PRODUCTION_BOOKINGS.byId:null;
-  const saveButton=form.querySelector('.booking-edit-save');
   if(saveButton){saveButton.disabled=true;saveButton.textContent='Saving…';}
-  let result;
-  try{
-    if(window.BOOKING_SYNC&&BOOKING_SYNC.enabled()){
-      const remote=await BOOKING_SYNC.push(next);
-      if(!remote||!remote.ok)throw new Error('remote-save-failed');
-      next=remote.booking||next;
-    }
-    result=BOOKING_AUTHORITY.save(bookingId,next,liveTarget);
-    if(!result||!result.ok)throw new Error((result&&result.reason)||'save-failed');
-    clearBookingEditSession();
-    if(saveButton)saveButton.textContent='Saved ✓';
-    document.dispatchEvent(new CustomEvent('travelengine:bookingchange',{detail:{bookingId:bookingId,booking:result.booking}}));
-    setTimeout(function(){returnToBookingDetail(bookingId,result.booking,true);},180);
-  }catch(error){
+  const outcome=await commitBookingSave(next,{
+    syncEnabled:!!(window.BOOKING_SYNC&&BOOKING_SYNC.enabled()),
+    syncPush:function(payload){return BOOKING_SYNC.push(payload);},
+    localSave:function(payload){return BOOKING_AUTHORITY.save(bookingId,payload,liveTarget);}
+  });
+  if(!outcome.ok){
     if(saveButton){saveButton.disabled=false;saveButton.textContent='Save Booking';}
-    console.error('Booking save failed',error);
+    console.error('Booking save failed',outcome.reason);
     alert('Could not finish saving the booking. Please try again.');
+    return false;
   }
+  clearBookingEditSession();
+  if(saveButton)saveButton.textContent=outcome.degraded?'Saved · sync pending':'Saved ✓';
+  try{document.dispatchEvent(new CustomEvent('travelengine:bookingchange',{detail:{bookingId:bookingId,booking:outcome.booking,syncPending:outcome.degraded}}));}
+  catch(dispatchError){console.error('Booking save: post-commit change event failed (value remains saved)',dispatchError);}
+  setTimeout(function(){
+    try{returnToBookingDetail(bookingId,outcome.booking,true);}
+    catch(reopenError){console.error('Booking save: post-commit reopen failed (value remains saved)',reopenError);}
+  },180);
   return false;
 }
 function reopenSavedBooking(){
