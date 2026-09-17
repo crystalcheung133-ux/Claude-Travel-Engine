@@ -1876,10 +1876,6 @@ const DAY_LINKS={
   ],
   "man-moi": [
     [
-      "Day 5",
-      "day.html?day=5#bep-me-in"
-    ],
-    [
       "Day 3",
       "day.html?day=3#man-moi"
     ]
@@ -2069,12 +2065,14 @@ const BOOKINGS_DATA={
     "reference": "JCV982609",
     "referenceLabel": "Klook booking no.",
     "notes": "Paid and confirmed Klook booking. Two-Bedroom Executive · 4 nights · 4 adults · 1 room.",
-    "totalAmount": "AUD 1,613.37",
-    "cashbackAmount": "AUD 319.73",
+    "totalAmount": "AUD 1,543.66",
+    "cashbackAmount": "AUD 279.19",
     "cashbackProvider": "ShopBack",
     "cashbackStatus": "tracked",
-    "netTotalAUD": "AUD 1,293.64",
-    "price": "AUD 1,613.37",
+    "cashbackPurchaseAmount": "AUD 1,361.92",
+    "cashbackRate": "20.5%",
+    "netTotalAUD": "AUD 1,264.47",
+    "price": "AUD 1,543.66",
     "paymentLabel": "Paid",
     "stayDates": "30 Oct – 3 Nov 2026",
     "roomType": "Two-Bedroom Executive",
@@ -2089,7 +2087,7 @@ const BOOKINGS_DATA={
     "phone": "+84 28 3622 2265",
     "email": "reservations.fosc@fusionoriginals.com",
     "address": "65 Le Loi, Ward Ben Nghe, District 1, Ho Chi Minh City, Vietnam",
-    "bookingHandoff": "已付款及確認。Klook booking no. JCV982609。Gross AUD 1,613.37；ShopBack cashback AUD 319.73；net cost AUD 1,293.64。",
+    "bookingHandoff": "已付款及確認。Klook booking no. JCV982609。Gross AUD 1,543.66；ShopBack tracked purchase AUD 1,361.92 @ 20.5%；cashback tracked AUD 279.19；net cost AUD 1,264.47。",
     "placeId": "fusion",
     "paymentStatus": "paid"
   },

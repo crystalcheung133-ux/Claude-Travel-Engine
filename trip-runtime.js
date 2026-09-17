@@ -477,6 +477,9 @@ function bookingEditFields(booking){
     bookingField('Stay dates','stayDates',booking.stayDates,{wide:true}),
     bookingField('Room','roomType',booking.roomType,{wide:true}),
     bookingField('Check-in','checkIn',booking.checkIn),bookingField('Check-out','checkOut',booking.checkOut),
+    bookingField('Total amount','totalAmount',booking.totalAmount||booking.price),
+    bookingField('Cashback amount','cashbackAmount',booking.cashbackAmount||booking.cashback),
+    bookingField('Net cost','netTotalAUD',booking.netTotalAUD||booking.netPrice),
     bookingField('Address','address',booking.address,{type:'textarea'}),bookingField('Arrival instructions','checkInInstructions',booking.checkInInstructions,{type:'textarea'})
   );
   if(booking.type==='activity')common.splice(3,0,

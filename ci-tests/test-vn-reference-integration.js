@@ -17,9 +17,9 @@ assert.match(trip,/rentalCar:false/,'VN must disable Rental Car at config level'
 assert.match(data,/"reference": "JCV982609"/,'Fusion Klook booking reference missing');
 assert.match(data,/"platform": "Klook"/,'Fusion Klook platform missing');
 assert.match(data,/"paymentStatus": "paid"/,'Fusion paid state missing');
-assert.match(data,/"totalAmount": "AUD 1,613\.37"/,'Fusion paid total missing');
-assert.match(data,/"cashbackAmount": "AUD 319\.73"/,'Fusion cashback missing');
-assert.match(data,/"netTotalAUD": "AUD 1,293\.64"/,'Fusion net payment missing');
+assert.match(data,/"totalAmount": "AUD 1,543\.66"/,'Fusion paid total missing');
+assert.match(data,/"cashbackAmount": "AUD 279\.19"/,'Fusion cashback missing');
+assert.match(data,/"netTotalAUD": "AUD 1,264\.47"/,'Fusion net payment missing');
 assert.doesNotMatch(data,/73529525237453/,'Stale Fusion Expedia itinerary remains');
 assert.doesNotMatch(data,/"bookingMethod": "Expedia"[\s\S]{0,900}"placeId": "fusion"/,'Stale Fusion Expedia booking remains');
 assert.match(data,/"cashbackProvider": "ShopBack"/,'Fusion ShopBack provider missing');
