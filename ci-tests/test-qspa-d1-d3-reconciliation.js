@@ -6,7 +6,7 @@ assert.equal(P.qspa.status,'planned');assert.equal(P.qspa.address,'25/1 Trương
 assert(B['bk-qspa']);assert.equal(B['bk-qspa'].status,'planned');assert.equal(B['bk-qspa'].plannedVisits.length,3);assert(!B['bk-norah-spa-2']);assert(!B['bk-nara']);assert(!B['bk-nha-suga']);
 assert.deepEqual(ids(1).slice(4,9),['shopping-nguyen-trai','qspa-d1','day1-hotel-reset','cafe-apartments-optional','omakase-tiger']);assert.equal(I['1'].items.find(x=>x.id==='qspa-d1').time,'~12:15–14:15');assert(I['1'].items.some(x=>x.id==='cafe-apartments-evening'));
 assert.deepEqual(ids(2),['com-tam-moc','garmentory','shopping-tqd','pizza4ps','qspa-d2','post-office','vincom-new-playground','lune']);assert.equal(I['2'].items.find(x=>x.id==='qspa-d2').time,'~14:15–16:15');
-assert.deepEqual(ids(3),['cu-chi','man-moi','war-museum','qspa-d3','oc-dao']);assert.equal(I['3'].items.find(x=>x.id==='qspa-d3').time,'~17:15–19:15');
+assert.deepEqual(ids(3),['cu-chi','man-moi','war-museum','qspa-d3','oc-dao']);assert.equal(I['3'].items.find(x=>x.id==='qspa-d3').time,'after museum · ~16:45–18:45');
 assert.equal(P['norah-spa-2'].status,'optional');assert.equal(P['nara-spa'].status,'optional');assert.equal(P['nha-suga'].status,'optional');
 for(const stale of ['"bk-norah-spa-2"','"bk-nara"','"bk-nha-suga"'])assert(!raw.includes(stale),`stale optional spa booking survived: ${stale}`);
 

@@ -313,7 +313,7 @@ const PLACES={
     "hours": "Mon–Sat 11:30–14:00 & 17:00–22:30；Sunday closed",
     "maps": "https://www.google.com/maps/search/?api=1&query=L%C3%9ANE%20Restaurant%20%26%20Bar%2017%2F14%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20S%C3%A0i%20G%C3%B2n%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
     "address": "17/14 Lê Thánh Tôn, Sài Gòn, Hồ Chí Minh 70000, Vietnam",
-    "desc": "一整日試衫、走街、按摩完雙腳，LÚNE 是 Fashion Day 最後一個換景。由 Vincom / The New Playground 收好 shopping，再經 Cathedral / Post Office / Book Street 後直接步行過來，現代法式／fusion 的細緻感剛好把白天的街頭節奏收住。",
+    "desc": "一整日試衫、走街、按摩完雙腳，LÚNE 是 Fashion Day 最後一個換景。Qspa 後先走 Cathedral / Post Office / Book Street，再到 Vincom / The New Playground 收好 shopping，之後直接步行過來，現代法式／fusion 的細緻感剛好把白天的街頭節奏收住。",
     "signature": [
       "Canadian lobster raviolo｜Michelin Guide 點名 standout",
       "Phở foie gras terrine｜法式技巧 × 越南味",
@@ -1317,37 +1317,37 @@ const PLACES={
     ]
   },
   "man-moi": {
-    "title": "Mặn Mòi – Bến Nghé",
+    "title": "Mặn Mòi · Tao Đàn",
     "emoji": "🍲",
     "cat": "RESTAURANTS",
     "sub": "Day 3 · Post–Cu Chi Late Lunch",
     "status": "optional",
     "hours": "10:00–22:00 daily",
-    "maps": "https://www.google.com/maps/search/?api=1&query=M%E1%BA%B7n%20M%C3%B2i%20B%E1%BA%BFn%20Ngh%C3%A9%20VNPT%20Building%20Gate%206%20Nguy%E1%BB%85n%20V%C4%83n%20B%C3%ACnh%20Ho%20Chi%20Minh%20City",
-    "address": "Level 3, VNPT Building, Gate 6, Nguyễn Văn Bình Street, Ho Chi Minh City, Vietnam",
-    "desc": "Cu Chi 回城後，不先返酒店。14:30 直接在 Mặn Mòi 坐低，一桌越南家常菜把早上的塵與熱慢慢放下；60–65 分鐘食好，再步行／短車去 War Remnants Museum。",
+    "maps": "https://www.google.com/maps/search/?api=1&query=M%E1%BA%B7n%20M%C3%B2i%20Tao%20%C4%90%C3%A0n%2034%20V%C3%B5%20V%C4%83n%20T%E1%BA%A7n%20Ho%20Chi%20Minh%20City",
+    "address": "34 Võ Văn Tần, Xuân Hòa, Ho Chi Minh City, Vietnam",
+    "desc": "Cu Chi 回城後，不先返酒店，直接在 Mặn Mòi Tao Đàn 坐低。一桌越南家常菜把早上的塵與熱慢慢放下；餐廳在 34 Võ Văn Tần，War Remnants Museum 在同一條街 28 Võ Văn Tần，食完短步行即可到 museum。",
     "signature": [
       "Pork jowl｜近期食客點名好食",
       "Sticky rice chicken｜適合四人分食",
       "家常 claypot / soup｜Mặn Mòi 最有代表性的越南家常路線"
     ],
     "worth": [
-      "Day 5 備選；Bếp Mẹ Ỉn 仍是原定午餐。",
-      "由 Gate 6 入內，再上 Level 3。",
+      "D3 · Post–Cu Chi lunch；回城時間受交通影響。",
+      "34 Võ Văn Tần → War Remnants Museum 28 Võ Văn Tần：短步行銜接。",
       "出發前再確認訂位與即日營業時間。"
     ],
     "categoryLabel": "🍽 Restaurant",
     "price": "$$",
-    "transport": "Walk / short Grab from the heritage district",
-    "audit": "Official Mặn Mòi website verifies the Bến Nghé branch, Level 3 Gate 6 address and 10:00–22:00 published hours",
+    "transport": "Private-tour drop → short walk to War Remnants Museum",
+    "audit": "Official Mặn Mòi website verifies Tao Đàn at 34 Võ Văn Tần and published hours 10:00–22:00",
     "highlights": [
       "南部家常菜，味道細緻而不過重",
       "木質與綠意交疊的老西貢氛圍",
       "多人分享最有感覺"
     ],
     "tips": [
-      "Day 5 備選；Bếp Mẹ Ỉn 仍是原定午餐。",
-      "由 Gate 6 入內，再上 Level 3。",
+      "D3 · Post–Cu Chi lunch；回城時間受交通影響。",
+      "34 Võ Văn Tần → War Remnants Museum 28 Võ Văn Tần：短步行銜接。",
       "出發前再確認訂位與即日營業時間。"
     ]
   },
@@ -1512,10 +1512,10 @@ const PLACES={
     "signature": [
       "Private tour · 4 travellers",
       "Skip included lunch · no factory stop",
-      "Return anchor: Mặn Mòi about 14:30"
+      "Return anchor: Mặn Mòi Tao Đàn · target ~13:30–14:00, traffic dependent"
     ],
     "worth": [
-      "14:30 左右直接到 Mặn Mòi，再接 War Remnants Museum。",
+      "07:30 由 Fusion 出發；回城目標約 13:30–14:00，實際視交通。直接 drop Mặn Mòi Tao Đàn，再短步行接 War Remnants Museum。",
       "要求 tour operator 直接 drop Mặn Mòi。"
     ],
     "categoryLabel": "🏛 Attraction",
@@ -1525,7 +1525,7 @@ const PLACES={
       "Skip included lunch · no factory stop"
     ],
     "tips": [
-      "14:30 左右抵達 Mặn Mòi。"
+      "回城時間視交通；目標約 13:30–14:00 直接抵達 Mặn Mòi Tao Đàn。"
     ]
   },
   "nara-spa": {
@@ -2148,7 +2148,7 @@ const BOOKINGS_DATA={
     "bookingContact": "",
     "secondaryContact": "",
     "bookingUrl": "https://www.adrienguenzi.com/reservations",
-    "notes": "18:45 dinner for 4. Day 2 由 Vincom Center Đồng Khởi / The New Playground 行到 Cathedral / Post Office / Book Street，再直接步行去 LÚNE；不返 Fusion、不再叫 Grab。",
+    "notes": "18:45 dinner for 4. Current D2 flow is Qspa → Cathedral / Central Post Office / Book Street → Vincom Center Đồng Khởi / The New Playground → LÚNE；不返 Fusion，按步行路線直接接晚餐。",
     "signatureDishes": ["Canadian lobster raviolo", "Phở foie gras terrine", "Sea urchin + A5 wagyu"],
     "email": "contact-lune@hdnt.vn",
     "address": "17/14 Lê Thánh Tôn, Sài Gòn, Ho Chi Minh City, Vietnam",
@@ -2179,7 +2179,7 @@ const BOOKINGS_DATA={
     "bookingContact": "",
     "secondaryContact": "",
     "bookingUrl": "https://www.tablecheck.com/vi/pizza-4ps-hcm-hai-ba-trung/reserve",
-    "notes": "Hai Bà Trưng branch · 151A–151B Hai Bà Trưng。Reserve lunch for 4 around 12:45；食完步行接 Norah Spa 2。",
+    "notes": "Hai Bà Trưng branch · 151A–151B Hai Bà Trưng。Reserve lunch for 4 around 12:45；食完前往 Qspa 做 D2 Afternoon Reset。Norah Spa 2 只保留為 route-friendly optional alternative。",
     "signatureDishes": ["Crab tomato cream spaghetti", "House-made 4-cheese pizza + honey", "Burrata / Parma ham pizza"],
     "bookingHandoff": "未訂。一定揀 Hai Bà Trưng branch · 151A–151B Hai Bà Trưng；4人，31 Oct 約12:45。用 Pizza 4P’s official reservation flow。",
     "placeId": "pizza4ps"
@@ -2206,7 +2206,7 @@ const BOOKINGS_DATA={
     "messengerUrl": "https://m.me/QspaCenter",
     "instagramUrl": "https://www.instagram.com/qspacenter/",
     "placeId": "qspa",
-    "notes": "Three recovery visits are planned at the same spa. Choose the treatment on the day according to how everyone feels.",
+    "notes": "Three recovery visits are planned at the same spa. Choose treatments on the day according to how everyone feels. Qspa has confirmed the group may use a friend’s existing membership discount tier and pay for our own treatments by card at the time of service; no new membership is needed for this trip.",
     "plannedDays": "D1 · D2 · D3",
     "standalone": true,
     "plannedVisits": [
@@ -2231,7 +2231,7 @@ const BOOKINGS_DATA={
       {
         "day": "D3",
         "date": "Sun 1 Nov 2026",
-        "time": "~17:15–19:15",
+        "time": "after museum · ~16:45–18:45",
         "label": "War Day Recovery",
         "duration": "120 min",
         "dayId": "day3",
@@ -2328,13 +2328,13 @@ const BOOKINGS_DATA={
     "dayId": "day3",
     "status": "pending",
     "date": "2026-11-01",
-    "time": "14:30",
+    "time": "Target ~13:30–14:00 · traffic dependent",
     "bookingName": "",
     "bookingCategory": "Restaurants",
     "category": "Restaurants",
     "type": "restaurant",
     "emoji": "🍲",
-    "title": "Mặn Mòi – Bến Nghé",
+    "title": "Mặn Mòi · Tao Đàn",
     "depositPaid": "",
     "depositAmount": "",
     "depositCurrency": "",
@@ -2342,10 +2342,10 @@ const BOOKINGS_DATA={
     "bookingContact": "",
     "secondaryContact": "",
     "bookingUrl": "https://manmoi.vn/en/book-a-table/",
-    "notes": "14:30 late lunch · 4 人。Cu Chi tour 直接 drop 到餐廳；預留 60–65 分鐘，15:40 左右接 War Remnants Museum。",
+    "notes": "Post–Cu Chi lunch · 4 人。07:30 private-tour pickup；回城目標約 13:30–14:00，但交通可令到達時間前後浮動。請司機直接 drop Mặn Mòi Tao Đàn；餐後由 34 Võ Văn Tần 短步行到 War Remnants Museum（28 Võ Văn Tần）。",
     "signatureDishes": ["Pork jowl", "Sticky rice chicken", "Vietnamese home-style claypot / soup"],
-    "address": "Level 3, VNPT Building, Gate 6, Nguyễn Văn Bình, Sài Gòn Ward, Ho Chi Minh City",
-    "bookingHandoff": "未訂。用 Mặn Mòi official Book a Table，選 Bến Nghé branch（唔好揀其他 branch），4人，1 Nov 14:30。",
+    "address": "34 Võ Văn Tần, Xuân Hòa, Ho Chi Minh City",
+    "bookingHandoff": "未訂。用 Mặn Mòi official Book a Table，必須選 Tao Đàn branch · 34 Võ Văn Tần，4人，1 Nov。Cu Chi 回城受交通影響，目標到達約 13:30–14:00；不要把估算到達時間誤標成已確認訂位時間。",
     "placeId": "man-moi"
   },
   "bk-cu-chi": {
@@ -2357,7 +2357,7 @@ const BOOKINGS_DATA={
     "dayId": "day3",
     "status": "confirmed",
     "date": "2026-11-01",
-    "time": "08:00",
+    "time": "07:30",
     "bookingName": "",
     "bookingCategory": "Activities",
     "category": "Activities",
@@ -2382,12 +2382,12 @@ const BOOKINGS_DATA={
     "tourType": "Private tour",
     "guests": "4 travellers",
     "pickupAddress": "Fusion Original Saigon Centre",
-    "pickupNote": "08:00 departure · Fusion Original Saigon Centre",
+    "pickupNote": "07:30 departure · Fusion Original Saigon Centre",
     "cancellation": "Free cancellation before 31 Oct 2026 00:00 (Ho Chi Minh time, GMT+7), per Klook booking confirmation.",
     "included": ["Admission to attractions", "English-speaking guide", "Round-trip transfers to and from your hotel", "Round-trip transfers to and from the meet up location"],
     "notIncluded": ["Admission to shooting at AK-47", "Meals and beverages", "Other personal expenses", "Tips and gratuities", "Insurance", "Holiday surcharge (see Additional Information)"],
-    "notes": "Confirmed Klook private tour for 4 with English guide. Pickup is 08:00 from Fusion Original Saigon Centre. Operator: SST Travel · +84 342260119 · operate@ssttravel.vn. Included: attraction admission, English-speaking guide, round-trip hotel / meet-up transfers. Not included: AK-47 shooting admission, meals and beverages, personal expenses, tips, insurance, holiday surcharge. Existing trip preference remains: skip tour lunch, no factory stop, and request direct drop at Mặn Mòi; these special requests should be treated as planning requests unless separately confirmed by the operator.",
-    "bookingHandoff": "已訂。Klook booking TUM556012；1 Nov 08:00 Fusion Original Saigon Centre 出發，4人 Private Tour、English Guide。Operator: SST Travel。",
+    "notes": "Confirmed Klook private tour for 4 with English guide. Operator has confirmed pickup can be 07:30 from Fusion Original Saigon Centre. Operator: SST Travel · +84 342260119 · operate@ssttravel.vn. Included: attraction admission, English-speaking guide, round-trip hotel / meet-up transfers. Not included: AK-47 shooting admission, meals and beverages, personal expenses, tips, insurance, holiday surcharge. Trip requests: skip tour lunch, no factory stop, and direct city drop at Mặn Mòi Tao Đàn, 34 Võ Văn Tần. Return is traffic-dependent; target arrival is about 13:30–14:00 rather than a fixed promise.",
+    "bookingHandoff": "已訂。Klook booking TUM556012；operator 已確認可 1 Nov 07:30 由 Fusion Original Saigon Centre 出發，4人 Private Tour、English Guide。Operator: SST Travel。",
     "placeId": "cu-chi"
   },
 };
@@ -2764,13 +2764,13 @@ const ITINERARY_DATA={
     "items": [
       {
         "id": "cu-chi",
-        "time": "08:00–14:30",
+        "time": "07:30–~13:30/14:00",
         "title": "🪖 Cu Chi Tunnels · Private Tour",
         "details": [
-          "Klook 已確認四人 Private Tour + English Guide，08:00 由 Fusion Original Saigon Centre 出發。Skip tour lunch、不要 factory stop、回城直接 drop Mặn Mòi 屬行程要求，需以 operator 最終確認為準。",
-          "14:30 左右直接到 Mặn Mòi。"
+          "Klook 已確認四人 Private Tour + English Guide；operator 已確認最早可 07:30 由 Fusion Original Saigon Centre 出發。Skip tour lunch、不要 factory stop、回城直接 drop Mặn Mòi Tao Đàn（34 Võ Văn Tần）。",
+          "目標約 13:30–14:00 回到市區，但交通有變數；不要把回程時間當固定承諾。"
         ],
-        "route": "🚐 下一站：請司機直接 drop Mặn Mòi；不先返酒店。",
+        "route": "🚐 下一站：請司機直接 drop Mặn Mòi Tao Đàn · 34 Võ Văn Tần；不先返酒店。",
         "map": "https://www.google.com/maps/search/?api=1&query=Cu%20Chi%20Tunnels%20Ho%20Chi%20Minh%20City",
         "type": "experience",
         "dayId": "day3",
@@ -2779,26 +2779,26 @@ const ITINERARY_DATA={
       },
       {
         "id": "man-moi",
-        "time": "14:30–15:35",
-        "title": "🍲 Mặn Mòi",
+        "time": "~13:30/14:00–~14:35/15:05",
+        "title": "🍲 Mặn Mòi · Tao Đàn",
         "details": [
-          "坐低食一桌越南家常菜；留足 60–65 分鐘，不趕這餐。"
+          "Cu Chi 回城後直接坐低食一桌越南家常菜；留足約 60–65 分鐘。到達時間視交通，不用為舊 14:30 時間點趕行程。"
         ],
-        "route": "🚶 下一站：去 War Remnants Museum；若午餐早完，時間全部留給 museum。",
-        "map": "https://www.google.com/maps/search/?api=1&query=M%E1%BA%B7n%20M%C3%B2i%20B%E1%BA%BFn%20Ngh%C3%A9%20VNPT%20Building%20Gate%206%20Nguy%E1%BB%85n%20V%C4%83n%20B%C3%ACnh%20Ho%20Chi%20Minh%20City",
+        "route": "🚶 下一站：34 Võ Văn Tần → War Remnants Museum 28 Võ Văn Tần；同一條街，短步行即可。",
+        "map": "https://www.google.com/maps/search/?api=1&query=M%E1%BA%B7n%20M%C3%B2i%20Tao%20%C4%90%C3%A0n%2034%20V%C3%B5%20V%C4%83n%20T%E1%BA%A7n%20Ho%20Chi%20Minh%20City",
         "type": "meal",
         "dayId": "day3",
         "placeId": "man-moi",
-        "bookingId": null
+        "bookingId": "bk-man-moi"
       },
             {
         "id": "war-museum",
-        "time": "15:40–17:00",
+        "time": "after lunch · target ~14:40–16:30",
         "title": "🏛 War Remnants Museum",
         "details": [
           "Cu Chi 看現場，museum 看留下來的記憶；War Day 在這裡補完另一半。"
         ],
-        "route": "🚕 下一站：短 Grab → Qspa，17:15 開始 full 120-minute recovery。",
+        "route": "🚶/🚕 下一站：前往 Qspa 25/1 Trương Định；museum 完成後接 120-minute War Day Recovery。",
         "map": "https://www.google.com/maps/search/?api=1&query=War%20Remnants%20Museum%2028%20Vo%20Van%20Tan%20Ho%20Chi%20Minh%20City",
         "type": "experience",
         "dayId": "day3",
@@ -2807,14 +2807,14 @@ const ITINERARY_DATA={
       },
             {
         "id": "qspa-d3",
-        "time": "~17:15–19:15",
+        "time": "after museum · ~16:45–18:45",
         "title": "🌿 Qspa · War Day Recovery",
         "details": [
           "PLANNED · Full 120 minutes after Cu Chi heat / dust and the War Remnants Museum.",
           "Choose massage / body treatment / hair-care according to how everyone feels; no mandatory treatment.",
           "Prefer a dedicated hair reset? Open Nara Spa in Guide."
         ],
-        "route": "🚕 下一站：Grab → Ốc Đào；19:30 左右到就好。",
+        "route": "🚕 下一站：Grab → Ốc Đào；Spa 完成後直接去，晚餐時間保持彈性。",
         "map": "https://www.google.com/maps/search/?api=1&query=Qspa%2025%2F1%20Truong%20Dinh%20Ho%20Chi%20Minh%20City",
         "type": "spa",
         "dayId": "day3",
@@ -2830,7 +2830,7 @@ const ITINERARY_DATA={
       },
       {
         "id": "oc-dao",
-        "time": "19:30 onwards",
+        "time": "~19:00 onwards · flexible",
         "title": "🦀 Ốc Đào · Ốc + Beer",
         "details": [
           "今晚要的是螺、貝、海鮮和冰啤酒；熱鬧一點，才像 Saigon。"

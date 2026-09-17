@@ -1,8 +1,8 @@
 {
   "engine_version": "25.6.3",
-  "artifact_version": "VN Companion RC29.55 · Travel Engine 25.6.3 Fusion Klook Accommodation Update Candidate",
+  "artifact_version": "VN Companion RC29.56 · Travel Engine 25.6.3 D3 Tao Dan + Booking Notes Audit Candidate",
   "baseline_engine": "25.5.2",
-  "release_date": "2026-09-09",
+  "release_date": "2026-09-17",
   "release_type": "ci-gate-candidate",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
@@ -12,7 +12,9 @@
     "Booking and Guide surfaces support data-driven Guide-only alternatives by day.",
     "D1 protects a full 120-minute Qspa recovery, moves Fusion check-in to ~14:30, and makes Cafe Apartments optional.",
     "D2 keeps Pizza 4P’s Hai Bà Trưng, then routes Qspa → Cathedral/Post Office/Book Street → Vincom/The New Playground → LÚNE.",
-    "D3 replaces planned Nara with a 120-minute Qspa War Day Recovery; Nara remains Guide-only optional hair-reset alternative."
+    "D3 uses Mặn Mòi Tao Đàn at 34 Võ Văn Tần beside War Remnants Museum; Cu Chi pickup is 07:30 and return remains traffic-dependent.",
+    "D3 keeps Qspa as the planned 120-minute War Day Recovery; Nara remains Guide-only optional hair-reset alternative.",
+    "Booking notes were audited against the current canonical Timeline; stale Norah, old D2 order, Mặn Mòi Bến Nghé and 08:00 Cu Chi references were corrected."
   ],
   "explicitly_deferred": [
     "parallel itinerary tracks",
@@ -28,8 +30,8 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc2955-2563",
-  "release_status": "RC29.55 CANDIDATE — Fusion accommodation replaced by paid/confirmed Klook booking with ShopBack net cost",
+  "asset_cache_token": "rc2956-2563",
+  "release_status": "RC29.56 CANDIDATE — D3 Tao Đàn branch corrected, Cu Chi 07:30 pickup reconciled, Booking notes audited",
   "changes": [
     "Replaced the previous Fusion Original Expedia accommodation booking with Klook booking JCV982609",
     "Fusion is paid/confirmed: gross AUD 1,613.37, ShopBack cashback AUD 319.73 tracked, net cost AUD 1,293.64",
