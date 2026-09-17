@@ -498,9 +498,9 @@ const PLACES={
     "cat": "RESTAURANTS",
     "sub": "Day 2 · Indoor Lunch Break",
     "status": "planned",
-    "hours": "11:00–00:00 Mon–Sat · 11:00–23:00 Sun",
+    "hours": "Mon–Fri 11:00–23:00 · Sat–Sun 10:00–23:00",
     "maps": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20151B%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh%20City",
-    "address": "151A–151B Hai Bà Trưng, Ho Chi Minh City, Vietnam",
+    "address": "151B Hai Bà Trưng, Võ Thị Sáu, District 3, Ho Chi Minh City, Vietnam",
     "desc": "上午在 Trần Quang Diệu 收好第一輪戰利品，中午轉入 Hai Bà Trưng。這餐是 Fashion Day 的冷氣停頓；食完 Grab 去 Qspa，保留完整兩小時 Afternoon Reset。",
     "signature": [
       "Crab tomato cream spaghetti｜近期評論反覆點名",
@@ -514,7 +514,7 @@ const PLACES={
     "categoryLabel": "🍽 Restaurant",
     "price": "$$",
     "transport": "Grab from Trần Quang Diệu · lunch at Hai Bà Trưng · then Grab to Qspa",
-    "audit": "Hai Bà Trưng branch: 151A–151B Hai Bà Trưng.",
+    "audit": "Official branch verified: 151B Hai Bà Trưng, Võ Thị Sáu, District 3.",
     "highlights": [
       "House-made cheese",
       "Burrata / 4-cheese pizza",
@@ -1919,7 +1919,7 @@ const DAY_LINKS={
   "pizza4ps": [
     [
       "Day 2",
-      "day.html?day=4#pizza4ps"
+      "day.html?day=2#pizza4ps"
     ]
   ],
   "libe": [
@@ -2069,8 +2069,6 @@ const BOOKINGS_DATA={
     "cashbackAmount": "AUD 279.19",
     "cashbackProvider": "ShopBack",
     "cashbackStatus": "tracked",
-    "cashbackPurchaseAmount": "AUD 1,361.92",
-    "cashbackRate": "20.5%",
     "netTotalAUD": "AUD 1,264.47",
     "price": "AUD 1,543.66",
     "paymentLabel": "Paid",
@@ -2087,7 +2085,7 @@ const BOOKINGS_DATA={
     "phone": "+84 28 3622 2265",
     "email": "reservations.fosc@fusionoriginals.com",
     "address": "65 Le Loi, Ward Ben Nghe, District 1, Ho Chi Minh City, Vietnam",
-    "bookingHandoff": "已付款及確認。Klook booking no. JCV982609。Gross AUD 1,543.66；ShopBack tracked purchase AUD 1,361.92 @ 20.5%；cashback tracked AUD 279.19；net cost AUD 1,264.47。",
+    "bookingHandoff": "已付款及確認。Klook booking no. JCV982609。Gross AUD 1,543.66；ShopBack cashback tracked AUD 279.19；net cost AUD 1,264.47。",
     "placeId": "fusion",
     "paymentStatus": "paid"
   },
@@ -2169,17 +2167,17 @@ const BOOKINGS_DATA={
     "type": "restaurant",
     "emoji": "🍕",
     "title": "Pizza 4P’s Hai Bà Trưng",
-    "address": "151A–151B Hai Bà Trưng, Ho Chi Minh City, Vietnam",
+    "address": "151B Hai Bà Trưng, Võ Thị Sáu, District 3, Ho Chi Minh City, Vietnam",
     "depositPaid": "",
     "depositAmount": "",
     "depositCurrency": "",
     "bookingMethod": "Official online reservation",
     "bookingContact": "",
     "secondaryContact": "",
-    "bookingUrl": "https://www.tablecheck.com/vi/pizza-4ps-hcm-hai-ba-trung/reserve",
-    "notes": "Hai Bà Trưng branch · 151A–151B Hai Bà Trưng。Reserve lunch for 4 around 12:45；食完前往 Qspa 做 D2 Afternoon Reset。Norah Spa 2 只保留為 route-friendly optional alternative。",
+    "bookingUrl": "https://booking.pizza4ps.com/",
+    "notes": "Hai Bà Trưng branch · 151B Hai Bà Trưng, Võ Thị Sáu, District 3。Reserve lunch for 4 around 12:45；食完前往 Qspa 做 D2 Afternoon Reset。Norah Spa 2 只保留為 route-friendly optional alternative。",
     "signatureDishes": ["Crab tomato cream spaghetti", "House-made 4-cheese pizza + honey", "Burrata / Parma ham pizza"],
-    "bookingHandoff": "未訂。一定揀 Hai Bà Trưng branch · 151A–151B Hai Bà Trưng；4人，31 Oct 約12:45。用 Pizza 4P’s official reservation flow。",
+    "bookingHandoff": "未訂。一定揀 Hai Bà Trưng branch · 151B Hai Bà Trưng, Võ Thị Sáu, District 3；4人，31 Oct 約12:45。用 Pizza 4P’s official reservation flow。",
     "placeId": "pizza4ps"
   },
   "bk-qspa": {

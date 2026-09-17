@@ -13,7 +13,7 @@
     'status','bookingName',
     'depositPaid','depositAmount','depositCurrency','paymentStatus',
     'reference','referenceLabel','bookingReference',
-    'totalAmount','cashbackAmount','cashbackPurchaseAmount','cashbackRate','netTotalAUD','price','paymentLabel'
+    'totalAmount','cashbackAmount','netTotalAUD','price','paymentLabel'
   ]);
   function masterRevision(){return Number(root.TRIP_CONFIG&&root.TRIP_CONFIG.bookingMasterRevision||1);}
   function recordRevision(record){return Number(record&&((record._masterRevision!=null?record._masterRevision:record.masterRevision))||0);}
@@ -34,7 +34,7 @@
     // Current-revision edits still use the full-override path in mergeOverride().
     ['status','bookingName','reference','referenceLabel','bookingReference',
      'depositPaid','depositAmount','depositCurrency','paymentStatus',
-     'totalAmount','cashbackAmount','cashbackPurchaseAmount','cashbackRate','netTotalAUD','price','paymentLabel'].forEach(function(field){
+     'totalAmount','cashbackAmount','netTotalAUD','price','paymentLabel'].forEach(function(field){
       if(!meaningful(base&&base[field])&&Object.prototype.hasOwnProperty.call(override,field))out[field]=clone(override[field]);
     });
     return out;

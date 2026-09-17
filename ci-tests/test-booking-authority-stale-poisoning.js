@@ -37,7 +37,7 @@ assert.equal(pizza.title,'Pizza 4P’s Hai Bà Trưng');
 assert.equal(pizza.time,'12:45');
 assert.equal(pizza.day,2);
 assert.equal(pizza.timelineItemId,'pizza4ps');
-assert(pizza.address.includes('151A–151B Hai Bà Trưng'));
+assert(pizza.address.includes('151B Hai Bà Trưng'));
 
 assert.equal(A.get('bk-moc-huong'),null,'obsolete Mộc Hương booking must not resurrect from stale state');
 

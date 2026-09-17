@@ -54,6 +54,17 @@ assert(editBlock.includes('BOOKING_PERMISSIONS.canEdit()'),'Edit Booking action 
 assert(!generic.includes('How to book / handoff')&&!trip.includes("bookingSectionHTML('How to book / handoff'"),
   'HOW TO BOOK / HANDOFF paragraph is outside Booking allow-list');
 
+
+// Generic accommodation payment contract: cashback is first-class, paid-in-full hides redundant Deposit.
+assert(trip.includes("const paidInFull=/^(paid|paid in full|fully paid)$/i"),'Paid-in-full accommodation rule missing');
+assert(trip.includes("['Deposit',paidInFull?'':bookingDepositDisplay(booking)]"),'Paid-in-full must suppress redundant Deposit row');
+for(const field of ["bookingField('Total amount','totalAmount'","bookingField('Cashback amount','cashbackAmount'","bookingField('Net cost','netTotalAUD'"])
+  assert(trip.includes(field),'Accommodation cashback editor field missing: '+field);
+assert(!trip.includes("bookingField('Cashback purchase amount'"),'Accommodation editor must not expose cashback purchase amount');
+assert(!trip.includes("bookingField('Cashback rate'"),'Accommodation editor must not expose cashback rate');
+assert(trip.includes("...(booking.type==='accommodation'?[]:[bookingField('Total / balance','price',booking.price)])"),
+  'Accommodation editor must not duplicate Total / balance');
+
 // Compact expense rule.
 assert(trip.includes('booking-expense-buttons--compact'),'Expense linkage must stay compact');
 assert(trip.includes("if(!hasPayment)return ''"),'Untouched pending bookings must not render expense panel');

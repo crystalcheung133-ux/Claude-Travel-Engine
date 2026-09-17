@@ -1,6 +1,6 @@
 Saigon Companion Production File Manifest
 Generated: 2026-09-17
-Base: VN Companion RC29.57 · Travel Engine 25.6.3 Hotel Cashback + Guide Cleanup Candidate
+Base: VN Companion RC29.59 · Travel Engine 25.6.4 Generic Accommodation Payments Candidate
 Reference trip: Vietnam
 
 Production root files:

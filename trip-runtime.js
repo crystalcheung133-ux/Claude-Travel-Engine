@@ -169,10 +169,11 @@ function bookingDepositDisplay(booking){
 }
 function accommodationPaymentHTML(booking){
   const status=bookingHumanValue(booking.paymentLabel||booking.paymentStatus||'');
+  const paidInFull=/^(paid|paid in full|fully paid)$/i.test(String(status||'').trim());
   const rows=[
     ['Charge date',bookingHumanValue(booking.chargeDate||'')],
     ['Total',bookingHumanValue(booking.totalAmount||'')],
-    ['Deposit',bookingDepositDisplay(booking)],
+    ['Deposit',paidInFull?'':bookingDepositDisplay(booking)],
     ['Balance due',bookingHumanValue(booking.balanceDue||booking.payAtPickup||'')],
     [booking.discountLabel||'Discount',bookingHumanValue(booking.discountAmount||'')],
     ['Cashback',bookingHumanValue(booking.cashbackAmount||booking.cashback||'')],
@@ -468,7 +469,8 @@ function bookingEditFields(booking){
     bookingField('Booked under','bookingName',booking.bookingName),bookingField('Booking reference','reference',booking.reference),
     bookingField('Booked via','bookingVia',via,{type:'select',choices:['','Official website','Trip.com','Booking.com','Agoda','Expedia','Klook','KKday','Airbnb','Luxury Escapes','WhatsApp','Email','Phone','Walk-in','Other']}),
     bookingField('Other booking method / platform','bookingViaOther',via==='Other'?rawVia:'',{wide:true}),
-    bookingField('Payment / deposit status','paymentStatus',booking.paymentStatus),bookingField('Total / balance','price',booking.price),
+    bookingField('Payment / deposit status','paymentStatus',booking.paymentStatus),
+    ...(booking.type==='accommodation'?[]:[bookingField('Total / balance','price',booking.price)]),
     bookingField('Website / booking link','website',booking.website,{wide:true,inputmode:'url'}),
     bookingField('Phone','phone',booking.phone),bookingField('Email','email',booking.email,{type:'email'}),
     bookingField('Notes / cancellation / important information','importantInfo',bookingImportantInfo(booking),{type:'textarea'})
