@@ -182,29 +182,18 @@ def run_viewport(browser,base,viewport,label):
         check('CONFIRMED' in transfer_text.upper(),label+': airport transfer did not render confirmed in Studio')
         page.locator('#tripModal .trip-close').click()
 
-        # Booking Save false-failure regression: simulate a downstream/post-commit failure —
-        # BOOKING_SYNC.push() resolves ok (its own internal commit already lands via the real
-        # BOOKING_AUTHORITY.save), but the subsequent reconciling local save then fails. The
-        # fixed save pipeline must NOT show "Could not finish saving the booking": the edited
-        # value must persist and no alert dialog may appear. Generic — no provider/itinerary
-        # names involved.
+        # Booking Save lifecycle regression: remote sync may be slow/unavailable, but the
+        # local authoritative commit must complete and dismiss the editor without waiting on
+        # network. The remote promise is deliberately left unresolved during the UI assertion.
         marker=f'post-commit-sync-check-{label}'
         dialogs=[]
         page.once('dialog',lambda d:(dialogs.append(d.message),d.accept()))
         page.evaluate("""() => {
-          const realSave=window.BOOKING_AUTHORITY.save.bind(window.BOOKING_AUTHORITY);
-          window.__realBookingAuthoritySave=realSave;
           window.__realBookingSync=window.BOOKING_SYNC;
+          window.__pendingRemoteSync=new Promise(()=>{});
           window.BOOKING_SYNC=Object.assign({},window.BOOKING_SYNC,{
             enabled:()=>true,
-            push: async (record) => {
-              const committed=realSave(record.id,record,null,{silent:true});
-              if(!committed||!committed.ok) throw new Error('mock-push-commit-failed');
-              return {ok:true,booking:committed.booking,remote:true};
-            }
-          });
-          window.BOOKING_AUTHORITY=Object.assign({},window.BOOKING_AUTHORITY,{
-            save: () => { throw new Error('SIMULATED_POST_COMMIT_RECONCILE_FAILURE'); }
+            push: () => window.__pendingRemoteSync
           });
         }""")
         page.evaluate("openGenericBookingDetail('bk-transfer-in')")
@@ -214,14 +203,11 @@ def run_viewport(browser,base,viewport,label):
         page.locator('#bookingEditForm textarea[name="importantInfo"]').fill(marker)
         page.locator('#bookingEditForm .booking-edit-save').click()
         page.wait_for_selector('#bookingEditForm',state='detached',timeout=5000)
-        check(not dialogs,label+': a post-commit sync/reconcile failure incorrectly showed a save-failure alert: '+' | '.join(dialogs))
+        check(not dialogs,label+': slow remote sync incorrectly showed a save-failure alert: '+' | '.join(dialogs))
         reopened_text=page.locator('#tripModalContent').inner_text()
-        check(marker in reopened_text,label+': edited value was not persisted despite the sync push already committing it (post-commit false failure)')
+        check(marker in reopened_text,label+': local authoritative value was not persisted before remote sync completed')
         page.locator('#tripModal .trip-close').click()
-        page.evaluate("""() => {
-          window.BOOKING_AUTHORITY=Object.assign({},window.BOOKING_AUTHORITY,{save:window.__realBookingAuthoritySave});
-          if(window.__realBookingSync) window.BOOKING_SYNC=window.__realBookingSync;
-        }""")
+        page.evaluate("""() => { if(window.__realBookingSync) window.BOOKING_SYNC=window.__realBookingSync; }""")
 
         # Double-submit protection: while a save is in flight, a second Save click must not
         # start a second commit. Delay the (real, non-mocked) local save so a same-tick second

@@ -35,11 +35,11 @@ for(const token of [
  "stale pending override rolled the transfer back from its deploy-master confirmed status",
  "stale displayStatus poisoned confirmed accommodation rendering",
  "no D2 Timeline item exposes both Guide and Booking actions",
- "a post-commit sync/reconcile failure incorrectly showed a save-failure alert",
- "edited value was not persisted despite the sync push already committing it",
+ "slow remote sync incorrectly showed a save-failure alert",
+ "local authoritative value was not persisted before remote sync completed",
  "double-submit is not actually blocked",
  "double-submit guard failed",
- "SIMULATED_POST_COMMIT_RECONCILE_FAILURE"
+ "window.__pendingRemoteSync=new Promise(()=>{})"
 ]) assert(gate.includes(token),`Browser smoke lost required coverage token: ${token}`);
 // The generic browser release gate must never be re-pinned to a specific mutable VN/NZ
 // itinerary name, exact reservation domain, or a status-taxonomy contact channel (e.g. a

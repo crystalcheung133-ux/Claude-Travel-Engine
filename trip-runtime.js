@@ -539,21 +539,11 @@ async function deleteBookingRecord(bookingId){
   }catch(error){console.error('Booking delete failed',error);alert('Could not delete this booking. Please check your connection and try again.');return false;}
 }
 window.deleteBookingRecord=deleteBookingRecord;
-/* commitBookingSave — generic Engine save orchestration (no provider/itinerary-specific
-   branching). Distinguishes PRE-COMMIT failure (nothing has been durably written anywhere;
-   the caller must report failure and keep the prior value) from POST-COMMIT failure (an
-   authoritative write already landed — either via deps.localSave() succeeding directly, or
-   because deps.syncPush() resolved ok, which for this Engine's BOOKING_SYNC.push() means its
-   own internal applyRemote() already performed that write — and a failure past that point is
-   a downstream/best-effort hiccup, never a save failure).
-   deps: {
-     syncEnabled: boolean,
-     syncPush: async (record) => {ok, booking} | throws,
-     localSave: (record) => {ok, booking, reason?} | throws,
-     validate?: (record) => boolean | throws   // optional pre-commit gate
-   }
-   Returns {ok:true, committed:true, degraded, booking} once anything has been durably saved,
-   or {ok:false, committed:false, reason} only when nothing has been written anywhere. */
+/* commitBookingSave — generic Engine local-first save orchestration.
+   The local Booking Authority is the immediate durable/UI commit boundary. Remote sync is
+   best-effort after that boundary: a slow or unavailable network must not hold the editor
+   open or turn an already-saved local mutation into a user-visible failure.
+   Returns {ok:true, committed:true, degraded, booking} after local commit. */
 async function commitBookingSave(record,deps){
   deps=deps||{};
   if(typeof deps.validate==='function'){
@@ -562,21 +552,16 @@ async function commitBookingSave(record,deps){
     catch(validationError){return {ok:false,committed:false,reason:(validationError&&validationError.message)||'validation-failed'};}
     if(valid===false)return {ok:false,committed:false,reason:'validation-failed'};
   }
-  let payload=record,committed=false;
-  if(deps.syncEnabled){
-    let remote;
-    try{remote=await deps.syncPush(payload);}
-    catch(syncError){return {ok:false,committed:false,reason:(syncError&&syncError.message)||'remote-save-failed'};}
-    if(!remote||!remote.ok)return {ok:false,committed:false,reason:'remote-save-failed'};
-    payload=remote.booking||payload;
-    committed=true;
-  }
-  let localResult=null,localError=null;
-  try{localResult=deps.localSave(payload);}
-  catch(error){localError=error;}
-  if(localResult&&localResult.ok)return {ok:true,committed:true,degraded:false,booking:localResult.booking||payload};
-  if(committed)return {ok:true,committed:true,degraded:true,booking:payload};
-  return {ok:false,committed:false,reason:(localError&&localError.message)||(localResult&&localResult.reason)||'save-failed'};
+  let localResult;
+  try{localResult=deps.localSave(record);}
+  catch(localError){return {ok:false,committed:false,reason:(localError&&localError.message)||'save-failed'};}
+  if(!localResult||!localResult.ok)return {ok:false,committed:false,reason:(localResult&&localResult.reason)||'save-failed'};
+  let booking=localResult.booking||record;
+  if(!deps.syncEnabled)return {ok:true,committed:true,degraded:false,booking:booking};
+  try{
+    Promise.resolve(deps.syncPush(booking)).catch(function(syncError){console.error('Booking save: remote sync pending',syncError);});
+  }catch(syncError){console.error('Booking save: remote sync pending',syncError);}
+  return {ok:true,committed:true,degraded:true,booking:booking};
 }
 window.commitBookingSave=commitBookingSave;
 // Engine-level mutation guard: DOM disabled state is presentation only. The booking ID lock

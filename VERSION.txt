@@ -1,1 +1,1 @@
-VN Companion RC29.62 · Travel Engine 25.7.0 Atomic Booking Save Candidate
+VN Companion RC29.63 · Travel Engine 25.7.0 Local-First Booking Save Candidate

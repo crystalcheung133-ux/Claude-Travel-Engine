@@ -1,4 +1,4 @@
-// data.js — Saigon Companion RC29.62 · Travel Engine 25.7.0 Integrity Pilot
+// data.js — Saigon Companion RC29.63 · Travel Engine 25.7.0 Integrity Pilot
 // Timeline is authoritative for itinerary content; booking linkage is reconciled to Booking Foundation IDs.
 
 const PLACES={

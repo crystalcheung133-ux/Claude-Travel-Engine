@@ -1,6 +1,6 @@
 {
   "engine_version": "25.7.0",
-  "artifact_version": "VN Companion RC29.62 · Travel Engine 25.7.0 Atomic Booking Save Candidate",
+  "artifact_version": "VN Companion RC29.63 · Travel Engine 25.7.0 Local-First Booking Save Candidate",
   "baseline_engine": "25.5.2",
   "release_date": "2026-09-18",
   "release_type": "atomic-booking-save-candidate",
@@ -27,8 +27,8 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc2962-2570",
-  "release_status": "RC29.62 CANDIDATE — 25.7 atomic booking mutation guard + integrity pilot",
+  "asset_cache_token": "rc2963-2570",
+  "release_status": "RC29.63 CANDIDATE — 25.7 local-first booking save lifecycle + atomic mutation guard + integrity pilot",
   "changes": [
     "Replaced button-only double-submit protection with BOOKING_SAVE_IN_FLIGHT, acquired synchronously per booking ID and released in finally after the commit settles.",
     "Unexpected commit exceptions now resolve through the existing save-failure path while still releasing the booking mutation lock.",
@@ -36,13 +36,15 @@
     "Added cross-reference integrity validator to the mandatory DATA INTEGRITY suite.",
     "The new validator immediately found and corrected legacy Guide routing drift: Fusion Day 1 hotel anchor, D2 fashion links, D1 Nguyễn Trãi links, LÜNE Day 2, Running Bean Day 4, and retired Mộc Healing timeline link.",
     "Added source provenance contract and official verifiedAt metadata for Fusion Original Saigon Centre, Pizza 4P’s Hai Bà Trưng and Qspa Trương Định.",
-    "No itinerary schedule, booking status, payment amount or D4/D5 plan was intentionally changed."
+    "No itinerary schedule, booking status, payment amount or D4/D5 plan was intentionally changed.",
+    "Booking Save is now local-first: the local Booking Authority commits before remote sync, so slow/unavailable sync cannot hold the editor open; remote failure returns a successful degraded/sync-pending outcome while the booking-level in-flight lock still prevents duplicate mutations."
   ],
   "validation": {
     "static_master_ci": "PASS — full Master CI suite including cross-reference and source-provenance contracts",
-    "browser_release_smoke": "DEFINED — must re-run Chromium desktop/mobile and WebKit 390×844/430×932; RC29.61 independent audit reproduced real duplicate-submit behavior, so RC29.62 is not promotable until browser gate passes.",
+    "browser_release_smoke": "DEFINED — must re-run Chromium desktop/mobile and WebKit 390×844/430×932; RC29.61 independent audit reproduced real duplicate-submit behavior, so RC29.63 is not promotable until browser gate passes.",
     "scope_sanity": "Cross-reference fixes only; itinerary schedule remains unchanged."
   },
   "ci_hygiene_fix": "VN product-contract suite tail tests are now included in the suite failure accumulator; stale post-PASS false-green behavior removed.",
-  "currency_guide": "RC29.48 consolidates VPBank, Hà Tâm, Hung Long, TPBank LiveBank and Takashimaya B2 into one Cash & Currency Guide with contextual Timeline Currency buttons and per-option navigation."
+  "currency_guide": "RC29.48 consolidates VPBank, Hà Tâm, Hung Long, TPBank LiveBank and Takashimaya B2 into one Cash & Currency Guide with contextual Timeline Currency buttons and per-option navigation.",
+  "browser_validation": "DEFINED — re-run Chromium desktop/mobile and WebKit 390×844/430×932. RC29.63 specifically addresses the GitHub RC29.62 timeout where #bookingEditForm remained visible while Save awaited remote sync."
 }
