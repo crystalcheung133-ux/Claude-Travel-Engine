@@ -1,1 +1,1 @@
-VN Companion RC29.59 · Travel Engine 25.6.4 Generic Accommodation Payments Candidate
+VN Companion RC29.62 · Travel Engine 25.7.0 Atomic Booking Save Candidate

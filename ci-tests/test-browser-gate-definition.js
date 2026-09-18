@@ -15,8 +15,10 @@ for(const token of [
  'nav_visible',
  "active User Selector incorrectly opened traveller selector",
  "reload active User Selector incorrectly opened traveller selector",
- "'mobile-390x844'",
- "'desktop-1280x800'",
+ "'chromium-mobile-390x844'",
+ "'chromium-desktop-1280x800'",
+ "'webkit-mobile-390x844'",
+ "'webkit-mobile-430x932'",
  "window.GUIDE_MODAL_ORIGIN",
  "Timeline-origin Guide remained open after Booking Close",
  "openBookingCategoryCard('Restaurants')",
@@ -55,7 +57,9 @@ assert(gate.includes('BROWSER_BASE_URL'),'Browser smoke must support validating 
 assert(!runner.includes('|| true'),'Browser runner must never convert a failed browser test into PASS');
 const workflow=fs.readFileSync('.github/workflows/browser-release-smoke.yml','utf8');
 assert(workflow.includes('sh ci-tests/run-browser.sh'),'GitHub browser workflow must execute canonical browser runner');
-assert(workflow.includes('playwright install --with-deps chromium'),'GitHub browser workflow must provision a real Chromium');
+assert(workflow.includes('playwright install --with-deps chromium webkit'),'GitHub browser workflow must provision Chromium + WebKit');
+assert(gate.includes('pw.webkit.launch'),'Browser release gate must execute WebKit');
+assert(gate.includes("'webkit-mobile-390x844'"),'Browser release gate must cover iPhone-class 390×844 WebKit');
 console.log('BROWSER GATE DEFINITION: PASS — Studio lifecycle/reload, Booking foreground, Guide→Booking stacking and nav visibility are mandatory; itinerary-specific content is excluded from the generic gate.');
 
 if(!gate.includes('booking-edit-btn')) throw new Error('Browser gate must verify Studio-only Booking Edit entry');

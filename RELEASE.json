@@ -1,17 +1,17 @@
 {
-  "engine_version": "25.6.4",
-  "artifact_version": "VN Companion RC29.59 · Travel Engine 25.6.4 Generic Accommodation Payments Candidate",
+  "engine_version": "25.7.0",
+  "artifact_version": "VN Companion RC29.62 · Travel Engine 25.7.0 Atomic Booking Save Candidate",
   "baseline_engine": "25.5.2",
-  "release_date": "2026-09-17",
-  "release_type": "ci-gate-candidate",
+  "release_date": "2026-09-18",
+  "release_type": "atomic-booking-save-candidate",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
-    "Generic accommodation Booking payments support Total Amount, Cashback Amount and Net Cost across trips.",
-    "Paid-in-full accommodation bookings suppress the redundant Deposit row; true deposit/balance bookings keep it.",
-    "Accommodation Studio editing avoids a duplicate Total / balance field and exposes only Total Amount, Cashback Amount and Net Cost for cashback pricing.",
-    "D2 Pizza 4P’s is locked to the official Hai Bà Trưng branch at 151B Hai Bà Trưng, Võ Thị Sáu, District 3, with Guide/Booking/Timeline routing aligned.",
-    "Qspa remains the single planned D1-D3 spa Guide/Booking authority."
+    "Booking edits now use an Engine-level per-booking in-flight mutation lock; DOM disabled state is no longer the concurrency authority.",
+    "Browser release authority now covers Chromium desktop/mobile plus WebKit iPhone-class 390×844 and 430×932 viewports.",
+    "Cross-reference integrity CI rejects Guide day-label/URL mismatches, missing Timeline anchors, missing booking places and broken booking Timeline references.",
+    "Canonical Place records can carry source provenance metadata (type, URL, verifiedAt); Fusion, Pizza 4P’s and Qspa seed the official-source pilot.",
+    "Existing generic accommodation cashback/payment behavior and Qspa single D1-D3 authority are preserved."
   ],
   "explicitly_deferred": [
     "parallel itinerary tracks",
@@ -27,20 +27,21 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc2959-2564",
-  "release_status": "RC29.59 CANDIDATE — generic accommodation cashback + paid-in-full cleanup + Pizza 4P’s branch audit",
+  "asset_cache_token": "rc2962-2570",
+  "release_status": "RC29.62 CANDIDATE — 25.7 atomic booking mutation guard + integrity pilot",
   "changes": [
-    "Promoted hotel cashback presentation/editor behavior from VN-specific handling into Travel Engine 25.6.4 generic accommodation payment behavior.",
-    "Fusion Klook booking JCV982609 remains gross AUD 1,543.66; ShopBack cashback tracked AUD 279.19; net cost AUD 1,264.47.",
-    "Paid Fusion booking no longer renders Deposit: Paid beneath a PAYMENT · PAID header.",
-    "Pizza 4P’s Day 2 Guide and Booking now use official address 151B Hai Bà Trưng, Võ Thị Sáu, District 3 and official Pizza 4P’s reservation entry point.",
-    "Pizza 4P’s Guide Day deep-link corrected to Day 2.",
-    "bookingMasterRevision bumped to 12 so stale local overrides cannot roll the new canonical payment/branch fields backward."
+    "Replaced button-only double-submit protection with BOOKING_SAVE_IN_FLIGHT, acquired synchronously per booking ID and released in finally after the commit settles.",
+    "Unexpected commit exceptions now resolve through the existing save-failure path while still releasing the booking mutation lock.",
+    "Added Chromium + WebKit browser release matrix; GitHub workflow provisions both browser engines.",
+    "Added cross-reference integrity validator to the mandatory DATA INTEGRITY suite.",
+    "The new validator immediately found and corrected legacy Guide routing drift: Fusion Day 1 hotel anchor, D2 fashion links, D1 Nguyễn Trãi links, LÜNE Day 2, Running Bean Day 4, and retired Mộc Healing timeline link.",
+    "Added source provenance contract and official verifiedAt metadata for Fusion Original Saigon Centre, Pizza 4P’s Hai Bà Trưng and Qspa Trương Định.",
+    "No itinerary schedule, booking status, payment amount or D4/D5 plan was intentionally changed."
   ],
   "validation": {
-    "static_master_ci": "PASS — full master CI suite, including generic accommodation payment regression guards",
-    "browser_release_smoke": "NOT VERIFIED HERE — existing browser CI unchanged; run in GitHub/Claude Chromium environment before promotion",
-    "scope_sanity": "PASS — VN itinerary retained; only Pizza 4P’s branch authority/deep-link and generic accommodation payment behavior changed"
+    "static_master_ci": "PASS — full Master CI suite including cross-reference and source-provenance contracts",
+    "browser_release_smoke": "DEFINED — must re-run Chromium desktop/mobile and WebKit 390×844/430×932; RC29.61 independent audit reproduced real duplicate-submit behavior, so RC29.62 is not promotable until browser gate passes.",
+    "scope_sanity": "Cross-reference fixes only; itinerary schedule remains unchanged."
   },
   "ci_hygiene_fix": "VN product-contract suite tail tests are now included in the suite failure accumulator; stale post-PASS false-green behavior removed.",
   "currency_guide": "RC29.48 consolidates VPBank, Hà Tâm, Hung Long, TPBank LiveBank and Takashimaya B2 into one Cash & Currency Guide with contextual Timeline Currency buttons and per-option navigation."

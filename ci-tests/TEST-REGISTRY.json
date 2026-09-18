@@ -21,7 +21,7 @@
   },
   "test-booking-contact-channel-ux.js": {
     "status": "active",
-    "note": "Engine 25.6.4 booking data-channel actions + compact multi-day UX"
+    "note": "Engine 25.7.0 booking data-channel actions + compact multi-day UX"
   },
   "test-booking-detail-compact-contract.js": {
     "status": "active",
@@ -306,5 +306,13 @@
   "test-vn-route-first-spa-contract.js": {
     "status": "active",
     "note": "D4 route-first spa, factual corrections and exact Timeline return"
+  },
+  "test-cross-reference-integrity.js": {
+    "status": "active",
+    "note": "Guide day links/anchors and Booking place/timeline referential integrity"
+  },
+  "test-source-provenance-contract.js": {
+    "status": "active",
+    "note": "Official source + verifiedAt provenance pilot for canonical places"
   }
 }

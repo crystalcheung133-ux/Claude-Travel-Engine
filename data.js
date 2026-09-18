@@ -1,4 +1,4 @@
-// data.js — Saigon Companion RC23 · Guide taxonomy on Travel Engine 25.4.9
+// data.js — Saigon Companion RC29.62 · Travel Engine 25.7.0 Integrity Pilot
 // Timeline is authoritative for itinerary content; booking linkage is reconciled to Booking Foundation IDs.
 
 const PLACES={
@@ -24,6 +24,7 @@ const PLACES={
     "sub": "酒店據點",
     "maps": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%20Fusion%20Original%20Saigon%20Centre%2C%2065%20L%C3%AA%20L%E1%BB%A3i%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
     "address": "Fusion Original Saigon Centre, 65 Lê Lợi, Bến Nghé, District 1, Ho Chi Minh City",
+    "source": {"type":"official","url":"https://fusionhotelgroup.com/","verifiedAt":"2026-09-18"},
     "desc": "Fusion Original Saigon Centre 係今次旅程嘅城市據點：第一郡核心、樓下直通 Saigon Centre / Takashimaya，四個人每日出入、寄放戰利品、返酒店補妝都非常方便。兩房兩衛令行程唔需要因為梳洗同收拾而互相等待，呢點對短途朋友旅行特別重要。",
     "signature": [
       "2 Bedroom Suite：四人共享客廳，私隱同方便度平衡得好",
@@ -501,6 +502,7 @@ const PLACES={
     "hours": "Mon–Fri 11:00–23:00 · Sat–Sun 10:00–23:00",
     "maps": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20151B%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh%20City",
     "address": "151B Hai Bà Trưng, Võ Thị Sáu, District 3, Ho Chi Minh City, Vietnam",
+    "source": {"type":"official","url":"https://pizza4ps.com/jp/location/935/?lang=english","verifiedAt":"2026-09-18"},
     "desc": "上午在 Trần Quang Diệu 收好第一輪戰利品，中午轉入 Hai Bà Trưng。這餐是 Fashion Day 的冷氣停頓；食完 Grab 去 Qspa，保留完整兩小時 Afternoon Reset。",
     "signature": [
       "Crab tomato cream spaghetti｜近期評論反覆點名",
@@ -1409,6 +1411,7 @@ const PLACES={
     "address": "25/1 Trương Định, Xuân Hòa, Hồ Chí Minh City",
     "phone": "028 3535 9727",
     "website": "https://qspa.com.vn/",
+    "source": {"type":"official","url":"https://qspa.com.vn/wp-content/uploads/2025/04/Menu-Truong-Dinh.pdf","verifiedAt":"2026-09-18"},
     "facebookUrl": "https://www.facebook.com/QspaCenter/",
     "messengerUrl": "https://m.me/QspaCenter",
     "instagramUrl": "https://www.instagram.com/qspacenter/",
@@ -1801,7 +1804,7 @@ const DAY_LINKS={
   "fusion": [
     [
       "Day 1",
-      "day.html?day=1#fusion"
+      "day.html?day=1#day1-hotel-reset"
     ]
   ],
   "ivoire": [],
@@ -1888,31 +1891,31 @@ const DAY_LINKS={
   ],
   "com-tam-moc": [
     [
-      "Day 4",
+      "Day 2",
       "day.html?day=2#com-tam-moc"
     ]
   ],
   "garmentory": [
     [
-      "Day 4",
+      "Day 2",
       "day.html?day=2#garmentory"
     ]
   ],
   "dalla-saigon": [
     [
-      "Day 4",
-      "day.html?day=2#dalla-saigon"
+      "Day 2",
+      "day.html?day=2#shopping-tqd"
     ]
   ],
   "rubies": [
     [
-      "Day 4",
+      "Day 2",
       "day.html?day=2#shopping-tqd"
     ]
   ],
   "lane-ci": [
     [
-      "Day 4",
+      "Day 2",
       "day.html?day=2#shopping-tqd"
     ]
   ],
@@ -1924,32 +1927,27 @@ const DAY_LINKS={
   ],
   "libe": [
     [
-      "Day 2",
-      "day.html?day=4#shopping-nguyen-trai"
+      "Day 1",
+      "day.html?day=1#shopping-nguyen-trai"
     ]
   ],
   "dauple": [
     [
-      "Day 2",
-      "day.html?day=4#shopping-nguyen-trai"
+      "Day 1",
+      "day.html?day=1#shopping-nguyen-trai"
     ]
   ],
   "nosbyn": [
     [
-      "Day 2",
-      "day.html?day=4#shopping-nguyen-trai"
+      "Day 1",
+      "day.html?day=1#shopping-nguyen-trai"
     ]
   ],
-  "moc-healing": [
-    [
-      "Day 2",
-      "day.html?day=4#moc-healing"
-    ]
-  ],
+  "moc-healing": [],
   "lune": [
     [
       "Day 2",
-      "day.html?day=4#lune"
+      "day.html?day=2#lune"
     ]
   ],
   "cu-chi": [
@@ -1973,7 +1971,7 @@ const DAY_LINKS={
   ],
   "running-bean": [
     [
-      "Day 2",
+      "Day 4",
       "day.html?day=4#running-bean"
     ]
   ],

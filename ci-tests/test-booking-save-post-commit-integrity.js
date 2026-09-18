@@ -18,10 +18,16 @@ for(const forbidden of ['Klook','airport-transfer','Fusion','bk-transfer-in','bk
 // Case 6 (double-submit protection) lives at the UI layer, not inside the pure orchestrator:
 // saveBookingEdit must refuse to start a second commit while one is already in flight.
 const saveHandlerSrc=between(src,'async function saveBookingEdit(event,bookingId){','\n}\nfunction reopenSavedBooking');
-assert(/if\(saveButton&&saveButton\.disabled\)return false;/.test(saveHandlerSrc),
-  'Case 6: saveBookingEdit must bail out immediately if a save is already in flight (Save button already disabled)');
+assert(/const BOOKING_SAVE_IN_FLIGHT=new Set\(\);/.test(src),
+  'Case 6: Engine must own a booking-level in-flight mutation guard independent of DOM button state');
+assert(/if\(BOOKING_SAVE_IN_FLIGHT\.has\(bookingId\)\)return false;/.test(saveHandlerSrc),
+  'Case 6: saveBookingEdit must refuse a duplicate booking mutation even when invoked programmatically');
+assert(saveHandlerSrc.indexOf('BOOKING_SAVE_IN_FLIGHT.add(bookingId)')<saveHandlerSrc.indexOf('await commitBookingSave'),
+  'Case 6: booking lock must be acquired synchronously before the first commit await');
+assert(/finally\{\s*BOOKING_SAVE_IN_FLIGHT\.delete\(bookingId\);\s*\}/.test(saveHandlerSrc),
+  'Case 6: booking lock must always be released in finally after commit settles');
 assert(saveHandlerSrc.indexOf('saveButton.disabled=true')<saveHandlerSrc.indexOf('await commitBookingSave'),
-  'Case 6: the Save button must be disabled synchronously before the first await, so a same-tick double-click cannot start a second commit');
+  'Case 6: Save button should still disable synchronously as UI feedback, but it is not the authority lock');
 
 const ctx={console};
 vm.createContext(ctx);

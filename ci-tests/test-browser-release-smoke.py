@@ -194,6 +194,7 @@ def run_viewport(browser,base,viewport,label):
         page.evaluate("""() => {
           const realSave=window.BOOKING_AUTHORITY.save.bind(window.BOOKING_AUTHORITY);
           window.__realBookingAuthoritySave=realSave;
+          window.__realBookingSync=window.BOOKING_SYNC;
           window.BOOKING_SYNC=Object.assign({},window.BOOKING_SYNC,{
             enabled:()=>true,
             push: async (record) => {
@@ -219,6 +220,7 @@ def run_viewport(browser,base,viewport,label):
         page.locator('#tripModal .trip-close').click()
         page.evaluate("""() => {
           window.BOOKING_AUTHORITY=Object.assign({},window.BOOKING_AUTHORITY,{save:window.__realBookingAuthoritySave});
+          if(window.__realBookingSync) window.BOOKING_SYNC=window.__realBookingSync;
         }""")
 
         # Double-submit protection: while a save is in flight, a second Save click must not
@@ -232,7 +234,10 @@ def run_viewport(browser,base,viewport,label):
           window.__commitCount=0;
           const realSave=window.BOOKING_AUTHORITY.save.bind(window.BOOKING_AUTHORITY);
           window.BOOKING_AUTHORITY=Object.assign({},window.BOOKING_AUTHORITY,{
-            save: (...args) => { window.__commitCount+=1; return realSave(...args); }
+            save: (...args) => {
+              if(args[0]==='bk-transfer-in') window.__commitCount+=1;
+              return realSave(...args);
+            }
           });
           return window.__commitCount;
         }""")
@@ -407,13 +412,19 @@ def run_viewport(browser,base,viewport,label):
 
 def run():
   with target_base() as base, sync_playwright() as pw:
-    browser=pw.chromium.launch(headless=True,executable_path=os.environ.get('CHROMIUM_PATH') or shutil.which('chromium') or shutil.which('google-chrome') or None,args=['--no-sandbox'])
+    chromium=pw.chromium.launch(headless=True,executable_path=os.environ.get('CHROMIUM_PATH') or shutil.which('chromium') or shutil.which('google-chrome') or None,args=['--no-sandbox'])
     try:
-      run_viewport(browser,base,{'width':1280,'height':800},'desktop-1280x800')
-      run_viewport(browser,base,{'width':390,'height':844},'mobile-390x844')
-      print('BROWSER INTERACTION SMOKE: PASS — desktop + mobile Studio lifecycle and Timeline → Guide → Booking return contract.')
+      run_viewport(chromium,base,{'width':1280,'height':800},'chromium-desktop-1280x800')
+      run_viewport(chromium,base,{'width':390,'height':844},'chromium-mobile-390x844')
     finally:
-      browser.close()
+      chromium.close()
+    webkit=pw.webkit.launch(headless=True)
+    try:
+      run_viewport(webkit,base,{'width':390,'height':844},'webkit-mobile-390x844')
+      run_viewport(webkit,base,{'width':430,'height':932},'webkit-mobile-430x932')
+      print('BROWSER INTERACTION SMOKE: PASS — Chromium desktop/mobile + WebKit iPhone-class mobile matrix.')
+    finally:
+      webkit.close()
 
 if __name__=='__main__':
   try: run()

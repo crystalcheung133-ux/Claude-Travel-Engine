@@ -579,12 +579,19 @@ async function commitBookingSave(record,deps){
   return {ok:false,committed:false,reason:(localError&&localError.message)||(localResult&&localResult.reason)||'save-failed'};
 }
 window.commitBookingSave=commitBookingSave;
+// Engine-level mutation guard: DOM disabled state is presentation only. The booking ID lock
+// is the authoritative concurrency boundary, so direct/programmatic duplicate submits cannot
+// start a second commit while the first mutation is unresolved.
+const BOOKING_SAVE_IN_FLIGHT=new Set();
+window.BOOKING_SAVE_IN_FLIGHT=BOOKING_SAVE_IN_FLIGHT;
 async function saveBookingEdit(event,bookingId){
   event.preventDefault();
   if(!(window.BOOKING_PERMISSIONS&&BOOKING_PERMISSIONS.canEdit())){alert(window.BOOKING_PERMISSIONS?BOOKING_PERMISSIONS.denialMessage():'Booking editing is not available.');return false;}
   const form=event.currentTarget;const current=getBookingById(bookingId);if(!current||!window.BOOKING_AUTHORITY){alert('Booking editor is not ready. Please close and reopen this booking.');return false;}
   const saveButton=form.querySelector('.booking-edit-save');
+  if(BOOKING_SAVE_IN_FLIGHT.has(bookingId))return false;
   if(saveButton&&saveButton.disabled)return false;
+  BOOKING_SAVE_IN_FLIGHT.add(bookingId);
   const formData=new FormData(form);const next=Object.assign({},current);
   formData.forEach(function(value,key){next[key]=String(value).trim();});
   {const rawStatus=String(next.status||'pending').toLowerCase();next.status=rawStatus==='confirmed'?'confirmed':(rawStatus==='planned'?'planned':'pending');}
@@ -599,11 +606,19 @@ async function saveBookingEdit(event,bookingId){
   next.updatedBy=(window.getFriend&&window.getFriend())||'admin';next.updatedAt=new Date().toISOString();
   const liveTarget=typeof PRODUCTION_BOOKINGS!=='undefined'&&PRODUCTION_BOOKINGS&&PRODUCTION_BOOKINGS.byId?PRODUCTION_BOOKINGS.byId:null;
   if(saveButton){saveButton.disabled=true;saveButton.textContent='Saving…';}
-  const outcome=await commitBookingSave(next,{
-    syncEnabled:!!(window.BOOKING_SYNC&&BOOKING_SYNC.enabled()),
-    syncPush:function(payload){return BOOKING_SYNC.push(payload);},
-    localSave:function(payload){return BOOKING_AUTHORITY.save(bookingId,payload,liveTarget);}
-  });
+  let outcome;
+  try{
+    outcome=await commitBookingSave(next,{
+      syncEnabled:!!(window.BOOKING_SYNC&&BOOKING_SYNC.enabled()),
+      syncPush:function(payload){return BOOKING_SYNC.push(payload);},
+      localSave:function(payload){return BOOKING_AUTHORITY.save(bookingId,payload,liveTarget);}
+    });
+  }catch(commitError){
+    console.error('Booking save: unexpected commit exception',commitError);
+    outcome={ok:false,committed:false,reason:(commitError&&commitError.message)||'save-failed'};
+  }finally{
+    BOOKING_SAVE_IN_FLIGHT.delete(bookingId);
+  }
   if(!outcome.ok){
     if(saveButton){saveButton.disabled=false;saveButton.textContent='Save Booking';}
     console.error('Booking save failed',outcome.reason);
