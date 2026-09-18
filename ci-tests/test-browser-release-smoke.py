@@ -234,14 +234,20 @@ def run_viewport(browser,base,viewport,label):
         }""")
         page.locator('#bookingEditForm textarea[name="importantInfo"]').fill(marker+'-double-submit')
         save_button=page.locator('#bookingEditForm .booking-edit-save')
-        save_button.click()
+        # Capture the original DOM node before the first click. A Playwright Locator re-resolves
+        # after DOM replacement; on fast WebKit the saved-booking detail can reopen within the
+        # 300 ms second-click window and the same locator may target a *new* Save button, falsely
+        # reporting two user commits. A real double-tap targets the original control.
+        original_save_button=save_button.element_handle()
+        check(original_save_button is not None,label+': could not capture original Save button node')
+        original_save_button.click()
         check(save_button.is_disabled(),label+': Save button must be disabled synchronously on first click to block double-submit')
         # A second click while disabled must be refused outright by Playwright's actionability
         # checks (a disabled control cannot receive a real click) — proving the browser itself
         # blocks the double-submit, not merely that our own code ignored a synthetic second call.
         second_click_blocked=False
         try:
-            save_button.click(timeout=300)
+            original_save_button.click(timeout=300)
         except Exception:
             second_click_blocked=True
         check(second_click_blocked,label+': a second click on the disabled Save button was not refused — double-submit is not actually blocked')

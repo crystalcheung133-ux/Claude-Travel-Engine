@@ -1,1 +1,1 @@
-VN Companion RC29.64 · Travel Engine 25.7.0 Browser Mutation Gate Isolation Candidate
+VN Companion RC29.65 · Travel Engine 25.7.0 WebKit Atomic Commit Root Candidate
