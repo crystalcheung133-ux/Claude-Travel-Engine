@@ -11,7 +11,7 @@ function folders(list){const used=new Set((list||read()).map(d=>validFolder(d.fi
 function currentUser(){try{return typeof root.getFriend==='function'?String(root.getFriend()||''):''}catch(e){return ''}}
 function isStudio(){try{return !!(root.isAdminMode&&root.isAdminMode())}catch(e){return false}}
 function canManage(d){return !!(d&&(isStudio()||(d.ownerKey&&d.ownerKey===currentUser())))}
-function canLink(){return isStudio()}
+function canLink(){return true}
 function uuid(){return root.crypto?.randomUUID?root.crypto.randomUUID():'doc-'+Date.now()+'-'+Math.random().toString(36).slice(2)}
 function readRaw(){let x=[];try{x=store?.readJSON?store.readJSON(KEY,[]):JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){};return Array.isArray(x)?x:[]}
 function read(){let raw=readRaw();const tombstones=new Set(raw.filter(d=>d&&d.deleted).map(d=>d.id));let x=raw.filter(d=>d&&!d.deleted).map(d=>{if(!d.seeded&&!d.fileUrl&&!d.filePath)return Object.assign({},d,{uploadPending:true,legacyLocalOnly:true});return d});const ids=new Set(x.map(d=>d.id));return x.map(d=>Object.assign({},d,{filedUnder:validFolder(d.filedUnder)})).sort((a,b)=>(!!b.pinned-!!a.pinned)||String(b.updatedAt).localeCompare(String(a.updatedAt)))}

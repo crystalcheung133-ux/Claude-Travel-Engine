@@ -222,6 +222,7 @@ def run_viewport(browser,base,viewport,label):
           // legitimately re-apply the same canonical booking after a successful push; that is
           // not a second user submit and must not inflate this guard assertion.
           window.__doubleSubmitRealBookingSync=window.BOOKING_SYNC;
+          window.__doubleSubmitRealBookingAuthority=window.BOOKING_AUTHORITY;
           window.BOOKING_SYNC=Object.assign({},window.BOOKING_SYNC,{enabled:()=>false});
           const realSave=window.BOOKING_AUTHORITY.save.bind(window.BOOKING_AUTHORITY);
           window.BOOKING_AUTHORITY=Object.assign({},window.BOOKING_AUTHORITY,{
@@ -254,7 +255,10 @@ def run_viewport(browser,base,viewport,label):
         page.wait_for_selector('#bookingEditForm',state='detached',timeout=5000)
         final_commit_count=page.evaluate("window.__commitCount")
         check(final_commit_count==1,label+f': double-submit guard failed — expected exactly 1 user commit, got {final_commit_count}')
-        page.evaluate("""() => { if(window.__doubleSubmitRealBookingSync) window.BOOKING_SYNC=window.__doubleSubmitRealBookingSync; }""")
+        page.evaluate("""() => {
+          if(window.__doubleSubmitRealBookingSync) window.BOOKING_SYNC=window.__doubleSubmitRealBookingSync;
+          if(window.__doubleSubmitRealBookingAuthority) window.BOOKING_AUTHORITY=window.__doubleSubmitRealBookingAuthority;
+        }""")
         page.locator('#tripModal .trip-close').click()
 
         page.evaluate("window.exitTripStudioMode && window.exitTripStudioMode()")

@@ -322,5 +322,9 @@
   "test-rc2966-shared-documents.js": {
     "status": "active",
     "purpose": "Engine 25.7.2 shared Documents root/folder integration contract"
+  },
+  "test-rc2968-ui-docs-browser-contract.js": {
+    "status": "active",
+    "purpose": "RC29.68 six-column nav, 10,000 VND default, collaborative Documents link controls, hidden cascading rows, browser wrapper isolation"
   }
 }

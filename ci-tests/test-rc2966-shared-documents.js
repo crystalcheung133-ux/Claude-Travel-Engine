@@ -4,4 +4,4 @@ const cfg=fs.readFileSync('trip-config.js','utf8'),nav=fs.readFileSync('navigati
 assert(nav.includes("documents: 'documents.html'"));assert(sync.includes("documents:'trip_documents'"));assert(sync.includes("documentsBucket:'trip-documents'"));
 assert(html.includes('docFiledUnder')&&html.includes('editDocFiledUnder'));assert(js.includes('visibleFolders')&&js.includes('rootDocuments'));
 assert(!html.includes('>ALL<'));assert(js.includes("filedUnder:$('docFiledUnder')?.value||'all'"));
-console.log('RC29.67 SHARED DOCUMENTS INTEGRATION: PASS');
+console.log('RC29.68 SHARED DOCUMENTS INTEGRATION: PASS');

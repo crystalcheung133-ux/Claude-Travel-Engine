@@ -13,4 +13,4 @@ assert(js.includes("pinned:$('docPin').checked")&&js.includes("pinned:$('editDoc
 assert(js.includes("readLinkEditor('doc')")&&js.includes("readLinkEditor('editDoc')"),'link round-trip required');
 assert(js.includes('openDocumentViewer')&&js.includes('renderPdfInto'),'viewer parity required');
 assert(rt.includes('canManage')&&rt.includes('canLink'),'ownership/link authority required');
-console.log('RC29.67 DOCUMENTS PARITY + CASCADING TIMELINE UX: PASS');
+console.log('RC29.68 DOCUMENTS PARITY + CASCADING TIMELINE UX: PASS');

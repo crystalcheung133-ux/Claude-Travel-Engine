@@ -39,3 +39,4 @@ echo "MASTER CI SUITE PASSED"
 node ci-tests/test-rc2966-shared-documents.js
 
 node ci-tests/test-rc2967-documents-parity-ux.js
+node ci-tests/test-rc2968-ui-docs-browser-contract.js
