@@ -9,4 +9,4 @@ ok(day.includes('walk&&walk.max<=15')&&day.includes('🚶 Walk')&&day.includes('
 ok(day.includes("else if(grab){lines.push(`🚕 Grab")&&day.includes('Live ETA in Maps'),'Long/unknown walk Grab rule missing');
 ok(day.includes('www.google.com/maps/dir/?api=1&origin='),'Derived Directions map missing');
 ok(day.includes('Next stop is automatic. Moving, adding or deleting Timeline events recalculates it.'),'Timeline editor does not explain derived next stop');
-console.log('RC29.72 guide sync + derived next stop contract PASS');
+console.log('RC29.73 guide sync + derived next stop contract PASS');

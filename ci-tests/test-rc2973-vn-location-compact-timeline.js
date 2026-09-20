@@ -1,0 +1,10 @@
+const fs=require('fs');
+const assert=(x,m)=>{if(!x)throw new Error(m)};
+const day=fs.readFileSync('day.html','utf8'), data=fs.readFileSync('data.js','utf8'), css=fs.readFileSync('styles.css','utf8');
+assert(day.includes('timelineStartTime(item.time)'), 'Timeline cards must render start time only');
+assert(day.includes('function mapQueryFromUrl'), 'Directions must use map query authority');
+assert(day.includes('function isTrustedVietnamLocation'), 'VN route guard missing');
+assert(day.includes('if(!from||!to)return'), 'Directions must fail closed without trusted endpoints');
+assert(!/(Doncaster|Melbourne|Victoria)/i.test(data), 'Home-location contamination found in VN data');
+assert(css.includes('RC29.73 — NZ-style compact Timeline'), 'Compact Timeline CSS missing');
+console.log('PASS RC29.73 VN location authority + compact Timeline');

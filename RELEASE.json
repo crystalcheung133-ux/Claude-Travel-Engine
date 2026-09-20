@@ -1,6 +1,6 @@
 {
   "engine_version": "25.7.2",
-  "artifact_version": "VN Companion RC29.72 · Travel Engine 25.7.2 Guide Auto-Sync + Derived Timeline Next Stop Root Candidate",
+  "artifact_version": "VN Companion RC29.73 · Travel Engine 25.7.2 Guide Auto-Sync + Derived Timeline Next Stop Root Candidate",
   "baseline_engine": "25.5.2",
   "release_date": "2026-09-20",
   "release_type": "guide-auto-sync-derived-timeline-next-stop-candidate",
@@ -25,7 +25,10 @@
     "Guide Save is local-first and auto-syncs across devices through trip_guides; Timeline Publish does not own Guide.",
     "Timeline TO NEXT STOP destination is derived from current Timeline order after move/add/delete/edit.",
     "For a trusted route with walking time <=15 minutes, Timeline shows both Walk and Grab estimates; otherwise it shows Grab only.",
-    "Derived next-stop Directions opens Google Maps from the current stop to the derived next stop."
+    "Derived next-stop Directions opens Google Maps from the current stop to the derived next stop.",
+    "VN Timeline cards render start time only while retaining end time in itinerary data.",
+    "VN Directions resolve only from Vietnam-scoped address/map-query authority and fail closed instead of geocoding bare titles near the user home location.",
+    "Derived next-stop presentation is compacted to the NZ-style Timeline hierarchy."
   ],
   "explicitly_deferred": [
     "parallel itinerary tracks",
@@ -41,8 +44,8 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc2972-2572",
-  "release_status": "RC29.72 CANDIDATE — Guide auto-sync + derived Timeline next stop",
+  "asset_cache_token": "rc2973-2572",
+  "release_status": "RC29.73 CANDIDATE — Guide auto-sync + derived Timeline next stop",
   "changes": [
     "Integrated documents-runtime.js and documents-folder-ui.js as Engine 25.7.2 shared modules.",
     "Added VN Documents page and navigation entry.",
@@ -52,10 +55,13 @@
     "Replaced flat Documents Timeline target list with Attach to → Timeline event → Day → Event.",
     "Added CI regression coverage for category add/edit round-trip, pin, links, viewer and authority parity.",
     "Added trip_guides Guide sync authority and removed Guide overrides from publication payload.",
-    "Replaced authored Timeline next-stop destination rendering with order-derived next stop + Maps directions."
+    "Replaced authored Timeline next-stop destination rendering with order-derived next stop + Maps directions.",
+    "Added Vietnam-scoped route-location guard and map-query fallback to prevent ambiguous names resolving near Melbourne/Doncaster.",
+    "Timeline card time rail now renders start time only; underlying schedule ranges are preserved.",
+    "Compacted derived next-stop panel."
   ],
   "validation": {
-    "static_master_ci": "PASS — full Master CI including RC29.72 Guide auto-sync + derived Timeline next-stop contract; 73/73 checksums after final metadata rebuild.",
+    "static_master_ci": "PASS — full Master CI including RC29.73 Guide auto-sync + derived Timeline next-stop contract; 73/73 checksums after final metadata rebuild.",
     "browser_release_smoke": "DEFINED — re-run the four-viewport GitHub browser gate; RC29.65 fixes the WebKit 430×932 false second-user-commit caused by locator re-resolution onto a newly rendered Save button.",
     "scope_sanity": "Guide publication coupling removed; Timeline remains the only manual Publish authority. Existing Booking/Documents/Expenses/Moments flows preserved."
   },
