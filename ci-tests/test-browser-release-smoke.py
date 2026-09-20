@@ -216,22 +216,16 @@ def run_viewport(browser,base,viewport,label):
         page.wait_for_selector('#tripModal.show')
         page.locator('#tripModalContent .booking-edit-btn').click()
         page.wait_for_selector('#bookingEditForm')
-        commit_count=page.evaluate("""() => {
-          window.__commitCount=0;
-          // Isolate the user mutation boundary from remote reconciliation. BOOKING_SYNC may
-          // legitimately re-apply the same canonical booking after a successful push; that is
-          // not a second user submit and must not inflate this guard assertion.
-          window.__doubleSubmitRealBookingSync=window.BOOKING_SYNC;
-          window.__doubleSubmitRealBookingAuthority=window.BOOKING_AUTHORITY;
-          window.BOOKING_SYNC=Object.assign({},window.BOOKING_SYNC,{enabled:()=>false});
-          const realSave=window.BOOKING_AUTHORITY.save.bind(window.BOOKING_AUTHORITY);
-          window.BOOKING_AUTHORITY=Object.assign({},window.BOOKING_AUTHORITY,{
-            save: (...args) => {
-              if(args[0]==='bk-transfer-in') window.__commitCount+=1;
-              return realSave(...args);
-            }
-          });
-          return window.__commitCount;
+        submit_count=page.evaluate("""() => {
+          window.__submitCount=0;
+          // Count the actual user submit boundary. BOOKING_AUTHORITY.save can also be invoked
+          // by canonical reconciliation and is therefore not a valid proxy for double-clicks.
+          window.__doubleSubmitRealSaveBookingEdit=window.saveBookingEdit;
+          window.saveBookingEdit=function(...args){
+            window.__submitCount+=1;
+            return window.__doubleSubmitRealSaveBookingEdit.apply(this,args);
+          };
+          return window.__submitCount;
         }""")
         page.locator('#bookingEditForm textarea[name="importantInfo"]').fill(marker+'-double-submit')
         save_button=page.locator('#bookingEditForm .booking-edit-save')
@@ -253,11 +247,10 @@ def run_viewport(browser,base,viewport,label):
             second_click_blocked=True
         check(second_click_blocked,label+': a second click on the disabled Save button was not refused — double-submit is not actually blocked')
         page.wait_for_selector('#bookingEditForm',state='detached',timeout=5000)
-        final_commit_count=page.evaluate("window.__commitCount")
-        check(final_commit_count==1,label+f': double-submit guard failed — expected exactly 1 user commit, got {final_commit_count}')
+        final_submit_count=page.evaluate("window.__submitCount")
+        check(final_submit_count==1,label+f': double-submit guard failed — expected exactly 1 submit handler invocation, got {final_submit_count}')
         page.evaluate("""() => {
-          if(window.__doubleSubmitRealBookingSync) window.BOOKING_SYNC=window.__doubleSubmitRealBookingSync;
-          if(window.__doubleSubmitRealBookingAuthority) window.BOOKING_AUTHORITY=window.__doubleSubmitRealBookingAuthority;
+          if(window.__doubleSubmitRealSaveBookingEdit) window.saveBookingEdit=window.__doubleSubmitRealSaveBookingEdit;
         }""")
         page.locator('#tripModal .trip-close').click()
 

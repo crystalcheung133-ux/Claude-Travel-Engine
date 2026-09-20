@@ -325,6 +325,6 @@
   },
   "test-rc2968-ui-docs-browser-contract.js": {
     "status": "active",
-    "purpose": "RC29.68 six-column nav, 10,000 VND default, collaborative Documents link controls, hidden cascading rows, browser wrapper isolation"
+    "purpose": "RC29.69 six-column nav, 10,000 VND default, collaborative Documents link controls, hidden cascading rows, browser wrapper isolation"
   }
 }

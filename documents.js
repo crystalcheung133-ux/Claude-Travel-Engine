@@ -28,7 +28,7 @@ function setLinkEditor(prefix,type='trip',linkId=''){
 function updateLinkEditor(prefix){
  const type=$(prefix+'LinkType')?.value||'trip';
  const bookingRow=$(prefix+'BookingRow'),dayRow=$(prefix+'TimelineDayRow'),eventRow=$(prefix+'TimelineEventRow');
- if(bookingRow)bookingRow.hidden=type!=='booking';if(dayRow)dayRow.hidden=type!=='timeline';if(eventRow)eventRow.hidden=type!=='timeline';
+ if(bookingRow){const show=type==='booking';bookingRow.hidden=!show;bookingRow.style.display=show?'grid':'none'}if(dayRow){const show=type==='timeline';dayRow.hidden=!show;dayRow.style.display=show?'grid':'none'}if(eventRow){const show=type==='timeline';eventRow.hidden=!show;eventRow.style.display=show?'grid':'none'}
 }
 function readLinkEditor(prefix){
  const type=$(prefix+'LinkType')?.value||'trip';

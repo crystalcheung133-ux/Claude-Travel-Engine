@@ -4,5 +4,5 @@ ok(css.includes('repeat(6,minmax(0,1fr))'),'bottom nav must be six columns');
 ok(css.includes('.docs-form label[hidden]{display:none!important;}'),'document cascading rows must respect hidden');
 ok(idx.includes('id="currencyAmount"')&&idx.includes('value="10000"'),'VND converter default must be 10000');
 ok(docs.includes('function canLink(){return true}'),'VN collaborative documents must permit contextual link selection');
-ok(browser.includes('__doubleSubmitRealBookingAuthority')&&browser.includes('window.BOOKING_AUTHORITY=window.__doubleSubmitRealBookingAuthority'),'browser smoke must restore wrapped authority between viewports');
-console.log('RC29.68 UI + DOCUMENTS + BROWSER CONTRACT: PASS');
+ok(browser.includes('__submitCount')&&browser.includes('__doubleSubmitRealSaveBookingEdit'),'browser smoke must count the actual submit-handler boundary, not authority reconciliation saves');
+console.log('RC29.69 UI + DOCUMENTS + BROWSER CONTRACT: PASS');
