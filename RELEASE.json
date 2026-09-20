@@ -1,6 +1,6 @@
 {
   "engine_version": "25.7.2",
-  "artifact_version": "VN Companion RC29.77 · Travel Engine 25.7.2 Settlement Checkpoint Root Candidate",
+  "artifact_version": "VN Companion RC29.78 · Travel Engine 25.7.2 Settlement Checkpoint Root Candidate",
   "baseline_engine": "25.5.2",
   "release_date": "2026-09-20",
   "release_type": "expense-settlement-checkpoint-candidate",
@@ -53,7 +53,7 @@
     "cold-white Saigon header treatment"
   ],
   "asset_cache_token": "rc2976-2572",
-  "release_status": "RC29.77 CANDIDATE — Expense settlement checkpoint",
+  "release_status": "RC29.78 CANDIDATE — Expense settlement checkpoint",
   "changes": [
     "Integrated documents-runtime.js and documents-folder-ui.js as Engine 25.7.2 shared modules.",
     "Added VN Documents page and navigation entry.",
@@ -77,7 +77,7 @@
     "Audited Booking-to-Expense cashback flow: netTotalAUD remains preferred ahead of gross totalAmount when no explicit deposit is being recorded."
   ],
   "validation": {
-    "static_master_ci": "PASS — RC29.77 full Master CI plus settlement-checkpoint focused contract; final production checksums rebuilt after validation.",
+    "static_master_ci": "PASS — RC29.78 full Master CI plus settlement-checkpoint focused contract; final production checksums rebuilt after validation.",
     "browser_release_smoke": "DEFINED — re-run the four-viewport GitHub browser gate; RC29.65 fixes the WebKit 430×932 false second-user-commit caused by locator re-resolution onto a newly rendered Save button.",
     "scope_sanity": "Timeline is the only manual Publish authority; Guide/Booking/Documents/Expenses/Moments remain independent auto-sync flows."
   },

@@ -4,4 +4,4 @@ ok(s.includes('getExpenseRateRecord(forceLive=false)'), 'force-live FX path miss
 ok(s.includes("getExpenseRateRecord(operation==='create')"), 'new expense does not force live FX');
 ok(s.includes('MONEY.isCacheFresh(current)')&&s.includes('MONEY.isCacheFresh(cached)'), 'fresh-cache gate missing');
 ok(s.includes('MONEY.fetchLatestRate()'), 'live FX fetch missing');
-console.log('RC29.77 LIVE FX SAVE CONTRACT: PASS');
+console.log('RC29.78 LIVE FX SAVE CONTRACT: PASS');
