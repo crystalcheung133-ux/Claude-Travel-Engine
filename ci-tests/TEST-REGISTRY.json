@@ -334,5 +334,13 @@
   "test-rc2974-vn-location-compact-timeline.js": {
     "status": "active",
     "note": "VN-only route authority guard, start-time-only Timeline and compact Timeline presentation"
+  },
+  "test-rc2976-settlement-checkpoint.js": {
+    "status": "active",
+    "note": "RC29.77 Expense settlement checkpoint, current-balance reset and historical-edit warning contract"
+  },
+  "test-rc2977-live-fx-save.js": {
+    "status": "active",
+    "note": "RC29.77 new foreign-currency expense live-rate-first save with fresh-cache/offline fallback"
   }
 }

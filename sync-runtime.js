@@ -183,7 +183,7 @@
       emit(EVENTS.error,{error:entry,state:snapshot()});
       return {ok:false,reason:'incomplete-payload',missing:integrity.missing,applied:[]};
     }
-    /* RC29.75 authority boundary: cloud publication owns Timeline only.
+    /* RC29.77 authority boundary: cloud publication owns Timeline only.
        Guide, Booking, Documents, Expenses and Moments sync independently. */
     const map=[
       ['ITINERARY_DATA',['itineraryData','itinerary','ITINERARY_DATA']]

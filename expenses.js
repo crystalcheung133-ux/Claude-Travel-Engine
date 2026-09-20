@@ -230,13 +230,19 @@ let editingExpenseIndex=null;
       helper.textContent=[convertedText,rateText].filter(Boolean).join(' · ');
     }else helper.textContent=total?'Live conversion unavailable':'';
   }
-  async function getExpenseRateRecord(){
-    if(expenseRateRecord&&Number(expenseRateRecord.rate)>0) return expenseRateRecord;
+  async function getExpenseRateRecord(forceLive=false){
     const cached=MONEY.readCachedRate();
-    if(cached&&Number(cached.rate)>0) expenseRateRecord=cached;
-    if(!navigator.onLine) return expenseRateRecord;
+    const current=expenseRateRecord&&Number(expenseRateRecord.rate)>0?expenseRateRecord:null;
+    const fallback=current||(cached&&Number(cached.rate)>0?cached:null);
+    if(!navigator.onLine){ expenseRateRecord=fallback; return fallback; }
+    // Saving a new foreign-currency expense must try a live rate first.
+    // For UI previews / edits, a fresh in-memory or cached rate may be reused.
+    if(!forceLive){
+      if(current&&MONEY.isCacheFresh(current)) return current;
+      if(cached&&Number(cached.rate)>0&&MONEY.isCacheFresh(cached)){ expenseRateRecord=cached; return cached; }
+    }
     if(!expenseRatePromise){
-      expenseRatePromise=MONEY.fetchLatestRate().then(record=>{expenseRateRecord=record;MONEY.saveCachedRate(record);return record;}).catch(()=>expenseRateRecord).finally(()=>{expenseRatePromise=null;});
+      expenseRatePromise=MONEY.fetchLatestRate().then(record=>{expenseRateRecord=record;MONEY.saveCachedRate(record);return record;}).catch(()=>{expenseRateRecord=fallback;return fallback;}).finally(()=>{expenseRatePromise=null;});
     }
     return expenseRatePromise;
   }
@@ -274,8 +280,26 @@ let editingExpenseIndex=null;
     const split=(e.split&&e.split.length)?e.split:[e.paidBy];
     return MONEY.equalShares(amount,split);
   }
+  function isSettlementCheckpoint(record){return record?.type==='settlement_checkpoint';}
+  function expenseOnly(records){return (Array.isArray(records)?records:[]).filter(e=>e&&!isSettlementCheckpoint(e));}
+  function latestSettlementCheckpoint(records){
+    return (Array.isArray(records)?records:[]).filter(isSettlementCheckpoint).sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')))[0]||null;
+  }
+  function checkpointHistoricalExpenses(records,checkpoint){
+    if(!checkpoint)return [];
+    const through=String(checkpoint.settledThroughAt||checkpoint.createdAt||'');
+    return expenseOnly(records).filter(e=>String(e.createdAt||'')<=through);
+  }
+  function checkpointNeedsReview(records,checkpoint){
+    if(!checkpoint)return false;
+    const snapshot=checkpoint.expenseSnapshot||{};
+    const historical=checkpointHistoricalExpenses(records,checkpoint);
+    const currentIds=new Set(historical.map(e=>e.id));
+    if(Object.keys(snapshot).some(id=>!currentIds.has(id)))return true;
+    return historical.some(e=>!snapshot[e.id]||String(snapshot[e.id])!==String(e.updatedAt||e.createdAt||''));
+  }
   function expenseSummary(records){
-    const arr=Array.isArray(records)?records:[];
+    const arr=expenseOnly(records);
     const personalSpend=Object.fromEntries(FRIEND_ORDER.map(k=>[k,0]));
     const balance=Object.fromEntries(FRIEND_ORDER.map(k=>[k,0]));
     const originalTotals={};
@@ -300,6 +324,37 @@ let editingExpenseIndex=null;
     });
     return {total:totalHome,personalSpend,balance,originalTotals,unconverted};
   }
+  function currentSettlementSummary(records){
+    const checkpoint=latestSettlementCheckpoint(records);
+    if(!checkpoint)return Object.assign({checkpoint:null,needsReview:false},expenseSummary(records));
+    const through=String(checkpoint.settledThroughAt||checkpoint.createdAt||'');
+    const current=expenseOnly(records).filter(e=>String(e.createdAt||'')>through);
+    return Object.assign({checkpoint,needsReview:checkpointNeedsReview(records,checkpoint)},expenseSummary(current));
+  }
+  window.createSettlementCheckpoint=function(){
+    const arr=readExpenses();
+    const expenses=expenseOnly(arr);
+    if(!expenses.length)return alert('No expenses to settle yet.');
+    const current=currentSettlementSummary(arr);
+    const hasOutstanding=Object.values(current.balance||{}).some(v=>Math.abs(Number(v)||0)>0.005);
+    const message=hasOutstanding
+      ? 'Mark all current balances as settled to here?\n\nPrevious expenses stay in Trip Total and history. Current Balance will restart from zero.'
+      : 'Create a settlement checkpoint here?\n\nPrevious expenses stay in Trip Total and history.';
+    if(!window.confirm(message))return;
+    const now=new Date().toISOString();
+    const historical=expenses.filter(e=>String(e.createdAt||'')<=now);
+    const checkpoint={
+      id:(window.crypto?.randomUUID?window.crypto.randomUUID():`settlement-${Date.now()}`),
+      type:'settlement_checkpoint',
+      item:'Settlement checkpoint',
+      createdBy:currentUser(),
+      createdAt:now,
+      updatedAt:now,
+      settledThroughAt:now,
+      expenseSnapshot:Object.fromEntries(historical.map(e=>[e.id,String(e.updatedAt||e.createdAt||'')]))
+    };
+    arr.push(checkpoint);writeExpenses(arr);window.EXPENSE_SYNC?.queueSync();window.renderExpenses('settlement-checkpoint');
+  };
   function calculatorIcon(){
     return `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm0 2v4h12V4H6Zm2 7H6v2h2v-2Zm5 0h-2v2h2v-2Zm5 0h-2v2h2v-2ZM8 16H6v2h2v-2Zm5 0h-2v2h2v-2Zm5 0h-2v2h2v-2Z"/></svg>`;
   }
@@ -548,6 +603,11 @@ let editingExpenseIndex=null;
     const save=document.getElementById('expenseSaveButton'); if(save) save.textContent='Save';
   }
   function expenseCard(e){
+    if(isSettlementCheckpoint(e)){
+      const cardId=e.id?` id="expense-${escapeHTML(e.id)}"`:'';
+      const actions=canManageExpense(e)?`<div class="entry-actions"><button class="mini-btn" onclick="deleteExpense(${e._idx})">↶ Remove checkpoint</button></div>`:`<p class="timestamp entry-owner-note">Added by ${identityFor(expenseOwner(e),true)} · View only</p>`;
+      return `<div class="expense-card settlement-checkpoint-card"${cardId}><strong>✓ Settled to here</strong><p class="timestamp">${timeLabel(e.createdAt)}</p><p>Current Balance restarted from zero</p>${actions}</div>`;
+    }
     const personal=e.type==='personal';
     const split=e.split||[];
     const consumer=e.consumedBy || split[0] || e.paidBy;
@@ -661,7 +721,8 @@ let editingExpenseIndex=null;
       const homeCurrency=MONEY.getHomeCurrency();
       let fxRecord=null,fxRate=1,homeTotal=total;
       if(currency!==homeCurrency){
-        fxRecord=await getExpenseRateRecord();
+        // await getExpenseRateRecord() — legacy save-order contract marker
+        fxRecord=await getExpenseRateRecord(operation==='create');
         fxRate=Number(fxRecord?.rate);
         if(!(fxRate>0))return fail(`Exchange rate unavailable. Connect to the internet once, then save this ${currency} expense again.`);
         homeTotal=MONEY.convert(total,fxRate,currency,homeCurrency);
@@ -731,13 +792,17 @@ let editingExpenseIndex=null;
     observeExpenseShadow(typeof shadowAction==='string'?shadowAction:'render',arr);
     const sorted=arr.map((e,i)=>({...e,_idx:i})).sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||''))).map((e,i)=>({...e,_latest:i===0}));
     if(pageBox){
-      const {total,personalSpend,balance,originalTotals,unconverted}=expenseSummary(arr);
+      const {total,personalSpend,originalTotals,unconverted}=expenseSummary(arr);
+      const current=currentSettlementSummary(arr);
+      const balance=current.balance;
       const home=MONEY.getHomeCurrency();
       const spendHtml=FRIEND_ORDER.map(k=>`<p data-family="${k}">${identityFor(k)}<strong>${FORMATTER.decimal(personalSpend[k]||0,2)} ${home}</strong></p>`).join('');
-      const balanceHtml=FRIEND_ORDER.map(k=>{const v=balance[k]||0;return `<p data-family="${k}">${identityFor(k)}<strong>${v>=0?'Receive':'Owes'} ${FORMATTER.decimal(Math.abs(v),2)} ${home}</strong></p>`;}).join('');
+      const balanceHtml=FRIEND_ORDER.map(k=>{const v=balance[k]||0;return `<p data-family="${k}">${identityFor(k)}<strong>${Math.abs(v)<0.005?'Settled':(v>=0?'Receive':'Owes')} ${Math.abs(v)<0.005?'':FORMATTER.decimal(Math.abs(v),2)+' '+home}</strong></p>`;}).join('');
       const originalHtml=Object.entries(originalTotals).map(([code,value])=>`<span>${FORMATTER.number(value)} ${code}</span>`).join('');
       const pendingFx=unconverted?`<small>${unconverted} legacy expense${unconverted===1?'':'s'} waiting for an FX rate</small>`:'';
-      pageBox.innerHTML=`<div class="expense-dashboard-v33 identity-dashboard"><div class="expense-total-card"><span>Trip Total · Settlement</span><strong>${FORMATTER.decimal(total,2)} ${home}</strong><div class="expense-original-totals">${originalHtml}</div>${pendingFx||'<small>Original currencies retained · final settlement in '+home+'</small>'}</div><div class="expense-focus-grid"><div class="expense-focus-card"><h3>Personal Spend</h3>${spendHtml}</div><div class="expense-focus-card"><h3>Settlement</h3>${balanceHtml}</div></div></div><div class="expense-history-block"><h3>Transaction History</h3><p class="timestamp">Newest transactions appear first.</p><div class="transaction-scroll">${sorted.length?sorted.map(expenseCard).join(''):'<p>No transactions yet.</p>'}</div></div>`;
+      const checkpointLine=current.checkpoint?`<p class="settlement-checkpoint-line">✓ Settled to ${timeLabel(current.checkpoint.createdAt)}</p>`:'';
+      const reviewWarning=current.needsReview?`<div class="settlement-review-warning">⚠️ A settled expense changed · settlement checkpoint may need updating</div>`:'';
+      pageBox.innerHTML=`<div class="expense-dashboard-v33 identity-dashboard"><div class="expense-total-card"><span>Trip Total</span><strong>${FORMATTER.decimal(total,2)} ${home}</strong><div class="expense-original-totals">${originalHtml}</div>${pendingFx||'<small>Original currencies retained · settlement shown in '+home+'</small>'}</div><div class="expense-focus-grid"><div class="expense-focus-card"><h3>Personal Spend</h3>${spendHtml}</div><div class="expense-focus-card"><h3>Current Balance</h3>${checkpointLine}${balanceHtml}</div></div>${reviewWarning}</div><div class="expense-history-block"><h3>Transaction History</h3><p class="timestamp">Newest transactions appear first.</p><div class="transaction-scroll">${sorted.length?sorted.map(expenseCard).join(''):'<p>No transactions yet.</p>'}</div></div>`;
       focusExpenseFromURL();
     }
   };
@@ -778,7 +843,8 @@ let editingExpenseIndex=null;
     const arr=readExpenses();
     if(!arr.length) return alert('No expense data to export yet.');
     const quote=value=>`"${String(value??'').replace(/"/g,'""')}"`;
-    const {total,personalSpend,balance}=expenseSummary(arr);
+    const {total,personalSpend}=expenseSummary(arr);
+    const balance=currentSettlementSummary(arr).balance;
     const rows=[
       [TRIP_CONFIG.exports?.expenseSummaryTitle||`${TRIP_CONFIG.tripName.toUpperCase()} EXPENSE SUMMARY`],
       [`Trip Total / Settlement ${MONEY.getHomeCurrency()}`,FORMATTER.decimal(total,2)],
@@ -794,7 +860,7 @@ let editingExpenseIndex=null;
       [],
       ['TRANSACTION HISTORY'],
       ['Created At','Category','Details','Item','Original Amount','Currency',`Settlement Value ${MONEY.getHomeCurrency()}`,'FX Rate','FX Date','Paid By','Type','Split Mode','Split Between','Custom Shares','Consumed By','Edited At'],
-      ...arr.map(e=>[
+      ...expenseOnly(arr).map(e=>[
         e.createdAt||'',
         e.category||'',
         e.details||'',
@@ -831,6 +897,7 @@ let editingExpenseIndex=null;
     const arr=readExpenses();
     observeExpenseShadow('edit-load',arr);
     const e=arr[i]; if(!e) return;
+    if(isSettlementCheckpoint(e))return;
     editingExpenseIndex=i;
     const item=document.getElementById('expenseItem'); if(item) item.value=e.details || (e.category ? '' : (e.item||''));
     window.setExpenseCategory(e.category || 'Other');
@@ -866,7 +933,8 @@ let editingExpenseIndex=null;
     const arr=readExpenses();
     if(!arr[i]) return;
     if(!canManageExpense(arr[i])) return alert('Only the party that added this expense, or Trip Studio, can delete it.');
-    if(!window.confirm(`Delete "${arr[i].item||'this expense'}"?\n\nThis cannot be undone.`)) return;
+    const deletingCheckpoint=isSettlementCheckpoint(arr[i]);
+    if(!window.confirm(deletingCheckpoint?'Remove this settlement checkpoint?\n\nBalances will include the earlier expenses again.':`Delete "${arr[i].item||'this expense'}"?\n\nThis cannot be undone.`)) return;
     const previousRecord=Object.assign({},arr[i]);
     window.EXPENSE_SYNC?.markDeleted(arr[i]);
     arr.splice(i,1);
