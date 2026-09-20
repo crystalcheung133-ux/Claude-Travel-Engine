@@ -1,0 +1,57 @@
+{
+  "engine_version": "25.7.2",
+  "artifact_version": "VN Companion RC29.69 · Travel Engine 25.7.2 UI + Documents Interaction + Browser Gate Fix Candidate",
+  "baseline_engine": "25.5.2",
+  "release_date": "2026-09-20",
+  "release_type": "shared-documents-module-candidate",
+  "runtime_behavior_change": true,
+  "ci_entrypoint": "sh ci-tests/run-all.sh",
+  "capabilities_changed": [
+    "Adds Engine-level shared Documents capability to VN.",
+    "Documents root is the shared/default filing location; no ALL folder is rendered.",
+    "Participant folders are generated from TRIP_CONFIG and render only when populated.",
+    "Document filing is classification only and remains separate from uploader ownership and Studio booking-link management.",
+    "Existing VN collaborative Booking, cashback/payment, Qspa D1-D3 and itinerary contracts are preserved.",
+    "Preserves the six-category NZ Documents contract in VN.",
+    "Timeline attachment selection is now Day → Event instead of one whole-trip flat list.",
+    "Timeline event choices show time + title and only events from the selected day.",
+    "Keeps all six bottom navigation destinations on one row, including narrow mobile viewports.",
+    "VN currency converter defaults to 10,000 VND.",
+    "VN collaborative users can select Booking or Timeline links when uploading/editing Documents.",
+    "Document link editor hides Booking/Day/Event controls until their Attach to mode is selected.",
+    "Browser double-submit smoke restores its BOOKING_AUTHORITY wrapper between viewport runs."
+  ],
+  "explicitly_deferred": [
+    "parallel itinerary tracks",
+    "presence windows",
+    "enterprise device registration",
+    "database Reset RPC signature migration"
+  ],
+  "frozen": false,
+  "freeze_date": null,
+  "obsolete_or_rejected": [
+    "separate Studio status bar",
+    "historical shared Trip/Guide overlay geometry ownership",
+    "Studio translateY viewport positioning workarounds",
+    "cold-white Saigon header treatment"
+  ],
+  "asset_cache_token": "rc2969-2572",
+  "release_status": "RC29.69 CANDIDATE — UI + Documents interaction + browser gate fix",
+  "changes": [
+    "Integrated documents-runtime.js and documents-folder-ui.js as Engine 25.7.2 shared modules.",
+    "Added VN Documents page and navigation entry.",
+    "Upload defaults to Documents root and can file under Christal, Crystal, Mero or Vivian.",
+    "Added trip_documents / trip-documents sync configuration scoped by VN trip_id.",
+    "No NZ RC25.7.33 production file was modified.",
+    "Replaced flat Documents Timeline target list with Attach to → Timeline event → Day → Event.",
+    "Added CI regression coverage for category add/edit round-trip, pin, links, viewer and authority parity."
+  ],
+  "validation": {
+    "static_master_ci": "PASS — full Master CI suite including Documents parity + cascading Timeline selector contracts.",
+    "browser_release_smoke": "DEFINED — re-run the four-viewport GitHub browser gate; RC29.65 fixes the WebKit 430×932 false second-user-commit caused by locator re-resolution onto a newly rendered Save button.",
+    "scope_sanity": "Cross-reference fixes only; itinerary schedule remains unchanged."
+  },
+  "ci_hygiene_fix": "VN product-contract suite tail tests are now included in the suite failure accumulator; stale post-PASS false-green behavior removed.",
+  "currency_guide": "RC29.48 consolidates VPBank, Hà Tâm, Hung Long, TPBank LiveBank and Takashimaya B2 into one Cash & Currency Guide with contextual Timeline Currency buttons and per-option navigation.",
+  "browser_validation": "DEFINED — GitHub browser gate must verify Chromium desktop/mobile and WebKit 390×844/430×932. The double-submit assertion now targets the original DOM button node across the full actionability window."
+}

@@ -1,0 +1,77 @@
+Saigon Companion Production File Manifest
+Generated: 2026-09-20
+Base: VN Companion RC29.69 · Travel Engine 25.7.2 UI + Documents Interaction + Browser Gate Fix Candidate
+Reference trip: Vietnam
+
+Production root files:
+
+- .vercelignore
+- RELEASE.json
+- admin.js
+- analytics-runtime.js
+- app-runtime.js
+- asset-config.js
+- booking-authority.js
+- booking-permissions.js
+- booking-sync-runtime.js
+- ccmv-logo-calibrated.png
+- complete-runtime.js
+- core-runtime.js
+- currency-runtime.js
+- data.js
+- day.html
+- documents-folder-ui.js
+- documents-runtime.js
+- documents.html
+- documents.js
+- engine-integrity.js
+- expense-notification-runtime.js
+- expense-sync-runtime.js
+- expenses.html
+- expenses.js
+- export-runtime.js
+- formatter.js
+- generation-runtime.js
+- generation-selection-adapter.js
+- geo-config.js
+- guide-navigation-runtime.js
+- guide-runtime.js
+- guide.html
+- home-runtime.js
+- icon-192.png
+- icon-512.png
+- index.html
+- itinerary-authority.js
+- itinerary.html
+- locale-config.js
+- logo-monogram-transparent.png
+- manifest.webmanifest
+- memory.html
+- moment-sync-runtime.js
+- moments-compat.js
+- moments.html
+- moments.js
+- money-config.js
+- money.js
+- navigation-config.js
+- navigation.js
+- offline.html
+- party-render-runtime.js
+- place.html
+- publication-runtime.js
+- pwa.js
+- reset-runtime.js
+- script.js
+- shopping-directory-data.js
+- storage-config.js
+- storage.js
+- styles.css
+- supabase-client-runtime.js
+- sw.js
+- sync-config.js
+- sync-runtime.js
+- theme-config.js
+- trip-config.js
+- trip-runtime.js
+- trip.html
+- vercel.json
