@@ -22,7 +22,7 @@ assert(cfg.includes('tripMenuGroups')&&cfg.includes('activities-transport'),'VN 
 assert(tripRuntime.includes('openTripModuleGroup')&&tripRuntime.includes('groupedModules'),'Generic trip module grouping runtime missing');
 
 // Generic presentation / expense defaults retained from earlier presentation contracts
-assert(day.includes('<strong>To next stop</strong>'),'Timeline instruction must use To next stop');
+assert(day.includes('<strong>TO NEXT STOP</strong>'),'Timeline instruction must use derived TO NEXT STOP');
 assert(!day.includes('<strong>Next leg</strong>'),'Legacy Next leg label remains');
 assert(expHtml.includes('placeholder="e.g. Dinner"')&&!expHtml.includes('Fergburger'),'Expense placeholder must remain trip-neutral');
 assert(!expHtml.includes('Choose the currency actually charged'),'Redundant currency instruction remains');
@@ -33,7 +33,7 @@ assert(expenses.includes('basis=100000')&&expenses.includes('basisConverted'),'E
 
 // Sync/content
 assert(/expense-title-emoji[^>]*[^]*?💰[^]*?Add expense/.test(expenses),'Add expense reset must preserve money-bag emoji');
-assert(/replace\(\/To next stop/.test(day),'Timeline renderer must strip duplicated To next stop prefix');
+assert(day.includes('buildDerivedNextStop(item,index)'),'Timeline renderer must derive next stop from current order');
 const transfer=data.match(/"bk-transfer-in": \{[\s\S]*?\n  \}/)?.[0]||'';
 assert(/"status": "confirmed"/.test(transfer),'Arrival transfer must remain confirmed after Klook booking');
 assert(/"bookingMethod": "Klook"/.test(transfer),'Arrival transfer must expose Klook as the confirmed booking channel');

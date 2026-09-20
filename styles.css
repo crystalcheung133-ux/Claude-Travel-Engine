@@ -3276,3 +3276,5 @@ html.handoff-ready body{visibility:visible}
 @media(max-width:430px){.app-nav{padding:7px 5px!important;gap:1px!important}.app-nav small{font-size:10px!important}.app-nav a,.app-nav button{min-width:0!important;padding-left:2px!important;padding-right:2px!important}}
 /* RC29.71 Guide Studio editor */
 .guide-studio-edit{margin:14px 0 4px}.guide-edit-form form{display:grid;gap:12px}.guide-edit-field{display:grid;gap:6px}.guide-edit-field span{font-size:.78rem;font-weight:800;color:var(--muted)}.guide-edit-field input,.guide-edit-field textarea{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:14px;background:#fff;padding:11px 12px;font:inherit;color:var(--ink)}.guide-edit-field textarea{min-height:90px;resize:vertical}.guide-edit-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}.booking-documents .booking-document-btn{text-decoration:none}
+/* RC29.72 derived Timeline next-stop */
+.route-hint--derived .route-next-title{font-weight:800}.route-next-map{display:inline-block;margin-top:6px;font-weight:800;text-decoration:none}

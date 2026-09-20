@@ -133,7 +133,7 @@
   },
   "test-guide-booking-return-contract.js": {
     "status": "active",
-    "note": "origin-aware Guide→Booking close: Timeline origin returns directly to Timeline"
+    "note": "origin-aware Guide\u2192Booking close: Timeline origin returns directly to Timeline"
   },
   "test-guide-menu-alignment.js": {
     "status": "active",
@@ -165,7 +165,7 @@
   },
   "test-multiday-booking-guide-routing.js": {
     "status": "active",
-    "principle": "One canonical booking can span multiple itinerary days; Guide→Booking dispatch must preserve booking category"
+    "principle": "One canonical booking can span multiple itinerary days; Guide\u2192Booking dispatch must preserve booking category"
   },
   "test-open-day-and-arrival-flow.js": {
     "status": "active",
@@ -317,7 +317,7 @@
   },
   "test-rc2967-documents-parity-ux.js": {
     "status": "active",
-    "purpose": "NZ Documents category/ownership/viewer parity plus cascading Day → Event timeline selector"
+    "purpose": "NZ Documents category/ownership/viewer parity plus cascading Day \u2192 Event timeline selector"
   },
   "test-rc2966-shared-documents.js": {
     "status": "active",
@@ -326,5 +326,9 @@
   "test-rc2968-ui-docs-browser-contract.js": {
     "status": "active",
     "purpose": "RC29.69 six-column nav, 10,000 VND default, collaborative Documents link controls, hidden cascading rows, browser wrapper isolation"
+  },
+  "test-rc2972-guide-sync-derived-next-stop.js": {
+    "status": "active",
+    "note": "RC29.72 Guide auto-sync independence + Timeline derived next-stop contract"
   }
 }

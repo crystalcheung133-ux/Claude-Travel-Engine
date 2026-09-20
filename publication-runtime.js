@@ -31,7 +31,7 @@
     return {
       masterRevision:authority&&typeof authority.getMasterRevision==='function'?authority.getMasterRevision():(root.MASTER_ITINERARY_REVISION||null),
       data:{
-        places:root.GUIDE_AUTHORITY?root.GUIDE_AUTHORITY.mergedPlaces(source.PLACES||{}):clone(source.PLACES||{}),
+        places:clone(source.PLACES||{}),
         categories:clone(source.CATEGORIES||{}),
         guideOrder:clone(source.GUIDE_ORDER||[]),
         dayLinks:clone(source.DAY_LINKS||{}),
@@ -61,7 +61,7 @@
   }
   function publicationStatusText(){
     const current=state.lastPublishedVersion||currentRemoteVersion();
-    return current>0?'Latest published version: v'+current+'.':'Publish the saved trip directly to every Companion.';
+    return current>0?'Latest published version: v'+current+'.':'Publish the saved Timeline directly to every Companion.';
   }
   function updateButton(status){
     const button=document.getElementById('preparePublicationButton');

@@ -1,9 +1,9 @@
 {
   "engine_version": "25.7.2",
-  "artifact_version": "VN Companion RC29.71 · Travel Engine 25.7.2 Booking Documents + Guide Studio + Documents Fast Load Candidate",
+  "artifact_version": "VN Companion RC29.72 · Travel Engine 25.7.2 Guide Auto-Sync + Derived Timeline Next Stop Root Candidate",
   "baseline_engine": "25.5.2",
   "release_date": "2026-09-20",
-  "release_type": "shared-documents-module-candidate",
+  "release_type": "guide-auto-sync-derived-timeline-next-stop-candidate",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
@@ -21,8 +21,11 @@
     "Document link editor hides Booking/Day/Event controls until their Attach to mode is selected.",
     "Browser double-submit smoke restores its BOOKING_AUTHORITY wrapper between viewport runs.",
     "Booking detail surfaces linked Documents and opens the linked file in Documents.",
-    "Trip Studio can edit Guide content with staged Save/Discard semantics; saved Guide overrides are included in Publish Latest Trip.",
-    "Documents renders cached local metadata before background sync and lazy-loads PDF.js only when a PDF is opened."
+    "Documents renders cached local metadata before background sync and lazy-loads PDF.js only when a PDF is opened.",
+    "Guide Save is local-first and auto-syncs across devices through trip_guides; Timeline Publish does not own Guide.",
+    "Timeline TO NEXT STOP destination is derived from current Timeline order after move/add/delete/edit.",
+    "For a trusted route with walking time <=15 minutes, Timeline shows both Walk and Grab estimates; otherwise it shows Grab only.",
+    "Derived next-stop Directions opens Google Maps from the current stop to the derived next stop."
   ],
   "explicitly_deferred": [
     "parallel itinerary tracks",
@@ -38,8 +41,8 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc2971-2572",
-  "release_status": "RC29.71 CANDIDATE — UI + Documents interaction + browser gate fix",
+  "asset_cache_token": "rc2972-2572",
+  "release_status": "RC29.72 CANDIDATE — Guide auto-sync + derived Timeline next stop",
   "changes": [
     "Integrated documents-runtime.js and documents-folder-ui.js as Engine 25.7.2 shared modules.",
     "Added VN Documents page and navigation entry.",
@@ -47,12 +50,14 @@
     "Added trip_documents / trip-documents sync configuration scoped by VN trip_id.",
     "No NZ RC25.7.33 production file was modified.",
     "Replaced flat Documents Timeline target list with Attach to → Timeline event → Day → Event.",
-    "Added CI regression coverage for category add/edit round-trip, pin, links, viewer and authority parity."
+    "Added CI regression coverage for category add/edit round-trip, pin, links, viewer and authority parity.",
+    "Added trip_guides Guide sync authority and removed Guide overrides from publication payload.",
+    "Replaced authored Timeline next-stop destination rendering with order-derived next stop + Maps directions."
   ],
   "validation": {
-    "static_master_ci": "PASS — full Master CI suite including Documents parity + cascading Timeline selector contracts.",
+    "static_master_ci": "PASS — full Master CI including RC29.72 Guide auto-sync + derived Timeline next-stop contract; 73/73 checksums after final metadata rebuild.",
     "browser_release_smoke": "DEFINED — re-run the four-viewport GitHub browser gate; RC29.65 fixes the WebKit 430×932 false second-user-commit caused by locator re-resolution onto a newly rendered Save button.",
-    "scope_sanity": "Cross-reference fixes only; itinerary schedule remains unchanged."
+    "scope_sanity": "Guide publication coupling removed; Timeline remains the only manual Publish authority. Existing Booking/Documents/Expenses/Moments flows preserved."
   },
   "ci_hygiene_fix": "VN product-contract suite tail tests are now included in the suite failure accumulator; stale post-PASS false-green behavior removed.",
   "currency_guide": "RC29.48 consolidates VPBank, Hà Tâm, Hung Long, TPBank LiveBank and Takashimaya B2 into one Cash & Currency Guide with contextual Timeline Currency buttons and per-option navigation.",
