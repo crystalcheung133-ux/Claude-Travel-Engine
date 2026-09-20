@@ -35,3 +35,7 @@ run "BOOKING SAVE POST-COMMIT INTEGRITY" node ci-tests/test-booking-save-post-co
 [ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
 echo "MASTER CI SUITE PASSED"
 
+
+node ci-tests/test-rc2966-shared-documents.js
+
+node ci-tests/test-rc2967-documents-parity-ux.js

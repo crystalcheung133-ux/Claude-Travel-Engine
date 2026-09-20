@@ -1,17 +1,20 @@
 {
-  "engine_version": "25.7.0",
-  "artifact_version": "VN Companion RC29.65 · Travel Engine 25.7.0 WebKit Atomic Commit Root Candidate",
+  "engine_version": "25.7.2",
+  "artifact_version": "VN Companion RC29.67 · Travel Engine 25.7.2 Documents Parity + Timeline UX Candidate",
   "baseline_engine": "25.5.2",
-  "release_date": "2026-09-18",
-  "release_type": "webkit-atomic-commit-gate-candidate",
+  "release_date": "2026-09-20",
+  "release_type": "shared-documents-module-candidate",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
-    "Booking edits now use an Engine-level per-booking in-flight mutation lock; DOM disabled state is no longer the concurrency authority.",
-    "Browser release authority now covers Chromium desktop/mobile plus WebKit iPhone-class 390×844 and 430×932 viewports.",
-    "Cross-reference integrity CI rejects Guide day-label/URL mismatches, missing Timeline anchors, missing booking places and broken booking Timeline references.",
-    "Canonical Place records can carry source provenance metadata (type, URL, verifiedAt); Fusion, Pizza 4P’s and Qspa seed the official-source pilot.",
-    "Existing generic accommodation cashback/payment behavior and Qspa single D1-D3 authority are preserved."
+    "Adds Engine-level shared Documents capability to VN.",
+    "Documents root is the shared/default filing location; no ALL folder is rendered.",
+    "Participant folders are generated from TRIP_CONFIG and render only when populated.",
+    "Document filing is classification only and remains separate from uploader ownership and Studio booking-link management.",
+    "Existing VN collaborative Booking, cashback/payment, Qspa D1-D3 and itinerary contracts are preserved.",
+    "Preserves the six-category NZ Documents contract in VN.",
+    "Timeline attachment selection is now Day → Event instead of one whole-trip flat list.",
+    "Timeline event choices show time + title and only events from the selected day."
   ],
   "explicitly_deferred": [
     "parallel itinerary tracks",
@@ -27,22 +30,19 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc2965-2570",
-  "release_status": "RC29.65 CANDIDATE — WebKit atomic commit gate isolation + 25.7 local-first booking save lifecycle",
+  "asset_cache_token": "rc2967-2572",
+  "release_status": "RC29.67 CANDIDATE — Engine 25.7.2 Documents parity + cascading Timeline selector",
   "changes": [
-    "Replaced button-only double-submit protection with BOOKING_SAVE_IN_FLIGHT, acquired synchronously per booking ID and released in finally after the commit settles.",
-    "Unexpected commit exceptions now resolve through the existing save-failure path while still releasing the booking mutation lock.",
-    "Added Chromium + WebKit browser release matrix; GitHub workflow provisions both browser engines.",
-    "Added cross-reference integrity validator to the mandatory DATA INTEGRITY suite.",
-    "The new validator immediately found and corrected legacy Guide routing drift: Fusion Day 1 hotel anchor, D2 fashion links, D1 Nguyễn Trãi links, LÜNE Day 2, Running Bean Day 4, and retired Mộc Healing timeline link.",
-    "Added source provenance contract and official verifiedAt metadata for Fusion Original Saigon Centre, Pizza 4P’s Hai Bà Trưng and Qspa Trương Định.",
-    "No itinerary schedule, booking status, payment amount or D4/D5 plan was intentionally changed.",
-    "Booking Save is now local-first: the local Booking Authority commits before remote sync, so slow/unavailable sync cannot hold the editor open; remote failure returns a successful degraded/sync-pending outcome while the booking-level in-flight lock still prevents duplicate mutations.",
-    "Browser double-submit smoke now disables remote BOOKING_SYNC only for the mutation-count assertion, preventing legitimate post-save reconciliation from being miscounted as a second user commit on mobile.",
-    "Browser double-submit smoke now pins the original Save button DOM node before the first click; this prevents Playwright Locator re-resolution from clicking a newly rendered Save button after fast WebKit post-save reopen."
+    "Integrated documents-runtime.js and documents-folder-ui.js as Engine 25.7.2 shared modules.",
+    "Added VN Documents page and navigation entry.",
+    "Upload defaults to Documents root and can file under Christal, Crystal, Mero or Vivian.",
+    "Added trip_documents / trip-documents sync configuration scoped by VN trip_id.",
+    "No NZ RC25.7.33 production file was modified.",
+    "Replaced flat Documents Timeline target list with Attach to → Timeline event → Day → Event.",
+    "Added CI regression coverage for category add/edit round-trip, pin, links, viewer and authority parity."
   ],
   "validation": {
-    "static_master_ci": "PASS — full Master CI suite including cross-reference and source-provenance contracts",
+    "static_master_ci": "PASS — full Master CI suite including Documents parity + cascading Timeline selector contracts.",
     "browser_release_smoke": "DEFINED — re-run the four-viewport GitHub browser gate; RC29.65 fixes the WebKit 430×932 false second-user-commit caused by locator re-resolution onto a newly rendered Save button.",
     "scope_sanity": "Cross-reference fixes only; itinerary schedule remains unchanged."
   },

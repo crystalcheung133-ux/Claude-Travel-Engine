@@ -133,7 +133,7 @@
   },
   "test-guide-booking-return-contract.js": {
     "status": "active",
-    "note": "origin-aware Guide\u2192Booking close: Timeline origin returns directly to Timeline"
+    "note": "origin-aware Guide→Booking close: Timeline origin returns directly to Timeline"
   },
   "test-guide-menu-alignment.js": {
     "status": "active",
@@ -165,7 +165,7 @@
   },
   "test-multiday-booking-guide-routing.js": {
     "status": "active",
-    "principle": "One canonical booking can span multiple itinerary days; Guide\u2192Booking dispatch must preserve booking category"
+    "principle": "One canonical booking can span multiple itinerary days; Guide→Booking dispatch must preserve booking category"
   },
   "test-open-day-and-arrival-flow.js": {
     "status": "active",
@@ -314,5 +314,13 @@
   "test-source-provenance-contract.js": {
     "status": "active",
     "note": "Official source + verifiedAt provenance pilot for canonical places"
+  },
+  "test-rc2967-documents-parity-ux.js": {
+    "status": "active",
+    "purpose": "NZ Documents category/ownership/viewer parity plus cascading Day → Event timeline selector"
+  },
+  "test-rc2966-shared-documents.js": {
+    "status": "active",
+    "purpose": "Engine 25.7.2 shared Documents root/folder integration contract"
   }
 }
