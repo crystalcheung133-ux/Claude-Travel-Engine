@@ -1,6 +1,6 @@
 {
   "engine_version": "25.7.2",
-  "artifact_version": "VN Companion RC29.69 · Travel Engine 25.7.2 UI + Documents Interaction + Browser Gate Fix Candidate",
+  "artifact_version": "VN Companion RC29.70 · Travel Engine 25.7.2 UI + Documents Interaction + Browser Gate Fix Candidate",
   "baseline_engine": "25.5.2",
   "release_date": "2026-09-20",
   "release_type": "shared-documents-module-candidate",
@@ -35,8 +35,8 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc2969-2572",
-  "release_status": "RC29.69 CANDIDATE — UI + Documents interaction + browser gate fix",
+  "asset_cache_token": "rc2970-2572",
+  "release_status": "RC29.70 CANDIDATE — UI + Documents interaction + browser gate fix",
   "changes": [
     "Integrated documents-runtime.js and documents-folder-ui.js as Engine 25.7.2 shared modules.",
     "Added VN Documents page and navigation entry.",

@@ -3167,8 +3167,9 @@ body.documents-page .docs-modal{display:none!important;position:fixed!important;
 body.documents-page .docs-modal.show{display:flex!important}
 body.documents-page .docs-sheet{width:min(100% - 24px,680px)!important;max-height:min(82dvh,720px)!important;overflow:auto!important;background:var(--card,#fff)!important;border:1px solid rgba(24,55,76,.08)!important;border-radius:28px 28px 0 0!important;box-shadow:0 -18px 60px rgba(18,42,58,.16)!important;padding:20px 20px calc(24px + env(safe-area-inset-bottom,0px))!important;box-sizing:border-box!important}
 body.documents-page .docs-sheet h2{font-family:var(--font-display,Georgia,serif)!important;font-size:34px!important;line-height:1.05!important;margin:8px 0 22px!important;color:var(--ink)!important}
-body.documents-page .docs-close{width:40px!important;height:40px!important;border:0!important;border-radius:999px!important;background:var(--soft,#eef1f2)!important;font-size:20px!important}
+body.documents-page .docs-close{position:sticky!important;top:0!important;z-index:20!important;display:block!important;margin:0 0 -40px auto!important;width:40px!important;height:40px!important;border:0!important;border-radius:999px!important;background:var(--soft,#eef1f2)!important;font-size:20px!important;box-shadow:0 2px 10px rgba(18,42,58,.12)!important}
 body.documents-page .docs-sheet label{display:grid!important;grid-template-columns:1fr!important;gap:7px!important;margin:0 0 16px!important;font-weight:800!important;color:var(--ink)!important}
+body.documents-page .docs-sheet label[hidden]{display:none!important}
 body.documents-page .docs-sheet input[type=text],body.documents-page .docs-sheet select{width:100%!important;min-height:48px!important;box-sizing:border-box!important;border:1px solid var(--line)!important;border-radius:14px!important;background:#fff!important;padding:10px 12px!important;font:inherit!important}
 body.documents-page .docs-sheet input[type=file]{width:100%!important;box-sizing:border-box!important;padding:12px!important;border:1px dashed var(--line)!important;border-radius:14px!important;background:rgba(255,255,255,.72)!important}
 body.documents-page .docs-sheet .doc-pin-row{display:flex!important;grid-template-columns:none!important;align-items:center!important;gap:10px!important;font-weight:700!important}
@@ -3262,6 +3263,7 @@ html.handoff-ready body{visibility:visible}
  :root{--companion-header-clearance:76px;--companion-bottom-clearance:96px}
  .trip-modal{padding:8px 10px var(--companion-bottom-clearance)!important}
  .trip-modal .trip-sheet{max-height:calc(100dvh - var(--companion-header-clearance) - var(--companion-bottom-clearance) - 8px)!important}
+}
 .document-folder-heading{margin:20px 2px 8px;font-size:.78rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase;color:var(--muted)}
 .document-folder{border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.68);overflow:hidden;margin:0 0 10px}
 .document-folder summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;padding:13px 14px;font-weight:900}
