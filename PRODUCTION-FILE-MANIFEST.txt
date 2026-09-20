@@ -1,6 +1,6 @@
 Saigon Companion Production File Manifest
 Generated: 2026-09-20
-Base: VN Companion RC29.70 · Travel Engine 25.7.2 UI + Documents Interaction + Browser Gate Fix Candidate
+Base: VN Companion RC29.71 · Travel Engine 25.7.2 Booking Documents + Guide Studio + Documents Fast Load Candidate
 Reference trip: Vietnam
 
 Production root files:
@@ -34,6 +34,7 @@ Production root files:
 - generation-runtime.js
 - generation-selection-adapter.js
 - geo-config.js
+- guide-authority.js
 - guide-navigation-runtime.js
 - guide-runtime.js
 - guide.html

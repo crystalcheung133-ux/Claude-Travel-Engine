@@ -242,6 +242,13 @@ function bookingContactSectionsHTML(booking,place){
   const websiteHTML=website?`<a href="${escapeTripHTML(website)}" target="_blank" rel="noopener">${escapeTripHTML(website)}</a>`:'';
   return bookingSectionHTML('Booking contact',contact)+bookingSectionHTML('Website',websiteHTML,{html:true});
 }
+
+function bookingDocumentsHTML(booking){
+ if(!booking||!window.TRIP_DOCUMENTS)return '';
+ const docs=TRIP_DOCUMENTS.read().filter(d=>d.linkType==='booking'&&String(d.linkId)===String(booking.id));
+ if(!docs.length)return '';
+ return `<section class="accommodation-section booking-documents"><h3>Documents</h3><div class="trip-action-row trip-action-row--booking-compact">${docs.map(d=>`<a class="pill trip-action-btn booking-document-btn" href="documents.html?document=${encodeURIComponent(d.id)}&bookingId=${encodeURIComponent(booking.id)}">📎 ${escapeTripHTML(d.title||'Document')}</a>`).join('')}</div></section>`;
+}
 function buildAccommodationDetailHTML(booking){
   if(!booking)return '<p class="timestamp">Accommodation booking not found.</p>';
   const place=bookingPlace(booking);
@@ -265,7 +272,8 @@ function buildAccommodationDetailHTML(booking){
   const sections=[
     accommodationPaymentHTML(booking),
     bookingSectionHTML('Important',operationalNotes),
-    bookingSectionHTML('Address',address)
+    bookingSectionHTML('Address',address),
+    bookingDocumentsHTML(booking)
   ].join('');
   return `<article class="fact stay-booking accommodation-detail-card accommodation-detail-card--compact"><div class="accommodation-detail-head"><div><span>${escapeTripHTML(booking.stayDates||booking.date||'')}</span></div>${nightsLabel?`<span class="accommodation-night-badge">${escapeTripHTML(nightsLabel)}</span>`:''}</div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place,{includeDay:false})}${bookingExpenseActionHTML(booking)}${accommodationDetailNavigationHTML(booking.id)}</article>`;
 }
@@ -314,7 +322,8 @@ function buildActivityBookingDetailHTML(booking){
   const pickup=[booking.pickupNote||booking.pickupAddress||'',booking.dropOff||''].filter(Boolean).join('\n');
   const sections=[
     accommodationPaymentHTML(booking),activityFamilyBreakdownHTML(booking),bookingSectionHTML('Pickup & drop-off',pickup),bookingSectionHTML('Lunch',booking.lunchStatus||''),
-    bookingSectionHTML('Cancellation',booking.cancellation||''),bookingSectionHTML('Notes',booking.notes||'')
+    bookingSectionHTML('Cancellation',booking.cancellation||''),bookingSectionHTML('Notes',booking.notes||''),
+    bookingDocumentsHTML(booking)
   ].join('');
   return `<article class="fact stay-booking accommodation-detail-card activity-booking-detail"><div class="accommodation-detail-head"><div><strong>${escapeTripHTML(booking.title)}</strong><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge activity-confirmed-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place)}${bookingExpenseActionHTML(booking)}${activityDetailNavigationHTML(booking.id)}</article>`;
 }
@@ -391,7 +400,8 @@ function buildGenericBookingDetailHTML(booking){
     bookingSectionHTML('Notes',booking.notes||''),
     bookingSectionHTML('Cancellation',booking.cancellation||''),
     bookingPlannedVisitsHTML(booking),
-    bookingAlternativeGuidesHTML(booking)
+    bookingAlternativeGuidesHTML(booking),
+    bookingDocumentsHTML(booking)
   ].join('');
   const sharedPlan=plannedDaySummary?`<div class="booking-shared-plan"><strong>${escapeTripHTML(bookingStatusText(booking))}</strong><span>${escapeTripHTML(plannedDaySummary)}</span></div>`:'';
   return `<article class="fact stay-booking accommodation-detail-card generic-booking-detail"><div class="accommodation-detail-head"><div><strong>${escapeTripHTML(booking.title)}</strong><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div>${sharedPlan}<div class="accommodation-facts">${facts}</div>${bookingActionButtonsHTML(booking,place)}${sections}${bookingExpenseActionHTML(booking)}${genericBookingDetailNavigationHTML(booking)}</article>`;

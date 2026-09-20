@@ -31,7 +31,7 @@
     return {
       masterRevision:authority&&typeof authority.getMasterRevision==='function'?authority.getMasterRevision():(root.MASTER_ITINERARY_REVISION||null),
       data:{
-        places:clone(source.PLACES||{}),
+        places:root.GUIDE_AUTHORITY?root.GUIDE_AUTHORITY.mergedPlaces(source.PLACES||{}):clone(source.PLACES||{}),
         categories:clone(source.CATEGORIES||{}),
         guideOrder:clone(source.GUIDE_ORDER||[]),
         dayLinks:clone(source.DAY_LINKS||{}),
