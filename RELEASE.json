@@ -1,9 +1,9 @@
 {
   "engine_version": "25.7.2",
-  "artifact_version": "VN Companion RC29.73 · Travel Engine 25.7.2 Guide Auto-Sync + Derived Timeline Next Stop Root Candidate",
+  "artifact_version": "VN Companion RC29.75 · Travel Engine 25.7.2 Timeline Publish + Final Next Leg Root Candidate",
   "baseline_engine": "25.5.2",
   "release_date": "2026-09-20",
-  "release_type": "guide-auto-sync-derived-timeline-next-stop-candidate",
+  "release_type": "timeline-publish-final-next-leg-candidate",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
@@ -28,7 +28,11 @@
     "Derived next-stop Directions opens Google Maps from the current stop to the derived next stop.",
     "VN Timeline cards render start time only while retaining end time in itinerary data.",
     "VN Directions resolve only from Vietnam-scoped address/map-query authority and fail closed instead of geocoding bare titles near the user home location.",
-    "Derived next-stop presentation is compacted to the NZ-style Timeline hierarchy."
+    "Derived next-stop presentation is compacted to the NZ-style Timeline hierarchy.",
+    "VN Timeline Publish is enabled in Supabase for ccmv-vietnam-2026 using the existing Trip Studio credential.",
+    "Published snapshots hydrate Timeline/ITINERARY_DATA only; Guide, Booking, Documents, Expenses and Moments remain independent auto-sync authorities.",
+    "A final Timeline event that explicitly returns to Fusion derives TO NEXT STOP → Fusion Original Saigon Centre.",
+    "Timeline note/detail display removes a trailing full stop (。 or .) without altering stored schedule/address data."
   ],
   "explicitly_deferred": [
     "parallel itinerary tracks",
@@ -44,8 +48,8 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc2973-2572",
-  "release_status": "RC29.73 CANDIDATE — Guide auto-sync + derived Timeline next stop",
+  "asset_cache_token": "rc2975-2572",
+  "release_status": "RC29.75 CANDIDATE — Timeline publish enabled + final next leg",
   "changes": [
     "Integrated documents-runtime.js and documents-folder-ui.js as Engine 25.7.2 shared modules.",
     "Added VN Documents page and navigation entry.",
@@ -58,12 +62,16 @@
     "Replaced authored Timeline next-stop destination rendering with order-derived next stop + Maps directions.",
     "Added Vietnam-scoped route-location guard and map-query fallback to prevent ambiguous names resolving near Melbourne/Doncaster.",
     "Timeline card time rail now renders start time only; underlying schedule ranges are preserved.",
-    "Compacted derived next-stop panel."
+    "Compacted derived next-stop panel.",
+    "Enabled VN trip_publish_config and anonymous read policy for VN published Timeline snapshots.",
+    "Scoped publication hydration to ITINERARY_DATA only.",
+    "Added final-event return-hotel fallback for TO NEXT STOP when the authored final leg explicitly returns to Fusion.",
+    "Removed terminal full stops from Timeline note/detail presentation."
   ],
   "validation": {
-    "static_master_ci": "PASS — full Master CI including RC29.73 Guide auto-sync + derived Timeline next-stop contract; 73/73 checksums after final metadata rebuild.",
+    "static_master_ci": "PASS — full Master CI including RC29.75 Guide auto-sync + derived Timeline next-stop contract; 73/73 checksums after final metadata rebuild.",
     "browser_release_smoke": "DEFINED — re-run the four-viewport GitHub browser gate; RC29.65 fixes the WebKit 430×932 false second-user-commit caused by locator re-resolution onto a newly rendered Save button.",
-    "scope_sanity": "Guide publication coupling removed; Timeline remains the only manual Publish authority. Existing Booking/Documents/Expenses/Moments flows preserved."
+    "scope_sanity": "Timeline is the only manual Publish authority; Guide/Booking/Documents/Expenses/Moments remain independent auto-sync flows."
   },
   "ci_hygiene_fix": "VN product-contract suite tail tests are now included in the suite failure accumulator; stale post-PASS false-green behavior removed.",
   "currency_guide": "RC29.48 consolidates VPBank, Hà Tâm, Hung Long, TPBank LiveBank and Takashimaya B2 into one Cash & Currency Guide with contextual Timeline Currency buttons and per-option navigation.",

@@ -183,11 +183,9 @@
       emit(EVENTS.error,{error:entry,state:snapshot()});
       return {ok:false,reason:'incomplete-payload',missing:integrity.missing,applied:[]};
     }
+    /* RC29.75 authority boundary: cloud publication owns Timeline only.
+       Guide, Booking, Documents, Expenses and Moments sync independently. */
     const map=[
-      ['PLACES',['places','PLACES']],['CATEGORIES',['categories','CATEGORIES']],
-      ['GUIDE_ORDER',['guideOrder','GUIDE_ORDER']],['DAY_LINKS',['dayLinks','DAY_LINKS']],
-      ['FRIENDS',['friends','FRIENDS']],['BOOKINGS_DATA',['bookingsData','bookings','BOOKINGS_DATA']],
-      ['TRIP_DATA',['tripData','TRIP_DATA']],['TRIP_ORDER',['tripOrder','TRIP_ORDER']],
       ['ITINERARY_DATA',['itineraryData','itinerary','ITINERARY_DATA']]
     ];
     const applied=[];

@@ -2434,7 +2434,7 @@ const ITINERARY_DATA={
         "time": "05:55",
         "title": "🛬 Arrive Ho Chi Minh City",
         "details": [
-          "抵達 SGN；預留 immigration、行李與接送集合時間。"
+          "抵達 SGN，預留 immigration、行李及接送集合時間"
         ],
         "route": "🚐 To next stop：出關後乘已預訂 Klook Private Transfer → Fusion Original。",
         "map": "https://www.google.com/maps/search/?api=1&query=Tan%20Son%20Nhat%20International%20Airport",
@@ -2448,8 +2448,9 @@ const ITINERARY_DATA={
         "time": "~06:55–08:00",
         "title": "🚐 Private Transfer · Fusion Original Saigon Centre",
         "details": [
-          "05:55 是航班抵達時間，不是固定見司機時間；Klook 條款為 arrival 後 1 小時內接送。出 Arrival Hall 往 pillar 9 對面與 Easycar 會合，再直達 Fusion Original Saigon Centre。",
-          "正式 check-in 為 14:00；若房間提早準備好，約中午便可先回房安頓。"
+          "05:55 抵達，Klook 條款為 arrival 後 1 小時內接送",
+          "Arrival Hall 往 pillar 9 對面與 Easycar 會合",
+          "Official check-in time 14:00"
         ],
         "route": "🚶 To next stop · 約 10 min：步行往 VPBank ATM。",
         "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%2065%20Le%20Loi%20Ho%20Chi%20Minh%20City",
@@ -2464,9 +2465,9 @@ const ITINERARY_DATA={
         "time": "~08:00–08:45",
         "title": "💵 VND · Currency Exchange",
         "details": [
-          "Day 1 朝早先處理現金：VPBank ATM 是 Wise 提款首選；Hà Tâm 可比較 AUD 現金匯率。",
-          "Takashimaya B2 09:30 開門；住 Fusion 期間任何一天經過酒店都可再換。",
-          "五個順路選擇、適合日子與導航都收在 Currency Guide。"
+          "VPBank ATM 是 Wise 提款首選，Hà Tâm 可比較 AUD 現金匯率",
+          "Takashimaya B2 09:30 開門，需要時可再換",
+          "其他選擇及導航見 Currency Guide"
         ],
         "route": "🚶 To next stop · 約 5 min：步行往 Phở SOL · Bến Thành。",
         "map": "https://www.google.com/maps/search/?api=1&query=VPBank%20ATM%20165-167-169%20Ham%20Nghi%20District%201%20Ho%20Chi%20Minh%20City",
@@ -2491,8 +2492,8 @@ const ITINERARY_DATA={
         "time": "~10:00–12:00",
         "title": "🛍 Nguyễn Trãi · Local Fashion Walk",
         "details": [
-          "由 24 Nguyễn Trãi 開始，沿街向前：Clothes Bar → LESPOIR → The 350F → Dear José / KIDO → LIBÉ。",
-          "Shopping List 收好沿線店舖與風格；The 350F 剛好落在中段，想停下來吃甜點或 takeaway 都自然。"
+          "24 Nguyễn Trãi 開始：Clothes Bar → LESPOIR → The 350F → Dear José / KIDO → LIBÉ",
+          "沿線店舖見 Shopping List，The 350F 可中途休息"
         ],
         "route": "🚕 To next stop · 約 10–15 min：由 Nguyễn Trãi shopping line Grab → Qspa · 25/1 Trương Định。",
         "map": "https://www.google.com/maps/search/?api=1&query=Clothes%20Bar%2024%20Nguyen%20Trai%20Ho%20Chi%20Minh%20City",
@@ -2507,8 +2508,8 @@ const ITINERARY_DATA={
         "time": "~12:15–14:15",
         "title": "🌿 Qspa · Arrival Recovery",
         "details": [
-          "PLANNED · Full 120 minutes after the overnight flight, breakfast and Nguyễn Trãi shopping.",
-          "Choose massage / body / beauty / hair-care according to how everyone feels; do not compress this block to reach the hotel at 14:00."
+          "預留完整 120 min Spa",
+          "按狀態選 massage / body / beauty / hair-care"
         ],
         "route": "🚕 To next stop：Qspa 完成後 Grab → Fusion Original；約 14:30 check-in。",
         "map": "https://www.google.com/maps/search/?api=1&query=Qspa%2025%2F1%20Truong%20Dinh%20Ho%20Chi%20Minh%20City",
@@ -2525,8 +2526,8 @@ const ITINERARY_DATA={
         "time": "~14:30",
         "title": "🏨 Fusion Original · Check-in & Rest",
         "details": [
-          "Qspa 完成後約 14:30 回 Fusion check-in；Guaranteed check-in 14:00，所以刻意把酒店時間移後，不壓縮兩小時 Spa。",
-          "入房後沖涼、換衫、休息；Cafe Apartments 只按 energy 決定是否短去。"
+          "Qspa 後約 14:30 回 Fusion check-in",
+          "沖涼、換衫、休息，Cafe Apartments 視 energy 決定"
         ],
         "route": "☕ Optional next：有精神約 15:15–16:15 步行去 The Cafe Apartments；攰就留在 Fusion 休息。",
         "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%2065%20Le%20Loi%20Ho%20Chi%20Minh%20City",
@@ -2541,8 +2542,8 @@ const ITINERARY_DATA={
         "time": "~15:15–16:15 · Optional",
         "title": "☕ The Cafe Apartments · Quick Explore",
         "details": [
-          "OPTION A · 有精神：短逛 Nguyễn Huệ / Cafe Apartments、影相、飲杯咖啡；這是一個 light stop，不是 2.5 小時 destination。",
-          "OPTION B · 攰：留在 Fusion 休息，直接準備 17:30 Omakase。"
+          "有精神：短逛 Nguyễn Huệ / Cafe Apartments、影相、飲咖啡",
+          "攰：留 Fusion 休息，準備 17:30 Omakase"
         ],
         "route": "🚕 Protect 17:30 Omakase：如有去 Cafe Apartments，約 16:15 收尾，預留充足時間去 Omakase Tiger。",
         "map": "https://www.google.com/maps/search/?api=1&query=The%20Cafe%20Apartments%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
@@ -2559,8 +2560,8 @@ const ITINERARY_DATA={
         "time": "17:30",
         "title": "🌇🍣 Omakase Tiger · First Seating",
         "details": [
-          "已確認 17:30 場次；訂金已付。",
-          "Penthouse 之上，從黃昏入席，一路看天色由 sunset 轉入夜。"
+          "17:30 confirmed，訂金已付",
+          "Penthouse seating，由 sunset 食到夜景"
         ],
         "route": "🌇 17:30 fixed first seating。食完按 energy 決定：Nguyễn Huệ / Cafe Apartments evening wander，或直接返 Fusion。",
         "map": "https://www.google.com/maps/search/?api=1&query=Omakase%20Tiger%2085%2F9%20Pham%20Viet%20Chanh%20Ho%20Chi%20Minh",
@@ -2575,8 +2576,8 @@ const ITINERARY_DATA={
         "time": "After Omakase · Optional",
         "title": "🌃 Nguyễn Huệ / Cafe Apartments · Evening Wander",
         "details": [
-          "Still awake? Take an easy Nguyễn Huệ / Cafe Apartments evening wander.",
-          "Otherwise return to Fusion — this is never mandatory."
+          "有精神：Nguyễn Huệ / Cafe Apartments evening wander",
+          "攰：直接返 Fusion"
         ],
         "route": "🏨 When ready：Grab / walk back to Fusion。",
         "map": "https://www.google.com/maps/search/?api=1&query=The%20Cafe%20Apartments%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
@@ -2593,8 +2594,8 @@ const ITINERARY_DATA={
         "time": "Optional",
         "title": "🌙 酒店宵夜",
         "details": [
-          "想食鹹：Oanh Cua 蟹料理，可查官方 delivery／GrabFood。",
-          "想食甜：GrabFood 搜 BINGO、Dessert、Chè、Tofu 或 Bingsu，篩選 Open Now。"
+          "想食鹹：Oanh Cua，可查 delivery / GrabFood",
+          "想食甜：GrabFood 搜 BINGO / Chè / Tofu / Bingsu"
         ],
         "route": "🏨 Delivery option：送到 Fusion Original lobby；完全 optional。",
         "map": "https://www.google.com/maps/search/?api=1&query=Oanh%20Cua%20214%2F1B%20Nguy%E1%BB%85n%20Tr%C3%A3i%20Ho%20Chi%20Minh%20City",
@@ -2641,7 +2642,7 @@ const ITINERARY_DATA={
         "time": "12:45–14:00",
         "title": "🍕 Pizza 4P’s · Hai Bà Trưng",
         "details": [
-          "中午把腳步收進冷氣裡；pizza、自家芝士，讓上午的 shopping 在這裡停一停。"
+          "Pizza + 自家芝士，午餐休息"
         ],
         "route": "🚕 To next stop · 約 10–15 min：Grab → Qspa · 25/1 Trương Định。",
         "map": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20151B%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh",
@@ -2659,8 +2660,8 @@ const ITINERARY_DATA={
         "time": "~14:15–16:15",
         "title": "🌿 Qspa · Afternoon Reset",
         "details": [
-          "PLANNED · Keep a realistic two-hour spa block; Qspa is preferred even though Norah Spa 2 is more route-friendly.",
-          "Prefer the more route-friendly option? Open Norah Spa 2 in Guide."
+          "Qspa 預留完整 120 min",
+          "想改較順路 Spa：Guide 見 Norah Spa 2"
         ],
         "route": "🚕 To next stop：Qspa → Cathedral / Central Post Office / Book Street cluster；之後一路步行接 Vincom / The New Playground → LÚNE。",
         "map": "https://www.google.com/maps/search/?api=1&query=Qspa%2025%2F1%20Truong%20Dinh%20Ho%20Chi%20Minh%20City",
@@ -2682,7 +2683,7 @@ const ITINERARY_DATA={
         "title": "📮 Cathedral · Central Post Office · Book Street",
         "copyAddressEligible": false,
         "details": [
-          "Qspa 後先進 sightseeing cluster；Cathedral、Central Post Office、Book Street 集中完成，減少來回。"
+          "Cathedral → Central Post Office → Book Street"
         ],
         "route": "🚶 To next stop · 約 5–8 min：步行往 Vincom Center Đồng Khởi / The New Playground。",
         "map": "https://www.google.com/maps/search/?api=1&query=Saigon%20Central%20Post%20Office",
@@ -2721,8 +2722,8 @@ const ITINERARY_DATA={
         "time": "~17:15–18:10",
         "title": "🛍 Vincom Center Đồng Khởi · The New Playground",
         "details": [
-          "Sightseeing 後走進 Vincom，把黃昏 shopping 留給 Vietnamese local brands。",
-          "The New Playground 是主場；PUSH PUSH、BLACKORP 與其他 local brands 自由 browse，不是 rigid checklist。"
+          "Vincom 黃昏 shopping，主攻 Vietnamese local brands",
+          "The New Playground：PUSH PUSH、BLACKORP 等自由 browse"
         ],
         "route": "🚶 To next stop · 約 8–12 min：由 Vincom / The New Playground 步行往 LÚNE；18:45 fixed。",
         "map": "https://www.google.com/maps/search/?api=1&query=The%20New%20Playground%20Vincom%20Center%20Dong%20Khoi%2072%20Le%20Thanh%20Ton%20Ho%20Chi%20Minh%20City",
@@ -2761,8 +2762,9 @@ const ITINERARY_DATA={
         "time": "07:30–~13:30/14:00",
         "title": "🪖 Cu Chi Tunnels · Private Tour",
         "details": [
-          "Klook 已確認四人 Private Tour + English Guide；operator 已確認最早可 07:30 由 Fusion Original Saigon Centre 出發。Skip tour lunch、不要 factory stop、回城直接 drop Mặn Mòi Tao Đàn（34 Võ Văn Tần）。",
-          "目標約 13:30–14:00 回到市區，但交通有變數；不要把回程時間當固定承諾。"
+          "07:30 Fusion 出發，4人 Private Tour + English Guide",
+          "Skip lunch / factory stop，回城 drop Mặn Mòi Tao Đàn · 34 Võ Văn Tần",
+          "預計 13:30–14:00 回市區，視交通"
         ],
         "route": "🚐 下一站：請司機直接 drop Mặn Mòi Tao Đàn · 34 Võ Văn Tần；不先返酒店。",
         "map": "https://www.google.com/maps/search/?api=1&query=Cu%20Chi%20Tunnels%20Ho%20Chi%20Minh%20City",
@@ -2776,7 +2778,7 @@ const ITINERARY_DATA={
         "time": "~13:30/14:00–~14:35/15:05",
         "title": "🍲 Mặn Mòi · Tao Đàn",
         "details": [
-          "Cu Chi 回城後直接坐低食一桌越南家常菜；留足約 60–65 分鐘。到達時間視交通，不用為舊 14:30 時間點趕行程。"
+          "Cu Chi 後直接午餐，預留約 60–65 min"
         ],
         "route": "🚶 下一站：34 Võ Văn Tần → War Remnants Museum 28 Võ Văn Tần；同一條街，短步行即可。",
         "map": "https://www.google.com/maps/search/?api=1&query=M%E1%BA%B7n%20M%C3%B2i%20Tao%20%C4%90%C3%A0n%2034%20V%C3%B5%20V%C4%83n%20T%E1%BA%A7n%20Ho%20Chi%20Minh%20City",
@@ -2790,7 +2792,7 @@ const ITINERARY_DATA={
         "time": "after lunch · target ~14:40–16:30",
         "title": "🏛 War Remnants Museum",
         "details": [
-          "Cu Chi 看現場，museum 看留下來的記憶；War Day 在這裡補完另一半。"
+          "Cu Chi 後接 War Remnants Museum"
         ],
         "route": "🚶/🚕 下一站：前往 Qspa 25/1 Trương Định；museum 完成後接 120-minute War Day Recovery。",
         "map": "https://www.google.com/maps/search/?api=1&query=War%20Remnants%20Museum%2028%20Vo%20Van%20Tan%20Ho%20Chi%20Minh%20City",
@@ -2804,9 +2806,9 @@ const ITINERARY_DATA={
         "time": "after museum · ~16:45–18:45",
         "title": "🌿 Qspa · War Day Recovery",
         "details": [
-          "PLANNED · Full 120 minutes after Cu Chi heat / dust and the War Remnants Museum.",
-          "Choose massage / body treatment / hair-care according to how everyone feels; no mandatory treatment.",
-          "Prefer a dedicated hair reset? Open Nara Spa in Guide."
+          "War Day 後預留完整 120 min Spa",
+          "按狀態選 massage / body / hair-care",
+          "想做 hair reset：Guide 見 Nara Spa"
         ],
         "route": "🚕 下一站：Grab → Ốc Đào；Spa 完成後直接去，晚餐時間保持彈性。",
         "map": "https://www.google.com/maps/search/?api=1&query=Qspa%2025%2F1%20Truong%20Dinh%20Ho%20Chi%20Minh%20City",
@@ -2827,7 +2829,7 @@ const ITINERARY_DATA={
         "time": "~19:00 onwards · flexible",
         "title": "🦀 Ốc Đào · Ốc + Beer",
         "details": [
-          "今晚要的是螺、貝、海鮮和冰啤酒；熱鬧一點，才像 Saigon。"
+          "螺、貝、海鮮 + 冰啤酒"
         ],
         "route": "🏨 下一站：食完直接 Grab 返回 Fusion；今晚到此為止。",
         "map": "https://www.google.com/maps/search/?api=1&query=%E1%BB%90c%20%C4%90%C3%A0o%20212B%2FD48%20Nguy%E1%BB%85n%20Tr%C3%A3i%20Ho%20Chi%20Minh%20City",
@@ -2856,7 +2858,7 @@ const ITINERARY_DATA={
         "time": "08:30–09:15",
         "title": "☕ The Running Bean",
         "details": [
-          "慢慢食早餐、飲第一杯咖啡；今日不需要一早追時間。"
+          "慢慢早餐 + 第一杯咖啡"
         ],
         "route": "🚕 下一站：Grab 去 Tân Định Pink Church，09:30 左右到。",
         "map": "https://www.google.com/maps/search/?api=1&query=The%20Running%20Bean%20115%20H%E1%BB%93%20T%C3%B9ng%20M%E1%BA%ADu%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
@@ -2870,7 +2872,7 @@ const ITINERARY_DATA={
         "time": "09:30–10:00",
         "title": "🩷 Tân Định Pink Church",
         "details": [
-          "短停、影相；Cộng 只作 optional，想看高位角度才上樓。"
+          "短停影相，Cộng optional"
         ],
         "route": "🚶 下一站：Cộng 可快閃；之後步行／短 Grab 去 PUSH PUSH。",
         "map": "https://www.google.com/maps/search/?api=1&query=T%C3%A2n%20%C4%90%E1%BB%8Bnh%20Church%20Tan%20Dinh%20Church%2C%20289%20Hai%20B%C3%A0%20Tr%C6%B0ng%2C%20Ward%208%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
@@ -2892,7 +2894,7 @@ const ITINERARY_DATA={
         "time": "10:15–10:45",
         "title": "👖 PUSH PUSH Official",
         "details": [
-          "還在 Tân Định，順手看一輪年輕 local fashion；有感覺才試。"
+          "順路睇 local fashion，有啱先試"
         ],
         "route": "🚕 下一站：由這裡 Grab 入 Thảo Điền。落車後不再跟時間表。",
         "map": "https://www.google.com/maps/search/?api=1&query=Push%20Push%20Official%2020%20Nguy%E1%BB%85n%20V%C4%83n%20Nguy%E1%BB%85n%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
@@ -2905,7 +2907,7 @@ const ITINERARY_DATA={
         "id": "thao-dien-open-list",
         "time": "~11:00 onwards",
         "title": "🎲 Thảo Điền · Open List",
-        "summary": "由入 Thảo Điền 開始，不跟時間表。行到哪裡、肚餓就食、想坐就飲、想做 Spa 才做。",
+        "summary": "入 Thảo Điền 後自由行，食 / 飲 / Spa 隨心",
         "details": [
           "🛍 Browse · 從 OHQUAO 開始；沿線小店全部收在 Shopping List",
           "🥐 Coffee / Sweet · Bakes，或者沿途見到想坐的 café",
@@ -2947,7 +2949,7 @@ const ITINERARY_DATA={
         "time": "09:30–10:30",
         "title": "🍜 Phở Việt Nam Bến Thành",
         "details": [
-          "最後一碗石鍋河粉，距酒店步行或 Grab 3–5 分鐘。"
+          "最後一碗石鍋河粉"
         ],
         "route": "🚶 To next stop：步行約 4 分鐘去 Museum of Fine Arts。",
         "map": "https://www.google.com/maps/search/?api=1&query=Ph%E1%BB%9F%20Vi%E1%BB%87t%20Nam%20B%E1%BA%BFn%20Th%C3%A0nh%2014%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
@@ -2961,7 +2963,7 @@ const ITINERARY_DATA={
         "time": "10:30–11:45",
         "title": "🏛 Museum of Fine Arts",
         "details": [
-          "復古人文街拍，彩色玻璃與老升降機。"
+          "彩色玻璃、老升降機、復古街拍"
         ],
         "route": "🚕 To next stop：Grab 約 4 分鐘去 Bếp Mẹ Ỉn。",
         "map": "https://www.google.com/maps/search/?api=1&query=Fine%20Arts%20Museum%20Ho%20Chi%20Minh%20City%20Museum%20of%20Fine%20Arts%2C%2097A%20Ph%C3%B3%20%C4%90%E1%BB%A9c%20Ch%C3%ADnh%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
@@ -2975,8 +2977,8 @@ const ITINERARY_DATA={
         "time": "11:45–13:00",
         "title": "🥞 Bếp Mẹ Ỉn",
         "details": [
-          "Michelin Bib Gourmand；黃金煎餅、椰子炒飯與越式拼盤。",
-          "🥖 Optional add-on：隔籬 Bánh Mì Mẹ Ỉn；可問店員能否送法包過來一齊 share。"
+          "Michelin Bib Gourmand，黃金煎餅、椰子炒飯、越式拼盤",
+          "🥖 Optional：隔籬 Bánh Mì Mẹ Ỉn，可問能否送過來 share"
         ],
         "route": "🚕 To next stop：Grab 約 3 分鐘去 Takashimaya。",
         "map": "https://www.google.com/maps/search/?api=1&query=B%E1%BA%BFp%20M%E1%BA%B9%20%E1%BB%88n%20136%2F9%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
@@ -2990,7 +2992,7 @@ const ITINERARY_DATA={
         "time": "13:00–14:15",
         "title": "🛍 Takashimaya + Maison Marou",
         "details": [
-          "最後手信時間：朱古力、咖啡、茶葉與乾果。"
+          "最後手信：朱古力、咖啡、茶葉、乾果"
         ],
         "route": "🚶 To next stop：回 Fusion Original 提行李。",
         "map": "https://maps.google.com/?q=Takashimaya+Saigon",
@@ -3004,7 +3006,7 @@ const ITINERARY_DATA={
         "time": "14:15–14:45",
         "title": "🧳 返回酒店 · 提行李",
         "details": [
-          "回 Fusion Original 提取寄存行李。"
+          "回 Fusion 提寄存行李"
         ],
         "route": "🚕 To next stop：14:45 出發，Grab 約 20–25 分鐘去 Hạ Spa。",
         "map": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%20Fusion%20Original%20Saigon%20Centre%2C%2065%20L%C3%AA%20L%E1%BB%A3i%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
@@ -3019,7 +3021,7 @@ const ITINERARY_DATA={
         "time": "14:45–15:30",
         "title": "🚕 Grab → Hạ Spa",
         "details": [
-          "提早離開 D1，避開黃昏塞車。"
+          "提早離開 D1，避開黃昏塞車"
         ],
         "route": "🚶 To next stop：抵達後直接入療程。",
         "map": "https://www.google.com/maps/search/?api=1&query=H%E1%BA%A1%20Spa%20334%20Nguy%E1%BB%85n%20Tr%E1%BB%8Dng%20Tuy%E1%BB%83n%2C%20Ward%202%2C%20T%C3%A2n%20B%C3%ACnh%20District%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
@@ -3033,7 +3035,7 @@ const ITINERARY_DATA={
         "time": "15:30–17:30",
         "title": "💆‍♀️ Hạ Spa",
         "details": [
-          "草本洗頭 + 全身熱石按摩；近機場。"
+          "草本洗頭 + 全身熱石按摩"
         ],
         "route": "🚕 To next stop：Grab 約 2 分鐘去新山一機場國際航廈。",
         "map": "https://www.google.com/maps/search/?api=1&query=H%E1%BA%A1%20Spa%20334%20Nguy%E1%BB%85n%20Tr%E1%BB%8Dng%20Tuy%E1%BB%83n%2C%20Ward%202%2C%20T%C3%A2n%20B%C3%ACnh%20District%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
@@ -3047,7 +3049,7 @@ const ITINERARY_DATA={
         "time": "17:45–18:00",
         "title": "🚕 Hạ Spa → Airport",
         "details": [
-          "前往新山一國際機場。"
+          "前往 SGN International Terminal"
         ],
         "route": "🚶 To next stop：國際線 Check-in 櫃檯。",
         "map": "https://maps.google.com/?q=Tan+Son+Nhat+International+Airport",
@@ -3061,7 +3063,7 @@ const ITINERARY_DATA={
         "time": "18:00–21:10",
         "title": "✈️ Check-in / Duty Free / Boarding",
         "details": [
-          "預留 3 小時處理 check-in、過關與登機。"
+          "預留 3 小時 check-in、過關、登機"
         ],
         "route": "",
         "map": "",

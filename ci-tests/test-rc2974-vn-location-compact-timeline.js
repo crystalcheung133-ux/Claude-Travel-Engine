@@ -6,5 +6,5 @@ assert(day.includes('function mapQueryFromUrl'), 'Directions must use map query 
 assert(day.includes('function isTrustedVietnamLocation'), 'VN route guard missing');
 assert(day.includes('if(!from||!to)return'), 'Directions must fail closed without trusted endpoints');
 assert(!/(Doncaster|Melbourne|Victoria)/i.test(data), 'Home-location contamination found in VN data');
-assert(css.includes('RC29.73 — NZ-style compact Timeline'), 'Compact Timeline CSS missing');
-console.log('PASS RC29.73 VN location authority + compact Timeline');
+assert(css.includes('RC29.75 — NZ-style compact Timeline'), 'Compact Timeline CSS missing');
+console.log('PASS RC29.75 VN location authority + compact Timeline');
