@@ -13,4 +13,4 @@ assert(day.includes("(place&&place.address)||(item&&item.address)"),'Timeline ca
 assert(trip.includes("return (place&&place.address)||(booking&&booking.address)"),'Booking display must prefer shared Place address');
 assert(trip.includes("GUIDE_AUTHORITY.save(current.placeId,placePatch)"),'Booking edits must sync shared Place contact facts');
 assert(trip.includes("booking.checkInInstructions||'',booking.lunchStatus||'',booking.notes"),'near-duplicate operational notes must merge into Important information');
-console.log('RC29.79 GUIDE / SHARED PLACE OWNERSHIP: PASS');
+console.log('RC29.80 GUIDE / SHARED PLACE OWNERSHIP: PASS');

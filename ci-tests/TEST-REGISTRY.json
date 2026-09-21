@@ -133,7 +133,7 @@
   },
   "test-guide-booking-return-contract.js": {
     "status": "active",
-    "note": "origin-aware Guide\u2192Booking close: Timeline origin returns directly to Timeline"
+    "note": "origin-aware Guide→Booking close: Timeline origin returns directly to Timeline"
   },
   "test-guide-menu-alignment.js": {
     "status": "active",
@@ -165,7 +165,7 @@
   },
   "test-multiday-booking-guide-routing.js": {
     "status": "active",
-    "principle": "One canonical booking can span multiple itinerary days; Guide\u2192Booking dispatch must preserve booking category"
+    "principle": "One canonical booking can span multiple itinerary days; Guide→Booking dispatch must preserve booking category"
   },
   "test-open-day-and-arrival-flow.js": {
     "status": "active",
@@ -317,7 +317,7 @@
   },
   "test-rc2967-documents-parity-ux.js": {
     "status": "active",
-    "purpose": "NZ Documents category/ownership/viewer parity plus cascading Day \u2192 Event timeline selector"
+    "purpose": "NZ Documents category/ownership/viewer parity plus cascading Day → Event timeline selector"
   },
   "test-rc2966-shared-documents.js": {
     "status": "active",
@@ -343,8 +343,12 @@
     "status": "active",
     "note": "RC29.78 new foreign-currency expense live-rate-first save with fresh-cache/offline fallback"
   },
-  "test-rc2979-guide-place-ownership.js": {
+  "test-rc2980-guide-place-ownership.js": {
     "status": "active",
-    "note": "RC29.79 simplified Guide editor/renderer parity, explicit-empty semantics, shared Place authority across Guide/Booking/Timeline and note consolidation"
+    "note": "RC29.80 simplified Guide editor/renderer parity, explicit-empty semantics, shared Place authority across Guide/Booking/Timeline and note consolidation"
+  },
+  "test-rc2980-timeline-relationship-hydration.js": {
+    "status": "active",
+    "note": "RC29.80 keeps Timeline-authored content while hydrating Guide/Booking/shared-Place relationship metadata from the current master by stable item id."
   }
 }

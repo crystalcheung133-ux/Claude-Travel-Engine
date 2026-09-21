@@ -172,11 +172,29 @@
 
   /* Single resolver used by every itinerary consumer:
      pending (validated) -> saved override (validated) -> master. */
+  /* Timeline edits own presentation/order content, not cross-surface relationship
+     metadata. When an override was saved before Guide/Booking relationship metadata was
+     added to the current master, hydrate those relationship fields from the current
+     master by stable item id. This prevents an otherwise-valid saved timeline override
+     from masking Guide/Booking actions introduced by a newer relationship model. */
+  const RELATIONSHIP_FIELDS=['placeId','bookingId','guideIds','alternativeGuideIds','guideGroups','parkingGuideId','currencyGuide','showShoppingDirectory'];
+  function hydrateRelationships(items,masterItems){
+    const masters=new Map((masterItems||[]).filter(item=>item&&item.id).map(item=>[String(item.id),item]));
+    return (items||[]).map(function(item){
+      const copy=clone(item),master=copy&&copy.id?masters.get(String(copy.id)):null;
+      if(!master)return copy;
+      RELATIONSHIP_FIELDS.forEach(function(field){
+        if(Object.prototype.hasOwnProperty.call(master,field)) copy[field]=clone(master[field]);
+        else delete copy[field];
+      });
+      return copy;
+    });
+  }
   function resolveDayItems(dayKey,masterItems){
     const pending=getPendingDayItems(dayKey);
-    if(pending) return pending;
+    if(pending) return hydrateRelationships(pending,masterItems);
     const saved=getDayOverrideItems(dayKey);
-    if(saved) return saved;
+    if(saved) return hydrateRelationships(saved,masterItems);
     return clone(masterItems||[]);
   }
 
