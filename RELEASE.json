@@ -1,6 +1,6 @@
 {
   "engine_version": "25.7.2",
-  "artifact_version": "VN Companion RC29.80 · Travel Engine 25.7.2 Shared Place + Timeline Relationship Hydration Root Candidate",
+  "artifact_version": "VN Companion RC29.81 · Travel Engine 25.7.2 Frozen Place Projection Runtime Fix Root Candidate",
   "baseline_engine": "25.5.2",
   "release_date": "2026-09-21",
   "release_type": "guide-shared-place-timeline-relationship-hydration-candidate",
@@ -58,8 +58,8 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc2980-2572",
-  "release_status": "RC29.80 CANDIDATE — Shared Place + Simplified Guide",
+  "asset_cache_token": "rc2981-2572",
+  "release_status": "RC29.81 CANDIDATE — Frozen Place Projection Runtime Fix",
   "changes": [
     "Integrated documents-runtime.js and documents-folder-ui.js as Engine 25.7.2 shared modules.",
     "Added VN Documents page and navigation entry.",
@@ -81,14 +81,18 @@
     "Separated Trip Total from Current Balance and preserved full transaction history across settlement checkpoints.",
     "Checkpoint records snapshot settled expense update versions so later historical edits are surfaced for review.",
     "Audited Booking-to-Expense cashback flow: netTotalAUD remains preferred ahead of gross totalAmount when no explicit deposit is being recorded.",
-    "RC29.80 ownership consolidation: Guide renderer/editor parity, shared Place contact facts, Timeline canonical destination resolution, and Booking note consolidation."
+    "RC29.81 ownership consolidation: Guide renderer/editor parity, shared Place contact facts, Timeline canonical destination resolution, and Booking note consolidation."
   ],
   "validation": {
-    "static_master_ci": "PASS — RC29.80 full Master CI including Guide/shared-Place ownership contract; production checksums rebuilt after validation.",
+    "static_master_ci": "PASS — RC29.81 full Master CI including Guide/shared-Place ownership contract; production checksums rebuilt after validation.",
     "browser_release_smoke": "DEFINED — re-run GitHub Chromium/WebKit four-viewport release gate after deployment; local static CI is green.",
     "scope_sanity": "Timeline is the only manual Publish authority; Guide/Booking/Documents/Expenses/Moments remain independent auto-sync flows."
   },
   "ci_hygiene_fix": "VN product-contract suite tail tests are now included in the suite failure accumulator; stale post-PASS false-green behavior removed.",
   "currency_guide": "RC29.48 consolidates VPBank, Hà Tâm, Hung Long, TPBank LiveBank and Takashimaya B2 into one Cash & Currency Guide with contextual Timeline Currency buttons and per-option navigation.",
-  "browser_validation": "DEFINED — GitHub browser gate must verify Chromium desktop/mobile and WebKit 390×844/430×932. The double-submit assertion now targets the original DOM button node across the full actionability window."
+  "browser_validation": "DEFINED — GitHub browser gate must verify Chromium desktop/mobile and WebKit 390×844/430×932. The double-submit assertion now targets the original DOM button node across the full actionability window.",
+  "notes": [
+    "RC29.81 runtime fix: day Timeline thaws the deeply-frozen production Place projection before applying the shared-Place resolving Proxy, avoiding the ECMAScript Proxy invariant TypeError that prevented D2 Timeline actions from rendering in real browsers."
+  ],
+  "static_master_ci": "PASS — RC29.81 full Master CI including frozen Place projection Proxy invariant regression."
 }
