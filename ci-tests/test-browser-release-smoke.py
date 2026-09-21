@@ -133,6 +133,7 @@ def guide_to_booking(page,day,item_id):
 
 def run_viewport(browser,base,viewport,label):
       context=browser.new_context(viewport=viewport)
+      context.add_init_script("window.TRAVEL_ENGINE_SUPABASE={enabled:false};")
       page=context.new_page()
       errors=[]
       page.on('pageerror',lambda e: errors.append(str(e)))

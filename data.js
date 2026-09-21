@@ -2356,7 +2356,7 @@ const BOOKINGS_DATA={
     "bookingCategory": "Activities",
     "category": "Activities",
     "type": "activity",
-    "title": "Cu Chi Tunnels Half Day Tour with City Tour & Late Departure Option",
+    "title": "Cu Chi Tunnels Half Day Tour",
     "depositPaid": "",
     "depositAmount": "",
     "depositCurrency": "",

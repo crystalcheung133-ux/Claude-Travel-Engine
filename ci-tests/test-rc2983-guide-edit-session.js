@@ -10,4 +10,4 @@ if(!core.includes("guideModal?.classList.contains('show') && typeof window.isGui
 if(!core.includes("target!=='guide' && guideModal?.classList.contains('show')" ) || !core.includes("typeof window.isGuideEditActive==='function' && window.isGuideEditActive()")) failures.push('Cross-module overlay close must respect Guide edit-active state');
 if(!guide.includes('>Cancel</button>')) failures.push('Explicit Cancel path must remain available');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
-console.log('PASS RC29.83 Guide edit-session protection contract');
+console.log('PASS RC29.84 Guide edit-session protection contract');

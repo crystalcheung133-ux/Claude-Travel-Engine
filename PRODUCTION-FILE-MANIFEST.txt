@@ -1,6 +1,6 @@
 Saigon Companion Production File Manifest
 Generated: 2026-09-21
-Base: VN Companion RC29.83 · Travel Engine 25.7.2 Guide Edit Protection + Clear Trip Records Root Candidate
+Base: VN Companion RC29.84 · Travel Engine 25.7.2 Guide Edit Protection + Clear Trip Records Root Candidate
 Reference trip: Vietnam
 
 Production root files:

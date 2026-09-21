@@ -700,9 +700,9 @@ function tripHubEntries(){
   const enabled=(name,fallback)=>Object.prototype.hasOwnProperty.call(modules,name)?modules[name]!==false:fallback;
   const entries=[];
   if(cards.flights)entries.push({id:'flights',action:"openTripCard('flights')"});
-  if(enabled('stay',!!getAccommodationBookings().length)&&getAccommodationBookings().length)entries.push({id:'stay',action:"openTripCard('stay')"});
-  if(getBookingsByCategory('restaurants').length)entries.push({id:'restaurants',action:"openBookingCategoryCard('Restaurants')"});
-  if(getBookingsByCategory('spa').length)entries.push({id:'spa',action:"openBookingCategoryCard('Spa')"});
+  if(enabled('stay',!!getAccommodationBookings().length)&&getAccommodationBookings().length){const stays=getAccommodationBookings();entries.push({id:'stay',action:stays.length===1?`openAccommodationDetail('${stays[0].id}')`:"openTripCard('stay')"});}
+  if(getBookingsByCategory('restaurants').length){const rows=getBookingsByCategory('restaurants');entries.push({id:'restaurants',action:rows.length===1?`openGenericBookingDetail('${rows[0].id}')`:"openBookingCategoryCard('Restaurants')"});}
+  if(getBookingsByCategory('spa').length){const rows=getBookingsByCategory('spa');entries.push({id:'spa',action:rows.length===1?`openGenericBookingDetail('${rows[0].id}')`:"openBookingCategoryCard('Spa')"});}
   const groups=Array.isArray(TRIP_CONFIG.tripMenuGroups)?TRIP_CONFIG.tripMenuGroups:[];
   const groupedModules=new Set();
   groups.forEach(group=>{
@@ -814,6 +814,9 @@ function buildBookingCategoryListHTML(category){
   }).join('')+'</div>';
 }
 function openBookingCategoryCard(category){
+  const direct=getBookingsByCategory(category);
+  if(direct.length===1){closeMiniMenus();openGenericBookingDetail(direct[0].id);return;}
+  if(!direct.length){closeMiniMenus();return;}
   closeMiniMenus();
   const content=document.getElementById('tripModalContent'),modal=document.getElementById('tripModal');
   if(!content||!modal)return;
@@ -850,9 +853,9 @@ function renderTripMenuFromConfig(){
  const rows=[];
  const push=(action,icon,title,sub,href)=>rows.push(`<a href="${href||'#'}"${action?` onclick="${action};return false;"`:''}><span><span class="menu-title">${icon} ${title}</span>${sub?`<span class="menu-sub">${sub}</span>`:''}</span><span>›</span></a>`);
  if(cards.flights)push("openTripCard('flights')",'✈️','Flights','Flight details');
- if(enabled('stay',!!getAccommodationBookings().length))push("openTripCard('stay')",'🏨','Stay','Accommodation');
- if(getBookingsByCategory('restaurants').length)push("openBookingCategoryCard('Restaurants')",'🍽️','Restaurants','Restaurant bookings');
- if(getBookingsByCategory('spa').length)push("openBookingCategoryCard('Spa')",'💆','Spa','Spa bookings');
+ {const stays=getAccommodationBookings();if(enabled('stay',!!stays.length)&&stays.length)push(stays.length===1?`openAccommodationDetail('${stays[0].id}')`:"openTripCard('stay')",'🏨','Stay','Accommodation');}
+ {const rows=getBookingsByCategory('restaurants');if(rows.length)push(rows.length===1?`openGenericBookingDetail('${rows[0].id}')`:"openBookingCategoryCard('Restaurants')",'🍽️','Restaurants','Restaurant bookings');}
+ {const rows=getBookingsByCategory('spa');if(rows.length)push(rows.length===1?`openGenericBookingDetail('${rows[0].id}')`:"openBookingCategoryCard('Spa')",'💆','Spa','Spa bookings');}
  const groupedModules=new Set();
  const groups=Array.isArray(TRIP_CONFIG.tripMenuGroups)?TRIP_CONFIG.tripMenuGroups:[];
  groups.forEach(group=>{
@@ -861,8 +864,8 @@ function renderTripMenuFromConfig(){
    const hasTransport=modules.includes('transport')&&enabled('transport',!!getTransportBookings().length)&&getTransportBookings().length;
    if(hasActivity||hasTransport){push(`openTripModuleGroup('${group.id}')`,group.icon||'📋',group.title||'Trip info',group.sub||'');modules.forEach(m=>groupedModules.add(m));}
  });
- if(!groupedModules.has('activities')&&enabled('activities',!!getActivityBookings().length))push("openTripCard('activities')",'🎟️','Activities','Activity bookings');
- if(!groupedModules.has('transport')&&enabled('transport',!!getTransportBookings().length))push("openTripCard('transport')",'🚐','Transport','Booked transport');
+ if(!groupedModules.has('activities')&&enabled('activities',!!getActivityBookings().length)&&getActivityBookings().length)push("openTripCard('activities')",'🎟️','Activities','Activity bookings');
+ if(!groupedModules.has('transport')&&enabled('transport',!!getTransportBookings().length)&&getTransportBookings().length)push("openTripCard('transport')",'🚐','Transport','Booked transport');
  if(enabled('rentalCar',!!cards.vehicle)&&cards.vehicle)push("openTripCard('vehicle')",'🚙','Rental Car','Vehicle details');
  host.innerHTML=rows.join('');
 }

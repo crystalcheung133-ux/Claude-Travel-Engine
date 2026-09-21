@@ -1,4 +1,4 @@
-/* reset-runtime.js — RC29.83 Clear Trip Records
+/* reset-runtime.js — RC29.84 Clear Trip Records
    Destructive scope is intentionally narrow: Documents, Moments and Expenses only.
    It must never reset itinerary/timeline, Booking, Guide, checklist, changed plans,
    Trip Studio drafts, completion state, or other trip settings. */
