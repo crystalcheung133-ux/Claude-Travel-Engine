@@ -75,8 +75,8 @@
       return emptyStore();
     }
     if(raw.masterRevision!==current){
-      // RC29.87 additive Day 4 migration: preserve every user-edited Timeline
-      // field from RC29.87, but insert the restored Quán Thuý 94 relationship
+      // RC29.88 additive Day 4 migration: preserve every user-edited Timeline
+      // field from RC29.88, but insert the restored Quán Thuý 94 relationship
       // if that edited Day 4 did not already contain it. Guide overrides are
       // separate authority and are never touched by this migration.
       if(raw.masterRevision==='10ff1de238eb9'){

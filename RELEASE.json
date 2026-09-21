@@ -1,6 +1,6 @@
 {
   "engine_version": "25.7.2",
-  "artifact_version": "VN Companion RC29.87 · Travel Engine 25.7.2 Day 4 Quán Thuý Non-Destructive Upgrade Root Candidate",
+  "artifact_version": "VN Companion RC29.88 · Travel Engine 25.7.2 Browser FX Isolation Root Candidate",
   "baseline_engine": "25.5.2",
   "release_date": "2026-09-22",
   "release_type": "day4-quan-thuy-nondestructive-upgrade-candidate",
@@ -70,8 +70,8 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc2987-2572",
-  "release_status": "RC29.87 CANDIDATE — Day 4 Quán Thuý Non-Destructive Upgrade",
+  "asset_cache_token": "rc2988-2572",
+  "release_status": "RC29.88 CANDIDATE — Browser FX Isolation",
   "changes": [
     "Integrated documents-runtime.js and documents-folder-ui.js as Engine 25.7.2 shared modules.",
     "Added VN Documents page and navigation entry.",
@@ -104,7 +104,7 @@
     "Injected TRAVEL_ENGINE_SUPABASE enabled:false into every browser-release context before navigation."
   ],
   "validation": {
-    "static_master_ci": "PASS — RC29.87 full Master CI including non-destructive RC29.86 Timeline rebase and Guide preservation contract.",
+    "static_master_ci": "PASS — RC29.88 full Master CI including non-destructive RC29.86 Timeline rebase and Guide preservation contract.",
     "browser_release_smoke": "DEFINED — production Supabase is disabled before page scripts execute; re-run GitHub Chromium/WebKit four-viewport release gate.",
     "scope_sanity": "Timeline is the only manual Publish authority; Guide/Booking/Documents/Expenses/Moments remain independent auto-sync flows."
   },
@@ -114,5 +114,5 @@
   "notes": [
     "RC29.81 runtime fix: day Timeline thaws the deeply-frozen production Place projection before applying the shared-Place resolving Proxy, avoiding the ECMAScript Proxy invariant TypeError that prevented D2 Timeline actions from rendering in real browsers."
   ],
-  "static_master_ci": "PASS — RC29.87 full Master CI."
+  "static_master_ci": "PASS — RC29.88 full Master CI."
 }

@@ -142,6 +142,22 @@ def guide_to_booking(page,day,item_id):
 def run_viewport(browser,base,viewport,label):
       context=browser.new_context(viewport=viewport)
       context.add_init_script("window.TRAVEL_ENGINE_SUPABASE={enabled:false};")
+      # RC29.88: the release gate must be hermetic. Production uses live FX, but
+      # browser CI fulfils both configured FX providers locally so CORS/network
+      # availability can never decide whether a release passes.
+      fx_mock_hits=[]
+      def mock_fx(route,request):
+          fx_mock_hits.append(request.url)
+          url=request.url.lower()
+          if 'api.frankfurter.dev/v1/latest' in url:
+              route.fulfill(status=200,content_type='application/json',body='{"amount":1,"base":"VND","date":"2026-09-22","rates":{"AUD":0.000057}}')
+              return
+          if 'latest.currency-api.pages.dev/v1/currencies/vnd.json' in url:
+              route.fulfill(status=200,content_type='application/json',body='{"date":"2026-09-22","vnd":{"aud":0.000057}}')
+              return
+          route.abort()
+      context.route('https://api.frankfurter.dev/**',mock_fx)
+      context.route('https://latest.currency-api.pages.dev/**',mock_fx)
       page=context.new_page()
       errors=[]
       page.on('pageerror',lambda e: errors.append(str(e)))
@@ -410,6 +426,11 @@ def run_viewport(browser,base,viewport,label):
         page.locator('#tripModal .trip-close').click()
 
         check(not errors,label+': Browser page errors: '+' | '.join(errors))
+        # Any FX call observed here was fulfilled by the CI route above; no request
+        # reached either production provider. This keeps the smoke deterministic
+        # while still exercising the app's real fetch/parse/conversion path.
+        check(all(('api.frankfurter.dev/' in u or 'latest.currency-api.pages.dev/' in u) for u in fx_mock_hits),
+              label+': unexpected FX mock target: '+' | '.join(fx_mock_hits))
         print(f'BROWSER VIEWPORT {label}: PASS')
       finally:
         context.close()

@@ -21,4 +21,4 @@ assert.deepStrictEqual(Array.from(items,x=>x.id),['running-bean','pink-church','
 assert.strictEqual(items[0].title,'USER CUSTOM RUNNING BEAN');assert.strictEqual(items[0].custom,'KEEP-ME');assert.deepStrictEqual(Array.from(items[4].details),['CUSTOM DETAIL']);
 // Guide authority remains independent: release does not revise/reset user Guide patches.
 const ga=fs.readFileSync('guide-authority.js','utf8');assert(!/MASTER_GUIDE_REVISION|masterGuideRevision/.test(ga));
-console.log('RC29.87 Day 4 Quán Thuý additive non-destructive upgrade PASS');
+console.log('RC29.88 Day 4 Quán Thuý additive non-destructive upgrade PASS');
