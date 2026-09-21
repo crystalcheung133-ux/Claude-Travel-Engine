@@ -134,10 +134,11 @@ function bookingDayNumber(booking){
   return raw||'';
 }
 function bookingPlace(booking){
-  return (booking&&booking.placeId&&typeof PRODUCTION_TRIP.places!=='undefined')?PRODUCTION_TRIP.places[booking.placeId]||null:null;
+  const base=(booking&&booking.placeId&&typeof PRODUCTION_TRIP.places!=='undefined')?PRODUCTION_TRIP.places[booking.placeId]||null:null;
+  return base&&window.GUIDE_AUTHORITY?GUIDE_AUTHORITY.resolve(booking.placeId,base):base;
 }
 function bookingAddress(booking,place){
-  return (booking&&booking.address)||(booking&&booking.pickupAddress)||(place&&place.address)||'';
+  return (place&&place.address)||(booking&&booking.address)||(booking&&booking.pickupAddress)||'';
 }
 function bookingFactGridHTML(rows){
   return rows.filter(function(row){return row&&row[1]!==undefined&&row[1]!==null&&String(row[1]).trim()!=='';})
@@ -467,9 +468,13 @@ function bookingViaValue(booking){
   return choices.includes(raw)?raw:(raw?'Other':'');
 }
 function bookingImportantInfo(booking){
-  return [booking.cancellation||'',booking.notes||''].filter(Boolean).join('\n');
+  return [booking.cancellation||'',booking.checkInInstructions||'',booking.lunchStatus||'',booking.notes||''].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).join('\n');
 }
 function bookingEditFields(booking){
+  const place=bookingPlace(booking)||{};
+  const sharedWebsite=place.website||place.url||booking.website||'';
+  const sharedPhone=place.phone||booking.phone||'';
+  const sharedAddress=place.address||booking.address||'';
   const via=bookingViaValue(booking);
   const rawVia=String(booking.bookingViaOther||booking.bookingWay||booking.platform||'').trim();
   const common=[
@@ -481,8 +486,8 @@ function bookingEditFields(booking){
     bookingField('Other booking method / platform','bookingViaOther',via==='Other'?rawVia:'',{wide:true}),
     bookingField('Payment / deposit status','paymentStatus',booking.paymentStatus),
     ...(booking.type==='accommodation'?[]:[bookingField('Total / balance','price',booking.price)]),
-    bookingField('Website / booking link','website',booking.website,{wide:true,inputmode:'url'}),
-    bookingField('Phone','phone',booking.phone),bookingField('Email','email',booking.email,{type:'email'}),
+    bookingField('Website / booking link','website',sharedWebsite,{wide:true,inputmode:'url'}),
+    bookingField('Phone','phone',sharedPhone),bookingField('Email','email',booking.email,{type:'email'}),
     bookingField('Notes / cancellation / important information','importantInfo',bookingImportantInfo(booking),{type:'textarea'})
   ];
   if(booking.type==='accommodation')common.splice(3,0,
@@ -492,14 +497,14 @@ function bookingEditFields(booking){
     bookingField('Total amount','totalAmount',booking.totalAmount||booking.price),
     bookingField('Cashback amount','cashbackAmount',booking.cashbackAmount||booking.cashback),
     bookingField('Net cost','netTotalAUD',booking.netTotalAUD||booking.netPrice),
-    bookingField('Address','address',booking.address,{type:'textarea'}),bookingField('Arrival instructions','checkInInstructions',booking.checkInInstructions,{type:'textarea'})
+    bookingField('Address','address',sharedAddress,{type:'textarea'})
   );
   if(booking.type==='activity')common.splice(3,0,
     bookingField('Time','time',booking.time),bookingField('Related day','dayId',booking.dayId),bookingField('Tour type','tourType',booking.tourType,{wide:true}),
     bookingField('Guests','guests',booking.guests,{type:'number',inputmode:'numeric'}),bookingField('Adults','adults',booking.adults,{type:'number',inputmode:'numeric'}),
     bookingField('Children','children',booking.children,{type:'number',inputmode:'numeric'}),bookingField('Original total','originalTotal',booking.originalTotal),
     bookingField('Discount','discount',booking.discount),bookingField('Pickup / meeting point','pickupNote',booking.pickupNote||booking.pickupAddress,{type:'textarea'}),
-    bookingField('Drop-off','dropOff',booking.dropOff,{type:'textarea'}),bookingField('Lunch','lunchStatus',booking.lunchStatus,{type:'textarea'})
+    bookingField('Drop-off','dropOff',booking.dropOff,{type:'textarea'})
   );
   return common.join('');
 }
@@ -595,7 +600,7 @@ async function saveBookingEdit(event,bookingId){
   const viaValue=viaChoice==='Other'?viaOther:viaChoice;
   next.bookingWay=viaValue;next.platform=viaValue;next.bookingViaOther=viaChoice==='Other'?viaOther:'';
   delete next.bookingVia;
-  if(Object.prototype.hasOwnProperty.call(next,'importantInfo')){next.notes=next.importantInfo;next.cancellation='';delete next.importantInfo;}
+  if(Object.prototype.hasOwnProperty.call(next,'importantInfo')){next.notes=next.importantInfo;next.cancellation='';next.checkInInstructions='';next.lunchStatus='';delete next.importantInfo;}
   ['nights','guests','adults','children'].forEach(function(key){if(Object.prototype.hasOwnProperty.call(next,key)){const value=Number(next[key]);next[key]=Number.isFinite(value)?value:0;}});
   if(next.dayId&&!/^day\d+$/.test(next.dayId))next.dayId='day'+String(next.dayId).replace(/\D/g,'');
   next.updatedBy=(window.getFriend&&window.getFriend())||'admin';next.updatedAt=new Date().toISOString();
@@ -621,6 +626,11 @@ async function saveBookingEdit(event,bookingId){
     return false;
   }
   clearBookingEditSession();
+  if(current.placeId&&window.GUIDE_AUTHORITY){
+    const placePatch={phone:String(next.phone||'').trim(),website:String(next.website||'').trim()};
+    if(current.type==='accommodation')placePatch.address=String(next.address||'').trim();
+    GUIDE_AUTHORITY.save(current.placeId,placePatch);
+  }
   if(saveButton)saveButton.textContent=outcome.degraded?'Saved · sync pending':'Saved ✓';
   try{document.dispatchEvent(new CustomEvent('travelengine:bookingchange',{detail:{bookingId:bookingId,booking:outcome.booking,syncPending:outcome.degraded}}));}
   catch(dispatchError){console.error('Booking save: post-commit change event failed (value remains saved)',dispatchError);}

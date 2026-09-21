@@ -33,6 +33,7 @@ run "MULTI-DAY BOOKING + GUIDE ROUTING" node ci-tests/test-multiday-booking-guid
 run "BOOKING CONTACT CHANNEL UX" node ci-tests/test-booking-contact-channel-ux.js
 run "BOOKING SAVE POST-COMMIT INTEGRITY" node ci-tests/test-booking-save-post-commit-integrity.js
 run "RC29.77 SETTLEMENT CHECKPOINT" node ci-tests/test-rc2976-settlement-checkpoint.js
+run "RC29.79 GUIDE / SHARED PLACE OWNERSHIP" node ci-tests/test-rc2979-guide-place-ownership.js
 [ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
 run "RC29.77 LIVE FX SAVE" node ci-tests/test-rc2977-live-fx-save.js
 echo "MASTER CI SUITE PASSED"

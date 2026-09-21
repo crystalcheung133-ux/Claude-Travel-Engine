@@ -215,13 +215,10 @@ function guideStayStatusHTML(item){
  return `<span class="guide-status guide-status-${cls}">${label}</span>`;
 }
 function guideListRow(item){
- // Guide is experiential content. Booking operations remain in Trip · Accommodation.
  const action=`openGuideModal('${item.key}')`;
- const status=item.cat==='STAY'?guideStayStatusHTML(item):guideStatusHTML(Object.assign({key:item.key},PRODUCTION_GUIDE.places[item.key]||{}));
- const booking=(item.cat==='STAY'&&window.BOOKING_AUTHORITY)?BOOKING_AUTHORITY.byPlace(item.key):null;
- const subtitle=booking?[booking.stayDates||'',booking.nights?`${booking.nights} night${Number(booking.nights)===1?'':'s'}`:''].filter(Boolean).join(' · '):(item.sub||'');
- return `<button onclick="${action}"><span><span class="guide-list-title">${item.emoji} ${item.title}</span><span class="guide-list-sub">${subtitle}</span></span><span class="guide-list-meta">${status}<span class="guide-list-chevron">›</span></span></button>`;
+ return `<button onclick="${action}"><span><span class="guide-list-title">${item.emoji} ${item.title}</span></span><span class="guide-list-meta"><span class="guide-list-chevron">›</span></span></button>`;
 }
+
 function groupedGuideRows(cat,list){
  const semantic=guideSemanticCategory(cat);
  if(semantic==='ATTRACTIONS'||semantic==='DINING'||semantic==='STAY'){
@@ -281,14 +278,22 @@ function usefulGoodToKnow(items){
  const generic=[/currently planned/i,/recommended only/i,/optional rather than essential/i,/keep .* flexible/i,/validation build/i];
  return (items||[]).filter(x=>x&&generic.every(rule=>!rule.test(x)));
 }
+function guideDescription(g){
+ const explicit=String(g.description||'').trim();
+ if(explicit||Object.prototype.hasOwnProperty.call(g,'description'))return explicit;
+ return String(g.desc||'').trim();
+}
+function guideUsefulInfoItems(g){
+ const explicit=Array.isArray(g.usefulInfo)?g.usefulInfo:(String(g.usefulInfo||'').trim()?String(g.usefulInfo).split(/\n+/):[]);
+ if(explicit.length||Object.prototype.hasOwnProperty.call(g,'usefulInfo'))return uniqueGuideItems(explicit);
+ const legacy=[...(g.signature||[]),...(g.highlights||[]),...(g.worth||[]),...(g.tips||[]),...(g.notes||[]),...(g.practical||[])];
+ if(g.bookingNote)legacy.push(g.bookingNote);
+ return uniqueGuideItems(legacy.map(cleanGuideLine));
+}
 function guideCoreSections(g,key){
- const semantic=guideSemanticCategory(g.cat);
- const normalized=semantic===g.cat?g:Object.assign({},g,{cat:semantic});
- if(semantic==='STAY')return guideStaySections(Object.assign({key},normalized));
- if(semantic==='ACTIVITIES')return guideExperienceSections(normalized,key);
- if(semantic==='ATTRACTIONS')return guideAttractionSections(normalized);
- if(semantic==='SHOP')return guideShopSections(normalized);
- return compactGuideSections(normalized);
+ const description=guideDescription(g);
+ const useful=guideUsefulInfoItems(g);
+ return `${description?`<section class="guide-content-section guide-about"><h3>About</h3><p>${description}</p></section>`:''}${guideListSection('Useful info',useful,'guide-useful-info')}`;
 }
 
 function guideAlternativeLinksHTML(g){
@@ -313,11 +318,14 @@ function quickInfoInnerHTML(g,key){
  const showPrice=g.cat!=='STAY'&&g.cat!=='ACTIVITIES'&&price&&!unknown.test(price);
  const priceRow=showPrice?`<div class="quick-info-row"><span class="quick-info-icon">💰</span><span><span class="quick-info-label">Price</span><span class="quick-info-value">${price}</span></span></div>`:'';
  const hours=String(g.hours||'').trim();
- const hoursRow='';
+ const hoursRow=hours?`<div class="quick-info-row"><span class="quick-info-icon">🕒</span><span><span class="quick-info-label">Hours</span><span class="quick-info-value">${hours}</span></span></div>`:'';
  const address=String(g.address||'').trim();
  const addressRow=address?`<div class="quick-info-row"><span class="quick-info-icon">📍</span><span><span class="quick-info-label">Address</span><span class="quick-info-value">${address}</span></span></div>`:'';
  const copyButton=address?`<button class="utility-button" type="button" onclick="copyGuideAddress('${key}')">📍 Copy Address</button>`:'';
- const navButton=g.maps?`<a class="map-button" href="${g.maps}" target="_blank" rel="noopener">🧭 Navigate</a>`:'';
+ const navHref=address?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${g.title||''}, ${address}`)}`:g.maps;
+ const navButton=navHref?`<a class="map-button" href="${navHref}" target="_blank" rel="noopener">🧭 Navigate</a>`:'';
+ const website=String(g.website||g.url||'').trim();
+ const websiteButton=website?`<a class="utility-button" href="${website}" target="_blank" rel="noopener">🌐 Website</a>`:'';
  const roleBadge=g.itineraryRole?`<span class="itinerary-role-badge">${g.itineraryRole}</span>`:'';
  const reminder=String(g.visitorReminder||'').trim();
  const reminderRow=(reminder&&g.cat!=='ACTIVITIES')?`<p class="visitor-reminder"><strong>Reminder:</strong> ${reminder}</p>`:'';
@@ -331,7 +339,7 @@ function quickInfoInnerHTML(g,key){
  const coreSections=guideCoreSections(g,key);
  const currencyOptions=Array.isArray(g.currencyOptions)?g.currencyOptions:[];
  const currencyOptionsHTML=currencyOptions.length?`<div class="currency-option-list">${currencyOptions.map(option=>`<article class="currency-option-card"><div class="currency-option-head"><strong>${option.icon||'💱'} ${option.name||''}</strong><span>${option.best||''}</span></div><p>${option.note||''}</p><p class="currency-option-address">📍 ${option.address||''}</p>${option.maps?`<a class="map-button" href="${option.maps}" target="_blank" rel="noopener">🧭 Navigate</a>`:''}</article>`).join('')}</div>`:'';
- return `<div class="quick-info-top"><span class="category-tag">${g.categoryLabel||g.cat||'Guide'}</span>${roleBadge}${detailStatus}</div><div class="quick-info-grid">${addressRow}${phoneRow}${hoursRow}${priceRow}${bookingRow}${visitDayHTML(key)}</div>${coreSections}${guideAlternativeLinksHTML(g)}${currencyOptionsHTML}${reminderRow}${parkingHTML}<div class="quick-info-actions">${navButton}${bookingButton}</div>`;
+ return `<div class="quick-info-top"><span class="category-tag">${g.categoryLabel||g.cat||'Guide'}</span>${roleBadge}</div><div class="quick-info-grid">${addressRow}${phoneRow}${hoursRow}${priceRow}${bookingRow}${visitDayHTML(key)}</div>${coreSections}${guideAlternativeLinksHTML(g)}${currencyOptionsHTML}${reminderRow}${parkingHTML}<div class="quick-info-actions">${navButton}${websiteButton}${callButton}${bookingButton}</div>`;
 }
 
 function quickInfoHTML(g,key){
@@ -506,15 +514,21 @@ function guideEditLines(value){return Array.isArray(value)?value.join('\n'):Stri
 function openGuideEdit(key){
  const g=guidePlace(key);if(!g||!(window.isAdminMode&&window.isAdminMode()))return;
  const f=(label,name,value,area)=>`<label class="guide-edit-field"><span>${label}</span>${area?`<textarea name="${name}">${String(value||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}</textarea>`:`<input name="${name}" value="${String(value||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">`}</label>`;
- $('guideModalContent').innerHTML=`<div class="guide-onepage guide-edit-form"><p class="kicker">TRIP STUDIO · GUIDE</p><h2>Edit Guide</h2><form id="guideEditForm" onsubmit="event.preventDefault();saveGuideEdit('${key}')">${f('Title','title',g.title)}${f('Subtitle','sub',g.sub)}${f('Address','address',g.address)}${f('Phone','phone',g.phone)}${f('Hours','hours',g.hours)}${f('Price','price',g.price)}${f('Website / link','website',g.website||g.url)}${f('Booking note','bookingNote',g.bookingNote,true)}${f('Signature / highlights — one per line','signature',guideEditLines(g.signature),true)}${f('Practical notes — one per line','notes',guideEditLines(g.notes||g.practical),true)}<div class="guide-edit-actions"><button class="pill" type="button" onclick="openGuideModal('${key}')">Cancel</button><button class="btn primary-action" type="submit">Save Guide</button></div></form></div>`;
+ $('guideModalContent').innerHTML=`<div class="guide-onepage guide-edit-form"><p class="kicker">TRIP STUDIO · GUIDE</p><h2>Edit Guide</h2><form id="guideEditForm" onsubmit="event.preventDefault();saveGuideEdit('${key}')">${f('Place name','title',g.title)}${f('Address','address',g.address)}${f('Phone','phone',g.phone)}${f('Website / link','website',g.website||g.url)}${f('Opening hours','hours',g.hours)}${f('Description / About','description',guideDescription(g),true)}${f('Useful info — one item per line','usefulInfo',guideUsefulInfoItems(g).join('\n'),true)}<div class="guide-edit-actions"><button class="pill" type="button" onclick="openGuideModal('${key}')">Cancel</button><button class="btn primary-action" type="submit">Save Guide</button></div></form></div>`;
 }
-function saveGuideEdit(key){const form=$('guideEditForm');if(!form)return;const fd=new FormData(form),patch={};['title','sub','address','phone','hours','price','website','bookingNote'].forEach(n=>patch[n]=String(fd.get(n)||'').trim());patch.signature=String(fd.get('signature')||'').split(/\n+/).map(x=>x.trim()).filter(Boolean);patch.notes=String(fd.get('notes')||'').split(/\n+/).map(x=>x.trim()).filter(Boolean);GUIDE_AUTHORITY.save(key,patch);openGuideModal(key);}
+function saveGuideEdit(key){
+ const form=$('guideEditForm');if(!form)return;const fd=new FormData(form);
+ const patch={title:String(fd.get('title')||'').trim(),address:String(fd.get('address')||'').trim(),phone:String(fd.get('phone')||'').trim(),website:String(fd.get('website')||'').trim(),hours:String(fd.get('hours')||'').trim(),description:String(fd.get('description')||'').trim(),usefulInfo:String(fd.get('usefulInfo')||'').split(/\n+/).map(x=>x.trim()).filter(Boolean)};
+ Object.assign(patch,{desc:'',sub:'',price:'',bookingNote:'',signature:[],highlights:[],worth:[],tips:[],notes:[],practical:[]});
+ GUIDE_AUTHORITY.save(key,patch);openGuideModal(key);
+}
+
 window.openGuideEdit=openGuideEdit;window.saveGuideEdit=saveGuideEdit;
 function openGuideModal(key,options){
  const g=guidePlace(key);if(!g)return;
  const opts=options||{};
  const back=opts.fromAlternatives?guideAlternativeBackButton():'';
- $('guideModalContent').innerHTML=`<div class="guide-onepage">${back}<p class="kicker">Guide</p><h2>${g.emoji} ${g.title}</h2><p class="guide-onepage-sub"><strong>${g.sub||''}</strong></p>${quickInfoHTML(g,key)}${routeStopsHTML(g)}${guideStudioButton(key)}${guideNavButtons(key)}</div>`;
+ $('guideModalContent').innerHTML=`<div class="guide-onepage">${back}<p class="kicker">Guide</p><h2>${g.emoji} ${g.title}</h2>${quickInfoHTML(g,key)}${routeStopsHTML(g)}${guideStudioButton(key)}${guideNavButtons(key)}</div>`;
  closeMiniMenus();
  $('guideModal').classList.add('show');
  const sheet=document.querySelector('#guideModal .guide-sheet');
