@@ -379,8 +379,8 @@
     "status": "active",
     "note": "RC29.87 additive D4 Quán Thuý restore preserves RC29.86 user Timeline edits and Guide authority"
   },
-  "test-rc2988-browser-fx-isolation.js": {
+  "test-rc2989-browser-fx-isolation.js": {
     "status": "active",
-    "note": "RC29.88 browser release gate intercepts both production FX providers with deterministic CI responses"
+    "note": "RC29.89 browser release gate intercepts both production FX providers with deterministic CI responses"
   }
 }

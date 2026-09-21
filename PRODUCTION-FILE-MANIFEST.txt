@@ -1,6 +1,6 @@
 Saigon Companion Production File Manifest
 Generated: 2026-09-21
-Base: VN Companion RC29.88 · Travel Engine 25.7.2 Browser FX Isolation Root Candidate
+Base: VN Companion RC29.89 · Travel Engine 25.7.2 Browser FX Pre-Network Isolation Root Candidate
 Reference trip: Vietnam
 
 Production root files:

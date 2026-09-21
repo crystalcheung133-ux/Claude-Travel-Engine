@@ -142,23 +142,34 @@ def guide_to_booking(page,day,item_id):
 def run_viewport(browser,base,viewport,label):
       context=browser.new_context(viewport=viewport)
       context.add_init_script("window.TRAVEL_ENGINE_SUPABASE={enabled:false};")
-      # RC29.88: the release gate must be hermetic. Production uses live FX, but
-      # browser CI fulfils both configured FX providers locally so CORS/network
-      # availability can never decide whether a release passes.
-      fx_mock_hits=[]
-      def mock_fx(route,request):
-          fx_mock_hits.append(request.url)
-          url=request.url.lower()
-          if 'api.frankfurter.dev/v1/latest' in url:
-              route.fulfill(status=200,content_type='application/json',body='{"amount":1,"base":"VND","date":"2026-09-22","rates":{"AUD":0.000057}}')
-              return
-          if 'latest.currency-api.pages.dev/v1/currencies/vnd.json' in url:
-              route.fulfill(status=200,content_type='application/json',body='{"date":"2026-09-22","vnd":{"aud":0.000057}}')
-              return
-          route.abort()
-      context.route('https://api.frankfurter.dev/**',mock_fx)
-      context.route('https://latest.currency-api.pages.dev/**',mock_fx)
+      # RC29.89: install the deterministic FX provider before any app script runs.
+      # This prevents WebKit from creating a cross-origin request lifecycle at all;
+      # production still uses the real providers because this exists only in CI.
+      context.add_init_script(r"""
+      (() => {
+        const nativeFetch = window.fetch.bind(window);
+        window.__CI_FX_FETCH_HITS = [];
+        window.fetch = function(input, init) {
+          const url = String(input && input.url ? input.url : input || '');
+          if (/api\.frankfurter\.dev\/v1\/latest/i.test(url)) {
+            window.__CI_FX_FETCH_HITS.push(url);
+            return Promise.resolve(new Response(JSON.stringify({amount:1,base:'VND',date:'2026-09-22',rates:{AUD:0.000057}}), {status:200,headers:{'Content-Type':'application/json'}}));
+          }
+          if (/latest\.currency-api\.pages\.dev\/v1\/currencies\/vnd\.json/i.test(url)) {
+            window.__CI_FX_FETCH_HITS.push(url);
+            return Promise.resolve(new Response(JSON.stringify({date:'2026-09-22',vnd:{aud:0.000057}}), {status:200,headers:{'Content-Type':'application/json'}}));
+          }
+          return nativeFetch(input, init);
+        };
+      })();
+      """)
       page=context.new_page()
+      production_fx_requests=[]
+      def observe_request(request):
+          u=request.url.lower()
+          if 'api.frankfurter.dev/' in u or 'latest.currency-api.pages.dev/' in u:
+              production_fx_requests.append(request.url)
+      page.on('request',observe_request)
       errors=[]
       page.on('pageerror',lambda e: errors.append(str(e)))
       try:
@@ -426,11 +437,9 @@ def run_viewport(browser,base,viewport,label):
         page.locator('#tripModal .trip-close').click()
 
         check(not errors,label+': Browser page errors: '+' | '.join(errors))
-        # Any FX call observed here was fulfilled by the CI route above; no request
-        # reached either production provider. This keeps the smoke deterministic
-        # while still exercising the app's real fetch/parse/conversion path.
-        check(all(('api.frankfurter.dev/' in u or 'latest.currency-api.pages.dev/' in u) for u in fx_mock_hits),
-              label+': unexpected FX mock target: '+' | '.join(fx_mock_hits))
+        # The app may call fetch(), but the init-script provider must satisfy FX
+        # before Playwright sees any production-provider network request.
+        check(not production_fx_requests,label+': production FX network request escaped CI provider: '+' | '.join(production_fx_requests))
         print(f'BROWSER VIEWPORT {label}: PASS')
       finally:
         context.close()

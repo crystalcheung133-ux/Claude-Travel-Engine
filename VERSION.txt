@@ -1,1 +1,1 @@
-VN Companion RC29.88 · Travel Engine 25.7.2 Browser FX Isolation Root Candidate
+VN Companion RC29.89 · Travel Engine 25.7.2 Browser FX Pre-Network Isolation Root Candidate
