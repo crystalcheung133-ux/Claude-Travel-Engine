@@ -3293,6 +3293,6 @@ html.handoff-ready body{visibility:visible}
 body.guide-booking-stack-open #guideModal.show.guide-backgrounded-for-booking{visibility:hidden!important;pointer-events:none!important;}
 body.guide-booking-stack-open #tripModal.show{visibility:visible!important;pointer-events:auto!important;}
 
-/* RC29.86 deterministic Guide ↔ Booking foreground switching */
+/* RC29.87 deterministic Guide ↔ Booking foreground switching */
 body.guide-booking-stack-open.guide-foreground-over-booking #tripModal.show{z-index:var(--engine-modal-layer,7000)!important;}
 body.guide-booking-stack-open.guide-foreground-over-booking #guideModal.show{visibility:visible!important;pointer-events:auto!important;z-index:calc(var(--engine-modal-layer,7000) + 100)!important;}

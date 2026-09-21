@@ -49,3 +49,5 @@ node ci-tests/test-rc2968-ui-docs-browser-contract.js
 node ci-tests/test-rc2974-guide-sync-derived-next-stop.js
 
 node ci-tests/test-rc2974-vn-location-compact-timeline.js
+
+node ci-tests/test-rc2987-day4-quan-thuy-nondestructive.js

@@ -489,7 +489,7 @@ const PLACES={
     "title": "Quán Thuý 94",
     "emoji": "🦀",
     "cat": "RESTAURANTS",
-    "sub": "Optional · Crab stop before Thảo Điền",
+    "sub": "Day 4 · Early lunch before Thảo Điền",
     "status": "planned",
     "hours": "09:00–21:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=Qu%C3%A1n%20Thu%C3%BD%2094%2084%20%C4%90inh%20Ti%C3%AAn%20Ho%C3%A0ng%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
@@ -1597,6 +1597,9 @@ const CATEGORIES={
       "key": "man-moi"
     },
     {
+      "key": "quan-thuy"
+    },
+    {
       "key": "oc-dao"
     }
   ],
@@ -1668,6 +1671,7 @@ const GUIDE_ORDER=[
   "com-tam-moc",
   "lune",
   "man-moi",
+  "quan-thuy",
   "omakase-tiger",
   "the-350f",
   "ivoire",
@@ -1879,6 +1883,12 @@ const DAY_LINKS={
     [
       "Day 4",
       "day.html?day=4#pink-church"
+    ]
+  ],
+  "quan-thuy": [
+    [
+      "Day 4",
+      "day.html?day=4#quan-thuy"
     ]
   ],
   "push-push": [
@@ -2789,7 +2799,7 @@ const ITINERARY_DATA={
         "details": [
           "順路睇 local fashion，有啱先試"
         ],
-        "route": "🚕 下一站：由這裡 Grab 入 Thảo Điền。落車後不再跟時間表。",
+        "route": "🚕 下一站：Quán Thuý 94 early lunch。",
         "map": "https://www.google.com/maps/search/?api=1&query=Push%20Push%20Official%2020%20Nguy%E1%BB%85n%20V%C4%83n%20Nguy%E1%BB%85n%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
         "type": "shoppingWindow",
         "dayId": "day4",
@@ -2797,14 +2807,29 @@ const ITINERARY_DATA={
         "bookingId": null
       },
       {
+        "id": "quan-thuy",
+        "time": "10:50–11:45",
+        "title": "🦀 Quán Thuý 94 · Early Lunch",
+        "details": [
+          "食蟹肉粉絲／蟹料理，食完先一次 Grab 入 Thảo Điền"
+        ],
+        "route": "🚕 下一站：Grab 入 Thảo Điền，由 OHQUAO 開始 Open List。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Qu%C3%A1n%20Thu%C3%BD%2094%2084%20%C4%90inh%20Ti%C3%AAn%20Ho%C3%A0ng%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
+        "type": "meal",
+        "dayId": "day4",
+        "placeId": "quan-thuy",
+        "bookingId": null,
+        "guideIds": ["quan-thuy"]
+      },
+      {
         "id": "thao-dien-open-list",
-        "time": "~11:00 onwards",
+        "time": "~12:15 onwards",
         "title": "🎲 Thảo Điền · Open List",
         "summary": "入 Thảo Điền 後自由行，食 / 飲 / Spa 隨心",
         "details": [
           "🛍 Browse · 從 OHQUAO 開始；沿線小店全部收在 Shopping List",
           "🥐 Coffee / Sweet · Bakes，或者沿途見到想坐的 café",
-          "🍽 Eat · 不設固定 lunch；行到哪裡，按當時胃口選",
+          "🍽 Eat · 已在 Quán Thuý 94 early lunch；下午只按胃口加 café / snack",
           "🌿 Spa · Mộc Hương Wellness；走到 Xuân Thủy 一帶想停下來，就預留約 120 分鐘",
           "🥂 Farewell · 可以正式食 dinner、wine + small plates、買個蛋糕返 Fusion，甚至不再食一餐"
         ],

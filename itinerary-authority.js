@@ -75,8 +75,24 @@
       return emptyStore();
     }
     if(raw.masterRevision!==current){
-      // Saved under a previous master — invalidate rather than let it mask
-      // whatever the current master says.
+      // RC29.87 additive Day 4 migration: preserve every user-edited Timeline
+      // field from RC29.87, but insert the restored Quán Thuý 94 relationship
+      // if that edited Day 4 did not already contain it. Guide overrides are
+      // separate authority and are never touched by this migration.
+      if(raw.masterRevision==='10ff1de238eb9'){
+        const rebased=clone(raw);
+        const d4=rebased.dayChanges&&rebased.dayChanges['4'];
+        if(d4&&Array.isArray(d4.items)&&!d4.items.some(x=>x&&x.id==='quan-thuy')){
+          const masterDay=((root.ITINERARY_DATA||{})['4']||{}).items||[];
+          const qt=masterDay.find(x=>x&&x.id==='quan-thuy');
+          const at=d4.items.findIndex(x=>x&&x.id==='push-push');
+          if(qt) d4.items.splice(at>=0?at+1:d4.items.length,0,clone(qt));
+        }
+        rebased.masterRevision=current;
+        return normalizeStore(rebased);
+      }
+      // Other previous masters remain invalid: never let an unknown stale
+      // override silently mask the current canonical itinerary.
       return emptyStore();
     }
     const cleanChanges={};

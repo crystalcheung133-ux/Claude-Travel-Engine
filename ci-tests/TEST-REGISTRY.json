@@ -374,5 +374,9 @@
   "test-rc2986-guide-language-shopping-bidirectional.js": {
     "status": "active",
     "note": "RC29.86 Chinese-primary Guide content, 14 real Shopping cards grouped by route, and bidirectional Guide/Booking foreground switching"
+  },
+  "test-rc2987-day4-quan-thuy-nondestructive.js": {
+    "status": "active",
+    "note": "RC29.87 additive D4 Quán Thuý restore preserves RC29.86 user Timeline edits and Guide authority"
   }
 }

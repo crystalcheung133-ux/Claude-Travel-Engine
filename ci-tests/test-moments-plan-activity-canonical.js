@@ -22,7 +22,7 @@ for(const type of ['money','transport','buffer','rest','stay'])
   assert(!allowed.includes(type),'logistics type illegally admitted to Moments: '+type);
 
 // D4 canonical projection remains intentionally one Open List after morning anchors.
-assert.deepEqual(Array.from(I['4'].items,x=>x.id),['running-bean','pink-church','push-push','thao-dien-open-list']);
-assert.equal(I['4'].items[3].type,'openList');
+assert.deepEqual(Array.from(I['4'].items,x=>x.id),['running-bean','pink-church','push-push','quan-thuy','thao-dien-open-list']);
+assert.equal(I['4'].items[4].type,'openList');
 
 console.log('MOMENTS ACTIVITY SEMANTICS: PASS — canonical projection + explicit type allow-list.');
