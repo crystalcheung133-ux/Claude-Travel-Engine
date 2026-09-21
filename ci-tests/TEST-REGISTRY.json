@@ -350,5 +350,17 @@
   "test-rc2980-timeline-relationship-hydration.js": {
     "status": "active",
     "note": "RC29.80 keeps Timeline-authored content while hydrating Guide/Booking/shared-Place relationship metadata from the current master by stable item id."
+  },
+  "test-rc2982-clear-trip-records-scope.js": {
+    "status": "active",
+    "note": "RC29.82 reset scope: Documents, Moments and Expenses only"
+  },
+  "test-rc2982-browser-cloud-isolation.js": {
+    "status": "active",
+    "note": "NZ-derived browser test isolation: explicit cloud disable wins"
+  },
+  "test-rc2983-guide-edit-session.js": {
+    "status": "active",
+    "note": "RC29.83 Guide edit session blocks accidental backdrop, Escape and cross-module close while unsaved edits are active"
   }
 }

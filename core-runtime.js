@@ -138,7 +138,10 @@ function closeCrossModuleOverlays(target){
     if(typeof window.isBookingEditActive==='function' && window.isBookingEditActive()) return false;
     tripModal.classList.remove('show');
   }
-  if(target!=='guide' && guideModal?.classList.contains('show')) guideModal.classList.remove('show');
+  if(target!=='guide' && guideModal?.classList.contains('show')){
+    if(typeof window.isGuideEditActive==='function' && window.isGuideEditActive()) return false;
+    guideModal.classList.remove('show');
+  }
   return true;
 }
 function toggleTripMenu(){
@@ -217,6 +220,7 @@ document.addEventListener('click', function(e){
   if(!modal || e.target !== modal) return;
   if(modal.id==='tripModal' && typeof window.isBookingEditActive==='function' && window.isBookingEditActive()) return;
   if(modal.id==='tripModal' && typeof closeTripModal==='function') closeTripModal();
+  else if(modal.id==='guideModal' && typeof window.isGuideEditActive==='function' && window.isGuideEditActive()) return;
   else if(modal.id==='guideModal' && typeof closeGuideModal==='function') closeGuideModal();
   else if(modal.id==='mamaModal' && typeof closeFriendModal==='function') closeFriendModal();
   else modal.classList.remove('show');
@@ -226,6 +230,7 @@ document.addEventListener('keydown', function(e){
     const tripModal=document.getElementById('tripModal');
     const guideModal=document.getElementById('guideModal');
     if(tripModal?.classList.contains('show') && typeof window.isBookingEditActive==='function' && window.isBookingEditActive()) return;
+    if(guideModal?.classList.contains('show') && typeof window.isGuideEditActive==='function' && window.isGuideEditActive()) return;
     if(tripModal?.classList.contains('show') && typeof closeTripModal==='function') closeTripModal();
     else if(guideModal?.classList.contains('show') && typeof closeGuideModal==='function') closeGuideModal();
     else { document.querySelectorAll('.moments-modal,.unexpected-modal,.tools-modal').forEach(m=>m.classList.remove('show')); if(typeof closeFriendModal==='function')closeFriendModal(); }

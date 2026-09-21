@@ -1,1 +1,1 @@
-VN Companion RC29.81 · Travel Engine 25.7.2 Frozen Place Projection Runtime Fix Root Candidate
+VN Companion RC29.83 · Travel Engine 25.7.2 Guide Edit Protection + Clear Trip Records Root Candidate

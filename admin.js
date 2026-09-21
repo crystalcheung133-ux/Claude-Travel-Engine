@@ -289,7 +289,7 @@
         <div id="tripStudioDanger" class="trip-studio-group trip-studio-danger" hidden>
           <p class="trip-studio-label">DATA CONTROL</p>
           <button id="resetTripDataButton" class="reset-trip-data-btn" type="button">
-            <span><strong>Reset Trip Data</strong><small>Restore the original trip and remove all saved progress.</small></span><span aria-hidden="true">↺</span>
+            <span><strong>Clear Trip Records</strong><small>Delete Documents, Moments and Expenses only. Keep itinerary, bookings, Guide and trip settings.</small></span><span aria-hidden="true">↺</span>
           </button>
           <button id="exitTripStudioButton" class="exit-trip-studio-btn" type="button">
             <span><strong>Leave Studio Mode</strong><small>Return to traveller mode. The Studio PIN will be required next time.</small></span><span aria-hidden="true">Leave</span>

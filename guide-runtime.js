@@ -511,6 +511,11 @@ function routeStopsHTML(g){
 
 function guideStudioButton(key){return (window.isAdminMode&&window.isAdminMode())?`<button class="pill guide-studio-edit" type="button" onclick="openGuideEdit('${key}')">Edit Guide</button>`:'';}
 function guideEditLines(value){return Array.isArray(value)?value.join('\n'):String(value||'');}
+function isGuideEditActive(){
+ const modal=$('guideModal');
+ return !!(modal?.classList.contains('show') && $('guideEditForm'));
+}
+window.isGuideEditActive=isGuideEditActive;
 function openGuideEdit(key){
  const g=guidePlace(key);if(!g||!(window.isAdminMode&&window.isAdminMode()))return;
  const f=(label,name,value,area)=>`<label class="guide-edit-field"><span>${label}</span>${area?`<textarea name="${name}">${String(value||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}</textarea>`:`<input name="${name}" value="${String(value||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">`}</label>`;
@@ -545,6 +550,7 @@ function restoreGuideTimelineOrigin(){
  requestAnimationFrame(()=>requestAnimationFrame(()=>{restore();setTimeout(restore,60);}));
 }
 function closeGuideModal(){
+ if(isGuideEditActive())return false;
  const shouldRestore=window.GUIDE_MODAL_ORIGIN==='timeline';
  window.GUIDE_MODAL_ORIGIN=null;
  const modal=$('guideModal');if(modal)modal.classList.remove('show');
