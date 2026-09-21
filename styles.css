@@ -3288,3 +3288,7 @@ html.handoff-ready body{visibility:visible}
 
 /* RC29.78 Settlement checkpoint */
 .expenses-page .page-action-row{display:flex;gap:8px;flex-wrap:wrap}.expenses-page .settlement-checkpoint-action{background:#eef6ef!important;color:var(--rc10-expense-dark)!important;border:1.5px solid rgba(67,139,97,.34)!important;box-shadow:0 6px 16px rgba(67,139,97,.10)!important}.expenses-page .settlement-checkpoint-action:hover{background:#e4f1e6!important}.expenses-page .settlement-checkpoint-card{border-style:dashed!important;border-color:rgba(67,139,97,.30)!important;background:#f3f8f1!important}.expenses-page .settlement-checkpoint-line{margin:0 0 6px!important;padding:7px 9px!important;border-radius:10px;background:#e8f3e8;color:var(--rc10-expense-dark)!important;font-size:12px!important;font-weight:800!important}.settlement-review-warning{margin-top:10px;padding:10px 12px;border:1px solid rgba(196,116,0,.28);border-radius:12px;background:#fff7e8;color:#7a4b00;font-size:12px;font-weight:800}
+
+/* RC29.85: deterministic Guide -> Booking foreground ownership. */
+body.guide-booking-stack-open #guideModal.show.guide-backgrounded-for-booking{visibility:hidden!important;pointer-events:none!important;}
+body.guide-booking-stack-open #tripModal.show{visibility:visible!important;pointer-events:auto!important;}

@@ -21,31 +21,17 @@ const PLACES={
     "title": "Fusion Original Saigon Centre",
     "emoji": "🏨",
     "cat": "STAY",
-    "sub": "酒店據點",
+    "sub": "District 1 base inside Saigon Centre",
     "maps": "https://www.google.com/maps/search/?api=1&query=Fusion%20Original%20Saigon%20Centre%20Fusion%20Original%20Saigon%20Centre%2C%2065%20L%C3%AA%20L%E1%BB%A3i%2C%20B%E1%BA%BFn%20Ngh%C3%A9%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
     "address": "Fusion Original Saigon Centre, 65 Lê Lợi, Bến Nghé, District 1, Ho Chi Minh City",
     "source": {"type":"official","url":"https://fusionhotelgroup.com/","verifiedAt":"2026-09-18"},
-    "desc": "Fusion Original Saigon Centre 係今次旅程嘅城市據點：第一郡核心、樓下直通 Saigon Centre / Takashimaya，四個人每日出入、寄放戰利品、返酒店補妝都非常方便。兩房兩衛令行程唔需要因為梳洗同收拾而互相等待，呢點對短途朋友旅行特別重要。",
-    "signature": [
-      "2 Bedroom Suite：四人共享客廳，私隱同方便度平衡得好",
-      "直通 Takashimaya，雨天、酷熱或夜晚返酒店都安心",
-      "Maison Marou、超市、餐廳都在同一棟／附近，適合臨時補給"
-    ],
-    "worth": [
-      "Hotel 係 base，不代表每日都由酒店出發；網站路線會以當時上一站作交通提示。",
-      "最適合用作「回巢點」：午后小休、放低戰利品、晚餐前換裝。"
-    ],
+    "desc": "A very convenient District 1 base integrated with Saigon Centre / Takashimaya. The location is especially useful in heat or rain: shopping, food and supplies are downstairs, while many central sights are a short walk or Grab away.",
+    "signature": ["Direct access to Saigon Centre / Takashimaya", "Central District 1 location", "Easy base for dropping shopping bags or taking a midday reset"],
+    "worth": ["Use the hotel as a practical base rather than forcing every route to start or end there.", "Takashimaya and nearby food options make last-minute supplies easy."],
     "categoryLabel": "🏨 Stay",
     "transport": "Grab / walk depending on current route",
-    "highlights": [
-      "2 Bedroom Suite：四人共享客廳，私隱同方便度平衡得好",
-      "直通 Takashimaya，雨天、酷熱或夜晚返酒店都安心",
-      "Maison Marou、超市、餐廳都在同一棟／附近，適合臨時補給"
-    ],
-    "tips": [
-      "Hotel 係 base，不代表每日都由酒店出發；網站路線會以當時上一站作交通提示。",
-      "最適合用作「回巢點」：午后小休、放低戰利品、晚餐前換裝。"
-    ]
+    "highlights": ["Direct access to Saigon Centre / Takashimaya", "Central District 1 base", "Easy rain / heat fallback"],
+    "tips": ["Useful as a bag-drop and reset point between city stops.", "Takashimaya downstairs is convenient for last-minute supplies."]
   },
   "bakes": {
     "title": "Bakes Thảo Điền",
@@ -56,7 +42,7 @@ const PLACES={
     "hours": "07:30–22:30 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=Bakes%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2016%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20An%20Kh%C3%A1nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "16 Thảo Điền, An Khánh, Hồ Chí Minh 700000, Vietnam",
-    "desc": "Quán Thuý 94 之後，Bakes 留作 Thảo Điền 路上的甜點停頓。想坐低就分一兩件 pastry、喝杯咖啡；不必為它鎖住午後時間。",
+    "desc": "Bakes 留作 Thảo Điền 路上的 optional 甜點停頓。想坐低就分一兩件 pastry、喝杯咖啡；不必為它鎖住午後時間。",
     "signature": [
       "多款法式甜點與千層 croissant",
       "冷氣座位，適合午后避暑",
@@ -309,22 +295,18 @@ const PLACES={
     "title": "LÚNE Restaurant & Bar",
     "emoji": "🇫🇷",
     "cat": "RESTAURANTS",
-    "sub": "Day 2 · Fashion Day Dinner",
+    "sub": "Modern French dining with Vietnamese touches",
     "status": "planned",
     "hours": "Mon–Sat 11:30–14:00 & 17:00–22:30；Sunday closed",
     "maps": "https://www.google.com/maps/search/?api=1&query=L%C3%9ANE%20Restaurant%20%26%20Bar%2017%2F14%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20S%C3%A0i%20G%C3%B2n%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
     "address": "17/14 Lê Thánh Tôn, Sài Gòn, Hồ Chí Minh 70000, Vietnam",
-    "desc": "一整日試衫、走街、按摩完雙腳，LÚNE 是 Fashion Day 最後一個換景。Qspa 後先走 Cathedral / Post Office / Book Street，再到 Vincom / The New Playground 收好 shopping，之後直接步行過來，現代法式／fusion 的細緻感剛好把白天的街頭節奏收住。",
+    "desc": "A polished modern French restaurant with Vietnamese influences, suited to a slower dinner after a day in the city. The interest is in refined technique and local flavour combinations rather than itinerary logistics.",
     "signature": [
       "Canadian lobster raviolo｜Michelin Guide 點名 standout",
       "Phở foie gras terrine｜法式技巧 × 越南味",
       "Sea urchin + A5 wagyu｜近期食客特別提到"
     ],
-    "worth": [
-      "建議提前 2–4 週預約，週日休息要留意。",
-      "Smart casual 已足夠，不需要太正式。",
-      "Cathedral / Post Office / Book Street 行完直接步行過來，不再折返酒店。"
-    ],
+    "worth": ["Smart casual is sufficient.", "Share preferences early if the table wants to explore several signature dishes."],
     "categoryLabel": "🍽 Restaurant",
     "price": "$$$",
     "transport": "Grab / walk depending on current route",
@@ -334,44 +316,26 @@ const PLACES={
       "法式技巧結合越南／亞洲食材",
       "Bar + restaurant 氣氛，適合四人換裝後晚餐"
     ],
-    "tips": [
-      "建議提前 2–4 週預約，週日休息要留意。",
-      "Smart casual 已足夠，不需要太正式。",
-      "Post Office / Book Street → LÚNE 直接步行，毋須 Grab。"
-    ]
+    "tips": ["Smart casual is sufficient.", "Ask about seasonal dishes if the table wants to share."]
   },
   "omakase-tiger": {
     "title": "Omakase Tiger",
     "emoji": "🍣",
     "cat": "RESTAURANTS",
-    "sub": "Day 1 · 已確認 17:30",
+    "sub": "Penthouse omakase counter",
     "status": "booked",
     "hours": "Reservation confirmed · 17:30",
     "maps": "https://www.google.com/maps/search/?api=1&query=Omakase%20Tiger%2085%2F9%20Ph%E1%BA%A1m%20Vi%E1%BA%BFt%20Ch%C3%A1nh%2C%20Th%E1%BA%A1nh%20M%E1%BB%B9%20T%C3%A2y%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "85/9 Phạm Viết Chánh, Thạnh Mỹ Tây, Hồ Chí Minh 700000, Vietnam",
-    "desc": "Day 1 晚餐已確認 17:30。Omakase Tiger 係 Penthouse setting，黃昏入席啱啱由 sunset 食到入夜；少量 counter seats 可以近距離睇師傅出餐。",
-    "signature": [
-      "季節 Omakase course｜當日魚料與出品跟季節走",
-      "Sake pairing｜近期食客特別推薦",
-      "Penthouse counter｜由黃昏一路看到 Saigon 入夜"
-    ],
-    "worth": [
-      "已確認 30 Oct 17:30 場次，訂金已付。",
-      "17:30 入席最適合睇 Penthouse 黃昏景色。"
-    ],
+    "desc": "An intimate penthouse omakase counter where the appeal is watching each course being prepared at close range while the city changes from sunset into night outside.",
+    "signature": ["Seasonal omakase course shaped by the day's seafood", "Counter seating gives the clearest view of preparation", "Sake pairing is available for anyone who wants it"],
+    "worth": ["Treat the menu as chef-led rather than choosing individual dishes.", "Mention allergies or strong dislikes before the meal starts."],
     "categoryLabel": "🍽 Restaurant",
     "price": "$$$",
     "transport": "Grab / walk depending on current route",
     "audit": "按旅客直接確認保留；已移除過時的暫停營業提示",
-    "highlights": [
-      "Penthouse setting，黃昏由 sunset 食到入夜",
-      "8-seat countertop，座位極少",
-      "約 10–14 道 omakase，價格比澳港日同類體驗低"
-    ],
-    "tips": [
-      "已確認 30 Oct 17:30 場次，訂金已付。",
-      "17:30 入席最適合睇 Penthouse 黃昏景色。"
-    ]
+    "highlights": ["Penthouse setting with city views", "Small counter for close-up chef interaction", "Seasonal chef-led courses"],
+    "tips": ["Mention allergies or strong dislikes before the meal starts.", "Smart casual is sufficient."]
   },
   "the-350f": {
     "title": "The 350F · Nguyễn Trãi",
@@ -497,22 +461,19 @@ const PLACES={
     "title": "Pizza 4P’s Hai Bà Trưng",
     "emoji": "🍕",
     "cat": "RESTAURANTS",
-    "sub": "Day 2 · Indoor Lunch Break",
+    "sub": "House-made cheese & Japanese-Vietnamese pizza",
     "status": "planned",
     "hours": "Mon–Fri 11:00–23:00 · Sat–Sun 10:00–23:00",
     "maps": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20151B%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh%20City",
     "address": "151B Hai Bà Trưng, Võ Thị Sáu, District 3, Ho Chi Minh City, Vietnam",
     "source": {"type":"official","url":"https://pizza4ps.com/jp/location/935/?lang=english","verifiedAt":"2026-09-18"},
-    "desc": "上午在 Trần Quang Diệu 收好第一輪戰利品，中午轉入 Hai Bà Trưng。這餐是 Fashion Day 的冷氣停頓；食完 Grab 去 Qspa，保留完整兩小時 Afternoon Reset。",
+    "desc": "Pizza 4P’s is known for making its own cheese and combining Italian pizza technique with Japanese and Vietnamese flavours. The Hai Bà Trưng branch is a comfortable air-conditioned stop with plenty of shareable dishes.",
     "signature": [
       "Crab tomato cream spaghetti｜近期評論反覆點名",
       "House-made 4-cheese pizza + honey｜4P’s 經典",
       "Burrata / Parma ham pizza｜第一次去最值得 share"
     ],
-    "worth": [
-      "Day 2 使用 Hai Bà Trưng branch。",
-      "13:00–14:15 留在室內，避開最熱的一段。"
-    ],
+    "worth": ["Four people can share pizzas and pasta to try more of the menu.", "The house-made cheese is the distinctive reason to choose 4P’s over a generic pizza stop."],
     "categoryLabel": "🍽 Restaurant",
     "price": "$$",
     "transport": "Grab from Trần Quang Diệu · lunch at Hai Bà Trưng · then Grab to Qspa",
@@ -522,10 +483,7 @@ const PLACES={
       "Burrata / 4-cheese pizza",
       "食完由 Hai Bà Trưng Grab 接 Qspa"
     ],
-    "tips": [
-      "Day 2 使用 Hai Bà Trưng branch。",
-      "午餐後由 Hai Bà Trưng Grab 去 Qspa。"
-    ]
+    "tips": ["Share pizzas and pasta across the table to try more dishes.", "House-made cheese is the signature reason to visit."]
   },
   "quan-thuy": {
     "title": "Quán Thuý 94",
@@ -928,7 +886,7 @@ const PLACES={
     "hours": "09:30–21:30",
     "maps": "https://www.google.com/maps/search/?api=1&query=Push%20Push%20Official%2020%20Nguy%E1%BB%85n%20V%C4%83n%20Nguy%E1%BB%85n%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "20 Nguyễn Văn Nguyễn, Tân Định, Hồ Chí Minh 700000, Vietnam",
-    "desc": "粉紅教堂之後先不急著過河。Push Push 留在 Tân Định morning route 裡，年輕剪裁、寬鬆恤衫與街頭感單品快看一輪；10:45 左右收手，11:00 去食蟹肉粉絲。",
+    "desc": "粉紅教堂一帶如果仍想行多一間本地 fashion，Push Push 可作順路 optional stop；年輕剪裁、寬鬆恤衫與街頭感單品適合快看一輪。",
     "signature": [
       "Streetwear / casual pants",
       "年輕感、寬鬆剪裁",
@@ -1006,33 +964,19 @@ const PLACES={
     "title": "Hạ Spa",
     "emoji": "💆‍♀️",
     "cat": "SPA",
-    "sub": "Day 5 · Pre-flight Spa",
+    "sub": "Airport-side massage & hair-care",
     "hours": "08:30–22:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=H%E1%BA%A1%20Spa%20334%20Nguy%E1%BB%85n%20Tr%E1%BB%8Dng%20Tuy%E1%BB%83n%2C%20Ward%202%2C%20T%C3%A2n%20B%C3%ACnh%20District%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "334 Nguyễn Trọng Tuyển, Ward 2, Tân Bình District, Hồ Chí Minh 700000, Vietnam",
-    "desc": "Hạ Spa 是最後一日飛機前的 airport-side spa。最大優勢是距離新山一機場近、可寄存行李，適合在搭夜機前洗頭、按摩、整理狀態，不用一身汗上機。",
-    "signature": [
-      "近機場",
-      "行李寄存",
-      "洗頭 + 全身放鬆 package"
-    ],
-    "worth": [
-      "最後一日時間要保守，不要排太晚。",
-      "預約時確認行李寄存、吹髮、叫車到機場時間。"
-    ],
+    "desc": "An airport-side spa that is practical before a night flight because massage and hair-care can be combined without travelling back into the city centre. Luggage storage is particularly useful for a final-day stop.",
+    "signature": ["Massage", "Hair wash / hair-care", "Luggage storage for travellers"],
+    "worth": ["Confirm luggage storage and four-person capacity when arranging the visit.", "Allow enough buffer afterwards for airport traffic and check-in."],
     "categoryLabel": "💆 Spa",
     "price": "$$",
     "transport": "Grab / walk depending on current route",
     "audit": "Selected Nguyễn Trọng Tuyển branch and 08:30–22:00 daily listing confirmed for trip use.",
-    "highlights": [
-      "近機場",
-      "行李寄存",
-      "洗頭 + 全身放鬆 package"
-    ],
-    "tips": [
-      "最後一日時間要保守，不要排太晚。",
-      "預約時確認行李寄存、吹髮、叫車到機場時間。"
-    ]
+    "highlights": ["Airport-side location", "Massage and hair-care", "Traveller-friendly luggage storage"],
+    "tips": ["Confirm luggage storage and four-person capacity.", "Leave a conservative airport buffer afterwards."]
   },
   "post-office": {
     "title": "Saigon Central Post Office",
@@ -1322,22 +1266,18 @@ const PLACES={
     "title": "Mặn Mòi · Tao Đàn",
     "emoji": "🍲",
     "cat": "RESTAURANTS",
-    "sub": "Day 3 · Post–Cu Chi Late Lunch",
+    "sub": "Vietnamese home-style cooking",
     "status": "optional",
     "hours": "10:00–22:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=M%E1%BA%B7n%20M%C3%B2i%20Tao%20%C4%90%C3%A0n%2034%20V%C3%B5%20V%C4%83n%20T%E1%BA%A7n%20Ho%20Chi%20Minh%20City",
     "address": "34 Võ Văn Tần, Xuân Hòa, Ho Chi Minh City, Vietnam",
-    "desc": "Cu Chi 回城後，不先返酒店，直接在 Mặn Mòi Tao Đàn 坐低。一桌越南家常菜把早上的塵與熱慢慢放下；餐廳在 34 Võ Văn Tần，War Remnants Museum 在同一條街 28 Võ Văn Tần，食完短步行即可到 museum。",
+    "desc": "Mặn Mòi focuses on Vietnamese home-style food in a leafy, old-Saigon-inspired setting. It works best as a sharing meal: claypots, soups, grilled dishes and rice together give a broader picture than ordering one main each.",
     "signature": [
       "Pork jowl｜近期食客點名好食",
       "Sticky rice chicken｜適合四人分食",
       "家常 claypot / soup｜Mặn Mòi 最有代表性的越南家常路線"
     ],
-    "worth": [
-      "D3 · Post–Cu Chi lunch；回城時間受交通影響。",
-      "34 Võ Văn Tần → War Remnants Museum 28 Võ Văn Tần：短步行銜接。",
-      "出發前再確認訂位與即日營業時間。"
-    ],
+    "worth": ["Order family-style for four and share across the table.", "The Tao Đàn branch is on Võ Văn Tần, close to several central District 3 sights."],
     "categoryLabel": "🍽 Restaurant",
     "price": "$$",
     "transport": "Private-tour drop → short walk to War Remnants Museum",
@@ -1347,11 +1287,7 @@ const PLACES={
       "木質與綠意交疊的老西貢氛圍",
       "多人分享最有感覺"
     ],
-    "tips": [
-      "D3 · Post–Cu Chi lunch；回城時間受交通影響。",
-      "34 Võ Văn Tần → War Remnants Museum 28 Võ Văn Tần：短步行銜接。",
-      "出發前再確認訂位與即日營業時間。"
-    ]
+    "tips": ["Order family-style for four and share across the table.", "Claypots, soup and grilled dishes give a good spread of home-style flavours."]
   },
   "tan-son-nhat-airport": {
     "title": "Tan Son Nhat International Airport",
@@ -1405,7 +1341,7 @@ const PLACES={
     "title": "Qspa · Retreat & Beauty Care Center",
     "emoji": "🌿",
     "cat": "SPA",
-    "sub": "Rediscover Your Soul · Planned D1 · D2 · D3",
+    "sub": "Massage · beauty · hair-care",
     "status": "planned",
     "maps": "https://www.google.com/maps/search/?api=1&query=Qspa%2025%2F1%20Truong%20Dinh%20Ho%20Chi%20Minh%20City",
     "address": "25/1 Trương Định, Xuân Hòa, Hồ Chí Minh City",
@@ -1415,22 +1351,9 @@ const PLACES={
     "facebookUrl": "https://www.facebook.com/QspaCenter/",
     "messengerUrl": "https://m.me/QspaCenter",
     "instagramUrl": "https://www.instagram.com/qspacenter/",
-    "desc": "Qspa · Rediscover Your Soul is the shared recovery anchor for Days 1–3: a full arrival reset after the overnight flight, an afternoon reset on Fashion Day, and a post-Cu-Chi / War Museum recovery. Keep each visit flexible: massage, body / beauty treatment or hair-care can be chosen according to how everyone feels that day.",
-    "signature": [
-      "D1 · Arrival Recovery · 120 min",
-      "D2 · Afternoon Reset · up to ~120 min",
-      "D3 · War Day Recovery · 120 min",
-      "Body / beauty / hair-care choices · no mandatory treatment"
-    ],
-    "worth": [
-      "Planned on D1, D2 and D3 using one canonical Guide entity.",
-      "Membership reference only — no assumption that the group has purchased a membership.",
-      "Silver · 5,000,000 VND stored value · 10% service discount · unlimited validity",
-      "Gold · 10,000,000 VND · 20% service discount · unlimited validity",
-      "Diamond · 20,000,000 VND · 25% service discount · unlimited validity",
-      "Platinum · 40,000,000 VND · 30% service discount · unlimited validity",
-      "Service vouchers: Buy 10 + 2 complimentary · Buy 20 + 5 complimentary"
-    ],
+    "desc": "A flexible full-service spa for massage, body treatments, beauty care and hair-care. It is useful when the group wants to choose treatments according to how everyone feels rather than committing to one identical package.",
+    "signature": ["Massage and body treatments", "Beauty / facial options", "Hair-care and wash options"],
+    "worth": ["Ask for four-person availability when arranging treatments together.", "Membership or stored-value discounts are useful only if actually activated; do not assume a membership purchase.", "Silver · 5,000,000 VND stored value · 10% service discount · unlimited validity", "Gold · 10,000,000 VND · 20% service discount · unlimited validity", "Diamond · 20,000,000 VND · 25% service discount · unlimited validity", "Platinum · 40,000,000 VND · 30% service discount · unlimited validity", "Service vouchers: Buy 10 + 2 complimentary · Buy 20 + 5 complimentary"],
     "categoryLabel": "💆 Spa",
     "transport": "Grab according to the day route",
     "alternativeGuides": [
@@ -1506,30 +1429,18 @@ const PLACES={
     "title": "Cu Chi Tunnels",
     "emoji": "🪖",
     "cat": "ATTRACTIONS",
-    "sub": "Day 3 · War Day",
+    "sub": "Historic underground tunnel network",
     "status": "planned",
     "hours": "07:00–17:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=Cu%20Chi%20Tunnels%20Ho%20Chi%20Minh%20City",
     "address": "Củ Chi District, Ho Chi Minh City, Vietnam",
-    "desc": "Day 3 由地下開始。早上走進 Cu Chi 的戰時隧道與森林，下午回城再看 War Remnants Museum；一前一後，把同一段歷史從現場與記憶兩邊拼起來。",
-    "signature": [
-      "Private tour · 4 travellers",
-      "Skip included lunch · no factory stop",
-      "Return anchor: Mặn Mòi Tao Đàn · target ~13:30–14:00, traffic dependent"
-    ],
-    "worth": [
-      "07:30 由 Fusion 出發；回城目標約 13:30–14:00，實際視交通。直接 drop Mặn Mòi Tao Đàn，再短步行接 War Remnants Museum。",
-      "要求 tour operator 直接 drop Mặn Mòi。"
-    ],
+    "desc": "Cu Chi is an extensive underground tunnel network northwest of Ho Chi Minh City. Early tunnels date to resistance against French colonial forces; the network was later expanded and used extensively during the Vietnam War for movement, shelter, communications and daily life. Visiting the site makes the scale and physical constraints of underground wartime life much easier to understand than photographs alone.",
+    "signature": ["Look for concealed entrances, ventilation shafts and the way different tunnel levels connect", "Underground spaces included living areas, meeting rooms, kitchens and medical facilities", "Visitor-access tunnel sections may be widened or adapted; the original network was much tighter"],
+    "worth": ["The tunnels can feel hot, dark and confined; entering the crawl sections is optional.", "Notice how camouflage, ventilation and smoke-dispersal systems helped keep the network difficult to detect.", "War Remnants Museum later provides a different, museum-based perspective on the same conflict."],
     "categoryLabel": "🏛 Attraction",
     "transport": "Private tour transfer",
-    "highlights": [
-      "Private tour · 4 travellers",
-      "Skip included lunch · no factory stop"
-    ],
-    "tips": [
-      "回城時間視交通；目標約 13:30–14:00 直接抵達 Mặn Mòi Tao Đàn。"
-    ]
+    "highlights": ["Concealed entrances and multi-level tunnel structure", "Living, meeting, kitchen and medical spaces underground", "Camouflage, ventilation and smoke-dispersal design"],
+    "tips": ["Entering the crawl sections is optional if confined spaces are uncomfortable.", "Visitor sections may be widened or adapted compared with original wartime tunnels."]
   },
   "nara-spa": {
     "title": "Nara Spa",
@@ -1671,9 +1582,6 @@ const CATEGORIES={
       "key": "com-tam-moc"
     },
     {
-      "key": "little-bear"
-    },
-    {
       "key": "lune"
     },
     {
@@ -1687,9 +1595,6 @@ const CATEGORIES={
     },
     {
       "key": "pizza4ps"
-    },
-    {
-      "key": "quan-thuy"
     },
     {
       "key": "late-night-supper"
@@ -1721,9 +1626,6 @@ const CATEGORIES={
     },
     {
       "key": "moc-huong"
-    },
-    {
-      "key": "nha-suga"
     },
     {
       "key": "norah-spa-2"
@@ -1770,7 +1672,6 @@ const GUIDE_ORDER=[
   "bep-me-in",
   "late-night-supper",
   "com-tam-moc",
-  "little-bear",
   "lune",
   "man-moi",
   "omakase-tiger",
@@ -1779,14 +1680,12 @@ const GUIDE_ORDER=[
   "pho-sol",
   "pho-vietnam",
   "pizza4ps",
-  "quan-thuy",
   "ohquao",
   "new-playground",
   "takashimaya",
   "qspa",
   "ha-spa",
   "moc-huong",
-  "nha-suga",
   "fine-arts",
   "book-street",
   "notre-dame",

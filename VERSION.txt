@@ -1,1 +1,1 @@
-VN Companion RC29.84 · Travel Engine 25.7.2 Trip Presentation + Browser Isolation Root Candidate
+VN Companion RC29.85 · Travel Engine 25.7.2 Guide Ownership + Modal Foreground Root Candidate

@@ -1,7 +1,7 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
 const raw=fs.readFileSync('data.js','utf8');
-const c={};vm.createContext(c);vm.runInContext(raw+'\n;globalThis.__X={P:PLACES,B:BOOKINGS_DATA,I:ITINERARY_DATA};',c);
-const {P,B,I}=c.__X;
+const c={};vm.createContext(c);vm.runInContext(raw+'\n;globalThis.__X={P:PLACES,B:BOOKINGS_DATA,I:ITINERARY_DATA,C:CATEGORIES};',c);
+const {P,B,I,C}=c.__X;
 const ids=d=>Array.from(I[String(d)].items,x=>x.id);
 
 // Booking → Timeline exact ownership.
@@ -12,11 +12,9 @@ for(const [id,b] of Object.entries(B)){
   assert.equal(b.date,expectedDate,`${id}: booking date/day mismatch`);
 }
 
-// D2 Fashion Guide ownership.
-for(const id of ['com-tam-moc','pizza4ps','lune'])
-  assert(String(P[id].sub||'').includes('Day 2'),`${id}: Guide did not move to Day 2`);
-
-assert(String(P.qspa.sub||'').includes('D1 · D2 · D3'),'Qspa Guide must advertise shared D1-D3 ownership');
+// Timeline owns day assignment; Guide owns place knowledge rather than repeating schedule.
+for(const id of ['pizza4ps','lune']) assert(!/Day 2/.test(String(P[id].sub||'')),`${id}: Guide must not repeat Timeline day assignment`);
+assert(!/D1|D2|D3/.test(String(P.qspa.sub||'')),'Qspa Guide must not repeat visit-day schedule');
 assert.equal(P['norah-spa-2'].status,'optional');assert.equal(P['nara-spa'].status,'optional');
 
 // D4 Slow Lifestyle Guide ownership.
@@ -26,7 +24,7 @@ for(const id of ['running-bean','push-push','bakes','moc-huong','ohquao'])
 assert(!B['bk-little-bear'],'Little Bear booking survived Monday closure');
 assert(!ids(4).includes('little-bear'),'Little Bear Timeline stop survived Monday closure');
 assert.deepEqual(ids(4),['running-bean','pink-church','push-push','thao-dien-open-list'],'D4 must have only morning anchors + one open list');
-assert(String(P['little-bear'].sub).includes('Closed Monday'),'Little Bear Guide must explain why it is not D4 dinner');
+assert(!(C.RESTAURANTS||[]).some(x=>x.key==='little-bear'),'Little Bear must be removed from visible Guide inventory');
 assert(!B['bk-moc-huong'],'Mộc Hương must be an option, not a pending D4 booking');
 
 const sd=fs.readFileSync('shopping-directory-data.js','utf8');

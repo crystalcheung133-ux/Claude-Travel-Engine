@@ -760,7 +760,9 @@ function closeTripModal() {
   }
   closeMiniMenus();
   document.body.classList.remove('admin-overlay-open');
+  if(guideModal)guideModal.classList.remove('guide-backgrounded-for-booking');
   if(returnToGuide){
+    if(guideModal)guideModal.classList.add('show');
     const sheet=document.querySelector('#guideModal .guide-sheet');
     if(sheet) requestAnimationFrame(function(){sheet.focus?.({preventScroll:true});});
   }

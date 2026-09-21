@@ -32,6 +32,8 @@ function openGuideLinkedBooking(bookingId){
   // Closing its linked Booking returns directly to Timeline; Guide-origin flows return to Guide.
   window.TRIP_MODAL_RETURN_TO_GUIDE=window.GUIDE_MODAL_ORIGIN!=='timeline';
   document.body.classList.add('guide-booking-stack-open');
+  const guideModal=document.getElementById('guideModal');
+  if(guideModal)guideModal.classList.add('guide-backgrounded-for-booking');
   if(booking.type==='accommodation'){
     openAccommodationDetail(bookingId,booking);
     return;

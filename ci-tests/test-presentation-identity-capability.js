@@ -16,7 +16,7 @@ assert(expHtml.includes('expense-title-emoji')&&expHtml.includes('💰'),'Expens
 
 // Guide / Trip presentation
 assert(guide.includes("Signature / Must Try"),'Restaurant signature section missing');
-assert(data.includes('Penthouse setting')&&data.includes('sunset 食到入夜'),'Omakase sunset/penthouse copy missing');
+assert(/penthouse/i.test(data)&&/sunset/i.test(data),'Omakase sunset/penthouse identity missing');
 assert(!/Omakase Tiger[\s\S]{0,1800}正式營業時間出發前再確認/.test(data),'Omakase still asks to reconfirm generic trading hours');
 assert(cfg.includes('tripMenuGroups')&&cfg.includes('activities-transport'),'VN trip menu grouping config missing');
 assert(tripRuntime.includes('openTripModuleGroup')&&tripRuntime.includes('groupedModules'),'Generic trip module grouping runtime missing');

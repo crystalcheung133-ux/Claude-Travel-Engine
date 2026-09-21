@@ -35,6 +35,7 @@ run "BOOKING SAVE POST-COMMIT INTEGRITY" node ci-tests/test-booking-save-post-co
 run "RC29.77 SETTLEMENT CHECKPOINT" node ci-tests/test-rc2976-settlement-checkpoint.js
 run "RC29.80 GUIDE / SHARED PLACE OWNERSHIP" node ci-tests/test-rc2980-guide-place-ownership.js
 run "RC29.80 TIMELINE RELATIONSHIP HYDRATION" node ci-tests/test-rc2980-timeline-relationship-hydration.js
+run "RC29.85 GUIDE OWNERSHIP + MODAL FOREGROUND" node ci-tests/test-rc2985-guide-ownership-foreground.js .
 [ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
 run "RC29.77 LIVE FX SAVE" node ci-tests/test-rc2977-live-fx-save.js
 echo "MASTER CI SUITE PASSED"
