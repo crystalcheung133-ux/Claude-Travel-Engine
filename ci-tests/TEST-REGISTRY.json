@@ -370,5 +370,9 @@
   "test-rc2985-guide-ownership-foreground.js": {
     "status": "active",
     "note": "RC29.85 Guide knowledge ownership, shortlist cleanup, stale Cu Chi override migration and deterministic Booking/Guide foreground"
+  },
+  "test-rc2986-guide-language-shopping-bidirectional.js": {
+    "status": "active",
+    "note": "RC29.86 Chinese-primary Guide content, 14 real Shopping cards grouped by route, and bidirectional Guide/Booking foreground switching"
   }
 }

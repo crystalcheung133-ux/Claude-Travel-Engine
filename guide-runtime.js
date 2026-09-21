@@ -31,6 +31,7 @@ function openGuideLinkedBooking(bookingId){
   // Navigation contract: a Guide opened from Day Timeline is an intermediate layer.
   // Closing its linked Booking returns directly to Timeline; Guide-origin flows return to Guide.
   window.TRIP_MODAL_RETURN_TO_GUIDE=window.GUIDE_MODAL_ORIGIN!=='timeline';
+  document.body.classList.remove('guide-foreground-over-booking');
   document.body.classList.add('guide-booking-stack-open');
   const guideModal=document.getElementById('guideModal');
   if(guideModal)guideModal.classList.add('guide-backgrounded-for-booking');
@@ -205,6 +206,7 @@ function guideSortedCategoryItems(cat){
  const items=guideCategoryItems(cat).slice();
  const semantic=guideSemanticCategory(cat);
  if(semantic==='ATTRACTIONS'||semantic==='DINING'||semantic==='STAY') return items.sort((a,b)=>guideDayNumber(a)-guideDayNumber(b)||String(a.title||'').localeCompare(String(b.title||'')));
+ if(semantic==='SHOP') return items.sort((a,b)=>guideDayNumber(a)-guideDayNumber(b));
  if(semantic==='EXPERIENCES') return items.sort((a,b)=>guideActivityGroup(a).localeCompare(guideActivityGroup(b))||String(a.title||'').localeCompare(String(b.title||'')));
  return items.sort((a,b)=>String(a.title||'').localeCompare(String(b.title||'')));
 }
@@ -233,6 +235,16 @@ function groupedGuideRows(cat,list){
   });
   return [...groups.entries()].map(([label,items])=>`<section class="guide-category-group"><h3 class="guide-category-group-title">${label}</h3>${items.map(guideListRow).join('')}</section>`).join('');
  }
+ if(semantic==='SHOP'){
+  const groups=new Map();
+  list.forEach(item=>{
+   const day=guideDayNumber(item);
+   const optional=String(item.status||'').toLowerCase()==='optional'||day===999;
+   const label=optional?'OPTIONAL · 順路可逛':`Day ${day} · ON YOUR ROUTE`;
+   (groups.get(label)||groups.set(label,[]).get(label)).push(item);
+  });
+  return [...groups.entries()].map(([label,items])=>`<section class="guide-category-group"><h3 class="guide-category-group-title">${label}</h3>${items.map(guideListRow).join('')}</section>`).join('');
+ }
  if(semantic==='EXPERIENCES'){
   const groups=new Map();
   list.forEach(item=>{const label=guideActivityGroup(item);(groups.get(label)||groups.set(label,[]).get(label)).push(item);});
@@ -248,10 +260,7 @@ function openGuideCategory(cat){
  // A single-entry category is already the destination; skip a redundant chooser.
  if(list.length===1){closeMiniMenus();openGuideModal(list[0].key);return;}
  if(semantic==='SHOP'){
-  const directoryRow=`<button onclick="openShoppingDirectoryView()"><span><span class="guide-list-title">🛍 Shopping Directory</span><span class="guide-list-sub">Planned by Day · Optional / Nearby</span></span><span>↓</span></button>`;
-  const rows=directoryRow+list.map(i=>guideListRow(i)).join('');
-  $('guideModalContent').innerHTML=`<p class="kicker">Guide</p><h2>SHOP</h2><div class="category-pop-list">${rows}</div>`;
-  closeMiniMenus();$('guideModal').classList.add('show');return;
+  closeMiniMenus();openShoppingDirectoryView();return;
  }
  const rows=groupedGuideRows(semantic,list);
  $('guideModalContent').innerHTML=`<p class="kicker">Guide</p><h2>${guideCategoryHeading(semantic)}</h2><div class="category-pop-list guide-category-grouped">${rows}</div>`;
@@ -533,6 +542,12 @@ function saveGuideEdit(key){
 window.openGuideEdit=openGuideEdit;window.saveGuideEdit=saveGuideEdit;
 function openGuideModal(key,options){
  const g=guidePlace(key);if(!g)return;
+ const tripModal=document.getElementById('tripModal');
+ const guideModal=document.getElementById('guideModal');
+ if(tripModal?.classList.contains('show')){
+  document.body.classList.add('guide-booking-stack-open','guide-foreground-over-booking');
+  if(guideModal)guideModal.classList.remove('guide-backgrounded-for-booking');
+ }
  const opts=options||{};
  const back=opts.fromAlternatives?guideAlternativeBackButton():'';
  $('guideModalContent').innerHTML=`<div class="guide-onepage">${back}<p class="kicker">Guide</p><h2>${g.emoji} ${g.title}</h2>${quickInfoHTML(g,key)}${routeStopsHTML(g)}${guideStudioButton(key)}${guideNavButtons(key)}</div>`;

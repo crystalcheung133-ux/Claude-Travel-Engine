@@ -750,6 +750,7 @@ function closeTripModal() {
   const modal = document.getElementById('tripModal');
   if (modal) modal.classList.remove('show');
   document.body.classList.remove('guide-booking-stack-open');
+  document.body.classList.remove('guide-foreground-over-booking');
   const returnToGuide=window.TRIP_MODAL_RETURN_TO_GUIDE===true;
   window.TRIP_MODAL_RETURN_TO_GUIDE=false;
   const guideModal=document.getElementById('guideModal');
