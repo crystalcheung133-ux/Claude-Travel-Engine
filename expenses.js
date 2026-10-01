@@ -369,7 +369,7 @@ let editingExpenseIndex=null;
     if(!parties.length){panel.innerHTML='<p class="split-helper">Choose at least one party.</p>';return;}
     const previous={};
     panel.querySelectorAll('input[data-custom-party]').forEach(i=>previous[i.dataset.customParty]=i.value);
-    panel.innerHTML=parties.map(k=>`<label class="custom-split-row"><span>${identityFor(k,true)}</span><div class="expense-money-field"><input id="customShare_${k}" data-custom-party="${k}" inputmode="decimal" type="text" value="${previous[k]??''}" placeholder="0.00" oninput="recalculateCustomSplit()" onblur="autofillCustomRemainderOnExit('${k}')"/><button class="field-clear-btn" type="button" onpointerdown="beginCustomSplitClear()" onclick="clearExpenseField('customShare_${k}')" aria-label="Clear ${labelFor(k)} amount">Clear</button><button class="calc-open-btn remainder-btn" type="button" onclick="calculateCustomRemainder('${k}')" aria-label="Calculate remainder for ${labelFor(k)}">${calculatorIcon()}</button></div></label>`).join('')+`<p class="split-helper" id="customSplitStatus">Enter custom amounts. If Total is blank, these amounts will build the Total automatically.</p>`;
+    panel.innerHTML=parties.map(k=>`<label class="custom-split-row"><span>${identityFor(k,true)}</span><div class="expense-money-field"><input id="customShare_${k}" data-custom-party="${k}" inputmode="decimal" type="text" value="${previous[k]??''}" placeholder="0.00" oninput="handleCustomSplitInput()" onblur="autofillCustomRemainderOnExit('${k}')"/><button class="field-clear-btn" type="button" onpointerdown="beginCustomSplitClear()" onclick="clearExpenseField('customShare_${k}')" aria-label="Clear ${labelFor(k)} amount">Clear</button><button class="calc-open-btn remainder-btn" type="button" onclick="calculateCustomRemainder('${k}')" aria-label="Calculate remainder for ${labelFor(k)}">${calculatorIcon()}</button></div></label>`).join('')+`<p class="split-helper" id="customSplitStatus">Enter custom amounts. If Total is blank, these amounts will build the Total automatically.</p>`;
     window.recalculateCustomSplit();
   }
   window.calculateCustomRemainder=function(targetParty){
@@ -471,6 +471,7 @@ let editingExpenseIndex=null;
     if(!input) return;
     input.value='';
     input.dispatchEvent(new Event('input',{bubbles:true}));
+    window.recalculateCustomSplit();
     // Focus first to trigger the keyboard, then actively scroll the modal's own
     // tools-sheet until the field sits above the final visual viewport.
     try{input.focus({preventScroll:true});}catch(e){input.focus();}
@@ -502,6 +503,32 @@ let editingExpenseIndex=null;
     expenseTotalDerivedFromCustom=false;
     window.recalculateCustomSplit();
     updateExpenseFxHelper();
+  };
+  window.handleCustomSplitInput=function(){
+    const panel=document.getElementById('customSplitPanel');
+    if(!panel || expenseSplitMode!=='custom') return;
+    const inputs=[...panel.querySelectorAll('input[data-custom-party]')];
+    const allocated=MONEY.sumAmounts(inputs.map(i=>i.value));
+    const totalInput=document.getElementById('expenseTotal');
+    const status=document.getElementById('customSplitStatus');
+
+    // If Total was not manually supplied, Custom Split remains a live calculator.
+    if((!String(totalInput?.value||'').trim() || expenseTotalDerivedFromCustom)){
+      expenseTotalDerivedFromCustom=true;
+      if(totalInput) totalInput.value=allocated>0?FORMATTER.decimal(allocated,2):'';
+      updateExpenseFxHelper();
+      if(status) status.textContent=allocated>0
+        ? `Current total: ${FORMATTER.decimal(allocated,2)} ${expenseCurrency||MONEY.getTripCurrency().code}.`
+        : 'Enter custom amounts to build the Total.';
+      return;
+    }
+
+    // With a manual Total, never recalculate Remaining on each keystroke.
+    // The completed value is checked only on blur / Done / explicit Clear.
+    if(status){
+      status.textContent='Editing custom split… leave the field to check the balance.';
+      status.classList.remove('error','complete');
+    }
   };
   window.recalculateCustomSplit=function(){
     const panel=document.getElementById('customSplitPanel');
