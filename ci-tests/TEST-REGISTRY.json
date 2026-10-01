@@ -273,7 +273,7 @@
   },
   "test-rc2990-expense-entry-scroll.js": {
     "status": "active",
-    "note": "RC29.92 Custom Split deferred balance calculation + transaction-history scroll preservation"
+    "note": "RC29.93 Expense entry/history + checkpoint-aware PDF/Excel Share Summary"
   },
   "test-release-hygiene.js": {
     "status": "active",

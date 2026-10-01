@@ -12,4 +12,15 @@ assert(e.includes('beginCustomSplitClear()'),'Clear suppression missing');
 assert(e.includes('suppressNextCustomAutofill'),'Clear must not trigger blur autofill');
 assert(e.includes('previousHistoryScrollTop'),'History scroll preservation missing');
 assert(e.includes('nextHistory.scrollTop=Math.min(previousHistoryScrollTop'),'History scroll restore missing');
-console.log('RC29.91 expense entry + history regression PASS');
+
+const ex=fs.readFileSync('export-runtime.js','utf8');
+assert(ex.includes('SPENDING SUMMARY - LIFETIME'),'Share PDF must keep lifetime spending');
+assert(ex.includes('CURRENT SETTLEMENT PERIOD'),'Share PDF must separate current settlement period');
+assert(ex.includes('FINAL SETTLEMENT'),'Share PDF must show final settlement');
+assert(ex.includes("e.type==='settlement_checkpoint'"),'Share summary must understand Settle to here checkpoints');
+assert(ex.includes("String(e.createdAt||'')>through"),'Final settlement must exclude settled history');
+assert(ex.includes('<strong>${escapeHtml(e.item||\'Expense\')}</strong>'),'Transaction title must be bold');
+assert(ex.includes('Paid by <strong>${escapeHtml(expenseNameFor(e.paidBy))}</strong>'),'Paid-by person must be bold');
+assert(ex.includes('Share PDF')&&ex.includes('Share Excel'),'Share Summary must offer PDF and Excel');
+
+console.log('RC29.93 expense entry + share summary regression PASS');
