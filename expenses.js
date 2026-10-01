@@ -129,6 +129,8 @@ let editingExpenseIndex=null;
   }
   let expenseSplitMode='equal';
   let calculatorTargetId='expenseTotal';
+  let expenseTotalDerivedFromCustom=false;
+  let suppressNextCustomAutofill=false;
   let calculatorExpression='';
   const EXPENSE_CURRENCY_PREF_KEY='travel_engine_expense_currency_pref_v1';
   let expenseCurrency='';
@@ -367,7 +369,7 @@ let editingExpenseIndex=null;
     if(!parties.length){panel.innerHTML='<p class="split-helper">Choose at least one party.</p>';return;}
     const previous={};
     panel.querySelectorAll('input[data-custom-party]').forEach(i=>previous[i.dataset.customParty]=i.value);
-    panel.innerHTML=parties.map(k=>`<label class="custom-split-row"><span>${identityFor(k,true)}</span><div class="expense-money-field"><input id="customShare_${k}" data-custom-party="${k}" inputmode="decimal" type="text" value="${previous[k]??''}" placeholder="0.00" oninput="recalculateCustomSplit()" onblur="autofillCustomRemainderOnExit('${k}')"/><button class="field-clear-btn" type="button" onclick="clearExpenseField('customShare_${k}')" aria-label="Clear ${labelFor(k)} amount">Clear</button><button class="calc-open-btn remainder-btn" type="button" onclick="calculateCustomRemainder('${k}')" aria-label="Calculate remainder for ${labelFor(k)}">${calculatorIcon()}</button></div></label>`).join('')+`<p class="split-helper" id="customSplitStatus">Enter your custom amounts. You can leave one blank and Save will fill the remaining balance automatically.</p>`;
+    panel.innerHTML=parties.map(k=>`<label class="custom-split-row"><span>${identityFor(k,true)}</span><div class="expense-money-field"><input id="customShare_${k}" data-custom-party="${k}" inputmode="decimal" type="text" value="${previous[k]??''}" placeholder="0.00" oninput="recalculateCustomSplit()" onblur="autofillCustomRemainderOnExit('${k}')"/><button class="field-clear-btn" type="button" onpointerdown="beginCustomSplitClear()" onclick="clearExpenseField('customShare_${k}')" aria-label="Clear ${labelFor(k)} amount">Clear</button><button class="calc-open-btn remainder-btn" type="button" onclick="calculateCustomRemainder('${k}')" aria-label="Calculate remainder for ${labelFor(k)}">${calculatorIcon()}</button></div></label>`).join('')+`<p class="split-helper" id="customSplitStatus">Enter custom amounts. If Total is blank, these amounts will build the Total automatically.</p>`;
     window.recalculateCustomSplit();
   }
   window.calculateCustomRemainder=function(targetParty){
@@ -387,14 +389,20 @@ let editingExpenseIndex=null;
     const input=document.getElementById(`customShare_${targetParty}`);
     if(input){input.value=FORMATTER.decimal(remainder,2);input.dispatchEvent(new Event('input',{bubbles:true}));}
   };
+  window.beginCustomSplitClear=function(){suppressNextCustomAutofill=true;};
   window.autofillCustomRemainderOnExit=function(sourceParty){
     const panel=document.getElementById('customSplitPanel');
     if(!panel || expenseSplitMode!=='custom') return;
+    if(suppressNextCustomAutofill){
+      suppressNextCustomAutofill=false;
+      window.recalculateCustomSplit();
+      return;
+    }
     const inputs=[...panel.querySelectorAll('input[data-custom-party]')];
     const total=expenseTotalValue();
     const blanks=inputs.filter(i=>String(i.value||'').trim()==='');
     const filled=inputs.filter(i=>String(i.value||'').trim()!=='');
-    if(total>0 && inputs.length>1 && blanks.length===1 && filled.length===inputs.length-1){
+    if(!expenseTotalDerivedFromCustom && total>0 && inputs.length>1 && blanks.length===1 && filled.length===inputs.length-1){
       const used=MONEY.sumAmounts(filled.map(i=>i.value));
       const remainder=MONEY.remainder(total,[used]);
       if(remainder>=0) blanks[0].value=FORMATTER.decimal(remainder,2);
@@ -490,21 +498,54 @@ let editingExpenseIndex=null;
     return {shares,blanks};
   }
 
+  window.handleExpenseTotalInput=function(){
+    expenseTotalDerivedFromCustom=false;
+    window.recalculateCustomSplit();
+    updateExpenseFxHelper();
+  };
   window.recalculateCustomSplit=function(){
     const panel=document.getElementById('customSplitPanel');
     if(!panel || expenseSplitMode!=='custom') return;
     const inputs=[...panel.querySelectorAll('input[data-custom-party]')];
-    const total=expenseTotalValue();
     const allocated=MONEY.sumAmounts(inputs.map(i=>i.value));
+    const totalInput=document.getElementById('expenseTotal');
+    let total=expenseTotalValue();
+
+    // Bidirectional entry: when the user did not supply a Total, Custom Split
+    // acts as the calculator. Keep that derived Total live while they type.
+    if((!String(totalInput?.value||'').trim() || expenseTotalDerivedFromCustom) && allocated>0){
+      expenseTotalDerivedFromCustom=true;
+      if(totalInput) totalInput.value=FORMATTER.decimal(allocated,2);
+      total=allocated;
+      updateExpenseFxHelper();
+    }else if(expenseTotalDerivedFromCustom && allocated<=0){
+      if(totalInput) totalInput.value='';
+      total=0;
+    }
+
     const difference=total-allocated;
+    const blanks=inputs.filter(i=>String(i.value||'').trim()==='').length;
     const status=document.getElementById('customSplitStatus');
     if(status){
-      if(!total) status.textContent='Enter the total amount first.';
-      else if(MONEY.amountsMatch(total,allocated)) status.textContent='Custom split matches the total.';
-      else if(difference>0) status.textContent=`${FORMATTER.decimal(difference,2)} ${expenseCurrency||MONEY.getTripCurrency().code} remains unallocated.`;
-      else status.textContent=`Over by ${FORMATTER.decimal(Math.abs(difference),2)} ${expenseCurrency||MONEY.getTripCurrency().code}.`;
-      status.classList.toggle('error',difference<-.01);
-      status.classList.toggle('complete',MONEY.amountsMatch(total,allocated) && total>0);
+      if(expenseTotalDerivedFromCustom){
+        status.textContent=allocated>0
+          ? `Current total: ${FORMATTER.decimal(allocated,2)} ${expenseCurrency||MONEY.getTripCurrency().code}.`
+          : 'Enter custom amounts to build the Total.';
+      }else if(!total){
+        status.textContent='Enter custom amounts, or enter a Total first.';
+      }else if(blanks>0){
+        status.textContent=difference>=-.01
+          ? `${FORMATTER.decimal(Math.max(0,difference),2)} ${expenseCurrency||MONEY.getTripCurrency().code} remaining · ${blanks} blank.`
+          : `Over by ${FORMATTER.decimal(Math.abs(difference),2)} ${expenseCurrency||MONEY.getTripCurrency().code} · ${blanks} blank.`;
+      }else if(MONEY.amountsMatch(total,allocated)){
+        status.textContent=`✓ Matches total · ${FORMATTER.decimal(allocated,2)} / ${FORMATTER.decimal(total,2)} ${expenseCurrency||MONEY.getTripCurrency().code}.`;
+      }else if(difference>0){
+        status.textContent=`${FORMATTER.decimal(difference,2)} ${expenseCurrency||MONEY.getTripCurrency().code} remaining · entered ${FORMATTER.decimal(allocated,2)} / ${FORMATTER.decimal(total,2)}.`;
+      }else{
+        status.textContent=`Over by ${FORMATTER.decimal(Math.abs(difference),2)} ${expenseCurrency||MONEY.getTripCurrency().code} · entered ${FORMATTER.decimal(allocated,2)} / ${FORMATTER.decimal(total,2)}.`;
+      }
+      status.classList.toggle('error',!expenseTotalDerivedFromCustom && difference<-.01);
+      status.classList.toggle('complete',!expenseTotalDerivedFromCustom && MONEY.amountsMatch(total,allocated) && total>0 && blanks===0);
     }
   };
   window.updateSplitUI=function(){
@@ -583,7 +624,7 @@ let editingExpenseIndex=null;
     const user=currentUser();
     const item=document.getElementById('expenseItem'); if(item) item.value='';
     window.setExpenseCategory('Meals');
-    const total=document.getElementById('expenseTotal'); if(total) total.value='';
+    const total=document.getElementById('expenseTotal'); if(total) total.value=''; expenseTotalDerivedFromCustom=false;
     expenseCurrency=MONEY.getTripCurrency().code;
     expenseRateRecord=MONEY.readCachedRate();
     renderExpenseCurrencyToggle();
@@ -788,6 +829,9 @@ let editingExpenseIndex=null;
 
   window.renderExpenses=function(shadowAction){
     const pageBox=document.getElementById('expensePageList');
+    const previousHistory=pageBox?.querySelector('.transaction-scroll');
+    const previousHistoryScrollTop=previousHistory?.scrollTop||0;
+    const preserveHistoryScroll=previousHistoryScrollTop>0 && !['create','update','delete','settlement-checkpoint'].includes(String(shadowAction||''));
     const arr=readExpenses();
     observeExpenseShadow(typeof shadowAction==='string'?shadowAction:'render',arr);
     const sorted=arr.map((e,i)=>({...e,_idx:i})).sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||''))).map((e,i)=>({...e,_latest:i===0}));
@@ -803,6 +847,10 @@ let editingExpenseIndex=null;
       const checkpointLine=current.checkpoint?`<p class="settlement-checkpoint-line">✓ Settled to ${timeLabel(current.checkpoint.createdAt)}</p>`:'';
       const reviewWarning=current.needsReview?`<div class="settlement-review-warning">⚠️ A settled expense changed · settlement checkpoint may need updating</div>`:'';
       pageBox.innerHTML=`<div class="expense-dashboard-v33 identity-dashboard"><div class="expense-total-card"><span>Trip Total</span><strong>${FORMATTER.decimal(total,2)} ${home}</strong><div class="expense-original-totals">${originalHtml}</div>${pendingFx||'<small>Original currencies retained · settlement shown in '+home+'</small>'}</div><div class="expense-focus-grid"><div class="expense-focus-card"><h3>Personal Spend</h3>${spendHtml}</div><div class="expense-focus-card"><h3>Current Balance</h3>${checkpointLine}${balanceHtml}</div></div>${reviewWarning}</div><div class="expense-history-block"><h3>Transaction History</h3><p class="timestamp">Newest transactions appear first.</p><div class="transaction-scroll">${sorted.length?sorted.map(expenseCard).join(''):'<p>No transactions yet.</p>'}</div></div>`;
+      if(preserveHistoryScroll){
+        const nextHistory=pageBox.querySelector('.transaction-scroll');
+        if(nextHistory) nextHistory.scrollTop=Math.min(previousHistoryScrollTop,Math.max(0,nextHistory.scrollHeight-nextHistory.clientHeight));
+      }
       focusExpenseFromURL();
     }
   };
@@ -901,7 +949,7 @@ let editingExpenseIndex=null;
     editingExpenseIndex=i;
     const item=document.getElementById('expenseItem'); if(item) item.value=e.details || (e.category ? '' : (e.item||''));
     window.setExpenseCategory(e.category || 'Other');
-    const total=document.getElementById('expenseTotal'); if(total) total.value=e.total||'';
+    const total=document.getElementById('expenseTotal'); if(total) total.value=e.total||''; expenseTotalDerivedFromCustom=false;
     expenseCurrency=expenseCurrencyCode(e);
     expenseRateRecord=e.fxRate?{rate:Number(e.fxRate),date:e.fxRateDate||'',source:e.fxRateSource||'saved'}:MONEY.readCachedRate();
     renderExpenseCurrencyToggle();
