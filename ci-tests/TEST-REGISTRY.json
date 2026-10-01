@@ -83,6 +83,10 @@
     "status": "active",
     "note": "invoked by current Master CI suite"
   },
+  "test-cross-reference-integrity.js": {
+    "status": "active",
+    "note": "Guide day links/anchors and Booking place/timeline referential integrity"
+  },
   "test-cross-surface-day-consistency.js": {
     "status": "active",
     "note": "Timeline / Booking / Guide / Shopping Directory must agree on canonical day ownership after itinerary moves"
@@ -133,7 +137,7 @@
   },
   "test-guide-booking-return-contract.js": {
     "status": "active",
-    "note": "origin-aware Guide→Booking close: Timeline origin returns directly to Timeline"
+    "note": "origin-aware Guide\u2192Booking close: Timeline origin returns directly to Timeline"
   },
   "test-guide-menu-alignment.js": {
     "status": "active",
@@ -165,7 +169,7 @@
   },
   "test-multiday-booking-guide-routing.js": {
     "status": "active",
-    "principle": "One canonical booking can span multiple itinerary days; Guide→Booking dispatch must preserve booking category"
+    "principle": "One canonical booking can span multiple itinerary days; Guide\u2192Booking dispatch must preserve booking category"
   },
   "test-open-day-and-arrival-flow.js": {
     "status": "active",
@@ -199,6 +203,78 @@
     "status": "active",
     "note": "Qspa D1-D3 single Guide/Booking authority and optional alternative reconciliation"
   },
+  "test-rc2966-shared-documents.js": {
+    "status": "active",
+    "purpose": "Engine 25.7.2 shared Documents root/folder integration contract"
+  },
+  "test-rc2967-documents-parity-ux.js": {
+    "status": "active",
+    "purpose": "NZ Documents category/ownership/viewer parity plus cascading Day \u2192 Event timeline selector"
+  },
+  "test-rc2968-ui-docs-browser-contract.js": {
+    "status": "active",
+    "purpose": "RC29.69 six-column nav, 10,000 VND default, collaborative Documents link controls, hidden cascading rows, browser wrapper isolation"
+  },
+  "test-rc2974-guide-sync-derived-next-stop.js": {
+    "status": "active",
+    "note": "RC29.75 Guide auto-sync independence + Timeline derived next-stop contract"
+  },
+  "test-rc2974-vn-location-compact-timeline.js": {
+    "status": "active",
+    "note": "VN-only route authority guard, start-time-only Timeline and compact Timeline presentation"
+  },
+  "test-rc2976-settlement-checkpoint.js": {
+    "status": "active",
+    "note": "RC29.78 Expense settlement checkpoint, current-balance reset and historical-edit warning contract"
+  },
+  "test-rc2977-live-fx-save.js": {
+    "status": "active",
+    "note": "RC29.78 new foreign-currency expense live-rate-first save with fresh-cache/offline fallback"
+  },
+  "test-rc2980-guide-place-ownership.js": {
+    "status": "active",
+    "note": "RC29.80 simplified Guide editor/renderer parity, explicit-empty semantics, shared Place authority across Guide/Booking/Timeline and note consolidation"
+  },
+  "test-rc2980-timeline-relationship-hydration.js": {
+    "status": "active",
+    "note": "RC29.80 keeps Timeline-authored content while hydrating Guide/Booking/shared-Place relationship metadata from the current master by stable item id."
+  },
+  "test-rc2982-browser-cloud-isolation.js": {
+    "status": "active",
+    "note": "NZ-derived browser test isolation: explicit cloud disable wins"
+  },
+  "test-rc2982-clear-trip-records-scope.js": {
+    "status": "active",
+    "note": "RC29.82 reset scope: Documents, Moments and Expenses only"
+  },
+  "test-rc2983-guide-edit-session.js": {
+    "status": "active",
+    "note": "RC29.84 Guide edit session blocks accidental backdrop, Escape and cross-module close while unsaved edits are active"
+  },
+  "test-rc2984-trip-presentation.js": {
+    "status": "active",
+    "note": "RC29.84 hides empty Trip/Guide categories, direct-opens single booking categories, and corrects Cu Chi purchased-product title"
+  },
+  "test-rc2985-guide-ownership-foreground.js": {
+    "status": "active",
+    "note": "RC29.85 Guide knowledge ownership, shortlist cleanup, stale Cu Chi override migration and deterministic Booking/Guide foreground"
+  },
+  "test-rc2986-guide-language-shopping-bidirectional.js": {
+    "status": "active",
+    "note": "RC29.86 Chinese-primary Guide content, 14 real Shopping cards grouped by route, and bidirectional Guide/Booking foreground switching"
+  },
+  "test-rc2987-day4-quan-thuy-nondestructive.js": {
+    "status": "active",
+    "note": "RC29.87 additive D4 Qu\u00e1n Thu\u00fd restore preserves RC29.86 user Timeline edits and Guide authority"
+  },
+  "test-rc2989-browser-fx-isolation.js": {
+    "status": "active",
+    "note": "RC29.89 browser release gate intercepts both production FX providers with deterministic CI responses"
+  },
+  "test-rc2990-expense-entry-scroll.js": {
+    "status": "active",
+    "note": "RC29.92 Custom Split deferred balance calculation + transaction-history scroll preservation"
+  },
   "test-release-hygiene.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"
@@ -226,6 +302,10 @@
   "test-runtime-reset-sequence.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"
+  },
+  "test-source-provenance-contract.js": {
+    "status": "active",
+    "note": "Official source + verifiedAt provenance pilot for canonical places"
   },
   "test-stage1-genericity-vn.js": {
     "status": "active",
@@ -306,81 +386,5 @@
   "test-vn-route-first-spa-contract.js": {
     "status": "active",
     "note": "D4 route-first spa, factual corrections and exact Timeline return"
-  },
-  "test-cross-reference-integrity.js": {
-    "status": "active",
-    "note": "Guide day links/anchors and Booking place/timeline referential integrity"
-  },
-  "test-source-provenance-contract.js": {
-    "status": "active",
-    "note": "Official source + verifiedAt provenance pilot for canonical places"
-  },
-  "test-rc2967-documents-parity-ux.js": {
-    "status": "active",
-    "purpose": "NZ Documents category/ownership/viewer parity plus cascading Day → Event timeline selector"
-  },
-  "test-rc2966-shared-documents.js": {
-    "status": "active",
-    "purpose": "Engine 25.7.2 shared Documents root/folder integration contract"
-  },
-  "test-rc2968-ui-docs-browser-contract.js": {
-    "status": "active",
-    "purpose": "RC29.69 six-column nav, 10,000 VND default, collaborative Documents link controls, hidden cascading rows, browser wrapper isolation"
-  },
-  "test-rc2974-guide-sync-derived-next-stop.js": {
-    "status": "active",
-    "note": "RC29.75 Guide auto-sync independence + Timeline derived next-stop contract"
-  },
-  "test-rc2974-vn-location-compact-timeline.js": {
-    "status": "active",
-    "note": "VN-only route authority guard, start-time-only Timeline and compact Timeline presentation"
-  },
-  "test-rc2976-settlement-checkpoint.js": {
-    "status": "active",
-    "note": "RC29.78 Expense settlement checkpoint, current-balance reset and historical-edit warning contract"
-  },
-  "test-rc2977-live-fx-save.js": {
-    "status": "active",
-    "note": "RC29.78 new foreign-currency expense live-rate-first save with fresh-cache/offline fallback"
-  },
-  "test-rc2980-guide-place-ownership.js": {
-    "status": "active",
-    "note": "RC29.80 simplified Guide editor/renderer parity, explicit-empty semantics, shared Place authority across Guide/Booking/Timeline and note consolidation"
-  },
-  "test-rc2980-timeline-relationship-hydration.js": {
-    "status": "active",
-    "note": "RC29.80 keeps Timeline-authored content while hydrating Guide/Booking/shared-Place relationship metadata from the current master by stable item id."
-  },
-  "test-rc2982-clear-trip-records-scope.js": {
-    "status": "active",
-    "note": "RC29.82 reset scope: Documents, Moments and Expenses only"
-  },
-  "test-rc2982-browser-cloud-isolation.js": {
-    "status": "active",
-    "note": "NZ-derived browser test isolation: explicit cloud disable wins"
-  },
-  "test-rc2983-guide-edit-session.js": {
-    "status": "active",
-    "note": "RC29.84 Guide edit session blocks accidental backdrop, Escape and cross-module close while unsaved edits are active"
-  },
-  "test-rc2984-trip-presentation.js": {
-    "status": "active",
-    "note": "RC29.84 hides empty Trip/Guide categories, direct-opens single booking categories, and corrects Cu Chi purchased-product title"
-  },
-  "test-rc2985-guide-ownership-foreground.js": {
-    "status": "active",
-    "note": "RC29.85 Guide knowledge ownership, shortlist cleanup, stale Cu Chi override migration and deterministic Booking/Guide foreground"
-  },
-  "test-rc2986-guide-language-shopping-bidirectional.js": {
-    "status": "active",
-    "note": "RC29.86 Chinese-primary Guide content, 14 real Shopping cards grouped by route, and bidirectional Guide/Booking foreground switching"
-  },
-  "test-rc2987-day4-quan-thuy-nondestructive.js": {
-    "status": "active",
-    "note": "RC29.87 additive D4 Quán Thuý restore preserves RC29.86 user Timeline edits and Guide authority"
-  },
-  "test-rc2989-browser-fx-isolation.js": {
-    "status": "active",
-    "note": "RC29.89 browser release gate intercepts both production FX providers with deterministic CI responses"
   }
 }
