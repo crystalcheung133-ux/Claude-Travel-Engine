@@ -215,16 +215,69 @@
     if(window.html2pdf)return Promise.resolve();
     return new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';script.onload=resolve;script.onerror=()=>reject(new Error('PDF generator unavailable'));document.head.appendChild(script);});
   }
+  function ensureExpensePreviewStyles(){
+    if(document.getElementById('expensePreviewStyles'))return;
+    const style=document.createElement('style');
+    style.id='expensePreviewStyles';
+    style.textContent=`
+      .expense-preview-modal{position:fixed;inset:0;z-index:10050;background:rgba(24,20,17,.58);backdrop-filter:blur(7px);display:none;overflow:auto;padding:18px}
+      .expense-preview-modal.show{display:block}
+      .expense-preview-shell{width:min(820px,100%);margin:0 auto 30px;background:#fff;border-radius:24px;box-shadow:0 24px 70px rgba(0,0,0,.22);overflow:hidden}
+      .expense-preview-toolbar{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:9px;padding:12px 14px;background:rgba(255,255,255,.96);border-bottom:1px solid #e8e0d7;backdrop-filter:blur(12px)}
+      .expense-preview-toolbar .preview-title{font-weight:850;flex:1}
+      .expense-preview-toolbar button{border:1px solid #d9cfc4;background:#fff;border-radius:12px;padding:9px 11px;font:inherit;font-weight:750;cursor:pointer}
+      .expense-preview-toolbar .primary{background:#edf7ef;border-color:#bdd9c2}
+      .expense-preview-toolbar .close{font-size:20px;line-height:1;padding:8px 11px}
+      .expense-preview-body{overflow-x:auto;background:#f5f1eb;padding:18px}
+      .expense-preview-body .report{margin:auto;box-shadow:0 6px 28px rgba(50,40,30,.10)}
+      @media(max-width:650px){
+        .expense-preview-modal{padding:0;background:#f5f1eb}
+        .expense-preview-shell{border-radius:0;margin:0;min-height:100vh}
+        .expense-preview-toolbar{flex-wrap:wrap}
+        .expense-preview-toolbar .preview-title{flex-basis:calc(100% - 48px)}
+        .expense-preview-toolbar button:not(.close){flex:1}
+        .expense-preview-body{padding:10px}
+        .expense-preview-body .report{width:760px;transform-origin:top left}
+      }`;
+    document.head.appendChild(style);
+  }
+  function fitExpensePreview(){
+    const body=document.querySelector('#expenseShareSummaryModal .expense-preview-body');
+    const report=body?.querySelector('.report');
+    if(!body||!report)return;
+    report.style.transform='';
+    report.style.marginBottom='';
+    if(window.innerWidth<=650){
+      const available=Math.max(280,body.clientWidth);
+      const scale=Math.min(1,available/760);
+      report.style.transform=`scale(${scale})`;
+      report.style.marginBottom=`-${report.offsetHeight*(1-scale)}px`;
+    }
+  }
   window.openExpenseShareSummary=function(){
     const model=expenseReportModel();
     if(!model.all.length)return alert('No expense data to share yet.');
+    ensureExpensePreviewStyles();
     let modal=document.getElementById('expenseShareSummaryModal');
-    if(!modal){modal=document.createElement('div');modal.id='expenseShareSummaryModal';modal.className='tools-modal expense-share-modal';document.body.appendChild(modal);}
-    const checkpointCopy=model.checkpoint?`Your trip has a Settle to here checkpoint. Lifetime spending stays complete; Final Settlement includes only the ${model.current.length} current transaction${model.current.length===1?'':'s'} after that checkpoint.`:'No settlement checkpoint yet, so Final Settlement covers the whole trip.';
-    modal.innerHTML=`<div class="tools-sheet expense-share-sheet"><button class="tools-close" type="button" onclick="closeExpenseShareSummary()">×</button><p class="kicker">SHARE EXPENSES</p><h2>📤 Share Summary</h2><p class="lead">${escapeHtml(checkpointCopy)}</p><div class="expense-share-choice"><button class="btn primary-action" type="button" onclick="shareExpenseSummaryPDF()">📄 Share PDF</button><button class="btn" type="button" onclick="shareExpenseSummaryExcel()">📊 Share Excel</button></div><p class="timestamp">PDF is presentation-ready. Excel keeps the full transaction history for checking or recalculation.</p></div>`;
+    if(!modal){modal=document.createElement('div');modal.id='expenseShareSummaryModal';modal.className='expense-preview-modal';document.body.appendChild(modal);}
+    modal.innerHTML=`<div class="expense-preview-shell">
+      <div class="expense-preview-toolbar">
+        <div class="preview-title">📤 Expense Summary Preview</div>
+        <button class="primary" type="button" onclick="shareExpenseSummaryPDF()">📄 PDF</button>
+        <button type="button" onclick="shareExpenseSummaryExcel()">📊 Excel</button>
+        <button class="close" type="button" aria-label="Close" onclick="closeExpenseShareSummary()">×</button>
+      </div>
+      <div class="expense-preview-body"><style>${expenseReportCss()}</style>${expenseReportHtml(model)}</div>
+    </div>`;
     modal.classList.add('show');
+    document.documentElement.style.overflow='hidden';
+    requestAnimationFrame(fitExpensePreview);
   };
-  window.closeExpenseShareSummary=function(){document.getElementById('expenseShareSummaryModal')?.classList.remove('show');};
+  window.closeExpenseShareSummary=function(){
+    document.getElementById('expenseShareSummaryModal')?.classList.remove('show');
+    document.documentElement.style.overflow='';
+  };
+  window.addEventListener('resize',fitExpensePreview);
   window.shareExpenseSummaryExcel=async function(){
     const model=expenseReportModel();if(!model.all.length)return alert('No expense data to share yet.');
     const xml=buildExcelXml(model),file=new File([xml],`${safeFileBase()}_Expense_Summary.xls`,{type:'application/vnd.ms-excel'});
