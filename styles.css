@@ -3299,3 +3299,6 @@ body.guide-booking-stack-open.guide-foreground-over-booking #guideModal.show{vis
 
 /* RC29.93 Expense Share Summary */
 .expenses-page .expense-share-summary-action{background:#f4f0ff!important;border:1.5px solid rgba(104,82,168,.28)!important;color:#43356f!important}.expense-share-sheet{max-width:560px!important}.expense-share-choice{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}.expense-share-choice .btn{width:100%;min-height:52px}@media(max-width:520px){.expense-share-choice{grid-template-columns:1fr}.expenses-page .page-action-row .btn{width:100%}}
+
+/* RC29.94 Expenses shell harmony — keep the green module card, return the page canvas to the shared warm shell. */
+body.expenses-page{background:var(--theme-background,#f7f0e6)!important;background-image:radial-gradient(circle at 50% 10%,rgba(255,255,255,.58),transparent 25rem),linear-gradient(135deg,#f7efe4 0%,#f1e4d2 100%)!important;background-repeat:no-repeat!important;background-size:cover!important;}

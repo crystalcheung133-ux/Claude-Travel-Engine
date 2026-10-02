@@ -263,8 +263,8 @@
     modal.innerHTML=`<div class="expense-preview-shell">
       <div class="expense-preview-toolbar">
         <div class="preview-title">📤 Expense Summary Preview</div>
-        <button class="primary" type="button" onclick="shareExpenseSummaryPDF()">📄 PDF</button>
-        <button type="button" onclick="shareExpenseSummaryExcel()">📊 Excel</button>
+        <button class="primary" type="button" aria-label="Share PDF" onclick="shareExpenseSummaryPDF()">📄 Share PDF</button>
+        <button type="button" aria-label="Share Excel" onclick="shareExpenseSummaryExcel()">📊 Share Excel</button>
         <button class="close" type="button" aria-label="Close" onclick="closeExpenseShareSummary()">×</button>
       </div>
       <div class="expense-preview-body"><style>${expenseReportCss()}</style>${expenseReportHtml(model)}</div>

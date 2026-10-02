@@ -10,3 +10,4 @@ assert(edit.includes('window.isAdminMode&&window.isAdminMode()'),'Booking Edit m
 assert(auth.includes('canonicalStatusRecord'),'single-status authority canonicalizer missing');
 assert(!auth.includes("'status','displayStatus','bookingName'"),'displayStatus must not remain an editable authority field');
 console.log('BOOKING MASTER STATUS + STUDIO EDIT: PASS');
+assert(trip.includes("['restaurant','spa','transport'].includes(booking.type)"),'Restaurant/spa/transport booking editor must expose schedule fields');

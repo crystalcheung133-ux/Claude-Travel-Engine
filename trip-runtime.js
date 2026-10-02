@@ -499,6 +499,9 @@ function bookingEditFields(booking){
     bookingField('Net cost','netTotalAUD',booking.netTotalAUD||booking.netPrice),
     bookingField('Address','address',sharedAddress,{type:'textarea'})
   );
+  if(['restaurant','spa','transport'].includes(booking.type))common.splice(3,0,
+    bookingField('Time','time',booking.time),bookingField('Related day','dayId',booking.dayId)
+  );
   if(booking.type==='activity')common.splice(3,0,
     bookingField('Time','time',booking.time),bookingField('Related day','dayId',booking.dayId),bookingField('Tour type','tourType',booking.tourType,{wide:true}),
     bookingField('Guests','guests',booking.guests,{type:'number',inputmode:'numeric'}),bookingField('Adults','adults',booking.adults,{type:'number',inputmode:'numeric'}),
