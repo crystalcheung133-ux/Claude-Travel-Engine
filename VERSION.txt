@@ -1,1 +1,1 @@
-VN Companion RC29.96 · Travel Engine 25.7.3 Reliability + UX Candidate
+VN Companion RC29.99 · Travel Engine 25.7.3 Release Cleanup Candidate

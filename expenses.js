@@ -521,17 +521,10 @@ let editingExpenseIndex=null;
       const value=MONEY.normalizeAmount(raw);
       shares[k]=value; allocated+=value;
     });
-    if(blanks.length===1){
-      const remainder=MONEY.remainder(total,[allocated]);
-      if(remainder>=-0.01){
-        const value=Math.max(0,remainder);
-        shares[blanks[0]]=value;
-        const input=document.getElementById(`customShare_${blanks[0]}`);
-        if(input)input.value=FORMATTER.decimal(value,2);
-        blanks.length=0;
-      }
-    }
-    return {shares,blanks};
+    // Blank custom-share fields are explicit zero shares. The entered values
+    // are authoritative; Save only cares whether their sum matches Total.
+    blanks.forEach(k=>{ shares[k]=0; });
+    return {shares,blanks:[]};
   }
 
   window.handleExpenseTotalInput=function(){
@@ -816,7 +809,6 @@ let editingExpenseIndex=null;
     if(!personal&&splitMode==='custom'){
       const custom=customSharesForSave(total,split);
       shares=custom.shares;
-      if(custom.blanks.length)return fail('Enter the custom split amounts. You may leave one amount blank for the remaining balance.');
       const allocated=MONEY.sumAmounts(Object.values(shares||{}));
       if(!MONEY.amountsMatch(allocated,total))return fail('Custom split must equal the total.');
     }
