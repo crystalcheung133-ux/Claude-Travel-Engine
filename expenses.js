@@ -288,6 +288,22 @@ let editingExpenseIndex=null;
     if(!toggle.checked){updateExpenseFxHelper();return;}
     const sum=MONEY.sumAmounts([...document.querySelectorAll('#payerContributionsPanel input[data-payer-contribution]')].map(input=>input.value));
     if(derived) totalInput.value=sum>0?FORMATTER.decimal(sum,2):'';
+    const total=expenseTotalValue();
+    const status=document.getElementById('payerContributionStatus');
+    if(status){
+      const code=expenseCurrency||MONEY.getTripCurrency().code;
+      const difference=total-sum;
+      if(derived){
+        status.textContent=sum>0?`Total ${FORMATTER.decimal(sum,2)} ${code}`:'';
+        status.classList.remove('error','complete');
+      }else if(total>0&&MONEY.amountsMatch(total,sum)){
+        status.textContent='Balanced ✓';status.classList.add('complete');status.classList.remove('error');
+      }else if(total>0&&difference>0){
+        status.textContent=`${FORMATTER.decimal(difference,2)} ${code} remaining`;status.classList.remove('error','complete');
+      }else if(total>0&&difference<0){
+        status.textContent=`${FORMATTER.decimal(Math.abs(difference),2)} ${code} over`;status.classList.add('error');status.classList.remove('complete');
+      }else{status.textContent='';status.classList.remove('error','complete');}
+    }
     expenseTotalDerivedFromCustom=false;
     window.recalculateCustomSplit?.();
     updateExpenseFxHelper();
@@ -303,7 +319,7 @@ let editingExpenseIndex=null;
     panel.hidden=!toggle.checked;
     if(!toggle.checked){panel.innerHTML='';syncMultiplePayerTotal();return;}
     const existing=seed||{};
-    panel.innerHTML=FRIEND_ORDER.map(k=>`<label class="custom-split-row"><span>${identityFor(k,true)}</span><input id="payerContribution_${k}" data-payer-contribution="${escapeHTML(k)}" inputmode="decimal" value="${escapeHTML(existing[k]??'')}" placeholder="0.00" oninput="syncMultiplePayerTotal()"></label>`).join('');
+    panel.innerHTML=FRIEND_ORDER.map(k=>`<label class="custom-split-row"><span>${identityFor(k,true)}</span><input id="payerContribution_${k}" data-payer-contribution="${escapeHTML(k)}" inputmode="decimal" value="${escapeHTML(existing[k]??'')}" placeholder="0.00" oninput="syncMultiplePayerTotal()"></label>`).join('')+'<p id="payerContributionStatus" class="split-helper" aria-live="polite"></p>';
     syncMultiplePayerTotal();
   };
   window.syncMultiplePayerTotal=syncMultiplePayerTotal;
@@ -538,6 +554,7 @@ let editingExpenseIndex=null;
   window.handleExpenseTotalInput=function(){
     if(document.getElementById('expenseMultiplePayers')?.checked) multiplePayerAuthority='total';
     expenseTotalDerivedFromCustom=false;
+    syncMultiplePayerTotal();
     window.recalculateCustomSplit();
     updateExpenseFxHelper();
   };

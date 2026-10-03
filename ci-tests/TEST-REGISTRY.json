@@ -207,6 +207,10 @@
     "status": "active",
     "note": "Qspa D1-D3 single Guide/Booking authority and optional alternative reconciliation"
   },
+  "test-rc29101-expense-scroll-balance-actions.js": {
+    "status": "active",
+    "note": "RC29.101 natural expense history scroll, payer balance feedback, compact settle, Studio-only share summary"
+  },
   "test-rc2966-shared-documents.js": {
     "status": "active",
     "purpose": "Engine 25.7.2 shared Documents root/folder integration contract"
@@ -278,6 +282,10 @@
   "test-rc2990-expense-entry-scroll.js": {
     "status": "active",
     "note": "RC29.93 Expense entry/history + checkpoint-aware PDF/Excel Share Summary"
+  },
+  "test-rc2997-expense-authority.js": {
+    "status": "active",
+    "note": "multiple-payer derived total, +0.3% expense FX adjustment, mobile daypart collision guard"
   },
   "test-release-hygiene.js": {
     "status": "active",
@@ -398,9 +406,5 @@
   "test-vn-route-first-spa-contract.js": {
     "status": "active",
     "note": "D4 route-first spa, factual corrections and exact Timeline return"
-  },
-  "test-rc2997-expense-authority.js": {
-    "status": "active",
-    "note": "multiple-payer derived total, +0.3% expense FX adjustment, mobile daypart collision guard"
   }
 }
