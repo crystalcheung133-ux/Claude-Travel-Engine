@@ -1,6 +1,6 @@
 Saigon Companion Production File Manifest
 Generated: 2026-10-03
-Base: VN Companion RC29.99 · Travel Engine 25.7.3 Release Cleanup Candidate
+Base: VN Companion RC29.100 · Travel Engine 25.7.3 Expense UX Candidate
 Reference trip: Vietnam
 
 Production root files:

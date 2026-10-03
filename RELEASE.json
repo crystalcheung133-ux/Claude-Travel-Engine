@@ -1,6 +1,6 @@
 {
   "engine_version": "25.7.3",
-  "artifact_version": "VN Companion RC29.99 · Travel Engine 25.7.3 Release Cleanup Candidate",
+  "artifact_version": "VN Companion RC29.100 · Travel Engine 25.7.3 Expense UX Candidate",
   "baseline_engine": "25.5.2",
   "release_date": "2026-09-22",
   "release_type": "expense-share-summary-candidate",
@@ -72,7 +72,7 @@
     "cold-white Saigon header treatment"
   ],
   "asset_cache_token": "rc2996-2573",
-  "release_status": "RC29.99 CANDIDATE — Release Cleanup",
+  "release_status": "RC29.100 CANDIDATE — Expense UX",
   "changes": [
     "Integrated documents-runtime.js and documents-folder-ui.js as Engine 25.7.2 shared modules.",
     "Added VN Documents page and navigation entry.",
@@ -109,7 +109,10 @@
     "Expenses adds one Share Summary action with PDF and Excel choices.",
     "Share Summary separates Lifetime Spending from Current Settlement Period after Settle to here.",
     "Final Settlement includes only expenses after the latest settlement checkpoint; settled history remains visible for record.",
-    "PDF emphasizes transaction title, payer, Spending Summary and Final Settlement in bold."
+    "PDF emphasizes transaction title, payer, Spending Summary and Final Settlement in bold.",
+    "Multiple Payers preserves a pre-entered Total as authority; payer-derived Total is used only when Amount was blank.",
+    "Foreign-currency Expense Save uses an available cached/current FX rate for immediate local commit and refreshes live FX asynchronously.",
+    "Multiple Payers and Custom Split controls are compacted for mobile; FX adjustment implementation text is hidden from user UI."
   ],
   "validation": {
     "static_master_ci": "PASS — RC29.93 full Master CI including checkpoint-aware Expense Share Summary.",

@@ -231,7 +231,7 @@ let editingExpenseIndex=null;
       const basisConverted=unit*basis;
       const rateText=unit>0?`${FORMATTER.decimal(basis,0)} ${code} ≈ ${FORMATTER.decimal(basisConverted,2)} ${other}`:'';
       const convertedText=total&&converted!==null?`≈ ${FORMATTER.decimal(converted,2)} ${other}`:'';
-      helper.textContent=[convertedText?`Estimated ${convertedText}`:'',rateText,code!==home?'incl. +0.3% card-rate adjustment':''].filter(Boolean).join(' · ');
+      helper.textContent=[convertedText?`Estimated ${convertedText}`:'',rateText].filter(Boolean).join(' · ');
     }else helper.textContent=total?'Live conversion unavailable':'';
   }
   async function getExpenseRateRecord(forceLive=false){
@@ -278,18 +278,26 @@ let editingExpenseIndex=null;
     if(e&&e.payerContributions&&typeof e.payerContributions==='object'&&Object.keys(e.payerContributions).length)return e.payerContributions;
     return e&&e.paidBy?{[e.paidBy]:MONEY.normalizeAmount(e.total)}:{};
   }
+  let multiplePayerAuthority='total';
   function syncMultiplePayerTotal(){
     const toggle=document.getElementById('expenseMultiplePayers'),totalInput=document.getElementById('expenseTotal');
     if(!toggle||!totalInput)return;
-    totalInput.readOnly=!!toggle.checked;
-    totalInput.classList.toggle('derived-total',!!toggle.checked);
+    const derived=!!toggle.checked&&multiplePayerAuthority==='payers';
+    totalInput.readOnly=derived;
+    totalInput.classList.toggle('derived-total',derived);
     if(!toggle.checked){updateExpenseFxHelper();return;}
     const sum=MONEY.sumAmounts([...document.querySelectorAll('#payerContributionsPanel input[data-payer-contribution]')].map(input=>input.value));
-    totalInput.value=sum>0?FORMATTER.decimal(sum,2):'';
+    if(derived) totalInput.value=sum>0?FORMATTER.decimal(sum,2):'';
     expenseTotalDerivedFromCustom=false;
     window.recalculateCustomSplit?.();
     updateExpenseFxHelper();
   }
+  window.toggleMultiplePayers=function(){
+    const toggle=document.getElementById('expenseMultiplePayers');
+    if(toggle?.checked) multiplePayerAuthority=expenseTotalValue()>0?'total':'payers';
+    else multiplePayerAuthority='total';
+    window.renderPayerContributions();
+  };
   window.renderPayerContributions=function(seed){
     const toggle=document.getElementById('expenseMultiplePayers'),panel=document.getElementById('payerContributionsPanel');if(!toggle||!panel)return;
     panel.hidden=!toggle.checked;
@@ -304,7 +312,7 @@ let editingExpenseIndex=null;
     const value={};let sum=0;
     document.querySelectorAll('#payerContributionsPanel input[data-payer-contribution]').forEach(input=>{const amount=MONEY.normalizeAmount(input.value);if(amount>0){value[input.dataset.payerContribution]=amount;sum+=amount;}});
     if(Object.keys(value).length<2)return {ok:false,message:'Choose at least two payers and enter what each person paid.'};
-    if(!MONEY.amountsMatch(sum,total))return {ok:false,message:'Multiple payer total could not be calculated. Please check the payer amounts.'};
+    if(!MONEY.amountsMatch(sum,total))return {ok:false,message:`Payer amounts total ${FORMATTER.decimal(sum,2)}, but Amount is ${FORMATTER.decimal(total,2)}. Please adjust the payer amounts.`};
     return {ok:true,value};
   }
   function splitSharesForExpense(e){
@@ -404,7 +412,7 @@ let editingExpenseIndex=null;
     if(!parties.length){panel.innerHTML='<p class="split-helper">Choose at least one party.</p>';return;}
     const previous={};
     panel.querySelectorAll('input[data-custom-party]').forEach(i=>previous[i.dataset.customParty]=i.value);
-    panel.innerHTML=parties.map(k=>`<label class="custom-split-row"><span>${identityFor(k,true)}</span><div class="expense-money-field"><input id="customShare_${k}" data-custom-party="${k}" inputmode="decimal" type="text" value="${previous[k]??''}" placeholder="0.00" oninput="handleCustomSplitInput()" onblur="autofillCustomRemainderOnExit('${k}')"/><button class="field-clear-btn" type="button" onpointerdown="beginCustomSplitClear()" onclick="clearExpenseField('customShare_${k}')" aria-label="Clear ${labelFor(k)} amount">Clear</button><button class="calc-open-btn remainder-btn" type="button" onclick="calculateCustomRemainder('${k}')" aria-label="Calculate remainder for ${labelFor(k)}">${calculatorIcon()}</button></div></label>`).join('')+`<p class="split-helper" id="customSplitStatus">Enter custom amounts. If Total is blank, these amounts will build the Total automatically.</p>`;
+    panel.innerHTML=parties.map(k=>`<label class="custom-split-row"><span>${identityFor(k,true)}</span><div class="expense-money-field"><input id="customShare_${k}" data-custom-party="${k}" inputmode="decimal" type="text" value="${previous[k]??''}" placeholder="0.00" oninput="handleCustomSplitInput()" onblur="autofillCustomRemainderOnExit('${k}')"/><button class="field-clear-btn icon-action" type="button" onpointerdown="beginCustomSplitClear()" onclick="clearExpenseField('customShare_${k}')" aria-label="Clear ${labelFor(k)} amount">×</button><button class="calc-open-btn remainder-btn icon-action" type="button" onclick="calculateCustomRemainder('${k}')" aria-label="Calculate remainder for ${labelFor(k)}">${calculatorIcon()}</button></div></label>`).join('')+`<p class="split-helper" id="customSplitStatus"></p>`;
     window.recalculateCustomSplit();
   }
   window.calculateCustomRemainder=function(targetParty){
@@ -528,6 +536,7 @@ let editingExpenseIndex=null;
   }
 
   window.handleExpenseTotalInput=function(){
+    if(document.getElementById('expenseMultiplePayers')?.checked) multiplePayerAuthority='total';
     expenseTotalDerivedFromCustom=false;
     window.recalculateCustomSplit();
     updateExpenseFxHelper();
@@ -820,7 +829,9 @@ let editingExpenseIndex=null;
       let fxRecord=null,fxRate=1,homeTotal=total;
       if(currency!==homeCurrency){
         // await getExpenseRateRecord() — legacy save-order contract marker
-        fxRecord=await getExpenseRateRecord(operation==='create');
+        fxRecord=expenseRateRecord||MONEY.readCachedRate();
+        if(!(Number(fxRecord?.rate)>0)) fxRecord=await getExpenseRateRecord(true);
+        else if(operation==='create') getExpenseRateRecord(true).then(updateExpenseFxHelper).catch(()=>{});
         const fxReferenceRate=Number(fxRecord?.rate);
         fxRate=fxReferenceRate*EXPENSE_FX_ADJUSTMENT;
         if(!(fxRate>0))return fail(`Exchange rate unavailable. Connect to the internet once, then save this ${currency} expense again.`);
@@ -1014,7 +1025,7 @@ let editingExpenseIndex=null;
     syncExpenseAmountCurrencyLabel();
     updateExpenseFxHelper();
     setSelectValue('expensePaidBy',e.paidBy||currentUser());
-    const multiplePayers=document.getElementById('expenseMultiplePayers');if(multiplePayers)multiplePayers.checked=!!(e.payerContributions&&Object.keys(e.payerContributions).length>1);window.renderPayerContributions(e.payerContributions||{});
+    const multiplePayers=document.getElementById('expenseMultiplePayers');if(multiplePayers)multiplePayers.checked=!!(e.payerContributions&&Object.keys(e.payerContributions).length>1);multiplePayerAuthority='total';window.renderPayerContributions(e.payerContributions||{});
     setSelectValue('expensePersonalPaidBy',e.paidBy||currentUser());
     const personal=(e.type==='personal');
     const personalBox=document.getElementById('expensePersonal'); if(personalBox) personalBox.checked=personal;
