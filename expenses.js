@@ -139,6 +139,7 @@ let editingExpenseIndex=null;
   let pendingExpenseSource=null;
   let bookingExpenseFlowActive=false;
   let expenseSaveInFlight=false;
+  const EXPENSE_FX_ADJUSTMENT=1.003; // observed card settlement adjustment: reference FX +0.3%
 
   function bookingAmountSeed(booking){
     const explicitDeposit=MONEY.normalizeAmount(booking?.depositAmount);
@@ -217,7 +218,8 @@ let editingExpenseIndex=null;
     const other=code===home?trip:home;
     const total=expenseTotalValue();
     const record=expenseRateRecord||MONEY.readCachedRate();
-    const rate=Number(record?.rate);
+    const referenceRate=Number(record?.rate);
+    const rate=referenceRate>0&&code!==home?referenceRate*EXPENSE_FX_ADJUSTMENT:referenceRate;
     if(rate>0){
       const converted=MONEY.convert(total||1,rate,code,other);
       const unit=MONEY.convert(1,rate,code,other);
@@ -229,7 +231,7 @@ let editingExpenseIndex=null;
       const basisConverted=unit*basis;
       const rateText=unit>0?`${FORMATTER.decimal(basis,0)} ${code} ≈ ${FORMATTER.decimal(basisConverted,2)} ${other}`:'';
       const convertedText=total&&converted!==null?`≈ ${FORMATTER.decimal(converted,2)} ${other}`:'';
-      helper.textContent=[convertedText,rateText].filter(Boolean).join(' · ');
+      helper.textContent=[convertedText?`Estimated ${convertedText}`:'',rateText,code!==home?'incl. +0.3% card-rate adjustment':''].filter(Boolean).join(' · ');
     }else helper.textContent=total?'Live conversion unavailable':'';
   }
   async function getExpenseRateRecord(forceLive=false){
@@ -276,18 +278,33 @@ let editingExpenseIndex=null;
     if(e&&e.payerContributions&&typeof e.payerContributions==='object'&&Object.keys(e.payerContributions).length)return e.payerContributions;
     return e&&e.paidBy?{[e.paidBy]:MONEY.normalizeAmount(e.total)}:{};
   }
+  function syncMultiplePayerTotal(){
+    const toggle=document.getElementById('expenseMultiplePayers'),totalInput=document.getElementById('expenseTotal');
+    if(!toggle||!totalInput)return;
+    totalInput.readOnly=!!toggle.checked;
+    totalInput.classList.toggle('derived-total',!!toggle.checked);
+    if(!toggle.checked){updateExpenseFxHelper();return;}
+    const sum=MONEY.sumAmounts([...document.querySelectorAll('#payerContributionsPanel input[data-payer-contribution]')].map(input=>input.value));
+    totalInput.value=sum>0?FORMATTER.decimal(sum,2):'';
+    expenseTotalDerivedFromCustom=false;
+    window.recalculateCustomSplit?.();
+    updateExpenseFxHelper();
+  }
   window.renderPayerContributions=function(seed){
     const toggle=document.getElementById('expenseMultiplePayers'),panel=document.getElementById('payerContributionsPanel');if(!toggle||!panel)return;
-    panel.hidden=!toggle.checked;if(!toggle.checked){panel.innerHTML='';return;}
+    panel.hidden=!toggle.checked;
+    if(!toggle.checked){panel.innerHTML='';syncMultiplePayerTotal();return;}
     const existing=seed||{};
-    panel.innerHTML='<p class="timestamp">Enter how much each person actually paid.</p>'+FRIEND_ORDER.map(k=>`<label class="custom-split-row"><span>${identityFor(k,true)}</span><input id="payerContribution_${k}" data-payer-contribution="${escapeHTML(k)}" inputmode="decimal" value="${escapeHTML(existing[k]??'')}" placeholder="0.00"></label>`).join('');
+    panel.innerHTML='<p class="timestamp">Enter what each person paid. Total is calculated automatically.</p>'+FRIEND_ORDER.map(k=>`<label class="custom-split-row"><span>${identityFor(k,true)}</span><input id="payerContribution_${k}" data-payer-contribution="${escapeHTML(k)}" inputmode="decimal" value="${escapeHTML(existing[k]??'')}" placeholder="0.00" oninput="syncMultiplePayerTotal()"></label>`).join('');
+    syncMultiplePayerTotal();
   };
+  window.syncMultiplePayerTotal=syncMultiplePayerTotal;
   function payerContributionsForSave(total,paidBy){
     const toggle=document.getElementById('expenseMultiplePayers');if(!toggle?.checked)return {ok:true,value:null};
     const value={};let sum=0;
     document.querySelectorAll('#payerContributionsPanel input[data-payer-contribution]').forEach(input=>{const amount=MONEY.normalizeAmount(input.value);if(amount>0){value[input.dataset.payerContribution]=amount;sum+=amount;}});
     if(Object.keys(value).length<2)return {ok:false,message:'Choose at least two payers and enter what each person paid.'};
-    if(!MONEY.amountsMatch(sum,total))return {ok:false,message:'Multiple payer amounts must equal the total.'};
+    if(!MONEY.amountsMatch(sum,total))return {ok:false,message:'Multiple payer total could not be calculated. Please check the payer amounts.'};
     return {ok:true,value};
   }
   function splitSharesForExpense(e){
@@ -812,7 +829,8 @@ let editingExpenseIndex=null;
       if(currency!==homeCurrency){
         // await getExpenseRateRecord() — legacy save-order contract marker
         fxRecord=await getExpenseRateRecord(operation==='create');
-        fxRate=Number(fxRecord?.rate);
+        const fxReferenceRate=Number(fxRecord?.rate);
+        fxRate=fxReferenceRate*EXPENSE_FX_ADJUSTMENT;
         if(!(fxRate>0))return fail(`Exchange rate unavailable. Connect to the internet once, then save this ${currency} expense again.`);
         homeTotal=MONEY.convert(total,fxRate,currency,homeCurrency);
         if(!(homeTotal>=0))return fail('Could not convert this expense for settlement.');
@@ -824,7 +842,7 @@ let editingExpenseIndex=null;
       const source=operationIndex!==null&&arr[operationIndex]
         ? {sourceType:arr[operationIndex].sourceType||null,sourceBookingId:arr[operationIndex].sourceBookingId||null,sourceBookingTitle:arr[operationIndex].sourceBookingTitle||null,sourceBookingType:arr[operationIndex].sourceBookingType||null}
         : (pendingExpenseSource||{});
-      const data={item,details,category,total,currency,homeCurrency,homeTotal,fxRate:currency===homeCurrency?1:fxRate,fxRateDate:currency===homeCurrency?'':String(fxRecord?.date||''),fxRateSource:currency===homeCurrency?'native':String(fxRecord?.source||'cached'),paidBy,payerContributions:personal?null:payerContributions,type:personal?'personal':'shared',split:personal?[consumedBy]:split,splitMode,shares:personal?null:shares,consumedBy:personal?consumedBy:null,createdAt:now,updatedAt:now,createdBy:currentUser(),editedBy:currentUser(),...source};
+      const data={item,details,category,total,currency,homeCurrency,homeTotal,fxRate:currency===homeCurrency?1:fxRate,fxReferenceRate:currency===homeCurrency?1:Number(fxRecord?.rate),fxAdjustment:currency===homeCurrency?1:EXPENSE_FX_ADJUSTMENT,fxRateDate:currency===homeCurrency?'':String(fxRecord?.date||''),fxRateSource:currency===homeCurrency?'native':String(fxRecord?.source||'cached'),paidBy,payerContributions:personal?null:payerContributions,type:personal?'personal':'shared',split:personal?[consumedBy]:split,splitMode,shares:personal?null:shares,consumedBy:personal?consumedBy:null,createdAt:now,updatedAt:now,createdBy:currentUser(),editedBy:currentUser(),...source};
 
       if(operation==='update'&&operationIndex!==null&&arr[operationIndex]){
         data.id=arr[operationIndex].id;

@@ -3302,3 +3302,7 @@ body.guide-booking-stack-open.guide-foreground-over-booking #guideModal.show{vis
 
 /* RC29.94 Expenses shell harmony — keep the green module card, return the page canvas to the shared warm shell. */
 body.expenses-page{background:var(--theme-background,#f7f0e6)!important;background-image:radial-gradient(circle at 50% 10%,rgba(255,255,255,.58),transparent 25rem),linear-gradient(135deg,#f7efe4 0%,#f1e4d2 100%)!important;background-repeat:no-repeat!important;background-size:cover!important;}
+
+/* RC29.97 — Daypart labels own a wider rail; prevent time/title overlap. */
+@media(max-width:760px){.timeline-item{grid-template-columns:92px minmax(0,1fr)!important;column-gap:10px!important}.timeline-time{width:92px!important;max-width:92px!important;overflow:hidden!important;overflow-wrap:anywhere!important;word-break:normal!important;white-space:normal!important}.timeline-main{min-width:0!important;overflow:hidden!important}}
+.expense-total-field input.derived-total{background:rgba(49,95,78,.06)!important;font-weight:800}.expense-total-field input.derived-total+button{opacity:.45;pointer-events:none}
