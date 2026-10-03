@@ -1,9 +1,9 @@
 {
   "engine_version": "25.7.3",
-  "artifact_version": "VN Companion RC29.101 · Travel Engine 25.7.3 Expense UX Candidate",
+  "artifact_version": "VN Companion RC29.102 · Travel Engine 25.7.3 History + Terminal Candidate",
   "baseline_engine": "25.5.2",
   "release_date": "2026-09-22",
-  "release_type": "expense-share-summary-candidate",
+  "release_type": "history-terminal-candidate",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
@@ -71,8 +71,8 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc2996-2573",
-  "release_status": "RC29.101 CANDIDATE — Expense UX",
+  "asset_cache_token": "rc29102-2573",
+  "release_status": "RC29.102 CANDIDATE — History + Flight Terminals",
   "changes": [
     "Integrated documents-runtime.js and documents-folder-ui.js as Engine 25.7.2 shared modules.",
     "Added VN Documents page and navigation entry.",
@@ -112,7 +112,12 @@
     "PDF emphasizes transaction title, payer, Spending Summary and Final Settlement in bold.",
     "Multiple Payers preserves a pre-entered Total as authority; payer-derived Total is used only when Amount was blank.",
     "Foreign-currency Expense Save uses an available cached/current FX rate for immediate local commit and refreshes live FX asynchronously.",
-    "Multiple Payers and Custom Split controls are compacted for mobile; FX adjustment implementation text is hidden from user UI."
+    "Multiple Payers and Custom Split controls are compacted for mobile; FX adjustment implementation text is hidden from user UI.",
+    "Expense Settle action moved into the Trip Total card.",
+    "Expense Transaction History defaults to five records with Show more / Show less.",
+    "Moment History defaults to five records with Show more / Show less.",
+    "Transaction-history payer and split identities render names without participant emoji; Edit/Delete emoji remain.",
+    "Flight summary records Terminal 2 for both MEL and SGN on VJ082 and VN781, with SGN T2 reflected in arrival/departure Timeline context."
   ],
   "validation": {
     "static_master_ci": "PASS — RC29.93 full Master CI including checkpoint-aware Expense Share Summary.",

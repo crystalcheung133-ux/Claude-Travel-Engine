@@ -3,7 +3,7 @@ const trip=fs.readFileSync('trip-runtime.js','utf8'),exp=fs.readFileSync('export
 assert(trip.includes("if(['restaurant','spa','transport'].includes(booking.type))")&&trip.includes("bookingField('Time','time',booking.time)"),'restaurant/spa time edit missing');
 assert(trip.includes("bookingField('Cashback amount','cashbackAmount'"),'accommodation cashback missing');
 assert(exp.includes('openExpenseSummaryFromExport()')&&!exp.includes('<strong>Share Expense</strong>'),'Export Centre must consolidate expenses into one summary entry');
-for(const q of ['let momentsVisibleCount=10','arr.slice(0,momentsVisibleCount)','Load 10 more','loading="lazy"','showLatestMoments'])assert(mom.includes(q),'Moments paging/lazy missing '+q);
+for(const q of ['let momentsVisibleCount=5','arr.slice(0,momentsVisibleCount)','Show more','loading="lazy"','showLatestMoments'])assert(mom.includes(q),'Moments paging/lazy missing '+q);
 assert(day.includes('if(item&&item.bookingId)')&&day.includes("return hour<12?'Morning':(hour<17?'Afternoon':'Evening')"),'booking-only exact/daypart display contract missing');
 const d5=(data.match(/"5"\s*:\s*\{[\s\S]*?\n\s*\}\s*\n\s*\};/)||[''])[0];
 if(d5)assert(!/Mặn Mòi/.test(d5),'Mặn Mòi must not be a Day 5 itinerary item');

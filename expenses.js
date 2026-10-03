@@ -96,6 +96,10 @@ let editingExpenseIndex=null;
     try{return (typeof FRIENDS!=='undefined' && FRIENDS[k]) ? FRIENDS[k] : (FRIEND_FALLBACK[k]||k||'');}
     catch(e){return FRIEND_FALLBACK[k]||k||'';}
   }
+  function historyNameFor(k){
+    const identity=TRIP_CONFIG.participants?.identities?.[k];
+    return escapeHTML(identity?.name || String(k||''));
+  }
   function identityFor(k,compact=false){
     try{return typeof window.friendIdentityHTML==='function' ? window.friendIdentityHTML(k,compact) : escapeHTML(labelFor(k));}
     catch(e){return escapeHTML(labelFor(k));}
@@ -734,7 +738,7 @@ let editingExpenseIndex=null;
     const personal=e.type==='personal';
     const split=e.split||[];
     const consumer=e.consumedBy || split[0] || e.paidBy;
-    const who=personal ? `Consumed by ${identityFor(consumer,true)}` : `${e.splitMode==='custom'?'Custom':'Equal'} split: ${split.map(k=>identityFor(k,true)).join('<span class="identity-separator">·</span>')}`;
+    const who=personal ? `Consumed by ${historyNameFor(consumer)}` : `${e.splitMode==='custom'?'Custom':'Equal'} split: ${split.map(k=>historyNameFor(k)).join('<span class="identity-separator">·</span>')}`;
     const cardId=e.id?` id="expense-${escapeHTML(e.id)}"`:(e._latest?' id="latestExpenseCard"':'');
     const latestMarker=e._latest?' data-latest-expense="true"':'';
     const actions=canManageExpense(e)?`<div class="entry-actions"><button class="mini-btn" onclick="editExpense(${e._idx})">✏️ Edit</button><button class="mini-btn" onclick="deleteExpense(${e._idx})">🗑 Delete</button></div>`:`<p class="timestamp entry-owner-note">Added by ${identityFor(expenseOwner(e),true)} · View only</p>`;
@@ -743,7 +747,7 @@ let editingExpenseIndex=null;
     const homeTotal=homeAmountFor(e);
     const equivalent=code!==home&&homeTotal!==null?`<p class="expense-home-equivalent">≈ ${FORMATTER.decimal(homeTotal,2)} ${home} for settlement</p>`:'';
     const source=e.sourceType==='booking'&&e.sourceBookingId?`<p class="expense-booking-source">🏨 From booking · <button type="button" class="expense-booking-inline-link" onclick="openExpenseSourceBooking('${escapeHTML(e.sourceBookingId)}')">${escapeHTML(e.sourceBookingTitle||'View booking')}</button></p>`:'';
-    return `<div class="expense-card"${cardId}${latestMarker}><strong>${escapeHTML(e.item||'')}</strong><p class="timestamp">${timeLabel(e.createdAt)}${e.editedAt?` · Edited ${timeLabel(e.editedAt)}`:''}</p><p>${FORMATTER.number(MONEY.normalizeAmount(e.total))} ${code} · Paid by ${Object.keys(payerContributionsForExpense(e)).map(k=>identityFor(k,true)).join('<span class="identity-separator">+</span>')}</p>${equivalent}<p>${personal?'Personal Expense':'Shared Expense'} · ${who}</p>${source}${actions}</div>`;
+    return `<div class="expense-card"${cardId}${latestMarker}><strong>${escapeHTML(e.item||'')}</strong><p class="timestamp">${timeLabel(e.createdAt)}${e.editedAt?` · Edited ${timeLabel(e.editedAt)}`:''}</p><p>${FORMATTER.number(MONEY.normalizeAmount(e.total))} ${code} · Paid by ${Object.keys(payerContributionsForExpense(e)).map(k=>historyNameFor(k)).join('<span class="identity-separator">+</span>')}</p>${equivalent}<p>${personal?'Personal Expense':'Shared Expense'} · ${who}</p>${source}${actions}</div>`;
   }
   let expensePageScrollY=0;
   function lockExpensePage(){
@@ -913,6 +917,9 @@ let editingExpenseIndex=null;
     }
   };
 
+  let expenseHistoryExpanded=false;
+  window.toggleExpenseHistory=function(){expenseHistoryExpanded=!expenseHistoryExpanded;window.renderExpenses('history-toggle');};
+
   window.renderExpenses=function(shadowAction){
     const pageBox=document.getElementById('expensePageList');
     const previousHistory=pageBox?.querySelector('.transaction-scroll');
@@ -932,7 +939,9 @@ let editingExpenseIndex=null;
       const pendingFx=unconverted?`<small>${unconverted} legacy expense${unconverted===1?'':'s'} waiting for an FX rate</small>`:'';
       const checkpointLine=current.checkpoint?`<p class="settlement-checkpoint-line">✓ Settled to ${timeLabel(current.checkpoint.createdAt)}</p>`:'';
       const reviewWarning=current.needsReview?`<div class="settlement-review-warning">⚠️ A settled expense changed · settlement checkpoint may need updating</div>`:'';
-      pageBox.innerHTML=`<div class="expense-dashboard-v33 identity-dashboard"><div class="expense-total-card"><span>Trip Total</span><strong>${FORMATTER.decimal(total,2)} ${home}</strong><div class="expense-original-totals">${originalHtml}</div>${pendingFx||'<small>Original currencies retained · settlement shown in '+home+'</small>'}</div><div class="expense-focus-grid"><div class="expense-focus-card"><h3>Personal Spend</h3>${spendHtml}</div><div class="expense-focus-card"><h3>Current Balance</h3>${checkpointLine}${balanceHtml}</div></div>${reviewWarning}</div><div class="expense-history-block"><h3>Transaction History</h3><p class="timestamp">Newest transactions appear first.</p><div class="transaction-scroll">${sorted.length?sorted.map(expenseCard).join(''):'<p>No transactions yet.</p>'}</div></div>`;
+      const visibleExpenses=expenseHistoryExpanded?sorted:sorted.slice(0,5);
+      const historyToggle=sorted.length>5?`<div class="history-toggle-row"><button class="mini-btn" type="button" onclick="toggleExpenseHistory()">${expenseHistoryExpanded?'Show less':'Show more'}</button><p class="timestamp">Showing ${visibleExpenses.length} of ${sorted.length}</p></div>`:'';
+      pageBox.innerHTML=`<div class="expense-dashboard-v33 identity-dashboard"><div class="expense-total-card"><button class="mini-btn settlement-checkpoint-action expense-total-settle" onclick="createSettlementCheckpoint()" type="button">✓ Settle</button><span>Trip Total</span><strong>${FORMATTER.decimal(total,2)} ${home}</strong><div class="expense-original-totals">${originalHtml}</div>${pendingFx||'<small>Original currencies retained · settlement shown in '+home+'</small>'}</div><div class="expense-focus-grid"><div class="expense-focus-card"><h3>Personal Spend</h3>${spendHtml}</div><div class="expense-focus-card"><h3>Current Balance</h3>${checkpointLine}${balanceHtml}</div></div>${reviewWarning}</div><div class="expense-history-block"><h3>Transaction History</h3><p class="timestamp">Newest transactions appear first.</p><div class="transaction-scroll">${visibleExpenses.length?visibleExpenses.map(expenseCard).join(''):'<p>No transactions yet.</p>'}</div>${historyToggle}</div>`;
       if(preserveHistoryScroll){
         const nextHistory=pageBox.querySelector('.transaction-scroll');
         if(nextHistory) nextHistory.scrollTop=Math.min(previousHistoryScrollTop,Math.max(0,nextHistory.scrollHeight-nextHistory.clientHeight));

@@ -406,5 +406,9 @@
   "test-vn-route-first-spa-contract.js": {
     "status": "active",
     "note": "D4 route-first spa, factual corrections and exact Timeline return"
+  },
+  "test-rc29102-history-terminals.js": {
+    "status": "active",
+    "note": "RC29.102 five-item history paging, Trip Total Settle placement, plain transaction participant names, and T2 flight terminal context"
   }
 }

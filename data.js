@@ -2300,7 +2300,7 @@ const TRIP_DATA={
   },
   "flights": {
     "title": "✈️ Flights",
-    "body": "<div class='fact-grid trip-facts-compact'><div class='fact'><strong>Outbound · Fri 30 Oct</strong>VietJet VJ082<br>MEL 01:30 → SGN 05:55<br>7kg carry-on · 20kg checked</div><div class='fact'><strong>Return · Tue 3 Nov</strong>Vietnam Airlines VN781<br>SGN 21:10 → MEL 09:25 +1<br>7kg carry-on · 20kg checked</div></div>"
+    "body": "<div class='fact-grid trip-facts-compact'><div class='fact'><strong>Outbound · Fri 30 Oct</strong>VietJet VJ082<br>MEL T2 01:30 → SGN T2 05:55<br>7kg carry-on · 20kg checked</div><div class='fact'><strong>Return · Tue 3 Nov</strong>Vietnam Airlines VN781<br>SGN T2 21:10 → MEL T2 09:25 +1<br>7kg carry-on · 20kg checked</div></div>"
   },
   "stay": {
     "title": "🏨 Stay",
@@ -2337,7 +2337,7 @@ const ITINERARY_DATA={
         "time": "05:55",
         "title": "🛬 Arrive Ho Chi Minh City",
         "details": [
-          "抵達 SGN，預留 immigration、行李及接送集合時間"
+          "抵達 SGN Terminal 2，預留 immigration、行李及接送集合時間"
         ],
         "route": "🚐 To next stop：出關後乘已預訂 Klook Private Transfer → Fusion Original。",
         "map": "https://www.google.com/maps/search/?api=1&query=Tan%20Son%20Nhat%20International%20Airport",
@@ -2981,7 +2981,7 @@ const ITINERARY_DATA={
         "time": "18:00–21:10",
         "title": "✈️ Check-in / Duty Free / Boarding",
         "details": [
-          "預留 3 小時 check-in、過關、登機"
+          "SGN Terminal 2 · 預留 3 小時 check-in、過關、登機"
         ],
         "route": "",
         "map": "",

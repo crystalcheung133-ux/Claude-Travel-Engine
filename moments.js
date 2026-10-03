@@ -421,9 +421,9 @@
     window.MOMENT_SYNC?.queueSync();
     renderMoments();
   };
-  let momentsVisibleCount=10;
-  window.showMoreMoments=function(){momentsVisibleCount+=10;renderMoments();};
-  window.showLatestMoments=function(){momentsVisibleCount=10;renderMoments();window.scrollTo({top:0,behavior:'smooth'});};
+  let momentsVisibleCount=5;
+  window.showMoreMoments=function(){momentsVisibleCount=Number.MAX_SAFE_INTEGER;renderMoments();};
+  window.showLatestMoments=function(){momentsVisibleCount=5;renderMoments();};
   window.renderMoments = function(){
     const box=document.getElementById('momentsTimeline'); if(!box) return;
     let arr=readJson(STORAGE_CONFIG.keys.momentsList,[]);
@@ -449,7 +449,7 @@
       <p class="moment-stars">${'⭐'.repeat(e.rating||0)}</p>
       <p class="moment-copy">${escapeHTML(e.text||'')}</p>
       ${canManageMoment(e)?`<div class="entry-actions"><button class="mini-btn" onclick="editMoment('${e.id||e.itemKey}')">✏️ Edit</button><button class="mini-btn" onclick="deleteMoment('${e.id||e.itemKey}')">🗑 Delete</button></div>`:`<p class="timestamp entry-owner-note">Added by ${escapeHTML(e.friendLabel||momentOwner(e)||'Traveller')} · View only</p>`}
-    </div>`).join('')+(arr.length>visible.length?`<div class="moments-load-more"><button class="btn" type="button" onclick="showMoreMoments()">Load 10 more</button><p class="timestamp">Showing ${visible.length} of ${arr.length}</p></div>`:(arr.length>10?`<div class="moments-load-more"><button class="mini-btn" type="button" onclick="showLatestMoments()">↑ Latest</button><p class="timestamp">Showing all ${arr.length}</p></div>`:''));
+    </div>`).join('')+(arr.length>visible.length?`<div class="moments-load-more"><button class="btn" type="button" onclick="showMoreMoments()">Show more</button><p class="timestamp">Showing ${visible.length} of ${arr.length}</p></div>`:(arr.length>5?`<div class="moments-load-more"><button class="mini-btn" type="button" onclick="showLatestMoments()">Show less</button><p class="timestamp">Showing all ${arr.length}</p></div>`:''));
   };
   /* Stage 4C-6: removed legacy v3.2 window.saveExpense; canonical handler is later in this file. */
 

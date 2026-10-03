@@ -42,6 +42,7 @@ run "VN MULTIPLE PAYERS" node ci-tests/test-vn-multiple-payers.js
 run "VN BACKLOG CLOSEOUT" node ci-tests/test-vn-backlog-closeout.js
 run "RC29.97 EXPENSE AUTHORITY + FX REALISM" node ci-tests/test-rc2997-expense-authority.js
 run "RC29.101 EXPENSE SCROLL + BALANCE + ACTIONS" node ci-tests/test-rc29101-expense-scroll-balance-actions.js
+run "RC29.102 HISTORY + TERMINALS" node ci-tests/test-rc29102-history-terminals.js
 [ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
 run "RC29.77 LIVE FX SAVE" node ci-tests/test-rc2977-live-fx-save.js
 echo "MASTER CI SUITE PASSED"

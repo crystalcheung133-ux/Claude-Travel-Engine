@@ -3342,3 +3342,6 @@ body.expenses-page .expense-history-block .transaction-scroll{max-height:none!im
 #payerContributionStatus{grid-column:1/-1;margin:2px 2px 0!important;}
 #payerContributionStatus.complete{color:#2f6f46!important;font-weight:850!important;}
 @media(max-width:520px){.expenses-page .page-action-row .settlement-checkpoint-action{width:auto!important;flex:0 0 auto!important;}.expenses-page .page-action-row .primary-action{width:auto!important;flex:1 1 auto!important;}}
+
+/* RC29.102 compact history controls */
+.expenses-page .expense-total-settle{position:absolute!important;top:12px;right:12px;z-index:3!important;min-height:30px!important;padding:4px 9px!important;font-size:11px!important}.history-toggle-row,.moments-load-more{display:flex;align-items:center;justify-content:center;gap:10px;margin:12px 0 2px}.history-toggle-row .timestamp,.moments-load-more .timestamp{margin:0!important}.expenses-page .expense-total-card>span{padding-right:68px}
