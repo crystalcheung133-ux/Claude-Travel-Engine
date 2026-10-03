@@ -3306,3 +3306,20 @@ body.expenses-page{background:var(--theme-background,#f7f0e6)!important;backgrou
 /* RC29.97 — Daypart labels own a wider rail; prevent time/title overlap. */
 @media(max-width:760px){.timeline-item{grid-template-columns:92px minmax(0,1fr)!important;column-gap:10px!important}.timeline-time{width:92px!important;max-width:92px!important;overflow:hidden!important;overflow-wrap:anywhere!important;word-break:normal!important;white-space:normal!important}.timeline-main{min-width:0!important;overflow:hidden!important}}
 .expense-total-field input.derived-total{background:rgba(49,95,78,.06)!important;font-weight:800}.expense-total-field input.derived-total+button{opacity:.45;pointer-events:none}
+
+/* RC29.98 — compact Multiple Payers mobile UI; no developer/explanatory copy. */
+#expenseModal #sharedPaidByBlock{align-items:start!important}
+#expenseModal #sharedPaidByBlock .check-row{min-height:40px!important;padding:7px 9px!important;margin:6px 0 0!important;border-radius:11px!important;font-size:13px!important;line-height:1.1!important;font-weight:800!important}
+#expenseModal #sharedPaidByBlock .check-row input{width:17px!important;height:17px!important}
+#expenseModal #payerContributionsPanel{gap:6px!important;padding:9px!important;margin-top:6px!important}
+#expenseModal #payerContributionsPanel .custom-split-row{grid-template-columns:92px minmax(0,1fr)!important;gap:8px!important;align-items:center!important;margin:0!important}
+#expenseModal #payerContributionsPanel .custom-split-row>span{width:auto!important;max-width:none!important;font-size:13px!important;line-height:1.15!important;font-weight:800!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+#expenseModal #payerContributionsPanel .custom-split-row>input{box-sizing:border-box!important;width:100%!important;min-width:0!important;height:40px!important;min-height:40px!important;margin:0!important;padding:7px 10px!important;border-radius:11px!important;font-size:15px!important;line-height:1!important;font-weight:750!important;text-align:right!important;font-variant-numeric:tabular-nums!important}
+@media(max-width:520px){
+  #expenseModal .shared-compact-row{grid-template-columns:1fr!important;gap:7px!important;align-items:start!important}
+  #expenseModal .shared-compact-row .compact-expense-control{display:block!important;width:100%!important;min-width:0!important}
+  #expenseModal #payerContributionsPanel .custom-split-row{grid-template-columns:88px minmax(0,1fr)!important;gap:7px!important;align-items:center!important}
+  #expenseModal #payerContributionsPanel .custom-split-row>span{font-size:13px!important}
+  #expenseModal #payerContributionsPanel .custom-split-row>input{height:40px!important;min-height:40px!important;font-size:15px!important}
+  #expenseModal .split-picker-wrap{margin-top:2px!important}
+}

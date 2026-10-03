@@ -7,6 +7,7 @@ ok(e.includes('fxReferenceRate:'), 'reference FX not preserved');
 ok(e.includes('fxAdjustment:'), 'FX adjustment not preserved');
 ok(e.includes('function syncMultiplePayerTotal()'), 'multiple payer auto-total missing');
 ok(e.includes("totalInput.readOnly=!!toggle.checked"), 'derived total must be readonly in multiple-payer mode');
-ok(e.includes('Total is calculated automatically.'), 'multiple payer UX copy missing');
+ok(!e.includes('Total is calculated automatically.')&&!e.includes('Enter what each person paid.'), 'developer/explanatory multiple-payer copy must stay out of user UI');
+ok(css.includes('RC29.98 — compact Multiple Payers mobile UI'), 'compact multiple-payer mobile UI guard missing');
 ok(css.includes('grid-template-columns:92px minmax(0,1fr)'), 'mobile daypart rail collision guard missing');
 console.log('RC29.97 expense authority PASS');

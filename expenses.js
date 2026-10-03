@@ -295,7 +295,7 @@ let editingExpenseIndex=null;
     panel.hidden=!toggle.checked;
     if(!toggle.checked){panel.innerHTML='';syncMultiplePayerTotal();return;}
     const existing=seed||{};
-    panel.innerHTML='<p class="timestamp">Enter what each person paid. Total is calculated automatically.</p>'+FRIEND_ORDER.map(k=>`<label class="custom-split-row"><span>${identityFor(k,true)}</span><input id="payerContribution_${k}" data-payer-contribution="${escapeHTML(k)}" inputmode="decimal" value="${escapeHTML(existing[k]??'')}" placeholder="0.00" oninput="syncMultiplePayerTotal()"></label>`).join('');
+    panel.innerHTML=FRIEND_ORDER.map(k=>`<label class="custom-split-row"><span>${identityFor(k,true)}</span><input id="payerContribution_${k}" data-payer-contribution="${escapeHTML(k)}" inputmode="decimal" value="${escapeHTML(existing[k]??'')}" placeholder="0.00" oninput="syncMultiplePayerTotal()"></label>`).join('');
     syncMultiplePayerTotal();
   };
   window.syncMultiplePayerTotal=syncMultiplePayerTotal;
