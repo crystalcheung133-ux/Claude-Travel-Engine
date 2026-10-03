@@ -20,7 +20,7 @@ assert(ex.includes('FINAL SETTLEMENT'),'Share PDF must show final settlement');
 assert(ex.includes("e.type==='settlement_checkpoint'"),'Share summary must understand Settle to here checkpoints');
 assert(ex.includes("String(e.createdAt||'')>through"),'Final settlement must exclude settled history');
 assert(ex.includes('<strong>${escapeHtml(e.item||\'Expense\')}</strong>'),'Transaction title must be bold');
-assert(ex.includes('Paid by <strong>${escapeHtml(expenseNameFor(e.paidBy))}</strong>'),'Paid-by person must be bold');
+assert(ex.includes('Paid by <strong>${escapeHtml(expensePayerLabel(e))}</strong>'),'Paid-by person(s) must be bold');
 assert(ex.includes('Share PDF')&&ex.includes('Share Excel'),'Share Summary must offer PDF and Excel');
 
 console.log('RC29.93 expense entry + share summary regression PASS');

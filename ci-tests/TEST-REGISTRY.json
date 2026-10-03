@@ -91,6 +91,10 @@
     "status": "active",
     "note": "Timeline / Booking / Guide / Shopping Directory must agree on canonical day ownership after itinerary moves"
   },
+  "test-custom-activity-nonplace-lifecycle.js": {
+    "status": "active",
+    "note": "Field-proven Brewda legacy custom activity normalization + new Add Activity non-place contract"
+  },
   "test-day2-vincom-shopping-contract.js": {
     "status": "active",
     "note": "Day 2 Vincom shopping + planned/optional directory reconciliation"
@@ -137,7 +141,7 @@
   },
   "test-guide-booking-return-contract.js": {
     "status": "active",
-    "note": "origin-aware Guide\u2192Booking close: Timeline origin returns directly to Timeline"
+    "note": "origin-aware Guide→Booking close: Timeline origin returns directly to Timeline"
   },
   "test-guide-menu-alignment.js": {
     "status": "active",
@@ -169,7 +173,7 @@
   },
   "test-multiday-booking-guide-routing.js": {
     "status": "active",
-    "principle": "One canonical booking can span multiple itinerary days; Guide\u2192Booking dispatch must preserve booking category"
+    "principle": "One canonical booking can span multiple itinerary days; Guide→Booking dispatch must preserve booking category"
   },
   "test-open-day-and-arrival-flow.js": {
     "status": "active",
@@ -209,7 +213,7 @@
   },
   "test-rc2967-documents-parity-ux.js": {
     "status": "active",
-    "purpose": "NZ Documents category/ownership/viewer parity plus cascading Day \u2192 Event timeline selector"
+    "purpose": "NZ Documents category/ownership/viewer parity plus cascading Day → Event timeline selector"
   },
   "test-rc2968-ui-docs-browser-contract.js": {
     "status": "active",
@@ -265,7 +269,7 @@
   },
   "test-rc2987-day4-quan-thuy-nondestructive.js": {
     "status": "active",
-    "note": "RC29.87 additive D4 Qu\u00e1n Thu\u00fd restore preserves RC29.86 user Timeline edits and Guide authority"
+    "note": "RC29.87 additive D4 Quán Thuý restore preserves RC29.86 user Timeline edits and Guide authority"
   },
   "test-rc2989-browser-fx-isolation.js": {
     "status": "active",
@@ -359,6 +363,10 @@
     "status": "active",
     "note": "invoked by current Master CI suite"
   },
+  "test-vn-backlog-closeout.js": {
+    "status": "active",
+    "note": "VN requested backlog regression: booking time/cashback, consolidated export, Moments paging/lazy, daypart display"
+  },
   "test-vn-content-contract.js": {
     "status": "active",
     "note": "current VN trip content identity contract"
@@ -374,6 +382,10 @@
   "test-vn-itinerary-content-contract.js": {
     "status": "active",
     "note": "current VN itinerary/content truth"
+  },
+  "test-vn-multiple-payers.js": {
+    "status": "active",
+    "note": "VN shared expense multiple payer data/accounting/export contract"
   },
   "test-vn-reference-integration.js": {
     "status": "active",

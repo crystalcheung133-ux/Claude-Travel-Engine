@@ -1,6 +1,6 @@
 Saigon Companion Production File Manifest
-Generated: 2026-10-02
-Base: VN Companion RC29.93 · Travel Engine 25.7.2 Expense Share Summary Root Candidate
+Generated: 2026-10-03
+Base: VN Companion RC29.96 · Travel Engine 25.7.3 Reliability + UX Candidate
 Reference trip: Vietnam
 
 Production root files:

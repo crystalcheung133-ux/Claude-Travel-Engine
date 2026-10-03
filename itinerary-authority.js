@@ -53,6 +53,18 @@
   function clone(value){ return value==null?value:JSON.parse(JSON.stringify(value)); }
 
   function emptyStore(){ return {masterRevision:getMasterRevision(),dayChanges:{}}; }
+  function normalizeItems(items){
+    return (Array.isArray(items)?items:[]).map(function(item){
+      const next=clone(item);
+      if(next&&next.type==='custom'&&!String(next.placeId||'').trim()&&next.nonPlace!==true) next.nonPlace=true;
+      return next;
+    });
+  }
+  function normalizeItineraryData(data){
+    const out=clone(data||{});
+    Object.keys(out).forEach(function(day){if(out[day]&&Array.isArray(out[day].items))out[day].items=normalizeItems(out[day].items);});
+    return out;
+  }
 
   /* Accepts any previously-saved shape and returns a store that is guaranteed
      to be {masterRevision, dayChanges:{day:{items:[...]}}} and bound to the
@@ -98,7 +110,7 @@
     const cleanChanges={};
     Object.keys(raw.dayChanges).forEach(function(day){
       const entry=raw.dayChanges[day];
-      if(entry&&Array.isArray(entry.items)) cleanChanges[String(day)]={items:clone(entry.items)};
+      if(entry&&Array.isArray(entry.items)) cleanChanges[String(day)]={items:normalizeItems(entry.items)};
     });
     return {masterRevision:current,dayChanges:cleanChanges};
   }
@@ -135,7 +147,7 @@
       if(!key.startsWith('itineraryDay')) return;
       const change=changes[key];
       if(change&&Array.isArray(change.items)){
-        store.dayChanges[String(change.day)]={items:clone(change.items)};
+        store.dayChanges[String(change.day)]={items:normalizeItems(change.items)};
       }
     });
     store.masterRevision=getMasterRevision();
@@ -161,7 +173,7 @@
     const pending=draft&&draft.changes?draft.changes['itineraryDay'+dayKey]:null;
     if(!pending||!Array.isArray(pending.items)) return null;
     if(pending.masterRevision!==getMasterRevision()) return null;
-    return clone(pending.items);
+    return normalizeItems(pending.items);
   }
 
   /* Removes only the itinerary-related entries of the persisted admin draft
@@ -211,7 +223,7 @@
     if(pending) return hydrateRelationships(pending,masterItems);
     const saved=getDayOverrideItems(dayKey);
     if(saved) return hydrateRelationships(saved,masterItems);
-    return clone(masterItems||[]);
+    return normalizeItems(masterItems||[]);
   }
 
   /* Used by sync-runtime.js to decide whether a cached/fetched Supabase
@@ -231,6 +243,7 @@
     commitDayChanges,
     clearDayOverride,
     pruneStaleDraftItineraryChanges,
-    isCompatibleSnapshotPayload
+    isCompatibleSnapshotPayload,
+    normalizeItems,normalizeItineraryData
   });
 })(globalThis);

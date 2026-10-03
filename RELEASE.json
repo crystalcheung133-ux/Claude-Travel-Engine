@@ -1,6 +1,6 @@
 {
-  "engine_version": "25.7.2",
-  "artifact_version": "VN Companion RC29.93 · Travel Engine 25.7.2 Expense Share Summary Root Candidate",
+  "engine_version": "25.7.3",
+  "artifact_version": "VN Companion RC29.96 · Travel Engine 25.7.3 Reliability + UX Candidate",
   "baseline_engine": "25.5.2",
   "release_date": "2026-09-22",
   "release_type": "expense-share-summary-candidate",
@@ -71,8 +71,8 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc2993-2572",
-  "release_status": "RC29.93 CANDIDATE — Expense Share Summary",
+  "asset_cache_token": "rc2996-2573",
+  "release_status": "RC29.96 CANDIDATE — Reliability + UX",
   "changes": [
     "Integrated documents-runtime.js and documents-folder-ui.js as Engine 25.7.2 shared modules.",
     "Added VN Documents page and navigation entry.",

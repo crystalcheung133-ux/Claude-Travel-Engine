@@ -272,6 +272,24 @@ let editingExpenseIndex=null;
   }
   window.refreshExpenseAdminUI=setExportVisibility;
   document.addEventListener('travelengine:adminmodechange',setExportVisibility);
+  function payerContributionsForExpense(e){
+    if(e&&e.payerContributions&&typeof e.payerContributions==='object'&&Object.keys(e.payerContributions).length)return e.payerContributions;
+    return e&&e.paidBy?{[e.paidBy]:MONEY.normalizeAmount(e.total)}:{};
+  }
+  window.renderPayerContributions=function(seed){
+    const toggle=document.getElementById('expenseMultiplePayers'),panel=document.getElementById('payerContributionsPanel');if(!toggle||!panel)return;
+    panel.hidden=!toggle.checked;if(!toggle.checked){panel.innerHTML='';return;}
+    const existing=seed||{};
+    panel.innerHTML='<p class="timestamp">Enter how much each person actually paid.</p>'+FRIEND_ORDER.map(k=>`<label class="custom-split-row"><span>${identityFor(k,true)}</span><input id="payerContribution_${k}" data-payer-contribution="${escapeHTML(k)}" inputmode="decimal" value="${escapeHTML(existing[k]??'')}" placeholder="0.00"></label>`).join('');
+  };
+  function payerContributionsForSave(total,paidBy){
+    const toggle=document.getElementById('expenseMultiplePayers');if(!toggle?.checked)return {ok:true,value:null};
+    const value={};let sum=0;
+    document.querySelectorAll('#payerContributionsPanel input[data-payer-contribution]').forEach(input=>{const amount=MONEY.normalizeAmount(input.value);if(amount>0){value[input.dataset.payerContribution]=amount;sum+=amount;}});
+    if(Object.keys(value).length<2)return {ok:false,message:'Choose at least two payers and enter what each person paid.'};
+    if(!MONEY.amountsMatch(sum,total))return {ok:false,message:'Multiple payer amounts must equal the total.'};
+    return {ok:true,value};
+  }
   function splitSharesForExpense(e){
     const amount=MONEY.normalizeAmount(e.total);
     if(e.type==='personal'){
@@ -313,8 +331,8 @@ let editingExpenseIndex=null;
       const amount=homeAmountFor(e,fallbackRate);
       if(amount===null){unconverted++;return;}
       totalHome+=amount;
-      if(!(e.paidBy in balance)) balance[e.paidBy]=0;
-      balance[e.paidBy]+=amount;
+      const payerParts=payerContributionsForExpense(e);const rawTotal=MONEY.normalizeAmount(e.total)||1;
+      Object.entries(payerParts).forEach(([partyId,paid])=>{if(!(partyId in balance))balance[partyId]=0;balance[partyId]+=amount*(MONEY.normalizeAmount(paid)/rawTotal);});
       const shares=homeSharesFor(e,fallbackRate);
       Object.entries(shares).forEach(([partyId,share])=>{
         if(!(partyId in personalSpend)) personalSpend[partyId]=0;
@@ -658,6 +676,7 @@ let editingExpenseIndex=null;
     syncExpenseAmountCurrencyLabel();
     updateExpenseFxHelper();
     setSelectValue('expensePaidBy',user);
+    const multiplePayers=document.getElementById('expenseMultiplePayers');if(multiplePayers)multiplePayers.checked=false;window.renderPayerContributions();
     setSelectValue('expensePersonalPaidBy',user);
     const personal=document.getElementById('expensePersonal'); if(personal) personal.checked=false;
     const consumed=document.getElementById('expenseConsumedBy');
@@ -688,7 +707,7 @@ let editingExpenseIndex=null;
     const homeTotal=homeAmountFor(e);
     const equivalent=code!==home&&homeTotal!==null?`<p class="expense-home-equivalent">≈ ${FORMATTER.decimal(homeTotal,2)} ${home} for settlement</p>`:'';
     const source=e.sourceType==='booking'&&e.sourceBookingId?`<p class="expense-booking-source">🏨 From booking · <button type="button" class="expense-booking-inline-link" onclick="openExpenseSourceBooking('${escapeHTML(e.sourceBookingId)}')">${escapeHTML(e.sourceBookingTitle||'View booking')}</button></p>`:'';
-    return `<div class="expense-card"${cardId}${latestMarker}><strong>${escapeHTML(e.item||'')}</strong><p class="timestamp">${timeLabel(e.createdAt)}${e.editedAt?` · Edited ${timeLabel(e.editedAt)}`:''}</p><p>${FORMATTER.number(MONEY.normalizeAmount(e.total))} ${code} · Paid by ${identityFor(e.paidBy,true)}</p>${equivalent}<p>${personal?'Personal Expense':'Shared Expense'} · ${who}</p>${source}${actions}</div>`;
+    return `<div class="expense-card"${cardId}${latestMarker}><strong>${escapeHTML(e.item||'')}</strong><p class="timestamp">${timeLabel(e.createdAt)}${e.editedAt?` · Edited ${timeLabel(e.editedAt)}`:''}</p><p>${FORMATTER.number(MONEY.normalizeAmount(e.total))} ${code} · Paid by ${Object.keys(payerContributionsForExpense(e)).map(k=>identityFor(k,true)).join('<span class="identity-separator">+</span>')}</p>${equivalent}<p>${personal?'Personal Expense':'Shared Expense'} · ${who}</p>${source}${actions}</div>`;
   }
   let expensePageScrollY=0;
   function lockExpensePage(){
@@ -772,6 +791,8 @@ let editingExpenseIndex=null;
     const consumedBy=document.getElementById('expenseConsumedBy')?.value||paidBy;
 
     if(!total)return fail('Please enter the amount.');
+    const payerResult=personal?{ok:true,value:null}:payerContributionsForSave(total,paidBy);if(!payerResult.ok)return fail(payerResult.message);
+    const payerContributions=payerResult.value;
     if(!personal&&!split.length)return fail('Please choose who to split with.');
 
     let shares=null;
@@ -803,7 +824,7 @@ let editingExpenseIndex=null;
       const source=operationIndex!==null&&arr[operationIndex]
         ? {sourceType:arr[operationIndex].sourceType||null,sourceBookingId:arr[operationIndex].sourceBookingId||null,sourceBookingTitle:arr[operationIndex].sourceBookingTitle||null,sourceBookingType:arr[operationIndex].sourceBookingType||null}
         : (pendingExpenseSource||{});
-      const data={item,details,category,total,currency,homeCurrency,homeTotal,fxRate:currency===homeCurrency?1:fxRate,fxRateDate:currency===homeCurrency?'':String(fxRecord?.date||''),fxRateSource:currency===homeCurrency?'native':String(fxRecord?.source||'cached'),paidBy,type:personal?'personal':'shared',split:personal?[consumedBy]:split,splitMode,shares:personal?null:shares,consumedBy:personal?consumedBy:null,createdAt:now,updatedAt:now,createdBy:currentUser(),editedBy:currentUser(),...source};
+      const data={item,details,category,total,currency,homeCurrency,homeTotal,fxRate:currency===homeCurrency?1:fxRate,fxRateDate:currency===homeCurrency?'':String(fxRecord?.date||''),fxRateSource:currency===homeCurrency?'native':String(fxRecord?.source||'cached'),paidBy,payerContributions:personal?null:payerContributions,type:personal?'personal':'shared',split:personal?[consumedBy]:split,splitMode,shares:personal?null:shares,consumedBy:personal?consumedBy:null,createdAt:now,updatedAt:now,createdBy:currentUser(),editedBy:currentUser(),...source};
 
       if(operation==='update'&&operationIndex!==null&&arr[operationIndex]){
         data.id=arr[operationIndex].id;
@@ -983,6 +1004,7 @@ let editingExpenseIndex=null;
     syncExpenseAmountCurrencyLabel();
     updateExpenseFxHelper();
     setSelectValue('expensePaidBy',e.paidBy||currentUser());
+    const multiplePayers=document.getElementById('expenseMultiplePayers');if(multiplePayers)multiplePayers.checked=!!(e.payerContributions&&Object.keys(e.payerContributions).length>1);window.renderPayerContributions(e.payerContributions||{});
     setSelectValue('expensePersonalPaidBy',e.paidBy||currentUser());
     const personal=(e.type==='personal');
     const personalBox=document.getElementById('expensePersonal'); if(personalBox) personalBox.checked=personal;

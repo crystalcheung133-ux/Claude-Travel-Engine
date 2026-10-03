@@ -37,17 +37,18 @@ run "RC29.80 GUIDE / SHARED PLACE OWNERSHIP" node ci-tests/test-rc2980-guide-pla
 run "RC29.80 TIMELINE RELATIONSHIP HYDRATION" node ci-tests/test-rc2980-timeline-relationship-hydration.js
 run "RC29.85 GUIDE OWNERSHIP + MODAL FOREGROUND" node ci-tests/test-rc2985-guide-ownership-foreground.js .
 run "RC29.86 GUIDE LANGUAGE + SHOPPING + BIDIRECTIONAL FOREGROUND" node ci-tests/test-rc2986-guide-language-shopping-bidirectional.js .
+run "CUSTOM ACTIVITY NONPLACE LIFECYCLE" node ci-tests/test-custom-activity-nonplace-lifecycle.js
+run "VN MULTIPLE PAYERS" node ci-tests/test-vn-multiple-payers.js
+run "VN BACKLOG CLOSEOUT" node ci-tests/test-vn-backlog-closeout.js
 [ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
 run "RC29.77 LIVE FX SAVE" node ci-tests/test-rc2977-live-fx-save.js
 echo "MASTER CI SUITE PASSED"
 
 
-node ci-tests/test-rc2966-shared-documents.js
-
-node ci-tests/test-rc2967-documents-parity-ux.js
-node ci-tests/test-rc2968-ui-docs-browser-contract.js
-node ci-tests/test-rc2974-guide-sync-derived-next-stop.js
-
-node ci-tests/test-rc2974-vn-location-compact-timeline.js
-
-node ci-tests/test-rc2987-day4-quan-thuy-nondestructive.js
+run "RC29.69 SHARED DOCUMENTS" node ci-tests/test-rc2966-shared-documents.js
+run "RC29.69 DOCUMENTS PARITY" node ci-tests/test-rc2967-documents-parity-ux.js
+run "RC29.69 UI + DOCUMENTS BROWSER" node ci-tests/test-rc2968-ui-docs-browser-contract.js
+run "RC29.75 GUIDE SYNC + NEXT STOP" node ci-tests/test-rc2974-guide-sync-derived-next-stop.js
+run "RC29.75 VN LOCATION + COMPACT TIMELINE" node ci-tests/test-rc2974-vn-location-compact-timeline.js
+run "RC29.89 DAY4 QUAN THUY" node ci-tests/test-rc2987-day4-quan-thuy-nondestructive.js
+[ "$failed" -eq 0 ] || { echo "POST-MASTER LEGACY SUITE FAILED"; exit 1; }

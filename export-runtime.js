@@ -122,6 +122,11 @@
     try{const rate=MONEY.readCachedRate()?.rate;if(rate>0)return MONEY.convert(total,rate);}catch(_){}
     return 0;
   }
+  function expensePayerContributions(e){
+    if(e&&e.payerContributions&&typeof e.payerContributions==='object'&&Object.keys(e.payerContributions).length)return e.payerContributions;
+    return e&&e.paidBy?{[e.paidBy]:Number(e.total||0)}:{};
+  }
+  function expensePayerLabel(e){return Object.keys(expensePayerContributions(e)).map(expenseNameFor).join(' + ');}
   function originalShares(e){
     const total=Number(e.total||0);
     if(e.type==='personal'){const who=e.consumedBy||((e.split||[])[0])||e.paidBy;return {[who]:total};}
@@ -140,8 +145,8 @@
     let total=0;
     arr.forEach(e=>{
       const amount=homeAmount(e);total+=amount;
-      if(!(e.paidBy in paid)){paid[e.paidBy]=0;spend[e.paidBy]=0;balance[e.paidBy]=0;}
-      paid[e.paidBy]+=amount;balance[e.paidBy]+=amount;
+      const payerParts=expensePayerContributions(e),rawTotal=Number(e.total||0)||1;
+      Object.entries(payerParts).forEach(([k,v])=>{if(!(k in paid)){paid[k]=0;spend[k]=0;balance[k]=0;}const homePaid=amount*(Number(v||0)/rawTotal);paid[k]+=homePaid;balance[k]+=homePaid;});
       Object.entries(homeShares(e)).forEach(([k,v])=>{if(!(k in spend)){spend[k]=0;paid[k]=0;balance[k]=0;}spend[k]+=Number(v||0);balance[k]-=Number(v||0);});
     });
     return {order,arr,paid,spend,balance,total};
@@ -183,7 +188,7 @@
     const settlementRows=settlements.length?settlements.map(x=>`<div class="settlement-row"><strong>${escapeHtml(expenseNameFor(x.from))} → ${escapeHtml(expenseNameFor(x.to))} · ${escapeHtml(money(x.amount))}</strong></div>`).join(''):'<div class="settlement-row"><strong>Everyone is settled.</strong></div>';
     function tx(e,status){
       const home=homeAmount(e),dual=expenseCurrency(e)!==homeCurrency()?`${originalMoney(e)} ≈ ${money(home)}`:money(home);
-      return `<article class="tx"><div class="tx-top"><span>${escapeHtml(expenseDate(e))}</span><span class="status">${status}</span></div><h3><strong>${escapeHtml(e.item||'Expense')}</strong></h3><div class="amount">${escapeHtml(dual)}</div><div class="meta"><div>💳 Paid by <strong>${escapeHtml(expenseNameFor(e.paidBy))}</strong></div><div>👥 Split: ${escapeHtml(splitDescription(e))}</div><div>✍️ Entered by: ${escapeHtml(expenseNameFor(e.createdBy||e.enteredBy||e.paidBy))}</div></div></article>`;
+      return `<article class="tx"><div class="tx-top"><span>${escapeHtml(expenseDate(e))}</span><span class="status">${status}</span></div><h3><strong>${escapeHtml(e.item||'Expense')}</strong></h3><div class="amount">${escapeHtml(dual)}</div><div class="meta"><div>💳 Paid by <strong>${escapeHtml(expensePayerLabel(e))}</strong></div><div>👥 Split: ${escapeHtml(splitDescription(e))}</div><div>✍️ Entered by: ${escapeHtml(expenseNameFor(e.createdBy||e.enteredBy||e.paidBy))}</div></div></article>`;
     }
     const currentTx=model.current.slice().sort((a,b)=>String(a.createdAt||'').localeCompare(String(b.createdAt||''))).map(e=>tx(e,'CURRENT')).join('');
     const settledTx=model.settled.slice().sort((a,b)=>String(a.createdAt||'').localeCompare(String(b.createdAt||''))).map(e=>tx(e,'SETTLED')).join('');
@@ -209,7 +214,7 @@
     (settlements.length?settlements:[{from:'Everyone',to:'Settled',amount:0}]).forEach(x=>rows.push(row([expenseNameFor(x.from),expenseNameFor(x.to),x.amount,homeCurrency()])));
     rows.push(row([]),row(['TRANSACTION HISTORY']),row(['Status','Date','Title','Original Amount','Currency','Home Amount',homeCurrency(),'Paid By','Split','Entered By']));
     const through=model.checkpoint?String(model.checkpoint.settledThroughAt||model.checkpoint.createdAt||''):'';
-    model.all.slice().sort((a,b)=>String(a.createdAt||'').localeCompare(String(b.createdAt||''))).forEach(e=>rows.push(row([model.checkpoint&&String(e.createdAt||'')<=through?'SETTLED':'CURRENT',expenseDate(e),e.item||'Expense',Number(e.total||0),expenseCurrency(e),homeAmount(e),homeCurrency(),expenseNameFor(e.paidBy),splitDescription(e),expenseNameFor(e.createdBy||e.enteredBy||e.paidBy)])));
+    model.all.slice().sort((a,b)=>String(a.createdAt||'').localeCompare(String(b.createdAt||''))).forEach(e=>rows.push(row([model.checkpoint&&String(e.createdAt||'')<=through?'SETTLED':'CURRENT',expenseDate(e),e.item||'Expense',Number(e.total||0),expenseCurrency(e),homeAmount(e),homeCurrency(),expensePayerLabel(e),splitDescription(e),expenseNameFor(e.createdBy||e.enteredBy||e.paidBy)])));
     return `<?xml version="1.0"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"><Worksheet ss:Name="Expense Summary"><Table>${rows.join('')}</Table></Worksheet></Workbook>`;
   }
   function ensureHtml2Pdf(){
