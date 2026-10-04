@@ -55,7 +55,6 @@ const PLACES={
     "categoryLabel": "☕ Cafe",
     "price": "$–$$",
     "transport": "Grab / walk depending on current route",
-    "audit": "Needs branch/address check",
     "highlights": [
       "多款法式甜點與千層 croissant",
       "冷氣座位，適合午后避暑",
@@ -87,8 +86,7 @@ const PLACES={
     ],
     "categoryLabel": "☕ Cafe",
     "price": "$–$$",
-    "transport": "Walk from Fusion when energy allows",
-    "audit": "Building address retained; Day 1 role is now optional / flexible."
+    "transport": "Walk from Fusion when energy allows"
   },
   "cong": {
     "title": "Cộng Cà Phê Tân Định",
@@ -112,7 +110,6 @@ const PLACES={
     "categoryLabel": "☕ Cafe",
     "price": "$–$$",
     "transport": "Grab / walk depending on current route",
-    "audit": "Route-ready; check live hours before visit",
     "highlights": [
       "椰子咖啡／椰子冰沙咖啡",
       "粉紅教堂視角",
@@ -145,7 +142,6 @@ const PLACES={
     "categoryLabel": "☕ Cafe",
     "price": "$–$$",
     "transport": "Grab / walk depending on current route",
-    "audit": "Saigon Centre – Takashimaya Level B2 branch verified; current official hours unconfirmed",
     "highlights": [
       "熱朱古力、朱古力撻、bonbon",
       "越南產地朱古力手信",
@@ -178,7 +174,6 @@ const PLACES={
     "categoryLabel": "☕ Cafe",
     "price": "$–$$",
     "transport": "Grab / walk depending on current route",
-    "audit": "115 Hồ Tùng Mậu branch verified and synchronized",
     "highlights": [
       "越式蛋咖啡",
       "椰子咖啡／冰沙咖啡",
@@ -211,7 +206,6 @@ const PLACES={
     "categoryLabel": "🍽 Restaurant",
     "price": "$$",
     "transport": "Grab / walk depending on current route",
-    "audit": "Needs branch/address check",
     "highlights": [
       "Bánh Xèo 黃金煎餅",
       "椰子炒飯",
@@ -245,7 +239,6 @@ const PLACES={
     "categoryLabel": "🍽 Restaurant",
     "price": "$",
     "transport": "Grab / walk depending on current route",
-    "audit": "Needs branch/address check",
     "highlights": [
       "炭烤豬排碎米飯",
       "魚露、蛋、酸菜配搭",
@@ -279,7 +272,6 @@ const PLACES={
     "categoryLabel": "🍽 Restaurant",
     "price": "$$$",
     "transport": "Grab / walk depending on current route",
-    "audit": "Official address verified; published Sunday schedule is 18:00–22:00",
     "highlights": [
       "Michelin Selected / Young Chef 話題",
       "小型空間，counter/table seating 氣氛親近",
@@ -310,7 +302,6 @@ const PLACES={
     "categoryLabel": "🍽 Restaurant",
     "price": "$$$",
     "transport": "Grab / walk depending on current route",
-    "audit": "Needs branch/address check",
     "highlights": [
       "Michelin Selected 話題餐廳",
       "法式技巧結合越南／亞洲食材",
@@ -333,7 +324,6 @@ const PLACES={
     "categoryLabel": "🍽 Restaurant",
     "price": "$$$",
     "transport": "Grab / walk depending on current route",
-    "audit": "按旅客直接確認保留；已移除過時的暫停營業提示",
     "highlights": ["Penthouse setting with city views", "Small counter for close-up chef interaction", "Seasonal chef-led courses"],
     "tips": ["Mention allergies or strong dislikes before the meal starts.", "Smart casual is sufficient."]
   },
@@ -374,7 +364,6 @@ const PLACES={
     "categoryLabel": "☕ Cafe · Optional",
     "price": "$$",
     "transport": "Walk from Post Office / Book Street; then Grab back to Fusion",
-    "audit": "Address and Friday hours cross-checked July/Aug 2026; takeaway supported",
     "highlights": [
       "精緻法式 pastry，造型感強",
       "適合四個人 share 幾款，不需要當成另一餐",
@@ -407,7 +396,6 @@ const PLACES={
     "categoryLabel": "🍽 Restaurant",
     "price": "$",
     "transport": "Grab / walk depending on current route",
-    "audit": "Route-ready; check live hours before visit",
     "highlights": [
       "石鍋河粉",
       "牛骨湯與牛肉配料",
@@ -440,7 +428,6 @@ const PLACES={
     "categoryLabel": "🍽 Restaurant",
     "price": "$",
     "transport": "Grab / walk depending on current route",
-    "audit": "Needs branch/address check",
     "highlights": [
       "Michelin Selected",
       "Phở thố đá 石鍋河粉",
@@ -477,7 +464,6 @@ const PLACES={
     "categoryLabel": "🍽 Restaurant",
     "price": "$$",
     "transport": "Grab from Trần Quang Diệu · lunch at Hai Bà Trưng · then Grab to Qspa",
-    "audit": "Official branch verified: 151B Hai Bà Trưng, Võ Thị Sáu, District 3.",
     "highlights": [
       "House-made cheese",
       "Burrata / 4-cheese pizza",
@@ -507,7 +493,6 @@ const PLACES={
     "categoryLabel": "🍽 Restaurant",
     "price": "$",
     "transport": "Grab / walk depending on current route",
-    "audit": "Route-ready; check live hours before visit",
     "highlights": [
       "Miến cua 蟹肉粉絲",
       "炸蟹肉春捲",
@@ -540,7 +525,6 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
-    "audit": "Selected Nguyễn Trãi branch and published hours retained.",
     "highlights": [
       "Casual chic 女裝",
       "上班、旅行、日常都易穿",
@@ -573,7 +557,6 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
-    "audit": "Address and daily hours confirmed for the selected 70 Phạm Hồng Thái branch.",
     "highlights": [
       "亞麻／真絲質感",
       "成熟優雅剪裁",
@@ -606,7 +589,6 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
-    "audit": "Selected Phan Chu Trinh branch and published hours retained.",
     "highlights": [
       "Minimal / timeless 女裝",
       "布料質感與剪裁較穩",
@@ -639,7 +621,6 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
-    "audit": "Selected Lý Tự Trọng location and published hours retained.",
     "highlights": [
       "多個越南本地品牌集中",
       "冷氣環境，適合下午避暑",
@@ -672,7 +653,6 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
-    "audit": "Selected Thảo Điền location and daily hours confirmed.",
     "highlights": [
       "庭園式複合空間",
       "DESIGNED BY SISI / lifestyle 選物",
@@ -705,7 +685,6 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
-    "audit": "Selected Thảo Điền store and 10:00–20:00 daily hours confirmed.",
     "highlights": [
       "在地藝術家小物",
       "明信片、香氛、家居手信",
@@ -737,7 +716,6 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
-    "audit": "Selected Thảo Điền showroom address and daily hours confirmed.",
     "highlights": [
       "法式優雅剪裁",
       "亞麻／棉質天然布料",
@@ -769,7 +747,6 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
-    "audit": "Branch corrected to 117B Nguyễn Đình Chính; daily hours supplied and synchronized",
     "highlights": [
       "本地設計師選物",
       "女裝／生活風格小店感",
@@ -801,7 +778,6 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Walk within Trần Quang Diệu cluster",
-    "audit": "Address verified via official Facebook/Instagram store-locator info (64 Trần Quang Diệu branch)",
     "highlights": [
       "日常女裝、連身裙、上班單品",
       "Trần Quang Diệu 街區代表店之一"
@@ -833,7 +809,6 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Walk within Trần Quang Diệu cluster",
-    "audit": "Address verified via multiple independent local business listings (47–49 Trần Quang Diệu branch)",
     "highlights": [
       "年輕俐落女裝",
       "本地連鎖品牌，多分店",
@@ -866,7 +841,6 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Walk within Trần Quang Diệu cluster",
-    "audit": "Address verified via official Facebook page (27 Trần Quang Diệu)",
     "highlights": [
       "少女甜美風格單品",
       "小型精品店感",
@@ -877,12 +851,44 @@ const PLACES={
       "出發前查 Facebook 專頁確認營業狀態。"
     ]
   },
+  "complex-0123": {
+    "title": "0123 Complex",
+    "emoji": "🏘",
+    "cat": "SHOP",
+    "sub": "Day 4 · Thảo Điền Creative Complex",
+    "shoppingRoute": "Day 4 · Thảo Điền walk",
+    "hours": "Check same-day listings",
+    "maps": "https://www.google.com/maps/search/?api=1&query=0123%20Complex%2015%20Nguyen%20Duy%20Hieu%20Thao%20Dien%20Ho%20Chi%20Minh%20City",
+    "address": "15 Nguyễn Duy Hiệu, An Khánh (Thảo Điền), Hồ Chí Minh, Vietnam",
+    "desc": "2026 新開的 Thảo Điền creative / retail complex；independent fashion、lifestyle、café 與展覽活動集中，Day 4 比重複再逛 PUSH PUSH 更值得留時間。",
+    "signature": [
+      "Independent local fashion / lifestyle",
+      "Creative compound + café",
+      "2026 新場，適合慢慢 browse"
+    ],
+    "worth": [
+      "放在 Thảo Điền Open List 主線；實際店舖與展覽按當日開放情況自由逛。",
+      "PUSH PUSH 如 Day 2 已睇過，可直接把時間留給這裡。"
+    ],
+    "categoryLabel": "🛍 Shopping",
+    "price": "Varies",
+    "transport": "Grab into Thảo Điền, then walk / short Grab within the neighbourhood",
+    "highlights": [
+      "Independent local fashion / lifestyle",
+      "Creative compound + café",
+      "2026 新場，適合慢慢 browse"
+    ],
+    "tips": [
+      "Open-list stop：不用鎖死到店時間。",
+      "到埗前看當日 tenant / exhibition listings。"
+    ]
+  },
   "push-push": {
     "title": "Push Push Official",
     "emoji": "👖",
     "cat": "SHOP",
-    "sub": "Day 4 · Tân Định Shopping",
-    "shoppingRoute": "Day 4 · Tân Định",
+    "sub": "Day 4 · Optional if missed on Day 2",
+    "shoppingRoute": "Day 4 · Tân Định optional",
     "hours": "09:30–21:30",
     "maps": "https://www.google.com/maps/search/?api=1&query=Push%20Push%20Official%2020%20Nguy%E1%BB%85n%20V%C4%83n%20Nguy%E1%BB%85n%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "20 Nguyễn Văn Nguyễn, Tân Định, Hồ Chí Minh 700000, Vietnam",
@@ -898,7 +904,6 @@ const PLACES={
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
-    "audit": "Selected 20 Nguyễn Văn Nguyễn store and 09:30–21:30 daily hours confirmed.",
     "highlights": [
       "Streetwear / casual pants",
       "年輕感、寬鬆剪裁",
@@ -949,7 +954,6 @@ const PLACES={
     "categoryLabel": "💆 Spa",
     "price": "$$",
     "transport": "Walk-in option · 61 Xuân Thủy",
-    "audit": "Thảo Điền branch confirmed; official booking accepts 36h+ advance, direct WhatsApp available for sooner sessions.",
     "highlights": [
       "Villa-style spa setting",
       "熱石／精油按摩",
@@ -974,7 +978,6 @@ const PLACES={
     "categoryLabel": "💆 Spa",
     "price": "$$",
     "transport": "Grab / walk depending on current route",
-    "audit": "Selected Nguyễn Trọng Tuyển branch and 08:30–22:00 daily listing confirmed for trip use.",
     "highlights": ["Airport-side location", "Massage and hair-care", "Traveller-friendly luggage storage"],
     "tips": ["Confirm luggage storage and four-person capacity.", "Leave a conservative airport buffer afterwards."]
   },
@@ -999,7 +1002,6 @@ const PLACES={
     "categoryLabel": "📍 Attraction",
     "price": "Free",
     "transport": "Grab / walk depending on current route",
-    "audit": "Route-ready; check live hours before visit",
     "highlights": [
       "金黃色拱頂大廳",
       "法式殖民建築",
@@ -1030,7 +1032,6 @@ const PLACES={
     "categoryLabel": "📍 Attraction",
     "price": "Free",
     "transport": "Grab / walk depending on current route",
-    "audit": "Route-ready; check live hours before visit",
     "highlights": [
       "紅磚外觀",
       "郵政局對面",
@@ -1063,7 +1064,6 @@ const PLACES={
     "categoryLabel": "📍 Attraction",
     "price": "Free",
     "transport": "Grab / walk depending on current route",
-    "audit": "Route-ready; check live hours before visit",
     "highlights": [
       "步行書街",
       "書店、文創、咖啡小攤",
@@ -1094,7 +1094,6 @@ const PLACES={
     "categoryLabel": "📍 Attraction",
     "price": "Free",
     "transport": "Grab / walk depending on current route",
-    "audit": "Route-ready; check live hours before visit",
     "highlights": [
       "粉紅外牆",
       "對面 cafe 視角",
@@ -1126,7 +1125,6 @@ const PLACES={
     "categoryLabel": "📍 Attraction",
     "price": "40,000 VND / adult",
     "transport": "Grab / walk depending on current route",
-    "audit": "Route-ready; check live hours before visit",
     "highlights": [
       "越戰相關照片與史料",
       "館內展覽以照片、文件與戰爭遺物為主",
@@ -1157,7 +1155,6 @@ const PLACES={
     "categoryLabel": "📍 Attraction",
     "price": "40,000 VND / adult",
     "transport": "Grab / walk depending on current route",
-    "audit": "Route-ready; check live hours before visit",
     "highlights": [
       "黃色法式建築",
       "彩色玻璃、樓梯、復古地磚",
@@ -1201,7 +1198,6 @@ const PLACES={
     "categoryLabel": "☕ Cafe · Optional",
     "price": "$–$$",
     "transport": "Walk from Nguyễn Huệ / Cafe Apartments",
-    "audit": "Address and current daily schedule cross-checked; optional recommendation",
     "highlights": [
       "以手沖、espresso 與 specialty coffee 為主",
       "樓上空間寬敞，適合短坐或慢慢聊天",
@@ -1250,7 +1246,6 @@ const PLACES={
     "categoryLabel": "🌙 Optional Supper",
     "price": "$–$$",
     "transport": "Delivery to hotel / Grab if dining in",
-    "audit": "Trip-wide optional supper; live delivery availability must be checked",
     "highlights": [
       "🦀 Oanh Cua：蟹料理、蟹肉小食，適合四人 share",
       "🍧 BINGO／夜間甜品：刨冰、豆腐花、水果甜品",
@@ -1281,7 +1276,6 @@ const PLACES={
     "categoryLabel": "🍽 Restaurant",
     "price": "$$",
     "transport": "Private-tour drop → short walk to War Remnants Museum",
-    "audit": "Official Mặn Mòi website verifies Tao Đàn at 34 Võ Văn Tần and published hours 10:00–22:00",
     "highlights": [
       "南部家常菜，味道細緻而不過重",
       "木質與綠意交疊的老西貢氛圍",
@@ -1498,8 +1492,7 @@ const PLACES={
     "worth": ["行攰先去，不用預先把下午切成一節。", "四人未必即時同時有位；到附近才問最符合 Open Day 玩法。"],
     "categoryLabel": "🦶 Spa",
     "price": "$–$$",
-    "transport": "Walk-in option · 2 Lê Văn Miến",
-    "audit": "Address and daily 11:00–22:00 hours confirmed."
+    "transport": "Walk-in option · 2 Lê Văn Miến"
   },
   "thao-dien-spa": {
     "title": "Thao Dien Spa",
@@ -1514,8 +1507,7 @@ const PLACES={
     "worth": ["不需要為它改整日路線。", "如果四人想同時做，去到附近先問當刻 capacity。"],
     "categoryLabel": "💆 Spa",
     "price": "$–$$",
-    "transport": "Walk-in option · 47/1/13 Quốc Hương",
-    "audit": "Address and daily 09:00–21:00 hours confirmed."
+    "transport": "Walk-in option · 47/1/13 Quốc Hương"
   },
   "golden-lotus-thao-dien": {
     "title": "Golden Lotus Healing World",
@@ -1530,9 +1522,8 @@ const PLACES={
     "worth": ["四人臨時想一起休息時，規模較大的實用後備。", "開到午夜，唔需要為它鎖死下午時間。"],
     "categoryLabel": "♨️ Spa",
     "price": "$$",
-    "transport": "Walk-in backup · 16A Street No. 10",
-    "audit": "Official site confirms Thảo Điền address, 09:00–00:00 daily and massage / sauna / bathhouse services."
-  }
+    "transport": "Walk-in backup · 16A Street No. 10"
+}
 };
 
 const CATEGORIES={
@@ -1629,8 +1620,8 @@ const CATEGORIES={
     },
     {
       "key": "nara-spa"
-    },
-  ],
+    }
+],
   "ATTRACTIONS": [
     {
       "key": "fine-arts"
@@ -1653,9 +1644,7 @@ const CATEGORIES={
     {
       "key": "cu-chi"
     }
-  ],
-
-
+  ]
 };
 
 const GUIDE_ORDER=[
@@ -1930,7 +1919,7 @@ const DAY_LINKS={
 
   "mojo-spa": [["Day 4","day.html?day=4#thao-dien-open-list"]],
   "thao-dien-spa": [["Day 4","day.html?day=4#thao-dien-open-list"]],
-  "golden-lotus-thao-dien": [["Day 4","day.html?day=4#thao-dien-open-list"]],
+  "golden-lotus-thao-dien": [["Day 4","day.html?day=4#thao-dien-open-list"]]
 };
 
 const FRIENDS={
@@ -2286,7 +2275,7 @@ const BOOKINGS_DATA={
     "notes": "Confirmed Klook private tour for 4 with English guide. Operator has confirmed pickup can be 07:30 from Fusion Original Saigon Centre. Operator: SST Travel · +84 342260119 · operate@ssttravel.vn. Included: attraction admission, English-speaking guide, round-trip hotel / meet-up transfers. Not included: AK-47 shooting admission, meals and beverages, personal expenses, tips, insurance, holiday surcharge. Trip requests: skip tour lunch, no factory stop, and direct city drop at Mặn Mòi Tao Đàn, 34 Võ Văn Tần. Return is traffic-dependent; target arrival is about 13:30–14:00 rather than a fixed promise.",
     "bookingHandoff": "已訂。Klook booking TUM556012；operator 已確認可 1 Nov 07:30 由 Fusion Original Saigon Centre 出發，4人 Private Tour、English Guide。Operator: SST Travel。",
     "placeId": "cu-chi"
-  },
+  }
 };
 
 const TRIP_DATA={
@@ -2777,7 +2766,7 @@ const ITINERARY_DATA={
         "details": [
           "短停影相，Cộng optional"
         ],
-        "route": "🚶 下一站：Cộng 可快閃；之後步行／短 Grab 去 PUSH PUSH。",
+        "route": "🚶 Cộng 可快閃；PUSH PUSH 只在 Day 2 未睇夠時 optional，否則直接去 Quán Thuý 94。",
         "map": "https://www.google.com/maps/search/?api=1&query=T%C3%A2n%20%C4%90%E1%BB%8Bnh%20Church%20Tan%20Dinh%20Church%2C%20289%20Hai%20B%C3%A0%20Tr%C6%B0ng%2C%20Ward%208%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
         "type": "experience",
         "dayId": "day4",
@@ -2794,12 +2783,13 @@ const ITINERARY_DATA={
       },
       {
         "id": "push-push",
-        "time": "10:15–10:45",
-        "title": "👖 PUSH PUSH Official",
+        "time": "Optional · only if missed on Day 2",
+        "title": "👖 PUSH PUSH Official · Optional",
         "details": [
-          "順路睇 local fashion，有啱先試"
+          "Day 2 The New Playground 已有 PUSH PUSH selected range；只在未睇夠／想睇 standalone store 時先加",
+          "如 skip，Pink Church 後直接去 Quán Thuý 94，留更多時間畀 Thảo Điền"
         ],
-        "route": "🚕 下一站：Quán Thuý 94 early lunch。",
+        "route": "🚕 如去完就前往 Quán Thuý 94；如 Day 2 已睇夠，Pink Church 後直接去 lunch。",
         "map": "https://www.google.com/maps/search/?api=1&query=Push%20Push%20Official%2020%20Nguy%E1%BB%85n%20V%C4%83n%20Nguy%E1%BB%85n%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
         "type": "shoppingWindow",
         "dayId": "day4",
@@ -2808,12 +2798,12 @@ const ITINERARY_DATA={
       },
       {
         "id": "quan-thuy",
-        "time": "10:50–11:45",
+        "time": "~10:30/10:45–11:30",
         "title": "🦀 Quán Thuý 94 · Early Lunch",
         "details": [
           "食蟹肉粉絲／蟹料理，食完先一次 Grab 入 Thảo Điền"
         ],
-        "route": "🚕 下一站：Grab 入 Thảo Điền，由 OHQUAO 開始 Open List。",
+        "route": "🚕 下一站：Grab 入 Thảo Điền；0123 Complex + OHQUAO 開始 Open List。",
         "map": "https://www.google.com/maps/search/?api=1&query=Qu%C3%A1n%20Thu%C3%BD%2094%2084%20%C4%90inh%20Ti%C3%AAn%20Ho%C3%A0ng%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
         "type": "meal",
         "dayId": "day4",
@@ -2823,11 +2813,11 @@ const ITINERARY_DATA={
       },
       {
         "id": "thao-dien-open-list",
-        "time": "~12:15 onwards",
+        "time": "~12:00 onwards",
         "title": "🎲 Thảo Điền · Open List",
         "summary": "入 Thảo Điền 後自由行，食 / 飲 / Spa 隨心",
         "details": [
-          "🛍 Browse · 從 OHQUAO 開始；沿線小店全部收在 Shopping List",
+          "🛍 Browse · 0123 Complex + OHQUAO 做主線；沿線小店全部收在 Shopping List",
           "🥐 Coffee / Sweet · Bakes，或者沿途見到想坐的 café",
           "🍽 Eat · 已在 Quán Thuý 94 early lunch；下午只按胃口加 café / snack",
           "🌿 Spa · Mộc Hương Wellness；走到 Xuân Thủy 一帶想停下來，就預留約 120 分鐘",
@@ -2839,8 +2829,9 @@ const ITINERARY_DATA={
         "dayId": "day4",
         "placeId": "ohquao",
         "bookingId": null,
-        "guideIds": ["ohquao","bakes","moc-huong"],
+        "guideIds": ["complex-0123","ohquao","bakes","moc-huong"],
         "guideGroups": [
+          {"label":"🏘 0123 Complex","guideIds":["complex-0123"]},
           {"label":"🛍 OHQUAO","guideIds":["ohquao"]},
           {"label":"🥐 Bakes","guideIds":["bakes"]},
           {"label":"🌿 Mộc Hương","guideIds":["moc-huong"]}

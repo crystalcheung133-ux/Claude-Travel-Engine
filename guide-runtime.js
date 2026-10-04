@@ -268,13 +268,11 @@ function openGuideCategory(cat){
 }
 
 function guideStatusHTML(g){
- const audit=String(g.audit||'');
- const optionalPattern=/optional|option|alternative|backup|recommended|flexible|weather-dependent/i;
  const linked=(g&&guideSemanticCategory(g.cat)==='DINING'&&window.BOOKING_AUTHORITY&&g.key)?BOOKING_AUTHORITY.byPlace(g.key):null;
  const explicit=String(g.status||'').toLowerCase();
  const status=(linked&&String(linked.status||'').toLowerCase()==='confirmed')||explicit==='booked'
   ?'BOOKED'
-  :((explicit==='optional'||(!explicit&&optionalPattern.test(audit)))?'OPTIONAL':'PLANNED');
+  :(explicit==='optional'?'OPTIONAL':'PLANNED');
  return `<span class="guide-status guide-status-${status.toLowerCase()}">${status}</span>`;
 }
 function copyGuideAddress(key){
