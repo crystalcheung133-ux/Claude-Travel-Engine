@@ -30,4 +30,8 @@ assert(!/"PRACTICAL"\s*:\s*\[\s*\{\s*"key"\s*:\s*"cash-backup"/m.test(data),'cas
 assert(day.includes('openShoppingDirectoryView(${Number(day)||1})'),'Timeline Shopping List must open current-day directory');
 assert(guide.includes("if(semantic==='SHOP')"),'SHOP Guide category must remain');
 assert(directory.includes('Dear José')&&directory.includes('KIDO Studiowear')&&directory.includes('11 Garmentory'),'Shopping Directory editorial set must be preserved');
+const shoppingCards=(directory.match(/<article class=\\\"directory-card\\\">/g)||[]).length;
+const shoppingAddresses=(directory.match(/📍 Address/g)||[]).length;
+assert.strictEqual(shoppingAddresses,shoppingCards,'Every rendered Shopping Directory card must expose a verified address');
+assert(!directory.includes('\\1'),'Shopping Directory must never render an orphan/missing address token');
 console.log('GUIDE CONTENT + SHOPPING DIRECTORY CAPABILITY: PASS');
