@@ -507,8 +507,8 @@ const PLACES={
     "title": "LIBÉ",
     "emoji": "👗",
     "cat": "SHOP",
-    "sub": "Day 2 · Nguyễn Trãi Fashion Cluster",
-    "shoppingRoute": "Day 2 · Nguyễn Trãi",
+    "sub": "Day 1 · Nguyễn Trãi Fashion Cluster",
+    "shoppingRoute": "Day 1 · LIBÉ anchor → nearby walk",
     "hours": "09:30–21:30",
     "maps": "https://www.google.com/maps/search/?api=1&query=LIB%C3%89%20LIB%C3%89%20Nguy%E1%BB%85n%20Tr%C3%A3i%2C%2052%20Nguy%E1%BB%85n%20Tr%C3%A3i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
     "address": "LIBÉ Nguyễn Trãi, 52 Nguyễn Trãi, Bến Thành, Hồ Chí Minh, Vietnam",
@@ -851,15 +851,27 @@ const PLACES={
       "出發前查 Facebook 專頁確認營業狀態。"
     ]
   },
+  "aastu": {
+    "title": "AASTU", "emoji": "🖤", "cat": "SHOP",
+    "sub": "Day 2 · Trần Quang Diệu must-see", "shoppingRoute": "Day 2 · 11 Garmentory → Trần Quang Diệu",
+    "hours": "10:00–21:00",
+    "maps": "https://www.google.com/maps/search/?api=1&query=AASTU%20118%2F12%20Tran%20Quang%20Dieu%20Ho%20Chi%20Minh",
+    "address": "118/12 Trần Quang Diệu, Nhiêu Lộc, Hồ Chí Minh",
+    "desc": "Trần Quang Diệu cluster 入面你指定要睇的一間。11 Garmentory 先集中睇 local brands，再行到呢段街，以 AASTU 為主，其餘店見啱先入。",
+    "signature": ["Vietnamese streetwear / clean basics", "Trần Quang Diệu flagship", "Day 2 walking cluster must-see"],
+    "worth": ["主看 AASTU；Dalla、RUBIES、Mì Workshop、Lane Cì 都係 nearby browse，唔需要逐間完成。"],
+    "categoryLabel":"🛍 Shopping","price":"Varies","transport":"Walk within Day 2 fashion cluster",
+    "highlights":["Vietnamese streetwear / clean basics","Trần Quang Diệu flagship"],"tips":["AASTU 優先，其餘按興趣。"]
+  },
   "complex-0123": {
     "title": "0123 Complex",
     "emoji": "🏘",
     "cat": "SHOP",
     "sub": "Day 4 · Thảo Điền Creative Complex",
     "shoppingRoute": "Day 4 · Thảo Điền walk",
-    "hours": "Check same-day listings",
-    "maps": "https://www.google.com/maps/search/?api=1&query=0123%20Complex%2015%20Nguyen%20Duy%20Hieu%20Thao%20Dien%20Ho%20Chi%20Minh%20City",
-    "address": "15 Nguyễn Duy Hiệu, An Khánh (Thảo Điền), Hồ Chí Minh, Vietnam",
+    "hours": "Complex 06:30–23:30 · individual tenants vary",
+    "maps": "https://www.google.com/maps/search/?api=1&query=0123%20Complex%2006%20Dang%20Huu%20Pho%20Ho%20Chi%20Minh%20City",
+    "address": "06 Đặng Hữu Phổ, An Khánh, Hồ Chí Minh, Vietnam",
     "desc": "2026 新開的 Thảo Điền creative / retail complex；independent fashion、lifestyle、café 與展覽活動集中，Day 4 比重複再逛 PUSH PUSH 更值得留時間。",
     "signature": [
       "Independent local fashion / lifestyle",
@@ -1312,6 +1324,22 @@ const PLACES={
     ],
     "categoryLabel": "🥂 Rooftop Bar",
     "status": "optional"
+  },
+  "concept-111": {
+    "title":"111 Concept Store","emoji":"🧩","cat":"SHOP","sub":"Day 1 preferred · Day 5 backup","shoppingRoute":"Day 1 after Nguyễn Trãi if time · Day 5 backup",
+    "hours":"10:00–20:30/21:00 · check same day","maps":"https://www.google.com/maps/search/?api=1&query=111%20Concept%20Store%20111%20Ton%20That%20Dam%20Ho%20Chi%20Minh",
+    "address":"111 Tôn Thất Đạm, District 1, Hồ Chí Minh",
+    "desc":"三層 Vietnamese design goods + curated vintage；Day 1 行完 Nguyễn Trãi 有時間就去，錯過就 Day 5 Fine Arts Museum 後補返。",
+    "signature":["Vietnamese design goods","Curated vintage","3-floor concept store"],"worth":["Day 1 preferred；唔夠時間直接留 Day 5，唔需要趕 Qspa。"],
+    "categoryLabel":"🛍 Shopping","price":"Varies","transport":"Walk within Old Market cluster","highlights":["Local design","Vintage"],"tips":["預留約 25–30 min。"]
+  },
+  "waa-studios": {
+    "title":"waa. studios","emoji":"👜","cat":"SHOP","sub":"Day 5 · Old Market accessories","shoppingRoute":"Day 5 · 111 → waa.",
+    "hours":"09:30–21:30","maps":"https://www.google.com/maps/search/?api=1&query=waa%20studios%2038%20Dang%20Thi%20Nhu%20Ho%20Chi%20Minh",
+    "address":"38 Đặng Thị Nhu, District 1, Hồ Chí Minh",
+    "desc":"Vietnamese accessories / leather goods stop；同 111 Concept 放同一個 Old Market walking cluster，唔另外叫 Grab。",
+    "signature":["Bags / sandals / belts","Vietnamese accessories","Quiet local boutique"],"worth":["111 後順路睇；有啱先試，唔需要拖長。"],
+    "categoryLabel":"🛍 Shopping","price":"Varies","transport":"Walk within Old Market cluster","highlights":["Accessories","Leather goods"],"tips":["預留約 20 min。"]
   },
   "takashimaya": {
     "title": "Takashimaya Saigon",
@@ -2384,10 +2412,10 @@ const ITINERARY_DATA={
         "time": "~10:00–12:00",
         "title": "🛍 Nguyễn Trãi · Local Fashion Walk",
         "details": [
-          "24 Nguyễn Trãi 開始：Clothes Bar → LESPOIR → The 350F → Dear José / KIDO → LIBÉ",
-          "沿線店舖見 Shopping List，The 350F 可中途休息"
+          "🚕 Anchor：LIBÉ 52 Nguyễn Trãi → 🚶 LÀMIN 35 Nguyễn Văn Tráng；附近 local shops 見啱先入",
+          "🧩 111 Concept preferred today：10:00–20:30/21:00；行得切先去，唔好為佢趕 Qspa。錯過就 Day 5 backup"
         ],
-        "route": "🚕 To next stop · 約 10–15 min：由 Nguyễn Trãi shopping line Grab → Qspa · 25/1 Trương Định。",
+        "route": "🧩 有時間：短程去 111 Concept；否則直接 🚕 Grab → Qspa · 25/1 Trương Định。111 錯過留 Day 5。",
         "map": "https://www.google.com/maps/search/?api=1&query=Clothes%20Bar%2024%20Nguyen%20Trai%20Ho%20Chi%20Minh%20City",
         "type": "shoppingWindow",
         "dayId": "day1",
@@ -2520,12 +2548,12 @@ const ITINERARY_DATA={
       {
         "id":"garmentory","time":"10:15–11:15","title":"🧥 11 Garmentory",
         "details":["先從選物店打開今日的 local-fashion 視野；不同品牌放在一起看，會比逐間追名字更有趣。"],
-        "route":"🚕 To next stop · 約 10–15 min：Grab → Dalla Saigon，Fashion Walk 從這裡開始。",
+        "route":"🚶 Next：由 11 Garmentory 向 Trần Quang Diệu cluster 移動；以 AASTU 118/12 為必看，再沿街自由 browse。",
         "map":"https://www.google.com/maps/search/?api=1&query=11%20Garmentory%20117B%20Nguyen%20Dinh%20Chinh%20Ho%20Chi%20Minh","type":"shoppingWindow","dayId":"day2","placeId":"garmentory","bookingId":null,"showShoppingDirectory":true
       },
       {
         "id":"shopping-tqd","time":"11:30–12:30","title":"🛍 Trần Quang Diệu · Fashion Walk",
-        "details":["由 Dalla · 64 Trần Quang Diệu 起步，沿街經 ERA · 60、RUBIES · 47–49、Mì Workshop · 29，再到 Lane Cì · 27 收尾。"],
+        "details":["AASTU · 118/12 Trần Quang Diệu 為主看店；之後沿街按興趣經 Dalla · 64、RUBIES · 47–49、Mì Workshop · 29、Lane Cì · 27。唔需要每間都入。"],
         "route":"🚕 To next stop · 約 10–15 min：由 Lane Cì Grab → Pizza 4P’s Hai Bà Trưng。",
         "map":"https://www.google.com/maps/search/?api=1&query=Dalla%20Saigon%2064%20Tran%20Quang%20Dieu%20Ho%20Chi%20Minh","type":"shoppingWindow","dayId":"day2","placeId":"dalla-saigon","bookingId":null,"showShoppingDirectory":true
       },
@@ -2803,7 +2831,7 @@ const ITINERARY_DATA={
         "details": [
           "食蟹肉粉絲／蟹料理，食完先一次 Grab 入 Thảo Điền"
         ],
-        "route": "🚕 下一站：Grab 入 Thảo Điền；0123 Complex + OHQUAO 開始 Open List。",
+        "route": "🚕 下一站：Grab → 0123 Complex · 06 Đặng Hữu Phổ；之後轉入 Thảo Điền core，OHQUAO + 家品 / design shops 為主線。",
         "map": "https://www.google.com/maps/search/?api=1&query=Qu%C3%A1n%20Thu%C3%BD%2094%2084%20%C4%90inh%20Ti%C3%AAn%20Ho%C3%A0ng%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
         "type": "meal",
         "dayId": "day4",
@@ -2817,7 +2845,7 @@ const ITINERARY_DATA={
         "title": "🎲 Thảo Điền · Open List",
         "summary": "入 Thảo Điền 後自由行，食 / 飲 / Spa 隨心",
         "details": [
-          "🛍 Browse · 0123 Complex + OHQUAO 做主線；沿線小店全部收在 Shopping List",
+          "🛍 Browse · 先 0123 Complex，再到 OHQUAO Living etc.；OHQUAO 後以家品 / Vietnamese design 為主，附近小店按興趣入",
           "🥐 Coffee / Sweet · Bakes，或者沿途見到想坐的 café",
           "🍽 Eat · 已在 Quán Thuý 94 early lunch；下午只按胃口加 café / snack",
           "🌿 Spa · Mộc Hương Wellness；走到 Xuân Thủy 一帶想停下來，就預留約 120 分鐘",
@@ -2874,7 +2902,7 @@ const ITINERARY_DATA={
         "details": [
           "彩色玻璃、老升降機、復古街拍"
         ],
-        "route": "🚕 To next stop：Grab 約 4 分鐘去 Bếp Mẹ Ỉn。",
+        "route": "🚶 To next stop：Fine Arts Museum 後去 waa. studios；111 Concept 只在 Day 1 錯過時順便補。",
         "map": "https://www.google.com/maps/search/?api=1&query=Fine%20Arts%20Museum%20Ho%20Chi%20Minh%20City%20Museum%20of%20Fine%20Arts%2C%2097A%20Ph%C3%B3%20%C4%90%E1%BB%A9c%20Ch%C3%ADnh%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
         "type": "experience",
         "dayId": "day5",
@@ -2882,14 +2910,20 @@ const ITINERARY_DATA={
         "bookingId": null
       },
       {
+        "id":"old-market-shopping","time":"11:45–12:45","title":"👜 waa. studios · 111 backup",
+        "details":["waa. studios：bags / sandals / leather accessories","111 Concept 只係 Day 1 未去到先補；已去過就直接留時間俾 waa. / lunch"],
+        "route":"🚶 Shopping 完去 Bếp Mẹ Ỉn；Old Market 呢段以步行為主。",
+        "map":"https://www.google.com/maps/search/?api=1&query=111%20Concept%20Store%20111%20Ton%20That%20Dam%20Ho%20Chi%20Minh","type":"shoppingWindow","dayId":"day5","placeId":"concept-111","bookingId":null,"guideIds":["concept-111","waa-studios"],"showShoppingDirectory":true
+      },
+      {
         "id": "bep-me-in",
-        "time": "11:45–13:00",
+        "time": "12:45–13:45",
         "title": "🥞 Bếp Mẹ Ỉn",
         "details": [
           "Michelin Bib Gourmand，黃金煎餅、椰子炒飯、越式拼盤",
           "🥖 Optional：隔籬 Bánh Mì Mẹ Ỉn，可問能否送過來 share"
         ],
-        "route": "🚕 To next stop：Grab 約 3 分鐘去 Takashimaya。",
+        "route": "🚶/🚕 To next stop：返 Saigon Centre / Fusion；Takashimaya 只作酒店旁最後補貨。",
         "map": "https://www.google.com/maps/search/?api=1&query=B%E1%BA%BFp%20M%E1%BA%B9%20%E1%BB%88n%20136%2F9%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
         "type": "meal",
         "dayId": "day5",
@@ -2898,10 +2932,10 @@ const ITINERARY_DATA={
       },
       {
         "id": "takashimaya",
-        "time": "13:00–14:15",
+        "time": "13:45–14:15",
         "title": "🛍 Takashimaya + Maison Marou",
         "details": [
-          "最後手信：朱古力、咖啡、茶葉、乾果"
+          "酒店旁最後補貨：只買漏咗嘅手信／朱古力／咖啡；local-design shopping 已在 111 + waa. 完成"
         ],
         "route": "🚶 To next stop：回 Fusion Original 提行李。",
         "map": "https://maps.google.com/?q=Takashimaya+Saigon",
