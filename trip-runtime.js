@@ -260,7 +260,6 @@ function buildAccommodationDetailHTML(booking){
   const arrival=[booking.checkIn||'',booking.checkOut||''].filter(Boolean).join(' → ');
   const reference=[booking.bookingName?`Booked under · ${booking.bookingName}`:'',booking.reference?`${bookingReferenceLabel(booking)} · ${booking.reference}`:''].filter(Boolean).join('\n');
   const facts=bookingFactGridHTML([
-    ['Status',bookingStatusText(booking)],
     ['Room',booking.roomType||''],
     ['Guests',booking.guestSummary||''],
     ['Host',booking.host||''],
@@ -316,7 +315,7 @@ function buildActivityBookingDetailHTML(booking){
   if(!booking)return '<p class="timestamp">Activity booking not found.</p>';
   const place=bookingPlace(booking);
   const facts=bookingFactGridHTML([
-    ['Status',String(booking.status||'').toUpperCase()],['Day',bookingDayNumber(booking)?'Day '+bookingDayNumber(booking):''],['Date',booking.date||''],['Time',booking.time||''],
+    ['Time',booking.time||''],
     ['Tour type',booking.tourType||''],['Guests',booking.guests?`${booking.guests} · ${booking.adults||0} adults · ${booking.children||0} children`:''],
     ['Booked under',booking.bookingName||''],[bookingReferenceLabel(booking),booking.reference||''],['Booked via',booking.bookingViaOther||booking.bookingWay||booking.platform||'']
   ]);
@@ -326,7 +325,7 @@ function buildActivityBookingDetailHTML(booking){
     bookingSectionHTML('Cancellation',booking.cancellation||''),bookingSectionHTML('Notes',booking.notes||''),
     bookingDocumentsHTML(booking)
   ].join('');
-  return `<article class="fact stay-booking accommodation-detail-card activity-booking-detail"><div class="accommodation-detail-head"><div><strong>${escapeTripHTML(booking.title)}</strong><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge activity-confirmed-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place)}${bookingExpenseActionHTML(booking)}${activityDetailNavigationHTML(booking.id)}</article>`;
+  return `<article class="fact stay-booking accommodation-detail-card activity-booking-detail"><div class="accommodation-detail-head booking-compact-head"><div><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge activity-confirmed-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place)}${bookingExpenseActionHTML(booking)}${activityDetailNavigationHTML(booking.id)}</article>`;
 }
 function openActivityBookingDetail(bookingId,bookingOverride,showSaved){
   activeBookingDetail={type:'activity',id:bookingId};
@@ -388,8 +387,7 @@ function buildGenericBookingDetailHTML(booking){
     ? [...new Set(booking.plannedVisits.map(row=>String(row.day||'').trim()).filter(Boolean))].join(' · ')
     : '';
   const facts=bookingFactGridHTML([
-    ['Status',bookingStatusText(booking)],
-    ...(!hasPlannedVisits?[['Day',booking.plannedDays||(bookingDayNumber(booking)?'Day '+bookingDayNumber(booking):'')],['Date',booking.date||''],['Time',booking.time||'']]:[]),
+    ...(!hasPlannedVisits?[['Time',booking.time||'']]:[]),
     ['Booked under',booking.bookingName||''],[bookingReferenceLabel(booking),booking.reference||''],
     ['Booking method',booking.bookingMethod||booking.bookingViaOther||booking.bookingWay||booking.platform||''],
     ['Phone · reference',booking.phone||booking.bookingContact||place?.phone||'']
