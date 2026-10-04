@@ -573,7 +573,7 @@ const PLACES={
     "cat": "SHOP",
     "sub": "Day 2 · Nguyễn Trãi Fashion Cluster",
     "shoppingRoute": "Day 2 · Nguyễn Trãi",
-    "hours": "10:00–21:00",
+    "hours": "09:30–21:30 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=NOSBYN%20Nosbyn%2C%209%20Phan%20Chu%20Trinh%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20Ho%20Chi%20Minh%20City",
     "address": "Nosbyn, 9 Phan Chu Trinh, Bến Thành, Ho Chi Minh City",
     "desc": "NOSBYN 把簡約做得很安靜：線條俐落、顏色克制，單件未必喧鬧，放進原有衣櫃卻很容易。適合平日偏 MUJI、Lululemon 或簡潔 casual 的人慢慢試。",
@@ -853,11 +853,11 @@ const PLACES={
   },
   "aastu": {
     "title": "AASTU", "emoji": "🖤", "cat": "SHOP",
-    "sub": "Day 2 · Trần Quang Diệu must-see", "shoppingRoute": "Day 2 · 11 Garmentory → Trần Quang Diệu",
-    "hours": "10:00–21:00",
+    "sub": "Day 2 · Trần Quang Diệu Fashion Cluster", "shoppingRoute": "Day 2 · 11 Garmentory → Trần Quang Diệu",
+    "hours": "09:30–21:30 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=AASTU%20118%2F12%20Tran%20Quang%20Dieu%20Ho%20Chi%20Minh",
     "address": "118/12 Trần Quang Diệu, Nhiêu Lộc, Hồ Chí Minh",
-    "desc": "Trần Quang Diệu cluster 入面你指定要睇的一間。11 Garmentory 先集中睇 local brands，再行到呢段街，以 AASTU 為主，其餘店見啱先入。",
+    "desc": "AASTU 以簡潔、俐落的 contemporary womenswear 為主，適合在 Trần Quang Diệu fashion cluster 一起慢慢逛。",
     "signature": ["Vietnamese streetwear / clean basics", "Trần Quang Diệu flagship", "Day 2 walking cluster must-see"],
     "worth": ["主看 AASTU；Dalla、RUBIES、Mì Workshop、Lane Cì 都係 nearby browse，唔需要逐間完成。"],
     "categoryLabel":"🛍 Shopping","price":"Varies","transport":"Walk within Day 2 fashion cluster",
@@ -1334,10 +1334,10 @@ const PLACES={
     "categoryLabel":"🛍 Shopping","price":"Varies","transport":"Walk within Old Market cluster","highlights":["Local design","Vintage"],"tips":["預留約 25–30 min。"]
   },
   "waa-studios": {
-    "title":"waa. studios","emoji":"👜","cat":"SHOP","sub":"Day 5 · Old Market accessories","shoppingRoute":"Day 5 · 111 → waa.",
-    "hours":"09:30–21:30","maps":"https://www.google.com/maps/search/?api=1&query=waa%20studios%2038%20Dang%20Thi%20Nhu%20Ho%20Chi%20Minh",
+    "title":"waa. studios","emoji":"👜","cat":"SHOP","sub":"Day 5 · Old Market accessories","shoppingRoute":"Day 5 · Fine Arts Museum → waa.",
+    "hours":"10:00–21:30 daily","maps":"https://www.google.com/maps/search/?api=1&query=waa%20studios%2038%20Dang%20Thi%20Nhu%20Ho%20Chi%20Minh",
     "address":"38 Đặng Thị Nhu, District 1, Hồ Chí Minh",
-    "desc":"Vietnamese accessories / leather goods stop；同 111 Concept 放同一個 Old Market walking cluster，唔另外叫 Grab。",
+    "desc":"Vietnamese accessories / leather goods，主打 bags、sandals 與簡潔皮具。Fine Arts Museum 後可步行前往。",
     "signature":["Bags / sandals / belts","Vietnamese accessories","Quiet local boutique"],"worth":["111 後順路睇；有啱先試，唔需要拖長。"],
     "categoryLabel":"🛍 Shopping","price":"Varies","transport":"Walk within Old Market cluster","highlights":["Accessories","Leather goods"],"tips":["預留約 20 min。"]
   },
