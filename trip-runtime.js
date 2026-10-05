@@ -318,7 +318,7 @@ function buildActivityBookingDetailHTML(booking){
   const facts=bookingFactGridHTML([
     ['Time',booking.time||''],
     ['Tour type',booking.tourType||''],['Guests',booking.guests?`${booking.guests} · ${booking.adults||0} adults · ${booking.children||0} children`:''],
-    ['Booked under',booking.bookingName||''],[bookingReferenceLabel(booking),booking.reference||''],['Booked via',booking.bookingViaOther||booking.bookingWay||booking.platform||'']
+    ['Booked under',displayBookingName(booking.bookingName)], [bookingReferenceLabel(booking),booking.reference||''],['Booked via',booking.bookingViaOther||booking.bookingWay||booking.platform||'']
   ]);
   const pickup=[booking.pickupNote||booking.pickupAddress||'',booking.dropOff||''].filter(Boolean).join('\n');
   const sections=[
@@ -380,6 +380,12 @@ function bookingAlternativeGuidesHTML(booking){
     return `<button class="pill trip-action-btn trip-action-btn--guide" type="button" onclick="openGuideModal('${escapeTripHTML(row.placeId||'')}')"><span>${escapeTripHTML(row.label||'Alternative')}</span>${note}</button>`;
   }).join('')}</div></section>`;
 }
+function displayBookingName(value){
+  const raw=String(value||'').trim();
+  if(!raw)return '';
+  /* Defensive display cleanup for legacy saved records that accidentally appended payment text. */
+  return raw.replace(/\s+(?:AUD|VND)\s+[\d,.]+.*$/i,'').trim();
+}
 function buildGenericBookingDetailHTML(booking){
   if(!booking)return '<p class="timestamp">Booking not found.</p>';
   const place=bookingPlace(booking);
@@ -389,7 +395,7 @@ function buildGenericBookingDetailHTML(booking){
     : '';
   const facts=bookingFactGridHTML([
     ...(!hasPlannedVisits?[['Time',booking.time||'']]:[]),
-    ['Booked under',booking.bookingName||''],[bookingReferenceLabel(booking),booking.reference||''],
+    ['Booked under',displayBookingName(booking.bookingName)],[bookingReferenceLabel(booking),booking.reference||''],
     ['Booking method',booking.bookingMethod||booking.bookingViaOther||booking.bookingWay||booking.platform||''],
     ['Phone · reference',booking.phone||booking.bookingContact||place?.phone||'']
   ]);

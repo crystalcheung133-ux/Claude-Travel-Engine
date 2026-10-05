@@ -3421,3 +3421,30 @@ body.documents-page .docs-modal>.docs-sheet{
   :is(#tripModal>.trip-sheet,#guideModal>.guide-sheet,#momentsModal>.moments-sheet,#unexpectedModal>.unexpected-sheet,#expenseModal>.tools-sheet,#mamaModal>.guide-sheet,.home-info-modal>.home-info-sheet,.shopping-route-modal>.shopping-route-sheet),
   body.documents-page .docs-modal>.docs-sheet{border-radius:22px!important;max-height:calc(100dvh - 16px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))!important;}
 }
+
+/* RC29.108 — canonical foreground modal contract.
+   Standard modal overlays always sit above Studio/header/bottom chrome.
+   The sheet owns scrolling; Close stays visible in the sheet viewport. */
+:root{--companion-modal-foreground:20000!important;}
+:is(#tripModal,#guideModal,#momentsModal,#unexpectedModal,#expenseModal,#mamaModal,.home-info-modal,.shopping-route-modal),
+body.documents-page .docs-modal{
+  z-index:var(--companion-modal-foreground)!important;
+  top:0!important;right:0!important;bottom:0!important;left:0!important;
+}
+body.guide-booking-stack-open #guideModal.show{z-index:20100!important;}
+body.guide-booking-stack-open #tripModal.show{z-index:20200!important;}
+body.guide-foreground-over-booking #guideModal.show{z-index:20300!important;}
+body.guide-foreground-over-booking #tripModal.show{z-index:20200!important;}
+body.documents-page .doc-viewer{z-index:20400!important;}
+:is(#tripModal>.trip-sheet,#guideModal>.guide-sheet,#momentsModal>.moments-sheet,#unexpectedModal>.unexpected-sheet,#expenseModal>.tools-sheet,#mamaModal>.guide-sheet,.home-info-modal>.home-info-sheet,.shopping-route-modal>.shopping-route-sheet),
+body.documents-page .docs-modal>.docs-sheet{
+  max-height:calc(100dvh - 24px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))!important;
+  overflow-y:auto!important;
+  scroll-padding-top:64px!important;
+}
+:is(.trip-close,.guide-close,.moments-close,.unexpected-close,.tools-close,.mama-close,.home-info-close,.shopping-route-close,.docs-close){
+  position:sticky!important;top:0!important;right:0!important;float:right!important;
+  z-index:20500!important;
+}
+/* Cross-linked booking is now an in-page overlay: no Trip host page transition. */
+body.documents-page #tripModal.show,body.expenses-page #tripModal.show{z-index:20200!important;}

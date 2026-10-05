@@ -209,7 +209,8 @@ def run_viewport(browser,base,viewport,label):
         close_studio(page)
 
         # Studio-only Booking edit entry: while Studio session is active, Booking detail exposes Edit Booking.
-        page.goto(base+'/trip.html',wait_until='domcontentloaded')
+        page.goto(base+'/index.html',wait_until='domcontentloaded')
+        page.evaluate("document.getElementById('ccmvSplash')?.remove()")
         page.evaluate("openGenericBookingDetail('bk-transfer-in')")
         page.wait_for_selector('#tripModal.show')
         check(page.locator('#tripModalContent .booking-edit-btn',has_text='Edit Booking').count()==1,

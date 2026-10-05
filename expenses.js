@@ -765,12 +765,11 @@ let editingExpenseIndex=null;
   window.unlockExpensePage=unlockExpensePage;
   window.openExpenseSourceBooking=function(bookingId){
     if(!bookingId)return false;
-    const back=(window.NAVIGATION&&typeof NAVIGATION.currentRelativeUrl==='function')
-      ? NAVIGATION.currentRelativeUrl()
-      : (location.pathname.split('/').pop()+location.search+location.hash);
-    const target=`trip.html?bookingId=${encodeURIComponent(bookingId)}&returnTo=${encodeURIComponent(back)}`;
-    window.location.href=target;
-    return true;
+    if(typeof window.returnToBookingDetail==='function'){
+      window.returnToBookingDetail(bookingId);
+      return true;
+    }
+    return false;
   };
   let expenseSheetFocusScroll=0;
   document.addEventListener('focusin',event=>{
