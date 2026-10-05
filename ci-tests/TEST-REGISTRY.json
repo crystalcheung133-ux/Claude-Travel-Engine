@@ -410,5 +410,9 @@
   "test-rc29102-history-terminals.js": {
     "status": "active",
     "note": "RC29.102 five-item history paging, Trip Total Settle placement, plain transaction participant names, and T2 flight terminal context"
+  },
+  "test-cross-link-return-context.js": {
+    "status": "active",
+    "note": "cross-linked popup close returns to exact caller context"
   }
 }

@@ -42,7 +42,7 @@ function wireLinkEditor(prefix){
 function renderTargets(){setLinkEditor('doc','trip','');const disabled=!root.TRIP_DOCUMENTS.canLink();['docLinkType','docBookingLink','docTimelineDay','docTimelineEvent'].forEach(id=>{if($(id))$(id).disabled=disabled})}
 function routeForDocument(d,origin='page'){
  const back=origin==='viewer'?`documents.html?document=${encodeURIComponent(d.id)}`:'documents.html';
- if(d.linkType==='booking'&&d.linkId)return `index.html?bookingId=${encodeURIComponent(d.linkId)}&returnTo=${encodeURIComponent(back)}`;
+ if(d.linkType==='booking'&&d.linkId)return `trip.html?bookingId=${encodeURIComponent(d.linkId)}&returnTo=${encodeURIComponent(back)}`;
  if(d.linkType==='timeline'&&d.linkId){const [day,item]=String(d.linkId).split('::');return `day.html?day=${encodeURIComponent(day)}&returnTo=${encodeURIComponent(back)}#${encodeURIComponent(item||'')}`}
  return ''
 }

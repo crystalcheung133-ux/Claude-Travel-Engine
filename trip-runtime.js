@@ -204,7 +204,8 @@ function bookingExpenseActionHTML(booking){
   const links=typeof window.getBookingExpenseLinks==='function'?window.getBookingExpenseLinks(booking.id):[];
   const linked=links.length;
   const newest=links.slice().sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')))[0]||null;
-  const viewHref=newest?.id?`expenses.html?expenseId=${encodeURIComponent(newest.id)}`:`expenses.html?bookingId=${encodeURIComponent(booking.id)}`;
+  const bookingReturn=`trip.html?bookingId=${encodeURIComponent(booking.id)}`;
+  const viewHref=newest?.id?`expenses.html?expenseId=${encodeURIComponent(newest.id)}&returnTo=${encodeURIComponent(bookingReturn)}`:`expenses.html?bookingId=${encodeURIComponent(booking.id)}&returnTo=${encodeURIComponent(bookingReturn)}`;
   if(linked){
     const label=linked===1?'View Expense':`View ${linked} Expenses`;
     return `<div class="trip-action-row trip-action-row--booking-compact booking-expense-buttons booking-expense-buttons--compact"><a class="pill trip-action-btn trip-action-btn--expense" href="${viewHref}">${label}</a></div>`;
@@ -248,7 +249,7 @@ function bookingDocumentsHTML(booking){
  if(!booking||!window.TRIP_DOCUMENTS)return '';
  const docs=TRIP_DOCUMENTS.read().filter(d=>d.linkType==='booking'&&String(d.linkId)===String(booking.id));
  if(!docs.length)return '';
- return `<section class="accommodation-section booking-documents"><h3>Documents</h3><div class="trip-action-row trip-action-row--booking-compact">${docs.map(d=>`<a class="pill trip-action-btn booking-document-btn" href="documents.html?document=${encodeURIComponent(d.id)}&bookingId=${encodeURIComponent(booking.id)}">📎 ${escapeTripHTML(d.title||'Document')}</a>`).join('')}</div></section>`;
+ return `<section class="accommodation-section booking-documents"><h3>Documents</h3><div class="trip-action-row trip-action-row--booking-compact">${docs.map(d=>`<a class="pill trip-action-btn booking-document-btn" href="documents.html?document=${encodeURIComponent(d.id)}&bookingId=${encodeURIComponent(booking.id)}&returnTo=${encodeURIComponent(`trip.html?bookingId=${booking.id}`)}">📎 ${escapeTripHTML(d.title||'Document')}</a>`).join('')}</div></section>`;
 }
 function buildAccommodationDetailHTML(booking){
   if(!booking)return '<p class="timestamp">Accommodation booking not found.</p>';
@@ -745,6 +746,13 @@ function openTripCard(key) {
   if (key === 'checklist') setTimeout(loadChecklist, 0);
 }
 
+function crossLinkReturnTarget(){
+  const raw=new URLSearchParams(window.location.search).get('returnTo');
+  if(!raw)return '';
+  return (window.NAVIGATION&&typeof NAVIGATION.permittedReturnTarget==='function')
+    ? NAVIGATION.permittedReturnTarget(raw,'home')
+    : raw;
+}
 function closeTripModal() {
   if(isBookingEditActive() && !confirmDiscardBookingEdit()) return false;
   clearBookingEditSession();
@@ -767,7 +775,10 @@ function closeTripModal() {
     if(guideModal)guideModal.classList.add('show');
     const sheet=document.querySelector('#guideModal .guide-sheet');
     if(sheet) requestAnimationFrame(function(){sheet.focus?.({preventScroll:true});});
+    return true;
   }
+  const crossReturn=crossLinkReturnTarget();
+  if(crossReturn){ NAVIGATION.go(crossReturn); return true; }
   return true;
 }
 

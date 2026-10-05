@@ -23,7 +23,7 @@ function placeHref(key){
   return NAVIGATION.build('place',{query:{placeId:key}});
 }
 function guideBookingHref(bookingId){
-  return NAVIGATION.build('trip',{query:{bookingId:bookingId}});
+  return NAVIGATION.build('trip',{query:{bookingId:bookingId,returnTo:NAVIGATION.currentRelativeUrl()}});
 }
 function openGuideLinkedBooking(bookingId){
   const booking=window.BOOKING_AUTHORITY?BOOKING_AUTHORITY.get(bookingId):null;

@@ -1,0 +1,14 @@
+const fs=require('fs'),assert=require('assert');
+const trip=fs.readFileSync('trip-runtime.js','utf8');
+const docs=fs.readFileSync('documents.js','utf8');
+const exp=fs.readFileSync('expenses.js','utf8');
+const guide=fs.readFileSync('guide-runtime.js','utf8');
+assert(trip.includes("get('returnTo')"),'Trip modal close must resolve returnTo');
+assert(trip.includes('NAVIGATION.go(crossReturn)'),'Trip modal close must navigate to caller context');
+assert(trip.includes('expenses.html?expenseId=${encodeURIComponent(newest.id)}&returnTo='),'Booking → Expense must carry return context');
+assert(trip.includes('documents.html?document=${encodeURIComponent(d.id)}&bookingId=${encodeURIComponent(booking.id)}&returnTo='),'Booking → Document must carry return context');
+assert(docs.includes("return `trip.html?bookingId=${encodeURIComponent(d.linkId)}&returnTo=${encodeURIComponent(back)}`"),'Document → linked booking must return to Documents');
+assert(exp.includes('window.openExpenseSourceBooking=function(bookingId)'),'Expense → Booking cross-link handler missing');
+assert(exp.includes('&returnTo=${encodeURIComponent(back)}'),'Expense → Booking must carry Expenses context');
+assert(guide.includes('returnTo:NAVIGATION.currentRelativeUrl()'),'Guide booking href must preserve Guide caller');
+console.log('cross-link return context: PASS');

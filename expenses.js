@@ -763,6 +763,15 @@ let editingExpenseIndex=null;
     window.scrollTo(0,expensePageScrollY);
   }
   window.unlockExpensePage=unlockExpensePage;
+  window.openExpenseSourceBooking=function(bookingId){
+    if(!bookingId)return false;
+    const back=(window.NAVIGATION&&typeof NAVIGATION.currentRelativeUrl==='function')
+      ? NAVIGATION.currentRelativeUrl()
+      : (location.pathname.split('/').pop()+location.search+location.hash);
+    const target=`trip.html?bookingId=${encodeURIComponent(bookingId)}&returnTo=${encodeURIComponent(back)}`;
+    window.location.href=target;
+    return true;
+  };
   let expenseSheetFocusScroll=0;
   document.addEventListener('focusin',event=>{
     if(!event.target.closest('#expenseModal')) return;
