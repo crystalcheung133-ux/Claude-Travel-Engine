@@ -1,5 +1,5 @@
 Saigon Companion Production File Manifest
-Generated: 2026-10-03
+Generated: 2026-10-05
 Base: VN Companion RC29.102 · Travel Engine 25.7.3 History + Terminal Candidate
 Reference trip: Vietnam
 

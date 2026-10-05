@@ -3371,3 +3371,53 @@ body.expenses-page .expense-history-block .transaction-scroll{max-height:none!im
 .shopping-route-section-head{margin-bottom:7px!important}
 .shopping-route-connector{margin:3px 0 5px 4px!important;padding-top:3px!important;padding-bottom:3px!important}
 @media(max-width:620px){.shopping-route-modal{align-items:center!important;padding:14px 12px max(88px,calc(78px + env(safe-area-inset-bottom)))!important}.shopping-route-sheet{width:100%!important;max-height:calc(100dvh - 122px - env(safe-area-inset-bottom))!important;border-radius:20px!important;padding:17px 15px 18px!important}.shopping-route-sheet h2{font-size:20px!important}.shopping-route-close{top:10px!important;right:11px!important}}
+
+/* RC29.105 — Companion-wide popup viewport contract.
+   All standard popups own the full viewport above persistent chrome.
+   The sheet scrolls internally; its close control remains pinned at top-right. */
+:root{--companion-popup-z:9500;--companion-popup-gap:12px;}
+body:has(:is(.guide-modal,.trip-modal,.moments-modal,.unexpected-modal,.tools-modal,.mama-modal,.home-info-modal,.shopping-route-modal,.docs-modal).show),
+body:has(.home-info-modal.open),body:has(.shopping-route-modal.open){overflow:hidden!important;}
+
+:is(#tripModal,#guideModal,#momentsModal,#unexpectedModal,#expenseModal,#mamaModal,.home-info-modal,.shopping-route-modal),
+body.documents-page .docs-modal{
+  position:fixed!important;inset:0!important;z-index:var(--companion-popup-z)!important;
+  box-sizing:border-box!important;background:rgba(43,37,31,.48)!important;
+  padding:max(var(--companion-popup-gap),env(safe-area-inset-top,0px)) var(--companion-popup-gap) max(var(--companion-popup-gap),env(safe-area-inset-bottom,0px))!important;
+  align-items:start!important;justify-content:center!important;overflow:hidden!important;
+}
+:is(#tripModal,#guideModal,#momentsModal,#unexpectedModal,#expenseModal,#mamaModal).show,
+.home-info-modal.open,.shopping-route-modal.open,body.documents-page .docs-modal.show{
+  display:flex!important;
+}
+body.admin-mode :is(#tripModal,#guideModal,#momentsModal,#unexpectedModal,#expenseModal).show{top:0!important;}
+
+:is(#tripModal>.trip-sheet,#guideModal>.guide-sheet,#momentsModal>.moments-sheet,#unexpectedModal>.unexpected-sheet,#expenseModal>.tools-sheet,#mamaModal>.guide-sheet,.home-info-modal>.home-info-sheet,.shopping-route-modal>.shopping-route-sheet),
+body.documents-page .docs-modal>.docs-sheet{
+  position:relative!important;width:min(760px,100%)!important;
+  height:auto!important;min-height:0!important;
+  max-height:calc(100dvh - (var(--companion-popup-gap) * 2) - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))!important;
+  margin:0 auto!important;overflow-y:auto!important;overflow-x:hidden!important;
+  overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;
+  border-radius:26px!important;box-sizing:border-box!important;
+}
+.shopping-route-modal>.shopping-route-sheet{width:min(620px,100%)!important;}
+.home-info-modal>.home-info-sheet{width:min(480px,100%)!important;}
+
+/* Close stays visible while the sheet content scrolls. */
+:is(.trip-close,.guide-close,.moments-close,.unexpected-close,.tools-close,.mama-close,.home-info-close,.shopping-route-close,.docs-close){
+  position:sticky!important;top:0!important;right:0!important;float:right!important;
+  z-index:500!important;pointer-events:auto!important;margin:0 0 4px 10px!important;
+}
+/* Cancel historical absolute offsets once close ownership is sticky. */
+.shopping-route-close,.home-info-close{inset:auto 0 auto auto!important;}
+
+/* Full-screen viewers/editors already own the viewport; keep their persistent headers above content. */
+.reference-viewer-modal,.timeline-editor-modal,body.documents-page .doc-viewer,#tripStudioModal{z-index:calc(var(--companion-popup-z) + 100)!important;}
+.reference-viewer-close,.timeline-editor-close,body.documents-page .doc-viewer-head,#tripStudioModal .trip-studio-close{z-index:600!important;}
+
+@media(max-width:620px){
+  :root{--companion-popup-gap:8px;}
+  :is(#tripModal>.trip-sheet,#guideModal>.guide-sheet,#momentsModal>.moments-sheet,#unexpectedModal>.unexpected-sheet,#expenseModal>.tools-sheet,#mamaModal>.guide-sheet,.home-info-modal>.home-info-sheet,.shopping-route-modal>.shopping-route-sheet),
+  body.documents-page .docs-modal>.docs-sheet{border-radius:22px!important;max-height:calc(100dvh - 16px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))!important;}
+}
