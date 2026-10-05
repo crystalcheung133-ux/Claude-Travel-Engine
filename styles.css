@@ -3448,3 +3448,38 @@ body.documents-page .docs-modal>.docs-sheet{
 }
 /* Cross-linked booking is now an in-page overlay: no Trip host page transition. */
 body.documents-page #tripModal.show,body.expenses-page #tripModal.show{z-index:20200!important;}
+
+/* RC29.109 — rollback geometry regression; canonical viewport-contained popup shell.
+   Keep RC29.108 in-page cross-link behavior, but standard modals are centered wholly
+   inside the viewport. The overlay owns the viewport and sits above app chrome. */
+:root{--companion-modal-foreground:20000!important;--companion-modal-gap:12px;}
+:is(#tripModal,#guideModal,#momentsModal,#unexpectedModal,#expenseModal,#mamaModal,.home-info-modal,.shopping-route-modal),
+body.documents-page .docs-modal{
+  position:fixed!important;inset:0!important;
+  z-index:var(--companion-modal-foreground)!important;
+  padding:max(var(--companion-modal-gap),env(safe-area-inset-top,0px)) var(--companion-modal-gap) max(var(--companion-modal-gap),env(safe-area-inset-bottom,0px))!important;
+  align-items:center!important;justify-items:center!important;place-items:center!important;
+  overflow:hidden!important;transform:none!important;
+}
+:is(#tripModal.show,#guideModal.show,#momentsModal.show,#unexpectedModal.show,#expenseModal.show,#mamaModal.show,.home-info-modal.show,.shopping-route-modal.show),
+body.documents-page .docs-modal.show{display:grid!important;}
+:is(#tripModal>.trip-sheet,#guideModal>.guide-sheet,#momentsModal>.moments-sheet,#unexpectedModal>.unexpected-sheet,#expenseModal>.tools-sheet,#mamaModal>.guide-sheet,.home-info-modal>.home-info-sheet,.shopping-route-modal>.shopping-route-sheet),
+body.documents-page .docs-modal>.docs-sheet{
+  position:relative!important;top:auto!important;bottom:auto!important;left:auto!important;right:auto!important;
+  transform:none!important;margin:0!important;
+  width:min(960px,100%)!important;
+  max-height:calc(100dvh - (var(--companion-modal-gap) * 2) - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))!important;
+  overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;
+  scroll-padding-top:70px!important;
+}
+:is(.trip-close,.guide-close,.moments-close,.unexpected-close,.tools-close,.mama-close,.home-info-close,.shopping-route-close,.docs-close){
+  position:sticky!important;top:0!important;right:0!important;left:auto!important;bottom:auto!important;
+  float:right!important;z-index:20500!important;
+}
+body.guide-booking-stack-open #guideModal.show{z-index:20100!important;}
+body.guide-booking-stack-open #tripModal.show{z-index:20200!important;}
+body.guide-foreground-over-booking #guideModal.show{z-index:20300!important;}
+body.guide-foreground-over-booking #tripModal.show{z-index:20200!important;}
+body.documents-page .doc-viewer{z-index:20400!important;}
+body.documents-page #tripModal.show,body.expenses-page #tripModal.show{z-index:20200!important;}
+@media(max-width:620px){:root{--companion-modal-gap:8px;}}
