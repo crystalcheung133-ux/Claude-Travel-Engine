@@ -83,6 +83,10 @@
     "status": "active",
     "note": "invoked by current Master CI suite"
   },
+  "test-cross-link-return-context.js": {
+    "status": "active",
+    "note": "cross-linked popup close returns to exact caller context"
+  },
   "test-cross-reference-integrity.js": {
     "status": "active",
     "note": "Guide day links/anchors and Booking place/timeline referential integrity"
@@ -141,7 +145,7 @@
   },
   "test-guide-booking-return-contract.js": {
     "status": "active",
-    "note": "origin-aware Guide→Booking close: Timeline origin returns directly to Timeline"
+    "note": "origin-aware Guide\u2192Booking close: Timeline origin returns directly to Timeline"
   },
   "test-guide-menu-alignment.js": {
     "status": "active",
@@ -173,7 +177,11 @@
   },
   "test-multiday-booking-guide-routing.js": {
     "status": "active",
-    "principle": "One canonical booking can span multiple itinerary days; Guide→Booking dispatch must preserve booking category"
+    "principle": "One canonical booking can span multiple itinerary days; Guide\u2192Booking dispatch must preserve booking category"
+  },
+  "test-no-trip-homepage.js": {
+    "status": "active",
+    "note": "Trip button remains modal launcher; trip.html is booking-only compatibility host and never renders a Trip Homepage."
   },
   "test-open-day-and-arrival-flow.js": {
     "status": "active",
@@ -211,13 +219,17 @@
     "status": "active",
     "note": "RC29.101 natural expense history scroll, payer balance feedback, compact settle, Studio-only share summary"
   },
+  "test-rc29102-history-terminals.js": {
+    "status": "active",
+    "note": "RC29.102 five-item history paging, Trip Total Settle placement, plain transaction participant names, and T2 flight terminal context"
+  },
   "test-rc2966-shared-documents.js": {
     "status": "active",
     "purpose": "Engine 25.7.2 shared Documents root/folder integration contract"
   },
   "test-rc2967-documents-parity-ux.js": {
     "status": "active",
-    "purpose": "NZ Documents category/ownership/viewer parity plus cascading Day → Event timeline selector"
+    "purpose": "NZ Documents category/ownership/viewer parity plus cascading Day \u2192 Event timeline selector"
   },
   "test-rc2968-ui-docs-browser-contract.js": {
     "status": "active",
@@ -273,7 +285,7 @@
   },
   "test-rc2987-day4-quan-thuy-nondestructive.js": {
     "status": "active",
-    "note": "RC29.87 additive D4 Quán Thuý restore preserves RC29.86 user Timeline edits and Guide authority"
+    "note": "RC29.87 additive D4 Qu\u00e1n Thu\u00fd restore preserves RC29.86 user Timeline edits and Guide authority"
   },
   "test-rc2989-browser-fx-isolation.js": {
     "status": "active",
@@ -343,6 +355,10 @@
     "status": "active",
     "principle": "Canonical desktop Studio geometry and compact theme-aware Studio ON state indicator"
   },
+  "test-sw-precache-html-dependencies.js": {
+    "status": "active",
+    "note": "Local HTML script dependencies and configured splash mark must be covered by service-worker precache for cold offline startup."
+  },
   "test-syntax.sh": {
     "status": "active",
     "note": "invoked by current Master CI suite"
@@ -406,17 +422,5 @@
   "test-vn-route-first-spa-contract.js": {
     "status": "active",
     "note": "D4 route-first spa, factual corrections and exact Timeline return"
-  },
-  "test-rc29102-history-terminals.js": {
-    "status": "active",
-    "note": "RC29.102 five-item history paging, Trip Total Settle placement, plain transaction participant names, and T2 flight terminal context"
-  },
-  "test-cross-link-return-context.js": {
-    "status": "active",
-    "note": "cross-linked popup close returns to exact caller context"
-  },
-  "test-no-trip-homepage.js": {
-    "status": "active",
-    "note": "Trip button remains modal launcher; trip.html is booking-only compatibility host and never renders a Trip Homepage."
   }
 }

@@ -4,6 +4,7 @@ ci-tests/
 docs/
 *.md
 *.sql
+*.ts
 *.zip
 SHA256SUMS.txt
 PRODUCTION-FILE-MANIFEST.txt

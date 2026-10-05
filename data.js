@@ -819,6 +819,24 @@ const PLACES={
       "出發前查 Instagram / Facebook 確認分店營業時間。"
     ]
   },
+  "mozaic-space": {
+    "title": "Mozaic Space",
+    "emoji": "🧢",
+    "cat": "SHOP",
+    "sub": "Day 2 · Optional Fashion Stop",
+    "shoppingRoute": "Day 2 · Optional after Trần Quang Diệu cluster",
+    "hours": "10:00–22:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Mozaic%20Space%2031%2F23%20Le%20Van%20Sy%20Ho%20Chi%20Minh",
+    "address": "31/23 Lê Văn Sỹ, Nhiêu Lộc, Hồ Chí Minh, Vietnam",
+    "desc": "Multi-brand Vietnamese fashion / streetwear concept store。Day 2 行完 Trần Quang Diệu shopping cluster 後如果大家仲有精神先去；由 Lane Cì 接過去最順，Grab 約 5–10 分鐘。",
+    "signature": ["Vietnamese multi-brand fashion", "Streetwear / local labels", "適合做 Day 2 optional final browse"],
+    "worth": ["OPTIONAL：唔影響主行程；有時間、有腳力先加。", "由 Lane Cì / Trần Quang Diệu 尾站 Grab 約 5–10 分鐘；唔標示為 walking route。"],
+    "categoryLabel": "🛍 Shopping",
+    "price": "Varies",
+    "transport": "Grab 5–10 min from Lane Cì · optional",
+    "highlights": ["Vietnamese multi-brand fashion", "Local streetwear / concept-store browse"],
+    "tips": ["行完 Trần Quang Diệu cluster、到 Lane Cì 後先決定去唔去。", "Trading hours 10:00–22:00；出發當日再確認。"]
+  },
   "lane-ci": {
     "title": "LANE Cì",
     "emoji": "🎀",
@@ -1631,6 +1649,9 @@ const CATEGORIES={
       "key": "new-playground"
     },
     {
+      "key": "mozaic-space"
+    },
+    {
       "key": "takashimaya"
     }
   ],
@@ -1698,6 +1719,7 @@ const GUIDE_ORDER=[
   "pizza4ps",
   "ohquao",
   "new-playground",
+  "mozaic-space",
   "takashimaya",
   "qspa",
   "ha-spa",
@@ -1831,6 +1853,12 @@ const DAY_LINKS={
   "lane-ci": [
     [
       "Day 2",
+      "day.html?day=2#shopping-tqd"
+    ]
+  ],
+  "mozaic-space": [
+    [
+      "Day 2 · Optional",
       "day.html?day=2#shopping-tqd"
     ]
   ],
@@ -2554,8 +2582,8 @@ const ITINERARY_DATA={
       },
       {
         "id":"shopping-tqd","time":"11:30–12:30","title":"🛍 Trần Quang Diệu · Fashion Walk",
-        "details":["AASTU · 118/12 Trần Quang Diệu 為主看店；之後沿街按興趣經 Dalla · 64、RUBIES · 47–49、Mì Workshop · 29、Lane Cì · 27。唔需要每間都入。"],
-        "route":"🚕 To next stop · 約 10–15 min：由 Lane Cì Grab → Pizza 4P’s Hai Bà Trưng。",
+        "details":["AASTU · 118/12 Trần Quang Diệu 為主看店；之後沿街按興趣經 Dalla · 64、RUBIES · 47–49、Mì Workshop · 29、Lane Cì · 27。唔需要每間都入。", "OPTIONAL：行完 Lane Cì 如果仲有時間／精神，Grab 約 5–10 min → Mozaic Space · 31/23 Lê Văn Sỹ；唔去就直接去 Pizza 4P’s。"],
+        "route":"🚕 Optional detour：Lane Cì → Mozaic Space 約 5–10 min；skip Mozaic 就直接 Grab → Pizza 4P’s Hai Bà Trưng。",
         "map":"https://www.google.com/maps/search/?api=1&query=Dalla%20Saigon%2064%20Tran%20Quang%20Dieu%20Ho%20Chi%20Minh","type":"shoppingWindow","dayId":"day2","placeId":"dalla-saigon","bookingId":null,"showShoppingDirectory":true
       },
             {

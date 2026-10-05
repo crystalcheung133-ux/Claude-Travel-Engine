@@ -1,5 +1,5 @@
 importScripts('./theme-config.js', './asset-config.js', './locale-config.js', './formatter.js', './navigation-config.js', './trip-config.js', './storage-config.js');
-const CACHE_NAME = `travel-engine-${TRIP_CONFIG.storageNamespace}-${TRIP_CONFIG.version}-rc29111-page-anchor-overlay-contract`;
+const CACHE_NAME = `travel-engine-${TRIP_CONFIG.storageNamespace}-${TRIP_CONFIG.version}-rc29115-release-integrity`;
 const CRITICAL_EXTENSIONS = /\.(?:css|js)$/i;
 const ASSETS = [
   './',
@@ -13,6 +13,11 @@ const ASSETS = [
   './home-runtime.js',
   './script.js',
   './guide-runtime.js',
+  './guide-authority.js',
+  './guide-sync-runtime.js',
+  './generation-selection-adapter.js',
+  './expense-notification-runtime.js',
+  './shopping-directory-data.js',
   './guide-navigation-runtime.js',
   './expenses.js',
   './supabase-client-runtime.js',
@@ -56,6 +61,7 @@ const ASSETS = [
   './' + ASSET_CONFIG.icons.icon512,
   './' + ASSET_CONFIG.branding.secondaryMark,
   './' + ASSET_CONFIG.branding.splashLogo,
+  './' + ASSET_CONFIG.branding.splashMark,
   './guide.html',
   './itinerary.html',
   './memory.html',

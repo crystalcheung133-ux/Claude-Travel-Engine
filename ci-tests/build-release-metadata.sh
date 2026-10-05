@@ -6,7 +6,7 @@ cd "$ROOT"
 # Production runtime = root-level web/runtime assets only.
 # Repository/dev artifacts are excluded by deployment hygiene.
 find . -maxdepth 1 -type f -printf '%f\n' \
- | grep -Ev '^(SHA256SUMS\.txt|PRODUCTION-FILE-MANIFEST\.txt|VERSION\.txt|.*\.md|.*\.sql|BOOKING-SYNC-EDGE-FUNCTION\.ts|bookings\.html|bookings-runtime\.js)$' \
+ | grep -Ev '^(SHA256SUMS\.txt|PRODUCTION-FILE-MANIFEST\.txt|VERSION\.txt|RELEASE\.json|.*\.md|.*\.sql|BOOKING-SYNC-EDGE-FUNCTION\.ts)$' \
  | sort > /tmp/travel-engine-prod-files.$$
 
 BUILD_LABEL=$(sed -n '1p' VERSION.txt)
