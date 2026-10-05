@@ -10,7 +10,7 @@
   function master(){try{return typeof BOOKINGS_DATA!=='undefined'?BOOKINGS_DATA:(root.BOOKINGS_DATA||{});}catch(error){return root.BOOKINGS_DATA||{};}}
   const DEPLOY_MASTER=clone(master()||{});
   const EDITABLE_STATE_FIELDS=Object.freeze([
-    'status','bookingName',
+    'status','bookingName','plannedDays','plannedVisits',
     'depositPaid','depositAmount','depositCurrency','paymentStatus',
     'reference','referenceLabel','bookingReference',
     'totalAmount','cashbackAmount','netTotalAUD','price','paymentLabel'

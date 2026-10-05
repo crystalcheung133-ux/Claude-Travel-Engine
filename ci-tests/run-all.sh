@@ -31,6 +31,9 @@ run "CANONICAL STUDIO VISUAL CONTRACT 25.6.2" node ci-tests/test-studio-visual-c
 run "BOOKING MASTER STATUS + STUDIO EDIT" node ci-tests/test-booking-master-status-studio-edit.js
 run "BOOKING SINGLE STATUS AUTHORITY" node ci-tests/test-booking-single-status-authority.js
 run "QSPA D1-D3 RECONCILIATION" node ci-tests/test-qspa-d1-d3-reconciliation.js
+run "RC29.118 BOOKING MOBILE + MULTIVISIT" node ci-tests/test-rc29117-booking-mobile-multivisit.js
+run "RC29.118 SHOPPING ROUTE" node ci-tests/test-rc29117-shopping-route.js
+run "RC29.118 VERIFIED ALL-DAY SHOPPING ROUTES" node ci-tests/test-rc29118-shopping-route-audit.js
 run "EXPENSE SUITE FAILURE ACCUMULATION" node ci-tests/test-expense-suite-failure-accumulation.js
 run "MULTI-DAY BOOKING + GUIDE ROUTING" node ci-tests/test-multiday-booking-guide-routing.js
 run "BOOKING CONTACT CHANNEL UX" node ci-tests/test-booking-contact-channel-ux.js

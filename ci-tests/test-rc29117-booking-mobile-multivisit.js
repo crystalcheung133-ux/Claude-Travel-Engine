@@ -1,0 +1,10 @@
+const fs=require('fs'),assert=require('assert');
+const trip=fs.readFileSync('trip-runtime.js','utf8'),auth=fs.readFileSync('booking-authority.js','utf8'),css=fs.readFileSync('styles.css','utf8');
+assert(trip.includes('bookingPlannedVisitEditFields'),'multi-visit editor missing');
+for(const f of ['day','date','time','label','duration']) assert(trip.includes(`['day','date','time','label','duration']`),`planned visit save parser missing ${f}`);
+assert(auth.includes("'plannedDays','plannedVisits'"),'plannedVisits not included in cross-device editable authority');
+assert(trip.includes('booking-detail-head-actions'),'fixed booking header actions missing');
+assert(!/bookingGuideButtonHTML\(booking\),\s*bookingEditButtonHTML\(booking\)/.test(trip),'Edit Booking still lives in variable action list');
+assert(css.includes('RC29.118 — canonical mobile Booking detail/editor layout'),'canonical mobile booking CSS missing');
+assert(css.includes('grid-template-columns:1fr!important'),'mobile booking facts must collapse to one column');
+console.log('RC29.118 BOOKING MOBILE + MULTIVISIT: PASS');

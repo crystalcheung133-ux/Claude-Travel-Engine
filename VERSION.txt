@@ -1,1 +1,1 @@
-VN Companion RC29.116 · Travel Engine 25.7.3 Dependency + CI Hardening
+VN Companion RC29.118 · Travel Engine 25.7.3 Route Verified + Booking Fix

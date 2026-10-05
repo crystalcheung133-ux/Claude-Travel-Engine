@@ -47,7 +47,7 @@ for(const required of ['trip-action-btn--book','trip-action-btn--whatsapp','trip
 assert(actions.includes('bookingGuideButtonHTML(booking)'),'Guide-led planned Booking must expose View Guide');
 for(const forbidden of ['Navigate</a>','Copy Address','trip-action-btn--call'])
   assert(!actions.includes(forbidden),'Generic Booking action outside allow-list: '+forbidden);
-assert(actions.includes('bookingEditButtonHTML(booking)'),'Studio Edit Booking action is not wired into Booking detail actions');
+assert(trip.includes('bookingFixedHeaderActionsHTML(booking'),'Studio Edit Booking action is not wired into fixed Booking header');
 const editBlock=(trip.match(/function bookingEditButtonHTML\(booking\)\{[\s\S]*?\n\}/)||[''])[0];
 assert(editBlock.includes('window.isAdminMode&&window.isAdminMode()'),'Edit Booking action must be Studio-only');
 assert(editBlock.includes('BOOKING_PERMISSIONS.canEdit()'),'Edit Booking action must honor Booking permissions');

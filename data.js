@@ -1353,7 +1353,7 @@ const PLACES={
   },
   "waa-studios": {
     "title":"waa. studios","emoji":"👜","cat":"SHOP","sub":"Day 5 · Old Market accessories","shoppingRoute":"Day 5 · Fine Arts Museum → waa.",
-    "hours":"10:00–21:30 daily","maps":"https://www.google.com/maps/search/?api=1&query=waa%20studios%2038%20Dang%20Thi%20Nhu%20Ho%20Chi%20Minh",
+    "hours":"09:30–21:30 daily","maps":"https://www.google.com/maps/search/?api=1&query=waa%20studios%2038%20Dang%20Thi%20Nhu%20Ho%20Chi%20Minh",
     "address":"38 Đặng Thị Nhu, District 1, Hồ Chí Minh",
     "desc":"Vietnamese accessories / leather goods，主打 bags、sandals 與簡潔皮具。Fine Arts Museum 後可步行前往。",
     "signature":["Bags / sandals / belts","Vietnamese accessories","Quiet local boutique"],"worth":["Fine Arts Museum 後可順路看看；有啱先試，唔需要拖長。"],
@@ -2582,8 +2582,8 @@ const ITINERARY_DATA={
       },
       {
         "id":"shopping-tqd","time":"11:30–12:30","title":"🛍 Trần Quang Diệu · Fashion Walk",
-        "details":["AASTU · 118/12 Trần Quang Diệu 為主看店；之後沿街按興趣經 Dalla · 64、RUBIES · 47–49、Mì Workshop · 29、Lane Cì · 27。唔需要每間都入。", "OPTIONAL：行完 Lane Cì 如果仲有時間／精神，Grab 約 5–10 min → Mozaic Space · 31/23 Lê Văn Sỹ；唔去就直接去 Pizza 4P’s。"],
-        "route":"🚕 Optional detour：Lane Cì → Mozaic Space 約 5–10 min；skip Mozaic 就直接 Grab → Pizza 4P’s Hai Bà Trưng。",
+        "details":["AASTU · 118/12 Trần Quang Diệu 為主看店；之後按實際步行方向經 RUBIES · 47–49、Dalla · 64、Lane Cì · 27、Mì Workshop · 29。唔需要每間都入。", "OPTIONAL：行完 Mì Workshop 如果仲有時間／精神，步行約 5–7 min → Mozaic Space · 31/23 Đ. Lê Văn Sỹ；唔去就直接去 Pizza 4P’s。"],
+        "route":"🚶 Optional extension：Mì Workshop → Mozaic Space 約 5–7 min；skip Mozaic 就直接 Grab → Pizza 4P’s Hai Bà Trưng。",
         "map":"https://www.google.com/maps/search/?api=1&query=Dalla%20Saigon%2064%20Tran%20Quang%20Dieu%20Ho%20Chi%20Minh","type":"shoppingWindow","dayId":"day2","placeId":"dalla-saigon","bookingId":null,"showShoppingDirectory":true
       },
             {

@@ -241,7 +241,6 @@ function bookingActionButtonsHTML(booking,place,options={}){
     whatsapp?`<a class="pill trip-action-btn trip-action-btn--whatsapp" href="${escapeTripHTML(whatsapp)}" target="_blank" rel="noopener">WhatsApp</a>`:'',
     booking&&booking.email?`<a class="pill trip-action-btn trip-action-btn--email" href="mailto:${escapeTripHTML(booking.email)}">Email</a>`:'',
     bookingGuideButtonHTML(booking),
-    bookingEditButtonHTML(booking),
     includeDay?bookingDayButtonHTML(booking):''
   ].filter(Boolean);
   return buttons.length?`<div class="trip-action-row trip-action-row--booking-compact">${buttons.join('')}</div>`:'';
@@ -286,7 +285,7 @@ function buildAccommodationDetailHTML(booking){
     bookingSectionHTML('Address',address),
     bookingDocumentsHTML(booking)
   ].join('');
-  return `<article class="fact stay-booking accommodation-detail-card accommodation-detail-card--compact"><div class="accommodation-detail-head"><div><span>${escapeTripHTML(booking.stayDates||booking.date||'')}</span></div>${nightsLabel?`<span class="accommodation-night-badge">${escapeTripHTML(nightsLabel)}</span>`:''}</div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place,{includeDay:false})}${bookingExpenseActionHTML(booking)}${accommodationDetailNavigationHTML(booking.id)}</article>`;
+  return `<article class="fact stay-booking accommodation-detail-card accommodation-detail-card--compact"><div class="accommodation-detail-head"><div><span>${escapeTripHTML(booking.stayDates||booking.date||'')}</span></div>${bookingFixedHeaderActionsHTML(booking,nightsLabel?`<span class="accommodation-night-badge">${escapeTripHTML(nightsLabel)}</span>`:'')}</div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place,{includeDay:false})}${bookingExpenseActionHTML(booking)}${accommodationDetailNavigationHTML(booking.id)}</article>`;
 }
 
 function openAccommodationList(){
@@ -336,7 +335,7 @@ function buildActivityBookingDetailHTML(booking){
     bookingSectionHTML('Cancellation',booking.cancellation||''),bookingSectionHTML('Notes',booking.notes||''),
     bookingDocumentsHTML(booking)
   ].join('');
-  return `<article class="fact stay-booking accommodation-detail-card activity-booking-detail"><div class="accommodation-detail-head booking-compact-head"><div><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge activity-confirmed-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place)}${bookingExpenseActionHTML(booking)}${activityDetailNavigationHTML(booking.id)}</article>`;
+  return `<article class="fact stay-booking accommodation-detail-card activity-booking-detail"><div class="accommodation-detail-head booking-compact-head"><div><span>${escapeTripHTML(booking.date||'')}</span></div>${bookingFixedHeaderActionsHTML(booking,`<span class="accommodation-night-badge activity-confirmed-badge">${escapeTripHTML(bookingStatusText(booking))}</span>`)}</div><div class="accommodation-facts">${facts}</div>${sections}${bookingActionButtonsHTML(booking,place)}${bookingExpenseActionHTML(booking)}${activityDetailNavigationHTML(booking.id)}</article>`;
 }
 function openActivityBookingDetail(bookingId,bookingOverride,showSaved){
   activeBookingDetail={type:'activity',id:bookingId};
@@ -420,7 +419,7 @@ function buildGenericBookingDetailHTML(booking){
     bookingDocumentsHTML(booking)
   ].join('');
   const sharedPlan=plannedDaySummary?`<div class="booking-shared-plan"><strong>${escapeTripHTML(bookingStatusText(booking))}</strong><span>${escapeTripHTML(plannedDaySummary)}</span></div>`:'';
-  return `<article class="fact stay-booking accommodation-detail-card generic-booking-detail"><div class="accommodation-detail-head"><div><strong>${escapeTripHTML(booking.title)}</strong><span>${escapeTripHTML(booking.date||'')}</span></div><span class="accommodation-night-badge">${escapeTripHTML(bookingStatusText(booking))}</span></div>${sharedPlan}<div class="accommodation-facts">${facts}</div>${bookingActionButtonsHTML(booking,place)}${sections}${bookingExpenseActionHTML(booking)}${genericBookingDetailNavigationHTML(booking)}</article>`;
+  return `<article class="fact stay-booking accommodation-detail-card generic-booking-detail"><div class="accommodation-detail-head"><div><strong>${escapeTripHTML(booking.title)}</strong><span>${escapeTripHTML(booking.date||'')}</span></div>${bookingFixedHeaderActionsHTML(booking,`<span class="accommodation-night-badge">${escapeTripHTML(bookingStatusText(booking))}</span>`)}</div>${sharedPlan}<div class="accommodation-facts">${facts}</div>${bookingActionButtonsHTML(booking,place)}${sections}${bookingExpenseActionHTML(booking)}${genericBookingDetailNavigationHTML(booking)}</article>`;
 }
 function openGenericBookingDetail(bookingId,bookingOverride,showSaved){
   const booking=bookingOverride||getBookingById(bookingId);if(!booking)return;
@@ -466,6 +465,10 @@ function bookingEditButtonHTML(booking){
   return booking&&studioActive&&window.BOOKING_PERMISSIONS&&BOOKING_PERMISSIONS.canEdit()
     ?`<button class="pill trip-action-btn booking-edit-btn trip-action-btn--edit" type="button" onclick="openBookingEdit('${escapeTripHTML(booking.id)}')">${escapeTripHTML(BOOKING_PERMISSIONS.editLabel())}</button>`:'';
 }
+function bookingFixedHeaderActionsHTML(booking,badgeHTML){
+  const edit=bookingEditButtonHTML(booking);
+  return `<div class="booking-detail-head-actions">${badgeHTML||''}${edit}</div>`;
+}
 function bookingField(label,name,value,options){
   const opts=options||{};
   const val=value==null?'':String(value);
@@ -484,6 +487,14 @@ function bookingViaValue(booking){
 }
 function bookingImportantInfo(booking){
   return [booking.cancellation||'',booking.checkInInstructions||'',booking.lunchStatus||'',booking.notes||''].filter(Boolean).filter((v,i,a)=>a.indexOf(v)===i).join('\n');
+}
+function bookingPlannedVisitEditFields(booking){
+  const visits=Array.isArray(booking&&booking.plannedVisits)?booking.plannedVisits:[];
+  if(!visits.length)return '';
+  return `<section class="booking-edit-planned-visits booking-edit-field--wide"><div class="booking-edit-section-head"><strong>Planned visits</strong><small>Edit each visit used by this multi-day booking.</small></div>${visits.map(function(row,index){
+    const prefix=`plannedVisit_${index}_`;
+    return `<fieldset class="booking-edit-visit"><legend>Visit ${index+1}</legend><div class="booking-edit-visit-grid">${bookingField('Day',prefix+'day',row.day)}${bookingField('Date',prefix+'date',row.date)}${bookingField('Time',prefix+'time',row.time)}${bookingField('Visit label',prefix+'label',row.label,{wide:true})}${bookingField('Duration',prefix+'duration',row.duration)}</div></fieldset>`;
+  }).join('')}</section>`;
 }
 function bookingEditFields(booking){
   const place=bookingPlace(booking)||{};
@@ -524,7 +535,8 @@ function bookingEditFields(booking){
     bookingField('Discount','discount',booking.discount),bookingField('Pickup / meeting point','pickupNote',booking.pickupNote||booking.pickupAddress,{type:'textarea'}),
     bookingField('Drop-off','dropOff',booking.dropOff,{type:'textarea'})
   );
-  return common.join('');
+  const plannedVisitFields=bookingPlannedVisitEditFields(booking);
+  return common.join('')+plannedVisitFields;
 }
 function openBookingEdit(bookingId){
   if(!(window.BOOKING_PERMISSIONS&&BOOKING_PERMISSIONS.canEdit()))return;
@@ -612,6 +624,15 @@ async function saveBookingEdit(event,bookingId){
   BOOKING_SAVE_IN_FLIGHT.add(bookingId);
   const formData=new FormData(form);const next=Object.assign({},current);
   formData.forEach(function(value,key){next[key]=String(value).trim();});
+  if(Array.isArray(current.plannedVisits)&&current.plannedVisits.length){
+    next.plannedVisits=current.plannedVisits.map(function(row,index){
+      const copy=Object.assign({},row);
+      ['day','date','time','label','duration'].forEach(function(field){const key=`plannedVisit_${index}_${field}`;if(formData.has(key))copy[field]=String(formData.get(key)||'').trim();delete next[key];});
+      const rawDay=String(copy.day||'').replace(/\D/g,'');if(rawDay)copy.dayId='day'+rawDay;
+      return copy;
+    });
+    next.plannedDays=[...new Set(next.plannedVisits.map(v=>String(v.day||'').trim()).filter(Boolean))].join(' · ');
+  }
   {const rawStatus=String(next.status||'pending').toLowerCase();next.status=rawStatus==='confirmed'?'confirmed':(rawStatus==='planned'?'planned':'pending');}
   const viaChoice=next.bookingVia||'';
   const viaOther=next.bookingViaOther||'';
