@@ -30,7 +30,7 @@ function openGuideLinkedBooking(bookingId){
   if(!booking)return;
   // Navigation contract: a Guide opened from Day Timeline is an intermediate layer.
   // Closing its linked Booking returns directly to Timeline; Guide-origin flows return to Guide.
-  window.TRIP_MODAL_RETURN_TO_GUIDE=window.GUIDE_MODAL_ORIGIN!=='timeline';
+  window.TRIP_MODAL_RETURN_TO_GUIDE=false;
   document.body.classList.remove('guide-foreground-over-booking');
   document.body.classList.add('guide-booking-stack-open');
   const guideModal=document.getElementById('guideModal');
@@ -505,6 +505,7 @@ function openGuideAlternatives(keys,itemId){
  }).join('');
  $('guideModalContent').innerHTML=`<p class="kicker">Guide</p><h2>Options</h2><div class="category-pop-list">${rows}</div>`;
  $('guideModal').classList.add('show');
+ window.bringContentOverlayToFront?.($('guideModal'));
  const sheet=document.querySelector('#guideModal .guide-sheet');if(sheet)sheet.scrollTop=0;
 }
 function guideAlternativeBackButton(){
@@ -551,6 +552,7 @@ function openGuideModal(key,options){
  $('guideModalContent').innerHTML=`<div class="guide-onepage">${back}<p class="kicker">Guide</p><h2>${g.emoji} ${g.title}</h2>${quickInfoHTML(g,key)}${routeStopsHTML(g)}${guideStudioButton(key)}${guideNavButtons(key)}</div>`;
  closeMiniMenus();
  $('guideModal').classList.add('show');
+ window.bringContentOverlayToFront?.($('guideModal'));
  const sheet=document.querySelector('#guideModal .guide-sheet');
  if(sheet){sheet.scrollTop=0;if(typeof window.applyNearFitModal==='function')window.applyNearFitModal(sheet,'guide-near-fit');}
 }
@@ -566,14 +568,9 @@ function restoreGuideTimelineOrigin(){
 }
 function closeGuideModal(){
  if(isGuideEditActive())return false;
- const shouldRestore=window.GUIDE_MODAL_ORIGIN==='timeline';
- window.GUIDE_MODAL_ORIGIN=null;
+ if(typeof window.dismissAllContentOverlays==='function')return window.dismissAllContentOverlays();
  const modal=$('guideModal');if(modal)modal.classList.remove('show');
- guideAlternativeKeys=[];
- closeMiniMenus();
- document.body.classList.remove('admin-overlay-open');
- clearGuideNavigationContext();
- if(shouldRestore)restoreGuideTimelineOrigin();
+ return true;
 }
 
 function renderPlacePage(key){

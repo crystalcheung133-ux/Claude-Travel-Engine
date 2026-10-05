@@ -15,5 +15,5 @@ for(const forbidden of ['Private tour · 4 travellers','07:30 由 Fusion','drop 
 ok(/underground|tunnel network|ventilation/i.test(cutxt),'Cu Chi Guide needs destination background');
 for(const k of ['omakase-tiger','pizza4ps','lune','man-moi','qspa','ha-spa','fusion']){const txt=JSON.stringify(X.PLACES[k]);ok(!/已確認|訂金已付|07:30 private-tour pickup|D1 · Arrival Recovery · 120 min|D2 · Afternoon Reset/.test(txt),k+' Guide leaks booking/timeline facts')}
 ok(guide.includes("guideModal.classList.add('guide-backgrounded-for-booking')"),'Guide -> Booking must background Guide');
-ok(trip.includes("guideModal.classList.remove('guide-backgrounded-for-booking')")&&trip.includes("if(guideModal)guideModal.classList.add('show')"),'Closing Booking must restore Guide foreground');
+ok(trip.includes('dismissAllContentOverlays'),'Closing Booking must dismiss all popup layers instead of restoring Guide');
 console.log('RC29.85 GUIDE OWNERSHIP + MODAL FOREGROUND: PASS');

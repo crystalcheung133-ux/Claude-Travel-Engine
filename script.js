@@ -67,3 +67,32 @@ function applyNearFitModal(sheet,className){
   });
 }
 window.applyNearFitModal=applyNearFitModal;
+
+/* RC29.111 — canonical cross-link overlay contract.
+   Pages are anchors. Popups may stack visually, but they never form return history.
+   Any popup close dismisses the full content-overlay chain; popup→page dismisses first. */
+(function(root){
+  let overlayZ=9000;
+  root.bringContentOverlayToFront=function(target){
+    const el=typeof target==='string'?document.getElementById(target):target;
+    if(!el)return el;
+    overlayZ+=10;
+    el.style.zIndex=String(overlayZ);
+    return el;
+  };
+  root.dismissAllContentOverlays=function(){
+    ['tripModal','guideModal','docViewer','expenseModal','momentsModal','unexpectedModal','mamaModal'].forEach(function(id){
+      const el=document.getElementById(id);if(!el)return;
+      el.classList.remove('show','guide-backgrounded-for-booking','identity-required');
+      el.setAttribute?.('aria-hidden','true');
+      el.style.zIndex='';
+    });
+    const body=document.body;
+    body.classList.remove('guide-booking-stack-open','guide-foreground-over-booking','admin-overlay-open','expense-modal-open');
+    body.style.top='';body.style.overflow='';
+    try{document.getElementById('docViewerBody')?.replaceChildren();}catch(e){}
+    try{window.GUIDE_MODAL_ORIGIN=null;window.TRIP_MODAL_RETURN_TO_GUIDE=false;}catch(e){}
+    try{closeMiniMenus?.();}catch(e){}
+    return true;
+  };
+})(globalThis);

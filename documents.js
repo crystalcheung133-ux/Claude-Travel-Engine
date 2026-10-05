@@ -43,7 +43,7 @@ function renderTargets(){setLinkEditor('doc','trip','');const disabled=!root.TRI
 function routeForDocument(d,origin='page'){
  const back=origin==='viewer'?`documents.html?document=${encodeURIComponent(d.id)}`:'documents.html';
  if(d.linkType==='booking'&&d.linkId)return `#booking:${encodeURIComponent(d.linkId)}`;
- if(d.linkType==='timeline'&&d.linkId){const [day,item]=String(d.linkId).split('::');return `day.html?day=${encodeURIComponent(day)}&returnTo=${encodeURIComponent(back)}#${encodeURIComponent(item||'')}`}
+ if(d.linkType==='timeline'&&d.linkId){const [day,item]=String(d.linkId).split('::');return `day.html?day=${encodeURIComponent(day)}#${encodeURIComponent(item||'')}`}
  return ''
 }
 
@@ -51,7 +51,6 @@ function openDocumentLinkedEntity(documentId,origin,event){
  if(event){event.preventDefault();event.stopPropagation();}
  const d=root.TRIP_DOCUMENTS.read().find(x=>x.id===documentId);if(!d)return false;
  if(d.linkType==='booking'&&d.linkId){
-   if(origin==='viewer') closeDocumentViewer();
    if(typeof window.returnToBookingDetail==='function'){ window.returnToBookingDetail(d.linkId); return false; }
    return false;
  }
@@ -127,8 +126,8 @@ async function renderPdfInto(url,wrap){
 }
 root.openDocumentViewer=id=>{const d=root.TRIP_DOCUMENTS.read().find(x=>x.id===id);if(!d)return;let url=d.fileUrl||d.localObjectUrl||'';if(d.embeddedBase64){try{const raw=atob(d.embeddedBase64),bytes=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);url=URL.createObjectURL(new Blob([bytes],{type:d.mimeType||'application/pdf'}));}catch(e){}}$('docViewerTitle').textContent=d.title||'Document';const body=$('docViewerBody');body.innerHTML='';
 if(d.linkType&&d.linkType!=='trip'&&d.linkLabel){const link=document.createElement('a');link.className='pill doc-viewer-linked-entity';link.href=routeForDocument(d,'viewer');link.textContent='🔗 '+d.linkLabel;link.onclick=function(event){return openDocumentLinkedEntity(d.id,'viewer',event)};body.appendChild(link)}
-if(!url){body.innerHTML='<div class="doc-viewer-message">This document is not available on this device yet.</div>'}else if((d.mimeType||'').startsWith('image/')){const img=document.createElement('img');img.src=url;img.alt=d.title||'Document';body.appendChild(img)}else if((d.mimeType||'').includes('pdf')||/\.pdf(?:$|\?)/i.test(url)){const wrap=document.createElement('div');wrap.className='pdf-pages';body.appendChild(wrap);renderPdfInto(url,wrap)}else{const wrap=document.createElement('div');wrap.className='doc-viewer-message';wrap.innerHTML='<strong>'+esc(d.fileName||d.title||'Document')+'</strong><p>This file type opens in its native viewer.</p><a class="pill" target="_blank" rel="noopener">Open original file</a>';wrap.querySelector('a').href=url;body.appendChild(wrap)}$('docViewer').classList.add('show');$('docViewer').setAttribute('aria-hidden','false');document.body.style.overflow='hidden'};
-root.closeDocumentViewer=()=>{const back=new URLSearchParams(location.search).get('returnTo');if(back){location.href=back;return true}const v=$('docViewer');v.classList.remove('show');v.setAttribute('aria-hidden','true');$('docViewerBody').innerHTML='';document.body.style.overflow='';return true};
+if(!url){body.innerHTML='<div class="doc-viewer-message">This document is not available on this device yet.</div>'}else if((d.mimeType||'').startsWith('image/')){const img=document.createElement('img');img.src=url;img.alt=d.title||'Document';body.appendChild(img)}else if((d.mimeType||'').includes('pdf')||/\.pdf(?:$|\?)/i.test(url)){const wrap=document.createElement('div');wrap.className='pdf-pages';body.appendChild(wrap);renderPdfInto(url,wrap)}else{const wrap=document.createElement('div');wrap.className='doc-viewer-message';wrap.innerHTML='<strong>'+esc(d.fileName||d.title||'Document')+'</strong><p>This file type opens in its native viewer.</p><a class="pill" target="_blank" rel="noopener">Open original file</a>';wrap.querySelector('a').href=url;body.appendChild(wrap)}$('docViewer').classList.add('show');$('docViewer').setAttribute('aria-hidden','false');root.bringContentOverlayToFront?.($('docViewer'));document.body.style.overflow='hidden'};
+root.closeDocumentViewer=()=>{if(typeof root.dismissAllContentOverlays==='function')return root.dismissAllContentOverlays();const v=$('docViewer');v.classList.remove('show');v.setAttribute('aria-hidden','true');$('docViewerBody').innerHTML='';document.body.style.overflow='';return true};
 root.resetDocumentsView=()=>{try{root.closeDocumentViewer()}catch(e){};try{root.closeAddDocument()}catch(e){};const f=$('docForm');if(f)f.reset();const save=$('docSave');if(save){save.disabled=false;save.textContent='Save Document'};document.body.style.overflow=''};
 
 root.openAddDocument=()=>{root.TRIP_DOCUMENT_FOLDERS?.fillSelect($('docFiledUnder'),'all');setLinkEditor('doc','trip','');$('docModal').classList.add('show')};

@@ -53,7 +53,7 @@ function closeExpenseModal(){
     const expenseSheet=expenseModal?.querySelector('.tools-sheet');
     if(expenseModal) expenseModal.scrollTop=0;
     if(expenseSheet) expenseSheet.scrollTop=0;
-const m=$('expenseModal'); if(m) m.classList.remove('show'); if(typeof window.unlockExpensePage==='function') window.unlockExpensePage();}
+if(typeof window.dismissAllContentOverlays==='function'){window.dismissAllContentOverlays();return;} const m=$('expenseModal'); if(m) m.classList.remove('show'); if(typeof window.unlockExpensePage==='function') window.unlockExpensePage();}
 
 function splitAll() {
   document.querySelectorAll('#expenseModal input[data-split]').forEach(x => x.checked = true);
@@ -793,13 +793,12 @@ let editingExpenseIndex=null;
     resetExpenseForm();
     lockExpensePage();
     const modal=document.getElementById('expenseModal');
-    if(modal) modal.classList.add('show');
+    if(modal){modal.classList.add('show');window.bringContentOverlayToFront?.(modal);}
   };
   window.openBookingExpense=function(bookingId){
     const booking=window.BOOKING_AUTHORITY?.get?window.BOOKING_AUTHORITY.get(bookingId):null;
     if(!booking)return alert('Booking details are unavailable.');
     bookingExpenseFlowActive=true;
-    document.getElementById('tripModal')?.classList.remove('show');
     resetExpenseForm({preserveBookingFlow:true});
     pendingExpenseSource={sourceType:'booking',sourceBookingId:booking.id,sourceBookingTitle:booking.title||'Booking',sourceBookingType:booking.type||''};
     const seed=bookingAmountSeed(booking);
@@ -812,7 +811,7 @@ let editingExpenseIndex=null;
     updateExpenseFxHelper();
     const title=document.getElementById('expenseModalTitle');if(title)title.innerHTML='<span class="expense-title-emoji" aria-hidden="true">💳</span> Add booking payment';
     const intro=document.getElementById('expenseIntro');if(intro)intro.textContent='Booking details are prefilled. Confirm who paid and who should share this payment before saving.';
-    lockExpensePage();document.getElementById('expenseModal')?.classList.add('show');
+    lockExpensePage();document.getElementById('expenseModal')?.classList.add('show');window.bringContentOverlayToFront?.(document.getElementById('expenseModal'));
   };
 
 
@@ -899,8 +898,7 @@ let editingExpenseIndex=null;
 
       try{window.EXPENSE_NOTIFICATIONS?.markCurrentFamilySeen?.(data);}catch(e){}
       resetExpenseForm();
-      closeExpenseModal();
-      document.getElementById('tripModal')?.classList.remove('show');
+      if(typeof window.dismissAllContentOverlays==='function')window.dismissAllContentOverlays(); else closeExpenseModal();
       unlockSave();
 
       // Post-commit UI refresh and cloud work are isolated from the Save result.
@@ -908,7 +906,7 @@ let editingExpenseIndex=null;
       try{window.EXPENSE_SYNC?.queueSync();}catch(error){console.error('[Expenses] sync queue failed',error);}
       try{window.CCMV_EXPENSE_DUAL_WRITE?.afterLegacyWrite({action:operation,legacyRecords:readExpenses(),targetIndex:operation==='update'?operationIndex:arr.length-1,previousRecord});}catch(error){console.error('[Expenses] dual-write failed',error);}
 
-      if(cameFromBooking&&savedId){window.location.href=`expenses.html?expenseId=${encodeURIComponent(savedId)}`;return;}
+      if(cameFromBooking&&savedId){return;}
       setTimeout(()=>{
         const latest=document.querySelector('[data-latest-expense="true"]')||document.getElementById('latestExpenseCard');
         if(latest){latest.scrollIntoView({behavior:'auto',block:'center'});latest.classList.add('expense-card--new');setTimeout(()=>latest.classList.remove('expense-card--new'),1800);}

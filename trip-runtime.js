@@ -186,29 +186,39 @@ function accommodationPaymentHTML(booking){
 function bookingGuideButtonHTML(booking){
   return booking&&booking.placeId?`<button class="pill trip-action-btn trip-action-btn--guide" type="button" onclick="openGuideModal('${escapeTripHTML(booking.placeId)}')">View Guide</button>`:'';
 }
+function navigateOutOfBooking(target){
+  if(typeof window.dismissAllContentOverlays==='function')window.dismissAllContentOverlays();
+  else document.getElementById('tripModal')?.classList.remove('show');
+  closeMiniMenus();
+  requestAnimationFrame(function(){ NAVIGATION.go(target); });
+  return false;
+}
+window.navigateOutOfBooking=navigateOutOfBooking;
+function bookingCrossLinkButton(label,target,className){
+  return `<button class="pill trip-action-btn ${className||''}" type="button" onclick="return navigateOutOfBooking('${escapeTripHTML(target)}')">${label}</button>`;
+}
 function bookingDayButtonHTML(booking){
   const visits=Array.isArray(booking&&booking.plannedVisits)?booking.plannedVisits:[];
   const multi=visits.map(function(row){
     const rawDay=String(row&&((row.dayId||row.day))||'').replace(/^day/i,'').replace(/^d/i,'').replace(/\D/g,'');
     if(!rawDay)return '';
     const anchor=row&&row.timelineItemId?`#${escapeTripHTML(row.timelineItemId)}`:'';
-    return `<a class="pill trip-action-btn trip-action-btn--day" href="day.html?day=${escapeTripHTML(rawDay)}${anchor}">D${escapeTripHTML(rawDay)} Timeline</a>`;
+    return bookingCrossLinkButton(`D${escapeTripHTML(rawDay)} Timeline`,`day.html?day=${escapeTripHTML(rawDay)}${anchor}`,'trip-action-btn--day');
   }).filter(Boolean);
   if(multi.length)return [...new Set(multi)].join('');
   const dayNumber=bookingDayNumber(booking);if(!dayNumber)return '';
   const anchor=booking.timelineItemId?`#${escapeTripHTML(booking.timelineItemId)}`:'';
-  return `<a class="pill trip-action-btn trip-action-btn--day" href="day.html?day=${escapeTripHTML(dayNumber)}${anchor}">Day ${escapeTripHTML(dayNumber)} Timeline</a>`;
+  return bookingCrossLinkButton(`Day ${escapeTripHTML(dayNumber)} Timeline`,`day.html?day=${escapeTripHTML(dayNumber)}${anchor}`,'trip-action-btn--day');
 }
 function bookingExpenseActionHTML(booking){
   if(!booking||!booking.id||typeof window.openBookingExpense!=='function')return '';
   const links=typeof window.getBookingExpenseLinks==='function'?window.getBookingExpenseLinks(booking.id):[];
   const linked=links.length;
   const newest=links.slice().sort((a,b)=>String(b.createdAt||'').localeCompare(String(a.createdAt||'')))[0]||null;
-  const bookingReturn=`trip.html?bookingId=${encodeURIComponent(booking.id)}`;
-  const viewHref=newest?.id?`expenses.html?expenseId=${encodeURIComponent(newest.id)}&returnTo=${encodeURIComponent(bookingReturn)}`:`expenses.html?bookingId=${encodeURIComponent(booking.id)}&returnTo=${encodeURIComponent(bookingReturn)}`;
+  const viewHref=newest?.id?`expenses.html?expenseId=${encodeURIComponent(newest.id)}`:`expenses.html?bookingId=${encodeURIComponent(booking.id)}`;
   if(linked){
     const label=linked===1?'View Expense':`View ${linked} Expenses`;
-    return `<div class="trip-action-row trip-action-row--booking-compact booking-expense-buttons booking-expense-buttons--compact"><a class="pill trip-action-btn trip-action-btn--expense" href="${viewHref}">${label}</a></div>`;
+    return `<div class="trip-action-row trip-action-row--booking-compact booking-expense-buttons booking-expense-buttons--compact">${bookingCrossLinkButton(label,viewHref,'trip-action-btn--expense')}</div>`;
   }
   const hasPayment=Boolean(
     booking.depositPaid||booking.depositAmount||booking.paymentStatus||
@@ -249,7 +259,7 @@ function bookingDocumentsHTML(booking){
  if(!booking||!window.TRIP_DOCUMENTS)return '';
  const docs=TRIP_DOCUMENTS.read().filter(d=>d.linkType==='booking'&&String(d.linkId)===String(booking.id));
  if(!docs.length)return '';
- return `<section class="accommodation-section booking-documents"><h3>Documents</h3><div class="trip-action-row trip-action-row--booking-compact">${docs.map(d=>`<a class="pill trip-action-btn booking-document-btn" href="documents.html?document=${encodeURIComponent(d.id)}&bookingId=${encodeURIComponent(booking.id)}&returnTo=${encodeURIComponent(`trip.html?bookingId=${booking.id}`)}">📎 ${escapeTripHTML(d.title||'Document')}</a>`).join('')}</div></section>`;
+ return `<section class="accommodation-section booking-documents"><h3>Documents</h3><div class="trip-action-row trip-action-row--booking-compact">${docs.map(d=>{const target=`documents.html?document=${encodeURIComponent(d.id)}&bookingId=${encodeURIComponent(booking.id)}`;return bookingCrossLinkButton(`📎 ${escapeTripHTML(d.title||'Document')}`,target,'booking-document-btn');}).join('')}</div></section>`;
 }
 function buildAccommodationDetailHTML(booking){
   if(!booking)return '<p class="timestamp">Accommodation booking not found.</p>';
@@ -334,7 +344,7 @@ function openActivityBookingDetail(bookingId,bookingOverride,showSaved){
   const booking=bookingOverride||getBookingById(bookingId);
   const content=document.getElementById('tripModalContent');const modal=document.getElementById('tripModal');if(!content||!modal)return;
   content.innerHTML=`<div class="trip-onepage accommodation-onepage-detail"><button class="accommodation-back" type="button" onclick="openTripCard('activities')">‹ All activities</button><p class="kicker">Trip · Activities</p><h2>${escapeTripHTML(booking?booking.title:'Activity Booking')}</h2>${showSaved?'<p class="timestamp booking-save-success" role="status">Saved ✓</p>':''}${buildActivityBookingDetailHTML(booking)}<p class="timestamp trip-build-summary">${tripSyncSummary()}</p></div>`;
-  modal.classList.add('show');const sheet=document.querySelector('#tripModal .trip-sheet');if(sheet)sheet.scrollTop=0;
+  modal.classList.add('show');window.bringContentOverlayToFront?.(modal);const sheet=document.querySelector('#tripModal .trip-sheet');if(sheet)sheet.scrollTop=0;
 }
 
 
@@ -418,7 +428,7 @@ function openGenericBookingDetail(bookingId,bookingOverride,showSaved){
   closeMiniMenus();
   const content=document.getElementById('tripModalContent');const modal=document.getElementById('tripModal');if(!content||!modal)return;
   content.innerHTML=`<div class="trip-onepage accommodation-onepage-detail"><button class="accommodation-back" type="button" onclick="openBookingCategoryCard('${escapeTripHTML(bookingCategoryLabel(booking))}')">‹ All ${escapeTripHTML(bookingCategoryLabel(booking).toLowerCase())}</button><p class="kicker">Trip · ${escapeTripHTML(bookingCategoryLabel(booking))}</p><h2>${escapeTripHTML(booking.title||'Booking')}</h2>${showSaved?'<p class="timestamp booking-save-success" role="status">Saved ✓</p>':''}${buildGenericBookingDetailHTML(booking)}<p class="timestamp trip-build-summary">${tripSyncSummary()}</p></div>`;
-  modal.classList.add('show');const sheet=document.querySelector('#tripModal .trip-sheet');if(sheet)sheet.scrollTop=0;
+  modal.classList.add('show');window.bringContentOverlayToFront?.(modal);const sheet=document.querySelector('#tripModal .trip-sheet');if(sheet)sheet.scrollTop=0;
 }
 
 
@@ -762,29 +772,8 @@ function crossLinkReturnTarget(){
 function closeTripModal() {
   if(isBookingEditActive() && !confirmDiscardBookingEdit()) return false;
   clearBookingEditSession();
-  const modal = document.getElementById('tripModal');
-  if (modal) modal.classList.remove('show');
-  document.body.classList.remove('guide-booking-stack-open');
-  document.body.classList.remove('guide-foreground-over-booking');
-  const returnToGuide=window.TRIP_MODAL_RETURN_TO_GUIDE===true;
-  window.TRIP_MODAL_RETURN_TO_GUIDE=false;
-  const guideModal=document.getElementById('guideModal');
-  if(guideModal&&!returnToGuide){
-    guideModal.classList.remove('show');
-    window.GUIDE_MODAL_ORIGIN=null;
-    if(typeof window.restoreGuideTimelineOrigin==='function') window.restoreGuideTimelineOrigin();
-  }
-  closeMiniMenus();
-  document.body.classList.remove('admin-overlay-open');
-  if(guideModal)guideModal.classList.remove('guide-backgrounded-for-booking');
-  if(returnToGuide){
-    if(guideModal)guideModal.classList.add('show');
-    const sheet=document.querySelector('#guideModal .guide-sheet');
-    if(sheet) requestAnimationFrame(function(){sheet.focus?.({preventScroll:true});});
-    return true;
-  }
-  const crossReturn=crossLinkReturnTarget();
-  if(crossReturn){ NAVIGATION.go(crossReturn); return true; }
+  if(typeof window.dismissAllContentOverlays==='function')return window.dismissAllContentOverlays();
+  document.getElementById('tripModal')?.classList.remove('show');
   return true;
 }
 
@@ -861,7 +850,7 @@ function openTripModuleGroup(groupId){
  closeMiniMenus();
  const content=document.getElementById('tripModalContent'),modal=document.getElementById('tripModal'); if(!content||!modal)return;
  content.innerHTML=`<div class="trip-onepage trip-module-group"><p class="kicker">Trip</p><h2>${escapeTripHTML(group.icon||'📋')} ${escapeTripHTML(group.title||'Trip info')}</h2>${buildTripModuleGroupHTML(group)}${tripHubNavigationHTML('group:'+group.id)}</div>`;
- modal.classList.add('show'); const sheet=document.querySelector('#tripModal .trip-sheet'); if(sheet)sheet.scrollTop=0;
+ modal.classList.add('show'); window.bringContentOverlayToFront?.(modal); const sheet=document.querySelector('#tripModal .trip-sheet'); if(sheet)sheet.scrollTop=0;
 }
 
 /* Engine 25.2.9 — trip-data-driven menu. Prevents NZ-only Rental Car/route labels
