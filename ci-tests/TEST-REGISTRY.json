@@ -414,5 +414,9 @@
   "test-cross-link-return-context.js": {
     "status": "active",
     "note": "cross-linked popup close returns to exact caller context"
+  },
+  "test-no-trip-homepage.js": {
+    "status": "active",
+    "note": "Trip button remains modal launcher; trip.html is booking-only compatibility host and never renders a Trip Homepage."
   }
 }

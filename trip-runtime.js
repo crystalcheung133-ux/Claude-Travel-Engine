@@ -663,7 +663,7 @@ function openDeepLinkedBooking(){
   if(!bookingId)return;
   const booking=getBookingById(bookingId);
   if(!booking)return;
-  setTimeout(function(){returnToBookingDetail(bookingId,booking);},0);
+  setTimeout(function(){returnToBookingDetail(bookingId,booking);document.body.classList.add('booking-host-ready');},0);
 }
 document.addEventListener('DOMContentLoaded',openDeepLinkedBooking);
 
