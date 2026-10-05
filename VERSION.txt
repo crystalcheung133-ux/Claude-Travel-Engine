@@ -1,1 +1,1 @@
-VN Companion RC29.115 · Travel Engine 25.7.3 Release Integrity Fix
+VN Companion RC29.116 · Travel Engine 25.7.3 Dependency + CI Hardening

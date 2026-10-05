@@ -422,5 +422,20 @@
   "test-vn-route-first-spa-contract.js": {
     "status": "active",
     "note": "D4 route-first spa, factual corrections and exact Timeline return"
+  },
+  "test-retired-bookings-runtime.js": {
+    "status": "active",
+    "scope": "release-hardening",
+    "notes": "Prevents retired bookings-runtime.js from returning to production paths."
+  },
+  "test-single-release-identity.js": {
+    "status": "active",
+    "scope": "release-hardening",
+    "notes": "Locks release identity and cache tokens across metadata, config, SW and HTML."
+  },
+  "test-supabase-sdk-pin.js": {
+    "status": "active",
+    "scope": "release-hardening",
+    "notes": "Requires exact browser Supabase SDK pin."
   }
 }

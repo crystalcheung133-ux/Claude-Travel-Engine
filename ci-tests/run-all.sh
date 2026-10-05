@@ -17,6 +17,9 @@ run "STUDIO POPUP WORKSPACE" node ci-tests/test-studio-popup-workspace-contract.
 run "PRESENTATION SHELL OWNERSHIP" node ci-tests/test-presentation-shell-ownership.js styles.css
 run "PRESENTATION SHELL INTERACTION" node ci-tests/test-presentation-shell-interaction.js styles.css admin.js
 run "RELEASE HYGIENE" node ci-tests/test-release-hygiene.js .
+run "RETIRED BOOKINGS RUNTIME TOMBSTONE" node ci-tests/test-retired-bookings-runtime.js
+run "SINGLE RELEASE IDENTITY" node ci-tests/test-single-release-identity.js
+run "SUPABASE SDK EXACT PIN" node ci-tests/test-supabase-sdk-pin.js
 run "BOOKING / GUIDE MODAL STACKING" node ci-tests/test-booking-guide-modal-stacking.js styles.css
 run "TRIP / GUIDE SHELL CONSOLIDATION" node ci-tests/test-trip-guide-shell-consolidation.js styles.css
 run "STUDIO HOME PREVIEW BOUNDS" node ci-tests/test-studio-home-preview-fit.js styles.css admin.js
