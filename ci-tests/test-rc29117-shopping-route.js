@@ -6,4 +6,4 @@ assert(day.includes('ChIJBzF4_bgvdTERVhe6FULA9Z8'),'Mozaic exact Google Place ID
 assert(day.includes('destination_place_id'),'point-to-point maps must support exact Place IDs');
 assert(day.includes('111 Concept Store · OPTIONAL'),'Day 1 optional 111 must remain on Shopping Route Map');
 assert(data.includes('Mì Workshop → Mozaic Space 約 5–7 min'),'Day 2 itinerary still has stale Mozaic transfer');
-console.log('RC29.118 SHOPPING ROUTE: PASS');
+console.log('RC29.120 SHOPPING ROUTE: PASS');

@@ -448,9 +448,9 @@
     "scope": "shopping-route",
     "notes": "Verified Day 2 stop order, exact Mozaic Place ID and Day 1 optional 111 route visibility."
   },
-  "test-rc29118-shopping-route-audit.js": {
+  "test-rc29120-shopping-124-free5.js": {
     "status": "active",
     "scope": "shopping-route",
-    "notes": "Verified all-day route order, exact POIs/branches, Day 5 museum origin and walking-mode contract."
+    "notes": "Day 1/2/4 route richness and order; Day 5 deliberately has no fixed shopping route."
   }
 }

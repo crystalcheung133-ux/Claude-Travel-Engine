@@ -13,8 +13,8 @@ assert.doesNotMatch(data,/"fusion"[\s\S]{0,220}"hours": "24 Hours"/,'Stay must n
 assert.match(data,/Social Club Rooftop Bar[\s\S]{0,700}24\/F/,'Social rooftop needs useful identity');
 assert.match(cfg,/version:'RC\d+(?:\.\d+)?-25\.[4567]\.\d+(?:\.\d+)?'/,'Guide audit requires valid release identity');
 assert.doesNotMatch(home,/home-shopping-button/,'Shopping must not be forced onto Home hero');
-for(const key of ['new-playground','ohquao','takashimaya']) assert.match(record(key),/"shoppingRoute":/,'Destination shopping route metadata missing: '+key);
-for(const brand of ['LIBÉ','LÀMIN APPAREL','11 Garmentory','AASTU','0123 Complex','OHQUAO Living etc.','111 Concept Store','waa. studios']) assert(directory.includes(brand),'Route-led Shopping Directory missing: '+brand);
+for(const key of ['new-playground','ohquao','dot-dot-gem','aurora-saigon']) assert.match(record(key),/"shoppingRoute":/,'Destination shopping route metadata missing: '+key);
+for(const brand of ['LIBÉ','LÀMIN APPAREL','11 Garmentory','AASTU','0123 Complex','OHQUAO Living etc.','111 Concept Store']) assert(directory.includes(brand),'Route-led Shopping Directory missing: '+brand);
 assert(!directory.includes('LESPOIR Studios'),'Removed off-route LESPOIR must not leak back into Shopping Directory');
 for(const obsolete of ['Mộc Healing Spa','Mojo Spa & Foot Massage','Thao Dien Spa','Golden Lotus Healing World']) assert(!new RegExp('\"key\": \"'+obsolete+'\"').test(data),'Obsolete wellness option leaked into Guide inventory');
 assert.doesNotMatch(data,/"hours":\s*"(?:出發前|Unconfirmed|[^\"]*出發前再確認)/,'Guide must not expose generic/unverified hours as Trading Hours');

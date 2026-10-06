@@ -1,6 +1,6 @@
 {
   "engine_version": "25.7.3",
-  "artifact_version": "VN Companion RC29.118 · Travel Engine 25.7.3 Route Verified + Booking Fix",
+  "artifact_version": "VN Companion RC29.120 · Travel Engine 25.7.3 Shopping 1-2-4 + Free Day 5",
   "baseline_engine": "25.5.2",
   "release_date": "2026-10-06",
   "release_type": "booking-shopping-fix",
@@ -74,7 +74,7 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc29118-route-verified",
+  "asset_cache_token": "rc29120-route-verified",
   "release_status": "RC29.116 CANDIDATE — Dependency + CI Hardening",
   "changes": [
     "Pinned the browser Supabase SDK CDN dependency to exact version 2.117.2 instead of the floating @2 major tag.",

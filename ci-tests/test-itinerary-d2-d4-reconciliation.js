@@ -2,5 +2,5 @@ const fs=require('fs'),vm=require('vm'),assert=require('assert');const c={};vm.c
 assert.deepEqual(ids(2),['com-tam-moc','garmentory','shopping-tqd','pizza4ps','qspa-d2','post-office','vincom-new-playground','lune']);
 for(const [id,time,event] of [['bk-pizza4ps','12:45','pizza4ps'],['bk-lune','18:45','lune']]){assert(B[id]);assert.equal(B[id].day,2);assert.equal(B[id].date,'2026-10-31');assert.equal(B[id].time,time);assert.equal(B[id].timelineItemId,event)}
 assert(B['bk-qspa']&&B['bk-qspa'].plannedDays==='D1 · D2 · D3');assert.deepEqual(ids(4),['running-bean','pink-church','push-push','quan-thuy','thao-dien-open-list']); assert(I['4'].items[4].details.some(x=>x.includes('120 分鐘')));
-const sd=fs.readFileSync('shopping-directory-data.js','utf8');assert(sd.includes('Day 1 · Nguyễn Trãi Local Fashion Walk'));assert(sd.includes('Day 2 · Fashion + City'));assert(sd.includes('Day 4 · Thảo Điền Lifestyle'));assert(sd.includes('Day 5 · Last Shopping'));
+const sd=fs.readFileSync('shopping-directory-data.js','utf8');assert(sd.includes('Day 1 · Nguyễn Trãi Local Fashion Walk'));assert(sd.includes('Day 2 · Fashion + City'));assert(sd.includes('Day 4 · Thảo Điền Lifestyle'));assert(!sd.includes('Day 5 · Last Shopping'));
 console.log('D1/D2/D4 CANONICAL RECONCILIATION: PASS');

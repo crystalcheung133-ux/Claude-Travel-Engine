@@ -444,6 +444,33 @@ const PLACES={
     "address":"24 Nguyễn Trãi, District 1, Ho Chi Minh City",
     "desc":"Day 1 Nguyễn Trãi Shopping Walk 的 navigation anchor；完整店舖內容放在 Shopping List。"
   },
+  "dot-dot-gem": {
+    "title":"Dot Dot Gem","emoji":"💍","cat":"SHOP","sub":"Day 1 · Nguyễn Trãi Jewellery","shoppingRoute":"Day 1 · Nguyễn Trãi walk","hours":"09:00–21:00 · Tuesday listing may vary; check same day","maps":"https://www.google.com/maps/search/?api=1&query=Dot%20Dot%20Gem%2029%20Nguyen%20Trai%20Ho%20Chi%20Minh","address":"29 Nguyễn Trãi, Bến Thành, Hồ Chí Minh","desc":"Nguyễn Trãi 主線上的 contemporary jewellery stop，位置夾在 Clothes Bar 與後段 fashion shops 之間，不需要另外繞路。適合看細緻耳環、戒指與日常首飾。","signature":["Contemporary jewellery","Rings + earrings","Right on Nguyễn Trãi route"],"worth":["真正順路，想睇首飾先入；唔需要當 mandatory checkpoint。"],"categoryLabel":"💍 Jewellery","price":"Varies","transport":"Walk on Nguyễn Trãi","highlights":["Contemporary jewellery","Rings + earrings"],"tips":["快逛即可，留時間畀後面 49A/49B/52。"]
+  },
+  "bubbli-wear": {
+    "title":"Bubbli.wear","emoji":"👗","cat":"SHOP","sub":"Day 1 · Nguyễn Trãi Quick Browse","shoppingRoute":"Day 1 · Nguyễn Trãi walk","hours":"09:00–22:00","maps":"https://www.google.com/maps/search/?api=1&query=Bubbli.wear%2039%2F15%20Nguyen%20Trai%20Ho%20Chi%20Minh","address":"39/15 Nguyễn Trãi, Bến Thành, Hồ Chí Minh","desc":"39/15 Nguyễn Trãi 的 local womenswear quick browse；本身就在 29 號 Dot Dot Gem 與 49A/49B fashion pair 之間，見到啱先入。","signature":["Local womenswear","Quick browse","No extra transport"],"worth":["順路先係價值；唔需要每間完成。"],"categoryLabel":"🛍 Shopping","price":"Varies","transport":"Walk on Nguyễn Trãi","highlights":["Local womenswear","Quick browse"],"tips":["按興趣 skip / enter。"]
+  },
+  "blume-iii": {
+    "title":"Blume III","emoji":"🌸","cat":"SHOP","sub":"Day 4 · Thảo Điền Niche Perfume","shoppingRoute":"Day 4 · Scent walk","hours":"10:00–22:00","maps":"https://www.google.com/maps/search/?api=1&query=Blume%20III%2025%20Thao%20Dien%20Ho%20Chi%20Minh","address":"25 Thảo Điền, An Khánh, Hồ Chí Minh","desc":"Niche / artistic perfume showroom；Day 4 不只買衫，加入一個香氣 stop。25 Thảo Điền 同 28、29 號可以連住行。","signature":["Niche perfume","Artistic fragrance","Thảo Điền scent stop"],"worth":["聞香按興趣，唔需要變成 workshop。"],"categoryLabel":"🌸 Fragrance","price":"Varies","transport":"Walk within Thảo Điền core","highlights":["Niche perfume","Artistic fragrance"],"tips":["試香唔好一次噴太多，留鼻畀下一間。"]
+  },
+  "carpe-diem": {
+    "title":"Carpe Diem · Handcrafted Candles & Gifts","emoji":"🕯️","cat":"SHOP","sub":"Day 4 · Candles + Gifts","shoppingRoute":"Day 4 · Scent walk","hours":"09:00–20:00 · weekend to 20:30","maps":"https://www.google.com/maps/search/?api=1&query=Carpe%20Diem%2028%20Thao%20Dien%20Ho%20Chi%20Minh","address":"28 Thảo Điền, An Khánh, Hồ Chí Minh","desc":"手工香薰蠟燭與小禮物；28 Thảo Điền 正好接住 Blume 25，再到 YouOn 29，係真正零碎步行式 stop。","signature":["Handcrafted candles","Scented gifts","Easy souvenir"],"worth":["香薰 / 小禮物比再加一間 fashion 更有變化。"],"categoryLabel":"🕯️ Home fragrance","price":"Varies","transport":"Walk within Thảo Điền core","highlights":["Handcrafted candles","Gifts"],"tips":["易碎或較重蠟燭留意行李重量。"]
+  },
+  "youon-thao-dien": {
+    "title":"YouOn Boutique · Thảo Điền","emoji":"👗","cat":"SHOP","sub":"Day 4 · Thảo Điền Fashion","shoppingRoute":"Day 4 · Thảo Điền walk","hours":"09:00–21:00","maps":"https://www.google.com/maps/search/?api=1&query=YouOn%20Boutique%2029%20Thao%20Dien%20Ho%20Chi%20Minh","address":"29 Thảo Điền, An Khánh, Hồ Chí Minh","desc":"棉麻、空氣感與容易穿回日常的 local womenswear；今次鎖定 29 Thảo Điền branch。","signature":["Local womenswear","Relaxed silhouettes","Thảo Điền branch"],"worth":["同 25/28 Thảo Điền 連成短 walking cluster。"],"categoryLabel":"🛍 Shopping","price":"Varies","transport":"Walk","highlights":["Local womenswear","Relaxed silhouettes"],"tips":["不要誤去 Lưu Văn Lang branch。"]
+  },
+  "dakao-quartier": {
+    "title":"dakao quartier","emoji":"🏺","cat":"SHOP","sub":"Day 4 · Xuân Thủy Design","shoppingRoute":"Day 4 · Xuân Thủy design walk","hours":"09:00–21:00","maps":"https://www.google.com/maps/search/?api=1&query=dakao%20quartier%2083%20Xuan%20Thuy%20Ho%20Chi%20Minh","address":"83 Xuân Thủy, An Khánh, Hồ Chí Minh","desc":"Saigon contemporary home design / décor concept store；由 fashion + scent 轉入 Xuân Thủy 後，呢站開始睇家品與設計。","signature":["Contemporary Saigon design","Home décor","Curated gifts"],"worth":["同 Aurora 94、Vina 111 串成同一條 Xuân Thủy design line。"],"categoryLabel":"🏺 Home + Design","price":"Varies","transport":"Walk on Xuân Thủy","highlights":["Home décor","Contemporary Saigon design"],"tips":["家品可先影相，最後先決定是否買較大件。"]
+  },
+  "aurora-saigon": {
+    "title":"Aurora Saigon","emoji":"💎","cat":"SHOP","sub":"Day 4 · Xuân Thủy Silver Jewellery","shoppingRoute":"Day 4 · Xuân Thủy design walk","hours":"10:30–19:30","maps":"https://www.google.com/maps/search/?api=1&query=Aurora%20Saigon%2094%20Xuan%20Thuy%20Ho%20Chi%20Minh","address":"94 Xuân Thủy, Thảo Điền, Hồ Chí Minh","desc":"Contemporary jewellery boutique；有 925 sterling silver 作品，正好補你想睇 silver jewellery。94 Xuân Thủy 位於 dakao 83 與 Vina 111 之間。","signature":["925 sterling silver","Gemstone jewellery","Contemporary pieces"],"worth":["首飾 stop 同 Xuân Thủy 主線完全重疊，值得入去睇。"],"categoryLabel":"💎 Jewellery","price":"Varies","transport":"Walk on Xuân Thủy","highlights":["925 sterling silver","Gemstones"],"tips":["Aurora 同 Wicky Candle 同一地址，一次睇兩種。"]
+  },
+  "wicky-candle": {
+    "title":"Wicky Candle","emoji":"🕯️","cat":"SHOP","sub":"Day 4 · Xuân Thủy Candle Stop","shoppingRoute":"Day 4 · Xuân Thủy design walk","hours":"09:30–21:00","maps":"https://www.google.com/maps/search/?api=1&query=Wicky%20Candle%2094%20Xuan%20Thuy%20Ho%20Chi%20Minh","address":"94 Xuân Thủy, An Khánh, Hồ Chí Minh","desc":"香薰蠟燭店，同 Aurora Saigon 同一個 94 Xuân Thủy 地址；不增加 walking distance，睇完 jewellery 可以順手聞香。","signature":["Scented candles","Same-address stop","Home fragrance"],"worth":["零 detour；有興趣先入。"],"categoryLabel":"🕯️ Home fragrance","price":"Varies","transport":"Same address as Aurora","highlights":["Scented candles","Home fragrance"],"tips":["同 Aurora 合併做一個停點最省時間。"]
+  },
+  "vina-design-thao-dien": {
+    "title":"Vina Design Store · Thảo Điền","emoji":"⭐","cat":"SHOP","sub":"Day 4 · Xuân Thủy Design Finish","shoppingRoute":"Day 4 · Xuân Thủy design walk","hours":"10:00–21:00","maps":"https://www.google.com/maps/search/?api=1&query=Vina%20Design%20Store%20111%20Xuan%20Thuy%20Ho%20Chi%20Minh","address":"111 Xuân Thủy, An Khánh, Hồ Chí Minh","desc":"Curated Vietnamese design objects；111 Xuân Thủy 放在 Day 4 design walk 尾段，比再加普通 fashion shop更有特色。","signature":["Vietnamese design objects","Curated local products","Design gifts"],"worth":["由 dakao 83 → Aurora/Wicky 94 → Vina 111，地址順序清楚。"],"categoryLabel":"⭐ Vietnamese Design","price":"Varies","transport":"Walk on Xuân Thủy","highlights":["Vietnamese design","Curated local products"],"tips":["同 Day 1 的 111 Tôn Thất Đạm 係不同店址，不要混淆。"]
+  },
   "pizza4ps": {
     "title": "Pizza 4P’s Hai Bà Trưng",
     "emoji": "🍕",
@@ -674,8 +701,8 @@ const PLACES={
     "address": "19 Đường Số 38, P. Thảo Điền, Quận 2, TP. Hồ Chí Minh",
     "desc": "OHQUAO 把插畫、家品、文具與小禮物放進一個很 Thảo Điền 的生活感空間。Day 4 從插畫、家品到小手信都有地方感；這種隨意很像 Thảo Điền 的節奏。",
     "signature": [
-      "在地藝術家小物",
-      "明信片、香氛、家居手信",
+      "120+ local brands / Vietnamese design",
+      "文具、陶瓷、家品、原創藝術",
       "適合買輕便 souvenir"
     ],
     "worth": [
@@ -686,8 +713,8 @@ const PLACES={
     "price": "Varies",
     "transport": "Grab / walk depending on current route",
     "highlights": [
-      "在地藝術家小物",
-      "明信片、香氛、家居手信",
+      "120+ local brands / Vietnamese design",
+      "文具、陶瓷、家品、原創藝術",
       "適合買輕便 souvenir"
     ],
     "tips": [
@@ -1344,31 +1371,30 @@ const PLACES={
     "status": "optional"
   },
   "concept-111": {
-    "title":"111 Concept Store","emoji":"🧩","cat":"SHOP","sub":"Day 1 preferred · Day 5 backup","shoppingRoute":"Day 1 after Nguyễn Trãi if time · Day 5 backup",
+    "title":"111 Concept Store","emoji":"🧩","cat":"SHOP","sub":"Day 1 · Optional after Nguyễn Trãi","shoppingRoute":"Day 1 after Nguyễn Trãi if time",
     "hours":"10:00–20:30/21:00 · check same day","maps":"https://www.google.com/maps/search/?api=1&query=111%20Concept%20Store%20111%20Ton%20That%20Dam%20Ho%20Chi%20Minh",
     "address":"111 Tôn Thất Đạm, District 1, Hồ Chí Minh",
-    "desc":"三層 Vietnamese design goods + curated vintage；Day 1 行完 Nguyễn Trãi 有時間就去，錯過就 Day 5 Fine Arts Museum 後補返。",
-    "signature":["Vietnamese design goods","Curated vintage","3-floor concept store"],"worth":["Day 1 preferred；唔夠時間直接留 Day 5，唔需要趕 Qspa。"],
+    "desc":"三層 Vietnamese design goods + curated vintage；Day 1 行完 Nguyễn Trãi 有時間就去；如果錯過，之後旅程自由時間再決定是否補返。",
+    "signature":["Vietnamese design goods","Curated vintage","3-floor concept store"],"worth":["Day 1 有時間先去；唔夠時間就 skip，唔需要趕 Qspa。"],
     "categoryLabel":"🛍 Shopping","price":"Varies","transport":"Walk within Old Market cluster","highlights":["Local design","Vintage"],"tips":["預留約 25–30 min。"]
   },
   "waa-studios": {
-    "title":"waa. studios","emoji":"👜","cat":"SHOP","sub":"Day 5 · Old Market accessories","shoppingRoute":"Day 5 · Fine Arts Museum → waa.",
+    "title":"waa. studios","emoji":"👜","cat":"SHOP","sub":"Optional · Old Market accessories",
     "hours":"09:30–21:30 daily","maps":"https://www.google.com/maps/search/?api=1&query=waa%20studios%2038%20Dang%20Thi%20Nhu%20Ho%20Chi%20Minh",
     "address":"38 Đặng Thị Nhu, District 1, Hồ Chí Minh",
-    "desc":"Vietnamese accessories / leather goods，主打 bags、sandals 與簡潔皮具。Fine Arts Museum 後可步行前往。",
-    "signature":["Bags / sandals / belts","Vietnamese accessories","Quiet local boutique"],"worth":["Fine Arts Museum 後可順路看看；有啱先試，唔需要拖長。"],
+    "desc":"Vietnamese accessories / leather goods，主打 bags、sandals 與簡潔皮具。保留在 Guide 供自由時間搜尋，但 Day 5 不再設固定 shopping route。",
+    "signature":["Bags / sandals / belts","Vietnamese accessories","Quiet local boutique"],"worth":["自由時間想補 accessories 才去；不再是 Day 5 mandatory stop。"],
     "categoryLabel":"🛍 Shopping","price":"Varies","transport":"Walk within Old Market cluster","highlights":["Accessories","Leather goods"],"tips":["預留約 20 min。"]
   },
   "takashimaya": {
     "title": "Takashimaya Saigon",
     "emoji": "🛍",
     "cat": "SHOP",
-    "sub": "Day 5 shopping",
-    "shoppingRoute": "Day 5 · Saigon Centre",
+    "sub": "Optional · Saigon Centre shopping",
     "hours": "Check same day",
     "maps": "https://maps.google.com/?q=Takashimaya+Saigon",
     "address": "Saigon Centre, 65 Lê Lợi, District 1, Ho Chi Minh City",
-    "desc": "Day 5 最後補貨位，就在 Fusion Original 同一棟 Saigon Centre 內。適合買手信、beauty、零食或漏買用品；逛完直接返酒店提行李，唔需要再加一程交通。",
+    "desc": "就在 Fusion Original 同一棟 Saigon Centre 內。需要補手信、beauty、零食或漏買用品時最方便，但 Day 5 不再設固定 shopping route。",
     "signature": [
       "同 Fusion Original 同一棟，最後一日最省腳力",
       "百貨、beauty、食品與手信集中",
@@ -2441,10 +2467,11 @@ const ITINERARY_DATA={
         "time": "~10:00–12:00",
         "title": "🛍 Nguyễn Trãi · Local Fashion Walk",
         "details": [
-          "🚕 Anchor：LIBÉ 52 Nguyễn Trãi → 🚶 LÀMIN 35 Nguyễn Văn Tráng；附近 local shops 見啱先入",
-          "🧩 111 Concept preferred today：10:00–20:30/21:00；行得切先去，唔好為佢趕 Qspa。錯過就 Day 5 backup"
+          "🚶 Phở SOL → Dauple → LÀMIN → Nguyễn Trãi：Clothes Bar 24 → Dot Dot Gem 29 → Bubbli 39/15 → Dear José 49A → KIDO 49B → LIBÉ 52",
+          "💍 Dot Dot Gem 睇 contemporary jewellery；其餘 fashion shops 見啱先入，唔需要逐間完成",
+          "🧩 111 Concept：行完 LIBÉ 有時間先 Grab 過去；Route Map 保留佢，方便即場睇距離再決定"
         ],
-        "route": "🧩 有時間：短程去 111 Concept；否則直接 🚕 Grab → Qspa · 25/1 Trương Định。111 錯過留 Day 5。",
+        "route": "🧩 LIBÉ 後：有時間就 Grab → 111 Concept；之後按時間去 Qspa / Fusion。唔去 111 就直接接 Qspa。",
         "map": "https://www.google.com/maps/search/?api=1&query=Clothes%20Bar%2024%20Nguyen%20Trai%20Ho%20Chi%20Minh%20City",
         "type": "shoppingWindow",
         "dayId": "day1",
@@ -2874,7 +2901,7 @@ const ITINERARY_DATA={
         "title": "🎲 Thảo Điền · Open List",
         "summary": "入 Thảo Điền 後自由行，食 / 飲 / Spa 隨心",
         "details": [
-          "🛍 Browse · 先 0123 Complex，再到 OHQUAO Living etc.；OHQUAO 後以家品 / Vietnamese design 為主，附近小店按興趣入",
+          "🛍 Browse · 0123 → OHQUAO → Thảo Điền 25/28/29 scent + fashion → Xuân Thủy 83/94/111 design line；全部按興趣入，唔需要逐間完成",
           "🥐 Coffee / Sweet · Bakes，或者沿途見到想坐的 café",
           "🍽 Eat · 已在 Quán Thuý 94 early lunch；下午只按胃口加 café / snack",
           "🌿 Spa · Mộc Hương Wellness；走到 Xuân Thủy 一帶想停下來，就預留約 120 分鐘",
@@ -2886,10 +2913,12 @@ const ITINERARY_DATA={
         "dayId": "day4",
         "placeId": "ohquao",
         "bookingId": null,
-        "guideIds": ["complex-0123","ohquao","bakes","moc-huong"],
+        "guideIds": ["complex-0123","ohquao","blume-iii","carpe-diem","youon-thao-dien","dakao-quartier","aurora-saigon","wicky-candle","vina-design-thao-dien","bakes","moc-huong"],
         "guideGroups": [
           {"label":"🏘 0123 Complex","guideIds":["complex-0123"]},
           {"label":"🛍 OHQUAO","guideIds":["ohquao"]},
+          {"label":"🌸 Scent + Fashion","guideIds":["blume-iii","carpe-diem","youon-thao-dien"]},
+          {"label":"💎 Xuân Thủy Design + Silver","guideIds":["dakao-quartier","aurora-saigon","wicky-candle","vina-design-thao-dien"]},
           {"label":"🥐 Bakes","guideIds":["bakes"]},
           {"label":"🌿 Mộc Hương","guideIds":["moc-huong"]}
         ],
@@ -2931,7 +2960,7 @@ const ITINERARY_DATA={
         "details": [
           "彩色玻璃、老升降機、復古街拍"
         ],
-        "route": "🚶 To next stop：Fine Arts Museum 後去 waa. studios；111 Concept 只在 Day 1 錯過時順便補。",
+        "route": "🛍 Museum 後不設固定 Shopping Route：大家按前幾日經過但未有時間入的店，自由決定去邊。",
         "map": "https://www.google.com/maps/search/?api=1&query=Fine%20Arts%20Museum%20Ho%20Chi%20Minh%20City%20Museum%20of%20Fine%20Arts%2C%2097A%20Ph%C3%B3%20%C4%90%E1%BB%A9c%20Ch%C3%ADnh%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
         "type": "experience",
         "dayId": "day5",
@@ -2939,10 +2968,10 @@ const ITINERARY_DATA={
         "bookingId": null
       },
       {
-        "id":"old-market-shopping","time":"11:45–12:45","title":"👜 waa. studios · 111 backup",
-        "details":["waa. studios：bags / sandals / leather accessories","111 Concept 只係 Day 1 未去到先補；已去過就直接留時間俾 waa. / lunch"],
-        "route":"🚶 Shopping 完去 Bếp Mẹ Ỉn；Old Market 呢段以步行為主。",
-        "map":"https://www.google.com/maps/search/?api=1&query=111%20Concept%20Store%20111%20Ton%20That%20Dam%20Ho%20Chi%20Minh","type":"shoppingWindow","dayId":"day5","placeId":"concept-111","bookingId":null,"guideIds":["concept-111","waa-studios"],"showShoppingDirectory":true
+        "id":"day5-free-browse","time":"11:45–12:45","title":"✨ Free Browse · Revisit Anything",
+        "details":["旅行已經去到最後一日：前幾日見過但未有時間入的 shop，今日自由補返。","唔設固定 shopping route、唔設 mandatory shop；想休息／食嘢亦可以。"],
+        "route":"📍 到時按大家想去的店用 live Maps；之後再前往 lunch。",
+        "type":"freeTime","dayId":"day5","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"freeTime"
       },
       {
         "id": "bep-me-in",

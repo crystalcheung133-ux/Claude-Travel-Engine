@@ -32,6 +32,6 @@ assert(sd.includes('Day 1 · Nguyễn Trãi Local Fashion Walk'),'Directory Nguy
 assert(sd.includes('Day 2 · Fashion + City'),'Directory Day 2 Fashion + City missing');
 assert(sd.includes('The New Playground · Vincom Đồng Khởi'),'Directory Day 2 Vincom cluster missing');
 assert(sd.includes('Day 4 · Thảo Điền Lifestyle'),'Directory Thảo Điền route missing');
-assert(sd.includes('Day 5 · Last Shopping'),'Directory Day 5 last shopping missing');
+assert(!sd.includes('Day 5 · Last Shopping'),'Day 5 fixed shopping route must be removed');
 
 console.log('CROSS-SURFACE DAY CONSISTENCY: PASS — Timeline / Booking / Guide / Shopping Directory agree.');
