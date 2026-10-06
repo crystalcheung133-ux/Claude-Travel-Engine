@@ -1,4 +1,4 @@
-# Vendored third-party assets (RC29.127)
+# Vendored third-party assets (RC29.129)
 
 Files at the repository root named `vendor-*.js` are byte-exact copies of npm package files. They are
 covered by `SHA256SUMS.txt`, pinned in `RELEASE.json -> vendored_assets`, and verified by

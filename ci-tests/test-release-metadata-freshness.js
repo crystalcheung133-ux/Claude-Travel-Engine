@@ -1,4 +1,4 @@
-// RC29.127 — release metadata must not carry stale RC / CI claims.
+// RC29.129 — release metadata must not carry stale RC / CI claims.
 const fs=require('fs'),path=require('path'),assert=require('assert');
 const root=path.resolve(__dirname,'..');
 const read=f=>fs.readFileSync(path.join(root,f),'utf8');

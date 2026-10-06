@@ -483,5 +483,13 @@
   "test-release-metadata-freshness.js": {
     "status": "active",
     "note": "RELEASE.json status/CI claims and trip-config header must reference the current RC"
+  },
+  "test-day3-maruco-primary-contract.js": {
+    "status": "active",
+    "note": "Day 3 Maruco confirmed primary dinner + Oc Dao optional backup contract"
+  },
+  "test-day2-rue-miche-shopping-contract.js": {
+    "status": "active",
+    "note": "RC29.129 Day 2 Rue Miche Timeline + Shopping Directory card + Shopping Route Map contract"
   }
 }

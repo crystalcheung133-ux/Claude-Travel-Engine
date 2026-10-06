@@ -1,4 +1,4 @@
-# RC29.127 real-device checklist (run on a phone, after deploying)
+# RC29.129 real-device checklist (run on a phone, after deploying)
 
 Browser gate (needs Playwright + Chromium + WebKit): `sh ci-tests/run-browser.sh` or the GitHub
 `browser-release-smoke` workflow. Static CI cannot prove the items below.

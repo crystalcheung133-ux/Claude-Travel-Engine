@@ -623,6 +623,33 @@ const PLACES={
       "熱門尺碼可能不齊，看到喜歡要即試。"
     ]
   },
+  "rue-miche-ledition": {
+    "title": "Rue Miche L’Édition",
+    "emoji": "🛍",
+    "cat": "SHOP",
+    "sub": "Day 2 · Union Square Vietnamese Design Flagship",
+    "shoppingRoute": "Day 2 · Vincom → Rue Miche L’Édition → LÚNE",
+    "hours": "10:00–21:30 daily · official Rue Miche listing",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Rue%20Miche%20L%27Edition%20Union%20Square%20171%20Dong%20Khoi%20Ho%20Chi%20Minh",
+    "address": "LL3 / Basement 3, Union Square, 171 Đồng Khởi, District 1, Ho Chi Minh City",
+    "website": "https://www.ruemiche.com/about-us",
+    "phone": "+84 904 260 842",
+    "desc": "Rue Miche L’Édition 是 Union Square B3 的大型 Vietnamese multi-brand flagship。Day 2 在 Vincom 看完 local brands 後步行過來，集中看更多 Vietnamese designers，再步行去 LÚNE。",
+    "signature": [
+      "大型 Vietnamese multi-brand concept store",
+      "Fashion、accessories、lifestyle 與 creative space",
+      "Day 2 黃昏由 Vincom 接 LÚNE 最順路"
+    ],
+    "worth": [
+      "主打越南本地設計品牌；不是 Rue Miche Boutique。",
+      "時間緊可縮短 Vincom，把 browsing time 留給這個 flagship。"
+    ],
+    "categoryLabel": "🛍 Shopping",
+    "price": "Varies",
+    "transport": "Walk 4–6 min from Vincom · then walk 3–5 min toward LÚNE",
+    "highlights": ["Vietnamese local designers", "Large multi-brand flagship", "Union Square B3"],
+    "tips": ["Day 2 afternoon planned stop。", "Opening hours 10:00–21:30；出發當日可再確認。"]
+  },
   "new-playground": {
     "title": "The New Playground",
     "emoji": "🛍",
@@ -1520,16 +1547,44 @@ const PLACES={
     "categoryLabel": "💆 Spa",
     "transport": "Optional short Grab from War Remnants Museum"
   },
+  "maruco": {
+    "title": "Izakaya Maruco",
+    "emoji": "🔥",
+    "cat": "RESTAURANTS",
+    "sub": "Day 3 · Japanese Izakaya · 19:30 confirmed",
+    "status": "confirmed",
+    "hours": "17:00–24:00 · confirm same day if hours change",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Izakaya%20Maruco%2046%20Me%20Linh%20Ho%20Chi%20Minh%20City",
+    "address": "46 Mê Linh, Phường 19, Bình Thạnh, Ho Chi Minh City",
+    "phone": "034 992 1802",
+    "instagramUrl": "https://www.instagram.com/maruco0930_vn/",
+    "desc": "日本居酒屋風格，Day 3 War Day + Qspa 後做 primary dinner。已經經 Instagram 訂好 19:30，重點食稻草燒／炙燒料理，尤其牛舌。",
+    "signature": [
+      "稻草燒牛舌",
+      "Japanese izakaya grilled dishes",
+      "Sashimi / sharing plates"
+    ],
+    "worth": [
+      "PRIMARY · Day 3 dinner，19:30 已經經 Instagram confirmed。",
+      "Qspa 約 18:45 完成後直接 Grab 過去，預留交通 buffer。",
+      "唔飲酒都適合，以牛舌、燒物同 share plates 為主。"
+    ],
+    "categoryLabel": "🍽 Restaurant",
+    "price": "$$",
+    "transport": "Grab from Qspa",
+    "highlights": ["稻草燒牛舌", "Japanese izakaya atmosphere"],
+    "tips": ["19:30 booking confirmed via Instagram.", "Dinner 後直接 Grab 返回 Fusion。"]
+  },
   "oc-dao": {
     "title": "Ốc Đào · Nguyễn Trãi",
     "emoji": "🦀",
     "cat": "RESTAURANTS",
-    "sub": "Day 3 · Ốc + Beer Night",
+    "sub": "OPTIONAL · Day 3 大排檔 backup",
     "status": "planned",
     "hours": "11:00–22:15 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=%E1%BB%90c%20%C4%90%C3%A0o%20212B%2FD48%20Nguy%E1%BB%85n%20Tr%C3%A3i%20Ho%20Chi%20Minh%20City",
     "address": "212B/D48 Nguyễn Trãi, District 1, Ho Chi Minh City, Vietnam",
-    "desc": "War Day 的尾聲不需要精緻餐桌。來 Ốc Đào 就是戴手套、點一桌螺貝海鮮，再開啤酒；熱鬧、帶點亂，反而最像 Saigon 夜晚。",
+    "desc": "Day 3 optional 大排檔 backup。Primary dinner 已改為 19:30 Izakaya Maruco；只有臨時想轉做地道螺貝海鮮先考慮 Ốc Đào。",
     "signature": [
       "各式 ốc／貝類／海鮮",
       "越式醬汁 + beer，四人 share 最有氣氛"
@@ -1661,6 +1716,9 @@ const CATEGORIES={
       "key": "quan-thuy"
     },
     {
+      "key": "maruco"
+    },
+    {
       "key": "oc-dao"
     }
   ],
@@ -1670,6 +1728,9 @@ const CATEGORIES={
     },
     {
       "key": "new-playground"
+    },
+    {
+      "key": "rue-miche-ledition"
     },
     {
       "key": "mozaic-space"
@@ -1742,6 +1803,7 @@ const GUIDE_ORDER=[
   "pizza4ps",
   "ohquao",
   "new-playground",
+  "rue-miche-ledition",
   "mozaic-space",
   "takashimaya",
   "qspa",
@@ -1757,6 +1819,7 @@ const GUIDE_ORDER=[
   "norah-spa-2",
   "cu-chi",
   "nara-spa",
+  "maruco",
   "oc-dao"
 ];
 
@@ -1793,6 +1856,7 @@ const DAY_LINKS={
     ]
   ],
   "qspa": [["Day 1","day.html?day=1#qspa-d1"],["Day 2","day.html?day=2#qspa-d2"],["Day 3","day.html?day=3#qspa-d3"]],
+  "maruco": [["Day 3","day.html?day=3#maruco"]],
   "nha-suga": [],
   "omakase-tiger": [
     [
@@ -1931,8 +1995,8 @@ const DAY_LINKS={
   "nara-spa": [["Day 3 · Optional","day.html?day=3#qspa-d3"]],
   "oc-dao": [
     [
-      "Day 3",
-      "day.html?day=3#oc-dao"
+      "Day 3 · Optional",
+      "day.html?day=3#maruco"
     ]
   ],
   "running-bean": [
@@ -1942,6 +2006,7 @@ const DAY_LINKS={
     ]
   ],
   "new-playground": [["Day 2","day.html?day=2#vincom-new-playground"]],
+  "rue-miche-ledition": [["Day 2","day.html?day=2#rue-miche-ledition"]],
   "pink-church": [
     [
       "Day 4",
@@ -2284,6 +2349,35 @@ const BOOKINGS_DATA={
     "notes": "05:55 is the flight arrival time supplied to Klook, not a fixed driver meeting time. Per the booked transfer terms, pickup is arranged within 1 hour after arrival. Meeting point: Terminal 2 International Arrival, outside the Arrival Hall, opposite pillar no. 9. Operator: Easycar · +84 395777770 · service.info.baolinh@gmail.com. Luggage allowance is based on 24-inch medium luggage (24 x 14 x 8 in / 63 x 36 x 21 cm); oversized luggage is treated as 2 pieces.",
     "standalone": true,
     "bookingHandoff": "已訂。05:55 是航班抵達時間；出關取行李後按 Klook 接機安排會合，條款為 arrival 後 1 小時內接送。集合點：T2 International Arrival 出 Arrival Hall，pillar 9 對面。Operator: Easycar。"
+  },
+  "bk-maruco": {
+    "id": "bk-maruco",
+    "bookingId": "bk-maruco",
+    "eventId": "maruco",
+    "timelineItemId": "maruco",
+    "day": 3,
+    "dayId": "day3",
+    "status": "confirmed",
+    "date": "2026-11-01",
+    "time": "19:30",
+    "bookingName": "",
+    "bookingCategory": "Restaurants",
+    "category": "Restaurants",
+    "type": "restaurant",
+    "emoji": "🔥",
+    "title": "Izakaya Maruco",
+    "depositPaid": "",
+    "depositAmount": "",
+    "depositCurrency": "",
+    "bookingMethod": "Instagram",
+    "bookingContact": "034 992 1802",
+    "secondaryContact": "@maruco0930_vn",
+    "bookingUrl": "https://www.instagram.com/maruco0930_vn/",
+    "notes": "Day 3 primary dinner · 4人 · 1 Nov 2026 19:30。已經經 Instagram 預約確認。日本居酒屋；重點想食稻草燒牛舌。Qspa 約18:45完成後直接 Grab 前往。",
+    "signatureDishes": ["稻草燒牛舌", "Japanese izakaya grilled dishes", "Sashimi / sharing plates"],
+    "address": "46 Mê Linh, Phường 19, Bình Thạnh, Ho Chi Minh City",
+    "bookingHandoff": "已訂。1 Nov 2026 19:30，4人，經 Instagram @maruco0930_vn confirmed。Primary Day 3 dinner；Qspa 後直接 Grab 前往。",
+    "placeId": "maruco"
   },
   "bk-man-moi": {
     "id": "bk-man-moi",
@@ -2692,13 +2786,13 @@ const ITINERARY_DATA={
       },
             {
         "id": "vincom-new-playground",
-        "time": "~17:15–18:10",
+        "time": "~17:15–17:50",
         "title": "🛍 Vincom Center Đồng Khởi · The New Playground",
         "details": [
           "Vincom 黃昏 shopping，主攻 Vietnamese local brands",
           "The New Playground：PUSH PUSH、BLACKORP 等自由 browse"
         ],
-        "route": "🚶 To next stop · 約 8–12 min：由 Vincom / The New Playground 步行往 LÚNE；18:45 fixed。",
+        "route": "🚶 To next stop · 約 4–6 min：Vincom → Union Square B3 · Rue Miche L’Édition。",
         "map": "https://www.google.com/maps/search/?api=1&query=The%20New%20Playground%20Vincom%20Center%20Dong%20Khoi%2072%20Le%20Thanh%20Ton%20Ho%20Chi%20Minh%20City",
         "type": "shoppingWindow",
         "dayId": "day2",
@@ -2707,6 +2801,23 @@ const ITINERARY_DATA={
         "guideIds": [
           "new-playground"
         ],
+        "showShoppingDirectory": true
+      },
+      {
+        "id": "rue-miche-ledition",
+        "time": "~17:55–18:25",
+        "title": "🛍 Rue Miche L’Édition · Union Square",
+        "details": [
+          "Union Square B3 大型 Vietnamese multi-brand flagship；集中看本地 fashion、accessories 與 lifestyle brands。",
+          "呢間係 Rue Miche L’Édition，不是 Rue Miche Boutique。"
+        ],
+        "route": "🚶 To next stop · 約 3–5 min：Union Square → LÚNE；18:45 fixed。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Rue%20Miche%20L%27Edition%20Union%20Square%20171%20Dong%20Khoi%20Ho%20Chi%20Minh",
+        "type": "shoppingWindow",
+        "dayId": "day2",
+        "placeId": "rue-miche-ledition",
+        "bookingId": null,
+        "guideIds": ["rue-miche-ledition"],
         "showShoppingDirectory": true
       },
       {
@@ -2727,7 +2838,7 @@ const ITINERARY_DATA={
     "legend": [
       "🪖 History",
       "🫧 Reset",
-      "🦀 Ốc + Beer"
+      "🔥 Japanese Izakaya"
     ],
     "items": [
       {
@@ -2783,7 +2894,7 @@ const ITINERARY_DATA={
           "按狀態選 massage / body / hair-care",
           "想做 hair reset：Guide 見 Nara Spa"
         ],
-        "route": "🚕 下一站：Grab → Ốc Đào；Spa 完成後直接去，晚餐時間保持彈性。",
+        "route": "🚕 下一站：Grab → Izakaya Maruco · 46 Mê Linh；19:30 booking confirmed，Spa 完成後直接去。",
         "map": "https://www.google.com/maps/search/?api=1&query=Qspa%2025%2F1%20Truong%20Dinh%20Ho%20Chi%20Minh%20City",
         "type": "spa",
         "dayId": "day3",
@@ -2798,18 +2909,22 @@ const ITINERARY_DATA={
         ]
       },
       {
-        "id": "oc-dao",
-        "time": "~19:00 onwards · flexible",
-        "title": "🦀 Ốc Đào · Ốc + Beer",
+        "id": "maruco",
+        "time": "19:30",
+        "title": "🔥 Izakaya Maruco · Japanese Izakaya",
         "details": [
-          "螺、貝、海鮮 + 冰啤酒"
+          "PRIMARY · 19:30 confirmed via Instagram · 4人",
+          "日本居酒屋 · 重點：稻草燒牛舌",
+          "Ốc Đào 大排檔保留做 optional backup"
         ],
         "route": "🏨 下一站：食完直接 Grab 返回 Fusion；今晚到此為止。",
-        "map": "https://www.google.com/maps/search/?api=1&query=%E1%BB%90c%20%C4%90%C3%A0o%20212B%2FD48%20Nguy%E1%BB%85n%20Tr%C3%A3i%20Ho%20Chi%20Minh%20City",
+        "map": "https://www.google.com/maps/search/?api=1&query=Izakaya%20Maruco%2046%20Me%20Linh%20Ho%20Chi%20Minh%20City",
         "type": "meal",
         "dayId": "day3",
-        "placeId": "oc-dao",
-        "bookingId": null
+        "placeId": "maruco",
+        "bookingId": "bk-maruco",
+        "guideIds": ["maruco", "oc-dao"],
+        "alternativeGuideIds": ["oc-dao"]
       }
     ],
     "dayId": "day3"

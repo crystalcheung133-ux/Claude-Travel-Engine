@@ -1,4 +1,4 @@
-// RC29.127 — third-party browser libraries are self-hosted, byte-exact, hash-pinned and precached.
+// RC29.129 — third-party browser libraries are self-hosted, byte-exact, hash-pinned and precached.
 const fs=require('fs'),path=require('path'),assert=require('assert'),crypto=require('crypto'),vm=require('vm');
 const root=path.resolve(__dirname,'..');
 const read=f=>fs.readFileSync(path.join(root,f),'utf8');
