@@ -491,5 +491,9 @@
   "test-day2-rue-miche-shopping-contract.js": {
     "status": "active",
     "note": "RC29.129 Day 2 Rue Miche Timeline + Shopping Directory card + Shopping Route Map contract"
+  },
+  "test-rc29130-map-address-routing.js": {
+    "status": "active",
+    "note": "RC29.130 address-first Google Maps routing + Maruco regression"
   }
 }

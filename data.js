@@ -1554,7 +1554,7 @@ const PLACES={
     "sub": "Day 3 · Japanese Izakaya · 19:30 confirmed",
     "status": "confirmed",
     "hours": "17:00–24:00 · confirm same day if hours change",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Izakaya%20Maruco%2046%20Me%20Linh%20Ho%20Chi%20Minh%20City",
+    "maps": "https://www.google.com/maps/search/?api=1&query=46%20M%C3%AA%20Linh%2C%20B%C3%ACnh%20Th%E1%BA%A1nh%2C%20Ho%20Chi%20Minh%20City",
     "address": "46 Mê Linh, Phường 19, Bình Thạnh, Ho Chi Minh City",
     "phone": "034 992 1802",
     "instagramUrl": "https://www.instagram.com/maruco0930_vn/",
@@ -2918,7 +2918,7 @@ const ITINERARY_DATA={
           "Ốc Đào 大排檔保留做 optional backup"
         ],
         "route": "🏨 下一站：食完直接 Grab 返回 Fusion；今晚到此為止。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Izakaya%20Maruco%2046%20Me%20Linh%20Ho%20Chi%20Minh%20City",
+        "map": "https://www.google.com/maps/search/?api=1&query=46%20M%C3%AA%20Linh%2C%20B%C3%ACnh%20Th%E1%BA%A1nh%2C%20Ho%20Chi%20Minh%20City",
         "type": "meal",
         "dayId": "day3",
         "placeId": "maruco",

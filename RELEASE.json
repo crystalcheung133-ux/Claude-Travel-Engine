@@ -1,12 +1,13 @@
 {
   "engine_version": "25.7.3",
-  "artifact_version": "VN Companion RC29.129 · Travel Engine 25.7.3 Day 2 Rue Miche Shopping",
+  "artifact_version": "VN Companion RC29.130 · Travel Engine 25.7.3 Map Routing Hardening",
   "baseline_engine": "25.5.2",
   "release_date": "2026-10-06",
-  "release_type": "day2-rue-miche-shopping",
+  "release_type": "map-routing-hardening",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
+    "Timeline Google Maps navigation now routes by verified street address instead of business-name + address, preventing listing-name mismatches such as Izakaya Maruco from producing an unresolved destination.",
     "Day 2 afternoon now flows Vincom / The New Playground → Rue Miche L’Édition at Union Square B3 → LÚNE, with a Shopping Directory guide card and Shopping Route Map connectors.",
     "Day 3 primary dinner is Izakaya Maruco at 19:30, confirmed via Instagram; Ốc Đào remains optional backup.",
     "Adds Engine-level shared Documents capability to VN.",
@@ -79,10 +80,10 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc29129-offline-deps-hardening",
-  "release_status": "RC29.129 CANDIDATE — Day 2 Rue Miche Shopping",
+  "asset_cache_token": "rc29130-offline-deps-hardening",
+  "release_status": "RC29.130 CANDIDATE — Day 2 Rue Miche Shopping",
   "changes": [
-    "RC29.129: Added Rue Miche L’Édition as the planned Day 2 afternoon shopping stop, Guide card and Shopping Route Map leg between Vincom and LÚNE.",
+    "RC29.130: Added Rue Miche L’Édition as the planned Day 2 afternoon shopping stop, Guide card and Shopping Route Map leg between Vincom and LÚNE.",
     "Pinned the browser Supabase SDK CDN dependency to exact version 2.117.2 instead of the floating @2 major tag.",
     "Added CI tombstone coverage preventing retired bookings-runtime.js from re-entering any production HTML, service-worker, manifest, or dynamic-loader path.",
     "Added single-release-identity CI coverage for VERSION, RELEASE, TRIP_CONFIG, build labels, service-worker cache token and HTML cache-busting tokens.",
@@ -140,14 +141,14 @@
     "RC29.125 (documented retroactively): plannedDays/plannedVisits are editable booking state fields; the Booking editor exposes per-visit Day/Date/Time fields; Booking Save commits locally first and queues remote sync afterwards.",
     "RC29.126: remote verification of plannedVisits compares JSON semantics instead of raw JSON.stringify — object key order is ignored (Postgres jsonb may re-order keys), array/visit order and all values must still match. No change to Qspa transport, Notes authority, Supabase calls or the save lifecycle.",
     "RC29.126: release metadata corrected (stale RC29.116 status and RC29.93 static-CI claims removed); trip-config.js header updated; stale ci-tests/__pycache__ removed.",
-    "RC29.129: Supabase browser SDK (2.117.2), PDF.js (3.11.174 + worker) and html2pdf.js (0.10.1) are now self-hosted as byte-exact npm copies (vendor-*.js) instead of loading from jsDelivr/cdnjs; no external script host remains.",
-    "RC29.129: service worker precaches the Supabase SDK, PDF.js and PDF.js worker so Documents PDFs and the sync client work on first launch after an update while offline; html2pdf.js is cached on first export use.",
-    "RC29.129: booking remote verification treats Notes as equal when only line-ending style or leading/trailing whitespace differs; real text changes still fail.",
-    "RC29.129: python CI syntax check no longer writes ci-tests/__pycache__; new release-metadata freshness test blocks stale RC/static-CI claims."
+    "RC29.130: Supabase browser SDK (2.117.2), PDF.js (3.11.174 + worker) and html2pdf.js (0.10.1) are now self-hosted as byte-exact npm copies (vendor-*.js) instead of loading from jsDelivr/cdnjs; no external script host remains.",
+    "RC29.130: service worker precaches the Supabase SDK, PDF.js and PDF.js worker so Documents PDFs and the sync client work on first launch after an update while offline; html2pdf.js is cached on first export use.",
+    "RC29.130: booking remote verification treats Notes as equal when only line-ending style or leading/trailing whitespace differs; real text changes still fail.",
+    "RC29.130: python CI syntax check no longer writes ci-tests/__pycache__; new release-metadata freshness test blocks stale RC/static-CI claims."
   ],
   "validation": {
-    "static_master_ci": "PASS — RC29.129 full static Master CI (sh ci-tests/run-all.sh).",
-    "browser_release_smoke": "NOT RE-RUN for RC29.129 — vendored SDK/PDF.js loading and offline behaviour require the GitHub Chromium/WebKit release gate plus docs/REAL-DEVICE-CHECKLIST-RC29.129.md on a phone.",
+    "static_master_ci": "PASS — RC29.130 full static Master CI (sh ci-tests/run-all.sh).",
+    "browser_release_smoke": "NOT RE-RUN for RC29.130 — vendored SDK/PDF.js loading and offline behaviour require the GitHub Chromium/WebKit release gate plus docs/REAL-DEVICE-CHECKLIST-RC29.130.md on a phone.",
     "scope_sanity": "Timeline is the only manual Publish authority; Guide/Booking/Documents/Expenses/Moments remain independent auto-sync flows."
   },
   "ci_hygiene_fix": "VN product-contract suite tail tests are now included in the suite failure accumulator; stale post-PASS false-green behavior removed.",
@@ -156,7 +157,7 @@
   "notes": [
     "RC29.81 runtime fix: day Timeline thaws the deeply-frozen production Place projection before applying the shared-Place resolving Proxy, avoiding the ECMAScript Proxy invariant TypeError that prevented D2 Timeline actions from rendering in real browsers."
   ],
-  "static_master_ci": "PASS — RC29.129 full static Master CI.",
+  "static_master_ci": "PASS — RC29.130 full static Master CI.",
   "vendored_assets": {
     "vendor-supabase-js-2.117.2.umd.js": {
       "package": "@supabase/supabase-js",
