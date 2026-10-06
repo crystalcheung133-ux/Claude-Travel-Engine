@@ -3449,7 +3449,7 @@ body.documents-page .docs-modal>.docs-sheet{
 /* Cross-linked booking is now an in-page overlay: no Trip host page transition. */
 body.documents-page #tripModal.show,body.expenses-page #tripModal.show{z-index:20200!important;}
 
-/* RC29.120 — canonical mobile Booking detail/editor layout */
+/* RC29.121 — canonical mobile Booking detail/editor layout */
 .booking-detail-head-actions{display:flex;align-items:center;justify-content:flex-end;gap:7px;flex:0 0 auto;flex-wrap:wrap}
 .booking-detail-head-actions .booking-edit-btn{margin:0!important;min-height:32px!important;padding:6px 10px!important;border-radius:999px!important;font-size:12px!important;line-height:1.1!important;width:auto!important;white-space:nowrap!important}
 .booking-edit-planned-visits{grid-column:1/-1;margin-top:4px;padding-top:12px;border-top:1px solid var(--line)}
@@ -3467,7 +3467,7 @@ body.documents-page #tripModal.show,body.expenses-page #tripModal.show{z-index:2
   .booking-edit-visit-grid .booking-edit-field--wide{grid-column:auto}
 }
 
-/* RC29.120 — mobile Trip booking sheet owns one full-width content column.
+/* RC29.121 — mobile Trip booking sheet owns one full-width content column.
    The close control overlays the sheet header instead of floating beside Booking content. */
 @media(max-width:620px){
   #tripModal>.trip-sheet{position:relative!important;padding-top:58px!important;}

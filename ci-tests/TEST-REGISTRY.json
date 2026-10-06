@@ -448,9 +448,14 @@
     "scope": "shopping-route",
     "notes": "Verified Day 2 stop order, exact Mozaic Place ID and Day 1 optional 111 route visibility."
   },
-  "test-rc29120-shopping-124-free5.js": {
+  "test-rc29121-shopping-124-free5.js": {
     "status": "active",
     "scope": "shopping-route",
     "notes": "Day 1/2/4 route richness and order; Day 5 deliberately has no fixed shopping route."
+  },
+  "test-rc29121-route-qspa-sync.js": {
+    "status": "active",
+    "scope": "booking-shopping",
+    "notes": "Day 1 exact user-verified order, Day 4 single mixed-mode route, and Qspa plannedVisits remote readback verification."
   }
 }

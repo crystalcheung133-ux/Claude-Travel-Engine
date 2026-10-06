@@ -123,7 +123,7 @@ function openShoppingDirectoryView(requestedDay){
    grouped=section('PLANNED BY DAY · Day 1',planned(raw.filter(card=>shoppingDirectoryDay(card)===1)))+section('PLANNED BY DAY · Day 2',planned(raw.filter(card=>shoppingDirectoryDay(card)===2)))+section('PLANNED BY DAY · Day 4',planned(raw.filter(card=>shoppingDirectoryDay(card)===4)))+section('OPTIONAL / NEARBY',optional(raw));
  }
  const title=day?`🛍 Day ${day} Shopping Directory`:'🛍 Shopping Directory';
- const lead=day===1?'Nguyễn Trãi 是已定好的 Day 1 local-fashion line；主線與 optional extension 分開。':day===2?'上午走 11 Garmentory + Trần Quang Diệu；Pizza 4P’s 後到 Qspa 做 Afternoon Reset，再走 Cathedral / Post Office / Book Street sightseeing cluster，之後步行接 Vincom / The New Playground，最後往 LÚNE。':day===4?'只收 Thảo Điền 當日 walking line 真正會經過的店。':day===5?'Day 5 不設固定 Shopping Route；行完 Fine Arts Museum 後按前幾日漏逛的店自由決定。':'先看 PLANNED BY DAY；真正未排入 itinerary 的店才放 OPTIONAL。';
+ const lead=day===1?'Nguyễn Trãi 是已定好的 Day 1 local-fashion line；主線與 optional extension 分開。':day===2?'上午走 11 Garmentory + Trần Quang Diệu；Pizza 4P’s 後到 Qspa 做 Afternoon Reset，再走 Cathedral / Post Office / Book Street sightseeing cluster，之後步行接 Vincom / The New Playground，最後往 LÚNE。':day===4?'Day 4 只用一條 Shopping Route；每一段清楚標示 Grab、步行或同址，方便一眼看完整動線。':day===5?'Day 5 不設固定 Shopping Route；行完 Fine Arts Museum 後按前幾日漏逛的店自由決定。':'先看 PLANNED BY DAY；真正未排入 itinerary 的店才放 OPTIONAL。';
  $('guideModalContent').innerHTML=`<p class="kicker">Shopping Directory</p><h2>${title}</h2><p class="lead">${lead}</p><div class="directory-grid">${grouped}</div>`;
  closeMiniMenus();$('guideModal').classList.add('show');
  const sheet=document.querySelector('#guideModal .guide-sheet');if(sheet)sheet.scrollTop=0;

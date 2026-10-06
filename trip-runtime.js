@@ -604,9 +604,18 @@ async function commitBookingSave(record,deps){
   let booking=localResult.booking||record;
   if(!deps.syncEnabled)return {ok:true,committed:true,degraded:false,booking:booking};
   try{
-    Promise.resolve(deps.syncPush(booking)).catch(function(syncError){console.error('Booking save: remote sync pending',syncError);});
-  }catch(syncError){console.error('Booking save: remote sync pending',syncError);}
-  return {ok:true,committed:true,degraded:true,booking:booking};
+    let remoteResult;
+    try{remoteResult=await Promise.resolve(deps.syncPush(booking));}
+    catch(firstSyncError){
+      console.warn('Booking save: first remote sync attempt failed; retrying once',firstSyncError);
+      remoteResult=await Promise.resolve(deps.syncPush(booking));
+    }
+    if(remoteResult&&remoteResult.booking)booking=remoteResult.booking;
+    return {ok:true,committed:true,degraded:false,booking:booking};
+  }catch(syncError){
+    console.error('Booking save: remote sync pending after retry',syncError);
+    return {ok:true,committed:true,degraded:true,booking:booking};
+  }
 }
 window.commitBookingSave=commitBookingSave;
 // Engine-level mutation guard: DOM disabled state is presentation only. The booking ID lock

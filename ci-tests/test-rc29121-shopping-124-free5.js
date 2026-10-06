@@ -5,4 +5,4 @@ assert(!day.includes("'5':{title:'Day 5"),'Day 5 must not have Shopping Route Ma
 for(const x of ['Dot Dot Gem','Blume III','Carpe Diem','dakao quartier','Aurora Saigon','Wicky Candle','Vina Design Store']) assert(sd.includes(x),x+' missing from Shopping Directory');
 assert(data.includes('Free Browse · Revisit Anything'),'Day 5 free browse missing');
 assert(!sd.includes('PLANNED · Day 5'),'Day 5 must not be planned shopping');
-console.log('RC29.120 SHOPPING 1/2/4 + FREE DAY5: PASS');
+console.log('RC29.121 SHOPPING 1/2/4 + FREE DAY5: PASS');

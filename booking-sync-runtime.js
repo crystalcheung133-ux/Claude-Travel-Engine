@@ -104,7 +104,20 @@
     if(!result.response.ok||!result.body||!result.body.ok)throw new Error((result.body&&result.body.code)||`BOOKING_WRITE_${result.response.status}`);
     const row=result.body.record;if(row)applyRemote(row);
     state.lastSyncAt=new Date().toISOString();state.lastError='';
-    const booking=row?mapRow(row):clone(record);
+    let booking=row?mapRow(row):clone(record);
+    // Multi-visit bookings (Qspa) must be verified from the canonical remote row before
+    // the editor reports a cross-device save. This prevents a local-only success from
+    // looking synced when a nested plannedVisits payload was not persisted remotely.
+    if(Array.isArray(record&&record.plannedVisits)){
+      const expected=JSON.stringify(record.plannedVisits);
+      if(JSON.stringify(booking&&booking.plannedVisits)!==expected){
+        const verifyRows=await fetchRows(record.id||record.bookingId);
+        const verified=verifyRows[0]?mapRow(verifyRows[0]):null;
+        if(!verified||JSON.stringify(verified.plannedVisits)!==expected)throw new Error('BOOKING_REMOTE_VERIFY_FAILED');
+        booking=verified;
+        applyRemote(verifyRows[0]);
+      }
+    }
     document.dispatchEvent(new CustomEvent('travelengine:bookingchange',{detail:{bookingId:booking.id,booking,remote:true}}));
     return {ok:true,booking,remote:true};
   }
