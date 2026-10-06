@@ -472,5 +472,9 @@
     "scope": "booking-sync",
     "notes": "Legacy remote Qspa Notes survive missing party metadata while local stale Notes remain blocked; Save UI stays local-first.",
     "status": "active"
+  },
+  "test-rc29125-qspa-multivisit-transport.js": {
+    "status": "active",
+    "note": "RC29.125 Qspa multi-visit typed booking transport regression"
   }
 }

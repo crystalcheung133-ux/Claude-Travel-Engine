@@ -30,6 +30,10 @@
   function mapRow(row){
     const payload=row&&row.payload&&typeof row.payload==='object'&&!Array.isArray(row.payload)?clone(row.payload):{};
     const record=Object.assign({},legacyRow(row||{}),payload,{id:(payload.id||payload.bookingId||row.booking_id),bookingId:(payload.bookingId||payload.id||row.booking_id)});
+    // Multi-visit bookings keep human-readable aggregate date/time in the payload,
+    // while the typed bookings columns receive one valid visit date/time for transport.
+    if(Object.prototype.hasOwnProperty.call(record,'_displayDate')){record.date=record._displayDate;delete record._displayDate;}
+    if(Object.prototype.hasOwnProperty.call(record,'_displayTime')){record.time=record._displayTime;delete record._displayTime;}
     {const rawStatus=String(record.status||'pending').toLowerCase();record.status=rawStatus==='confirmed'?'confirmed':(rawStatus==='planned'?'planned':'pending');}
     record._remoteVersion=Number(row.version||1);record._remoteDeletedAt=row.deleted_at||'';
     state.versions[record.id]=record._remoteVersion;
@@ -93,8 +97,24 @@
     copy.updatedByPartyId=partyId();copy.updatedAt=new Date().toISOString();
     return copy;
   }
+  function visitTransportDate(value){
+    const text=String(value||'').trim();
+    const iso=text.match(/\b(20\d{2})-(\d{2})-(\d{2})\b/);if(iso)return iso[0];
+    const m=text.match(/\b(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+(20\d{2})\b/i);
+    if(!m)return '';const months={jan:'01',feb:'02',mar:'03',apr:'04',may:'05',jun:'06',jul:'07',aug:'08',sep:'09',oct:'10',nov:'11',dec:'12'};
+    return `${m[3]}-${months[m[2].slice(0,3).toLowerCase()]}-${String(m[1]).padStart(2,'0')}`;
+  }
+  function visitTransportTime(value){const m=String(value||'').match(/(?:^|[^0-9])(\d{1,2}):(\d{2})/);return m?`${String(m[1]).padStart(2,'0')}:${m[2]}`:'';}
+  function transportPayload(record){
+    const payload=toPayload(record);const visits=Array.isArray(record&&record.plannedVisits)?record.plannedVisits:[];
+    if(visits.length>1){
+      const date=visitTransportDate(visits[0]&&visits[0].date),time=visitTransportTime(visits[0]&&visits[0].time);
+      if(date&&time){payload._displayDate=record.date||'';payload._displayTime=record.time||'';payload.date=date;payload.time=time;}
+    }
+    return payload;
+  }
   function mutation(operation,record,baseVersion){
-    const value={mutationId:uuid(),tripId:tripId(),tripGeneration:Number((root.TRIP_CONFIG&&root.TRIP_CONFIG.tripGeneration)||1),schemaVersion:1,domain:'booking',recordId:record.id||record.bookingId,operation,payload:toPayload(record),createdAt:new Date().toISOString(),createdByPartyId:partyId(),retryCount:0,state:'queued'};
+    const value={mutationId:uuid(),tripId:tripId(),tripGeneration:Number((root.TRIP_CONFIG&&root.TRIP_CONFIG.tripGeneration)||1),schemaVersion:1,domain:'booking',recordId:record.id||record.bookingId,operation,payload:transportPayload(record),createdAt:new Date().toISOString(),createdByPartyId:partyId(),retryCount:0,state:'queued'};
     if(operation!=='create')value.baseVersion=Number(baseVersion);
     return value;
   }
