@@ -145,7 +145,7 @@
   },
   "test-guide-booking-return-contract.js": {
     "status": "active",
-    "note": "origin-aware Guide\u2192Booking close: Timeline origin returns directly to Timeline"
+    "note": "origin-aware Guide→Booking close: Timeline origin returns directly to Timeline"
   },
   "test-guide-menu-alignment.js": {
     "status": "active",
@@ -177,7 +177,7 @@
   },
   "test-multiday-booking-guide-routing.js": {
     "status": "active",
-    "principle": "One canonical booking can span multiple itinerary days; Guide\u2192Booking dispatch must preserve booking category"
+    "principle": "One canonical booking can span multiple itinerary days; Guide→Booking dispatch must preserve booking category"
   },
   "test-no-trip-homepage.js": {
     "status": "active",
@@ -229,7 +229,7 @@
   },
   "test-rc2967-documents-parity-ux.js": {
     "status": "active",
-    "purpose": "NZ Documents category/ownership/viewer parity plus cascading Day \u2192 Event timeline selector"
+    "purpose": "NZ Documents category/ownership/viewer parity plus cascading Day → Event timeline selector"
   },
   "test-rc2968-ui-docs-browser-contract.js": {
     "status": "active",
@@ -285,7 +285,7 @@
   },
   "test-rc2987-day4-quan-thuy-nondestructive.js": {
     "status": "active",
-    "note": "RC29.87 additive D4 Qu\u00e1n Thu\u00fd restore preserves RC29.86 user Timeline edits and Guide authority"
+    "note": "RC29.87 additive D4 Quán Thuý restore preserves RC29.86 user Timeline edits and Guide authority"
   },
   "test-rc2989-browser-fx-isolation.js": {
     "status": "active",
@@ -463,9 +463,14 @@
     "scope": "booking-shopping",
     "notes": "Shop-only D1/D2/D4 single routes with timed transport connectors; Day 4 Carpe-to-OHQUAO order; Qspa plannedVisits legacy-column carrier for older deployed Edge sync."
   },
-  "test-rc29123-qspa-notes-sync.js": {
+  "test-rc29124-qspa-legacy-notes-sync.js": {
     "status": "active",
     "scope": "booking-sync",
     "notes": "Qspa Notes root-cause regression: stale reconciliation preserves Notes, remote readback verifies Notes, RC29.122 carrier removed, D2 route restored."
+  },
+  "test-rc29124-qspa-legacy-notes.js": {
+    "scope": "booking-sync",
+    "notes": "Legacy remote Qspa Notes survive missing party metadata while local stale Notes remain blocked; Save UI stays local-first.",
+    "status": "active"
   }
 }

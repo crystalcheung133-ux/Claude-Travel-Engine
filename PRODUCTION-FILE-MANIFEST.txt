@@ -1,6 +1,6 @@
 Saigon Companion Production File Manifest
 Generated: 2026-10-06
-Base: VN Companion RC29.123 · Travel Engine 25.7.3 Qspa Notes Sync + Route Correction
+Base: VN Companion RC29.124 · Travel Engine 25.7.3 Qspa Legacy Notes + Save Lifecycle
 Reference trip: Vietnam
 
 Production root files:

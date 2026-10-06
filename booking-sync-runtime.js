@@ -51,7 +51,12 @@
     // A remote row, however, carries server-authored updatedByPartyId/updatedAt evidence.
     // Preserve that explicit collaborative Notes edit even when an older Qspa row lacks
     // the current payload master revision; otherwise deploy-master Notes overwrite it.
-    if(record&&record.updatedByPartyId&&Object.prototype.hasOwnProperty.call(record,'notes'))merged.notes=clone(record.notes);
+    // Booking Notes are collaborative server state. Some legacy Qspa rows pre-date the
+    // payload/master-revision column, so updatedByPartyId can be absent even though the
+    // canonical bookings.notes column contains the user's cross-device edit. Treat Notes
+    // from a real remote row as authoritative here only; local stale overrides still cannot
+    // override deploy-master Notes in booking-authority.js.
+    if(record&&Number(record._remoteVersion||0)>0&&Object.prototype.hasOwnProperty.call(record,'notes'))merged.notes=clone(record.notes);
     merged._masterRevision=currentRevision;
     return merged;
   }

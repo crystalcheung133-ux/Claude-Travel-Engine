@@ -603,19 +603,15 @@ async function commitBookingSave(record,deps){
   if(!localResult||!localResult.ok)return {ok:false,committed:false,reason:(localResult&&localResult.reason)||'save-failed'};
   let booking=localResult.booking||record;
   if(!deps.syncEnabled)return {ok:true,committed:true,degraded:false,booking:booking};
-  try{
-    let remoteResult;
-    try{remoteResult=await Promise.resolve(deps.syncPush(booking));}
-    catch(firstSyncError){
-      console.warn('Booking save: first remote sync attempt failed; retrying once',firstSyncError);
-      remoteResult=await Promise.resolve(deps.syncPush(booking));
-    }
+  // Local commit is authoritative for the Save UI. Remote transport must never keep
+  // the editor open: queue it after commit and let BOOKING_SYNC reconcile the server
+  // result back through Booking Authority when it resolves.
+  Promise.resolve().then(function(){return deps.syncPush(booking);}).then(function(remoteResult){
     if(remoteResult&&remoteResult.booking)booking=remoteResult.booking;
-    return {ok:true,committed:true,degraded:false,booking:booking};
-  }catch(syncError){
-    console.error('Booking save: remote sync pending after retry',syncError);
-    return {ok:true,committed:true,degraded:true,booking:booking};
-  }
+  }).catch(function(syncError){
+    console.error('Booking save: remote sync pending',syncError);
+  });
+  return {ok:true,committed:true,degraded:true,booking:booking};
 }
 window.commitBookingSave=commitBookingSave;
 // Engine-level mutation guard: DOM disabled state is presentation only. The booking ID lock
