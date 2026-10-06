@@ -1,1 +1,1 @@
-VN Companion RC29.125 · Travel Engine 25.7.3 Qspa Multi-Visit Sync Transport
+VN Companion RC29.126 · Travel Engine 25.7.3 Booking Remote Verify Hardening

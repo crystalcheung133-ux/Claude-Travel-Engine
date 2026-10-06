@@ -476,5 +476,9 @@
   "test-rc29125-qspa-multivisit-transport.js": {
     "status": "active",
     "note": "RC29.125 Qspa multi-visit typed booking transport regression"
+  },
+  "test-booking-plannedvisits-verify-order-insensitive.js": {
+    "status": "active",
+    "note": "RC29.126 booking remote verification is object-key-order independent; array order and value changes still fail"
   }
 }

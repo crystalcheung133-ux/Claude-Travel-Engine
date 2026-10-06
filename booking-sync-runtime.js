@@ -97,6 +97,14 @@
     copy.updatedByPartyId=partyId();copy.updatedAt=new Date().toISOString();
     return copy;
   }
+  // Remote verification must compare JSON semantics, not key insertion order: Postgres jsonb
+  // (and any JSON round-trip) may re-order object keys. Object keys are order-insensitive,
+  // array element order stays significant (visit D1/D2/D3 sequence must match).
+  function stableJSON(value){
+    if(Array.isArray(value))return '['+value.map(function(item){return stableJSON(item);}).join(',')+']';
+    if(value&&typeof value==='object')return '{'+Object.keys(value).filter(function(key){return value[key]!==undefined;}).sort().map(function(key){return JSON.stringify(key)+':'+stableJSON(value[key]);}).join(',')+'}';
+    const text=JSON.stringify(value);return text===undefined?'null':text;
+  }
   function visitTransportDate(value){
     const text=String(value||'').trim();
     const iso=text.match(/\b(20\d{2})-(\d{2})-(\d{2})\b/);if(iso)return iso[0];
@@ -139,12 +147,12 @@
     // exact user-edited Notes. Qspa exposed this because its older remote/local state can
     // be reconciled against deploy master data; ordinary bookings must obey the same rule.
     const expectedNotes=String(record&&record.notes||'');
-    const visitsExpected=Array.isArray(record&&record.plannedVisits)?JSON.stringify(record.plannedVisits):null;
-    const remoteMatches=()=>String(booking&&booking.notes||'')===expectedNotes&&(visitsExpected===null||JSON.stringify(booking&&booking.plannedVisits)===visitsExpected);
+    const visitsExpected=Array.isArray(record&&record.plannedVisits)?stableJSON(record.plannedVisits):null;
+    const remoteMatches=()=>String(booking&&booking.notes||'')===expectedNotes&&(visitsExpected===null||stableJSON(booking&&booking.plannedVisits)===visitsExpected);
     if(!remoteMatches()){
       const verifyRows=await fetchRows(record.id||record.bookingId);
       const verified=verifyRows[0]?mapRow(verifyRows[0]):null;
-      if(!verified||String(verified.notes||'')!==expectedNotes||(visitsExpected!==null&&JSON.stringify(verified.plannedVisits)!==visitsExpected))throw new Error('BOOKING_REMOTE_VERIFY_FAILED');
+      if(!verified||String(verified.notes||'')!==expectedNotes||(visitsExpected!==null&&stableJSON(verified.plannedVisits)!==visitsExpected))throw new Error('BOOKING_REMOTE_VERIFY_FAILED');
       booking=verified;
       applyRemote(verifyRows[0]);
     }
