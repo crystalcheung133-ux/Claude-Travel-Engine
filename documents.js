@@ -104,13 +104,13 @@ root.repairDocument=id=>{
 
 root.togglePin=async id=>{const d=root.TRIP_DOCUMENTS.read().find(x=>x.id===id);if(d)await root.TRIP_DOCUMENTS.update(id,{pinned:!d.pinned});render()};root.deleteDoc=async id=>{if(confirm('Delete this document?')){await root.TRIP_DOCUMENTS.remove(id);render()}};
 
-async function ensurePdfJs(){if(window.pdfjsLib)return window.pdfjsLib;return new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js';s.onload=()=>resolve(window.pdfjsLib);s.onerror=reject;document.head.appendChild(s)})}
+async function ensurePdfJs(){if(window.pdfjsLib)return window.pdfjsLib;return new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='vendor-pdfjs-3.11.174.min.js';s.onload=()=>resolve(window.pdfjsLib);s.onerror=reject;document.head.appendChild(s)})}
 async function renderPdfInto(url,wrap){
  await ensurePdfJs();
  wrap.innerHTML='<div class="doc-viewer-message">Loading document…</div>';
  try{
   if(!root.pdfjsLib)throw new Error('PDF viewer unavailable');
-  root.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+  root.pdfjsLib.GlobalWorkerOptions.workerSrc='vendor-pdfjs-worker-3.11.174.min.js';
   const pdf=await root.pdfjsLib.getDocument(url).promise;wrap.innerHTML='';
   const dpr=Math.min(2.5,Math.max(1,root.devicePixelRatio||1));
   for(let n=1;n<=pdf.numPages;n++){

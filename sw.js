@@ -1,5 +1,5 @@
 importScripts('./theme-config.js', './asset-config.js', './locale-config.js', './formatter.js', './navigation-config.js', './trip-config.js', './storage-config.js');
-const CACHE_NAME = `travel-engine-${TRIP_CONFIG.storageNamespace}-${TRIP_CONFIG.version}-rc29126-booking-verify-hardening`;
+const CACHE_NAME = `travel-engine-${TRIP_CONFIG.storageNamespace}-${TRIP_CONFIG.version}-rc29127-offline-deps-hardening`;
 const CRITICAL_EXTENSIONS = /\.(?:css|js)$/i;
 const ASSETS = [
   './',
@@ -18,6 +18,9 @@ const ASSETS = [
   './generation-selection-adapter.js',
   './expense-notification-runtime.js',
   './shopping-directory-data.js',
+  './vendor-supabase-js-2.117.2.umd.js',
+  './vendor-pdfjs-3.11.174.min.js',
+  './vendor-pdfjs-worker-3.11.174.min.js',
   './guide-navigation-runtime.js',
   './expenses.js',
   './supabase-client-runtime.js',

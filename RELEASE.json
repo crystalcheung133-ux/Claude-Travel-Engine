@@ -1,9 +1,9 @@
 {
   "engine_version": "25.7.3",
-  "artifact_version": "VN Companion RC29.126 · Travel Engine 25.7.3 Booking Remote Verify Hardening",
+  "artifact_version": "VN Companion RC29.127 · Travel Engine 25.7.3 Offline Dependencies + Verify Hardening",
   "baseline_engine": "25.5.2",
   "release_date": "2026-10-06",
-  "release_type": "booking-remote-verify-hardening",
+  "release_type": "offline-dependencies-verify-hardening",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
@@ -66,7 +66,6 @@
     "enterprise device registration",
     "database Reset RPC signature migration",
     "CSS cascade / !important audit",
-    "external CDN SRI or self-hosting (Supabase SDK, PDF.js, html2pdf)",
     "plannedVisits EditableStateFields vs future deploy-master changes",
     "remaining scripts without ?v= cache token"
   ],
@@ -78,8 +77,8 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc29126-booking-verify-hardening",
-  "release_status": "RC29.126 CANDIDATE — Booking Remote Verify Hardening",
+  "asset_cache_token": "rc29127-offline-deps-hardening",
+  "release_status": "RC29.127 CANDIDATE — Offline Dependencies + Verify Hardening",
   "changes": [
     "Pinned the browser Supabase SDK CDN dependency to exact version 2.117.2 instead of the floating @2 major tag.",
     "Added CI tombstone coverage preventing retired bookings-runtime.js from re-entering any production HTML, service-worker, manifest, or dynamic-loader path.",
@@ -137,11 +136,15 @@
     "RC29.125 (documented retroactively): Booking Notes from a real remote row are authoritative for cross-device sync; a Booking save is only reported as synced after the remote row carries the user-edited Notes and plannedVisits.",
     "RC29.125 (documented retroactively): plannedDays/plannedVisits are editable booking state fields; the Booking editor exposes per-visit Day/Date/Time fields; Booking Save commits locally first and queues remote sync afterwards.",
     "RC29.126: remote verification of plannedVisits compares JSON semantics instead of raw JSON.stringify — object key order is ignored (Postgres jsonb may re-order keys), array/visit order and all values must still match. No change to Qspa transport, Notes authority, Supabase calls or the save lifecycle.",
-    "RC29.126: release metadata corrected (stale RC29.116 status and RC29.93 static-CI claims removed); trip-config.js header updated; stale ci-tests/__pycache__ removed."
+    "RC29.126: release metadata corrected (stale RC29.116 status and RC29.93 static-CI claims removed); trip-config.js header updated; stale ci-tests/__pycache__ removed.",
+    "RC29.127: Supabase browser SDK (2.117.2), PDF.js (3.11.174 + worker) and html2pdf.js (0.10.1) are now self-hosted as byte-exact npm copies (vendor-*.js) instead of loading from jsDelivr/cdnjs; no external script host remains.",
+    "RC29.127: service worker precaches the Supabase SDK, PDF.js and PDF.js worker so Documents PDFs and the sync client work on first launch after an update while offline; html2pdf.js is cached on first export use.",
+    "RC29.127: booking remote verification treats Notes as equal when only line-ending style or leading/trailing whitespace differs; real text changes still fail.",
+    "RC29.127: python CI syntax check no longer writes ci-tests/__pycache__; new release-metadata freshness test blocks stale RC/static-CI claims."
   ],
   "validation": {
-    "static_master_ci": "PASS — RC29.126 full static Master CI (sh ci-tests/run-all.sh) incl. new booking planned-visits key-order regression test.",
-    "browser_release_smoke": "NOT RE-RUN for RC29.126 — run the GitHub Chromium/WebKit four-viewport release gate before treating this build as device-validated.",
+    "static_master_ci": "PASS — RC29.127 full static Master CI (sh ci-tests/run-all.sh).",
+    "browser_release_smoke": "NOT RE-RUN for RC29.127 — vendored SDK/PDF.js loading and offline behaviour require the GitHub Chromium/WebKit release gate plus docs/REAL-DEVICE-CHECKLIST-RC29.127.md on a phone.",
     "scope_sanity": "Timeline is the only manual Publish authority; Guide/Booking/Documents/Expenses/Moments remain independent auto-sync flows."
   },
   "ci_hygiene_fix": "VN product-contract suite tail tests are now included in the suite failure accumulator; stale post-PASS false-green behavior removed.",
@@ -150,5 +153,35 @@
   "notes": [
     "RC29.81 runtime fix: day Timeline thaws the deeply-frozen production Place projection before applying the shared-Place resolving Proxy, avoiding the ECMAScript Proxy invariant TypeError that prevented D2 Timeline actions from rendering in real browsers."
   ],
-  "static_master_ci": "PASS — RC29.126 full static Master CI."
+  "static_master_ci": "PASS — RC29.127 full static Master CI.",
+  "vendored_assets": {
+    "vendor-supabase-js-2.117.2.umd.js": {
+      "package": "@supabase/supabase-js",
+      "version": "2.117.2",
+      "npm_tarball_integrity": "sha512-eSG2VKnHR+Clp1PmidZ1/weJ8PJwoybjva3L2GgKqFG4YDS1Iqmc61psKGZP5xw6OMT2O7ZorPR42PY6q1BOXg==",
+      "source_file": "dist/umd/supabase.js",
+      "sha256": "59d39487c3589843b410322d8a3d562ce022aba1e5ccb16898ef3fb2a0da2ecd"
+    },
+    "vendor-pdfjs-3.11.174.min.js": {
+      "package": "pdfjs-dist",
+      "version": "3.11.174",
+      "npm_tarball_integrity": "sha512-TdTZPf1trZ8/UFu5Cx/GXB7GZM30LT+wWUNfsi6Bq8ePLnb+woNKtDymI2mxZYBpMbonNFqKmiz684DIfnd8dA==",
+      "source_file": "build/pdf.min.js",
+      "sha256": "5b5799e6f8c680663207ac5b42ee14eed2a406fa7af48f50c154f0c0b1566946"
+    },
+    "vendor-pdfjs-worker-3.11.174.min.js": {
+      "package": "pdfjs-dist",
+      "version": "3.11.174",
+      "npm_tarball_integrity": "sha512-TdTZPf1trZ8/UFu5Cx/GXB7GZM30LT+wWUNfsi6Bq8ePLnb+woNKtDymI2mxZYBpMbonNFqKmiz684DIfnd8dA==",
+      "source_file": "build/pdf.worker.min.js",
+      "sha256": "feabdf309770ed24bba31a5467836cdc8cf639c705af27d52b585b041bb8527b"
+    },
+    "vendor-html2pdf-0.10.1.bundle.min.js": {
+      "package": "html2pdf.js",
+      "version": "0.10.1",
+      "npm_tarball_integrity": "sha512-3onwwhOWsZfNjIZwV6YIJ6FVhXk+X9YxHSqzeS6hup+1dGi2DHI+zZYUJ+iFnvtaYcjlhyrILL1fvRCUOa8Fcg==",
+      "source_file": "dist/html2pdf.bundle.min.js",
+      "sha256": "85e6ee9ce246e3ae4424313f7e46a5ed860a28d757811de8dc9c43f306049d65"
+    }
+  }
 }

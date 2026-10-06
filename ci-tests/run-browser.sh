@@ -7,5 +7,5 @@ try:
 except Exception as e:
     raise SystemExit("BROWSER GATE BLOCKED: Python Playwright is not installed: "+str(e))
 PY
-python ci-tests/test-browser-release-smoke.py
+PYTHONDONTWRITEBYTECODE=1 python ci-tests/test-browser-release-smoke.py
 echo "BROWSER RELEASE GATE PASSED"

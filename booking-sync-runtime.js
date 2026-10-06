@@ -105,6 +105,9 @@
     if(value&&typeof value==='object')return '{'+Object.keys(value).filter(function(key){return value[key]!==undefined;}).sort().map(function(key){return JSON.stringify(key)+':'+stableJSON(value[key]);}).join(',')+'}';
     const text=JSON.stringify(value);return text===undefined?'null':text;
   }
+  // Notes verification ignores line-ending style (CRLF/CR vs LF) and leading/trailing whitespace only;
+  // any other difference (text, interior whitespace) still fails verification.
+  function normalizeNotes(value){return String(value==null?'':value).replace(/\r\n?/g,'\n').trim();}
   function visitTransportDate(value){
     const text=String(value||'').trim();
     const iso=text.match(/\b(20\d{2})-(\d{2})-(\d{2})\b/);if(iso)return iso[0];
@@ -146,13 +149,13 @@
     // Do not report a cross-device save until the canonical remote row contains the
     // exact user-edited Notes. Qspa exposed this because its older remote/local state can
     // be reconciled against deploy master data; ordinary bookings must obey the same rule.
-    const expectedNotes=String(record&&record.notes||'');
+    const expectedNotes=normalizeNotes(record&&record.notes);
     const visitsExpected=Array.isArray(record&&record.plannedVisits)?stableJSON(record.plannedVisits):null;
-    const remoteMatches=()=>String(booking&&booking.notes||'')===expectedNotes&&(visitsExpected===null||stableJSON(booking&&booking.plannedVisits)===visitsExpected);
+    const remoteMatches=()=>normalizeNotes(booking&&booking.notes)===expectedNotes&&(visitsExpected===null||stableJSON(booking&&booking.plannedVisits)===visitsExpected);
     if(!remoteMatches()){
       const verifyRows=await fetchRows(record.id||record.bookingId);
       const verified=verifyRows[0]?mapRow(verifyRows[0]):null;
-      if(!verified||String(verified.notes||'')!==expectedNotes||(visitsExpected!==null&&stableJSON(verified.plannedVisits)!==visitsExpected))throw new Error('BOOKING_REMOTE_VERIFY_FAILED');
+      if(!verified||normalizeNotes(verified.notes)!==expectedNotes||(visitsExpected!==null&&stableJSON(verified.plannedVisits)!==visitsExpected))throw new Error('BOOKING_REMOTE_VERIFY_FAILED');
       booking=verified;
       applyRemote(verifyRows[0]);
     }

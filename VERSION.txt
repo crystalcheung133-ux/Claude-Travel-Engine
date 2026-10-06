@@ -1,1 +1,1 @@
-VN Companion RC29.126 · Travel Engine 25.7.3 Booking Remote Verify Hardening
+VN Companion RC29.127 · Travel Engine 25.7.3 Offline Dependencies + Verify Hardening

@@ -219,7 +219,7 @@
   }
   function ensureHtml2Pdf(){
     if(window.html2pdf)return Promise.resolve();
-    return new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';script.onload=resolve;script.onerror=()=>reject(new Error('PDF generator unavailable'));document.head.appendChild(script);});
+    return new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='vendor-html2pdf-0.10.1.bundle.min.js';script.onload=resolve;script.onerror=()=>reject(new Error('PDF generator unavailable'));document.head.appendChild(script);});
   }
   function ensureExpensePreviewStyles(){
     if(document.getElementById('expensePreviewStyles'))return;

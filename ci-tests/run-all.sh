@@ -1,5 +1,7 @@
 #!/bin/sh
 set -u
+PYTHONDONTWRITEBYTECODE=1
+export PYTHONDONTWRITEBYTECODE
 failed=0
 run(){ echo "== $1 =="; shift; "$@" || failed=1; echo ""; }
 run "FOUNDATION" sh ci-tests/suites/01-foundation.sh

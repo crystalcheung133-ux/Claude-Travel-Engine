@@ -1,4 +1,5 @@
-// RC29.126 — Booking remote verification must be key-order independent.
+// RC29.126/127 — Booking remote verification: plannedVisits is key-order independent; Notes ignore
+// line-ending style and edge whitespace only. Real value changes must still fail.
 // Fake server re-orders every object's keys the way Postgres jsonb does (shorter keys first,
 // then bytewise), which is what a real round-trip can do to plannedVisits.
 const fs=require('fs'),vm=require('vm'),assert=require('assert');
@@ -36,8 +37,8 @@ function makeCtx(server){
   ctx.globalThis=ctx;vm.createContext(ctx);vm.runInContext(SRC,ctx);return ctx;
 }
 const baseRow=()=>({booking_id:'bk-qspa',version:7,booking_date:'2026-10-30',booking_time:'12:15:00',notes:'old',payload:{id:'bk-qspa',bookingId:'bk-qspa',_masterRevision:13}});
-const record=()=>({id:'bk-qspa',bookingId:'bk-qspa',date:'30 Oct – 1 Nov 2026',time:'D1 · D2 · D3',notes:'new note',plannedVisits:JSON.parse(JSON.stringify(visits))});
-const stored=(mut,mutateVisits)=>{const p=JSON.parse(JSON.stringify(mut.payload));if(mutateVisits)p.plannedVisits=mutateVisits(p.plannedVisits);return {...baseRow(),version:8,notes:p.notes,payload:jsonbOrder(p)};};
+const record=(notes)=>({id:'bk-qspa',bookingId:'bk-qspa',date:'30 Oct – 1 Nov 2026',time:'D1 · D2 · D3',notes:notes===undefined?'new note':notes,plannedVisits:JSON.parse(JSON.stringify(visits))});
+const stored=(mut,mutateVisits,mutateNotes)=>{const p=JSON.parse(JSON.stringify(mut.payload));if(mutateVisits)p.plannedVisits=mutateVisits(p.plannedVisits);if(mutateNotes)p.notes=mutateNotes(p.notes);return {...baseRow(),version:8,notes:p.notes,payload:jsonbOrder(p)};};
 
 (async()=>{
   // A) write response echoes the saved row with jsonb-reordered keys -> must verify and resolve.
@@ -57,7 +58,20 @@ const stored=(mut,mutateVisits)=>{const p=JSON.parse(JSON.stringify(mut.payload)
   // E) a missing visit must FAIL verification.
   {let row;const ctx=makeCtx({readRow:()=>row||baseRow(),write:m=>(row=stored(m,v=>v.slice(0,2)))});
    await assert.rejects(()=>ctx.BOOKING_SYNC.push(record()),/BOOKING_REMOTE_VERIFY_FAILED/,'E: dropped visit must not verify');}
+  // G) server stores Notes with CRLF line endings -> must verify.
+  {let row;const ctx=makeCtx({readRow:()=>row||baseRow(),write:m=>(row=stored(m,null,x=>x.replace(/\n/g,'\r\n')))});
+   const r=await ctx.BOOKING_SYNC.push(record('line1\nline2'));assert.equal(r.ok,true,'G: CRLF vs LF Notes must verify');}
+  // H) server trims edge whitespace -> must verify.
+  {let row;const ctx=makeCtx({readRow:()=>row||baseRow(),write:m=>(row=stored(m,null,x=>x.trim()))});
+   const r=await ctx.BOOKING_SYNC.push(record('  keep this  \n'));assert.equal(r.ok,true,'H: edge-whitespace-only difference must verify');}
+  // I) different Notes text -> must FAIL.
+  {let row;const ctx=makeCtx({readRow:()=>row||baseRow(),write:m=>(row=stored(m,null,()=>'someone else wrote this'))});
+   await assert.rejects(()=>ctx.BOOKING_SYNC.push(record('my note')),/BOOKING_REMOTE_VERIFY_FAILED/,'I: changed Notes must not verify');}
+  // J) interior whitespace change -> must FAIL (only edges/line endings are normalized).
+  {let row;const ctx=makeCtx({readRow:()=>row||baseRow(),write:m=>(row=stored(m,null,x=>x.replace('a b','a  b')))});
+   await assert.rejects(()=>ctx.BOOKING_SYNC.push(record('a b')),/BOOKING_REMOTE_VERIFY_FAILED/,'J: interior whitespace change must not verify');}
   // F) static guard: no raw JSON.stringify equality on plannedVisits remains.
   assert(!/JSON\.stringify\([^)]*plannedVisits[^)]*\)\s*(===|!==)/.test(SRC),'F: raw JSON.stringify equality on plannedVisits must not return');
+  assert(!/String\((?:verified|booking&&booking)\.?notes\|\|''\)/.test(SRC),'raw Notes string compare must not return');
   console.log('BOOKING PLANNED-VISITS VERIFY ORDER-INSENSITIVE: PASS');
 })().catch(e=>{console.error(e);process.exit(1)});

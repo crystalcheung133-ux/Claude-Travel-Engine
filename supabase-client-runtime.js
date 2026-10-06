@@ -41,7 +41,7 @@
     if (typeof root.supabase?.createClient !== 'function') {
       // The official SDK (loaded via CDN <script> before this file) did not load.
       const err = new Error(
-        'Supabase JS SDK not found on window.supabase — check the CDN <script> tag and network access'
+        'Supabase JS SDK not found on window.supabase — check the vendored SDK <script> tag (vendor-supabase-js-*.umd.js)'
       );
       console.error(LOG, err.message);
       throw err;
