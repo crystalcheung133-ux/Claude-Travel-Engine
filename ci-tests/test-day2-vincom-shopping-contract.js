@@ -2,6 +2,6 @@ const fs=require('fs'),vm=require('vm'),assert=require('assert');const c={};vm.c
 assert.deepEqual(ids,['com-tam-moc','garmentory','shopping-tqd','pizza4ps','qspa-d2','post-office','vincom-new-playground','rue-miche-ledition','lune']);
 assert.equal(d2.find(x=>x.id==='post-office').time,'~16:30–17:10');assert(d2.find(x=>x.id==='post-office').route.includes('Vincom'));
 const v=d2.find(x=>x.id==='vincom-new-playground');assert.equal(v.time,'~17:15–17:50');assert(v.route.includes('Rue Miche'));const rm=d2.find(x=>x.id==='rue-miche-ledition');assert.equal(rm.time,'~17:55–18:25');assert(rm.route.includes('LÚNE'));assert(rm.showShoppingDirectory===true);assert(v.showShoppingDirectory===true);
-assert(!ids.includes('ivoire'));assert(!ids.includes('hotel-reset'));assert.equal(B['bk-lune'].time,'18:45');assert(P['new-playground'].address.includes('Vincom Center Đồng Khởi'));
+assert(!ids.includes('ivoire'));assert(!ids.includes('hotel-reset'));assert.equal(B['bk-lune'].time,'19:00');assert(P['new-playground'].address.includes('Vincom Center Đồng Khởi'));
 const sd=fs.readFileSync('shopping-directory-data.js','utf8');for(const x of ['PLANNED · Day 1 · Nguyễn Trãi Local Fashion Walk','PUSH PUSH · The New Playground','BLACKORP · Vincom Đồng Khởi','PLANNED · Day 4 · Thảo Điền Lifestyle'])assert(sd.includes(x));
 console.log('DAY 2 QSPA → SIGHTSEEING → VINCOM + SHOPPING CONTRACT: PASS');

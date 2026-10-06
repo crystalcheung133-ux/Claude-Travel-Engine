@@ -495,5 +495,13 @@
   "test-rc29130-map-address-routing.js": {
     "status": "active",
     "note": "RC29.130 address-first Google Maps routing + Maruco regression"
+  },
+  "test-rc29131-timeline-authority-rebase.js": {
+    "status": "active",
+    "note": "RC29.131 field-level Timeline manual-edit rebase across master revisions, including explicit deletion"
+  },
+  "test-rc29131-booking-time-authority.js": {
+    "status": "active",
+    "note": "RC29.131 booked Timeline time renders from Booking Authority; LUNE canonical 19:00"
   }
 }

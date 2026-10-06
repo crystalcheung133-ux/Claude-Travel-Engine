@@ -1,6 +1,6 @@
 {
   "engine_version": "25.7.3",
-  "artifact_version": "VN Companion RC29.130 · Travel Engine 25.7.3 Map Routing Hardening",
+  "artifact_version": "VN Companion RC29.131 · Travel Engine 25.7.3 Timeline Authority + Booking Time Authority",
   "baseline_engine": "25.5.2",
   "release_date": "2026-10-06",
   "release_type": "map-routing-hardening",
@@ -80,10 +80,10 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc29130-offline-deps-hardening",
-  "release_status": "RC29.130 CANDIDATE — Day 2 Rue Miche Shopping",
+  "asset_cache_token": "rc29131-offline-deps-hardening",
+  "release_status": "RC29.131 CANDIDATE — Timeline Authority + Booking Time Authority",
   "changes": [
-    "RC29.130: Added Rue Miche L’Édition as the planned Day 2 afternoon shopping stop, Guide card and Shopping Route Map leg between Vincom and LÚNE.",
+    "RC29.131: Added Rue Miche L’Édition as the planned Day 2 afternoon shopping stop, Guide card and Shopping Route Map leg between Vincom and LÚNE.",
     "Pinned the browser Supabase SDK CDN dependency to exact version 2.117.2 instead of the floating @2 major tag.",
     "Added CI tombstone coverage preventing retired bookings-runtime.js from re-entering any production HTML, service-worker, manifest, or dynamic-loader path.",
     "Added single-release-identity CI coverage for VERSION, RELEASE, TRIP_CONFIG, build labels, service-worker cache token and HTML cache-busting tokens.",
@@ -141,14 +141,14 @@
     "RC29.125 (documented retroactively): plannedDays/plannedVisits are editable booking state fields; the Booking editor exposes per-visit Day/Date/Time fields; Booking Save commits locally first and queues remote sync afterwards.",
     "RC29.126: remote verification of plannedVisits compares JSON semantics instead of raw JSON.stringify — object key order is ignored (Postgres jsonb may re-order keys), array/visit order and all values must still match. No change to Qspa transport, Notes authority, Supabase calls or the save lifecycle.",
     "RC29.126: release metadata corrected (stale RC29.116 status and RC29.93 static-CI claims removed); trip-config.js header updated; stale ci-tests/__pycache__ removed.",
-    "RC29.130: Supabase browser SDK (2.117.2), PDF.js (3.11.174 + worker) and html2pdf.js (0.10.1) are now self-hosted as byte-exact npm copies (vendor-*.js) instead of loading from jsDelivr/cdnjs; no external script host remains.",
-    "RC29.130: service worker precaches the Supabase SDK, PDF.js and PDF.js worker so Documents PDFs and the sync client work on first launch after an update while offline; html2pdf.js is cached on first export use.",
-    "RC29.130: booking remote verification treats Notes as equal when only line-ending style or leading/trailing whitespace differs; real text changes still fail.",
-    "RC29.130: python CI syntax check no longer writes ci-tests/__pycache__; new release-metadata freshness test blocks stale RC/static-CI claims."
+    "RC29.131: Supabase browser SDK (2.117.2), PDF.js (3.11.174 + worker) and html2pdf.js (0.10.1) are now self-hosted as byte-exact npm copies (vendor-*.js) instead of loading from jsDelivr/cdnjs; no external script host remains.",
+    "RC29.131: service worker precaches the Supabase SDK, PDF.js and PDF.js worker so Documents PDFs and the sync client work on first launch after an update while offline; html2pdf.js is cached on first export use.",
+    "RC29.131: booking remote verification treats Notes as equal when only line-ending style or leading/trailing whitespace differs; real text changes still fail.",
+    "RC29.131: python CI syntax check no longer writes ci-tests/__pycache__; new release-metadata freshness test blocks stale RC/static-CI claims."
   ],
   "validation": {
-    "static_master_ci": "PASS — RC29.130 full static Master CI (sh ci-tests/run-all.sh).",
-    "browser_release_smoke": "NOT RE-RUN for RC29.130 — vendored SDK/PDF.js loading and offline behaviour require the GitHub Chromium/WebKit release gate plus docs/REAL-DEVICE-CHECKLIST-RC29.130.md on a phone.",
+    "static_master_ci": "PASS — RC29.131 full static Master CI (sh ci-tests/run-all.sh).",
+    "browser_release_smoke": "NOT RE-RUN for RC29.131 — vendored SDK/PDF.js loading and offline behaviour require the GitHub Chromium/WebKit release gate plus docs/REAL-DEVICE-CHECKLIST-RC29.131.md on a phone.",
     "scope_sanity": "Timeline is the only manual Publish authority; Guide/Booking/Documents/Expenses/Moments remain independent auto-sync flows."
   },
   "ci_hygiene_fix": "VN product-contract suite tail tests are now included in the suite failure accumulator; stale post-PASS false-green behavior removed.",
@@ -157,7 +157,7 @@
   "notes": [
     "RC29.81 runtime fix: day Timeline thaws the deeply-frozen production Place projection before applying the shared-Place resolving Proxy, avoiding the ECMAScript Proxy invariant TypeError that prevented D2 Timeline actions from rendering in real browsers."
   ],
-  "static_master_ci": "PASS — RC29.130 full static Master CI.",
+  "static_master_ci": "PASS — RC29.131 full static Master CI (sh ci-tests/run-all.sh).",
   "vendored_assets": {
     "vendor-supabase-js-2.117.2.umd.js": {
       "package": "@supabase/supabase-js",
@@ -187,5 +187,12 @@
       "source_file": "dist/html2pdf.bundle.min.js",
       "sha256": "85e6ee9ce246e3ae4424313f7e46a5ed860a28d757811de8dc9c43f306049d65"
     }
-  }
+  },
+  "release_notes": [
+    "RC29.131: Timeline Studio manual edits now survive itinerary master revisions through stable-ID field-level rebase; explicit deletions/empty Details are preserved.",
+    "RC29.131: New Timeline saves retain the edited master baseline so future releases can distinguish user changes from untouched master fields.",
+    "RC29.131: Booked Timeline cards render date/time authority from Booking Authority; LÜNE canonical booking and Day 2 route are aligned to confirmed 19:00.",
+    "RC29.131: Removed friend-facing Rue Miche Boutique disambiguation/audit wording from Day 2 Timeline."
+  ],
+  "browser_release_smoke": "NOT RE-RUN for RC29.131 — static authority regressions pass; real-device Timeline persistence and cross-device Booking→Timeline time propagation should be smoke-tested."
 }

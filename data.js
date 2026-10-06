@@ -641,7 +641,7 @@ const PLACES={
       "Day 2 黃昏由 Vincom 接 LÚNE 最順路"
     ],
     "worth": [
-      "主打越南本地設計品牌；不是 Rue Miche Boutique。",
+      "主打越南本地設計品牌與 accessories。",
       "時間緊可縮短 Vincom，把 browsing time 留給這個 flagship。"
     ],
     "categoryLabel": "🛍 Shopping",
@@ -2163,9 +2163,9 @@ const BOOKINGS_DATA={
     "timelineItemId": "lune",
     "day": 2,
     "dayId": "day2",
-    "status": "pending",
+    "status": "confirmed",
     "date": "2026-10-31",
-    "time": "18:45",
+    "time": "19:00",
     "bookingName": "",
     "bookingCategory": "Restaurants",
     "category": "Restaurants",
@@ -2179,11 +2179,11 @@ const BOOKINGS_DATA={
     "bookingContact": "",
     "secondaryContact": "",
     "bookingUrl": "https://www.adrienguenzi.com/reservations",
-    "notes": "18:45 dinner for 4. Current D2 flow is Qspa → Cathedral / Central Post Office / Book Street → Vincom Center Đồng Khởi / The New Playground → LÚNE；不返 Fusion，按步行路線直接接晚餐。",
+    "notes": "19:00 dinner for 4. Current D2 flow is Qspa → Cathedral / Central Post Office / Book Street → Vincom Center Đồng Khởi / The New Playground → Rue Miche L’Édition → LÚNE；不返 Fusion，按步行路線直接接晚餐。",
     "signatureDishes": ["Canadian lobster raviolo", "Phở foie gras terrine", "Sea urchin + A5 wagyu"],
     "email": "contact-lune@hdnt.vn",
     "address": "17/14 Lê Thánh Tôn, Sài Gòn, Ho Chi Minh City, Vietnam",
-    "bookingHandoff": "未訂。首選 official reservation page；4人，31 Oct 18:45。需要直接聯絡可 email contact-lune@hdnt.vn。",
+    "bookingHandoff": "已確認 31 Oct 19:00，4人。Booking time 為 Day 2 Timeline 的時間 authority；如需改時間，請由 Booking Edit 更新。",
     "placeId": "lune"
   },
   "bk-pizza4ps": {
@@ -2809,9 +2809,8 @@ const ITINERARY_DATA={
         "title": "🛍 Rue Miche L’Édition · Union Square",
         "details": [
           "Union Square B3 大型 Vietnamese multi-brand flagship；集中看本地 fashion、accessories 與 lifestyle brands。",
-          "呢間係 Rue Miche L’Édition，不是 Rue Miche Boutique。"
         ],
-        "route": "🚶 To next stop · 約 3–5 min：Union Square → LÚNE；18:45 fixed。",
+        "route": "🚶 To next stop · 約 3–5 min：Union Square → LÚNE。",
         "map": "https://www.google.com/maps/search/?api=1&query=Rue%20Miche%20L%27Edition%20Union%20Square%20171%20Dong%20Khoi%20Ho%20Chi%20Minh",
         "type": "shoppingWindow",
         "dayId": "day2",
@@ -2821,7 +2820,7 @@ const ITINERARY_DATA={
         "showShoppingDirectory": true
       },
       {
-        "id":"lune","time":"18:45–20:45","title":"🥂 LÚNE",
+        "id":"lune","time":"19:00–21:00","title":"🥂 LÚNE",
         "details":["Fashion Day 最後收在一張安靜餐桌；白天的顏色與街聲，到這裡慢慢沉下來。"],
         "route":"🏨 To next stop · Dinner 後 Grab 返回 Fusion。",
         "map":"https://www.google.com/maps/search/?api=1&query=LUNE%20Restaurant%20Bar%2017%2014%20Le%20Thanh%20Ton%20Ho%20Chi%20Minh","type":"meal","dayId":"day2","placeId":"lune","bookingId":"bk-lune"

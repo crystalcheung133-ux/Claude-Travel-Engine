@@ -66,6 +66,67 @@
     return out;
   }
 
+
+  /* RC29.131: Timeline edits are user intent, not disposable snapshots.
+     New saves carry the master baseline that the user edited. On a later deploy we
+     replay only the fields the user actually changed, including explicit empty values,
+     and preserve add/delete/order operations by stable item id. */
+  const USER_EDITABLE_FIELDS=['time','title','details','route'];
+  function same(a,b){return JSON.stringify(a)===JSON.stringify(b);}
+  function rebaseDay(savedItems,baseItems,currentItems){
+    const saved=normalizeItems(savedItems),base=normalizeItems(baseItems),current=normalizeItems(currentItems);
+    const baseBy=new Map(base.filter(x=>x&&x.id).map(x=>[String(x.id),x]));
+    const savedBy=new Map(saved.filter(x=>x&&x.id).map(x=>[String(x.id),x]));
+    const currentBy=new Map(current.filter(x=>x&&x.id).map(x=>[String(x.id),x]));
+    const deleted=new Set(base.filter(x=>x&&x.id&&!savedBy.has(String(x.id))).map(x=>String(x.id)));
+    const out=[];
+    saved.forEach(function(si){
+      if(!si||!si.id){out.push(clone(si));return;}
+      const id=String(si.id),bi=baseBy.get(id),ci=currentBy.get(id);
+      if(!bi){out.push(clone(si));return;} // user-added item
+      if(!ci)return; // master intentionally removed it
+      const merged=clone(ci);
+      USER_EDITABLE_FIELDS.forEach(function(field){
+        const sHas=Object.prototype.hasOwnProperty.call(si,field),bHas=Object.prototype.hasOwnProperty.call(bi,field);
+        if(sHas!==bHas || (sHas&&!same(si[field],bi[field]))){
+          if(sHas)merged[field]=clone(si[field]); else delete merged[field];
+        }
+      });
+      out.push(merged);
+    });
+    /* Insert genuinely new master items without disturbing the user's saved order. */
+    current.forEach(function(ci,idx){
+      if(!ci||!ci.id)return;const id=String(ci.id);
+      if(baseBy.has(id)||savedBy.has(id)||deleted.has(id)||out.some(x=>x&&String(x.id)===id))return;
+      let at=out.length,placed=false;
+      for(let n=idx+1;n<current.length;n++){const next=current[n];if(next&&next.id){const found=out.findIndex(x=>x&&String(x.id)===String(next.id));if(found>=0){at=found;placed=true;break;}}}
+      if(!placed)for(let p=idx-1;p>=0;p--){const prev=current[p];if(prev&&prev.id){const found=out.findIndex(x=>x&&String(x.id)===String(prev.id));if(found>=0){at=found+1;break;}}}
+      out.splice(at,0,clone(ci));
+    });
+    return normalizeItems(out);
+  }
+  function legacyRebaseDay(savedItems,currentItems){
+    /* One-time bridge for pre-RC29.131 stores, which did not save a baseline.
+       Preserve the four fields Studio could actually edit plus user add/delete/order.
+       Relationship metadata still comes from current master via hydrateRelationships(). */
+    const saved=normalizeItems(savedItems),current=normalizeItems(currentItems);
+    const currentBy=new Map(current.filter(x=>x&&x.id).map(x=>[String(x.id),x]));
+    const out=[];
+    saved.forEach(function(si){
+      if(!si||!si.id){out.push(clone(si));return;}const ci=currentBy.get(String(si.id));
+      if(!ci){out.push(clone(si));return;}
+      const merged=Object.assign({},clone(ci),clone(si));out.push(merged);
+    });
+    current.forEach(function(ci,idx){
+      if(!ci||!ci.id||out.some(x=>x&&String(x.id)===String(ci.id)))return;
+      let at=out.length,placed=false;
+      for(let n=idx+1;n<current.length;n++){const next=current[n];if(next&&next.id){const found=out.findIndex(x=>x&&String(x.id)===String(next.id));if(found>=0){at=found;placed=true;break;}}}
+      if(!placed)for(let p=idx-1;p>=0;p--){const prev=current[p];if(prev&&prev.id){const found=out.findIndex(x=>x&&String(x.id)===String(prev.id));if(found>=0){at=found+1;break;}}}
+      out.splice(at,0,clone(ci));
+    });
+    return normalizeItems(out);
+  }
+
   /* Accepts any previously-saved shape and returns a store that is guaranteed
      to be {masterRevision, dayChanges:{day:{items:[...]}}} and bound to the
      CURRENT master. Three input shapes are handled:
@@ -87,30 +148,21 @@
       return emptyStore();
     }
     if(raw.masterRevision!==current){
-      // RC29.89 additive Day 4 migration: preserve every user-edited Timeline
-      // field from RC29.89, but insert the restored Quán Thuý 94 relationship
-      // if that edited Day 4 did not already contain it. Guide overrides are
-      // separate authority and are never touched by this migration.
-      if(raw.masterRevision==='10ff1de238eb9'){
-        const rebased=clone(raw);
-        const d4=rebased.dayChanges&&rebased.dayChanges['4'];
-        if(d4&&Array.isArray(d4.items)&&!d4.items.some(x=>x&&x.id==='quan-thuy')){
-          const masterDay=((root.ITINERARY_DATA||{})['4']||{}).items||[];
-          const qt=masterDay.find(x=>x&&x.id==='quan-thuy');
-          const at=d4.items.findIndex(x=>x&&x.id==='push-push');
-          if(qt) d4.items.splice(at>=0?at+1:d4.items.length,0,clone(qt));
-        }
-        rebased.masterRevision=current;
-        return normalizeStore(rebased);
-      }
-      // Other previous masters remain invalid: never let an unknown stale
-      // override silently mask the current canonical itinerary.
-      return emptyStore();
+      const rebased={masterRevision:current,dayChanges:{}};
+      Object.keys(raw.dayChanges||{}).forEach(function(day){
+        const entry=raw.dayChanges[day];if(!entry||!Array.isArray(entry.items))return;
+        const masterItems=(((root.ITINERARY_DATA||{})[String(day)]||{}).items)||[];
+        const items=Array.isArray(entry.baseItems)
+          ? rebaseDay(entry.items,entry.baseItems,masterItems)
+          : legacyRebaseDay(entry.items,masterItems);
+        rebased.dayChanges[String(day)]={items:items,baseItems:normalizeItems(masterItems)};
+      });
+      return rebased;
     }
     const cleanChanges={};
     Object.keys(raw.dayChanges).forEach(function(day){
       const entry=raw.dayChanges[day];
-      if(entry&&Array.isArray(entry.items)) cleanChanges[String(day)]={items:normalizeItems(entry.items)};
+      if(entry&&Array.isArray(entry.items)) cleanChanges[String(day)]={items:normalizeItems(entry.items),baseItems:normalizeItems(Array.isArray(entry.baseItems)?entry.baseItems:((((root.ITINERARY_DATA||{})[String(day)]||{}).items)||[]))};
     });
     return {masterRevision:current,dayChanges:cleanChanges};
   }
@@ -147,7 +199,7 @@
       if(!key.startsWith('itineraryDay')) return;
       const change=changes[key];
       if(change&&Array.isArray(change.items)){
-        store.dayChanges[String(change.day)]={items:normalizeItems(change.items)};
+        store.dayChanges[String(change.day)]={items:normalizeItems(change.items),baseItems:normalizeItems(((((root.ITINERARY_DATA||{})[String(change.day)]||{}).items)||[]))};
       }
     });
     store.masterRevision=getMasterRevision();

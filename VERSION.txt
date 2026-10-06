@@ -1,1 +1,1 @@
-VN Companion RC29.130 · Travel Engine 25.7.3 Map Routing Hardening
+VN Companion RC29.131 · Travel Engine 25.7.3 Timeline Authority + Booking Time Authority

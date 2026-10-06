@@ -61,6 +61,8 @@ run "SW PRECACHE HTML DEPENDENCIES" node ci-tests/test-sw-precache-html-dependen
 run "RC29.129 DAY3 MARUCO PRIMARY" node ci-tests/test-day3-maruco-primary-contract.js
 run "RC29.129 DAY2 RUE MICHE SHOPPING" node ci-tests/test-day2-rue-miche-shopping-contract.js
 run "RC29.130 MAP ADDRESS ROUTING" node ci-tests/test-rc29130-map-address-routing.js
+run "RC29.131 TIMELINE AUTHORITY REBASE" node ci-tests/test-rc29131-timeline-authority-rebase.js
+run "RC29.131 BOOKING TIME AUTHORITY" node ci-tests/test-rc29131-booking-time-authority.js
 [ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
 run "RC29.77 LIVE FX SAVE" node ci-tests/test-rc2977-live-fx-save.js
 echo "MASTER CI SUITE PASSED"

@@ -7,7 +7,7 @@ const v=data.indexOf('"id": "vincom-new-playground"'),r=data.indexOf('"id": "rue
 assert(v<r&&r<l,'Day 2 Timeline order must be Vincom → Rue Miche → LÚNE');
 assert(directory.includes('Rue Miche L’Édition')&&directory.includes('Day 2 · AFTERNOON'),'Rue Miche Day 2 Shopping Guide card missing');
 const d2=day.indexOf("'2':{title:'Day 2 · Fashion Day'"); const d4=day.indexOf("'4':{title:'Day 4",d2); const slice=day.slice(d2,d4);
-for(const x of ['The New Playground','Rue Miche L’Édition · Union Square B3','LÚNE · 18:45 FIXED']) assert(slice.includes(x),`Day 2 Shopping Route Map missing ${x}`);
+for(const x of ['The New Playground','Rue Miche L’Édition · Union Square B3','LÚNE · 19:00 CONFIRMED']) assert(slice.includes(x),`Day 2 Shopping Route Map missing ${x}`);
 assert(slice.includes('🚶 4–6 min')&&slice.includes('🚶 3–5 min'),'Day 2 Rue Miche route connector times missing');
 assert(guide.includes('Rue Miche L’Édition（Union Square B3）'),'Day 2 Shopping Directory lead missing Rue Miche');
 console.log('RC29.129 DAY2 RUE MICHE SHOPPING: PASS');
