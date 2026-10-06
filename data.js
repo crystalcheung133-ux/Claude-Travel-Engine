@@ -450,9 +450,6 @@ const PLACES={
   "bubbli-wear": {
     "title":"Bubbli.wear","emoji":"👗","cat":"SHOP","sub":"Day 1 · Nguyễn Trãi Quick Browse","shoppingRoute":"Day 1 · Nguyễn Trãi walk","hours":"09:00–22:00","maps":"https://www.google.com/maps/search/?api=1&query=Bubbli.wear%2039%2F15%20Nguyen%20Trai%20Ho%20Chi%20Minh","address":"39/15 Nguyễn Trãi, Bến Thành, Hồ Chí Minh","desc":"39/15 Nguyễn Trãi 的 local womenswear quick browse；本身就在 29 號 Dot Dot Gem 與 49A/49B fashion pair 之間，見到啱先入。","signature":["Local womenswear","Quick browse","No extra transport"],"worth":["順路先係價值；唔需要每間完成。"],"categoryLabel":"🛍 Shopping","price":"Varies","transport":"Walk on Nguyễn Trãi","highlights":["Local womenswear","Quick browse"],"tips":["按興趣 skip / enter。"]
   },
-  "blume-iii": {
-    "title":"Blume III","emoji":"🌸","cat":"SHOP","sub":"Day 4 · Thảo Điền Niche Perfume","shoppingRoute":"Day 4 · Scent walk","hours":"10:00–22:00","maps":"https://www.google.com/maps/search/?api=1&query=Blume%20III%2025%20Thao%20Dien%20Ho%20Chi%20Minh","address":"25 Thảo Điền, An Khánh, Hồ Chí Minh","desc":"Niche / artistic perfume showroom；Day 4 不只買衫，加入一個香氣 stop。25 Thảo Điền 同 28、29 號可以連住行。","signature":["Niche perfume","Artistic fragrance","Thảo Điền scent stop"],"worth":["聞香按興趣，唔需要變成 workshop。"],"categoryLabel":"🌸 Fragrance","price":"Varies","transport":"Walk within Thảo Điền core","highlights":["Niche perfume","Artistic fragrance"],"tips":["試香唔好一次噴太多，留鼻畀下一間。"]
-  },
   "carpe-diem": {
     "title":"Carpe Diem · Handcrafted Candles & Gifts","emoji":"🕯️","cat":"SHOP","sub":"Day 4 · Candles + Gifts","shoppingRoute":"Day 4 · Scent walk","hours":"09:00–20:00 · weekend to 20:30","maps":"https://www.google.com/maps/search/?api=1&query=Carpe%20Diem%2028%20Thao%20Dien%20Ho%20Chi%20Minh","address":"28 Thảo Điền, An Khánh, Hồ Chí Minh","desc":"手工香薰蠟燭與小禮物；28 Thảo Điền 正好接住 Blume 25，再到 YouOn 29，係真正零碎步行式 stop。","signature":["Handcrafted candles","Scented gifts","Easy souvenir"],"worth":["香薰 / 小禮物比再加一間 fashion 更有變化。"],"categoryLabel":"🕯️ Home fragrance","price":"Varies","transport":"Walk within Thảo Điền core","highlights":["Handcrafted candles","Gifts"],"tips":["易碎或較重蠟燭留意行李重量。"]
   },
@@ -2913,11 +2910,11 @@ const ITINERARY_DATA={
         "dayId": "day4",
         "placeId": "ohquao",
         "bookingId": null,
-        "guideIds": ["complex-0123","ohquao","blume-iii","carpe-diem","youon-thao-dien","dakao-quartier","aurora-saigon","wicky-candle","vina-design-thao-dien","bakes","moc-huong"],
+        "guideIds": ["complex-0123","ohquao","carpe-diem","youon-thao-dien","dakao-quartier","aurora-saigon","wicky-candle","vina-design-thao-dien","bakes","moc-huong"],
         "guideGroups": [
           {"label":"🏘 0123 Complex","guideIds":["complex-0123"]},
           {"label":"🛍 OHQUAO","guideIds":["ohquao"]},
-          {"label":"🌸 Scent + Fashion","guideIds":["blume-iii","carpe-diem","youon-thao-dien"]},
+          {"label":"🌸 Scent + Fashion","guideIds":["carpe-diem","youon-thao-dien"]},
           {"label":"💎 Xuân Thủy Design + Silver","guideIds":["dakao-quartier","aurora-saigon","wicky-candle","vina-design-thao-dien"]},
           {"label":"🥐 Bakes","guideIds":["bakes"]},
           {"label":"🌿 Mộc Hương","guideIds":["moc-huong"]}

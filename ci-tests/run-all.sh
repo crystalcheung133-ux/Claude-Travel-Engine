@@ -35,6 +35,8 @@ run "RC29.121 BOOKING MOBILE + MULTIVISIT" node ci-tests/test-rc29117-booking-mo
 run "RC29.121 SHOPPING ROUTE" node ci-tests/test-rc29117-shopping-route.js
 run "RC29.121 ROUTE + QSPA SYNC" node ci-tests/test-rc29121-route-qspa-sync.js
 run "RC29.121 SHOPPING 1/2/4 + FREE DAY 5" node ci-tests/test-rc29121-shopping-124-free5.js
+run "RC29.122 SHOP-ONLY ROUTES + QSPA CARRIER" node ci-tests/test-rc29122-shop-route-qspa.js
+run "RC29.123 QSPA NOTES SYNC" node ci-tests/test-rc29123-qspa-notes-sync.js
 run "EXPENSE SUITE FAILURE ACCUMULATION" node ci-tests/test-expense-suite-failure-accumulation.js
 run "MULTI-DAY BOOKING + GUIDE ROUTING" node ci-tests/test-multiday-booking-guide-routing.js
 run "BOOKING CONTACT CHANNEL UX" node ci-tests/test-booking-contact-channel-ux.js

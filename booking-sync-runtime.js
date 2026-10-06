@@ -47,6 +47,11 @@
     const merged=Object.assign({},master);
     const editable=root.BOOKING_AUTHORITY.editableStateFields||[];
     editable.forEach(function(field){if(Object.prototype.hasOwnProperty.call(record,field))merged[field]=clone(record[field]);});
+    // Notes are deliberately not part of the generic stale local override allow-list.
+    // A remote row, however, carries server-authored updatedByPartyId/updatedAt evidence.
+    // Preserve that explicit collaborative Notes edit even when an older Qspa row lacks
+    // the current payload master revision; otherwise deploy-master Notes overwrite it.
+    if(record&&record.updatedByPartyId&&Object.prototype.hasOwnProperty.call(record,'notes'))merged.notes=clone(record.notes);
     merged._masterRevision=currentRevision;
     return merged;
   }
@@ -105,18 +110,18 @@
     const row=result.body.record;if(row)applyRemote(row);
     state.lastSyncAt=new Date().toISOString();state.lastError='';
     let booking=row?mapRow(row):clone(record);
-    // Multi-visit bookings (Qspa) must be verified from the canonical remote row before
-    // the editor reports a cross-device save. This prevents a local-only success from
-    // looking synced when a nested plannedVisits payload was not persisted remotely.
-    if(Array.isArray(record&&record.plannedVisits)){
-      const expected=JSON.stringify(record.plannedVisits);
-      if(JSON.stringify(booking&&booking.plannedVisits)!==expected){
-        const verifyRows=await fetchRows(record.id||record.bookingId);
-        const verified=verifyRows[0]?mapRow(verifyRows[0]):null;
-        if(!verified||JSON.stringify(verified.plannedVisits)!==expected)throw new Error('BOOKING_REMOTE_VERIFY_FAILED');
-        booking=verified;
-        applyRemote(verifyRows[0]);
-      }
+    // Do not report a cross-device save until the canonical remote row contains the
+    // exact user-edited Notes. Qspa exposed this because its older remote/local state can
+    // be reconciled against deploy master data; ordinary bookings must obey the same rule.
+    const expectedNotes=String(record&&record.notes||'');
+    const visitsExpected=Array.isArray(record&&record.plannedVisits)?JSON.stringify(record.plannedVisits):null;
+    const remoteMatches=()=>String(booking&&booking.notes||'')===expectedNotes&&(visitsExpected===null||JSON.stringify(booking&&booking.plannedVisits)===visitsExpected);
+    if(!remoteMatches()){
+      const verifyRows=await fetchRows(record.id||record.bookingId);
+      const verified=verifyRows[0]?mapRow(verifyRows[0]):null;
+      if(!verified||String(verified.notes||'')!==expectedNotes||(visitsExpected!==null&&JSON.stringify(verified.plannedVisits)!==visitsExpected))throw new Error('BOOKING_REMOTE_VERIFY_FAILED');
+      booking=verified;
+      applyRemote(verifyRows[0]);
     }
     document.dispatchEvent(new CustomEvent('travelengine:bookingchange',{detail:{bookingId:booking.id,booking,remote:true}}));
     return {ok:true,booking,remote:true};

@@ -1,1 +1,1 @@
-VN Companion RC29.121 · Travel Engine 25.7.3 Single Routes + Verified Booking Sync
+VN Companion RC29.123 · Travel Engine 25.7.3 Qspa Notes Sync + Route Correction
