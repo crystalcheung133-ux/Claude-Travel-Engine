@@ -78,3 +78,6 @@ run "RC29.89 DAY4 QUAN THUY" node ci-tests/test-rc2987-day4-quan-thuy-nondestruc
 
 printf "\n== RC29.132 GUIDE MOBILE LAYOUT ==\n"
 node ci-tests/test-rc29132-guide-layout.js
+
+printf "\n== RC29.133 CONTENT CONTRACT ==\n"
+node ci-tests/test-rc29133-content.js

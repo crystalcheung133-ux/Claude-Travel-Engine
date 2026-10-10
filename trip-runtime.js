@@ -412,7 +412,7 @@ function buildGenericBookingDetailHTML(booking){
   const sections=[
     payment,
     bookingSectionHTML('Address',bookingAddress(booking,place)),
-    bookingSectionHTML('Notes',booking.notes||''),
+    bookingSectionHTML('Notes',booking.id==='bk-qspa' ? [booking.notes||'', '💳 MEMBERSHIP DISCOUNT — 50% OFF\nMembership holder: Lai Mong Hang\nRegistered phone: +61 411 600 494'].filter(Boolean).join('\n\n') : (booking.notes||'')),
     bookingSectionHTML('Cancellation',booking.cancellation||''),
     bookingPlannedVisitsHTML(booking),
     bookingAlternativeGuidesHTML(booking),

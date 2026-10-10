@@ -1444,7 +1444,7 @@ const PLACES={
     "instagramUrl": "https://www.instagram.com/qspacenter/",
     "desc": "全方位 spa，可按當日每個人的狀態自由揀 massage、body treatment、facial／beauty 或 hair care，不需要四個人做同一個 package。",
     "signature": ["Massage／body treatments", "Facial／beauty options", "Hair care／洗頭"],
-    "worth": ["想四人差不多時間做 treatment，預約時先問 simultaneous availability。", "朋友已有 membership discount，可按實際可用 tier 結帳；今次不需要另外買 membership。", "Silver · 5,000,000 VND stored value · 10% service discount", "Gold · 10,000,000 VND · 20% service discount", "Diamond · 20,000,000 VND · 25% service discount", "Platinum · 40,000,000 VND · 30% service discount", "Service vouchers：Buy 10 + 2 complimentary · Buy 20 + 5 complimentary", "不同 treatment 可以各自選擇，按當日疲勞程度決定最實際。"],
+    "worth": [],
     "categoryLabel": "💆 Spa",
     "transport": "Grab according to the day route",
     "alternativeGuides": [
@@ -2237,10 +2237,11 @@ const BOOKINGS_DATA={
     "messengerUrl": "https://m.me/QspaCenter",
     "instagramUrl": "https://www.instagram.com/qspacenter/",
     "placeId": "qspa",
-    "notes": "Three recovery visits are planned at the same spa. Choose treatments on the day according to how everyone feels. Qspa has confirmed the group may use a friend’s existing membership discount tier and pay for our own treatments by card at the time of service; no new membership is needed for this trip.",
+    "notes": "Three Qspa visits planned (D1 / D2 / D3).",
     "plannedDays": "D1 · D2 · D3",
     "standalone": true,
-    "plannedVisits": [
+    "membershipDiscount": "💳 MEMBERSHIP DISCOUNT — 50% OFF\nMembership holder: Lai Mong Hang\nRegistered phone: +61 411 600 494",
+      "plannedVisits": [
       {
         "day": "D1",
         "date": "Fri 30 Oct 2026",
@@ -2821,7 +2822,7 @@ const ITINERARY_DATA={
       },
       {
         "id":"lune","time":"19:00–21:00","title":"🥂 LÚNE",
-        "details":["Fashion Day 最後收在一張安靜餐桌；白天的顏色與街聲，到這裡慢慢沉下來。"],
+        "details":["法式 Fine Dining，可選 À La Carte 或 Tasting Menu。"],
         "route":"🏨 To next stop · Dinner 後 Grab 返回 Fusion。",
         "map":"https://www.google.com/maps/search/?api=1&query=LUNE%20Restaurant%20Bar%2017%2014%20Le%20Thanh%20Ton%20Ho%20Chi%20Minh","type":"meal","dayId":"day2","placeId":"lune","bookingId":"bk-lune"
       }

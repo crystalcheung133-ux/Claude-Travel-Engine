@@ -2,7 +2,7 @@ const fs=require('fs'),vm=require('vm'),assert=require('assert');
 const raw=fs.readFileSync('data.js','utf8');const c={};vm.createContext(c);vm.runInContext(raw+'\n;globalThis.__X={P:PLACES,B:BOOKINGS_DATA,I:ITINERARY_DATA,C:CATEGORIES,O:GUIDE_ORDER};',c);const {P,B,I,C,O}=c.__X;
 const ids=d=>Array.from(I[String(d)].items,x=>x.id);
 assert(P.qspa,'canonical Qspa Guide entity missing');assert.equal(Array.from(O).filter(x=>x==='qspa').length,1,'Qspa duplicated in Guide order');assert.equal(C.SPA.filter(x=>x.key==='qspa').length,1,'Qspa duplicated in SPA category');
-assert.equal(P.qspa.status,'planned');assert.equal(P.qspa.address,'25/1 Trương Định, Xuân Hòa, Hồ Chí Minh City');assert(P.qspa.worth.some(x=>x.includes('5,000,000 VND')));assert(P.qspa.worth.some(x=>x.includes('40,000,000 VND')));assert(P.qspa.worth.some(x=>x.includes('Buy 10 + 2')));
+assert.equal(P.qspa.status,'planned');assert.equal(P.qspa.address,'25/1 Trương Định, Xuân Hòa, Hồ Chí Minh City');assert(!P.qspa.worth.some(x=>/5,000,000 VND|40,000,000 VND|Buy 10/.test(x)));
 assert(B['bk-qspa']);assert.equal(B['bk-qspa'].status,'planned');assert.equal(B['bk-qspa'].plannedVisits.length,3);assert(!B['bk-norah-spa-2']);assert(!B['bk-nara']);assert(!B['bk-nha-suga']);
 assert.deepEqual(ids(1).slice(4,9),['shopping-nguyen-trai','qspa-d1','day1-hotel-reset','cafe-apartments-optional','omakase-tiger']);assert.equal(I['1'].items.find(x=>x.id==='qspa-d1').time,'~12:15–14:15');assert(I['1'].items.some(x=>x.id==='cafe-apartments-evening'));
 assert.deepEqual(ids(2),['com-tam-moc','garmentory','shopping-tqd','pizza4ps','qspa-d2','post-office','vincom-new-playground','rue-miche-ledition','lune']);assert.equal(I['2'].items.find(x=>x.id==='qspa-d2').time,'~14:15–16:15');
