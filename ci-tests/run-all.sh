@@ -81,3 +81,5 @@ node ci-tests/test-rc29132-guide-layout.js
 
 printf "\n== RC29.133 CONTENT CONTRACT ==\n"
 node ci-tests/test-rc29133-content.js
+printf '\n== RC29.134 QSPA VISIT TIME AUTHORITY ==\n'
+node ci-tests/test-rc29134-qspa-visit-time-authority.js

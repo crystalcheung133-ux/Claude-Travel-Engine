@@ -1,6 +1,6 @@
 Saigon Companion Production File Manifest
-Generated: 2026-10-06
-Base: VN Companion RC29.131 · Travel Engine 25.7.3 Map Routing Hardening
+Generated: 2026-10-10
+Base: VN Companion RC29.134 · Qspa Timeline Booking Authority
 Reference trip: Vietnam
 
 Production root files:

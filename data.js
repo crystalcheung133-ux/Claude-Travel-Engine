@@ -1566,7 +1566,7 @@ const PLACES={
     ],
     "worth": [
       "PRIMARY · Day 3 dinner，19:30 已經經 Instagram confirmed。",
-      "Qspa 約 18:45 完成後直接 Grab 過去，預留交通 buffer。",
+      "Qspa 18:30 完成後直接 Grab 過去，預留交通 buffer。",
       "唔飲酒都適合，以牛舌、燒物同 share plates 為主。"
     ],
     "categoryLabel": "🍽 Restaurant",
@@ -2237,7 +2237,7 @@ const BOOKINGS_DATA={
     "messengerUrl": "https://m.me/QspaCenter",
     "instagramUrl": "https://www.instagram.com/qspacenter/",
     "placeId": "qspa",
-    "notes": "Three Qspa visits planned (D1 / D2 / D3).",
+    "notes": "120-minute treatments · three planned visits.",
     "plannedDays": "D1 · D2 · D3",
     "standalone": true,
     "membershipDiscount": "💳 MEMBERSHIP DISCOUNT — 50% OFF\nMembership holder: Lai Mong Hang\nRegistered phone: +61 411 600 494",
@@ -2245,7 +2245,7 @@ const BOOKINGS_DATA={
       {
         "day": "D1",
         "date": "Fri 30 Oct 2026",
-        "time": "~12:15–14:15",
+        "time": "12:30–14:30",
         "label": "Arrival Recovery",
         "duration": "120 min",
         "dayId": "day1",
@@ -2254,7 +2254,7 @@ const BOOKINGS_DATA={
       {
         "day": "D2",
         "date": "Sat 31 Oct 2026",
-        "time": "~14:15–16:15",
+        "time": "14:30–16:30",
         "label": "Afternoon Reset",
         "duration": "up to ~120 min",
         "dayId": "day2",
@@ -2263,7 +2263,7 @@ const BOOKINGS_DATA={
       {
         "day": "D3",
         "date": "Sun 1 Nov 2026",
-        "time": "after museum · ~16:45–18:45",
+        "time": "16:30–18:30",
         "label": "War Day Recovery",
         "duration": "120 min",
         "dayId": "day3",
@@ -2374,7 +2374,7 @@ const BOOKINGS_DATA={
     "bookingContact": "034 992 1802",
     "secondaryContact": "@maruco0930_vn",
     "bookingUrl": "https://www.instagram.com/maruco0930_vn/",
-    "notes": "Day 3 primary dinner · 4人 · 1 Nov 2026 19:30。已經經 Instagram 預約確認。日本居酒屋；重點想食稻草燒牛舌。Qspa 約18:45完成後直接 Grab 前往。",
+    "notes": "Day 3 primary dinner · 4人 · 1 Nov 2026 19:30。已經經 Instagram 預約確認。日本居酒屋；重點想食稻草燒牛舌。Qspa 18:30完成後直接 Grab 前往。",
     "signatureDishes": ["稻草燒牛舌", "Japanese izakaya grilled dishes", "Sashimi / sharing plates"],
     "address": "46 Mê Linh, Phường 19, Bình Thạnh, Ho Chi Minh City",
     "bookingHandoff": "已訂。1 Nov 2026 19:30，4人，經 Instagram @maruco0930_vn confirmed。Primary Day 3 dinner；Qspa 後直接 Grab 前往。",
@@ -2573,13 +2573,12 @@ const ITINERARY_DATA={
       },
             {
         "id": "qspa-d1",
-        "time": "~12:15–14:15",
+        "time": "12:30–14:30",
         "title": "🌿 Qspa · Arrival Recovery",
         "details": [
-          "預留完整 120 min Spa",
-          "按狀態選 massage / body / beauty / hair-care"
+          "120 分鐘 Spa；按摩或護理"
         ],
-        "route": "🚕 To next stop：Qspa 完成後 Grab → Fusion Original；約 14:30 check-in。",
+        "route": "🚕 Qspa 後 Grab → Fusion Original check-in。",
         "map": "https://www.google.com/maps/search/?api=1&query=Qspa%2025%2F1%20Truong%20Dinh%20Ho%20Chi%20Minh%20City",
         "type": "spa",
         "dayId": "day1",
@@ -2591,10 +2590,10 @@ const ITINERARY_DATA={
       },
       {
         "id": "day1-hotel-reset",
-        "time": "~14:30",
+        "time": "~15:00",
         "title": "🏨 Fusion Original · Check-in & Rest",
         "details": [
-          "Qspa 後約 14:30 回 Fusion check-in",
+          "Qspa 後返 Fusion check-in",
           "沖涼、換衫、休息，Cafe Apartments 視 energy 決定"
         ],
         "route": "☕ Optional next：有精神約 15:15–16:15 步行去 The Cafe Apartments；攰就留在 Fusion 休息。",
@@ -2725,11 +2724,10 @@ const ITINERARY_DATA={
       },
             {
         "id": "qspa-d2",
-        "time": "~14:15–16:15",
+        "time": "14:30–16:30",
         "title": "🌿 Qspa · Afternoon Reset",
         "details": [
-          "Qspa 預留完整 120 min",
-          "想改較順路 Spa：Guide 見 Norah Spa 2"
+          "120 分鐘 Spa"
         ],
         "route": "🚕 To next stop：Qspa → Cathedral / Central Post Office / Book Street cluster；之後一路步行接 Vincom / The New Playground → LÚNE。",
         "map": "https://www.google.com/maps/search/?api=1&query=Qspa%2025%2F1%20Truong%20Dinh%20Ho%20Chi%20Minh%20City",
@@ -2887,12 +2885,10 @@ const ITINERARY_DATA={
       },
             {
         "id": "qspa-d3",
-        "time": "after museum · ~16:45–18:45",
+        "time": "16:30–18:30",
         "title": "🌿 Qspa · War Day Recovery",
         "details": [
-          "War Day 後預留完整 120 min Spa",
-          "按狀態選 massage / body / hair-care",
-          "想做 hair reset：Guide 見 Nara Spa"
+          "120 分鐘 Spa；可選按摩或護理"
         ],
         "route": "🚕 下一站：Grab → Izakaya Maruco · 46 Mê Linh；19:30 booking confirmed，Spa 完成後直接去。",
         "map": "https://www.google.com/maps/search/?api=1&query=Qspa%2025%2F1%20Truong%20Dinh%20Ho%20Chi%20Minh%20City",

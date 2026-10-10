@@ -511,5 +511,9 @@
   "test-rc29133-content.js": {
     "status": "active",
     "note": "RC29.133 concise timeline, Qspa membership, nav and guide close"
+  },
+  "test-rc29134-qspa-visit-time-authority.js": {
+    "status": "active",
+    "note": "Qspa multi-visit Booking Authority drives per-day Timeline time without changing other visits; compact mobile time rail"
   }
 }
