@@ -75,3 +75,6 @@ run "RC29.75 GUIDE SYNC + NEXT STOP" node ci-tests/test-rc2974-guide-sync-derive
 run "RC29.75 VN LOCATION + COMPACT TIMELINE" node ci-tests/test-rc2974-vn-location-compact-timeline.js
 run "RC29.89 DAY4 QUAN THUY" node ci-tests/test-rc2987-day4-quan-thuy-nondestructive.js
 [ "$failed" -eq 0 ] || { echo "POST-MASTER LEGACY SUITE FAILED"; exit 1; }
+
+printf "\n== RC29.132 GUIDE MOBILE LAYOUT ==\n"
+node ci-tests/test-rc29132-guide-layout.js

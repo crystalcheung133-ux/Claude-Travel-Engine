@@ -1,12 +1,13 @@
 {
   "engine_version": "25.7.3",
-  "artifact_version": "VN Companion RC29.131 · Travel Engine 25.7.3 Timeline Authority + Booking Time Authority",
+  "artifact_version": "VN Companion RC29.132 · Guide Mobile Layout Clean Rewrite",
   "baseline_engine": "25.5.2",
-  "release_date": "2026-10-06",
-  "release_type": "map-routing-hardening",
+  "release_date": "2026-10-10",
+  "release_type": "guide-layout-clean-rewrite",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
+    "Guide close button removed from shared sticky/float layout and assigned dedicated out-of-flow positioning; mobile Guide content occupies full width.",
     "Timeline Google Maps navigation now routes by verified street address instead of business-name + address, preventing listing-name mismatches such as Izakaya Maruco from producing an unresolved destination.",
     "Day 2 afternoon now flows Vincom / The New Playground → Rue Miche L’Édition at Union Square B3 → LÚNE, with a Shopping Directory guide card and Shopping Route Map connectors.",
     "Day 3 primary dinner is Izakaya Maruco at 19:30, confirmed via Instagram; Ốc Đào remains optional backup.",
@@ -80,8 +81,8 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc29131-offline-deps-hardening",
-  "release_status": "RC29.131 CANDIDATE — Timeline Authority + Booking Time Authority",
+  "asset_cache_token": "rc29132-guide-clean-rewrite",
+  "release_status": "RC29.132 CANDIDATE — Guide Mobile Layout Clean Rewrite",
   "changes": [
     "RC29.131: Added Rue Miche L’Édition as the planned Day 2 afternoon shopping stop, Guide card and Shopping Route Map leg between Vincom and LÚNE.",
     "Pinned the browser Supabase SDK CDN dependency to exact version 2.117.2 instead of the floating @2 major tag.",
@@ -147,7 +148,7 @@
     "RC29.131: python CI syntax check no longer writes ci-tests/__pycache__; new release-metadata freshness test blocks stale RC/static-CI claims."
   ],
   "validation": {
-    "static_master_ci": "PASS — RC29.131 full static Master CI (sh ci-tests/run-all.sh).",
+    "static_master_ci": "PASS — RC29.132 full static Master CI (sh ci-tests/run-all.sh).",
     "browser_release_smoke": "NOT RE-RUN for RC29.131 — vendored SDK/PDF.js loading and offline behaviour require the GitHub Chromium/WebKit release gate plus docs/REAL-DEVICE-CHECKLIST-RC29.131.md on a phone.",
     "scope_sanity": "Timeline is the only manual Publish authority; Guide/Booking/Documents/Expenses/Moments remain independent auto-sync flows."
   },
