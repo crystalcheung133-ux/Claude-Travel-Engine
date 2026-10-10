@@ -226,7 +226,7 @@ const PLACES={
     "hours": "09:00–21:30 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=C%C6%A1m%20T%E1%BA%A5m%20M%E1%BB%99c%2085%20L%C3%BD%20T%E1%BB%B1%20Tr%E1%BB%8Dng%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "85 Lý Tự Trọng, Bến Thành, Hồ Chí Minh 700000, Vietnam",
-    "desc": "Fashion Day 先由一碟炭香碎米飯開始。Cơm Tấm Mộc 有冷氣、節奏穩，食得夠實在又不會拖慢早上的 shopping；09:00 開餐，10:15 直接進 11 Garmentory。",
+    "desc": "有冷氣嘅越式碎米飯餐廳，09:00 開門。",
     "signature": [
       "炭烤豬排碎米飯",
       "魚露、蛋、酸菜配搭",
@@ -292,7 +292,7 @@ const PLACES={
     "hours": "Mon–Sat 11:30–14:00 & 17:00–22:30；Sunday closed",
     "maps": "https://www.google.com/maps/search/?api=1&query=L%C3%9ANE%20Restaurant%20%26%20Bar%2017%2F14%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20S%C3%A0i%20G%C3%B2n%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
     "address": "17/14 Lê Thánh Tôn, Sài Gòn, Hồ Chí Minh 70000, Vietnam",
-    "desc": "精緻的現代法式餐廳，以法式技巧加入越南風味。重點是慢慢食、感受菜式和本地味道的配搭，而不是行程本身。",
+    "desc": "現代法式料理，融入越南風味。",
     "signature": [
       "Canadian lobster raviolo｜Michelin Guide 點名 standout",
       "Phở foie gras terrine｜法式技巧 × 越南味",
@@ -318,7 +318,7 @@ const PLACES={
     "hours": "Reservation confirmed · 17:30",
     "maps": "https://www.google.com/maps/search/?api=1&query=Omakase%20Tiger%2085%2F9%20Ph%E1%BA%A1m%20Vi%E1%BA%BFt%20Ch%C3%A1nh%2C%20Th%E1%BA%A1nh%20M%E1%BB%B9%20T%C3%A2y%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "85/9 Phạm Viết Chánh, Thạnh Mỹ Tây, Hồ Chí Minh 700000, Vietnam",
-    "desc": "小型 penthouse omakase counter，最好玩是近距離看師傅逐道準備；窗外由黃昏慢慢轉成夜景。",
+    "desc": "Penthouse omakase counter，可近距離欣賞師傅準備料理。",
     "signature": ["按當日海鮮安排的 seasonal omakase", "Counter seating 最適合看 preparation", "想飲酒可再考慮 sake pairing"],
     "worth": ["當作 chef-led menu 體驗，不需要逐道自己揀。", "有 allergy 或非常不吃的食材，開餐前先講。"],
     "categoryLabel": "🍽 Restaurant",
@@ -785,7 +785,7 @@ const PLACES={
     "hours": "10:00–21:30 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=11%20Garmentory%20117B%20Nguy%E1%BB%85n%20%C4%90%C3%ACnh%20Ch%C3%ADnh%2C%20Ph%C6%B0%E1%BB%9Dng%20C%E1%BA%A7u%20Ki%E1%BB%87u%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
     "address": "117B Nguyễn Đình Chính, Phường Cầu Kiệu, Ho Chi Minh City, Vietnam",
-    "desc": "11 Garmentory 是 Fashion Day 的第一個衣架。先用這間本地設計選物店定調：剪裁、小眾品牌、慢慢試；真正值得花時間的留低，之後才轉入 Trần Quang Diệu 一整段。",
+    "desc": "本地設計服飾及選物店；可試穿小眾品牌。",
     "signature": [
       "本地設計師選物",
       "女裝／生活風格小店感",
@@ -2549,7 +2549,7 @@ const ITINERARY_DATA={
         "id": "pho-sol",
         "time": "~09:00–10:00",
         "title": "🍜 Phở SOL · Bến Thành",
-        "details": ["落機後的第一碗熱湯；慢慢坐下，讓 Saigon 的早晨正式開始。"],
+        "details": ["石鍋河粉早餐。"],
         "route": "🚶 To next stop · 約 3–5 min：步行往 Clothes Bar，從這裡開始 Nguyễn Trãi Shopping Walk。",
         "map": "https://www.google.com/maps/search/?api=1&query=Ph%E1%BB%9F%20SOL%2032%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
         "type": "meal", "dayId": "day1", "placeId": "pho-sol", "bookingId": null
@@ -2576,7 +2576,7 @@ const ITINERARY_DATA={
         "time": "12:30–14:30",
         "title": "🌿 Qspa · Arrival Recovery",
         "details": [
-          "120 分鐘 Spa；按摩或護理"
+          "120 分鐘按摩或護理。"
         ],
         "route": "🚕 Qspa 後 Grab → Fusion Original check-in。",
         "map": "https://www.google.com/maps/search/?api=1&query=Qspa%2025%2F1%20Truong%20Dinh%20Ho%20Chi%20Minh%20City",
@@ -2612,7 +2612,7 @@ const ITINERARY_DATA={
           "有精神：短逛 Nguyễn Huệ / Cafe Apartments、影相、飲咖啡",
           "攰：留 Fusion 休息，準備 17:30 Omakase"
         ],
-        "route": "🚕 Protect 17:30 Omakase：如有去 Cafe Apartments，約 16:15 收尾，預留充足時間去 Omakase Tiger。",
+        "route": "🚕 如去 Cafe Apartments，16:15 前離開，前往 17:30 Omakase。",
         "map": "https://www.google.com/maps/search/?api=1&query=The%20Cafe%20Apartments%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
         "type": "optional",
         "dayId": "day1",
@@ -2628,7 +2628,7 @@ const ITINERARY_DATA={
         "title": "🌇🍣 Omakase Tiger · First Seating",
         "details": [
           "17:30 confirmed，訂金已付",
-          "Penthouse seating，由 sunset 食到夜景"
+          "Penthouse omakase，黃昏景觀。"
         ],
         "route": "🌇 17:30 fixed first seating。食完按 energy 決定：Nguyễn Huệ / Cafe Apartments evening wander，或直接返 Fusion。",
         "map": "https://www.google.com/maps/search/?api=1&query=Omakase%20Tiger%2085%2F9%20Pham%20Viet%20Chanh%20Ho%20Chi%20Minh",
@@ -2646,7 +2646,7 @@ const ITINERARY_DATA={
           "有精神：Nguyễn Huệ / Cafe Apartments evening wander",
           "攰：直接返 Fusion"
         ],
-        "route": "🏨 When ready：Grab / walk back to Fusion。",
+        "route": "🏨 Grab / 步行返回 Fusion。",
         "map": "https://www.google.com/maps/search/?api=1&query=The%20Cafe%20Apartments%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
         "type": "optional",
         "dayId": "day1",
@@ -2664,7 +2664,7 @@ const ITINERARY_DATA={
           "想食鹹：Oanh Cua，可查 delivery / GrabFood",
           "想食甜：GrabFood 搜 BINGO / Chè / Tofu / Bingsu"
         ],
-        "route": "🏨 Delivery option：送到 Fusion Original lobby；完全 optional。",
+        "route": "🏨 可安排送到 Fusion lobby。",
         "map": "https://www.google.com/maps/search/?api=1&query=Oanh%20Cua%20214%2F1B%20Nguy%E1%BB%85n%20Tr%C3%A3i%20Ho%20Chi%20Minh%20City",
         "type": "optional",
         "dayId": "day1",
@@ -2688,13 +2688,13 @@ const ITINERARY_DATA={
     "items": [
       {
         "id": "com-tam-moc", "time": "09:00–09:45", "title": "🍚 Cơm Tấm Mộc",
-        "details": ["炭香碎米飯為 Fashion Day 開場；九點開門，吃完剛好往第一站。"],
+        "details": ["炭燒碎米飯早餐；09:00 開門。"],
         "route": "🚕 To next stop · 約 15–20 min：Grab → 11 Garmentory。",
         "map": "https://www.google.com/maps/search/?api=1&query=C%C6%A1m%20T%E1%BA%A5m%20M%E1%BB%99c%2085%20L%C3%BD%20T%E1%BB%B1%20Tr%E1%BB%8Dng%20Ho%20Chi%20Minh", "type":"meal","dayId":"day2","placeId":"com-tam-moc","bookingId":null
       },
       {
         "id":"garmentory","time":"10:15–11:15","title":"🧥 11 Garmentory",
-        "details":["先從選物店打開今日的 local-fashion 視野；不同品牌放在一起看，會比逐間追名字更有趣。"],
+        "details":["本地設計師服飾及選物。"],
         "route":"🚶 Next：由 11 Garmentory 向 Trần Quang Diệu cluster 移動；以 AASTU 118/12 為必看，再沿街自由 browse。",
         "map":"https://www.google.com/maps/search/?api=1&query=11%20Garmentory%20117B%20Nguyen%20Dinh%20Chinh%20Ho%20Chi%20Minh","type":"shoppingWindow","dayId":"day2","placeId":"garmentory","bookingId":null,"showShoppingDirectory":true
       },
@@ -2727,7 +2727,7 @@ const ITINERARY_DATA={
         "time": "14:30–16:30",
         "title": "🌿 Qspa · Afternoon Reset",
         "details": [
-          "120 分鐘 Spa"
+          "120 分鐘按摩或護理。"
         ],
         "route": "🚕 To next stop：Qspa → Cathedral / Central Post Office / Book Street cluster；之後一路步行接 Vincom / The New Playground → LÚNE。",
         "map": "https://www.google.com/maps/search/?api=1&query=Qspa%2025%2F1%20Truong%20Dinh%20Ho%20Chi%20Minh%20City",
@@ -2788,7 +2788,7 @@ const ITINERARY_DATA={
         "time": "~17:15–17:50",
         "title": "🛍 Vincom Center Đồng Khởi · The New Playground",
         "details": [
-          "Vincom 黃昏 shopping，主攻 Vietnamese local brands",
+          "Vincom 本地品牌購物。",
           "The New Playground：PUSH PUSH、BLACKORP 等自由 browse"
         ],
         "route": "🚶 To next stop · 約 4–6 min：Vincom → Union Square B3 · Rue Miche L’Édition。",
@@ -2874,7 +2874,7 @@ const ITINERARY_DATA={
         "time": "after lunch · target ~14:40–16:30",
         "title": "🏛 War Remnants Museum",
         "details": [
-          "Cu Chi 後接 War Remnants Museum"
+          "參觀戰爭遺跡博物館。"
         ],
         "route": "🚶/🚕 下一站：前往 Qspa 25/1 Trương Định；museum 完成後接 120-minute War Day Recovery。",
         "map": "https://www.google.com/maps/search/?api=1&query=War%20Remnants%20Museum%2028%20Vo%20Van%20Tan%20Ho%20Chi%20Minh%20City",
@@ -2888,7 +2888,7 @@ const ITINERARY_DATA={
         "time": "16:30–18:30",
         "title": "🌿 Qspa · War Day Recovery",
         "details": [
-          "120 分鐘 Spa；可選按摩或護理"
+          "120 分鐘按摩或護理。；可選按摩或護理"
         ],
         "route": "🚕 下一站：Grab → Izakaya Maruco · 46 Mê Linh；19:30 booking confirmed，Spa 完成後直接去。",
         "map": "https://www.google.com/maps/search/?api=1&query=Qspa%2025%2F1%20Truong%20Dinh%20Ho%20Chi%20Minh%20City",
@@ -2913,7 +2913,7 @@ const ITINERARY_DATA={
           "日本居酒屋 · 重點：稻草燒牛舌",
           "Ốc Đào 大排檔保留做 optional backup"
         ],
-        "route": "🏨 下一站：食完直接 Grab 返回 Fusion；今晚到此為止。",
+        "route": "🏨 晚餐後 Grab 返回 Fusion。",
         "map": "https://www.google.com/maps/search/?api=1&query=46%20M%C3%AA%20Linh%2C%20B%C3%ACnh%20Th%E1%BA%A1nh%2C%20Ho%20Chi%20Minh%20City",
         "type": "meal",
         "dayId": "day3",
@@ -2942,7 +2942,7 @@ const ITINERARY_DATA={
         "time": "08:30–09:15",
         "title": "☕ The Running Bean",
         "details": [
-          "慢慢早餐 + 第一杯咖啡"
+          "早餐及咖啡。"
         ],
         "route": "🚕 下一站：Grab 去 Tân Định Pink Church，09:30 左右到。",
         "map": "https://www.google.com/maps/search/?api=1&query=The%20Running%20Bean%20115%20H%E1%BB%93%20T%C3%B9ng%20M%E1%BA%ADu%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
@@ -2995,7 +2995,7 @@ const ITINERARY_DATA={
         "details": [
           "食蟹肉粉絲／蟹料理，食完先一次 Grab 入 Thảo Điền"
         ],
-        "route": "🚕 下一站：Grab → 0123 Complex · 06 Đặng Hữu Phổ；之後轉入 Thảo Điền core，OHQUAO + 家品 / design shops 為主線。",
+        "route": "🚕 Grab → 0123 Complex（06 Đặng Hữu Phổ），再行 Thảo Điền 家品及設計店。",
         "map": "https://www.google.com/maps/search/?api=1&query=Qu%C3%A1n%20Thu%C3%BD%2094%2084%20%C4%90inh%20Ti%C3%AAn%20Ho%C3%A0ng%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
         "type": "meal",
         "dayId": "day4",
@@ -3009,11 +3009,11 @@ const ITINERARY_DATA={
         "title": "🎲 Thảo Điền · Open List",
         "summary": "入 Thảo Điền 後自由行，食 / 飲 / Spa 隨心",
         "details": [
-          "🛍 Browse · 0123 → OHQUAO → Thảo Điền 25/28/29 scent + fashion → Xuân Thủy 83/94/111 design line；全部按興趣入，唔需要逐間完成",
+          "🛍 Shopping · 0123 → OHQUAO → Thảo Điền 25/28/29 → Xuân Thủy 83/94/111；按興趣選店",
           "🥐 Coffee / Sweet · Bakes，或者沿途見到想坐的 café",
           "🍽 Eat · 已在 Quán Thuý 94 early lunch；下午只按胃口加 café / snack",
           "🌿 Spa · Mộc Hương Wellness；走到 Xuân Thủy 一帶想停下來，就預留約 120 分鐘",
-          "🥂 Farewell · 可以正式食 dinner、wine + small plates、買個蛋糕返 Fusion，甚至不再食一餐"
+          "🍽 Farewell · 晚餐或買蛋糕返 Fusion，按當日胃口決定"
         ],
         "route": "🏨 收尾時由當時位置 Grab 返回 Fusion。",
         "map": "https://www.google.com/maps/search/?api=1&query=OHQUAO%2019%20Duong%20So%2038%20Thao%20Dien%20Ho%20Chi%20Minh%20City",
@@ -3068,7 +3068,7 @@ const ITINERARY_DATA={
         "details": [
           "彩色玻璃、老升降機、復古街拍"
         ],
-        "route": "🛍 Museum 後不設固定 Shopping Route：大家按前幾日經過但未有時間入的店，自由決定去邊。",
+        "route": "🛍 博物館後自由購物，不設固定路線。",
         "map": "https://www.google.com/maps/search/?api=1&query=Fine%20Arts%20Museum%20Ho%20Chi%20Minh%20City%20Museum%20of%20Fine%20Arts%2C%2097A%20Ph%C3%B3%20%C4%90%E1%BB%A9c%20Ch%C3%ADnh%2C%20District%201%2C%20Ho%20Chi%20Minh%20City",
         "type": "experience",
         "dayId": "day5",
@@ -3077,7 +3077,7 @@ const ITINERARY_DATA={
       },
       {
         "id":"day5-free-browse","time":"11:45–12:45","title":"✨ Free Browse · Revisit Anything",
-        "details":["旅行已經去到最後一日：前幾日見過但未有時間入的 shop，今日自由補返。","唔設固定 shopping route、唔設 mandatory shop；想休息／食嘢亦可以。"],
+        "details":["補逛前幾日未入嘅店。","自由活動，可購物或休息。"],
         "route":"📍 到時按大家想去的店用 live Maps；之後再前往 lunch。",
         "type":"freeTime","dayId":"day5","placeId":null,"bookingId":null,"nonPlace":true,"nonPlaceRole":"freeTime"
       },

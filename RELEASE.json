@@ -1,6 +1,6 @@
 {
   "engine_version": "25.7.3",
-  "artifact_version": "VN Companion RC29.134 · Qspa Timeline Booking Authority",
+  "artifact_version": "VN Companion RC29.135 · Copy Audit & Sticky Guide Close",
   "baseline_engine": "25.5.2",
   "release_date": "2026-10-10",
   "release_type": "qspa-timeline-booking-authority",
@@ -81,10 +81,11 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc29134-timeline-booking",
-  "release_status": "RC29.134 STATIC CI PASS — browser/mobile smoke pending",
+  "asset_cache_token": "rc29135-copy-guide",
+  "release_status": "RC29.135 STATIC CI PASS — browser/mobile smoke pending",
   "changes": [
-    "RC29.134: Qspa three-visit time authority, 30-minute booking slots, compact mobile time rail and concise spa copy.",
+    "RC29.135: Concise itinerary and Guide copy; Guide close stays visible at upper-right while scrolling; Documents unchanged.",
+    "RC29.135: Qspa three-visit time authority, 30-minute booking slots, compact mobile time rail and concise spa copy.",
     "RC29.131: Added Rue Miche L’Édition as the planned Day 2 afternoon shopping stop, Guide card and Shopping Route Map leg between Vincom and LÚNE.",
     "Pinned the browser Supabase SDK CDN dependency to exact version 2.117.2 instead of the floating @2 major tag.",
     "Added CI tombstone coverage preventing retired bookings-runtime.js from re-entering any production HTML, service-worker, manifest, or dynamic-loader path.",
@@ -147,11 +148,11 @@
     "RC29.131: service worker precaches the Supabase SDK, PDF.js and PDF.js worker so Documents PDFs and the sync client work on first launch after an update while offline; html2pdf.js is cached on first export use.",
     "RC29.131: booking remote verification treats Notes as equal when only line-ending style or leading/trailing whitespace differs; real text changes still fail.",
     "RC29.131: python CI syntax check no longer writes ci-tests/__pycache__; new release-metadata freshness test blocks stale RC/static-CI claims.",
-    "RC29.134: Bottom Nav label Booking, Guide close visual parity, Qspa membership and confirmed address, concise LÜNE Timeline description."
+    "RC29.135: Bottom Nav label Booking, Guide close visual parity, Qspa membership and confirmed address, concise LÜNE Timeline description."
   ],
   "validation": {
-    "static_master_ci": "RC29.134 PASS — complete local Master CI",
-    "browser_release_smoke": "RC29.134 PENDING — real mobile smoke not performed",
+    "static_master_ci": "RC29.135 PASS — complete local Master CI",
+    "browser_release_smoke": "RC29.135 PENDING — real mobile smoke not performed",
     "scope_sanity": "Timeline is the only manual Publish authority; Guide/Booking/Documents/Expenses/Moments remain independent auto-sync flows."
   },
   "ci_hygiene_fix": "VN product-contract suite tail tests are now included in the suite failure accumulator; stale post-PASS false-green behavior removed.",
@@ -160,7 +161,7 @@
   "notes": [
     "RC29.81 runtime fix: day Timeline thaws the deeply-frozen production Place projection before applying the shared-Place resolving Proxy, avoiding the ECMAScript Proxy invariant TypeError that prevented D2 Timeline actions from rendering in real browsers."
   ],
-  "static_master_ci": "RC29.134 PASS — full Master CI and per-visit regression",
+  "static_master_ci": "RC29.135 PASS — local Master CI and Guide layout regression",
   "vendored_assets": {
     "vendor-supabase-js-2.117.2.umd.js": {
       "package": "@supabase/supabase-js",
@@ -197,5 +198,5 @@
     "RC29.131: Booked Timeline cards render date/time authority from Booking Authority; LÜNE canonical booking and Day 2 route are aligned to confirmed 19:00.",
     "RC29.131: Removed friend-facing Rue Miche Boutique disambiguation/audit wording from Day 2 Timeline."
   ],
-  "browser_release_smoke": "NOT RUN — RC29.134 real-device smoke pending"
+  "browser_release_smoke": "NOT RUN — RC29.135 real-device smoke pending"
 }

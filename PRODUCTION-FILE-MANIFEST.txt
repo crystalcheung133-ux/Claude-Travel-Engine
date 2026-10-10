@@ -1,6 +1,6 @@
 Saigon Companion Production File Manifest
 Generated: 2026-10-10
-Base: VN Companion RC29.134 · Qspa Timeline Booking Authority
+Base: VN Companion RC29.135 · Copy Audit & Sticky Guide Close
 Reference trip: Vietnam
 
 Production root files:
