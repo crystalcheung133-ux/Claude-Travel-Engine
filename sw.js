@@ -1,6 +1,14 @@
 importScripts('./theme-config.js', './asset-config.js', './locale-config.js', './formatter.js', './navigation-config.js', './trip-config.js', './storage-config.js');
 const CACHE_NAME = `travel-engine-${TRIP_CONFIG.storageNamespace}-${TRIP_CONFIG.version}-rc29135-copy-guide`;
 const CRITICAL_EXTENSIONS = /\.(?:css|js)$/i;
+/* RC29.135a — time-to-headers limit. On weak hotel Wi-Fi / roaming data a stalled request used to
+   block until the OS gave up, so the cached copy was never used. After this window we fall back to cache. */
+const NETWORK_TIMEOUT_MS = 4000;
+function fetchWithTimeout(request, init, ms) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), ms || NETWORK_TIMEOUT_MS);
+  return fetch(request, Object.assign({}, init, { signal: controller.signal })).finally(() => clearTimeout(timer));
+}
 const ASSETS = [
   './',
   './index.html',
@@ -112,11 +120,12 @@ async function validateHtmlResponse(response) {
   }
 }
 
-async function fetchValidHtml(request) {
+async function fetchValidHtml(request, state) {
   try {
-    const response = await fetch(request, { cache: 'no-store', redirect: 'follow' });
+    const response = await fetchWithTimeout(request, { cache: 'no-store', redirect: 'follow' });
     return await validateHtmlResponse(response) ? response : null;
   } catch (error) {
+    if (state) state.unreachable = true;
     return null;
   }
 }
@@ -136,10 +145,18 @@ async function cachedValidHtml(request) {
 
 async function navigationResponse(request) {
   const cache = await caches.open(CACHE_NAME);
-  const direct = await fetchValidHtml(request);
+  const networkState = { unreachable: false };
+  const direct = await fetchValidHtml(request, networkState);
   if (direct) {
     await cache.put(request, direct.clone());
     return direct;
+  }
+  /* Network timed out / failed: do not spend a second timeout on index.html, go straight to cache. */
+  if (networkState.unreachable) {
+    return await cachedValidHtml(request) || new Response(
+      '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Offline</title></head><body><p>This page is temporarily unavailable.</p></body></html>',
+      { status: 503, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
+    );
   }
 
   const indexRequest = new Request(new URL('./index.html', self.location.href), {
@@ -164,7 +181,7 @@ async function navigationResponse(request) {
 async function networkFirst(request) {
   const cache = await caches.open(CACHE_NAME);
   try {
-    const response = await fetch(request);
+    const response = await fetchWithTimeout(request, {});
     if (response && response.ok) cache.put(request, response.clone());
     return response;
   } catch (error) {
