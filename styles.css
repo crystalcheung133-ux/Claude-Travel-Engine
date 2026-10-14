@@ -3505,3 +3505,12 @@ body.documents-page #tripModal.show,body.expenses-page #tripModal.show{z-index:2
   #guideModal.show > .guide-sheet {width:100%!important;padding:62px 16px 22px!important;}
   #guideModal.show #guideModalContent > * {max-width:100%!important;min-width:0!important;}
 }
+
+/* HOME WEATHER FORECAST / CURRENCY READABILITY — scoped to home. */
+.weather-forecast-list{display:grid;gap:9px;margin-top:15px}
+.weather-forecast-row{display:grid;grid-template-columns:minmax(65px,1fr) minmax(85px,1.5fr) auto;gap:5px 10px;align-items:center;padding:12px;border:1px solid rgba(9,94,103,.15);border-radius:14px;background:#f8fbf8;font-size:13px}
+.weather-forecast-row>span:first-child{font-weight:800}.weather-forecast-row strong{font-size:15px;white-space:nowrap;color:#174a53}.weather-forecast-row small{grid-column:2 / 4;font-size:11px;color:#546a71}
+body.home-bg .currency-card-input-row input{font-size:17px!important}
+body.home-bg .live-currency-card #currencyResult{font-size:16px!important}
+@media(max-width:620px){body.home-bg .currency-card-input-row input{font-size:16px!important;height:30px}body.home-bg .live-currency-card #currencyResult{font-size:15px!important}}
+@media(max-width:360px){.weather-forecast-row{grid-template-columns:1fr auto;gap:5px}.weather-forecast-row>span:nth-child(2){grid-column:1}.weather-forecast-row small{grid-column:2;grid-row:2}}
