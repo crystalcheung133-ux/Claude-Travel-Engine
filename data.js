@@ -6,11 +6,14 @@ const PLACES={
     "title": "Quince Saigon",
     "emoji": "🍽️",
     "cat": "RESTAURANTS",
-    "sub": "Day 4 · Farewell Dinner · Confirmed",
+    "sub": "Modern Mediterranean · Wood-fired Dining",
     "status": "confirmed",
     "maps": "https://www.google.com/maps/search/?api=1&query=Quince%20Saigon%2037bis%20Ky%20Con%20District%201",
     "address": "37bis Ký Con, District 1, Ho Chi Minh City, Vietnam",
-    "desc": "2 Nov 2026 · 19:00 · Dining Room · 4 guests. Google / TableCheck confirmed; no card requested. 當日視 Thảo Điền 行程調整；如需取消或更改，先確認餐廳條款。",
+    "desc": "Quince Saigon 主打現代地中海及歐陸料理，以柴火、炭烤與時令食材帶出煙燻香氣；開放式廚房與溫暖精緻的用餐氣氛，很適合四位朋友享受旅程最後一晚。菜單按季節調整，當日以餐廳菜單為準。",
+
+    "signature": ["Wood-fired / charcoal-grilled seasonal dishes", "Scallops 或當日海鮮料理（視菜單供應）", "Seasonal desserts"],
+    "worth": ["適合四人分享前菜，再各選主菜。", "可留意開放式柴火廚房及當日 specials。", "不飲酒亦可以專注食物與甜品。"],
     "categoryLabel": "🍽️ Restaurant",
     "transport": "Grab from Thảo Điền; allow traffic buffer"
   },
@@ -107,9 +110,9 @@ const PLACES={
     "cat": "CAFÉS",
     "sub": "粉紅教堂景觀咖啡",
     "status": "planned",
-    "hours": "",
+    "hours": "07:00–23:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=C%E1%BB%99ng%20C%C3%A0%20Ph%C3%AA%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%20C%E1%BB%99ng%20C%C3%A0%20Ph%C3%AA%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20Hai%20B%C3%A0%20Tr%C6%B0ng%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
-    "address": "Cộng Cà Phê Tân Định, Hai Bà Trưng, District 3, Ho Chi Minh City",
+    "address": "274 Hai Bà Trưng, Tân Định, Ho Chi Minh City, Vietnam",
     "desc": "Cộng Cà Phê Tân Định 最大賣點唔係咖啡本身，而係位置：粉紅教堂正對面／附近，適合打完卡後上樓坐低，用椰子咖啡或冰沙咖啡換一個俯瞰教堂角度。復古軍綠風裝潢亦好有越南味。",
     "signature": [
       "椰子咖啡／椰子冰沙咖啡",
@@ -169,20 +172,20 @@ const PLACES={
     "title": "The Running Bean",
     "emoji": "☕",
     "cat": "CAFÉS",
-    "sub": "Day 4 · Slow Morning Coffee",
+    "sub": "Day 5 · Bến Thành Breakfast & Coffee",
     "status": "planned",
     "hours": "07:30–22:00 daily",
-    "maps": "https://www.google.com/maps/search/?api=1&query=The%20Running%20Bean%20115%20H%E1%BB%93%20T%C3%B9ng%20M%E1%BA%ADu%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
-    "address": "115 Hồ Tùng Mậu, Ho Chi Minh City, Vietnam",
-    "desc": "Day 4 故意慢一點。The Running Bean 是早晨第一杯，不趕 brunch、不趕景點；坐低醒神，再去看粉紅教堂，讓城市先從咖啡香開始。",
+    "maps": "https://www.google.com/maps/search/?api=1&query=The%20Running%20Bean%205%20Nguyen%20Trung%20Truc%20Ben%20Thanh%20Ho%20Chi%20Minh%20City",
+    "address": "5 Nguyễn Trung Trực, Bến Thành, Ho Chi Minh City, Vietnam",
+    "desc": "Day 5 最後一朝去 Bến Thành 分店，特色咖啡配 all-day brunch；現代舒適環境，適合四位朋友慢慢食早餐再去 Museum of Fine Arts。",
     "signature": [
       "越式蛋咖啡",
       "椰子咖啡／冰沙咖啡",
       "明亮現代空間"
     ],
     "worth": [
-      "早餐／咖啡控制在約 45 分鐘，09:30 去 Pink Church。",
-      "今天午餐早，早餐不用食得太重。"
+      "早餐預留約 45–60 分鐘，之後去 Museum of Fine Arts。",
+      "中午仍有 Bếp Mẹ Ỉn，早餐可選輕食分享。"
     ],
     "categoryLabel": "☕ Cafe",
     "price": "$–$$",
@@ -193,7 +196,7 @@ const PLACES={
       "明亮現代空間"
     ],
     "tips": [
-      "早餐／咖啡控制在約 45 分鐘，09:30 去 Pink Church。"
+      "早餐預留約 45–60 分鐘，之後去 Museum of Fine Arts。"
     ]
   },
   "bep-me-in": {
@@ -262,40 +265,7 @@ const PLACES={
       "如果早上不餓，可以改成外帶咖啡。"
     ]
   },
-  "little-bear": {
-    "title": "Little Bear",
-    "emoji": "🧸",
-    "cat": "RESTAURANTS",
-    "sub": "Thảo Điền dinner shortlist · Closed Monday",
-    "status": "planned",
-    "hours": "Tue–Sun 18:00–22:00; Monday off",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Little%20Bear%2036%20Nguy%E1%BB%85n%20B%C3%A1%20Hu%C3%A2n%2C%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
-    "address": "36 Nguyễn Bá Huân, Thảo Điền, Ho Chi Minh City, Vietnam",
-    "desc": "小型 wine bar / modern Vietnamese bistro，以分享盤、酒與年輕主廚的越南味見長。可留作 Thảo Điền 其他日子的 dinner shortlist；Monday closed，所以今次 Day 4 farewell 不排它。",
-    "signature": [
-      "House-made noodles｜Michelin Guide 特別提到",
-      "Tagliolini with clams｜白酒蜆汁＋菊花，評論點名",
-      "Natural / biodynamic wine｜by-the-glass 選擇是 Little Bear 一半靈魂"
-    ],
-    "worth": [
-      "星期一休息；今次 Day 4 是 Monday，所以不列入 farewell dinner 候選。",
-      "份量偏精緻，建議不要期待傳統大份量越菜。",
-      "不飲酒也可以去，重點是食物和氣氛。"
-    ],
-    "categoryLabel": "🍽 Restaurant",
-    "price": "$$$",
-    "transport": "Grab / walk depending on current route",
-    "highlights": [
-      "Michelin Selected / Young Chef 話題",
-      "小型空間，counter/table seating 氣氛親近",
-      "越南味道 + bistro 手法，適合 share plates"
-    ],
-    "tips": [
-      "星期一休息；今次 Day 4 是 Monday，所以不列入 farewell dinner 候選。",
-      "份量偏精緻，建議不要期待傳統大份量越菜。",
-      "不飲酒也可以去，重點是食物和氣氛。"
-    ]
-  },
+
   "lune": {
     "title": "LÚNE Restaurant & Bar",
     "emoji": "🇫🇷",
@@ -305,7 +275,7 @@ const PLACES={
     "hours": "Mon–Sat 11:30–14:00 & 17:00–22:30；Sunday closed",
     "maps": "https://www.google.com/maps/search/?api=1&query=L%C3%9ANE%20Restaurant%20%26%20Bar%2017%2F14%20L%C3%AA%20Th%C3%A1nh%20T%C3%B4n%2C%20S%C3%A0i%20G%C3%B2n%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
     "address": "17/14 Lê Thánh Tôn, Sài Gòn, Hồ Chí Minh 70000, Vietnam",
-    "desc": "現代法式料理，融入越南風味。",
+    "desc": "LÚNE 以現代法式烹調結合越南及亞洲食材，菜式偏精緻創意。可以留意龍蝦 raviolo、帶越南元素的 foie gras terrine，以及當日海鮮與季節料理；適合想試精緻 fusion dining 的一餐。",
     "signature": [
       "Canadian lobster raviolo｜Michelin Guide 點名 standout",
       "Phở foie gras terrine｜法式技巧 × 越南味",
@@ -1571,7 +1541,7 @@ const PLACES={
     "address": "46 Mê Linh, Phường 19, Bình Thạnh, Ho Chi Minh City",
     "phone": "034 992 1802",
     "instagramUrl": "https://www.instagram.com/maruco0930_vn/",
-    "desc": "日本居酒屋風格，Day 3 War Day + Qspa 後做 primary dinner。已經經 Instagram 訂好 19:30，重點食稻草燒／炙燒料理，尤其牛舌。",
+    "desc": "日式居酒屋，以稻草燒、炙燒及各式燒物為特色；煙燻香氣濃郁，適合四人點幾款料理分享。可留意牛舌、刺身及當日烤物，實際供應以店內餐牌為準。",
     "signature": [
       "稻草燒牛舌",
       "Japanese izakaya grilled dishes",
@@ -1592,12 +1562,12 @@ const PLACES={
     "title": "Ốc Đào · Nguyễn Trãi",
     "emoji": "🦀",
     "cat": "RESTAURANTS",
-    "sub": "OPTIONAL · Day 3 大排檔 backup",
+    "sub": "OPTIONAL · Vietnamese ốc · Local seafood",
     "status": "planned",
     "hours": "11:00–22:15 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=%E1%BB%90c%20%C4%90%C3%A0o%20212B%2FD48%20Nguy%E1%BB%85n%20Tr%C3%A3i%20Ho%20Chi%20Minh%20City",
     "address": "212B/D48 Nguyễn Trãi, District 1, Ho Chi Minh City, Vietnam",
-    "desc": "Day 3 optional 大排檔 backup。Primary dinner 已改為 19:30 Izakaya Maruco；只有臨時想轉做地道螺貝海鮮先考慮 Ốc Đào。",
+    "desc": "地道越南 ốc 海鮮店，主打螺、蜆、貝類及各式海鮮，配香茅、蒜、辣椒、羅望子等越式醬汁。環境偏熱鬧 casual，適合四人分享幾款不同煮法。",
     "signature": [
       "各式 ốc／貝類／海鮮",
       "越式醬汁 + beer，四人 share 最有氣氛"
@@ -1887,12 +1857,6 @@ const DAY_LINKS={
       "day.html?day=5#takashimaya"
     ]
   ],
-  "pho-vietnam": [
-    [
-      "Day 5",
-      "day.html?day=5#pho-vietnam"
-    ]
-  ],
   "fine-arts": [
     [
       "Day 5",
@@ -2017,8 +1981,8 @@ const DAY_LINKS={
   ],
   "running-bean": [
     [
-      "Day 4",
-      "day.html?day=4#running-bean"
+      "Day 5",
+      "day.html?day=5#running-bean"
     ]
   ],
   "new-playground": [["Day 2","day.html?day=2#vincom-new-playground"]],
@@ -2032,19 +1996,13 @@ const DAY_LINKS={
   "cong": [
     [
       "Day 4",
-      "day.html?day=4#pink-church"
+      "day.html?day=4#cong-d4"
     ]
   ],
   "quan-thuy": [
     [
       "Day 4",
       "day.html?day=4#quan-thuy"
-    ]
-  ],
-  "push-push": [
-    [
-      "Day 4",
-      "day.html?day=4#push-push"
     ]
   ],
   "saigon-concept": [
@@ -2967,80 +2925,35 @@ const ITINERARY_DATA={
     ],
     "items": [
       {
-        "id": "running-bean",
-        "time": "08:30–09:15",
-        "title": "☕ The Running Bean",
-        "details": [
-          "早餐及咖啡。"
-        ],
-        "route": "🚕 下一站：Grab 去 Tân Định Pink Church，09:30 左右到。",
-        "map": "https://www.google.com/maps/search/?api=1&query=The%20Running%20Bean%20115%20H%E1%BB%93%20T%C3%B9ng%20M%E1%BA%ADu%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
-        "type": "meal",
-        "dayId": "day4",
-        "placeId": "running-bean",
-        "bookingId": null
+        "id": "quan-thuy", "time": "09:00–09:40", "title": "🦀 Quán Thuý 94 · Crab Breakfast",
+        "details": ["蟹肉粉絲／蟹料理；早餐後 Grab 去粉紅教堂。"],
+        "route": "🚕 Grab → Tân Định Pink Church。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Quan%20Thuy%2094%2084%20Dinh%20Tien%20Hoang%20Ho%20Chi%20Minh%20City",
+        "type": "meal", "dayId": "day4", "placeId": "quan-thuy", "bookingId": null, "guideIds": ["quan-thuy"]
       },
       {
-        "id": "pink-church",
-        "time": "09:30–10:00",
-        "title": "🩷 Tân Định Pink Church",
-        "details": [
-          "短停影相，Cộng optional"
-        ],
-        "route": "🚶 Cộng 可快閃；PUSH PUSH 只在 Day 2 未睇夠時 optional，否則直接去 Quán Thuý 94。",
-        "map": "https://www.google.com/maps/search/?api=1&query=T%C3%A2n%20%C4%90%E1%BB%8Bnh%20Church%20Tan%20Dinh%20Church%2C%20289%20Hai%20B%C3%A0%20Tr%C6%B0ng%2C%20Ward%208%2C%20District%203%2C%20Ho%20Chi%20Minh%20City",
-        "type": "experience",
-        "dayId": "day4",
-        "placeId": "pink-church",
-        "bookingId": null,
-        "guideIds": [
-          "pink-church",
-          "cong"
-        ],
-        "guideGroups": [
-          {"label":"🩷 Pink Church","guideIds":["pink-church"]},
-          {"label":"☕ Cộng","guideIds":["cong"]}
-        ]
+        "id": "pink-church", "time": "09:50–10:05", "title": "🩷 Tân Định Pink Church",
+        "details": ["影粉紅教堂外觀；之後步行去對面 Cộng Cà Phê。"],
+        "route": "🚶 Walk → Cộng Cà Phê，274 Hai Bà Trưng。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Tan%20Dinh%20Pink%20Church%20Ho%20Chi%20Minh%20City",
+        "type": "experience", "dayId": "day4", "placeId": "pink-church", "bookingId": null, "guideIds": ["pink-church"]
       },
       {
-        "id": "push-push",
-        "time": "Optional · only if missed on Day 2",
-        "title": "👖 PUSH PUSH Official · Optional",
-        "details": [
-          "Day 2 The New Playground 已有 PUSH PUSH selected range；只在未睇夠／想睇 standalone store 時先加",
-          "如 skip，Pink Church 後直接去 Quán Thuý 94，留更多時間畀 Thảo Điền"
-        ],
-        "route": "🚕 如去完就前往 Quán Thuý 94；如 Day 2 已睇夠，Pink Church 後直接去 lunch。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Push%20Push%20Official%2020%20Nguy%E1%BB%85n%20V%C4%83n%20Nguy%E1%BB%85n%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
-        "type": "shoppingWindow",
-        "dayId": "day4",
-        "placeId": "push-push",
-        "bookingId": null
-      },
-      {
-        "id": "quan-thuy",
-        "time": "~10:30/10:45–11:30",
-        "title": "🦀 Quán Thuý 94 · Early Lunch",
-        "details": [
-          "食蟹肉粉絲／蟹料理，食完先一次 Grab 入 Thảo Điền"
-        ],
-        "route": "🚕 Grab → 0123 Complex（06 Đặng Hữu Phổ），再行 Thảo Điền 家品及設計店。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Qu%C3%A1n%20Thu%C3%BD%2094%2084%20%C4%90inh%20Ti%C3%AAn%20Ho%C3%A0ng%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2C%20Vietnam",
-        "type": "meal",
-        "dayId": "day4",
-        "placeId": "quan-thuy",
-        "bookingId": null,
-        "guideIds": ["quan-thuy"]
+        "id": "cong-d4", "time": "10:05–10:25", "title": "🥥 Cộng Cà Phê · Pink Church View",
+        "details": ["Coconut Coffee；有時間可上樓影教堂景觀。", "之後 Grab 去 Thảo Điền Shopping Route 第一站 Carpe Diem。"],
+        "route": "🚕 Grab → Carpe Diem，28 Thảo Điền。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Cong%20Ca%20Phe%20274%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh%20City",
+        "type": "cafe", "dayId": "day4", "placeId": "cong", "bookingId": null, "guideIds": ["cong"]
       },
       {
         "id": "thao-dien-open-list",
-        "time": "~12:00 onwards",
+        "time": "~11:00 onwards",
         "title": "🎲 Thảo Điền · Open List",
         "summary": "入 Thảo Điền 後自由行，食 / 飲 / Spa 隨心",
         "details": [
           "🛍 Shopping · Carpe Diem → YouOn Boutique → Vina Design Store → dakao quartier → Aurora Saigon → Wicky Candle → 0123 Complex → OHQUAO；按興趣選店",
           "🥐 Coffee / Sweet · Bakes，或者沿途見到想坐的 café",
-          "🍽 Eat · 已在 Quán Thuý 94 early lunch；下午只按胃口加 café / snack",
+          "🍽 Eat · 已在 Quán Thuý 94 食早餐；下午按胃口加 café / snack",
           "🌿 Spa · Mộc Hương Wellness；走到 Xuân Thủy 一帶想停下來，就預留約 120 分鐘",
           "🍽 Farewell · Quince 19:00 已訂位；當日可按行程調整，改動前確認餐廳條款"
         ],
@@ -3084,18 +2997,11 @@ const ITINERARY_DATA={
     ],
     "items": [
       {
-        "id": "pho-vietnam",
-        "time": "09:30–10:30",
-        "title": "🍜 Phở Việt Nam Bến Thành",
-        "details": [
-          "最後一碗石鍋河粉"
-        ],
-        "route": "🚶 To next stop：步行約 4 分鐘去 Museum of Fine Arts。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Ph%E1%BB%9F%20Vi%E1%BB%87t%20Nam%20B%E1%BA%BFn%20Th%C3%A0nh%2014%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
-        "type": "meal",
-        "dayId": "day5",
-        "placeId": "pho-vietnam",
-        "bookingId": null
+        "id": "running-bean", "time": "09:30–10:20", "title": "☕ The Running Bean · Bến Thành",
+        "details": ["Coffee & brunch；輕鬆食早餐，之後去 Museum of Fine Arts。"],
+        "route": "🚶 / 🚕 前往 Museum of Fine Arts；以當日 Google Maps 路線為準。",
+        "map": "https://www.google.com/maps/search/?api=1&query=The%20Running%20Bean%205%20Nguyen%20Trung%20Truc%20Ben%20Thanh%20Ho%20Chi%20Minh%20City",
+        "type": "meal", "dayId": "day5", "placeId": "running-bean", "bookingId": null, "guideIds": ["running-bean"]
       },
       {
         "id": "fine-arts",

@@ -18,12 +18,12 @@ assert(!/D1|D2|D3/.test(String(P.qspa.sub||'')),'Qspa Guide must not repeat visi
 assert.equal(P['norah-spa-2'].status,'optional');assert.equal(P['nara-spa'].status,'optional');
 
 // D4 Slow Lifestyle Guide ownership.
-for(const id of ['running-bean','push-push','bakes','moc-huong','ohquao'])
+for(const id of ['bakes','moc-huong','ohquao'])
   assert((String(P[id].sub||'')+' '+String(P[id].shoppingRoute||'')).includes('Day 4'),`${id}: Guide did not move to Day 4`);
 
 assert(!B['bk-little-bear'],'Little Bear booking survived Monday closure');
 assert(!ids(4).includes('little-bear'),'Little Bear Timeline stop survived Monday closure');
-assert.deepEqual(ids(4),['running-bean','pink-church','push-push','quan-thuy','thao-dien-open-list','quince-d4'],'D4 must have morning anchors + planned early lunch + one open list');
+assert.deepEqual(ids(4),['quan-thuy','pink-church','cong-d4','thao-dien-open-list','quince-d4'],'D4 must have morning anchors + planned early lunch + one open list');
 assert(!(C.RESTAURANTS||[]).some(x=>x.key==='little-bear'),'Little Bear must be removed from visible Guide inventory');
 assert(!B['bk-moc-huong'],'Mộc Hương must be an option, not a pending D4 booking');
 
