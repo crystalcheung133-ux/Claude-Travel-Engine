@@ -245,11 +245,11 @@
       if(!raw)return '';
       const approx=/^~/.test(raw);const m=raw.match(/(\d{1,2}:\d{2})/);return m?`${approx?'~':''}${m[1]}`:raw;
     }
-    if(/morning/i.test(raw))return 'Morning';
-    if(/afternoon/i.test(raw))return 'Afternoon';
-    if(/evening|night/i.test(raw))return 'Evening';
+    if(/morning/i.test(raw))return 'AM';
+    if(/afternoon/i.test(raw))return 'PM';
+    if(/evening|night/i.test(raw))return 'Night';
     const m=raw.match(/(\d{1,2}):\d{2}/);
-    if(m){const hour=Number(m[1]);return hour<12?'Morning':(hour<17?'Afternoon':'Evening');}
+    if(m){const hour=Number(m[1]);return hour<12?'AM':(hour<17?'PM':'Night');}
     return raw||'Flexible';
   }
 
@@ -341,6 +341,15 @@
     return `<div class="route-hint route-hint--derived"><strong>TO NEXT STOP</strong><span class="route-next-title">${esc(title)}</span><span class="route-next-modes">${lines.map(esc).join(' · ')}</span>${directions?`<a class="route-next-map" href="${esc(directions)}" target="_blank" rel="noopener">Directions ›</a>`:''}</div>`;
   }
 
+  // Presentation-only deadline anchors. Never mutate itinerary items or saved notes.
+  function deadlineAnchor(item){
+    const id=String(item&&item.id||'');
+    if(id==='thao-dien-open-list')return '<div class="timeline-deadline"><strong>⏰ Leave by 17:45</strong><span>Head to Quince · 19:00 confirmed dinner · allow for rush-hour traffic</span></div>';
+    if(id==='ha-spa')return '<div class="timeline-deadline timeline-deadline--urgent"><strong>⏰ Leave Hạ Spa by 17:30</strong><span>Grab departure by 17:45 · airport arrival target 18:20 · flight 21:10</span></div>';
+    if(id==='airport-transfer-final')return '<div class="timeline-deadline timeline-deadline--urgent"><strong>⏰ Depart by 17:45</strong><span>Allow time for traffic and international check-in</span></div>';
+    return '';
+  }
+
   function itemHTML(item,index){
     const nonPlace=item.nonPlace===true;
     const booking=liveBookingForItem(item);
@@ -376,7 +385,7 @@
     const timelineDisplayTitle=booking?String(item.title||'').replace(/^✅\s*Booked\s*·\s*/i,''):item.title;
     const admin=`<div class="timeline-admin-tools"><button class="timeline-admin-menu" onclick="openTimelineEditor(${index})" aria-label="Edit activity">Edit</button><button class="timeline-admin-more" onclick="toggleTimelineMenu(event,${index})" aria-label="More actions" aria-expanded="false">•••</button></div>`;
     const referenceHtml=buildReferencePreview(item);
-    return `<div class="timeline-item" id="${esc(item.id)}" data-index="${index}" draggable="false"><div class="timeline-time">${esc(timelineStartTime(item.time,item))}</div><div class="timeline-main"><div class="timeline-title-row"><h3>${esc(timelineDisplayTitle)}</h3>${bookingStatusHtml}${worthBadge?`<span class="timeline-worth" title="Trip priority">${esc(worthBadge)}</span>`:""}</div>${detailHtml}${referenceHtml}${routeHtml}<div class="timeline-actions">${routeOptionsHtml}${mapHtml}${copyAddressHtml}${parkingHtml}${directoryHtml}${currencyGuideHtml}${tripInfoHtml}${guideHtml}</div></div>${admin}</div>`;
+    return `<div class="timeline-item" id="${esc(item.id)}" data-index="${index}" draggable="false"><div class="timeline-time">${esc(timelineStartTime(item.time,item))}</div><div class="timeline-main"><div class="timeline-title-row"><h3>${esc(timelineDisplayTitle)}</h3>${bookingStatusHtml}${worthBadge?`<span class="timeline-worth" title="Trip priority">${esc(worthBadge)}</span>`:""}</div>${detailHtml}${deadlineAnchor(item)}${referenceHtml}${routeHtml}<div class="timeline-actions">${routeOptionsHtml}${mapHtml}${copyAddressHtml}${parkingHtml}${directoryHtml}${currencyGuideHtml}${tripInfoHtml}${guideHtml}</div></div>${admin}</div>`;
   }
   let suppressEntryAutoScroll=false;
   function render(){
