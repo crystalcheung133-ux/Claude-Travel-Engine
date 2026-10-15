@@ -8,5 +8,6 @@ ok(day.includes('buildDerivedNextStop(item,index)')&&day.includes('publishedNext
 ok(day.includes('walk&&walk.max<=15')&&day.includes('🚶 Walk')&&day.includes('🚕 Grab'),'<=15 minute walk dual-mode rule missing');
 ok(day.includes("else if(grab){lines.push(`🚕 Grab")&&day.includes('Live ETA in Maps'),'Long/unknown walk Grab rule missing');
 ok(day.includes('www.google.com/maps/dir/?api=1&origin='),'Derived Directions map missing');
-ok(day.includes('Next stop is automatic. Moving, adding or deleting Timeline events recalculates it.'),'Timeline editor does not explain derived next stop');
+ok(!day.includes('id="timelineEditRoute"') && !day.includes('base.route=document.getElementById'), 'Travel note editor field must be removed while derived transport remains');
+ok(day.includes("String(item&&item.id||'')==='quince-d4'") && day.includes("id:'derived-return-hotel'"),'Quince return-hotel fallback missing');
 console.log('RC29.75 guide sync + derived next stop contract PASS');
