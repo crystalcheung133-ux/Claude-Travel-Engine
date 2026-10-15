@@ -365,6 +365,7 @@
     const place=item.placeId?DAY_PLACES[item.placeId]:null;
     const destination=timelineDestination(item);
     const canonicalMap=!nonPlace&&destination.routeQuery?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(destination.routeQuery)}`:'';
+    const isShoppingCard=String(item.type||'')==='shoppingWindow' || !!item.showShoppingDirectory;
     const mapHtml=isShoppingCard?'':routeOptions.length?'':(canonicalMap?`<a class="timeline-action timeline-action--map" href="${esc(canonicalMap)}" target="_blank" rel="noopener">🧭 Navigate</a>`:'');
     const copyAddressHtml=!isShoppingCard&&!nonPlace&&timelineCopyEligible(item,place)&&destination.copyText?`<button class="timeline-action timeline-action--copy" type="button" onclick="copyTimelineAddress(decodeURIComponent('${encodeURIComponent(destination.copyText)}'),this)"><span class="copy-label-desktop">📋 Copy Address</span><span class="copy-label-mobile">📋 Copy</span></button>`:'';
     const worthBadge=buildWorthBadge(item,place);
@@ -378,7 +379,6 @@
     const primaryGuideHtml=!contextualGuideGroups.length&&primaryGuideId?`<button class="timeline-action timeline-action--guide" onclick='openGuideGroupFromDay(${JSON.stringify([primaryGuideId])},${JSON.stringify(item.id)})'>📖 Guide</button>`:'';
     const alternativeLabel='Options';
     const alternativeGuideHtml=!contextualGuideGroups.length&&alternativeGuideIds.length?`<button class="timeline-action timeline-action--alternative" title="${esc(item.optionsLabel||'Alternative options')}" onclick='openGuideGroupFromDay(${JSON.stringify(alternativeGuideIds)},${JSON.stringify(item.id)})'>🔄 ${esc(alternativeLabel)}</button>`:'';
-    const isShoppingCard=String(item.type||'')==='shoppingWindow' || !!item.showShoppingDirectory;
     const hasShoppingRoute=!!SHOPPING_ROUTES[String(day)];
     const shoppingSectionIndex=String(day)==='2' && /vincom|rue-miche|playground|union square/i.test(String(item.id||'')+' '+String(item.title||''))?1:0;
     const shoppingRouteAction=isShoppingCard&&hasShoppingRoute?`<button type="button" class="timeline-action timeline-action--shopping-route" onclick="openShoppingRouteMap(${shoppingSectionIndex})">🗺️ Shopping Route</button>`:'';
