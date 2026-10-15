@@ -1996,7 +1996,7 @@ const DAY_LINKS={
   "cong": [
     [
       "Day 4",
-      "day.html?day=4#cong-d4"
+      "day.html?day=4#pink-church"
     ]
   ],
   "quan-thuy": [
@@ -2932,18 +2932,11 @@ const ITINERARY_DATA={
         "type": "meal", "dayId": "day4", "placeId": "quan-thuy", "bookingId": null, "guideIds": ["quan-thuy"]
       },
       {
-        "id": "pink-church", "time": "09:50–10:05", "title": "🩷 Tân Định Pink Church",
-        "details": ["影粉紅教堂外觀；之後步行去對面 Cộng Cà Phê。"],
-        "route": "🚶 Walk → Cộng Cà Phê，274 Hai Bà Trưng。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Tan%20Dinh%20Pink%20Church%20Ho%20Chi%20Minh%20City",
-        "type": "experience", "dayId": "day4", "placeId": "pink-church", "bookingId": null, "guideIds": ["pink-church"]
-      },
-      {
-        "id": "cong-d4", "time": "10:05–10:25", "title": "🥥 Cộng Cà Phê · Pink Church View",
-        "details": ["Coconut Coffee；有時間可上樓影教堂景觀。", "之後 Grab 去 Thảo Điền Shopping Route 第一站 Carpe Diem。"],
+        "id": "pink-church", "time": "09:50–10:25", "title": "🩷 Pink Church + Cộng Cà Phê",
+        "details": ["先影 Tân Định Pink Church 外觀，再過馬路去 Cộng Cà Phê（274 Hai Bà Trưng）飲 Coconut Coffee；有時間可上樓影教堂景觀。", "兩站相鄰，步行約 1–3 分鐘；之後 Grab 去 Thảo Điền Shopping Route 第一站 Carpe Diem。"],
         "route": "🚕 Grab → Carpe Diem，28 Thảo Điền。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Cong%20Ca%20Phe%20274%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh%20City",
-        "type": "cafe", "dayId": "day4", "placeId": "cong", "bookingId": null, "guideIds": ["cong"]
+        "map": "https://www.google.com/maps/search/?api=1&query=Tan%20Dinh%20Pink%20Church%20Ho%20Chi%20Minh%20City",
+        "type": "experience", "dayId": "day4", "placeId": "pink-church", "bookingId": null, "guideIds": ["pink-church", "cong"]
       },
       {
         "id": "thao-dien-open-list",

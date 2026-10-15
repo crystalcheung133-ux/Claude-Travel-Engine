@@ -23,7 +23,7 @@ for(const id of ['bakes','moc-huong','ohquao'])
 
 assert(!B['bk-little-bear'],'Little Bear booking survived Monday closure');
 assert(!ids(4).includes('little-bear'),'Little Bear Timeline stop survived Monday closure');
-assert.deepEqual(ids(4),['quan-thuy','pink-church','cong-d4','thao-dien-open-list','quince-d4'],'D4 must have morning anchors + planned early lunch + one open list');
+assert.deepEqual(ids(4),['quan-thuy','pink-church','thao-dien-open-list','quince-d4'],'D4 must have morning anchors + planned early lunch + one open list');
 assert(!(C.RESTAURANTS||[]).some(x=>x.key==='little-bear'),'Little Bear must be removed from visible Guide inventory');
 assert(!B['bk-moc-huong'],'Mộc Hương must be an option, not a pending D4 booking');
 
