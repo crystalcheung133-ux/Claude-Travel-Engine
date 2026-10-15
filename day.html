@@ -156,7 +156,7 @@
   const lastDayNumber=dayNumbers[dayNumbers.length-1]||firstDayNumber;
 
   function resolveGuideButtons(item,nonPlace){
-    if(nonPlace||item.placeId==='currency-guide')return {primaryGuideId:'',alternativeGuideIds:[]};
+    if(nonPlace||item.placeId==='currency-guide'||['airport','airport-transfer-final'].includes(String(item.id||''))||item.placeId==='tan-son-nhat-airport')return {primaryGuideId:'',alternativeGuideIds:[]};
     const requested=Array.isArray(item.guideIds)&&item.guideIds.length
       ? item.guideIds
       : (guideExcludedPlaceIds.has(item.placeId)?[]:[item.placeId||item.id]);
@@ -328,7 +328,7 @@
     let next=null;for(let n=index+1;n<workingItems.length;n++){if(isTimelineRenderable(workingItems[n])){next=workingItems[n];break;}}
     if(!next){
       const rawFinal=String(item&&item.route||'');
-      if(/(?:fusion|hotel|酒店|返(?:回)?\s*fusion)/i.test(rawFinal) && String(day)!=='5'){
+      if(!next && /(?:fusion|hotel|酒店|返(?:回)?\s*fusion)/i.test(rawFinal) && String(day)!=='5'){
         next={id:'derived-return-hotel',title:'🏨 Fusion Original Saigon Centre',placeId:'fusion',dayId:'day'+day};
       }else return '';
     }
@@ -338,6 +338,7 @@
     if(special){const m=parseMinutes(raw,'grab');lines.push(`🚐 Private transfer${m?' · '+fmtMinutes(m):''}`);}
     else if(walk&&walk.max<=15){lines.push(`🚶 Walk · ${fmtMinutes(walk)}`);lines.push(`🚕 Grab · ${fmtMinutes(grab||grabFromWalk(walk))}`);}
     else if(grab){lines.push(`🚕 Grab · ${fmtMinutes(grab)}`);}
+     else if(String(item&&item.id||'')==='quince-d4'){lines.push('🚕 Grab · Live ETA in Maps');}
     else {lines.push('🚕 Grab · Live ETA in Maps');}
     const directions=nextDirections(item,next);
     return `<div class="route-hint route-hint--derived"><strong>TO NEXT STOP</strong><span class="route-next-title">${esc(title)}</span><span class="route-next-modes">${lines.map(esc).join(' · ')}</span>${directions?`<a class="route-next-map" href="${esc(directions)}" target="_blank" rel="noopener">Directions ›</a>`:''}</div>`;
