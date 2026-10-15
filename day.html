@@ -92,8 +92,8 @@
         ['Aurora Saigon · 925 SILVER','94 Xuân Thủy, An Khánh','ChIJL2kFlfIndTERLJaIne8M6XQ'],
         ['Wicky Candle · SAME ADDRESS','94 Xuân Thủy, An Khánh','ChIJ-SEH6oUvdTERfmAqB6JNpZA'],
         ['0123 Complex · MAIN STOP','06 Đặng Hữu Phổ, An Khánh','ChIJYTcMMM4ndTER4suqUdy0A9M'],
-        ['OHQUAO Living etc. · ROUTE END','19 Đường Số 38, Thảo Điền','ChIJe3FM36wndTERMj73vdNI-dI']
-      ],modes:['🚶 1 min','🚶 5–8 min','🚶 4–6 min','🚶 2–4 min','🏬 1 min · same address','🚶 6–9 min','🚕 5–10 min']}
+        ['OHQUAO Living etc.','19 Đường Số 38, Thảo Điền','ChIJe3FM36wndTERMj73vdNI-dI']
+      ],modes:['🚶 1 min','🚶 5–8 min','🚶 4–6 min','🚶 2–4 min','🏬 1 min · same address','🚶 6–9 min','🚕 Grab · check live ETA']}
     ]}
   };
   function mapsDirections(from,to,mode){
@@ -383,6 +383,9 @@
     const hasShoppingRoute=!!SHOPPING_ROUTES[String(day)];
     const shoppingSectionIndex=String(day)==='2' && /vincom|rue-miche|playground|union square/i.test(String(item.id||'')+' '+String(item.title||''))?1:0;
     const shoppingRouteAction=isShoppingCard&&hasShoppingRoute?`<button type="button" class="timeline-action timeline-action--shopping-route" onclick="openShoppingRouteMap(${shoppingSectionIndex})">🗺️ Shopping Route</button>`:'';
+    const firstShoppingStop=isShoppingCard&&hasShoppingRoute?SHOPPING_ROUTES[String(day)].sections[shoppingSectionIndex]?.stops?.[0]:null;
+    const firstShoppingMap=firstShoppingStop?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(firstShoppingStop[1])}${firstShoppingStop[2]?`&query_place_id=${encodeURIComponent(firstShoppingStop[2])}`:''}`:'';
+    const shoppingArrivalActions=firstShoppingStop?`<a class="timeline-action timeline-action--map" href="${esc(firstShoppingMap)}" target="_blank" rel="noopener" title="${esc(firstShoppingStop[0])}">🧭 First Stop · ${esc(firstShoppingStop[0].replace(/ · .*/,''))}</a><button type="button" class="timeline-action timeline-action--copy" onclick="copyTimelineAddress(decodeURIComponent('${encodeURIComponent(firstShoppingStop[1]+', Ho Chi Minh City, Vietnam')}'),this)">📋 Copy Address</button>`:'';
     const shoppingGuideAction=isShoppingCard?`<button type="button" class="timeline-action timeline-action--directory" onclick="openShoppingDirectoryView(${Number(day)||1})">📖 Area Guide</button>`:'';
     const guideHtml=isShoppingCard?'':contextualGuideHtml+primaryGuideHtml+alternativeGuideHtml;
     const parkingGuideId=!nonPlace&&item.parkingGuideId&&DAY_PLACES[item.parkingGuideId]?item.parkingGuideId:'';
@@ -393,7 +396,7 @@
     const timelineDisplayTitle=booking?String(item.title||'').replace(/^✅\s*Booked\s*·\s*/i,''):item.title;
     const admin=`<div class="timeline-admin-tools"><button class="timeline-admin-menu" onclick="openTimelineEditor(${index})" aria-label="Edit activity">Edit</button><button class="timeline-admin-more" onclick="toggleTimelineMenu(event,${index})" aria-label="More actions" aria-expanded="false">•••</button></div>`;
     const referenceHtml=buildReferencePreview(item);
-    return `<div class="timeline-item" id="${esc(item.id)}" data-index="${index}" draggable="false"><div class="timeline-time">${esc(timelineStartTime(item.time,item))}</div><div class="timeline-main"><div class="timeline-title-row"><h3>${esc(timelineDisplayTitle)}</h3>${bookingStatusHtml}${worthBadge?`<span class="timeline-worth" title="Trip priority">${esc(worthBadge)}</span>`:""}</div>${detailHtml}${deadlineAnchor(item)}${referenceHtml}${routeHtml}<div class="timeline-actions">${isShoppingCard?shoppingRouteAction+shoppingGuideAction:routeOptionsHtml+mapHtml+copyAddressHtml+parkingHtml+directoryHtml+currencyGuideHtml+tripInfoHtml+guideHtml}</div></div>${admin}</div>`;
+    return `<div class="timeline-item" id="${esc(item.id)}" data-index="${index}" draggable="false"><div class="timeline-time">${esc(timelineStartTime(item.time,item))}</div><div class="timeline-main"><div class="timeline-title-row"><h3>${esc(timelineDisplayTitle)}</h3>${bookingStatusHtml}${worthBadge?`<span class="timeline-worth" title="Trip priority">${esc(worthBadge)}</span>`:""}</div>${detailHtml}${deadlineAnchor(item)}${referenceHtml}${routeHtml}<div class="timeline-actions">${isShoppingCard?shoppingArrivalActions+shoppingRouteAction+shoppingGuideAction:routeOptionsHtml+mapHtml+copyAddressHtml+parkingHtml+directoryHtml+currencyGuideHtml+tripInfoHtml+guideHtml}</div></div>${admin}</div>`;
   }
   let suppressEntryAutoScroll=false;
   function render(){

@@ -3038,7 +3038,7 @@ const ITINERARY_DATA={
         "title": "🎲 Thảo Điền · Open List",
         "summary": "入 Thảo Điền 後自由行，食 / 飲 / Spa 隨心",
         "details": [
-          "🛍 Shopping · 0123 → OHQUAO → Thảo Điền 25/28/29 → Xuân Thủy 83/94/111；按興趣選店",
+          "🛍 Shopping · Carpe Diem → YouOn Boutique → Vina Design Store → dakao quartier → Aurora Saigon → Wicky Candle → 0123 Complex → OHQUAO；按興趣選店",
           "🥐 Coffee / Sweet · Bakes，或者沿途見到想坐的 café",
           "🍽 Eat · 已在 Quán Thuý 94 early lunch；下午只按胃口加 café / snack",
           "🌿 Spa · Mộc Hương Wellness；走到 Xuân Thủy 一帶想停下來，就預留約 120 分鐘",

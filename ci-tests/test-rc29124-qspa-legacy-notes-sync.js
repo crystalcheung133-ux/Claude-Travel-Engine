@@ -14,6 +14,6 @@ assert(day.includes("{label:'AFTERNOON · VINCOM'"));
 // D1/D4 remain shop-only with timed connectors.
 assert(day.includes("['Dauple by Ka\\'s'")||day.includes('["Dauple by Ka\'s"'));
 assert(day.includes("['Carpe Diem · CANDLES + GIFTS'"));
-assert(day.includes("['OHQUAO Living etc. · ROUTE END'"));
-assert(day.includes("modes:['🚶 1 min','🚶 5–8 min'"));
+assert(day.includes("['OHQUAO Living etc.'"));
+assert(day.includes("'🚕 Grab · check live ETA'"));
 console.log('RC29.124 QSPA NOTES SYNC: PASS — Notes survive stale reconciliation, are verified remotely, carrier removed; D2 restored.');
