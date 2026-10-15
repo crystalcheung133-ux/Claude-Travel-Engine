@@ -183,7 +183,7 @@
     if(String(item.type||'').toLowerCase()==='transport'){
       const title=String(item.title||'');
       const routine=/\b(grab|taxi|walk|walking|short drive)\b/i.test(title);
-      if(item.transportEvent!==true && item.standalone!==true && (routine || !item.bookingId)) return false;
+      if(item.transportEvent!==true && item.standalone!==true && !['airport-transfer-final','airport'].includes(String(item.id||'')) && (routine || !item.bookingId)) return false;
     }
     return item.hidden!==true;
   }
