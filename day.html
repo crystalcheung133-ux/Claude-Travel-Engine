@@ -185,7 +185,7 @@
     if(String(item.type||'').toLowerCase()==='transport'){
       const title=String(item.title||'');
       const routine=/\b(grab|taxi|walk|walking|short drive)\b/i.test(title);
-      if(item.transportEvent!==true && item.standalone!==true && !['airport-transfer-final','airport'].includes(String(item.id||'')) && (routine || !item.bookingId)) return false;
+      if(item.transportEvent!==true && item.standalone!==true && String(item.id||'')!=='airport' && (routine || !item.bookingId)) return false;
     }
     return item.hidden!==true;
   }
@@ -206,6 +206,32 @@
   function isTrustedVietnamLocation(value){
     const v=String(value||'').trim();if(!v)return false;
     return /(?:ho chi minh|hồ chí minh|saigon|sài gòn|district\s*\d|quận\s*\d|thảo điền|bến nghé|bến thành|tân bình|củ chi|le loi|lê lợi|nguyễn|hai bà trưng|phạm|võ văn|trần|đinh|lý tự trọng|hàm nghi)/i.test(v) && !/(?:doncaster|melbourne|victoria|australia)/i.test(v);
+  }
+  // Navigation roles are independent of booking and guide authority.
+  function timelineInfoOnly(item){
+    const id=String(item&&item.id||'');
+    return ['late-night-supper','airport-transfer','cu-chi'].includes(id) || item&&item.navigationRole==='info';
+  }
+  function timelineFinalAirport(item){return String(item&&item.id||'')==='airport';}
+  function timelineMapDirections(destination,origin){
+    if(!destination)return '';
+    return `https://www.google.com/maps/dir/?api=1${origin?`&origin=${encodeURIComponent(origin)}`:''}&destination=${encodeURIComponent(destination)}&travelmode=driving`;
+  }
+  function timelineShoppingStop(item){
+    const id=String(item&&item.id||'');
+    if(id==='thao-dien-open-list')return SHOPPING_ROUTES['4'].sections[0].stops[0];
+    const kind=String(item&&item.type||'');
+    if(kind!=='shoppingWindow'&&!item.showShoppingDirectory)return null;
+    // Only a section's own timeline host may inherit its first route stop.
+    if(String(day)==='2'&&/vincom|rue-miche|playground|union square/i.test(id+' '+String(item.title||'')))return null;
+    if(String(day)==='5')return null;
+    return SHOPPING_ROUTES[String(day)]?.sections[0]?.stops?.[0]||null;
+  }
+  function timelineHostDestination(item){
+    if(!item||item.nonPlace||timelineInfoOnly(item))return {routeQuery:'',copyText:''};
+    const stop=timelineShoppingStop(item);
+    if(stop){const address=stop[1]+', Ho Chi Minh City, Vietnam';return {routeQuery:address,copyText:stop[0]+', '+address};}
+    return timelineDestination(item);
   }
   function timelineDestination(item){
     const place=item&&item.placeId?DAY_PLACES[item.placeId]:null;
@@ -337,12 +363,15 @@
   function fmtMinutes(x){if(!x)return '';return x.min===x.max?`~${x.min} min`:`~${x.min}–${x.max} min`;}
   function grabFromWalk(w){if(!w)return null;const max=w.max;if(max<=5)return {min:3,max:5};if(max<=10)return {min:5,max:8};return {min:5,max:10};}
   function nextDirections(item,next){
-    const from=timelineDestination(item).routeQuery,to=timelineDestination(next).routeQuery;
-    if(!from||!to)return '';
-    return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(from)}&destination=${encodeURIComponent(to)}&travelmode=driving`;
+    const from=timelineHostDestination(item).routeQuery,to=timelineHostDestination(next).routeQuery;
+    if(!to)return '';
+    // When a flexible/free-time card has no verified address, let Google Maps
+    // resolve the origin from the device's current location. Never guess one.
+    return `https://www.google.com/maps/dir/?api=1${from?`&origin=${encodeURIComponent(from)}`:''}&destination=${encodeURIComponent(to)}&travelmode=driving`;
   }
   function buildDerivedNextStop(item,index){
     let next=null;for(let n=index+1;n<workingItems.length;n++){if(isTimelineRenderable(workingItems[n])){next=workingItems[n];break;}}
+    if(timelineFinalAirport(item)||timelineInfoOnly(item))return '';
     if(!next){
       const rawFinal=String(item&&item.route||'');
       if(String(item&&item.id||'')==='quince-d4' || (!next && /(?:fusion|hotel|酒店|返(?:回)?\s*fusion)/i.test(rawFinal) && String(day)!=='5')){
@@ -366,7 +395,6 @@
     const id=String(item&&item.id||'');
     if(id==='thao-dien-open-list')return '<div class="timeline-deadline"><strong>⏰ Leave by 17:45</strong><span>Head to Quince · 19:00 confirmed dinner · allow for rush-hour traffic</span></div>';
     if(id==='ha-spa')return '<div class="timeline-deadline timeline-deadline--urgent"><strong>⏰ Leave Hạ Spa by 17:30</strong><span>Grab departure by 17:45 · airport arrival target 18:20 · flight 21:10</span></div>';
-    if(id==='airport-transfer-final')return '<div class="timeline-deadline timeline-deadline--urgent"><strong>⏰ Depart by 17:45</strong><span>Allow time for traffic and international check-in</span></div>';
     return '';
   }
 
@@ -381,11 +409,11 @@
     const routeOptions=Array.isArray(item.routeOptions)?item.routeOptions.filter(option=>option&&option.map):[];
     const routeOptionsHtml=routeOptions.map(option=>`<a class="timeline-action timeline-action--route-option" href="${esc(option.map)}" target="_blank" rel="noopener">🛣️ ${esc(option.label||'Route')}</a>`).join('');
     const place=item.placeId?DAY_PLACES[item.placeId]:null;
-    const destination=timelineDestination(item);
-    const canonicalMap=!nonPlace&&destination.routeQuery?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(destination.routeQuery)}`:'';
-    const isShoppingCard=String(item.type||'')==='shoppingWindow' || !!item.showShoppingDirectory;
+    const destination=timelineHostDestination(item);
+    const canonicalMap=!nonPlace&&!timelineInfoOnly(item)&&destination.routeQuery?timelineMapDirections(destination.routeQuery):'';
+    const isShoppingCard=(String(item.type||'')==='shoppingWindow' || !!item.showShoppingDirectory)&&!timelineFinalAirport(item);
     const mapHtml=isShoppingCard?'':routeOptions.length?'':(canonicalMap?`<a class="timeline-action timeline-action--map" href="${esc(canonicalMap)}" target="_blank" rel="noopener">🧭 Navigate</a>`:'');
-    const copyAddressHtml=!isShoppingCard&&!nonPlace&&timelineCopyEligible(item,place)&&destination.copyText?`<button class="timeline-action timeline-action--copy" type="button" onclick="copyTimelineAddress(decodeURIComponent('${encodeURIComponent(destination.copyText)}'),this)"><span class="copy-label-desktop">📋 Copy Address</span><span class="copy-label-mobile">📋 Copy</span></button>`:'';
+    const copyAddressHtml=!isShoppingCard&&!nonPlace&&!timelineInfoOnly(item)&&timelineCopyEligible(item,place)&&destination.copyText?`<button class="timeline-action timeline-action--copy" type="button" onclick="copyTimelineAddress(decodeURIComponent('${encodeURIComponent(destination.copyText)}'),this)"><span class="copy-label-desktop">📋 Copy Address</span><span class="copy-label-mobile">📋 Copy</span></button>`:'';
     const worthBadge=buildWorthBadge(item,place);
     const directoryHtml=false&&!nonPlace&&item.showShoppingDirectory?`<button class="timeline-action timeline-action--directory" onclick="openShoppingDirectoryView(${Number(day)||1})">🛍 Shopping List</button>`:'';
     const currencyGuideHtml=item.currencyGuide&&DAY_PLACES['currency-guide']?`<button class="timeline-action timeline-action--currency" type="button" onclick='openGuideGroupFromDay(${JSON.stringify(['currency-guide'])},${JSON.stringify(item.id)})'>💱 Currency</button>`:'';
@@ -400,9 +428,9 @@
     const hasShoppingRoute=!!SHOPPING_ROUTES[String(day)];
     const shoppingSectionIndex=String(day)==='2' && /vincom|rue-miche|playground|union square/i.test(String(item.id||'')+' '+String(item.title||''))?1:0;
     const shoppingRouteAction=isShoppingCard&&hasShoppingRoute?`<button type="button" class="timeline-action timeline-action--shopping-route" onclick="openShoppingRouteMap(${shoppingSectionIndex})">🗺️ Shopping Route</button>`:'';
-    const firstShoppingStop=isShoppingCard&&hasShoppingRoute?SHOPPING_ROUTES[String(day)].sections[shoppingSectionIndex]?.stops?.[0]:null;
-    const firstShoppingMap=firstShoppingStop?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(firstShoppingStop[1])}${firstShoppingStop[2]?`&query_place_id=${encodeURIComponent(firstShoppingStop[2])}`:''}`:'';
-    const shoppingArrivalActions=firstShoppingStop?`<a class="timeline-action timeline-action--map" href="${esc(firstShoppingMap)}" target="_blank" rel="noopener" title="${esc(firstShoppingStop[0])}">🧭 First Stop · ${esc(firstShoppingStop[0].replace(/ · .*/,''))}</a><button type="button" class="timeline-action timeline-action--copy" onclick="copyTimelineAddress(decodeURIComponent('${encodeURIComponent(firstShoppingStop[1]+', Ho Chi Minh City, Vietnam')}'),this)">📋 Copy Address</button>`:'';
+    const firstShoppingStop=isShoppingCard&&hasShoppingRoute?(shoppingSectionIndex===1?null:SHOPPING_ROUTES[String(day)].sections[shoppingSectionIndex]?.stops?.[0]):null;
+    const firstShoppingMap=firstShoppingStop?timelineMapDirections(firstShoppingStop[1]+', Ho Chi Minh City, Vietnam'):'';
+    const shoppingArrivalActions=firstShoppingStop?`<a class="timeline-action timeline-action--map" href="${esc(firstShoppingMap)}" target="_blank" rel="noopener" title="${esc(firstShoppingStop[0])}">🧭 First Stop · ${esc(firstShoppingStop[0].replace(/ · .*/,''))}</a><button type="button" class="timeline-action timeline-action--copy" onclick="copyTimelineAddress(decodeURIComponent('${encodeURIComponent(firstShoppingStop[1]+', Ho Chi Minh City, Vietnam')}'),this)">📋 Copy Address</button>`:(isShoppingCard?mapHtml+copyAddressHtml:'');
     const shoppingGuideAction=isShoppingCard?`<button type="button" class="timeline-action timeline-action--directory" onclick="openShoppingDirectoryView(${Number(day)||1})">📖 Area Guide</button>`:'';
     const guideHtml=isShoppingCard?'':contextualGuideHtml+primaryGuideHtml+alternativeGuideHtml;
     const parkingGuideId=!nonPlace&&item.parkingGuideId&&DAY_PLACES[item.parkingGuideId]?item.parkingGuideId:'';
@@ -413,7 +441,7 @@
     const timelineDisplayTitle=booking?String(item.title||'').replace(/^✅\s*Booked\s*·\s*/i,''):item.title;
     const admin=`<div class="timeline-admin-tools"><button class="timeline-admin-menu" onclick="openTimelineEditor(${index})" aria-label="Edit activity">Edit</button><button class="timeline-admin-more" onclick="toggleTimelineMenu(event,${index})" aria-label="More actions" aria-expanded="false">•••</button></div>`;
     const referenceHtml=buildReferencePreview(item);
-    return `<div class="timeline-item" id="${esc(item.id)}" data-index="${index}" draggable="false"><div class="timeline-time">${esc(timelineStartTime(item.time,item,workingItems.findIndex(isTimelineRenderable)===index))}</div><div class="timeline-main"><div class="timeline-title-row"><h3>${esc(timelineDisplayTitle)}</h3>${bookingStatusHtml}${worthBadge?`<span class="timeline-worth" title="Trip priority">${esc(worthBadge)}</span>`:""}</div>${detailHtml}${deadlineAnchor(item)}${referenceHtml}${routeHtml}<div class="timeline-actions">${isShoppingCard?shoppingArrivalActions+shoppingRouteAction+shoppingGuideAction:routeOptionsHtml+mapHtml+copyAddressHtml+parkingHtml+directoryHtml+currencyGuideHtml+tripInfoHtml+guideHtml}</div></div>${admin}</div>`;
+    return `<div class="timeline-item" id="${esc(item.id)}" data-index="${index}" draggable="false"><div class="timeline-time">${esc(timelineStartTime(item.time,item,workingItems.findIndex(isTimelineRenderable)===index))}</div><div class="timeline-main"><div class="timeline-title-row"><h3>${esc(timelineDisplayTitle)}</h3>${bookingStatusHtml}${worthBadge?`<span class="timeline-worth" title="Trip priority">${esc(worthBadge)}</span>`:""}</div>${detailHtml}${deadlineAnchor(item)}${referenceHtml}${routeHtml}<div class="timeline-actions">${isShoppingCard?shoppingArrivalActions+shoppingRouteAction+shoppingGuideAction:(timelineInfoOnly(item)?tripInfoHtml:routeOptionsHtml+mapHtml+copyAddressHtml+parkingHtml+directoryHtml+currencyGuideHtml+tripInfoHtml+(timelineFinalAirport(item)?'':guideHtml))}</div></div>${admin}</div>`;
   }
   let suppressEntryAutoScroll=false;
   function render(){

@@ -1352,8 +1352,8 @@ const PLACES={
     "emoji": "✈️",
     "cat": "SIGHTS",
     "sub": "Airport",
-    "maps": "https://maps.google.com/?q=Tan+Son+Nhat+International+Airport",
-    "address": "",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Tan%20Son%20Nhat%20International%20Airport%20Terminal%202%20Ho%20Chi%20Minh%20City",
+    "address": "Tan Son Nhat International Airport, International Terminal T2, Ho Chi Minh City, Vietnam",
     "desc": "VN 行程抵達及離境使用的新山一機場。"
   },
   "social-club": {
@@ -2498,6 +2498,7 @@ const ITINERARY_DATA={
       },
       {
         "id": "airport-transfer",
+        "navigationRole": "info",
         "time": "~06:55–08:00",
         "title": "🚐 Private Transfer · Fusion Original Saigon Centre",
         "details": [
@@ -2647,6 +2648,7 @@ const ITINERARY_DATA={
         "id": "late-night-supper",
         "time": "Optional",
         "title": "🌙 酒店宵夜",
+        "navigationRole": "info",
         "details": [
           "想食鹹：Oanh Cua，可查 delivery / GrabFood",
           "想食甜：GrabFood 搜 BINGO / Chè / Tofu / Bingsu"
@@ -2828,6 +2830,7 @@ const ITINERARY_DATA={
     "items": [
       {
         "id": "cu-chi",
+        "navigationRole": "info",
         "time": "07:30–~13:30/14:00",
         "title": "🪖 Cu Chi Tunnels · Private Tour",
         "details": [
@@ -3089,23 +3092,9 @@ const ITINERARY_DATA={
         "bookingId": "bk-ha-spa"
       },
       {
-        "id": "airport-transfer-final",
-        "time": "17:45–18:20",
-        "title": "🚕 Hạ Spa → Airport",
-        "details": [
-          "前往 SGN International Terminal"
-        ],
-        "route": "🚶 To next stop：國際線 Check-in 櫃檯。",
-        "map": "https://maps.google.com/?q=Tan+Son+Nhat+International+Airport",
-        "type": "transport",
-        "dayId": "day5",
-        "placeId": "tan-son-nhat-airport",
-        "bookingId": null
-      },
-      {
         "id": "airport",
         "time": "18:20–21:10",
-        "title": "✈️ Check-in / Duty Free / Boarding",
+        "title": "✈️ Tan Son Nhat International Airport",
         "details": [
           "SGN Terminal 2 · 預留 3 小時 check-in、過關、登機"
         ],
