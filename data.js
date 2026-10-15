@@ -2,6 +2,19 @@
 // Timeline is authoritative for itinerary content; booking linkage is reconciled to Booking Foundation IDs.
 
 const PLACES={
+  "quince": {
+    "title": "Quince Saigon",
+    "emoji": "🍽️",
+    "cat": "RESTAURANTS",
+    "sub": "Day 4 · Farewell Dinner · Confirmed",
+    "status": "confirmed",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Quince%20Saigon%2037bis%20Ky%20Con%20District%201",
+    "address": "37bis Ký Con, District 1, Ho Chi Minh City, Vietnam",
+    "desc": "2 Nov 2026 · 19:00 · Dining Room · 4 guests. Google / TableCheck confirmed; no card requested. 當日視 Thảo Điền 行程調整；如需取消或更改，先確認餐廳條款。",
+    "categoryLabel": "🍽️ Restaurant",
+    "transport": "Grab from Thảo Điền; allow traffic buffer"
+  },
+
   "currency-guide": {
     "title": "Cash & Currency",
     "emoji": "💱",
@@ -1685,6 +1698,7 @@ const CATEGORIES={
     }
   ],
   "RESTAURANTS": [
+    {"key":"quince"},
     {
       "key": "bep-me-in"
     },
@@ -1782,6 +1796,7 @@ const CATEGORIES={
 };
 
 const GUIDE_ORDER=[
+  "quince",
   "currency-guide",
   "fusion",
   "bakes",
@@ -1824,6 +1839,7 @@ const GUIDE_ORDER=[
 ];
 
 const DAY_LINKS={
+  "quince": [["Day 4","day.html?day=4#quince-d4"]],
   "fusion": [
     [
       "Day 1",
@@ -2075,6 +2091,18 @@ const FRIENDS={
 };
 
 const BOOKINGS_DATA={
+  "bk-quince": {
+    "id": "bk-quince", "bookingId": "bk-quince", "eventId": "quince-d4", "timelineItemId": "quince-d4",
+    "day": 4, "dayId": "day4", "status": "confirmed", "date": "2026-11-02", "time": "19:00",
+    "bookingName": "Crystal Cheung", "bookingCategory": "Restaurants", "category": "Restaurants", "type": "restaurant",
+    "emoji": "🍽️", "title": "Quince Saigon · Dining Room", "bookingMethod": "Google / TableCheck",
+    "bookingWay": "Google / TableCheck", "platform": "TableCheck", "bookingUrl": "https://linktr.ee/quincesaigon", "guests": 4, "guestSummary": "4 guests",
+    "address": "37bis Ký Con, District 1, Ho Chi Minh City, Vietnam",
+    "notes": "Confirmed · Mon 2 Nov · 19:00 · 4 guests · Dining Room. No credit card requested. 可當日視 Thảo Điền 行程調整；取消或更改前先確認餐廳條款。",
+    "bookingHandoff": "Confirmed 19:00 for four via Google / TableCheck. No credit card requested; cancellation policy not independently verified. 如需改時間或取消，先確認餐廳條款。",
+    "placeId": "quince"
+  },
+
   "bk-fusion-original": {
     "id": "bk-fusion-original",
     "bookingId": "bk-fusion-original",
@@ -2561,7 +2589,8 @@ const ITINERARY_DATA={
         "details": [
           "🚶 Phở SOL → Dauple → LÀMIN → Nguyễn Trãi：Clothes Bar 24 → Dot Dot Gem 29 → Bubbli 39/15 → Dear José 49A → KIDO 49B → LIBÉ 52",
           "💍 Dot Dot Gem 睇 contemporary jewellery；其餘 fashion shops 見啱先入，唔需要逐間完成",
-          "🧩 111 Concept：行完 LIBÉ 有時間先 Grab 過去；Route Map 保留佢，方便即場睇距離再決定"
+          "🧩 111 Concept：行完 LIBÉ 有時間先 Grab 過去；Route Map 保留佢，方便即場睇距離再決定",
+          "沿 Nguyễn Trãi shopping 路線搵啲嘢食墊底，例如 Bánh mì、粉麵或輕食。"
         ],
         "route": "🧩 LIBÉ 後：有時間就 Grab → 111 Concept；之後按時間去 Qspa / Fusion。唔去 111 就直接接 Qspa。",
         "map": "https://www.google.com/maps/search/?api=1&query=Clothes%20Bar%2024%20Nguyen%20Trai%20Ho%20Chi%20Minh%20City",
@@ -3013,7 +3042,7 @@ const ITINERARY_DATA={
           "🥐 Coffee / Sweet · Bakes，或者沿途見到想坐的 café",
           "🍽 Eat · 已在 Quán Thuý 94 early lunch；下午只按胃口加 café / snack",
           "🌿 Spa · Mộc Hương Wellness；走到 Xuân Thủy 一帶想停下來，就預留約 120 分鐘",
-          "🍽 Farewell · 晚餐或買蛋糕返 Fusion，按當日胃口決定"
+          "🍽 Farewell · Quince 19:00 已訂位；當日可按行程調整，改動前確認餐廳條款"
         ],
         "route": "🏨 收尾時由當時位置 Grab 返回 Fusion。",
         "map": "https://www.google.com/maps/search/?api=1&query=OHQUAO%2019%20Duong%20So%2038%20Thao%20Dien%20Ho%20Chi%20Minh%20City",
@@ -3031,6 +3060,13 @@ const ITINERARY_DATA={
           {"label":"🌿 Mộc Hương","guideIds":["moc-huong"]}
         ],
         "showShoppingDirectory": true
+      },
+      {
+        "id": "quince-d4", "time": "19:00–20:45", "title": "🍽️ Quince Saigon · Farewell Dinner",
+        "details": ["Confirmed · Dining Room · 4 guests · Google / TableCheck", "可當日視 Thảo Điền 行程調整；如需更改或取消，先確認餐廳條款。", "建議約 17:45 離開 Thảo Điền，預留黃昏塞車時間。"],
+        "route": "🚕 Thảo Điền → Quince Saigon · 37bis Ký Con, District 1；預留塞車時間。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Quince%20Saigon%2037bis%20Ky%20Con%20District%201",
+        "type": "meal", "dayId": "day4", "placeId": "quince", "bookingId": "bk-quince", "guideIds": ["quince"]
       }
     ],
     "dayId": "day4"
@@ -3146,7 +3182,7 @@ const ITINERARY_DATA={
         "details": [
           "草本洗頭 + 全身熱石按摩"
         ],
-        "route": "🚕 To next stop：Grab 約 2 分鐘去新山一機場國際航廈。",
+        "route": "🚕 To next stop：17:45 出發，預留約 25–35 分鐘前往 SGN 國際航廈（以即時路況為準）。",
         "map": "https://www.google.com/maps/search/?api=1&query=H%E1%BA%A1%20Spa%20334%20Nguy%E1%BB%85n%20Tr%E1%BB%8Dng%20Tuy%E1%BB%83n%2C%20Ward%202%2C%20T%C3%A2n%20B%C3%ACnh%20District%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
         "type": "spa",
         "dayId": "day5",
@@ -3155,7 +3191,7 @@ const ITINERARY_DATA={
       },
       {
         "id": "airport-transfer-final",
-        "time": "17:45–18:00",
+        "time": "17:45–18:20",
         "title": "🚕 Hạ Spa → Airport",
         "details": [
           "前往 SGN International Terminal"
@@ -3169,7 +3205,7 @@ const ITINERARY_DATA={
       },
       {
         "id": "airport",
-        "time": "18:00–21:10",
+        "time": "18:20–21:10",
         "title": "✈️ Check-in / Duty Free / Boarding",
         "details": [
           "SGN Terminal 2 · 預留 3 小時 check-in、過關、登機"
