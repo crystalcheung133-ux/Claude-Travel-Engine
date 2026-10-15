@@ -241,17 +241,28 @@
   }
   function timelineStartTime(value,item,isFirstStop=false){
     const raw=String(value||'').trim();
-    // The first visible stop is the daily start anchor. Display its stored clock
-    // time verbatim; never turn an Editor time into a broad AM/PM label.
-    if(isFirstStop){
-      const match=raw.match(/(\d{1,2}:\d{2})/);
-      if(match && !item?.bookingId)return `${/^~/.test(raw)?'~':''}${match[1]}`;
-    }
+    // Explicit Editor choice wins for ordinary activities. Booking authority stays canonical.
     if(item&&item.bookingId){
       const authoritative=bookingAuthorityTime(item);
       if(authoritative)return authoritative;
       if(!raw)return '';
       const approx=/^~/.test(raw);const m=raw.match(/(\d{1,2}:\d{2})/);return m?`${approx?'~':''}${m[1]}`:raw;
+    }
+    const mode=String(item&&item.timeDisplayMode||'').toLowerCase();
+    if(mode==='period'){
+      const period=String(item.timeDisplayPeriod||'').toLowerCase();
+      if(period==='am')return 'AM';
+      if(period==='pm')return 'PM';
+      if(period==='night')return 'Night';
+    }
+    if(mode==='fixed'){
+      const match=raw.match(/(\d{1,2}:\d{2})/);
+      return match?`${/^~/.test(raw)?'~':''}${match[1]}`:(raw||'Flexible');
+    }
+    // Legacy cards retain their former display, including daily first-stop anchors.
+    if(isFirstStop){
+      const match=raw.match(/(\d{1,2}:\d{2})/);
+      if(match)return `${/^~/.test(raw)?'~':''}${match[1]}`;
     }
     if(/morning/i.test(raw))return 'AM';
     if(/afternoon/i.test(raw))return 'PM';
@@ -502,7 +513,7 @@
   }
   function ensureEditor(){
     if(document.getElementById('timelineEditorModal'))return;
-    const modal=document.createElement('div');modal.id='timelineEditorModal';modal.className='timeline-editor-modal';modal.setAttribute('role','dialog');modal.setAttribute('aria-modal','true');modal.innerHTML=`<div class="timeline-editor-sheet"><header class="timeline-editor-head"><p class="kicker">ADMIN MODE</p><h2 id="timelineEditorHeading">Edit activity</h2><button class="timeline-editor-close" onclick="closeTimelineEditor()" aria-label="Close editor">×</button></header><div class="timeline-editor-scroll"><label>Time<input id="timelineEditTime" placeholder="e.g. 10:30 or Flexible"></label><label>Title<input id="timelineEditTitle" placeholder="Activity title"></label><label>Details<textarea id="timelineEditDetails" rows="5" placeholder="One detail per line"></textarea></label><label id="timelineAddPositionRow" hidden>Insert position<select id="timelineAddPosition"></select><small class="timeline-field-help">Choose where this new activity appears in the day.</small></label></div><footer class="timeline-editor-actions"><button class="admin-discard-btn" onclick="closeTimelineEditor()">Cancel</button><button class="admin-save-btn" id="timelineEditorApply" onclick="applyTimelineEdit()">Apply</button></footer></div>`;document.body.appendChild(modal);
+    const modal=document.createElement('div');modal.id='timelineEditorModal';modal.className='timeline-editor-modal';modal.setAttribute('role','dialog');modal.setAttribute('aria-modal','true');modal.innerHTML=`<div class="timeline-editor-sheet"><header class="timeline-editor-head"><p class="kicker">ADMIN MODE</p><h2 id="timelineEditorHeading">Edit activity</h2><button class="timeline-editor-close" onclick="closeTimelineEditor()" aria-label="Close editor">×</button></header><div class="timeline-editor-scroll"><label>Time<input id="timelineEditTime" placeholder="e.g. 10:30 or Flexible"></label><fieldset class="timeline-time-display" style="border:1px solid var(--border,#d9d9d9);border-radius:10px;padding:10px;margin:8px 0 14px"><legend style="padding:0 5px;font-weight:600">Timeline time display</legend><label style="display:flex;align-items:center;gap:8px;margin:5px 0"><input type="radio" name="timelineTimeDisplayMode" value="fixed" onchange="updateTimelineTimeDisplayControls()"> Fixed Time</label><label style="display:flex;align-items:center;gap:8px;margin:5px 0"><input type="radio" name="timelineTimeDisplayMode" value="period" onchange="updateTimelineTimeDisplayControls()"> AM / PM / Night</label><label id="timelineTimePeriodRow" style="margin-top:8px">Display period<select id="timelineEditPeriod"><option value="AM">AM</option><option value="PM">PM</option><option value="Night">Night</option></select></label><small class="timeline-field-help">Time is retained when you change display mode.</small></fieldset><label>Title<input id="timelineEditTitle" placeholder="Activity title"></label><label>Details<textarea id="timelineEditDetails" rows="5" placeholder="One detail per line"></textarea></label><label id="timelineAddPositionRow" hidden>Insert position<select id="timelineAddPosition"></select><small class="timeline-field-help">Choose where this new activity appears in the day.</small></label></div><footer class="timeline-editor-actions"><button class="admin-discard-btn" onclick="closeTimelineEditor()">Cancel</button><button class="admin-save-btn" id="timelineEditorApply" onclick="applyTimelineEdit()">Apply</button></footer></div>`;document.body.appendChild(modal);
     modal.addEventListener('click',event=>{if(event.target===modal)event.preventDefault();});
     document.addEventListener('keydown',event=>{
       if(event.key!=='Escape')return;
@@ -526,9 +537,23 @@
       const end=document.createElement('option');end.value=String(workingItems.length);end.textContent='End of the day';end.selected=true;select.appendChild(end);
     }
   }
+  function inferredTimelinePeriod(time){
+    const raw=String(time||'');
+    if(/night|evening/i.test(raw))return 'Night';
+    if(/afternoon/i.test(raw))return 'PM';
+    const m=raw.match(/(\d{1,2}):\d{2}/);
+    if(m)return Number(m[1])<12?'AM':Number(m[1])<17?'PM':'Night';
+    return 'AM';
+  }
+  window.updateTimelineTimeDisplayControls=function(){
+    const mode=document.querySelector('input[name="timelineTimeDisplayMode"]:checked')?.value||'period';
+    const row=document.getElementById('timelineTimePeriodRow');if(row)row.hidden=mode!=='period';
+  };
   function getTimelineEditorState(){
     return JSON.stringify({
       time:document.getElementById('timelineEditTime')?.value||'',
+      timeDisplayMode:document.querySelector('input[name="timelineTimeDisplayMode"]:checked')?.value||'',
+      timeDisplayPeriod:document.getElementById('timelineEditPeriod')?.value||'',
       title:document.getElementById('timelineEditTitle')?.value||'',
       details:document.getElementById('timelineEditDetails')?.value||'',
       position:document.getElementById('timelineAddPosition')?.value||''
@@ -539,6 +564,13 @@
     document.getElementById('timelineEditorHeading').textContent=heading;
     document.getElementById('timelineEditorApply').textContent=applyLabel;
     document.getElementById('timelineEditTime').value=(item.bookingId&&bookingAuthorityTime(item))||item.time||'';
+    const savedMode=String(item.timeDisplayMode||'').toLowerCase();
+    const timeValue=String(item.time||'');
+    const initialMode=savedMode==='fixed'||savedMode==='period'?savedMode:(/\d{1,2}:\d{2}/.test(timeValue)?'fixed':'period');
+    const radio=document.querySelector(`input[name="timelineTimeDisplayMode"][value="${initialMode}"]`);
+    if(radio)radio.checked=true;
+    document.getElementById('timelineEditPeriod').value=['AM','PM','Night'].includes(item.timeDisplayPeriod)?item.timeDisplayPeriod:inferredTimelinePeriod(timeValue);
+    updateTimelineTimeDisplayControls();
     document.getElementById('timelineEditTitle').value=item.title||'';
     document.getElementById('timelineEditDetails').value=(item.details||[]).join('\n');
     populateAddPositions();
@@ -594,6 +626,8 @@
       base=workingItems[editingIndex];
     }
     base.time=document.getElementById('timelineEditTime').value.trim();
+    base.timeDisplayMode=document.querySelector('input[name="timelineTimeDisplayMode"]:checked')?.value||'period';
+    base.timeDisplayPeriod=document.getElementById('timelineEditPeriod').value;
     base.title=title;
     base.details=document.getElementById('timelineEditDetails').value.split('\n').map(x=>x.trim()).filter(Boolean);
     if(duplicating){

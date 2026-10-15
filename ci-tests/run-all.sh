@@ -72,6 +72,7 @@ run "RC29.69 SHARED DOCUMENTS" node ci-tests/test-rc2966-shared-documents.js
 run "RC29.69 DOCUMENTS PARITY" node ci-tests/test-rc2967-documents-parity-ux.js
 run "RC29.69 UI + DOCUMENTS BROWSER" node ci-tests/test-rc2968-ui-docs-browser-contract.js
 run "RC29.75 GUIDE SYNC + NEXT STOP" node ci-tests/test-rc2974-guide-sync-derived-next-stop.js
+run "TIMELINE EDITOR TIME DISPLAY" node ci-tests/test-timeline-editor-time-display.js
 run "RC29.75 VN LOCATION + COMPACT TIMELINE" node ci-tests/test-rc2974-vn-location-compact-timeline.js
 run "RC29.89 DAY4 QUAN THUY" node ci-tests/test-rc2987-day4-quan-thuy-nondestructive.js
 [ "$failed" -eq 0 ] || { echo "POST-MASTER LEGACY SUITE FAILED"; exit 1; }

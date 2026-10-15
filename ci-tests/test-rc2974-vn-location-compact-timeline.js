@@ -1,7 +1,7 @@
 const fs=require('fs');
 const assert=(x,m)=>{if(!x)throw new Error(m)};
 const day=fs.readFileSync('day.html','utf8'), data=fs.readFileSync('data.js','utf8'), css=fs.readFileSync('styles.css','utf8');
-assert(day.includes('timelineStartTime(item.time,item)'), 'Timeline cards must apply booking-aware time display');
+assert((day.includes('timelineStartTime(item.time,item,') || day.includes('timelineStartTime(item.time,item)')), 'Timeline cards must apply booking-aware time display');
 assert(day.includes('if(item&&item.bookingId)')&&day.includes("return hour<12?'AM':(hour<17?'PM':'Night')"), 'Non-booking timeline cards must use dayparts while bookings retain exact time');
 assert(day.includes('function mapQueryFromUrl'), 'Directions must use map query authority');
 assert(day.includes('function isTrustedVietnamLocation'), 'VN route guard missing');

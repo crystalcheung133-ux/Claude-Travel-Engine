@@ -47,6 +47,10 @@
     "status": "active",
     "principle": "Deploy-master booking status beats stale overrides; Edit Booking is Studio-only"
   },
+  "test-booking-plannedvisits-verify-order-insensitive.js": {
+    "status": "active",
+    "note": "booking remote verification: plannedVisits key-order insensitive; Notes ignore line endings/edge whitespace; real changes still fail"
+  },
   "test-booking-save-post-commit-integrity.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"
@@ -99,9 +103,17 @@
     "status": "active",
     "note": "Field-proven Brewda legacy custom activity normalization + new Add Activity non-place contract"
   },
+  "test-day2-rue-miche-shopping-contract.js": {
+    "status": "active",
+    "note": "RC29.129 Day 2 Rue Miche Timeline + Shopping Directory card + Shopping Route Map contract"
+  },
   "test-day2-vincom-shopping-contract.js": {
     "status": "active",
     "note": "Day 2 Vincom shopping + planned/optional directory reconciliation"
+  },
+  "test-day3-maruco-primary-contract.js": {
+    "status": "active",
+    "note": "Day 3 Maruco confirmed primary dinner + Oc Dao optional backup contract"
   },
   "test-dual-currency-expenses.js": {
     "status": "active",
@@ -223,6 +235,69 @@
     "status": "active",
     "note": "RC29.102 five-item history paging, Trip Total Settle placement, plain transaction participant names, and T2 flight terminal context"
   },
+  "test-rc29117-booking-mobile-multivisit.js": {
+    "status": "active",
+    "scope": "booking-mobile",
+    "notes": "Qspa planned visits cross-device edit authority, fixed Edit action and mobile booking layout."
+  },
+  "test-rc29117-shopping-route.js": {
+    "status": "active",
+    "scope": "shopping-route",
+    "notes": "Verified Day 2 stop order, exact Mozaic Place ID and Day 1 optional 111 route visibility."
+  },
+  "test-rc29121-route-qspa-sync.js": {
+    "status": "active",
+    "scope": "booking-shopping",
+    "notes": "Day 1 exact user-verified order, Day 4 single mixed-mode route, and Qspa plannedVisits remote readback verification."
+  },
+  "test-rc29121-shopping-124-free5.js": {
+    "status": "active",
+    "scope": "shopping-route",
+    "notes": "Day 1/2/4 route richness and order; Day 5 deliberately has no fixed shopping route."
+  },
+  "test-rc29122-shop-route-qspa.js": {
+    "status": "active",
+    "scope": "booking-shopping",
+    "notes": "Shop-only D1/D2/D4 single routes with timed transport connectors; Day 4 Carpe-to-OHQUAO order; Qspa plannedVisits legacy-column carrier for older deployed Edge sync."
+  },
+  "test-rc29124-qspa-legacy-notes-sync.js": {
+    "status": "active",
+    "scope": "booking-sync",
+    "notes": "Qspa Notes root-cause regression: stale reconciliation preserves Notes, remote readback verifies Notes, RC29.122 carrier removed, D2 route restored."
+  },
+  "test-rc29124-qspa-legacy-notes.js": {
+    "scope": "booking-sync",
+    "notes": "Legacy remote Qspa Notes survive missing party metadata while local stale Notes remain blocked; Save UI stays local-first.",
+    "status": "active"
+  },
+  "test-rc29125-qspa-multivisit-transport.js": {
+    "status": "active",
+    "note": "RC29.125 Qspa multi-visit typed booking transport regression"
+  },
+  "test-rc29130-map-address-routing.js": {
+    "status": "active",
+    "note": "RC29.130 address-first Google Maps routing + Maruco regression"
+  },
+  "test-rc29131-booking-time-authority.js": {
+    "status": "active",
+    "note": "RC29.131 booked Timeline time renders from Booking Authority; LUNE canonical 19:00"
+  },
+  "test-rc29131-timeline-authority-rebase.js": {
+    "status": "active",
+    "note": "RC29.131 field-level Timeline manual-edit rebase across master revisions, including explicit deletion"
+  },
+  "test-rc29132-guide-layout.js": {
+    "status": "active",
+    "note": "RC29.132 Guide close out-of-flow and full-width content"
+  },
+  "test-rc29133-content.js": {
+    "status": "active",
+    "note": "RC29.133 concise timeline, Qspa membership, nav and guide close"
+  },
+  "test-rc29134-qspa-visit-time-authority.js": {
+    "status": "active",
+    "note": "Qspa multi-visit Booking Authority drives per-day Timeline time without changing other visits; compact mobile time rail"
+  },
   "test-rc2966-shared-documents.js": {
     "status": "active",
     "purpose": "Engine 25.7.2 shared Documents root/folder integration contract"
@@ -303,9 +378,18 @@
     "status": "active",
     "note": "invoked by current Master CI suite"
   },
+  "test-release-metadata-freshness.js": {
+    "status": "active",
+    "note": "RELEASE.json status/CI claims and trip-config header must reference the current RC"
+  },
   "test-release-metadata.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"
+  },
+  "test-retired-bookings-runtime.js": {
+    "status": "active",
+    "scope": "release-hardening",
+    "notes": "Prevents retired bookings-runtime.js from returning to production paths."
   },
   "test-runtime-booking-persistence.js": {
     "status": "active",
@@ -326,6 +410,11 @@
   "test-runtime-reset-sequence.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"
+  },
+  "test-single-release-identity.js": {
+    "status": "active",
+    "scope": "release-hardening",
+    "notes": "Locks release identity and cache tokens across metadata, config, SW and HTML."
   },
   "test-source-provenance-contract.js": {
     "status": "active",
@@ -355,6 +444,10 @@
     "status": "active",
     "principle": "Canonical desktop Studio geometry and compact theme-aware Studio ON state indicator"
   },
+  "test-supabase-sdk-pin.js": {
+    "status": "active",
+    "note": "self-hosted vendor libraries: byte-exact hash pins, no external script CDN, precache coverage, SDK executes"
+  },
   "test-sw-precache-html-dependencies.js": {
     "status": "active",
     "note": "Local HTML script dependencies and configured splash mark must be covered by service-worker precache for cold offline startup."
@@ -374,6 +467,10 @@
   "test-timeline-copy-capability.js": {
     "status": "active",
     "note": "Timeline Copy Address behaviour + eligibility + mobile labels"
+  },
+  "test-timeline-editor-time-display.js": {
+    "status": "active",
+    "note": "Timeline Editor explicit fixed-time or daypart display without losing stored clock time"
   },
   "test-timeline-integrity.js": {
     "status": "active",
@@ -422,98 +519,5 @@
   "test-vn-route-first-spa-contract.js": {
     "status": "active",
     "note": "D4 route-first spa, factual corrections and exact Timeline return"
-  },
-  "test-retired-bookings-runtime.js": {
-    "status": "active",
-    "scope": "release-hardening",
-    "notes": "Prevents retired bookings-runtime.js from returning to production paths."
-  },
-  "test-single-release-identity.js": {
-    "status": "active",
-    "scope": "release-hardening",
-    "notes": "Locks release identity and cache tokens across metadata, config, SW and HTML."
-  },
-  "test-supabase-sdk-pin.js": {
-    "status": "active",
-    "note": "self-hosted vendor libraries: byte-exact hash pins, no external script CDN, precache coverage, SDK executes"
-  },
-  "test-rc29117-booking-mobile-multivisit.js": {
-    "status": "active",
-    "scope": "booking-mobile",
-    "notes": "Qspa planned visits cross-device edit authority, fixed Edit action and mobile booking layout."
-  },
-  "test-rc29117-shopping-route.js": {
-    "status": "active",
-    "scope": "shopping-route",
-    "notes": "Verified Day 2 stop order, exact Mozaic Place ID and Day 1 optional 111 route visibility."
-  },
-  "test-rc29121-shopping-124-free5.js": {
-    "status": "active",
-    "scope": "shopping-route",
-    "notes": "Day 1/2/4 route richness and order; Day 5 deliberately has no fixed shopping route."
-  },
-  "test-rc29121-route-qspa-sync.js": {
-    "status": "active",
-    "scope": "booking-shopping",
-    "notes": "Day 1 exact user-verified order, Day 4 single mixed-mode route, and Qspa plannedVisits remote readback verification."
-  },
-  "test-rc29122-shop-route-qspa.js": {
-    "status": "active",
-    "scope": "booking-shopping",
-    "notes": "Shop-only D1/D2/D4 single routes with timed transport connectors; Day 4 Carpe-to-OHQUAO order; Qspa plannedVisits legacy-column carrier for older deployed Edge sync."
-  },
-  "test-rc29124-qspa-legacy-notes-sync.js": {
-    "status": "active",
-    "scope": "booking-sync",
-    "notes": "Qspa Notes root-cause regression: stale reconciliation preserves Notes, remote readback verifies Notes, RC29.122 carrier removed, D2 route restored."
-  },
-  "test-rc29124-qspa-legacy-notes.js": {
-    "scope": "booking-sync",
-    "notes": "Legacy remote Qspa Notes survive missing party metadata while local stale Notes remain blocked; Save UI stays local-first.",
-    "status": "active"
-  },
-  "test-rc29125-qspa-multivisit-transport.js": {
-    "status": "active",
-    "note": "RC29.125 Qspa multi-visit typed booking transport regression"
-  },
-  "test-booking-plannedvisits-verify-order-insensitive.js": {
-    "status": "active",
-    "note": "booking remote verification: plannedVisits key-order insensitive; Notes ignore line endings/edge whitespace; real changes still fail"
-  },
-  "test-release-metadata-freshness.js": {
-    "status": "active",
-    "note": "RELEASE.json status/CI claims and trip-config header must reference the current RC"
-  },
-  "test-day3-maruco-primary-contract.js": {
-    "status": "active",
-    "note": "Day 3 Maruco confirmed primary dinner + Oc Dao optional backup contract"
-  },
-  "test-day2-rue-miche-shopping-contract.js": {
-    "status": "active",
-    "note": "RC29.129 Day 2 Rue Miche Timeline + Shopping Directory card + Shopping Route Map contract"
-  },
-  "test-rc29130-map-address-routing.js": {
-    "status": "active",
-    "note": "RC29.130 address-first Google Maps routing + Maruco regression"
-  },
-  "test-rc29131-timeline-authority-rebase.js": {
-    "status": "active",
-    "note": "RC29.131 field-level Timeline manual-edit rebase across master revisions, including explicit deletion"
-  },
-  "test-rc29131-booking-time-authority.js": {
-    "status": "active",
-    "note": "RC29.131 booked Timeline time renders from Booking Authority; LUNE canonical 19:00"
-  },
-  "test-rc29132-guide-layout.js": {
-    "status": "active",
-    "note": "RC29.132 Guide close out-of-flow and full-width content"
-  },
-  "test-rc29133-content.js": {
-    "status": "active",
-    "note": "RC29.133 concise timeline, Qspa membership, nav and guide close"
-  },
-  "test-rc29134-qspa-visit-time-authority.js": {
-    "status": "active",
-    "note": "Qspa multi-visit Booking Authority drives per-day Timeline time without changing other visits; compact mobile time rail"
   }
 }
