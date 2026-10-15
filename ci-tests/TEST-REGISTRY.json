@@ -187,6 +187,10 @@
     "status": "active",
     "note": "invoked by current Master CI suite"
   },
+  "test-moc-huong-guide-override-migration.js": {
+    "status": "active",
+    "note": "Moc Huong saved Guide booking-copy compatibility without modifying Timeline or unrelated overrides"
+  },
   "test-moments-plan-activity-canonical.js": {
     "status": "active",
     "note": "Moments canonical projection + explicit activity-type allow-list"

@@ -435,7 +435,15 @@
     const firstShoppingMap=firstShoppingStop?timelineMapDirections((String(day)==='4'?'In The Mood Saigon, ':'')+firstShoppingStop[1]+', Ho Chi Minh City, Vietnam'):'';
     const shoppingArrivalActions=firstShoppingStop?`<a class="timeline-action timeline-action--map" href="${esc(firstShoppingMap)}" target="_blank" rel="noopener" title="${esc(firstShoppingStop[0])}">🧭 First Stop · ${esc(firstShoppingStop[0].replace(/ · .*/,''))}</a><button type="button" class="timeline-action timeline-action--copy" onclick="copyTimelineAddress(decodeURIComponent('${encodeURIComponent(firstShoppingStop[1]+', Ho Chi Minh City, Vietnam')}'),this)">📋 Copy Address</button>`:(isShoppingCard?mapHtml+copyAddressHtml:'');
     const shoppingGuideAction=isShoppingCard?`<button type="button" class="timeline-action timeline-action--directory" onclick="openShoppingDirectoryView(${Number(day)||1})">📖 Area Guide</button>`:'';
-    const guideHtml=isShoppingCard?'':contextualGuideHtml+primaryGuideHtml+alternativeGuideHtml;
+    // Combined Day 4 Pink Church + Cong stop: two independently named guide actions.
+    // Uses guide IDs from the card so published Timeline notes and other cards stay untouched.
+    const isPinkChurchCong=String(day)==='4'&&String(item.id)==='pink-church'&&
+      ['pink-church','cong'].every(id=>Array.isArray(item.guideIds)&&item.guideIds.includes(id)&&DAY_PLACES[id]);
+    const pinkChurchCongGuides=isPinkChurchCong
+      ?[['pink-church','📖 Pink Church Guide'],['cong','☕ Cộng Café Guide']].map(([id,label])=>
+        `<button class="timeline-action timeline-action--guide" type="button" onclick='openGuideGroupFromDay(${JSON.stringify([id])},${JSON.stringify(item.id)})'>${label}</button>`).join('')
+      :'';
+    const guideHtml=isShoppingCard?'':(isPinkChurchCong?pinkChurchCongGuides:contextualGuideHtml+primaryGuideHtml+alternativeGuideHtml);
     const parkingGuideId=!nonPlace&&item.parkingGuideId&&DAY_PLACES[item.parkingGuideId]?item.parkingGuideId:'';
     const parkingHtml=parkingGuideId?`<button class="timeline-action timeline-action--parking" onclick='openGuideGroupFromDay(${JSON.stringify([parkingGuideId])},${JSON.stringify(item.id)})'>🚗 Parking</button>`:'';
     const tripInfoHtml=buildTripInfoButton(booking);
