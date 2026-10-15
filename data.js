@@ -2945,9 +2945,7 @@ const ITINERARY_DATA={
         "details": [
           "🛍 Shopping · In The Mood → Grade B → YouOn → Vina → dakao → Aurora → Wicky → OHQUAO；按興趣選店，15:10 左右離開前往 SPA",
           "🥐 Coffee / Sweet · Bakes，或者沿途見到想坐的 café",
-          "🍽 Eat · 已在 Quán Thuý 94 食早餐；下午按胃口加 café / snack",
-          "🌿 15:30–17:30 · Mộc Hương Wellness An Khánh（03 Đặng Hữu Phổ）· 4 人 120 分鐘，待確認",
-          "🏘 17:45–18:40 · 0123 Complex；18:40 往 Quince 只有 20 分鐘，務必留意黃昏交通；Quince 19:00 訂位不變"
+          "🍽 Eat · 已在 Quán Thuý 94 食早餐；下午按胃口加 café / snack"
         ],
         "route": "🚕 第一站 In The Mood · 32 Trần Ngọc Diện；Shopping 結束後前往 Mộc Hương An Khánh · 03 Đặng Hữu Phổ。",
         "map": "https://www.google.com/maps/search/?api=1&query=In%20The%20Mood%20Saigon%2032%20Tran%20Ngoc%20Dien",
@@ -2963,8 +2961,8 @@ const ITINERARY_DATA={
       },
       {
         "id":"moc-huong-d4","time":"15:30–17:30","title":"🌿 Mộc Hương Wellness · An Khánh SPA",
-        "details":["4 guests · 120 minutes · PENDING confirmation; WhatsApp +84 90 975 5877 / official website booking.","03 Đặng Hữu Phổ, An Khánh · do not confuse with 61 Xuân Thủy branch."],
-        "route":"🚶 After SPA, walk to 0123 Complex · 06 Đặng Hữu Phổ (17:45).",
+        "details":["15:30 療程開始；17:30 結束，之後步行去 0123 Complex（17:45）。"],
+        "route":"🚶 Walk 1–3 min → 0123 Complex · 06 Đặng Hữu Phổ (17:45).",
         "map":"https://www.google.com/maps/search/?api=1&query=Moc%20Huong%20Wellness%2003%20Dang%20Huu%20Pho%20An%20Khanh",
         "type":"spa","dayId":"day4","placeId":"moc-huong","bookingId":"bk-moc-huong-d4","guideIds":["moc-huong"]
       },

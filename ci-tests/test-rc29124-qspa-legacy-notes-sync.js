@@ -15,5 +15,5 @@ assert(day.includes("{label:'AFTERNOON · VINCOM'"));
 assert(day.includes("['Dauple by Ka\\'s'")||day.includes('["Dauple by Ka\'s"'));
 assert(day.includes("['In The Mood Saigon'"));
 assert(day.includes("['OHQUAO Living etc.'"));
-assert(day.includes("'🚕 Grab · check live ETA'"));
+assert(day.includes("'🚕 Grab · check traffic'"));
 console.log('RC29.124 QSPA NOTES SYNC: PASS — Notes survive stale reconciliation, are verified remotely, carrier removed; D2 restored.');
