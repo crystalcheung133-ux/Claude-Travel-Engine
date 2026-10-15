@@ -1,11 +1,11 @@
 const fs=require('fs'),assert=require('assert');
 const data=fs.readFileSync('data.js','utf8'),trip=fs.readFileSync('trip-runtime.js','utf8');
 function has(x,msg){assert(data.includes(x),msg);}
-has('"hours": "09:00–22:00 daily"','Mộc Hương hours missing');
+assert(/"hours"\s*:\s*"09:00–22:00 · verify directly"/.test(data),'Mộc Hương branch hours metadata missing');
 has('"hours": "09:00–20:00 daily"','Nha Suga hours missing');
 has('"hours": "08:30–22:00 daily"','Hạ Spa hours missing');
 has('"hours": "09:30–23:00 daily"','Norah Spa 2 hours missing');
-has('"address": "61 Xuân Thủy, Phường An Khánh, Ho Chi Minh City, Vietnam"','Mộc Hương address missing');
+assert(/"address"\s*:\s*"03 Đặng Hữu Phổ, An Khánh, Hồ Chí Minh, Vietnam"/.test(data),'Mộc Hương address missing');
 assert(!/\"SPA\"\s*:\s*\[[\s\S]*?\"key\": \"(?:moc-healing|mojo-spa|thao-dien-spa|golden-lotus-thao-dien)\"/.test(data),'Retired wellness shortlist leaked into visible SPA Guide inventory');
 assert(trip.includes('function genericBookingDetailNavigationHTML'),'Generic booking Previous/Next helper missing');
 assert(trip.includes('${genericBookingDetailNavigationHTML(booking)}'),'Generic booking detail does not render navigation');

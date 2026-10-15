@@ -13,7 +13,7 @@ assert(day.includes("{label:'MORNING · LOCAL FASHION'"));
 assert(day.includes("{label:'AFTERNOON · VINCOM'"));
 // D1/D4 remain shop-only with timed connectors.
 assert(day.includes("['Dauple by Ka\\'s'")||day.includes('["Dauple by Ka\'s"'));
-assert(day.includes("['Carpe Diem · CANDLES + GIFTS'"));
+assert(day.includes("['In The Mood Saigon'"));
 assert(day.includes("['OHQUAO Living etc.'"));
 assert(day.includes("'🚕 Grab · check live ETA'"));
 console.log('RC29.124 QSPA NOTES SYNC: PASS — Notes survive stale reconciliation, are verified remotely, carrier removed; D2 restored.');

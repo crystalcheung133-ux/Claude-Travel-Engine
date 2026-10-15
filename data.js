@@ -2,6 +2,8 @@
 // Timeline is authoritative for itinerary content; booking linkage is reconciled to Booking Foundation IDs.
 
 const PLACES={
+  "in-the-mood-d4": {"title":"In The Mood Saigon","emoji":"🎁","cat":"SHOP","sub":"Day 4 · First shopping stop","shoppingRoute":"Day 4 · Thảo Điền walk","hours":"10:00–19:00 · verify on the day","address":"32 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam","maps":"https://www.google.com/maps/search/?api=1&query=In%20The%20Mood%20Saigon%2032%20Tran%20Ngoc%20Dien","desc":"Day 4 第一站；越南設計、手工家品、飾物及特色手信。","categoryLabel":"🛍 Shopping","transport":"Walk / Grab","highlights":["Vietnamese design","Handmade gifts"]},
+  "grade-b-d4": {"title":"Grade B","emoji":"🏺","cat":"SHOP","sub":"Day 4 · Second shopping stop","shoppingRoute":"Day 4 · Thảo Điền walk","address":"14 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam","maps":"https://www.google.com/maps/search/?api=1&query=Grade%20B%2014%20Tran%20Ngoc%20Dien%20Ho%20Chi%20Minh","desc":"第二站；設計陶瓷及生活選物。","categoryLabel":"🏺 Ceramics","transport":"Walk","highlights":["Ceramics","Lifestyle objects"]},
   "quince": {
     "title": "Quince Saigon",
     "emoji": "🍽️",
@@ -998,35 +1000,15 @@ const PLACES={
     "transport": "Inside The Cafe Apartments"
   },
   "moc-huong": {
-    "title": "Mộc Hương Wellness",
-    "emoji": "🌿",
-    "cat": "SPA",
-    "sub": "Day 4 Open List · Villa wellness",
-    "hours": "09:00–22:00 daily",
-    "maps": "https://www.google.com/maps/search/?api=1&query=M%E1%BB%99c%20H%C6%B0%C6%A1ng%20Wellness%2061%20Xu%C3%A2n%20Th%E1%BB%A7y%2C%20Ph%C6%B0%E1%BB%9Dng%20An%20Kh%C3%A1nh%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
-    "address": "61 Xuân Thủy, Phường An Khánh, Ho Chi Minh City, Vietnam",
-    "desc": "61 Xuân Thủy 的 villa-style wellness。四人同行想做完整 treatment，可臨近先 WhatsApp 問位；不需要把它鎖成 Day 4 行程。",
-    "signature": [
-      "Villa-style spa setting",
-      "熱石／精油按摩",
-      "Thảo Điền 動線極順"
-    ],
-    "worth": [
-      "四人想同時做完整 treatment，走到 Xuân Thủy 一帶再 WhatsApp 問 availability。",
-      "有位就留約 120 分鐘；無位就繼續沿原本 walking line 慢慢走。"
-    ],
-    "categoryLabel": "💆 Spa",
-    "price": "$$",
-    "transport": "Walk-in option · 61 Xuân Thủy",
-    "highlights": [
-      "Villa-style spa setting",
-      "熱石／精油按摩",
-      "Thảo Điền 動線極順"
-    ],
-    "tips": [
-      "四人想同時做完整 treatment，走到 Xuân Thủy 一帶再 WhatsApp 問 availability。",
-      "有位就留約 120 分鐘；無位就繼續沿原本 walking line 慢慢走。"
-    ]
+    "title":"Mộc Hương Wellness · An Khánh","emoji":"🌿","cat":"SPA","sub":"Day 4 · 15:30–17:30 · 4 guests · pending",
+    "hours":"09:00–22:00 · verify directly","address":"03 Đặng Hữu Phổ, An Khánh, Hồ Chí Minh, Vietnam",
+    "maps":"https://www.google.com/maps/search/?api=1&query=Moc%20Huong%20Wellness%2003%20Dang%20Huu%20Pho%20An%20Khanh",
+    "desc":"指定 An Khánh 分店（03 Đặng Hữu Phổ），不是 61 Xuân Thủy。15:30–17:30，4 人，120 分鐘，尚待確認。可用 WhatsApp 或官網預約。",
+    "signature":["120-minute treatment","4 guests · pending confirmation","An Khánh branch"],
+    "worth":["預約前確認四人同時有位、療程內容與價格。","SPA 完步行去 06 Đặng Hữu Phổ 的 0123 Complex。"],
+    "categoryLabel":"💆 Spa","price":"Confirm with venue","transport":"Walk / Grab to 03 Đặng Hữu Phổ",
+    "highlights":["An Khánh branch","120-minute wellness"],
+    "tips":["WhatsApp +84 90 975 5877","Website booking: https://mochuongwellness.vn/booking/","請確認分店地址及 15:30–17:30 四人預約。"]
   },
   "ha-spa": {
     "title": "Hạ Spa",
@@ -2049,6 +2031,18 @@ const FRIENDS={
 };
 
 const BOOKINGS_DATA={
+  "bk-moc-huong-d4": {
+    "id":"bk-moc-huong-d4","bookingId":"bk-moc-huong-d4","eventId":"moc-huong-d4","timelineItemId":"moc-huong-d4",
+    "day":4,"dayId":"day4","status":"pending","date":"2026-11-02","time":"15:30",
+    "bookingName":"","bookingCategory":"Spa","category":"Spa","type":"spa","emoji":"🌿",
+    "title":"Mộc Hương Wellness · An Khánh · 4 guests / 120 min",
+    "bookingMethod":"WhatsApp / Official website","bookingWay":"WhatsApp / Official website",
+    "bookingUrl":"https://mochuongwellness.vn/booking/","whatsapp":"+84 90 975 5877",
+    "guests":4,"guestSummary":"4 guests · 120 minutes","address":"03 Đặng Hữu Phổ, An Khánh, Hồ Chí Minh, Vietnam",
+    "notes":"PENDING — not booked. Request 2 Nov 15:30–17:30 for 4 people, 120 minutes, An Khánh branch at 03 Đặng Hữu Phổ.",
+    "bookingHandoff":"Not confirmed. WhatsApp +84 90 975 5877 or book via official website; confirm availability, treatment, price and branch.",
+    "placeId":"moc-huong"
+  },
   "bk-quince": {
     "id": "bk-quince", "bookingId": "bk-quince", "eventId": "quince-d4", "timelineItemId": "quince-d4",
     "day": 4, "dayId": "day4", "status": "confirmed", "date": "2026-11-02", "time": "19:00",
@@ -2325,6 +2319,7 @@ const BOOKINGS_DATA={
     "platform": "Klook",
     "operatorName": "Easycar",
     "phone": "+84 395777770",
+    "whatsapp": "+84 395777770",
     "email": "service.info.baolinh@gmail.com",
     "totalAmount": "AUD 10.55",
     "price": "AUD 10.55",
@@ -2422,6 +2417,7 @@ const BOOKINGS_DATA={
     "platform": "Klook",
     "operatorName": "SST Travel",
     "phone": "+84 342260119",
+    "whatsapp": "+84 342260119",
     "email": "operate@ssttravel.vn",
     "totalAmount": "AUD 229.20",
     "price": "AUD 229.20",
@@ -2936,44 +2932,53 @@ const ITINERARY_DATA={
       },
       {
         "id": "pink-church", "time": "09:50–10:25", "title": "🩷 Pink Church + Cộng Cà Phê",
-        "details": ["先影 Tân Định Pink Church 外觀，再過馬路去 Cộng Cà Phê（274 Hai Bà Trưng）飲 Coconut Coffee；有時間可上樓影教堂景觀。", "兩站相鄰，步行約 1–3 分鐘；之後 Grab 去 Thảo Điền Shopping Route 第一站 Carpe Diem。"],
-        "route": "🚕 Grab → Carpe Diem，28 Thảo Điền。",
+        "details": ["先影 Tân Định Pink Church 外觀，再過馬路去 Cộng Cà Phê（274 Hai Bà Trưng）飲 Coconut Coffee；有時間可上樓影教堂景觀。", "兩站相鄰，步行約 1–3 分鐘；之後 Grab 去 Thảo Điền Shopping Route 第一站 In The Mood。"],
+        "route": "🚕 Grab → In The Mood Saigon，32 Trần Ngọc Diện。",
         "map": "https://www.google.com/maps/search/?api=1&query=Tan%20Dinh%20Pink%20Church%20Ho%20Chi%20Minh%20City",
         "type": "experience", "dayId": "day4", "placeId": "pink-church", "bookingId": null, "guideIds": ["pink-church", "cong"]
       },
       {
         "id": "thao-dien-open-list",
-        "time": "~11:00 onwards",
+        "time": "11:00–15:10",
         "title": "🎲 Thảo Điền · Open List",
-        "summary": "入 Thảo Điền 後自由行，食 / 飲 / Spa 隨心",
+        "summary": "八站 Shopping Route；15:30 前到 Mộc Hương An Khánh",
         "details": [
-          "🛍 Shopping · Carpe Diem → YouOn Boutique → Vina Design Store → dakao quartier → Aurora Saigon → Wicky Candle → 0123 Complex → OHQUAO；按興趣選店",
+          "🛍 Shopping · In The Mood → Grade B → YouOn → Vina → dakao → Aurora → Wicky → OHQUAO；按興趣選店，15:10 左右離開前往 SPA",
           "🥐 Coffee / Sweet · Bakes，或者沿途見到想坐的 café",
           "🍽 Eat · 已在 Quán Thuý 94 食早餐；下午按胃口加 café / snack",
-          "🌿 Spa · Mộc Hương Wellness；走到 Xuân Thủy 一帶想停下來，就預留約 120 分鐘",
-          "🍽 Farewell · Quince 19:00 已訂位；當日可按行程調整，改動前確認餐廳條款"
+          "🌿 15:30–17:30 · Mộc Hương Wellness An Khánh（03 Đặng Hữu Phổ）· 4 人 120 分鐘，待確認",
+          "🏘 17:45–18:40 · 0123 Complex；18:40 往 Quince 只有 20 分鐘，務必留意黃昏交通；Quince 19:00 訂位不變"
         ],
-        "route": "🏨 收尾時由當時位置 Grab 返回 Fusion。",
-        "map": "https://www.google.com/maps/search/?api=1&query=OHQUAO%2019%20Duong%20So%2038%20Thao%20Dien%20Ho%20Chi%20Minh%20City",
+        "route": "🚕 第一站 In The Mood · 32 Trần Ngọc Diện；Shopping 結束後前往 Mộc Hương An Khánh · 03 Đặng Hữu Phổ。",
+        "map": "https://www.google.com/maps/search/?api=1&query=In%20The%20Mood%20Saigon%2032%20Tran%20Ngoc%20Dien",
         "type": "openList",
         "dayId": "day4",
-        "placeId": "ohquao",
+        "placeId": "in-the-mood-d4",
         "bookingId": null,
-        "guideIds": ["complex-0123","ohquao","carpe-diem","youon-thao-dien","dakao-quartier","aurora-saigon","wicky-candle","vina-design-thao-dien","bakes","moc-huong"],
+        "guideIds": ["in-the-mood-d4","grade-b-d4","youon-thao-dien","vina-design-thao-dien","dakao-quartier","aurora-saigon","wicky-candle","ohquao"],
         "guideGroups": [
-          {"label":"🏘 0123 Complex","guideIds":["complex-0123"]},
-          {"label":"🛍 OHQUAO","guideIds":["ohquao"]},
-          {"label":"🌸 Scent + Fashion","guideIds":["carpe-diem","youon-thao-dien"]},
-          {"label":"💎 Xuân Thủy Design + Silver","guideIds":["dakao-quartier","aurora-saigon","wicky-candle","vina-design-thao-dien"]},
-          {"label":"🥐 Bakes","guideIds":["bakes"]},
-          {"label":"🌿 Mộc Hương","guideIds":["moc-huong"]}
+          {"label":"🛍 Shopping Guide · 8 stops","guideIds":["in-the-mood-d4","grade-b-d4","youon-thao-dien","vina-design-thao-dien","dakao-quartier","aurora-saigon","wicky-candle","ohquao"]}
         ],
         "showShoppingDirectory": true
       },
       {
+        "id":"moc-huong-d4","time":"15:30–17:30","title":"🌿 Mộc Hương Wellness · An Khánh SPA",
+        "details":["4 guests · 120 minutes · PENDING confirmation; WhatsApp +84 90 975 5877 / official website booking.","03 Đặng Hữu Phổ, An Khánh · do not confuse with 61 Xuân Thủy branch."],
+        "route":"🚶 After SPA, walk to 0123 Complex · 06 Đặng Hữu Phổ (17:45).",
+        "map":"https://www.google.com/maps/search/?api=1&query=Moc%20Huong%20Wellness%2003%20Dang%20Huu%20Pho%20An%20Khanh",
+        "type":"spa","dayId":"day4","placeId":"moc-huong","bookingId":"bk-moc-huong-d4","guideIds":["moc-huong"]
+      },
+      {
+        "id":"complex-0123-d4","time":"17:45–18:40","title":"🏘 0123 Complex · Evening Browse",
+        "details":["06 Đặng Hữu Phổ, An Khánh · beside Mộc Hương An Khánh.","18:40 → Quince 19:00 leaves only 20 minutes; check live traffic and leave earlier if necessary."],
+        "route":"🚕 Grab → Quince Saigon, 37bis Ký Con · 19:00 confirmed; check live ETA.",
+        "map":"https://www.google.com/maps/search/?api=1&query=0123%20Complex%2006%20Dang%20Huu%20Pho%20Ho%20Chi%20Minh%20City",
+        "type":"experience","dayId":"day4","placeId":"complex-0123","bookingId":null,"guideIds":["complex-0123"]
+      },
+      {
         "id": "quince-d4", "time": "19:00–20:45", "title": "🍽️ Quince Saigon · Farewell Dinner",
-        "details": ["Confirmed · Dining Room · 4 guests · Google / TableCheck", "可當日視 Thảo Điền 行程調整；如需更改或取消，先確認餐廳條款。", "建議約 17:45 離開 Thảo Điền，預留黃昏塞車時間。"],
-        "route": "🚕 Thảo Điền → Quince Saigon · 37bis Ký Con, District 1；預留塞車時間。",
+        "details": ["Confirmed · Dining Room · 4 guests · Google / TableCheck", "可當日視 Thảo Điền 行程調整；如需更改或取消，先確認餐廳條款。", "18:40 從 0123 Complex 出發只得 20 分鐘；請提前查看交通，必要時提早離開 0123，19:00 Quince Booking 不變。"],
+        "route": "🚕 0123 Complex → Quince Saigon · 37bis Ký Con, District 1；18:40 出發時間緊迫，先查即時交通。",
         "map": "https://www.google.com/maps/search/?api=1&query=Quince%20Saigon%2037bis%20Ky%20Con%20District%201",
         "type": "meal", "dayId": "day4", "placeId": "quince", "bookingId": "bk-quince", "guideIds": ["quince"]
       }

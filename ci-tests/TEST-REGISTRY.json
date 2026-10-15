@@ -115,6 +115,10 @@
     "status": "active",
     "note": "Day 3 Maruco confirmed primary dinner + Oc Dao optional backup contract"
   },
+  "test-day4-approved-route-contract.js": {
+    "status": "active",
+    "note": "Day 4 approved eight-stop shopping, An Khanh SPA pending, 0123 separate, Quince unchanged"
+  },
   "test-dual-currency-expenses.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"
