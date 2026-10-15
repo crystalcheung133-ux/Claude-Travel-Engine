@@ -113,14 +113,16 @@
     modal.innerHTML='<div class="shopping-route-sheet"><button type="button" class="shopping-route-close" onclick="closeShoppingRouteMap()" aria-label="Close">×</button><div id="shoppingRouteContent"></div></div>';
     document.body.appendChild(modal);modal.addEventListener('click',e=>{if(e.target===modal)closeShoppingRouteMap();});
   }
-  function openShoppingRouteMap(){
+  function openShoppingRouteMap(sectionIndex){
     const route=SHOPPING_ROUTES[String(day)];if(!route)return;ensureShoppingRouteModal();
-    const sectionHtml=route.sections.map(section=>{
+    const selectedSections=Number.isInteger(sectionIndex)&&route.sections[sectionIndex]?[route.sections[sectionIndex]]:route.sections;
+    const sectionHtml=selectedSections.map(section=>{
       const stops=section.stops||[],modes=section.modes||[];
       const rows=stops.map((stop,i)=>{
         const next=stops[i+1];
+        const stopMap=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(stop[1])}${stop[2]?`&query_place_id=${encodeURIComponent(stop[2])}`:''}`;
         const connector=next?`<a class="shopping-route-connector" href="${esc(mapsDirections(stop,next,modes[i]))}" target="_blank" rel="noopener"><span>${esc(modes[i]||'🧭 Directions')}</span><small>${esc(stop[0])} → ${esc(next[0])}</small></a>`:'';
-        return `<div class="shopping-route-stop"><span class="shopping-route-dot"></span><div><strong>${esc(stop[0])}</strong><small>📍 ${esc(stop[1])}</small></div></div>${connector}`;
+        return `<div class="shopping-route-stop"><span class="shopping-route-dot"></span><div><strong>${esc(stop[0])}</strong><small>📍 ${esc(stop[1])}</small><a href="${esc(stopMap)}" target="_blank" rel="noopener" class="shopping-route-stop-nav">🧭 Navigate to this shop</a></div></div>${connector}`;
       }).join('');
       return `<section class="shopping-route-section"><div class="shopping-route-section-head"><p>${esc(section.label)}</p>${stops.length>1?`<a href="${esc(mapsFullRoute(stops,section.modes))}" target="_blank" rel="noopener">🗺️ Open route</a>`:''}</div>${rows}</section>`;
     }).join('');
@@ -363,10 +365,10 @@
     const place=item.placeId?DAY_PLACES[item.placeId]:null;
     const destination=timelineDestination(item);
     const canonicalMap=!nonPlace&&destination.routeQuery?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(destination.routeQuery)}`:'';
-    const mapHtml=routeOptions.length?'':(canonicalMap?`<a class="timeline-action timeline-action--map" href="${esc(canonicalMap)}" target="_blank" rel="noopener">🧭 Navigate</a>`:'');
-    const copyAddressHtml=!nonPlace&&timelineCopyEligible(item,place)&&destination.copyText?`<button class="timeline-action timeline-action--copy" type="button" onclick="copyTimelineAddress(decodeURIComponent('${encodeURIComponent(destination.copyText)}'),this)"><span class="copy-label-desktop">📋 Copy Address</span><span class="copy-label-mobile">📋 Copy</span></button>`:'';
+    const mapHtml=isShoppingCard?'':routeOptions.length?'':(canonicalMap?`<a class="timeline-action timeline-action--map" href="${esc(canonicalMap)}" target="_blank" rel="noopener">🧭 Navigate</a>`:'');
+    const copyAddressHtml=!isShoppingCard&&!nonPlace&&timelineCopyEligible(item,place)&&destination.copyText?`<button class="timeline-action timeline-action--copy" type="button" onclick="copyTimelineAddress(decodeURIComponent('${encodeURIComponent(destination.copyText)}'),this)"><span class="copy-label-desktop">📋 Copy Address</span><span class="copy-label-mobile">📋 Copy</span></button>`:'';
     const worthBadge=buildWorthBadge(item,place);
-    const directoryHtml=!nonPlace&&item.showShoppingDirectory?`<button class="timeline-action timeline-action--directory" onclick="openShoppingDirectoryView(${Number(day)||1})">🛍 Shopping List</button>`:'';
+    const directoryHtml=false&&!nonPlace&&item.showShoppingDirectory?`<button class="timeline-action timeline-action--directory" onclick="openShoppingDirectoryView(${Number(day)||1})">🛍 Shopping List</button>`:'';
     const currencyGuideHtml=item.currencyGuide&&DAY_PLACES['currency-guide']?`<button class="timeline-action timeline-action--currency" type="button" onclick='openGuideGroupFromDay(${JSON.stringify(['currency-guide'])},${JSON.stringify(item.id)})'>💱 Currency</button>`:'';
     const contextualGuideGroups=Array.isArray(item.guideGroups)?item.guideGroups.filter(group=>group&&Array.isArray(group.guideIds)&&group.guideIds.some(key=>key&&DAY_PLACES[key])):[];
     const contextualGuideHtml=contextualGuideGroups.map(group=>{
@@ -376,7 +378,12 @@
     const primaryGuideHtml=!contextualGuideGroups.length&&primaryGuideId?`<button class="timeline-action timeline-action--guide" onclick='openGuideGroupFromDay(${JSON.stringify([primaryGuideId])},${JSON.stringify(item.id)})'>📖 Guide</button>`:'';
     const alternativeLabel='Options';
     const alternativeGuideHtml=!contextualGuideGroups.length&&alternativeGuideIds.length?`<button class="timeline-action timeline-action--alternative" title="${esc(item.optionsLabel||'Alternative options')}" onclick='openGuideGroupFromDay(${JSON.stringify(alternativeGuideIds)},${JSON.stringify(item.id)})'>🔄 ${esc(alternativeLabel)}</button>`:'';
-    const guideHtml=contextualGuideHtml+primaryGuideHtml+alternativeGuideHtml;
+    const isShoppingCard=String(item.type||'')==='shoppingWindow' || !!item.showShoppingDirectory;
+    const hasShoppingRoute=!!SHOPPING_ROUTES[String(day)];
+    const shoppingSectionIndex=String(day)==='2' && /vincom|rue-miche|playground|union square/i.test(String(item.id||'')+' '+String(item.title||''))?1:0;
+    const shoppingRouteAction=isShoppingCard&&hasShoppingRoute?`<button type="button" class="timeline-action timeline-action--shopping-route" onclick="openShoppingRouteMap(${shoppingSectionIndex})">🗺️ Shopping Route</button>`:'';
+    const shoppingGuideAction=isShoppingCard?`<button type="button" class="timeline-action timeline-action--directory" onclick="openShoppingDirectoryView(${Number(day)||1})">📖 Area Guide</button>`:'';
+    const guideHtml=isShoppingCard?'':contextualGuideHtml+primaryGuideHtml+alternativeGuideHtml;
     const parkingGuideId=!nonPlace&&item.parkingGuideId&&DAY_PLACES[item.parkingGuideId]?item.parkingGuideId:'';
     const parkingHtml=parkingGuideId?`<button class="timeline-action timeline-action--parking" onclick='openGuideGroupFromDay(${JSON.stringify([parkingGuideId])},${JSON.stringify(item.id)})'>🚗 Parking</button>`:'';
     const tripInfoHtml=buildTripInfoButton(booking);
@@ -385,7 +392,7 @@
     const timelineDisplayTitle=booking?String(item.title||'').replace(/^✅\s*Booked\s*·\s*/i,''):item.title;
     const admin=`<div class="timeline-admin-tools"><button class="timeline-admin-menu" onclick="openTimelineEditor(${index})" aria-label="Edit activity">Edit</button><button class="timeline-admin-more" onclick="toggleTimelineMenu(event,${index})" aria-label="More actions" aria-expanded="false">•••</button></div>`;
     const referenceHtml=buildReferencePreview(item);
-    return `<div class="timeline-item" id="${esc(item.id)}" data-index="${index}" draggable="false"><div class="timeline-time">${esc(timelineStartTime(item.time,item))}</div><div class="timeline-main"><div class="timeline-title-row"><h3>${esc(timelineDisplayTitle)}</h3>${bookingStatusHtml}${worthBadge?`<span class="timeline-worth" title="Trip priority">${esc(worthBadge)}</span>`:""}</div>${detailHtml}${deadlineAnchor(item)}${referenceHtml}${routeHtml}<div class="timeline-actions">${routeOptionsHtml}${mapHtml}${copyAddressHtml}${parkingHtml}${directoryHtml}${currencyGuideHtml}${tripInfoHtml}${guideHtml}</div></div>${admin}</div>`;
+    return `<div class="timeline-item" id="${esc(item.id)}" data-index="${index}" draggable="false"><div class="timeline-time">${esc(timelineStartTime(item.time,item))}</div><div class="timeline-main"><div class="timeline-title-row"><h3>${esc(timelineDisplayTitle)}</h3>${bookingStatusHtml}${worthBadge?`<span class="timeline-worth" title="Trip priority">${esc(worthBadge)}</span>`:""}</div>${detailHtml}${deadlineAnchor(item)}${referenceHtml}${routeHtml}<div class="timeline-actions">${isShoppingCard?shoppingRouteAction+shoppingGuideAction:routeOptionsHtml+mapHtml+copyAddressHtml+parkingHtml+directoryHtml+currencyGuideHtml+tripInfoHtml+guideHtml}</div></div>${admin}</div>`;
   }
   let suppressEntryAutoScroll=false;
   function render(){
