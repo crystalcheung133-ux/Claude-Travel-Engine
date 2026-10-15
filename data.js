@@ -1000,15 +1000,15 @@ const PLACES={
     "transport": "Inside The Cafe Apartments"
   },
   "moc-huong": {
-    "title":"Mộc Hương Wellness · An Khánh","emoji":"🌿","cat":"SPA","sub":"Day 4 · 15:30–17:30 · 4 guests · pending",
+    "title":"Mộc Hương Wellness · An Khánh","emoji":"🌿","cat":"SPA","sub":"越式 Wellness · 靜心放鬆",
     "hours":"09:00–22:00 · verify directly","address":"03 Đặng Hữu Phổ, An Khánh, Hồ Chí Minh, Vietnam",
     "maps":"https://www.google.com/maps/search/?api=1&query=Moc%20Huong%20Wellness%2003%20Dang%20Huu%20Pho%20An%20Khanh",
-    "desc":"指定 An Khánh 分店（03 Đặng Hữu Phổ），不是 61 Xuân Thủy。15:30–17:30，4 人，120 分鐘，尚待確認。可用 WhatsApp 或官網預約。",
-    "signature":["120-minute treatment","4 guests · pending confirmation","An Khánh branch"],
-    "worth":["預約前確認四人同時有位、療程內容與價格。","SPA 完步行去 06 Đặng Hữu Phổ 的 0123 Complex。"],
-    "categoryLabel":"💆 Spa","price":"Confirm with venue","transport":"Walk / Grab to 03 Đặng Hữu Phổ",
-    "highlights":["An Khánh branch","120-minute wellness"],
-    "tips":["WhatsApp +84 90 975 5877","Website booking: https://mochuongwellness.vn/booking/","請確認分店地址及 15:30–17:30 四人預約。"]
+    "desc":"位於 Thảo Điền／An Khánh 一帶的 Wellness SPA，適合 Shopping 後安排一段放慢節奏的休息時間。這張 Guide 介紹體驗重點；預約狀態、聯絡方式及人數請看 Booking Card。",
+    "signature":["Massage / body relaxation · 按實際 Menu 選擇","購物後的休息站","可先詢問按摩力度及偏好部位"],
+    "worth":["療程前可先向店員講清楚想偏重肩頸、背部或腳部，以及希望力度輕、中或重。","如果對香薰、精油或按摩產品敏感，開始前先告知店員。","療程後預留少少時間飲水、整理，再慢慢行去附近 0123 Complex。"],
+    "categoryLabel":"💆 Spa","price":"Check treatment menu","transport":"An Khánh · near 0123 Complex",
+    "highlights":["放鬆身心","按喜好選擇按摩重點","SPA 後可步行繼續行程"],
+    "tips":["留意療程種類、包含項目及是否設有額外收費。","如果想同朋友同時完成，可在開始前確認各人療程時長一致。","環境及服務項目以分店當日提供為準。"]
   },
   "ha-spa": {
     "title": "Hạ Spa",
