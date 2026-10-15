@@ -3526,3 +3526,12 @@ body.home-bg .live-currency-card #currencyResult{font-size:16px!important}
 #dynamicDayRoot .timeline-deadline span {flex:1 1 240px;}
 #dynamicDayRoot .timeline-deadline--urgent {border-left-color:#ad5936;}
 @media(max-width:720px){#dynamicDayRoot .timeline-actions .timeline-action,#dynamicDayRoot .timeline-actions button,#dynamicDayRoot .timeline-actions a{flex:0 1 auto!important;font-size:12px!important;min-height:38px!important;}}
+
+/* Timeline Editor: compact accessible display-mode controls */
+.timeline-editor-sheet .timeline-time-display{border:1px solid var(--admin-line,#d9d9d9);border-radius:12px;padding:12px;margin:12px 0 14px;min-width:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.timeline-time-display legend{padding:0 6px;font-weight:750;color:#60300f}
+.timeline-editor-sheet .timeline-time-display label.timeline-time-choice{display:flex!important;align-items:center!important;justify-content:center!important;gap:7px!important;min-width:0!important;margin:0!important;padding:10px 7px!important;border:1px solid var(--admin-line,#d9d9d9);border-radius:10px;background:#fff;cursor:pointer;font-size:12px;line-height:1.3;text-align:center}
+.timeline-editor-sheet .timeline-time-display .timeline-time-choice input[type=radio]{appearance:auto!important;-webkit-appearance:radio!important;display:inline-block!important;position:static!important;flex:0 0 17px!important;width:17px!important;height:17px!important;min-width:17px!important;margin:0!important;padding:0!important;border:0!important;accent-color:#a85a24}
+.timeline-time-choice span{display:inline-block;min-width:0;overflow-wrap:normal}
+.timeline-editor-sheet .timeline-time-display #timelineTimePeriodRow{grid-column:1/-1;margin:3px 0 0!important}
+.timeline-time-display .timeline-field-help{grid-column:1/-1;margin:2px 0 0}
