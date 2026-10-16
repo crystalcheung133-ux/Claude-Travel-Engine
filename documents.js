@@ -70,6 +70,7 @@ function render(){
    ${d.note?`<p>${esc(d.note)}</p>`:''}
    ${d.linkType&&d.linkType!=='trip'&&d.linkLabel?`<p class="document-link-row">🔗 <a href="${esc(routeForDocument(d,'page'))}" onclick="return openDocumentLinkedEntity('${esc(d.id)}','page',event)">${esc(d.linkLabel)}</a></p>`:''}
    <div class="entry-actions document-entry-actions">
+     <button class="mini-btn" type="button" onclick="shareDocument('${esc(d.id)}',this)">↗ Share</button>
      ${can?`<button class="mini-btn" onclick="openEditDocument('${esc(d.id)}')">✏️ Edit</button>`:''}
      ${can&&d.uploadPending?`<button class="mini-btn" onclick="repairDocument('${esc(d.id)}')">☁️ Sync file</button>`:''}
      ${can?`<button class="mini-btn" onclick="deleteDoc('${esc(d.id)}')">🗑 Delete</button>`:''}
@@ -79,6 +80,34 @@ function render(){
  if(folders.length){html+=`<div class="document-folder-heading"><span>Personal folders</span></div>`+folders.map(f=>{const docs=list.filter(d=>root.TRIP_DOCUMENT_FOLDERS.inFolder(d,f.key));return `<details class="document-folder"><summary>📁 ${esc(f.label)} <span>${docs.length}</span></summary><div class="document-folder-list">${docs.map(card).join('')}</div></details>`}).join('')}
  box.innerHTML=html;
 }
+
+// Share original file bytes; never create a public sharing link.
+function shareFileName(d){const n=String(d.fileName||d.title||'Document').replace(/[\\/]/g,'-');return /\.[a-z0-9]{2,6}$/i.test(n)?n:n+(String(d.mimeType||'').includes('pdf')?'.pdf':String(d.mimeType||'').startsWith('image/png')?'.png':String(d.mimeType||'').startsWith('image/')?'.jpg':'')}
+const sharePreparedFiles=new Map();
+root.shareDocument=async(id,button)=>{
+ const prepared=sharePreparedFiles.get(id);
+ if(prepared&&navigator.share&&navigator.canShare&&navigator.canShare({files:[prepared]})){
+  try{await navigator.share({files:[prepared]});return}catch(e){if(e?.name==='AbortError')return;console.warn('Share unavailable',e)}
+ }
+ const d=root.TRIP_DOCUMENTS.read().find(x=>x.id===id);if(!d)return;
+ const base64=d.pendingBase64||d.embeddedBase64;
+ const url=base64?'data:'+(d.mimeType||'application/octet-stream')+';base64,'+base64:(d.fileUrl||d.localObjectUrl||'');
+ if(!url){alert('File unavailable on this device. Sync or re-upload first.');return}
+ if(button){button.disabled=true;button.textContent='Preparing…'}
+ try{
+  const response=await fetch(url);if(!response.ok)throw new Error('Download failed');
+  const blob=await response.blob();if(!blob.size)throw new Error('Empty file');
+  const name=shareFileName(d),file=new File([blob],name,{type:d.mimeType||blob.type||'application/octet-stream'});
+  if(navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+   sharePreparedFiles.set(id,file);
+   if(button){button.disabled=false;button.textContent='↗ Share ready'}
+   alert('File ready. Tap Share again to open the iPhone sharing menu.');return;
+  }
+  const temp=URL.createObjectURL(blob),a=document.createElement('a');a.href=temp;a.download=name;a.style.display='none';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(temp),60000);
+  alert('File downloaded. Share it from Files or Downloads.');
+ }catch(e){console.warn('Document share failed',e);alert('Could not prepare file. Check your connection and try again.')}
+ finally{if(button){button.disabled=false;button.textContent=sharePreparedFiles.has(id)?'↗ Share ready':'↗ Share'}}
+};
 
 root.openEditDocument=id=>{
  const d=root.TRIP_DOCUMENTS.read().find(x=>x.id===id);if(!d||!root.TRIP_DOCUMENTS.canManage(d))return;
