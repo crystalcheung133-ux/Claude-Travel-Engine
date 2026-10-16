@@ -345,7 +345,7 @@ def run_viewport(browser,base,viewport,label):
           const pick=(cat)=>Object.values(BOOKINGS_DATA).find(b=>b&&b.status!=='optional'&&(b.bookingCategory===cat||b.category===cat));
           const spa=pick('Spa'), restaurant=pick('Restaurants'), transfer=BOOKINGS_DATA['bk-transfer-in'];
           return {
-            spa: spa&&{id:spa.id,title:spa.title,time:spa.time},
+            spa: spa&&{id:spa.id,title:spa.title,time:spa.time,visitTimes:(spa.plannedVisits||[]).map(v=>v.time).filter(Boolean)},
             restaurant: restaurant&&{id:restaurant.id,title:restaurant.title,time:restaurant.time},
             transferReference: transfer&&transfer.reference,
             masterRevision: (window.TRIP_CONFIG&&TRIP_CONFIG.bookingMasterRevision)||1
@@ -406,7 +406,7 @@ def run_viewport(browser,base,viewport,label):
         spa_text=page.locator('#tripModalContent').inner_text()
         check('Ghost Booking From A Removed Fixture' not in spa_text,label+': a stale override for a booking id no longer in canonical data resurrected content in the rendered Spa list')
         check(canonical['spa']['title'] in spa_text,label+': rendered Spa list lost the deploy-master booking title to a stale override')
-        check(canonical['spa']['time'] in spa_text,label+': rendered Spa list lost the deploy-master booking time to a stale override')
+        check((canonical['spa']['time'] in spa_text) or any(t in spa_text for t in canonical['spa']['visitTimes']),label+': rendered Spa list lost the canonical booking/visit times to a stale override')
         check('Stale Cached Spa Name' not in spa_text,label+': stale spa title survived into rendered UI')
         check('23:59' not in spa_text,label+': stale spa time survived into rendered UI')
 

@@ -4,13 +4,20 @@
 const PLACES={
   "in-the-mood-d4": {"title":"In The Mood Saigon","emoji":"🎁","cat":"SHOP","sub":"Day 4 · First shopping stop","shoppingRoute":"Day 4 · Thảo Điền walk","hours":"10:00–19:00 · verify on the day","address":"32 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam","maps":"https://www.google.com/maps/search/?api=1&query=In%20The%20Mood%20Saigon%2032%20Tran%20Ngoc%20Dien","desc":"Day 4 第一站；越南設計、手工家品、飾物及特色手信。","categoryLabel":"🛍 Shopping","transport":"Walk / Grab","highlights":["Vietnamese design","Handmade gifts"]},
   "grade-b-d4": {"title":"Grade B","emoji":"🏺","cat":"SHOP","sub":"Day 4 · Second shopping stop","shoppingRoute":"Day 4 · Thảo Điền walk","address":"14 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam","maps":"https://www.google.com/maps/search/?api=1&query=Grade%20B%2014%20Tran%20Ngoc%20Dien%20Ho%20Chi%20Minh","desc":"第二站；設計陶瓷及生活選物。","categoryLabel":"🏺 Ceramics","transport":"Walk","highlights":["Ceramics","Lifestyle objects"]},
-  "aum-saigon": {
-    "title":"aum. Saigon", "emoji":"🍽️", "cat":"RESTAURANTS", "sub":"Newly opened 24 Sep 2026 · Contemporary Thai-inspired dining", "status":"confirmed",
-    "maps":"https://www.google.com/maps/search/?api=1&query=71-73-75%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh%20City", "address":"71–73–75 Hai Bà Trưng, Sài Gòn, Hồ Chí Minh, Vietnam",
-    "website":"https://www.aumsaigon.com/menu", "desc":"2026 年 9 月 24 日新開幕的 aum. Saigon，以泰國及 Isaan 風味結合現代烹調與炭烤手法。適合四位朋友分享多款小食、海鮮及主菜，作為 Girls Trip Farewell Dinner。新餐廳獨立食評較少，實際供應以當晚菜單為準。",
-    "signature":["Crab Pie Tee · 110k VND each", "Tiger Prawn Mieng · 120k VND each", "BBQ Scallop Salad · 390k VND", "Aged Duck Breast · 690k VND", "Lamb Massaman Pot Pie · 860k VND (allow 45 min)"],
-    "worth":["四人分享 Crab Pie Tee、Tiger Prawn Mieng、BBQ Scallop Salad。", "主菜可試 Aged Duck Breast 和 Lamb Massaman Pot Pie；羊肉批需預留 45 分鐘。", "24 Sep 2026 新開幕；2 Nov 19:00 四位 WhatsApp 訂位已確認。"],
-    "categoryLabel":"🍽️ Contemporary Thai Restaurant", "transport":"Grab from 0123 Complex · depart 18:20; check live traffic"
+  "quince": {
+    "title": "Quince Saigon",
+    "emoji": "🍽️",
+    "cat": "RESTAURANTS",
+    "sub": "Modern Mediterranean · Wood-fired Dining",
+    "status": "confirmed",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Quince%20Saigon%2037bis%20Ky%20Con%20District%201",
+    "address": "37bis Ký Con, District 1, Ho Chi Minh City, Vietnam",
+    "desc": "Quince Saigon 主打現代地中海及歐陸料理，以柴火、炭烤與時令食材帶出煙燻香氣；開放式廚房與溫暖精緻的用餐氣氛，很適合四位朋友享受旅程最後一晚。菜單按季節調整，當日以餐廳菜單為準。",
+
+    "signature": ["Wood-fired / charcoal-grilled seasonal dishes", "Scallops 或當日海鮮料理（視菜單供應）", "Seasonal desserts"],
+    "worth": ["適合四人分享前菜，再各選主菜。", "可留意開放式柴火廚房及當日 specials。", "不飲酒亦可以專注食物與甜品。"],
+    "categoryLabel": "🍽️ Restaurant",
+    "transport": "Grab from Thảo Điền; allow traffic buffer"
   },
 
   "currency-guide": {
@@ -993,15 +1000,15 @@ const PLACES={
     "transport": "Inside The Cafe Apartments"
   },
   "moc-huong": {
-    "title":"Mộc Hương Wellness · An Khánh","emoji":"🌿","cat":"SPA","sub":"越式 Wellness · 靜心放鬆",
+    "title":"Mộc Hương Wellness · An Khánh","emoji":"🌿","cat":"SPA","sub":"Day 4 · 15:30–17:30 · 4 guests · pending",
     "hours":"09:00–22:00 · verify directly","address":"03 Đặng Hữu Phổ, An Khánh, Hồ Chí Minh, Vietnam",
     "maps":"https://www.google.com/maps/search/?api=1&query=Moc%20Huong%20Wellness%2003%20Dang%20Huu%20Pho%20An%20Khanh",
-    "desc":"位於 Thảo Điền／An Khánh 一帶的 Wellness SPA，適合 Shopping 後安排一段放慢節奏的休息時間。這張 Guide 介紹體驗重點；預約狀態、聯絡方式及人數請看 Booking Card。",
-    "signature":["Massage / body relaxation · 按實際 Menu 選擇","購物後的休息站","可先詢問按摩力度及偏好部位"],
-    "worth":["療程前可先向店員講清楚想偏重肩頸、背部或腳部，以及希望力度輕、中或重。","如果對香薰、精油或按摩產品敏感，開始前先告知店員。","療程後預留少少時間飲水、整理，再慢慢行去附近 0123 Complex。"],
-    "categoryLabel":"💆 Spa","price":"Check treatment menu","transport":"An Khánh · near 0123 Complex",
-    "highlights":["放鬆身心","按喜好選擇按摩重點","SPA 後可步行繼續行程"],
-    "tips":["留意療程種類、包含項目及是否設有額外收費。","如果想同朋友同時完成，可在開始前確認各人療程時長一致。","環境及服務項目以分店當日提供為準。"]
+    "desc":"指定 An Khánh 分店（03 Đặng Hữu Phổ），不是 61 Xuân Thủy。15:30–17:30，4 人，120 分鐘，尚待確認。可用 WhatsApp 或官網預約。",
+    "signature":["120-minute treatment","4 guests · pending confirmation","An Khánh branch"],
+    "worth":["預約前確認四人同時有位、療程內容與價格。","SPA 完步行去 06 Đặng Hữu Phổ 的 0123 Complex。"],
+    "categoryLabel":"💆 Spa","price":"Confirm with venue","transport":"Walk / Grab to 03 Đặng Hữu Phổ",
+    "highlights":["An Khánh branch","120-minute wellness"],
+    "tips":["WhatsApp +84 90 975 5877","Website booking: https://mochuongwellness.vn/booking/","請確認分店地址及 15:30–17:30 四人預約。"]
   },
   "ha-spa": {
     "title": "Hạ Spa",
@@ -1643,7 +1650,7 @@ const CATEGORIES={
     }
   ],
   "RESTAURANTS": [
-    {"key":"aum-saigon"},
+    {"key":"quince"},
     {
       "key": "bep-me-in"
     },
@@ -1741,7 +1748,7 @@ const CATEGORIES={
 };
 
 const GUIDE_ORDER=[
-  "aum-saigon",
+  "quince",
   "currency-guide",
   "fusion",
   "bakes",
@@ -1784,7 +1791,7 @@ const GUIDE_ORDER=[
 ];
 
 const DAY_LINKS={
-  "aum-saigon": [["Day 4","day.html?day=4#aum-d4"]],
+  "quince": [["Day 4","day.html?day=4#quince-d4"]],
   "fusion": [
     [
       "Day 1",
@@ -2036,13 +2043,16 @@ const BOOKINGS_DATA={
     "bookingHandoff":"Not confirmed. WhatsApp +84 90 975 5877 or book via official website; confirm availability, treatment, price and branch.",
     "placeId":"moc-huong"
   },
-  "bk-aum": {
-    "id":"bk-aum", "bookingId":"bk-aum", "eventId":"aum-d4", "timelineItemId":"aum-d4", "day":4, "dayId":"day4", "status":"confirmed", "date":"2026-11-02", "time":"19:00", "bookingName":"Crystal Cheung",
-    "bookingCategory":"Restaurants", "category":"Restaurants", "type":"restaurant", "emoji":"🍽️", "title":"aum. Saigon · Farewell Dinner",
-    "bookingMethod":"WhatsApp", "bookingWay":"WhatsApp confirmed", "platform":"WhatsApp", "bookingUrl":"https://www.aumsaigon.com/menu", "website":"https://www.aumsaigon.com/menu", "whatsapp":"+84 90 293 18 66", "guests":4, "guestSummary":"4 guests",
-    "address":"71–73–75 Hai Bà Trưng, Sài Gòn, Hồ Chí Minh, Vietnam",
-    "notes":"CONFIRMED via restaurant WhatsApp · Monday 2 Nov 2026 · 19:00 · 4 guests · reservation under Crystal Cheung. Leave 0123 Complex at 18:20; check live traffic.",
-    "bookingHandoff":"Already confirmed directly by aum. Saigon via WhatsApp. Do not rebook. For changes contact +84 90 293 18 66; official menu https://www.aumsaigon.com/menu.", "placeId":"aum-saigon"
+  "bk-quince": {
+    "id": "bk-quince", "bookingId": "bk-quince", "eventId": "quince-d4", "timelineItemId": "quince-d4",
+    "day": 4, "dayId": "day4", "status": "confirmed", "date": "2026-11-02", "time": "19:00",
+    "bookingName": "Crystal Cheung", "bookingCategory": "Restaurants", "category": "Restaurants", "type": "restaurant",
+    "emoji": "🍽️", "title": "Quince Saigon · Dining Room", "bookingMethod": "Google / TableCheck",
+    "bookingWay": "Google / TableCheck", "platform": "TableCheck", "bookingUrl": "https://linktr.ee/quincesaigon", "guests": 4, "guestSummary": "4 guests",
+    "address": "37bis Ký Con, District 1, Ho Chi Minh City, Vietnam",
+    "notes": "Confirmed · Mon 2 Nov · 19:00 · 4 guests · Dining Room. No credit card requested. 可當日視 Thảo Điền 行程調整；取消或更改前先確認餐廳條款。",
+    "bookingHandoff": "Confirmed 19:00 for four via Google / TableCheck. No credit card requested; cancellation policy not independently verified. 如需改時間或取消，先確認餐廳條款。",
+    "placeId": "quince"
   },
 
   "bk-fusion-original": {
@@ -2935,7 +2945,9 @@ const ITINERARY_DATA={
         "details": [
           "🛍 Shopping · In The Mood → Grade B → YouOn → Vina → dakao → Aurora → Wicky → OHQUAO；按興趣選店，15:10 左右離開前往 SPA",
           "🥐 Coffee / Sweet · Bakes，或者沿途見到想坐的 café",
-          "🍽 Eat · 已在 Quán Thuý 94 食早餐；下午按胃口加 café / snack"
+          "🍽 Eat · 已在 Quán Thuý 94 食早餐；下午按胃口加 café / snack",
+          "🌿 15:30–17:30 · Mộc Hương Wellness An Khánh（03 Đặng Hữu Phổ）· 4 人 120 分鐘，待確認",
+          "🏘 17:45–18:40 · 0123 Complex；18:40 往 Quince 只有 20 分鐘，務必留意黃昏交通；Quince 19:00 訂位不變"
         ],
         "route": "🚕 第一站 In The Mood · 32 Trần Ngọc Diện；Shopping 結束後前往 Mộc Hương An Khánh · 03 Đặng Hữu Phổ。",
         "map": "https://www.google.com/maps/search/?api=1&query=In%20The%20Mood%20Saigon%2032%20Tran%20Ngoc%20Dien",
@@ -2951,24 +2963,24 @@ const ITINERARY_DATA={
       },
       {
         "id":"moc-huong-d4","time":"15:30–17:30","title":"🌿 Mộc Hương Wellness · An Khánh SPA",
-        "details":["15:30 療程開始；17:30 結束，之後步行去 0123 Complex（17:45）。"],
-        "route":"🚶 Walk 1–3 min → 0123 Complex · 06 Đặng Hữu Phổ (17:45).",
+        "details":["4 guests · 120 minutes · PENDING confirmation; WhatsApp +84 90 975 5877 / official website booking.","03 Đặng Hữu Phổ, An Khánh · do not confuse with 61 Xuân Thủy branch."],
+        "route":"🚶 After SPA, walk to 0123 Complex · 06 Đặng Hữu Phổ (17:45).",
         "map":"https://www.google.com/maps/search/?api=1&query=Moc%20Huong%20Wellness%2003%20Dang%20Huu%20Pho%20An%20Khanh",
         "type":"spa","dayId":"day4","placeId":"moc-huong","bookingId":"bk-moc-huong-d4","guideIds":["moc-huong"]
       },
       {
-        "id":"complex-0123-d4","time":"17:45–18:20","title":"🏘 0123 Complex · Evening Browse",
-        "details":["06 Đặng Hữu Phổ, An Khánh · beside Mộc Hương An Khánh.","18:20 → aum. Saigon 19:00; allow 40 minutes for Grab and traffic. Check live ETA."],
-        "route":"🚕 Grab → aum. Saigon, 71–73–75 Hai Bà Trưng · depart 18:20; 19:00 confirmed.",
+        "id":"complex-0123-d4","time":"17:45–18:40","title":"🏘 0123 Complex · Evening Browse",
+        "details":["06 Đặng Hữu Phổ, An Khánh · beside Mộc Hương An Khánh.","18:40 → Quince 19:00 leaves only 20 minutes; check live traffic and leave earlier if necessary."],
+        "route":"🚕 Grab → Quince Saigon, 37bis Ký Con · 19:00 confirmed; check live ETA.",
         "map":"https://www.google.com/maps/search/?api=1&query=0123%20Complex%2006%20Dang%20Huu%20Pho%20Ho%20Chi%20Minh%20City",
         "type":"experience","dayId":"day4","placeId":"complex-0123","bookingId":null,"guideIds":["complex-0123"]
       },
       {
-        "id": "aum-d4", "time": "19:00–20:45", "title": "🍽️ aum. Saigon · Farewell Dinner",
-        "details": ["WhatsApp confirmed · 4 guests · booking under Crystal Cheung", "Newly opened 24 Sep 2026 · Thai-inspired dining; try Crab Pie Tee, Tiger Prawn Mieng, Aged Duck Breast and Lamb Massaman Pot Pie (45 min).", "18:20 從 0123 Complex 出發，預留 40 分鐘前往 19:00 已確認的 aum. Saigon；出發前查看即時交通。"],
-        "route": "🚕 18:20 由 0123 Complex Grab → aum. Saigon · 71–73–75 Hai Bà Trưng；19:00 已確認，查看即時交通。",
-        "map": "https://www.google.com/maps/search/?api=1&query=71-73-75%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh%20City",
-        "type": "meal", "dayId": "day4", "placeId": "aum-saigon", "bookingId": "bk-aum", "guideIds": ["aum-saigon"]
+        "id": "quince-d4", "time": "19:00–20:45", "title": "🍽️ Quince Saigon · Farewell Dinner",
+        "details": ["Confirmed · Dining Room · 4 guests · Google / TableCheck", "可當日視 Thảo Điền 行程調整；如需更改或取消，先確認餐廳條款。", "18:40 從 0123 Complex 出發只得 20 分鐘；請提前查看交通，必要時提早離開 0123，19:00 Quince Booking 不變。"],
+        "route": "🚕 0123 Complex → Quince Saigon · 37bis Ký Con, District 1；18:40 出發時間緊迫，先查即時交通。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Quince%20Saigon%2037bis%20Ky%20Con%20District%201",
+        "type": "meal", "dayId": "day4", "placeId": "quince", "bookingId": "bk-quince", "guideIds": ["quince"]
       }
     ],
     "dayId": "day4"

@@ -1,7 +1,6 @@
-/* booking-authority.js — canonical Studio-managed booking overrides.
-   Deploy master owns itinerary identity. User/remote booking state may override
-   editable reservation fields. Full schedule overrides are only accepted when
-   they were authored against the current bookingMasterRevision. */
+/* booking-authority.js — user-saved booking fields survive unrelated deploys.
+   Deploy master supplies defaults and identity; explicitly saved fields win.
+   Legacy unmarked stale overrides remain restricted for safety. */
 (function(root){
   'use strict';
   const KEY=(root.STORAGE_CONFIG&&root.STORAGE_CONFIG.keys&&root.STORAGE_CONFIG.keys.bookingOverrides)||'travel_engine_booking_overrides_v1';
@@ -10,7 +9,7 @@
   function master(){try{return typeof BOOKINGS_DATA!=='undefined'?BOOKINGS_DATA:(root.BOOKINGS_DATA||{});}catch(error){return root.BOOKINGS_DATA||{};}}
   const DEPLOY_MASTER=clone(master()||{});
   const EDITABLE_STATE_FIELDS=Object.freeze([
-    'status','bookingName','plannedDays','plannedVisits',
+    'status','bookingName','plannedDays','plannedVisits','date','time',
     'depositPaid','depositAmount','depositCurrency','paymentStatus',
     'reference','referenceLabel','bookingReference',
     'totalAmount','cashbackAmount','netTotalAUD','price','paymentLabel'
@@ -39,15 +38,41 @@
     });
     return out;
   }
+  const PROTECTED_IDENTITY_FIELDS=new Set(['id','bookingId','_masterRevision','masterRevision','_editedFields','_userSavedAt','_remoteVersion','_remoteDeletedAt']);
+  function same(a,b){return JSON.stringify(a)===JSON.stringify(b);}
   function mergeOverride(base,override){
     if(!override||typeof override!=='object')return clone(base);
+    // Explicitly saved user edits have priority across deployment revisions.
+    // Only merge the fields actually edited, never a stale full-record snapshot.
+    if(Array.isArray(override._editedFields)){
+      const out=canonicalStatusRecord(base);
+      override._editedFields.forEach(function(field){
+        if(!PROTECTED_IDENTITY_FIELDS.has(field)&&Object.prototype.hasOwnProperty.call(override,field))out[field]=clone(override[field]);
+      });
+      return canonicalStatusRecord(out);
+    }
+    // Compatibility with old persisted records: current-revision data can still
+    // load, but old revision records without edit provenance are not authoritative.
     if(recordRevision(override)===masterRevision())return canonicalStatusRecord(Object.assign({},clone(base),clone(override)));
     return mergeStaleState(base,override);
   }
   function read(){
     const raw=store()?store().readJSON(KEY,null):null;
     if(!raw||Number(raw.version)!==1||!raw.overrides||typeof raw.overrides!=='object')return {version:1,overrides:{},deletedIds:[],updatedAt:null};
-    return {version:1,overrides:clone(raw.overrides),deletedIds:Array.isArray(raw.deletedIds)?raw.deletedIds.slice():[],updatedAt:raw.updatedAt||null};
+    const overrides=clone(raw.overrides);
+    // One-time compatibility for recently saved pre-upgrade Companion edits.
+    // Old snapshots lack field provenance; only recover known user-editable fields
+    // from recent successful saves, never arbitrary itinerary identity fields.
+    const age=Date.now()-Date.parse(raw.updatedAt||'');
+    const recent=Number.isFinite(age)&&age>=0&&age<=30*24*60*60*1000;
+    if(recent)Object.keys(overrides).forEach(function(id){
+      const o=overrides[id],base=DEPLOY_MASTER[id];
+      if(!base||!o||Array.isArray(o._editedFields)||!recordRevision(o))return;
+      const allowed=['date','time','plannedVisits','plannedDays','notes','status','bookingName','reference','referenceLabel','bookingReference','depositPaid','depositAmount','depositCurrency','paymentStatus','totalAmount','cashbackAmount','netTotalAUD','price','paymentLabel'];
+      o._editedFields=allowed.filter(function(field){return Object.prototype.hasOwnProperty.call(o,field)&&!same(o[field],base[field]);});
+      o._userSavedAt=raw.updatedAt;
+    });
+    return {version:1,overrides:overrides,deletedIds:Array.isArray(raw.deletedIds)?raw.deletedIds.slice():[],updatedAt:raw.updatedAt||null};
   }
   function write(state){return !!(store()&&store().writeJSON(KEY,state));}
   function canonicalBase(id,source){return canonicalStatusRecord((DEPLOY_MASTER&&DEPLOY_MASTER[id])||(source&&source[id])||null);}
@@ -85,8 +110,18 @@
     const base=canonicalBase(id,source);
     if(!id||!base||!record||typeof record!=='object')return {ok:false,reason:'invalid-booking'};
     const current=resolvedSource(source)[id]||base;
-    const complete=canonicalStatusRecord(stamp(Object.assign({},current,clone(record),{id:id})));
     const state=read();
+    const previous=state.overrides[id]||{};
+    const edited=new Set(Array.isArray(previous._editedFields)?previous._editedFields:[]);
+    // Track only fields changed by this save. Existing user edits stay marked
+    // even if the app submits a full booking record on every edit.
+    Object.keys(record).forEach(function(field){
+      if(PROTECTED_IDENTITY_FIELDS.has(field))return;
+      if(!same(record[field],current[field]))edited.add(field);
+    });
+    const complete=canonicalStatusRecord(stamp(Object.assign({},current,clone(record),{id:id})));
+    complete._editedFields=Array.from(edited);
+    complete._userSavedAt=new Date().toISOString();
     state.overrides[id]=complete;
     state.deletedIds=(state.deletedIds||[]).filter(function(item){return item!==id;});
     state.updatedAt=new Date().toISOString();

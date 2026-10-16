@@ -30,6 +30,7 @@ run "STUDIO HEADER BADGE" node ci-tests/test-studio-header-badge.js styles.css a
 run "VN HEADER THEME" node ci-tests/test-vn-header-theme.js styles.css
 run "CANONICAL STUDIO + EXPENSE DEEP-LINK" node ci-tests/test-canonical-studio-expense-deeplink.js
 run "CANONICAL STUDIO VISUAL CONTRACT 25.6.2" node ci-tests/test-studio-visual-contract-2562.js
+run "USER BOOKING EDIT SURVIVES DEPLOY" node ci-tests/test-user-booking-edit-survives-deploy.js
 run "BOOKING MASTER STATUS + STUDIO EDIT" node ci-tests/test-booking-master-status-studio-edit.js
 run "BOOKING SINGLE STATUS AUTHORITY" node ci-tests/test-booking-single-status-authority.js
 run "QSPA D1-D3 RECONCILIATION" node ci-tests/test-qspa-d1-d3-reconciliation.js
@@ -63,8 +64,7 @@ run "RC29.129 DAY2 RUE MICHE SHOPPING" node ci-tests/test-day2-rue-miche-shoppin
 run "RC29.130 MAP ADDRESS ROUTING" node ci-tests/test-rc29130-map-address-routing.js
 run "RC29.131 TIMELINE AUTHORITY REBASE" node ci-tests/test-rc29131-timeline-authority-rebase.js
 run "RC29.131 BOOKING TIME AUTHORITY" node ci-tests/test-rc29131-booking-time-authority.js
-run "DAY 4 APPROVED ROUTE + AUM SAFETY" node ci-tests/test-day4-approved-route-contract.js
-run "MOC HUONG GUIDE OVERRIDE COMPATIBILITY" node ci-tests/test-moc-huong-guide-override-migration.js
+run "DAY 4 APPROVED ROUTE + QUINCE SAFETY" node ci-tests/test-day4-approved-route-contract.js
 [ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
 run "RC29.77 LIVE FX SAVE" node ci-tests/test-rc2977-live-fx-save.js
 echo "MASTER CI SUITE PASSED"

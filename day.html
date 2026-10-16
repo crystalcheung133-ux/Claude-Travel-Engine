@@ -83,18 +83,18 @@
         ['LÚNE · 19:00 CONFIRMED','17/14 Lê Thánh Tôn, District 1']
       ],modes:['🏬 1–2 min · same complex','🏬 1–2 min · same complex','🚶 4–6 min','🚶 3–5 min']}
     ]},
-    '4':{title:'Day 4 · Thảo Điền Shopping · 8 Stops',sections:[
+    '4':{title:'Day 4 · Thảo Điền Shopping · Bakes Optional',sections:[
       {label:'ONE SHOPPING ROUTE · SHOP TO SHOP · BEFORE 15:30 SPA',stops:[
-        ['In The Mood Saigon','In The Mood Saigon, 32 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam'],
-        ['Grade B','14 Trần Ngọc Diện, An Khánh'],
-        ['YouOn Boutique','29 Thảo Điền, An Khánh','ChIJV4HOAyYndTER1M8IJAlO1Ik'],
-        ['Vina Design Store','111 Xuân Thủy, An Khánh','ChIJpb84JiXPrUMRmzdsERD4p4U'],
-        ['dakao quartier','83 Xuân Thủy, An Khánh','ChIJa-IuTm0ndTERApxeIWE9nTQ'],
-        ['Aurora Saigon · 925 SILVER','94 Xuân Thủy, An Khánh','ChIJL2kFlfIndTERLJaIne8M6XQ'],
-        ['Wicky Candle · SAME ADDRESS','94 Xuân Thủy, An Khánh','ChIJ-SEH6oUvdTERfmAqB6JNpZA'],
-        ['OHQUAO Living etc.','19 Đường Số 38, Thảo Điền','ChIJe3FM36wndTERMj73vdNI-dI']
-      ],modes:['🚶 Walk · approx. 3–6 min','🚶 Walk · approx. 10–15 min','🚶 Walk · approx. 8–12 min','🚶 Walk · approx. 3–5 min','🚶 Walk · approx. 2–4 min','🏬 Same address · 0 min','🚕 Grab · check traffic']}
-    ]}
+        ['In The Mood Saigon','32 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam'],
+        ['Grade B','14 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam'],
+        ['Bakes Thảo Điền · OPTIONAL COFFEE','16 Thảo Điền, An Khánh, Hồ Chí Minh, Vietnam'],
+        ['YouOn Boutique','29 Thảo Điền, An Khánh, Hồ Chí Minh, Vietnam','ChIJV4HOAyYndTER1M8IJAlO1Ik'],
+        ['Vina Design Store','111 Xuân Thủy, An Khánh, Hồ Chí Minh, Vietnam','ChIJpb84JiXPrUMRmzdsERD4p4U'],
+        ['dakao quartier · amaï house','83 Xuân Thủy, An Khánh, Hồ Chí Minh, Vietnam','ChIJa-IuTm0ndTERApxeIWE9nTQ'],
+        ['Aurora Saigon + Wicky Candle · SAME ADDRESS','94 Xuân Thủy, An Khánh, Hồ Chí Minh, Vietnam','ChIJL2kFlfIndTERLJaIne8M6XQ'],
+        ['OHQUAO Living etc.','19 Đường Số 38, Thảo Điền, Hồ Chí Minh, Vietnam','ChIJe3FM36wndTERMj73vdNI-dI']
+      ],modes:['🚶 Walk · check live route','🚶 Walk · optional coffee','🚶 Walk · check live route','🚶 Walk · check live route','🚶 Walk · check live route','🚶 Walk · same address cluster','🚶 Walk · check live route']}
+    }
   };
   function mapsDirections(from,to,mode){
     const fromAddress=from&&from[1]||'',toAddress=to&&to[1]||'',walking=String(mode||'').includes('🚶')||String(mode||'').includes('🏬');
@@ -230,7 +230,7 @@
   function timelineHostDestination(item){
     if(!item||item.nonPlace||timelineInfoOnly(item))return {routeQuery:'',copyText:''};
     const stop=timelineShoppingStop(item);
-    if(stop){const address=stop[1]+', Ho Chi Minh City, Vietnam';return {routeQuery:(String(day)==='4'?'In The Mood Saigon, ':'')+address,copyText:stop[0]+', '+address};}
+    if(stop){const address=stop[1]+', Ho Chi Minh City, Vietnam';return {routeQuery:address,copyText:stop[0]+', '+address};}
     return timelineDestination(item);
   }
   function timelineDestination(item){
@@ -367,28 +367,24 @@
     if(!to)return '';
     // When a flexible/free-time card has no verified address, let Google Maps
     // resolve the origin from the device's current location. Never guess one.
-    const d4SpaWalk=String(day)==='4'&&String(item&&item.id)==='moc-huong-d4'&&String(next&&next.id)==='complex-0123-d4';
-    const namedTo=String(day)==='4'&&String(next&&next.id)==='thao-dien-open-list'?'In The Mood Saigon, 32 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam':to;
-    return `https://www.google.com/maps/dir/?api=1${from?`&origin=${encodeURIComponent(from)}`:''}&destination=${encodeURIComponent(namedTo)}&travelmode=${d4SpaWalk?'walking':'driving'}`;
+    return `https://www.google.com/maps/dir/?api=1${from?`&origin=${encodeURIComponent(from)}`:''}&destination=${encodeURIComponent(to)}&travelmode=driving`;
   }
   function buildDerivedNextStop(item,index){
     let next=null;for(let n=index+1;n<workingItems.length;n++){if(isTimelineRenderable(workingItems[n])){next=workingItems[n];break;}}
     if(timelineFinalAirport(item)||timelineInfoOnly(item))return '';
     if(!next){
       const rawFinal=String(item&&item.route||'');
-      if(String(item&&item.id||'')==='aum-d4' || (!next && /(?:fusion|hotel|酒店|返(?:回)?\s*fusion)/i.test(rawFinal) && String(day)!=='5')){
+      if(String(item&&item.id||'')==='quince-d4' || (!next && /(?:fusion|hotel|酒店|返(?:回)?\s*fusion)/i.test(rawFinal) && String(day)!=='5')){
         next={id:'derived-return-hotel',title:'🏨 Fusion Original Saigon Centre',placeId:'fusion',dayId:'day'+day};
       }else return '';
     }
     const title=cleanStopTitle(next.title)||'Next stop';const trusted=publishedNextId(item.id)===next.id;const raw=trusted?String(item.route||''):'';
     const walk=parseMinutes(raw,'walk'),grab=parseMinutes(raw,'grab');const special=/🚐|private transfer|klook/i.test(raw);
     const lines=[];
-    const d4SpaWalk=String(day)==='4'&&String(item&&item.id)==='moc-huong-d4'&&String(next&&next.id)==='complex-0123-d4';
-    if(d4SpaWalk){lines.push('🚶 Walk · approx. 1–3 min');}
-    else if(special){const m=parseMinutes(raw,'grab');lines.push(`🚐 Private transfer${m?' · '+fmtMinutes(m):''}`);}
+    if(special){const m=parseMinutes(raw,'grab');lines.push(`🚐 Private transfer${m?' · '+fmtMinutes(m):''}`);}
     else if(walk&&walk.max<=15){lines.push(`🚶 Walk · ${fmtMinutes(walk)}`);lines.push(`🚕 Grab · ${fmtMinutes(grab||grabFromWalk(walk))}`);}
     else if(grab){lines.push(`🚕 Grab · ${fmtMinutes(grab)}`);}
-     else if(String(item&&item.id||'')==='aum-d4'){lines.push('🚕 Grab · Live ETA in Maps');}
+     else if(String(item&&item.id||'')==='quince-d4'){lines.push('🚕 Grab · Live ETA in Maps');}
     else {lines.push('🚕 Grab · Live ETA in Maps');}
     const directions=nextDirections(item,next);
     return `<div class="route-hint route-hint--derived"><strong>TO NEXT STOP</strong><span class="route-next-title">${esc(title)}</span><span class="route-next-modes">${lines.map(esc).join(' · ')}</span>${directions?`<a class="route-next-map" href="${esc(directions)}" target="_blank" rel="noopener">Directions ›</a>`:''}</div>`;
@@ -397,6 +393,7 @@
   // Presentation-only deadline anchors. Never mutate itinerary items or saved notes.
   function deadlineAnchor(item){
     const id=String(item&&item.id||'');
+    if(id==='thao-dien-open-list')return '<div class="timeline-deadline"><strong>⏰ Leave by 17:45</strong><span>Head to Quince · 19:00 confirmed dinner · allow for rush-hour traffic</span></div>';
     if(id==='ha-spa')return '<div class="timeline-deadline timeline-deadline--urgent"><strong>⏰ Leave Hạ Spa by 17:30</strong><span>Grab departure by 17:45 · airport arrival target 18:20 · flight 21:10</span></div>';
     return '';
   }
@@ -432,18 +429,10 @@
     const shoppingSectionIndex=String(day)==='2' && /vincom|rue-miche|playground|union square/i.test(String(item.id||'')+' '+String(item.title||''))?1:0;
     const shoppingRouteAction=isShoppingCard&&hasShoppingRoute?`<button type="button" class="timeline-action timeline-action--shopping-route" onclick="openShoppingRouteMap(${shoppingSectionIndex})">🗺️ Shopping Route</button>`:'';
     const firstShoppingStop=isShoppingCard&&hasShoppingRoute?(shoppingSectionIndex===1?null:SHOPPING_ROUTES[String(day)].sections[shoppingSectionIndex]?.stops?.[0]):null;
-    const firstShoppingMap=firstShoppingStop?timelineMapDirections((String(day)==='4'?'In The Mood Saigon, ':'')+firstShoppingStop[1]+', Ho Chi Minh City, Vietnam'):'';
+    const firstShoppingMap=firstShoppingStop?timelineMapDirections(firstShoppingStop[1]+', Ho Chi Minh City, Vietnam'):'';
     const shoppingArrivalActions=firstShoppingStop?`<a class="timeline-action timeline-action--map" href="${esc(firstShoppingMap)}" target="_blank" rel="noopener" title="${esc(firstShoppingStop[0])}">🧭 First Stop · ${esc(firstShoppingStop[0].replace(/ · .*/,''))}</a><button type="button" class="timeline-action timeline-action--copy" onclick="copyTimelineAddress(decodeURIComponent('${encodeURIComponent(firstShoppingStop[1]+', Ho Chi Minh City, Vietnam')}'),this)">📋 Copy Address</button>`:(isShoppingCard?mapHtml+copyAddressHtml:'');
     const shoppingGuideAction=isShoppingCard?`<button type="button" class="timeline-action timeline-action--directory" onclick="openShoppingDirectoryView(${Number(day)||1})">📖 Area Guide</button>`:'';
-    // Combined Day 4 Pink Church + Cong stop: two independently named guide actions.
-    // Uses guide IDs from the card so published Timeline notes and other cards stay untouched.
-    const isPinkChurchCong=String(day)==='4'&&String(item.id)==='pink-church'&&
-      ['pink-church','cong'].every(id=>Array.isArray(item.guideIds)&&item.guideIds.includes(id)&&DAY_PLACES[id]);
-    const pinkChurchCongGuides=isPinkChurchCong
-      ?[['pink-church','📖 Pink Church Guide'],['cong','☕ Cộng Café Guide']].map(([id,label])=>
-        `<button class="timeline-action timeline-action--guide" type="button" onclick='openGuideGroupFromDay(${JSON.stringify([id])},${JSON.stringify(item.id)})'>${label}</button>`).join('')
-      :'';
-    const guideHtml=isShoppingCard?'':(isPinkChurchCong?pinkChurchCongGuides:contextualGuideHtml+primaryGuideHtml+alternativeGuideHtml);
+    const guideHtml=isShoppingCard?'':contextualGuideHtml+primaryGuideHtml+alternativeGuideHtml;
     const parkingGuideId=!nonPlace&&item.parkingGuideId&&DAY_PLACES[item.parkingGuideId]?item.parkingGuideId:'';
     const parkingHtml=parkingGuideId?`<button class="timeline-action timeline-action--parking" onclick='openGuideGroupFromDay(${JSON.stringify([parkingGuideId])},${JSON.stringify(item.id)})'>🚗 Parking</button>`:'';
     const tripInfoHtml=buildTripInfoButton(booking);
