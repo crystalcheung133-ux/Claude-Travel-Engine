@@ -376,7 +376,7 @@
     if(timelineFinalAirport(item)||timelineInfoOnly(item))return '';
     if(!next){
       const rawFinal=String(item&&item.route||'');
-      if(String(item&&item.id||'')==='quince-d4' || (!next && /(?:fusion|hotel|酒店|返(?:回)?\s*fusion)/i.test(rawFinal) && String(day)!=='5')){
+      if(String(item&&item.id||'')==='aum-d4' || (!next && /(?:fusion|hotel|酒店|返(?:回)?\s*fusion)/i.test(rawFinal) && String(day)!=='5')){
         next={id:'derived-return-hotel',title:'🏨 Fusion Original Saigon Centre',placeId:'fusion',dayId:'day'+day};
       }else return '';
     }
@@ -388,7 +388,7 @@
     else if(special){const m=parseMinutes(raw,'grab');lines.push(`🚐 Private transfer${m?' · '+fmtMinutes(m):''}`);}
     else if(walk&&walk.max<=15){lines.push(`🚶 Walk · ${fmtMinutes(walk)}`);lines.push(`🚕 Grab · ${fmtMinutes(grab||grabFromWalk(walk))}`);}
     else if(grab){lines.push(`🚕 Grab · ${fmtMinutes(grab)}`);}
-     else if(String(item&&item.id||'')==='quince-d4'){lines.push('🚕 Grab · Live ETA in Maps');}
+     else if(String(item&&item.id||'')==='aum-d4'){lines.push('🚕 Grab · Live ETA in Maps');}
     else {lines.push('🚕 Grab · Live ETA in Maps');}
     const directions=nextDirections(item,next);
     return `<div class="route-hint route-hint--derived"><strong>TO NEXT STOP</strong><span class="route-next-title">${esc(title)}</span><span class="route-next-modes">${lines.map(esc).join(' · ')}</span>${directions?`<a class="route-next-map" href="${esc(directions)}" target="_blank" rel="noopener">Directions ›</a>`:''}</div>`;

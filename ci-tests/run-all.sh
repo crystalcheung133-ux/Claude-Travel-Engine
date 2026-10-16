@@ -63,7 +63,7 @@ run "RC29.129 DAY2 RUE MICHE SHOPPING" node ci-tests/test-day2-rue-miche-shoppin
 run "RC29.130 MAP ADDRESS ROUTING" node ci-tests/test-rc29130-map-address-routing.js
 run "RC29.131 TIMELINE AUTHORITY REBASE" node ci-tests/test-rc29131-timeline-authority-rebase.js
 run "RC29.131 BOOKING TIME AUTHORITY" node ci-tests/test-rc29131-booking-time-authority.js
-run "DAY 4 APPROVED ROUTE + QUINCE SAFETY" node ci-tests/test-day4-approved-route-contract.js
+run "DAY 4 APPROVED ROUTE + AUM SAFETY" node ci-tests/test-day4-approved-route-contract.js
 run "MOC HUONG GUIDE OVERRIDE COMPATIBILITY" node ci-tests/test-moc-huong-guide-override-migration.js
 [ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
 run "RC29.77 LIVE FX SAVE" node ci-tests/test-rc2977-live-fx-save.js
