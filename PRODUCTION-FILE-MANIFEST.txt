@@ -1,5 +1,5 @@
 Saigon Companion Production File Manifest
-Generated: 2026-10-15
+Generated: 2026-10-16
 Base: VN Companion RC29.135 · Copy Audit & Sticky Guide Close
 Reference trip: Vietnam
 
