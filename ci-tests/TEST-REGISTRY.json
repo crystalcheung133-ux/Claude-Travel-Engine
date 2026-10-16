@@ -117,7 +117,7 @@
   },
   "test-day4-approved-route-contract.js": {
     "status": "active",
-    "note": "Day 4 approved eight-stop shopping, An Khanh SPA pending, 0123 separate, Quince unchanged"
+    "note": "Day 4 approved eight-stop shopping, An Khanh SPA pending, 0123 separate, aum. Saigon unchanged"
   },
   "test-dual-currency-expenses.js": {
     "status": "active",
@@ -186,6 +186,10 @@
   "test-itinerary-d2-d4-reconciliation.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"
+  },
+  "test-moc-huong-guide-override-migration.js": {
+    "status": "active",
+    "note": "Moc Huong saved Guide booking-copy compatibility without modifying Timeline or unrelated overrides"
   },
   "test-moments-plan-activity-canonical.js": {
     "status": "active",
@@ -483,10 +487,6 @@
   "test-trip-guide-shell-consolidation.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"
-  },
-  "test-user-booking-edit-survives-deploy.js": {
-    "status": "active",
-    "note": "Saved booking time wins over unrelated deploy revisions; stale legacy cache rejected"
   },
   "test-ux-contract.js": {
     "status": "active",

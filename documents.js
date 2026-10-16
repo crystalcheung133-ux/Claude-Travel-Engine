@@ -124,10 +124,54 @@ async function renderPdfInto(url,wrap){
   }
  }catch(e){wrap.innerHTML='<div class="doc-viewer-message"><strong>Could not preview this document.</strong><p>Try again while online.</p></div>'}
 }
-root.openDocumentViewer=id=>{const d=root.TRIP_DOCUMENTS.read().find(x=>x.id===id);if(!d)return;let url=d.fileUrl||d.localObjectUrl||'';if(d.embeddedBase64){try{const raw=atob(d.embeddedBase64),bytes=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);url=URL.createObjectURL(new Blob([bytes],{type:d.mimeType||'application/pdf'}));}catch(e){}}$('docViewerTitle').textContent=d.title||'Document';const body=$('docViewerBody');body.innerHTML='';
+// Prepare the original file while the viewer opens. The share gesture itself stays synchronous.
+let viewerShareToken=0,viewerShareFile=null,viewerShareUrl='',viewerShareName='';
+function shareFileName(d){
+ const base=String(d.fileName||d.title||'Document').replace(/[\\/]/g,'-').trim()||'Document';
+ if(/\.[a-z0-9]{2,6}$/i.test(base))return base;
+ const type=String(d.mimeType||'');return base+(type.includes('pdf')?'.pdf':type.includes('png')?'.png':type.includes('webp')?'.webp':type.startsWith('image/')?'.jpg':'');
+}
+function resetViewerShare(){
+ ++viewerShareToken;viewerShareFile=null;viewerShareUrl='';viewerShareName='';
+ const button=$('docViewerShare');if(button){button.disabled=true;button.title='Preparing file for sharing';}
+}
+function prepareViewerShare(d,url){
+ resetViewerShare();const token=viewerShareToken,button=$('docViewerShare');
+ if(!url){if(button)button.title='File unavailable';return;}
+ viewerShareUrl=url;viewerShareName=shareFileName(d);
+ (async()=>{
+  try{
+   const response=await fetch(url);if(!response.ok)throw Error('HTTP '+response.status);
+   const blob=await response.blob();if(!blob.size)throw Error('Empty document');
+   const file=new File([blob],viewerShareName,{type:d.mimeType||blob.type||'application/octet-stream'});
+   if(token!==viewerShareToken)return;
+   viewerShareFile=file;if(button){button.disabled=false;button.title='Share original file';}
+  }catch(error){
+   if(token!==viewerShareToken)return;
+   console.warn('Document file preparation failed',error);
+   if(button){button.disabled=false;button.title='Open original file to share';}
+  }
+ })();
+}
+function downloadViewerFile(file){
+ const url=URL.createObjectURL(file),a=document.createElement('a');a.href=url;a.download=file.name;a.hidden=true;
+ document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);
+}
+root.shareOpenDocument=()=>{
+ const file=viewerShareFile;
+ if(file&&navigator.share&&navigator.canShare&&navigator.canShare({files:[file]})){
+  // No await or fetch before navigator.share: iOS requires the user's tap activation.
+  navigator.share({files:[file]}).catch(error=>{if(error?.name!=='AbortError')console.warn('Document sharing failed',error)});
+  return;
+ }
+ if(file){downloadViewerFile(file);return;}
+ if(viewerShareUrl){const a=document.createElement('a');a.href=viewerShareUrl;a.target='_blank';a.rel='noopener';a.click();return;}
+ alert('This document is not available on this device yet.');
+};
+root.openDocumentViewer=id=>{const d=root.TRIP_DOCUMENTS.read().find(x=>x.id===id);if(!d)return;let url=d.fileUrl||d.localObjectUrl||'';if(d.embeddedBase64){try{const raw=atob(d.embeddedBase64),bytes=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);url=URL.createObjectURL(new Blob([bytes],{type:d.mimeType||'application/pdf'}));}catch(e){}}prepareViewerShare(d,url);$('docViewerTitle').textContent=d.title||'Document';const body=$('docViewerBody');body.innerHTML='';
 if(d.linkType&&d.linkType!=='trip'&&d.linkLabel){const link=document.createElement('a');link.className='pill doc-viewer-linked-entity';link.href=routeForDocument(d,'viewer');link.textContent='🔗 '+d.linkLabel;link.onclick=function(event){return openDocumentLinkedEntity(d.id,'viewer',event)};body.appendChild(link)}
 if(!url){body.innerHTML='<div class="doc-viewer-message">This document is not available on this device yet.</div>'}else if((d.mimeType||'').startsWith('image/')){const img=document.createElement('img');img.src=url;img.alt=d.title||'Document';body.appendChild(img)}else if((d.mimeType||'').includes('pdf')||/\.pdf(?:$|\?)/i.test(url)){const wrap=document.createElement('div');wrap.className='pdf-pages';body.appendChild(wrap);renderPdfInto(url,wrap)}else{const wrap=document.createElement('div');wrap.className='doc-viewer-message';wrap.innerHTML='<strong>'+esc(d.fileName||d.title||'Document')+'</strong><p>This file type opens in its native viewer.</p><a class="pill" target="_blank" rel="noopener">Open original file</a>';wrap.querySelector('a').href=url;body.appendChild(wrap)}$('docViewer').classList.add('show');$('docViewer').setAttribute('aria-hidden','false');root.bringContentOverlayToFront?.($('docViewer'));document.body.style.overflow='hidden'};
-root.closeDocumentViewer=()=>{if(typeof root.dismissAllContentOverlays==='function')return root.dismissAllContentOverlays();const v=$('docViewer');v.classList.remove('show');v.setAttribute('aria-hidden','true');$('docViewerBody').innerHTML='';document.body.style.overflow='';return true};
+root.closeDocumentViewer=()=>{resetViewerShare();if(typeof root.dismissAllContentOverlays==='function')return root.dismissAllContentOverlays();const v=$('docViewer');v.classList.remove('show');v.setAttribute('aria-hidden','true');$('docViewerBody').innerHTML='';document.body.style.overflow='';return true};
 root.resetDocumentsView=()=>{try{root.closeDocumentViewer()}catch(e){};try{root.closeAddDocument()}catch(e){};const f=$('docForm');if(f)f.reset();const save=$('docSave');if(save){save.disabled=false;save.textContent='Save Document'};document.body.style.overflow=''};
 
 root.openAddDocument=()=>{root.TRIP_DOCUMENT_FOLDERS?.fillSelect($('docFiledUnder'),'all');setLinkEditor('doc','trip','');$('docModal').classList.add('show')};

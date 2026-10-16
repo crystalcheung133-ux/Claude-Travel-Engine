@@ -3535,3 +3535,9 @@ body.home-bg .live-currency-card #currencyResult{font-size:16px!important}
 .timeline-time-choice span{display:inline-block;min-width:0;overflow-wrap:normal}
 .timeline-editor-sheet .timeline-time-display #timelineTimePeriodRow{grid-column:1/-1;margin:3px 0 0!important}
 .timeline-time-display .timeline-field-help{grid-column:1/-1;margin:2px 0 0}
+
+/* Documents viewer: share and close actions on the right. */
+body.documents-page .doc-viewer-head{grid-template-columns:42px minmax(0,1fr) 40px 40px!important;gap:4px!important}
+body.documents-page .doc-viewer-share{grid-column:3;justify-self:center;display:grid;place-items:center;width:38px;height:38px;border:0;border-radius:999px;background:var(--soft,#eef1f2);color:inherit;cursor:pointer}
+body.documents-page .doc-viewer-share:disabled{opacity:.4;cursor:wait}
+body.documents-page .doc-viewer-close{grid-column:4!important}

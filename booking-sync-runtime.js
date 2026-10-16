@@ -47,16 +47,6 @@
     if(!master)return record;
     const currentRevision=root.BOOKING_AUTHORITY.masterRevision();
     const remoteRevision=Number(record&&((record._masterRevision!=null?record._masterRevision:record.masterRevision))||0);
-    if(Array.isArray(record._editedFields)){
-      const merged=Object.assign({},master);
-      record._editedFields.forEach(function(field){
-        if(!['id','bookingId','_masterRevision','masterRevision','_editedFields','_userSavedAt'].includes(field)&&Object.prototype.hasOwnProperty.call(record,field))merged[field]=clone(record[field]);
-      });
-      merged._editedFields=record._editedFields.slice();
-      merged._userSavedAt=record._userSavedAt||record.updatedAt||'';
-      merged._masterRevision=currentRevision;
-      return merged;
-    }
     if(remoteRevision===currentRevision)return Object.assign({},master,record,{_masterRevision:currentRevision});
     const merged=Object.assign({},master);
     const editable=root.BOOKING_AUTHORITY.editableStateFields||[];

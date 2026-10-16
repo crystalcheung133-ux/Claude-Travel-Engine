@@ -56,4 +56,7 @@ assert.equal(pizza.status,'confirmed');
 assert.equal(pizza.title,'Pizza 4P’s Hai Bà Trưng');
 assert.equal(stored.overrides['bk-pizza4ps']._masterRevision,9);
 
-console.log('BOOKING AUTHORITY STALE-STATE POISONING: PASS');
+// An app-saved edit survives a later deployment revision, unlike unverified old cache.
+context.TRIP_CONFIG.bookingMasterRevision=10;
+assert.equal(A.get('bk-pizza4ps').time,'13:15','last successfully saved user edit must survive redeploy');
+console.log('BOOKING AUTHORITY STALE-STATE POISONING + USER SSOT: PASS');

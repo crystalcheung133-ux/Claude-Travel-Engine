@@ -8,12 +8,36 @@ const clone=v=>v==null?v:JSON.parse(JSON.stringify(v));
 function migrate(){if(Object.keys(read(SAVED)).length)return;const old=read(LEGACY),now=new Date().toISOString(),out={};Object.keys(old).forEach(k=>out[k]={patch:old[k],updatedAt:now});if(Object.keys(out).length)write(SAVED,out)}migrate();
 function records(){return read(SAVED)}
 function savedPatch(key){return records()[key]?.patch||{}}
-function resolve(key,base){return Object.assign({},clone(base||{}),clone(savedPatch(key)),read(DRAFT)[key]||{});}
+// One-place compatibility filter: previously saved Mộc Hương Guide copy contained
+// appointment details that belong exclusively to Booking. Do not delete saved
+// records or touch Timeline Publish; filter only obsolete Guide presentation fields.
+const SPA_COPY_FIELDS=['desc','sub','signature','highlights','worth','tips','notes','practical','bookingNote'];
+const SPA_BOOKING_COPY=/(?:15[:.]30|17[:.]30|120[ -]?(?:minute|min|分鐘)|4 guests|4 人|四人|pending|待確認|預約|booking|whatsapp|mochuongwellness\.vn\/booking|\+84\s?90\s?975\s?5877)/i;
+function spaGuidePatch(key,patch,base){
+ if(key!=='moc-huong'||!base)return clone(patch||{});
+ const out=clone(patch||{});
+ SPA_COPY_FIELDS.forEach(field=>{
+  if(!Object.prototype.hasOwnProperty.call(out,field))return;
+  const val=out[field];
+  if(Array.isArray(val)){
+   if(!val.some(line=>SPA_BOOKING_COPY.test(String(line))))return;
+   const kept=val.filter(line=>!SPA_BOOKING_COPY.test(String(line)));
+   if(kept.length)out[field]=kept;
+   else if(Object.prototype.hasOwnProperty.call(base,field))out[field]=clone(base[field]);
+   else delete out[field];
+  }else if(typeof val==='string'&&SPA_BOOKING_COPY.test(val)){
+   if(Object.prototype.hasOwnProperty.call(base,field))out[field]=clone(base[field]);
+   else delete out[field];
+  }
+ });
+ return out;
+}
+function resolve(key,base){return Object.assign({},clone(base||{}),spaGuidePatch(key,savedPatch(key),base),spaGuidePatch(key,read(DRAFT)[key],base));}
 function stage(key,patch){const d=read(DRAFT);d[key]=Object.assign({},d[key]||{},clone(patch||{}));write(DRAFT,d);root.markAdminDirty&&root.markAdminDirty('guide:'+key,{key});document.dispatchEvent(new CustomEvent('travelengine:guidechange',{detail:{key}}));return resolve(key,{});}
 function save(key,patch){const s=records(),now=new Date().toISOString();s[key]={patch:Object.assign({},s[key]?.patch||{},clone(patch||{})),updatedAt:now};write(SAVED,s);const d=read(DRAFT);delete d[key];write(DRAFT,d);document.dispatchEvent(new CustomEvent('travelengine:guidechange',{detail:{key}}));document.dispatchEvent(new CustomEvent('travelengine:guidesaved',{detail:{key,updatedAt:now}}));return resolve(key,{});}
 function mergeRemote(rows){const s=records();let changed=false;(rows||[]).forEach(r=>{if(!r?.id)return;const l=s[r.id];if(!l||String(r.updatedAt||'')>String(l.updatedAt||'')){s[r.id]={patch:clone(r.patch||{}),updatedAt:r.updatedAt||new Date().toISOString()};changed=true}});if(changed){write(SAVED,s);document.dispatchEvent(new CustomEvent('travelengine:guidechange',{detail:{remote:true}}))}return changed;}
 function commit(){const d=read(DRAFT);Object.keys(d).forEach(k=>save(k,d[k]));write(DRAFT,{});}
 function discard(){write(DRAFT,{});document.dispatchEvent(new CustomEvent('travelengine:guidechange'));}
-function mergedPlaces(base){const out=clone(base||{});Object.keys(out).forEach(k=>out[k]=Object.assign({},out[k],savedPatch(k)));return out;}
+function mergedPlaces(base){const out=clone(base||{});Object.keys(out).forEach(k=>out[k]=Object.assign({},out[k],spaGuidePatch(k,savedPatch(k),out[k])));return out;}
 root.GUIDE_AUTHORITY=Object.freeze({resolve,stage,save,commit,discard,mergedPlaces,records,mergeRemote});
 })(globalThis);
