@@ -325,6 +325,8 @@ function quickInfoInnerHTML(g,key){
  const price=(bookingPrice&&!unknown.test(bookingPrice))?bookingPrice:placePrice;
  const showPrice=g.cat!=='STAY'&&g.cat!=='ACTIVITIES'&&price&&!unknown.test(price);
  const priceRow=showPrice?`<div class="quick-info-row"><span class="quick-info-icon">💰</span><span><span class="quick-info-label">Price</span><span class="quick-info-value">${price}</span></span></div>`:'';
+ const estimatedSpend=String(g.estimatedSpendPerPerson||'').trim();
+ const estimatedSpendRow=(g.cat==='RESTAURANTS'&&estimatedSpend)?`<div class="quick-info-row"><span class="quick-info-icon">💵</span><span><span class="quick-info-label">Estimated spend / person</span><span class="quick-info-value">${estimatedSpend} · approx., drinks and service may vary</span></span></div>`:'';
  const hours=String(g.hours||'').trim();
  const hoursRow=hours?`<div class="quick-info-row"><span class="quick-info-icon">🕒</span><span><span class="quick-info-label">Hours</span><span class="quick-info-value">${hours}</span></span></div>`:'';
  const address=String(g.address||'').trim();
@@ -347,7 +349,7 @@ function quickInfoInnerHTML(g,key){
  const coreSections=guideCoreSections(g,key);
  const currencyOptions=Array.isArray(g.currencyOptions)?g.currencyOptions:[];
  const currencyOptionsHTML=currencyOptions.length?`<div class="currency-option-list">${currencyOptions.map(option=>`<article class="currency-option-card"><div class="currency-option-head"><strong>${option.icon||'💱'} ${option.name||''}</strong><span>${option.best||''}</span></div><p>${option.note||''}</p><p class="currency-option-address">📍 ${option.address||''}</p>${option.maps?`<a class="map-button" href="${option.maps}" target="_blank" rel="noopener">🧭 Navigate</a>`:''}</article>`).join('')}</div>`:'';
- return `<div class="quick-info-top"><span class="category-tag">${g.categoryLabel||g.cat||'Guide'}</span>${roleBadge}</div><div class="quick-info-grid">${addressRow}${phoneRow}${hoursRow}${priceRow}${bookingRow}${visitDayHTML(key)}</div>${coreSections}${guideAlternativeLinksHTML(g)}${currencyOptionsHTML}${reminderRow}${parkingHTML}<div class="quick-info-actions">${navButton}${websiteButton}${callButton}${bookingButton}</div>`;
+ return `<div class="quick-info-top"><span class="category-tag">${g.categoryLabel||g.cat||'Guide'}</span>${roleBadge}</div><div class="quick-info-grid">${addressRow}${phoneRow}${hoursRow}${estimatedSpendRow}${priceRow}${bookingRow}${visitDayHTML(key)}</div>${coreSections}${guideAlternativeLinksHTML(g)}${currencyOptionsHTML}${reminderRow}${parkingHTML}<div class="quick-info-actions">${navButton}${websiteButton}${callButton}${bookingButton}</div>`;
 }
 
 function quickInfoHTML(g,key){

@@ -5,6 +5,7 @@ const PLACES={
   "in-the-mood-d4": {"title":"In The Mood Saigon","emoji":"🎁","cat":"SHOP","sub":"Day 4 · First shopping stop","shoppingRoute":"Day 4 · Thảo Điền walk","hours":"10:00–19:00 · verify on the day","address":"32 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam","maps":"https://www.google.com/maps/search/?api=1&query=In%20The%20Mood%20Saigon%2032%20Tran%20Ngoc%20Dien","desc":"Day 4 第一站；越南設計、手工家品、飾物及特色手信。","categoryLabel":"🛍 Shopping","transport":"Walk / Grab","highlights":["Vietnamese design","Handmade gifts"]},
   "grade-b-d4": {"title":"Grade B","emoji":"🏺","cat":"SHOP","sub":"Day 4 · Second shopping stop","shoppingRoute":"Day 4 · Thảo Điền walk","address":"14 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam","maps":"https://www.google.com/maps/search/?api=1&query=Grade%20B%2014%20Tran%20Ngoc%20Dien%20Ho%20Chi%20Minh","desc":"第二站；設計陶瓷及生活選物。","categoryLabel":"🏺 Ceramics","transport":"Walk","highlights":["Ceramics","Lifestyle objects"]},
   "aum-saigon": {
+    "estimatedSpendPerPerson": "AUD $55–83",
     "title":"aum. Saigon", "emoji":"🍽️", "cat":"RESTAURANTS", "sub":"Newly opened 24 Sep 2026 · Contemporary Thai-inspired dining", "status":"confirmed",
     "maps":"https://www.google.com/maps/search/?api=1&query=71-73-75%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh%20City", "address":"71–73–75 Hai Bà Trưng, Sài Gòn, Hồ Chí Minh, Vietnam",
     "website":"https://www.aumsaigon.com/menu", "desc":"2026 年 9 月 24 日新開幕的 aum. Saigon，以泰國及 Isaan 風味結合現代烹調與炭烤手法。適合四位朋友分享多款小食、海鮮及主菜，作為 Girls Trip Farewell Dinner。新餐廳獨立食評較少，實際供應以當晚菜單為準。",
@@ -195,6 +196,7 @@ const PLACES={
     ]
   },
   "bep-me-in": {
+    "estimatedSpendPerPerson": "AUD $11–19",
     "title": "Bếp Mẹ Ỉn",
     "emoji": "🏡",
     "cat": "RESTAURANTS",
@@ -229,6 +231,7 @@ const PLACES={
     ]
   },
   "com-tam-moc": {
+    "estimatedSpendPerPerson": "AUD $9–14",
     "title": "Cơm Tấm Mộc",
     "emoji": "🍚",
     "cat": "RESTAURANTS",
@@ -262,6 +265,7 @@ const PLACES={
   },
 
   "lune": {
+    "estimatedSpendPerPerson": "AUD $88–125",
     "title": "LÚNE Restaurant & Bar",
     "emoji": "🇫🇷",
     "cat": "RESTAURANTS",
@@ -288,6 +292,7 @@ const PLACES={
     "tips": ["Smart casual is sufficient.", "Ask about seasonal dishes if the table wants to share."]
   },
   "omakase-tiger": {
+    "estimatedSpendPerPerson": "AUD $68–83",
     "title": "Omakase Tiger",
     "emoji": "🍣",
     "cat": "RESTAURANTS",
@@ -305,54 +310,8 @@ const PLACES={
     "highlights": ["Penthouse setting with city views", "Small counter for close-up chef interaction", "Seasonal chef-led courses"],
     "tips": ["Mention allergies or strong dislikes before the meal starts.", "Smart casual is sufficient."]
   },
-  "the-350f": {
-    "title": "The 350F · Nguyễn Trãi",
-    "emoji": "🍰",
-    "cat": "CAFÉS",
-    "sub": "Day 1 · Nguyễn Trãi sweet pause",
-    "status": "optional",
-    "hours": "09:00–22:30",
-    "maps": "https://www.google.com/maps/search/?api=1&query=The%20350F%2037%20Nguyen%20Trai%20Ho%20Chi%20Minh%20City",
-    "address": "37 Nguyễn Trãi, Bến Thành, Ho Chi Minh City, Vietnam",
-    "desc": "藏在 Nguyễn Trãi shopping line 中間的一點甜。走到這裡，想坐就停下來分一件 cake；若房間已在等你，就挑一盒帶回 Fusion，讓甜點跟著午後一起慢下來。",
-    "signature": ["精緻法式蛋糕與甜點", "就在 Day 1 Nguyễn Trãi shopping line 上", "Dine-in / takeaway 都順路"],
-    "worth": ["不是另一個任務，而是 shopping 中途自然遇見的一站。", "想早點回酒店，就直接 takeaway。"],
-    "categoryLabel": "☕ Pastry · Optional",
-    "transport": "Walk along Nguyễn Trãi shopping line"
-  },
-  "ivoire": {
-    "title": "Ivoire Pastry Boutique",
-    "emoji": "🍰",
-    "cat": "CAFÉS",
-    "sub": "Day 2 · Old Saigon 後甜點 stop",
-    "status": "planned",
-    "hours": "Sat 09:30–19:00",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Ivoire%20Pastry%20Boutique%2028%20Cao%20Ba%20Quat%20Ho%20Chi%20Minh%20City",
-    "address": "28 Cao Bá Quát, Bến Nghé, District 1, Ho Chi Minh City",
-    "desc": "Ivoire 是 Day 2 行完郵局、書街與紅教堂後的 optional pastry stop。時間鬆動就坐低慢慢食；如果已經攰、房間 ready，或者想早點返酒店，就直接 takeaway 幾件 cake 回 Fusion。重點係留彈性，不為甜點拖慢第一日節奏。",
-    "signature": [
-      "精緻法式 pastry，造型感強",
-      "適合四個人 share 幾款，不需要當成另一餐",
-      "Dine-in / takeaway 都成立"
-    ],
-    "worth": [
-      "放在 Post Office / Book Street 後剛好；晚餐是 LÚNE，這站保持輕盈。",
-      "有時間就坐低；冇時間就外賣返 Fusion，唔需要為 guide card 變成硬行程。"
-    ],
-    "categoryLabel": "☕ Cafe · Optional",
-    "price": "$$",
-    "transport": "Walk from Post Office / Book Street; then Grab back to Fusion",
-    "highlights": [
-      "精緻法式 pastry，造型感強",
-      "適合四個人 share 幾款，不需要當成另一餐",
-      "Dine-in / takeaway 都成立"
-    ],
-    "tips": [
-      "Day 2 下午經過；晚餐前保持 optional。",
-      "如果酒店通知房間 ready，買 cake 外賣返房食會更舒服。"
-    ]
-  },
   "pho-sol": {
+    "estimatedSpendPerPerson": "AUD $11–16",
     "title": "Phở SOL",
     "emoji": "🍜",
     "cat": "RESTAURANTS",
@@ -382,38 +341,6 @@ const PLACES={
     "tips": [
       "4 人可以點不同款式 share，不一定每人一碗。",
       "第一日下機後不要排太多，食完留體力去景點和 spa。"
-    ]
-  },
-  "pho-vietnam": {
-    "title": "Phở Việt Nam Bến Thành",
-    "emoji": "🥣",
-    "cat": "RESTAURANTS",
-    "sub": "石鍋河粉",
-    "status": "planned",
-    "hours": "06:00–03:00 daily",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Ph%E1%BB%9F%20Vi%E1%BB%87t%20Nam%20B%E1%BA%BFn%20Th%C3%A0nh%2014%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
-    "address": "14 Phạm Hồng Thái, Bến Thành, Hồ Chí Minh 70000, Vietnam",
-    "desc": "Phở Việt Nam Bến Thành 是 Michelin Selected 河粉店，以 phở thố đá 石鍋河粉聞名。湯、牛肉和配料分開上，熱石鍋令湯從第一口到最後仍然滾熱。放在最後一日早餐，有一種「用一碗越南河粉收尾」的完整感。",
-    "signature": [
-      "Michelin Selected",
-      "Phở thố đá 石鍋河粉",
-      "湯保持高溫，牛肉即場燙熟"
-    ],
-    "worth": [
-      "熱門時段可能要等位，但流轉快。",
-      "湯很熱，慢慢食比較安全。"
-    ],
-    "categoryLabel": "🍽 Restaurant",
-    "price": "$",
-    "transport": "Grab / walk depending on current route",
-    "highlights": [
-      "Michelin Selected",
-      "Phở thố đá 石鍋河粉",
-      "湯保持高溫，牛肉即場燙熟"
-    ],
-    "tips": [
-      "熱門時段可能要等位，但流轉快。",
-      "湯很熱，慢慢食比較安全。"
     ]
   },
   "clothes-bar": {
@@ -447,6 +374,7 @@ const PLACES={
     "title":"Vina Design Store · Thảo Điền","emoji":"⭐","cat":"SHOP","sub":"Day 4 · Xuân Thủy Design Finish","shoppingRoute":"Day 4 · Xuân Thủy design walk","hours":"10:00–21:00","maps":"https://www.google.com/maps/search/?api=1&query=Vina%20Design%20Store%20111%20Xuan%20Thuy%20Ho%20Chi%20Minh","address":"111 Xuân Thủy, An Khánh, Hồ Chí Minh","desc":"Curated Vietnamese design objects；111 Xuân Thủy 放在 Day 4 design walk 尾段，比再加普通 fashion shop更有特色。","signature":["Vietnamese design objects","Curated local products","Design gifts"],"worth":["由 dakao 83 → Aurora/Wicky 94 → Vina 111，地址順序清楚。"],"categoryLabel":"⭐ Vietnamese Design","price":"Varies","transport":"Walk on Xuân Thủy","highlights":["Vietnamese design","Curated local products"],"tips":["同 Day 1 的 111 Tôn Thất Đạm 係不同店址，不要混淆。"]
   },
   "pizza4ps": {
+    "estimatedSpendPerPerson": "AUD $21–29",
     "title": "Pizza 4P’s Hai Bà Trưng",
     "emoji": "🍕",
     "cat": "RESTAURANTS",
@@ -474,6 +402,7 @@ const PLACES={
     "tips": ["Share pizzas and pasta across the table to try more dishes.", "House-made cheese is the signature reason to visit."]
   },
   "quan-thuy": {
+    "estimatedSpendPerPerson": "AUD $23–36",
     "title": "Quán Thuý 94",
     "emoji": "🦀",
     "cat": "RESTAURANTS",
@@ -1297,6 +1226,7 @@ const PLACES={
     ]
   },
   "man-moi": {
+    "estimatedSpendPerPerson": "AUD $19–28",
     "title": "Mặn Mòi · Tao Đàn",
     "emoji": "🍲",
     "cat": "RESTAURANTS",
@@ -1330,27 +1260,6 @@ const PLACES={
     "maps": "https://www.google.com/maps/search/?api=1&query=Tan%20Son%20Nhat%20International%20Airport%20Terminal%202%20Ho%20Chi%20Minh%20City",
     "address": "Tan Son Nhat International Airport, International Terminal T2, Ho Chi Minh City, Vietnam",
     "desc": "VN 行程抵達及離境使用的新山一機場。"
-  },
-  "social-club": {
-    "title": "Social Club Rooftop Bar",
-    "emoji": "🥂",
-    "cat": "CAFÉS",
-    "sub": "24/F rooftop cocktails · skyline views",
-    "hours": "Sun–Thu 15:00–00:00; Fri–Sat 15:00–01:00",
-    "maps": "https://maps.google.com/?q=Social+Club+Rooftop+Bar+Hotel+des+Arts+Saigon",
-    "address": "24/F, Hôtel des Arts Saigon, 76–78 Nguyễn Thị Minh Khai, Ho Chi Minh City",
-    "phone": "0901 379 129",
-    "desc": "Hôtel des Arts Saigon 24樓 rooftop bar，以 Saigon skyline、sunset cocktails 同夜景氣氛做主角。Day 2 只作 optional after-dinner drink：有精神先去，唔影響主行程。",
-    "signature": [
-      "24樓開揚 Saigon skyline，黃昏至入夜最有氣氛",
-      "Signature cocktails；15:00–19:00 daily Happy Hour（公眾假期／special events除外）",
-      "Smart casual；夜晚較適合成人 drinks / city-view stop"
-    ],
-    "worth": [
-      "Optional after-dinner stop；攰就直接返 Fusion，完全唔需要硬去。"
-    ],
-    "categoryLabel": "🥂 Rooftop Bar",
-    "status": "optional"
   },
   "concept-111": {
     "title":"111 Concept Store","emoji":"🧩","cat":"SHOP","sub":"Day 1 · Optional after Nguyễn Trãi","shoppingRoute":"Day 1 after Nguyễn Trãi if time",
@@ -1506,6 +1415,7 @@ const PLACES={
     "transport": "Optional short Grab from War Remnants Museum"
   },
   "maruco": {
+    "estimatedSpendPerPerson": "AUD $25–40",
     "title": "Izakaya Maruco",
     "emoji": "🔥",
     "cat": "RESTAURANTS",
@@ -1621,12 +1531,6 @@ const CATEGORIES={
       "key": "bakes"
     },
     {
-      "key": "the-350f"
-    },
-    {
-      "key": "ivoire"
-    },
-    {
       "key": "cong"
     },
     {
@@ -1638,9 +1542,6 @@ const CATEGORIES={
     {
       "key": "running-bean"
     },
-    {
-      "key": "social-club"
-    }
   ],
   "RESTAURANTS": [
     {"key":"aum-saigon"},
@@ -1658,9 +1559,6 @@ const CATEGORIES={
     },
     {
       "key": "pho-sol"
-    },
-    {
-      "key": "pho-vietnam"
     },
     {
       "key": "pizza4ps"
@@ -1756,10 +1654,7 @@ const GUIDE_ORDER=[
   "man-moi",
   "quan-thuy",
   "omakase-tiger",
-  "the-350f",
-  "ivoire",
   "pho-sol",
-  "pho-vietnam",
   "pizza4ps",
   "ohquao",
   "new-playground",
@@ -1775,7 +1670,6 @@ const GUIDE_ORDER=[
   "post-office",
   "pink-church",
   "war-museum",
-  "social-club",
   "norah-spa-2",
   "cu-chi",
   "nara-spa",
@@ -1791,7 +1685,6 @@ const DAY_LINKS={
       "day.html?day=1#day1-hotel-reset"
     ]
   ],
-  "ivoire": [],
   "pho-sol": [
     [
       "Day 1",
