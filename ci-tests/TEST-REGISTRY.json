@@ -394,6 +394,10 @@
     "status": "active",
     "note": "invoked by current Master CI suite"
   },
+  "test-removed-four-guides.js": {
+    "status": "active",
+    "note": "Four user-deleted guides must not reappear in any guide inventory or itinerary"
+  },
   "test-retired-bookings-runtime.js": {
     "status": "active",
     "scope": "release-hardening",

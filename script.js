@@ -81,7 +81,7 @@ window.applyNearFitModal=applyNearFitModal;
     return el;
   };
   root.dismissAllContentOverlays=function(){
-    ['tripModal','guideModal','docViewer','expenseModal','momentsModal','unexpectedModal','mamaModal'].forEach(function(id){
+    ['tripModal','guideModal','docViewer','expenseModal','momentsModal','unexpectedModal','mamaModal','weatherModal','clockModal','shoppingRouteModal','referenceViewerModal','expenseCalculatorModal','docModal','editDocModal','expenseNoticeModal','tripExportModal'].forEach(function(id){
       const el=document.getElementById(id);if(!el)return;
       el.classList.remove('show','guide-backgrounded-for-booking','identity-required');
       el.setAttribute?.('aria-hidden','true');
@@ -106,7 +106,8 @@ document.addEventListener('click',function(event){
   let destination;
   try{destination=new URL(link.href,location.href);}catch(e){return;}
   if(destination.origin!==location.origin)return;
-  if(destination.pathname===location.pathname&&destination.search===location.search)return;
-  if(!['tripModal','guideModal','docViewer','expenseModal','momentsModal','unexpectedModal','mamaModal'].some(id=>document.getElementById(id)?.classList.contains('show')))return;
+  // Same-page hash navigation from a popup is still popup → page.
+  if(destination.pathname===location.pathname&&destination.search===location.search&&!destination.hash)return;
+  if(!['tripModal','guideModal','docViewer','expenseModal','momentsModal','unexpectedModal','mamaModal','weatherModal','clockModal','shoppingRouteModal','referenceViewerModal','expenseCalculatorModal','docModal','editDocModal','expenseNoticeModal','tripExportModal'].some(id=>document.getElementById(id)?.classList.contains('show')))return;
   window.dismissAllContentOverlays?.();
 },true);

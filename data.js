@@ -51,38 +51,7 @@ const PLACES={
     "highlights": ["Direct access to Saigon Centre / Takashimaya", "Central District 1 base", "Easy rain / heat fallback"],
     "tips": ["Useful as a bag-drop and reset point between city stops.", "Takashimaya downstairs is convenient for last-minute supplies."]
   },
-  "bakes": {
-    "title": "Bakes Thảo Điền",
-    "emoji": "🥐",
-    "cat": "CAFÉS",
-    "sub": "Day 4 · Thảo Điền pastry break",
-    "status": "planned",
-    "hours": "07:30–22:30 daily",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Bakes%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2016%20Th%E1%BA%A3o%20%C4%90i%E1%BB%81n%2C%20An%20Kh%C3%A1nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
-    "address": "16 Thảo Điền, An Khánh, Hồ Chí Minh 700000, Vietnam",
-    "desc": "Bakes 留作 Thảo Điền 路上的 optional 甜點停頓。想坐低就分一兩件 pastry、喝杯咖啡；不必為它鎖住午後時間。",
-    "signature": [
-      "多款法式甜點與千層 croissant",
-      "冷氣座位，適合午后避暑",
-      "同 The Dreamers Bakery 很近，可二選一"
-    ],
-    "worth": [
-      "當作 cool-down break，不是第二餐。",
-      "沿 Thảo Điền 主街走到附近再決定；Open Day 不設固定到店時間。"
-    ],
-    "categoryLabel": "☕ Cafe",
-    "price": "$–$$",
-    "transport": "Grab / walk depending on current route",
-    "highlights": [
-      "多款法式甜點與千層 croissant",
-      "冷氣座位，適合午后避暑",
-      "同 The Dreamers Bakery 很近，可二選一"
-    ],
-    "tips": [
-      "當作 cool-down break，不是第二餐。",
-      "沿 Thảo Điền 主街走到附近再決定；Open Day 不設固定到店時間。"
-    ]
-  },
+
   "cafe-apartments": {
     "title": "The Cafe Apartments",
     "emoji": "🌃",
@@ -312,53 +281,6 @@ const PLACES={
     "highlights": ["Penthouse setting with city views", "Small counter for close-up chef interaction", "Seasonal chef-led courses"],
     "tips": ["Mention allergies or strong dislikes before the meal starts.", "Smart casual is sufficient."]
   },
-  "the-350f": {
-    "title": "The 350F · Nguyễn Trãi",
-    "emoji": "🍰",
-    "cat": "CAFÉS",
-    "sub": "Day 1 · Nguyễn Trãi sweet pause",
-    "status": "optional",
-    "hours": "09:00–22:30",
-    "maps": "https://www.google.com/maps/search/?api=1&query=The%20350F%2037%20Nguyen%20Trai%20Ho%20Chi%20Minh%20City",
-    "address": "37 Nguyễn Trãi, Bến Thành, Ho Chi Minh City, Vietnam",
-    "desc": "藏在 Nguyễn Trãi shopping line 中間的一點甜。走到這裡，想坐就停下來分一件 cake；若房間已在等你，就挑一盒帶回 Fusion，讓甜點跟著午後一起慢下來。",
-    "signature": ["精緻法式蛋糕與甜點", "就在 Day 1 Nguyễn Trãi shopping line 上", "Dine-in / takeaway 都順路"],
-    "worth": ["不是另一個任務，而是 shopping 中途自然遇見的一站。", "想早點回酒店，就直接 takeaway。"],
-    "categoryLabel": "☕ Pastry · Optional",
-    "transport": "Walk along Nguyễn Trãi shopping line"
-  },
-  "ivoire": {
-    "title": "Ivoire Pastry Boutique",
-    "emoji": "🍰",
-    "cat": "CAFÉS",
-    "sub": "Day 2 · Old Saigon 後甜點 stop",
-    "status": "planned",
-    "hours": "Sat 09:30–19:00",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Ivoire%20Pastry%20Boutique%2028%20Cao%20Ba%20Quat%20Ho%20Chi%20Minh%20City",
-    "address": "28 Cao Bá Quát, Bến Nghé, District 1, Ho Chi Minh City",
-    "desc": "Ivoire 是 Day 2 行完郵局、書街與紅教堂後的 optional pastry stop。時間鬆動就坐低慢慢食；如果已經攰、房間 ready，或者想早點返酒店，就直接 takeaway 幾件 cake 回 Fusion。重點係留彈性，不為甜點拖慢第一日節奏。",
-    "signature": [
-      "精緻法式 pastry，造型感強",
-      "適合四個人 share 幾款，不需要當成另一餐",
-      "Dine-in / takeaway 都成立"
-    ],
-    "worth": [
-      "放在 Post Office / Book Street 後剛好；晚餐是 LÚNE，這站保持輕盈。",
-      "有時間就坐低；冇時間就外賣返 Fusion，唔需要為 guide card 變成硬行程。"
-    ],
-    "categoryLabel": "☕ Cafe · Optional",
-    "price": "$$",
-    "transport": "Walk from Post Office / Book Street; then Grab back to Fusion",
-    "highlights": [
-      "精緻法式 pastry，造型感強",
-      "適合四個人 share 幾款，不需要當成另一餐",
-      "Dine-in / takeaway 都成立"
-    ],
-    "tips": [
-      "Day 2 下午經過；晚餐前保持 optional。",
-      "如果酒店通知房間 ready，買 cake 外賣返房食會更舒服。"
-    ]
-  },
   "pho-sol": {
     "title": "Phở SOL",
     "emoji": "🍜",
@@ -389,38 +311,6 @@ const PLACES={
     "tips": [
       "4 人可以點不同款式 share，不一定每人一碗。",
       "第一日下機後不要排太多，食完留體力去景點和 spa。"
-    ]
-  },
-  "pho-vietnam": {
-    "title": "Phở Việt Nam Bến Thành",
-    "emoji": "🥣",
-    "cat": "RESTAURANTS",
-    "sub": "石鍋河粉",
-    "status": "planned",
-    "hours": "06:00–03:00 daily",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Ph%E1%BB%9F%20Vi%E1%BB%87t%20Nam%20B%E1%BA%BFn%20Th%C3%A0nh%2014%20Ph%E1%BA%A1m%20H%E1%BB%93ng%20Th%C3%A1i%2C%20B%E1%BA%BFn%20Th%C3%A0nh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%2070000%2C%20Vietnam",
-    "address": "14 Phạm Hồng Thái, Bến Thành, Hồ Chí Minh 70000, Vietnam",
-    "desc": "Phở Việt Nam Bến Thành 是 Michelin Selected 河粉店，以 phở thố đá 石鍋河粉聞名。湯、牛肉和配料分開上，熱石鍋令湯從第一口到最後仍然滾熱。放在最後一日早餐，有一種「用一碗越南河粉收尾」的完整感。",
-    "signature": [
-      "Michelin Selected",
-      "Phở thố đá 石鍋河粉",
-      "湯保持高溫，牛肉即場燙熟"
-    ],
-    "worth": [
-      "熱門時段可能要等位，但流轉快。",
-      "湯很熱，慢慢食比較安全。"
-    ],
-    "categoryLabel": "🍽 Restaurant",
-    "price": "$",
-    "transport": "Grab / walk depending on current route",
-    "highlights": [
-      "Michelin Selected",
-      "Phở thố đá 石鍋河粉",
-      "湯保持高溫，牛肉即場燙熟"
-    ],
-    "tips": [
-      "熱門時段可能要等位，但流轉快。",
-      "湯很熱，慢慢食比較安全。"
     ]
   },
   "clothes-bar": {
@@ -1338,27 +1228,6 @@ const PLACES={
     "address": "Tan Son Nhat International Airport, International Terminal T2, Ho Chi Minh City, Vietnam",
     "desc": "VN 行程抵達及離境使用的新山一機場。"
   },
-  "social-club": {
-    "title": "Social Club Rooftop Bar",
-    "emoji": "🥂",
-    "cat": "CAFÉS",
-    "sub": "24/F rooftop cocktails · skyline views",
-    "hours": "Sun–Thu 15:00–00:00; Fri–Sat 15:00–01:00",
-    "maps": "https://maps.google.com/?q=Social+Club+Rooftop+Bar+Hotel+des+Arts+Saigon",
-    "address": "24/F, Hôtel des Arts Saigon, 76–78 Nguyễn Thị Minh Khai, Ho Chi Minh City",
-    "phone": "0901 379 129",
-    "desc": "Hôtel des Arts Saigon 24樓 rooftop bar，以 Saigon skyline、sunset cocktails 同夜景氣氛做主角。Day 2 只作 optional after-dinner drink：有精神先去，唔影響主行程。",
-    "signature": [
-      "24樓開揚 Saigon skyline，黃昏至入夜最有氣氛",
-      "Signature cocktails；15:00–19:00 daily Happy Hour（公眾假期／special events除外）",
-      "Smart casual；夜晚較適合成人 drinks / city-view stop"
-    ],
-    "worth": [
-      "Optional after-dinner stop；攰就直接返 Fusion，完全唔需要硬去。"
-    ],
-    "categoryLabel": "🥂 Rooftop Bar",
-    "status": "optional"
-  },
   "concept-111": {
     "title":"111 Concept Store","emoji":"🧩","cat":"SHOP","sub":"Day 1 · Optional after Nguyễn Trãi","shoppingRoute":"Day 1 after Nguyễn Trãi if time",
     "hours":"10:00–20:30/21:00 · check same day","maps":"https://www.google.com/maps/search/?api=1&query=111%20Concept%20Store%20111%20Ton%20That%20Dam%20Ho%20Chi%20Minh",
@@ -1625,15 +1494,6 @@ const CATEGORIES={
   ],
   "CAFÉS": [
     {
-      "key": "bakes"
-    },
-    {
-      "key": "the-350f"
-    },
-    {
-      "key": "ivoire"
-    },
-    {
       "key": "cong"
     },
     {
@@ -1645,9 +1505,6 @@ const CATEGORIES={
     {
       "key": "running-bean"
     },
-    {
-      "key": "social-club"
-    }
   ],
   "RESTAURANTS": [
     {"key":"quince"},
@@ -1665,9 +1522,6 @@ const CATEGORIES={
     },
     {
       "key": "pho-sol"
-    },
-    {
-      "key": "pho-vietnam"
     },
     {
       "key": "pizza4ps"
@@ -1751,7 +1605,6 @@ const GUIDE_ORDER=[
   "quince",
   "currency-guide",
   "fusion",
-  "bakes",
   "cong",
   "marou",
   "cafe-apartments",
@@ -1763,10 +1616,7 @@ const GUIDE_ORDER=[
   "man-moi",
   "quan-thuy",
   "omakase-tiger",
-  "the-350f",
-  "ivoire",
   "pho-sol",
-  "pho-vietnam",
   "pizza4ps",
   "ohquao",
   "new-playground",
@@ -1782,7 +1632,6 @@ const GUIDE_ORDER=[
   "post-office",
   "pink-church",
   "war-museum",
-  "social-club",
   "norah-spa-2",
   "cu-chi",
   "nara-spa",
@@ -1798,7 +1647,6 @@ const DAY_LINKS={
       "day.html?day=1#day1-hotel-reset"
     ]
   ],
-  "ivoire": [],
   "pho-sol": [
     [
       "Day 1",
@@ -2000,12 +1848,6 @@ const DAY_LINKS={
     ]
   ],
   "louh": [
-    [
-      "Day 4",
-      "day.html?day=4#thao-dien-open-list"
-    ]
-  ],
-  "bakes": [
     [
       "Day 4",
       "day.html?day=4#thao-dien-open-list"

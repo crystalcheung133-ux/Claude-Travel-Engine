@@ -35,13 +35,14 @@
 
     /* First RC15.1 run is deliberately a migration: legacy snapshots have no
        master signature, so they cannot safely override the current master. */
-    root.STORAGE.local.remove(overridesKey);
+    // Manual itinerary overrides are user-owned; never delete on a deploy.
+    // ITINERARY_AUTHORITY rebases them against the new master.
 
     const draft=root.STORAGE.local.readJSON(draftKey,null);
     if(draft&&draft.changes&&typeof draft.changes==='object'){
       const nextChanges={};
       Object.keys(draft.changes).forEach(function(key){
-        if(!/^itineraryDay\d+$/.test(key))nextChanges[key]=draft.changes[key];
+        nextChanges[key]=draft.changes[key];
       });
       draft.changes=nextChanges;
       draft.updatedAt=new Date().toISOString();

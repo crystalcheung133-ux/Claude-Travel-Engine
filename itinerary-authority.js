@@ -84,7 +84,7 @@
       if(!si||!si.id){out.push(clone(si));return;}
       const id=String(si.id),bi=baseBy.get(id),ci=currentBy.get(id);
       if(!bi){out.push(clone(si));return;} // user-added item
-      if(!ci)return; // master intentionally removed it
+      if(!ci){out.push(clone(si));return;} // manual edit wins even if deploy removed the card
       const merged=clone(ci);
       USER_EDITABLE_FIELDS.forEach(function(field){
         const sHas=Object.prototype.hasOwnProperty.call(si,field),bHas=Object.prototype.hasOwnProperty.call(bi,field);
@@ -144,8 +144,15 @@
     if(!raw||typeof raw!=='object'||Array.isArray(raw)) return emptyStore();
     const hasRevisionShape=typeof raw.masterRevision==='string'&&raw.dayChanges&&typeof raw.dayChanges==='object'&&!Array.isArray(raw.dayChanges);
     if(!hasRevisionShape){
-      // Legacy flat shape (or anything unrecognised) — revision unknown, discard.
-      return emptyStore();
+      // Legacy flat saves are user edits, not disposable cache. Preserve every
+      // day and migrate without losing blanked notes, custom cards or deletions.
+      const dayChanges={};
+      Object.keys(raw).forEach(function(day){
+        if(!/^\d+$/.test(day)||!Array.isArray(raw[day]))return;
+        const masterItems=(((root.ITINERARY_DATA||{})[String(day)]||{}).items)||[];
+        dayChanges[String(day)]={items:legacyRebaseDay(raw[day],masterItems),baseItems:normalizeItems(masterItems)};
+      });
+      return {masterRevision:current,dayChanges:dayChanges};
     }
     if(raw.masterRevision!==current){
       const rebased={masterRevision:current,dayChanges:{}};
@@ -224,7 +231,7 @@
     const draft=typeof root.getAdminDraft==='function'?root.getAdminDraft():null;
     const pending=draft&&draft.changes?draft.changes['itineraryDay'+dayKey]:null;
     if(!pending||!Array.isArray(pending.items)) return null;
-    if(pending.masterRevision!==getMasterRevision()) return null;
+    // A manually saved pending edit remains authoritative across deploy revisions.
     return normalizeItems(pending.items);
   }
 
@@ -243,8 +250,7 @@
       if(!key.startsWith('itineraryDay')) return;
       const change=raw.changes[key];
       if(change&&Array.isArray(change.items)&&change.masterRevision!==current){
-        delete raw.changes[key];
-        changed=true;
+        // Preserve user-owned draft edits even after a deploy.
       }
     });
     if(changed) backing.writeJSON(draftKey(),raw);

@@ -9,12 +9,31 @@
 const PRODUCTION_GUIDE=GenerationSelectionAdapter.view('guide');
 function guidePlace(key){const base=PRODUCTION_GUIDE.places[key];return base&&window.GUIDE_AUTHORITY?GUIDE_AUTHORITY.resolve(key,base):base;}
 
+// Every Visit Day link must dismiss the entire popup stack before navigating.
+// In-page hashes need an explicit scroll because an already-selected hash may
+// not trigger hashchange; never replace or clear the user's saved data.
+function navigateGuideToTimeline(event,anchor){
+  if(event&&(event.metaKey||event.ctrlKey||event.shiftKey||event.altKey||event.button!==0))return true;
+  const target=new URL(anchor.href,location.href);
+  if(target.origin!==location.origin)return true;
+  event?.preventDefault();
+  window.dismissAllContentOverlays?.();
+  if(target.pathname===location.pathname&&target.search===location.search){
+    if(target.hash)history.replaceState(null,'',target.pathname+target.search+target.hash);
+    const id=decodeURIComponent(target.hash.slice(1));
+    if(id)requestAnimationFrame(()=>window.restoreDayEntryPosition?.());
+  }else{
+    location.assign(target.href);
+  }
+  return false;
+}
+
 function visitDayHTML(key){
   const days=GUIDE_NAVIGATION.dayLinks(key);
   if(!days.length) return '';
   const place=guidePlace(key)||{};
   if(place.cat==='STAY') return '';
-  const buttons=days.map(([label,href])=>`<a class="day-jump-button" href="${href}">${label} →</a>`).join('');
+  const buttons=days.map(([label,href])=>`<a class="day-jump-button" href="${href}" onclick="return navigateGuideToTimeline(event,this)">${label} →</a>`).join('');
   return `<div class="quick-info-row visit-row"><span class="quick-info-icon">📅</span><span><span class="quick-info-label">Visit Day</span><span class="quick-info-value day-link-row">${buttons}</span></span></div>`;
 }
 

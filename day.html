@@ -877,6 +877,7 @@
     }
     window.scrollTo({top:0,left:0,behavior:'auto'});
   }
+  window.restoreDayEntryPosition=restoreDayEntryPosition;
   function settleDayEntryPosition(){requestAnimationFrame(()=>requestAnimationFrame(restoreDayEntryPosition));setTimeout(restoreDayEntryPosition,120);}
   settleDayEntryPosition();
   window.addEventListener('pageshow',settleDayEntryPosition);

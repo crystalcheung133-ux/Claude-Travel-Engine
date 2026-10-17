@@ -27,7 +27,7 @@ function poison(id,revision=7){
 for(const id of ['transport','accommodation']){
   poison(id,7);
   const resolved=root.BOOKING_AUTHORITY.get(id,root.BOOKINGS_DATA);
-  assert.equal(resolved.status,'confirmed',id+': stale status poisoned master');
+  assert.equal(resolved.status,'pending',id+': saved user status must survive deploy revision');
   assert.equal(resolved.displayStatus,undefined,id+': stale displayStatus survived canonical status authority');
 }
 storeState['test:booking_overrides']={version:1,deletedIds:[],overrides:{},updatedAt:null};
@@ -43,4 +43,4 @@ assert(!runtime.includes('booking.displayStatus||bookingStatusText(booking)||'),
 assert(!runtime.includes('booking.displayStatus||booking.status'),'bookingStatusText still reads displayStatus as authority');
 assert(runtime.includes("const statusLabel=bookingStatusText(booking)||'';"),'accommodation picker must derive status from bookingStatusText');
 assert(runtime.includes("['Status',bookingStatusText(booking)]"),'accommodation detail must derive status from bookingStatusText');
-console.log('BOOKING SINGLE STATUS AUTHORITY: PASS — stale status/displayStatus cannot poison transport or accommodation; current-revision status edits persist.');
+console.log('BOOKING SINGLE STATUS AUTHORITY: PASS — saved user status persists across revisions and displayStatus remains canonical; current-revision status edits persist.');

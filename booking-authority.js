@@ -42,6 +42,9 @@
   function mergeOverride(base,override){
     if(!override||typeof override!=='object')return clone(base);
     if(recordRevision(override)===masterRevision())return canonicalStatusRecord(Object.assign({},clone(base),clone(override)));
+    // Saved Studio edits carry a revision stamp. They remain authoritative
+    // across deploys; unstamped legacy cache entries retain safe fallback.
+    if(recordRevision(override)>0)return canonicalStatusRecord(Object.assign({},clone(base),clone(override)));
     return mergeStaleState(base,override);
   }
   function read(){

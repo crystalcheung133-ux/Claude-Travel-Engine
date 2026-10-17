@@ -18,7 +18,7 @@ assert(!/D1|D2|D3/.test(String(P.qspa.sub||'')),'Qspa Guide must not repeat visi
 assert.equal(P['norah-spa-2'].status,'optional');assert.equal(P['nara-spa'].status,'optional');
 
 // D4 Slow Lifestyle Guide ownership.
-for(const id of ['bakes','ohquao'])
+for(const id of ['ohquao'])
   assert((String(P[id].sub||'')+' '+String(P[id].shoppingRoute||'')).includes('Day 4'),`${id}: Guide did not move to Day 4`);
 // Spa Guide is evergreen experience information; Day 4 ownership lives in Timeline and Booking.
 assert(ids(4).includes('moc-huong-d4') && B['bk-moc-huong-d4']?.day===4, 'Moc Huong Day 4 ownership mismatch');

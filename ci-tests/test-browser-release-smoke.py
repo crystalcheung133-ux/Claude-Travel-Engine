@@ -356,13 +356,13 @@ def run_viewport(browser,base,viewport,label):
         check(canonical['transferReference'],label+': fixture bk-transfer-in has no reference to exercise the Change Effect Gate')
 
         page.evaluate("""(canonical) => {
-          const staleRevision=Number(canonical.masterRevision)-1;
+          // Legacy unstamped cache is not a saved Studio edit; stamped edits win across deploys.
           const stale={};
-          stale[canonical.spa.id]={id:canonical.spa.id,bookingId:canonical.spa.id,title:'Stale Cached Spa Name',time:'23:59',status:'pending',_masterRevision:staleRevision};
-          stale[canonical.restaurant.id]={id:canonical.restaurant.id,bookingId:canonical.restaurant.id,title:'Stale Cached Restaurant Name',time:'23:59',status:'pending',_masterRevision:staleRevision};
-          stale['bk-stale-removed-fixture']={id:'bk-stale-removed-fixture',bookingId:'bk-stale-removed-fixture',title:'Ghost Booking From A Removed Fixture',status:'pending',bookingCategory:'Spa',category:'Spa',_masterRevision:staleRevision};
-          stale['bk-transfer-in']={id:'bk-transfer-in',bookingId:'bk-transfer-in',title:'Stale Cached Transfer',status:'pending',displayStatus:'Pending',_masterRevision:staleRevision};
-          stale['bk-fusion-original']={id:'bk-fusion-original',bookingId:'bk-fusion-original',title:'Stale Cached Accommodation',status:'pending',displayStatus:'Pending',_masterRevision:staleRevision};
+          stale[canonical.spa.id]={id:canonical.spa.id,bookingId:canonical.spa.id,title:'Stale Cached Spa Name',time:'23:59',status:'pending'};
+          stale[canonical.restaurant.id]={id:canonical.restaurant.id,bookingId:canonical.restaurant.id,title:'Stale Cached Restaurant Name',time:'23:59',status:'pending'};
+          stale['bk-stale-removed-fixture']={id:'bk-stale-removed-fixture',bookingId:'bk-stale-removed-fixture',title:'Ghost Booking From A Removed Fixture',status:'pending',bookingCategory:'Spa',category:'Spa'};
+          stale['bk-transfer-in']={id:'bk-transfer-in',bookingId:'bk-transfer-in',title:'Stale Cached Transfer',status:'pending',displayStatus:'Pending'};
+          stale['bk-fusion-original']={id:'bk-fusion-original',bookingId:'bk-fusion-original',title:'Stale Cached Accommodation',status:'pending',displayStatus:'Pending'};
           STORAGE.local.writeJSON(BOOKING_AUTHORITY.key,{version:1,overrides:stale,deletedIds:[],updatedAt:'2026-08-01T00:00:00Z'});
         }""", canonical)
         page.reload(wait_until='domcontentloaded')
