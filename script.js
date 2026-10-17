@@ -96,3 +96,17 @@ window.applyNearFitModal=applyNearFitModal;
     return true;
   };
 })(globalThis);
+
+/* Popup → page: close all overlays before following native internal page links.
+   Does not interfere with in-page anchors, external links or new tabs. */
+document.addEventListener('click',function(event){
+  const link=event.target&&event.target.closest?.('a[href]');
+  if(!link||event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+  if(link.target&&link.target!=='_self')return;
+  let destination;
+  try{destination=new URL(link.href,location.href);}catch(e){return;}
+  if(destination.origin!==location.origin)return;
+  if(destination.pathname===location.pathname&&destination.search===location.search)return;
+  if(!['tripModal','guideModal','docViewer','expenseModal','momentsModal','unexpectedModal','mamaModal'].some(id=>document.getElementById(id)?.classList.contains('show')))return;
+  window.dismissAllContentOverlays?.();
+},true);

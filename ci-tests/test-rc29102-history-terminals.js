@@ -4,7 +4,7 @@ const a=[];const ok=(v,m)=>{if(!v)a.push(m)};
 ok(data.includes('MEL T2 01:30 → SGN T2 05:55'),'outbound terminals missing');
 ok(data.includes('SGN T2 21:10 → MEL T2 09:25 +1'),'return terminals missing');
 ok(data.includes('抵達 SGN Terminal 2'),'Day 1 SGN terminal missing');
-ok(data.includes('SGN Terminal 2 · 預留 3 小時'),'Day 5 SGN terminal missing');
+ok(data.includes('Tan+Son+Nhat+International+Airport+Terminal+2') && data.includes('Leave for Airport'),'Day 5 SGN terminal missing');
 ok(!html.includes('settlement-checkpoint-action'),'Settle must leave top action row');
 ok(exp.includes('expense-total-settle'),'Settle must be in Trip Total card');
 ok(exp.includes('sorted.slice(0,5)')&&exp.includes("expenseHistoryExpanded?'Show less':'Show more'"),'Expense history 5/show-more contract missing');

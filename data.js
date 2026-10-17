@@ -1836,7 +1836,7 @@ const DAY_LINKS={
   "marou": [
     [
       "Day 5",
-      "day.html?day=5#takashimaya"
+      "day.html?day=5#day5-free-browse"
     ]
   ],
   "fine-arts": [
@@ -1854,7 +1854,7 @@ const DAY_LINKS={
   "takashimaya": [
     [
       "Day 5",
-      "day.html?day=5#takashimaya"
+      "day.html?day=5#day5-free-browse"
     ]
   ],
   "ha-spa": [
@@ -3159,6 +3159,8 @@ const ITINERARY_DATA={
       },
       {
             "id": "airport-departure",
+            "standalone": true,
+            "transportEvent": true,
             "time": "18:00",
             "timeDisplayMode": "fixed",
             "title": "🚕 Leave for Airport",
