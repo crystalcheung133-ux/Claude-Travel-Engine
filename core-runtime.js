@@ -153,12 +153,7 @@ function toggleGuideMenu(){
   toggleMenu('guideMenu',document.querySelector('.guide-trigger'));
 }
 function toggleDays(){
-  // Guide/Booking may leave a foreground modal and body overlay state behind.
-  // Dismiss the overlay chain before showing the Days navigation; never touch
-  // persisted Guide notes, itinerary edits, or booking overrides.
   if(!closeCrossModuleOverlays('days'))return;
-  if(typeof window.dismissAllContentOverlays==='function')window.dismissAllContentOverlays();
-  if(!document.querySelector('#daysMenu a') && typeof renderCanonicalDayNavigation==='function')renderCanonicalDayNavigation();
   toggleMenu('daysMenu',document.querySelector('.days-trigger'));
 }
 function reopenTripMenu(){requestAnimationFrame(()=>openMiniMenu('tripMenu',document.querySelector('.trip-trigger')));}

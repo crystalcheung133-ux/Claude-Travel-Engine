@@ -9,7 +9,7 @@ let ctx={};vm.createContext(ctx);vm.runInContext(data+';globalThis.X={PLACES,CAT
 ok(X.BOOKINGS_DATA['bk-cu-chi'].title==='Cu Chi Tunnels Half Day Tour','canonical Cu Chi title');
 ok(/bookingMasterRevision:13/.test(cfg),'booking revision must invalidate stale full-record title overrides');
 for(const k of ['little-bear','nha-suga']) ok(!X.GUIDE_ORDER.includes(k)&&!Object.values(X.CATEGORIES).flat().some(x=>x.key===k),k+' must not render in Guide');
-for(const k of ['social-club','the-350f','ivoire','pho-vietnam']) ok(!X.GUIDE_ORDER.includes(k)&&!X.PLACES[k],k+' retired guide must stay removed');
+for(const k of ['social-club','the-350f']) ok(X.GUIDE_ORDER.includes(k)&&X.PLACES[k].status==='optional',k+' optional must remain');
 const cu=X.PLACES['cu-chi'];const cutxt=JSON.stringify(cu);
 for(const forbidden of ['Private tour · 4 travellers','07:30 由 Fusion','drop Mặn Mòi','skip tour lunch']) ok(!cutxt.includes(forbidden),'Cu Chi Guide repeats booking/timeline: '+forbidden);
 ok(/underground|tunnel network|ventilation/i.test(cutxt),'Cu Chi Guide needs destination background');

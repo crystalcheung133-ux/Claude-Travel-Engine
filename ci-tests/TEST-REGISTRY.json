@@ -117,7 +117,7 @@
   },
   "test-day4-approved-route-contract.js": {
     "status": "active",
-    "note": "Day 4 approved eight-stop shopping, An Khanh SPA pending, 0123 separate, aum. Saigon unchanged"
+    "note": "Day 4 approved eight-stop shopping, An Khanh SPA pending, 0123 separate, Quince unchanged"
   },
   "test-dual-currency-expenses.js": {
     "status": "active",
@@ -170,10 +170,6 @@
   "test-guide-shopping-capability.js": {
     "status": "active",
     "note": "Guide content quality + Shopping Directory capability"
-  },
-  "test-guide-to-days-navigation-contract.js": {
-    "status": "active",
-    "note": "Guide popup to Days navigation dismisses overlays and opens data-driven day menu"
   },
   "test-guide-trip-navigation-capability.js": {
     "status": "active",

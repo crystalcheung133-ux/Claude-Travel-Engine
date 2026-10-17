@@ -384,10 +384,9 @@ def run_viewport(browser,base,viewport,label):
 
         page.evaluate("openBookingCategoryCard('Restaurants')")
         page.wait_for_selector('#tripModal.show')
-        restaurant_text=page.locator('#tripModalContent').text_content() or ''
+        restaurant_text=page.locator('#tripModalContent').inner_text()
         check(canonical['restaurant']['title'] in restaurant_text,label+': rendered Restaurants list lost the deploy-master booking title to a stale override')
-        restaurant_effective=page.evaluate("(id) => BOOKING_AUTHORITY.get(id)?.time || ''", canonical['restaurant']['id'])
-        check(bool(restaurant_effective) and restaurant_effective in restaurant_text,label+': rendered Restaurants list does not match the current saved booking time')
+        check(canonical['restaurant']['time'] in restaurant_text,label+': rendered Restaurants list lost the deploy-master booking time to a stale override')
         check('Stale Cached Restaurant Name' not in restaurant_text,label+': stale restaurant title survived into rendered UI')
         check('23:59' not in restaurant_text,label+': stale restaurant time survived into rendered UI')
 
@@ -404,12 +403,10 @@ def run_viewport(browser,base,viewport,label):
 
         page.evaluate("openBookingCategoryCard('Spa')")
         page.wait_for_selector('#tripModal.show')
-        spa_text=page.locator('#tripModalContent').text_content() or ''
-        # text_content includes the booking time even when mobile CSS visually collapses a secondary label.
+        spa_text=page.locator('#tripModalContent').inner_text()
         check('Ghost Booking From A Removed Fixture' not in spa_text,label+': a stale override for a booking id no longer in canonical data resurrected content in the rendered Spa list')
         check(canonical['spa']['title'] in spa_text,label+': rendered Spa list lost the deploy-master booking title to a stale override')
-        spa_effective=page.evaluate("(id) => BOOKING_AUTHORITY.get(id)?.time || ''", canonical['spa']['id'])
-        check(bool(spa_effective) and spa_effective in spa_text,label+': rendered Spa list does not match the current saved booking time')
+        check(canonical['spa']['time'] in spa_text,label+': rendered Spa list lost the deploy-master booking time to a stale override')
         check('Stale Cached Spa Name' not in spa_text,label+': stale spa title survived into rendered UI')
         check('23:59' not in spa_text,label+': stale spa time survived into rendered UI')
 

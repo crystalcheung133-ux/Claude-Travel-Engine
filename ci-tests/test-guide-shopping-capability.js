@@ -10,7 +10,7 @@ assert.match(guide,/Shopping Directory/,'Shopping directory must render in Guide
 assert.match(guide,/BOOKED/,'Dining presentation supports Booked');
 assert.match(data,/"cash-backup"[\s\S]{0,250}"cat": "PRACTICAL"/,'Money backup must remain Practical data');
 assert.doesNotMatch(data,/"fusion"[\s\S]{0,220}"hours": "24 Hours"/,'Stay must not show 24 Hours');
-assert.doesNotMatch(data,/Social Club Rooftop Bar/,'Retired rooftop Guide must be removed');
+assert.match(data,/Social Club Rooftop Bar[\s\S]{0,700}24\/F/,'Social rooftop needs useful identity');
 assert.match(cfg,/version:'RC\d+(?:\.\d+)?-25\.[4567]\.\d+(?:\.\d+)?'/,'Guide audit requires valid release identity');
 assert.doesNotMatch(home,/home-shopping-button/,'Shopping must not be forced onto Home hero');
 for(const key of ['new-playground','ohquao','dot-dot-gem','aurora-saigon']) assert.match(record(key),/"shoppingRoute":/,'Destination shopping route metadata missing: '+key);
@@ -19,13 +19,13 @@ assert(!directory.includes('LESPOIR Studios'),'Removed off-route LESPOIR must no
 for(const obsolete of ['Mộc Healing Spa','Mojo Spa & Foot Massage','Thao Dien Spa','Golden Lotus Healing World']) assert(!new RegExp('\"key\": \"'+obsolete+'\"').test(data),'Obsolete wellness option leaked into Guide inventory');
 assert.doesNotMatch(data,/"hours":\s*"(?:出發前|Unconfirmed|[^\"]*出發前再確認)/,'Guide must not expose generic/unverified hours as Trading Hours');
 assert.match(record('omakase-tiger'),/"status": "booked"/,'Booked dining status missing');
-for(const key of ['late-night-supper','man-moi']) assert.match(record(key),/"status": "optional"/,'Optional dining status missing: '+key);
-for(const key of ['pho-sol','com-tam-moc','lune','running-bean','pizza4ps','oc-dao','bep-me-in']) assert.match(record(key),/"status": "planned"/,'Planned dining status missing: '+key);
+for(const key of ['late-night-supper','man-moi','social-club']) assert.match(record(key),/"status": "optional"/,'Optional dining status missing: '+key);
+for(const key of ['pho-sol','com-tam-moc','lune','running-bean','pizza4ps','oc-dao','pho-vietnam','bep-me-in']) assert.match(record(key),/"status": "planned"/,'Planned dining status missing: '+key);
 assert.match(guide,/explicit==='booked'/,'Guide renderer must honor explicit Booked status');
 assert.doesNotMatch(record('fusion'),/"hours":/,'Stay card must not carry opening-hours metadata');
 assert.match(record('cash-backup'),/"cat": "PRACTICAL"/,'Money exchange backup must be Practical');
-
-
+assert.match(record('social-club'),/24樓|24\/F/,'Social Club must explain rooftop setting');
+assert.match(record('social-club'),/skyline/,'Social Club must explain skyline value');
 assert(!/"PRACTICAL"\s*:\s*\[\s*\{\s*"key"\s*:\s*"cash-backup"/m.test(data),'cash-backup must not be Guide inventory');
 assert(day.includes('openShoppingDirectoryView(${Number(day)||1})'),'Timeline Shopping List must open current-day directory');
 assert(guide.includes("if(semantic==='SHOP')"),'SHOP Guide category must remain');

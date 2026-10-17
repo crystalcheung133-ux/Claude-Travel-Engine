@@ -83,17 +83,16 @@
         ['LÚNE · 19:00 CONFIRMED','17/14 Lê Thánh Tôn, District 1']
       ],modes:['🏬 1–2 min · same complex','🏬 1–2 min · same complex','🚶 4–6 min','🚶 3–5 min']}
     ]},
-    '4':{title:'Day 4 · Thảo Điền Shopping · Bakes Optional',sections:[
+    '4':{title:'Day 4 · Thảo Điền Shopping · 8 Stops',sections:[
       {label:'ONE SHOPPING ROUTE · SHOP TO SHOP · BEFORE 15:30 SPA',stops:[
         ['In The Mood Saigon','In The Mood Saigon, 32 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam'],
-        ['Grade B','14 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam'],
-        ['Bakes Thảo Điền · OPTIONAL','16 Thảo Điền, An Khánh, Hồ Chí Minh, Vietnam'],
-        ['YouOn Boutique','29 Thảo Điền, An Khánh, Hồ Chí Minh, Vietnam','ChIJV4HOAyYndTER1M8IJAlO1Ik'],
-        ['Vina Design Store','111 Xuân Thủy, An Khánh, Hồ Chí Minh, Vietnam','ChIJpb84JiXPrUMRmzdsERD4p4U'],
-        ['dakao quartier','83 Xuân Thủy, An Khánh, Hồ Chí Minh, Vietnam','ChIJa-IuTm0ndTERApxeIWE9nTQ'],
-        ['Aurora Saigon · 925 SILVER','94 Xuân Thủy, An Khánh, Hồ Chí Minh, Vietnam','ChIJL2kFlfIndTERLJaIne8M6XQ'],
-        ['Wicky Candle · SAME ADDRESS','94 Xuân Thủy, An Khánh, Hồ Chí Minh, Vietnam','ChIJ-SEH6oUvdTERfmAqB6JNpZA'],
-        ['OHQUAO Living etc.','19 Đường Số 38, Thảo Điền, Hồ Chí Minh, Vietnam','ChIJe3FM36wndTERMj73vdNI-dI']
+        ['Grade B','14 Trần Ngọc Diện, An Khánh'],
+        ['YouOn Boutique','29 Thảo Điền, An Khánh','ChIJV4HOAyYndTER1M8IJAlO1Ik'],
+        ['Vina Design Store','111 Xuân Thủy, An Khánh','ChIJpb84JiXPrUMRmzdsERD4p4U'],
+        ['dakao quartier','83 Xuân Thủy, An Khánh','ChIJa-IuTm0ndTERApxeIWE9nTQ'],
+        ['Aurora Saigon · 925 SILVER','94 Xuân Thủy, An Khánh','ChIJL2kFlfIndTERLJaIne8M6XQ'],
+        ['Wicky Candle · SAME ADDRESS','94 Xuân Thủy, An Khánh','ChIJ-SEH6oUvdTERfmAqB6JNpZA'],
+        ['OHQUAO Living etc.','19 Đường Số 38, Thảo Điền','ChIJe3FM36wndTERMj73vdNI-dI']
       ],modes:['🚶 Walk · approx. 3–6 min','🚶 Walk · approx. 10–15 min','🚶 Walk · approx. 8–12 min','🚶 Walk · approx. 3–5 min','🚶 Walk · approx. 2–4 min','🏬 Same address · 0 min','🚕 Grab · check traffic']}
     ]}
   };
@@ -103,9 +102,8 @@
   }
   function mapsFullRoute(stops,modes){
     if(!Array.isArray(stops)||stops.length<2)return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(stops?.[0]?.[1]||'')}`;
-    const uniqueStops=stops.filter((stop,index)=>index===0||String(stop[1]).trim().toLowerCase()!==String(stops[index-1][1]).trim().toLowerCase());
-    const origin=uniqueStops[0],destination=uniqueStops[uniqueStops.length-1],middle=uniqueStops.slice(1,-1),waypoints=middle.map(x=>x[1]).join('|'),waypointIds=middle.map(x=>x[2]||'').join('|');
-    const walking=String(day)==='4'||(Array.isArray(modes)&&modes.length>0&&modes.every(x=>String(x||'').includes('🚶')||String(x||'').includes('🏬')));
+    const origin=stops[0],destination=stops[stops.length-1],middle=stops.slice(1,-1),waypoints=middle.map(x=>x[1]).join('|'),waypointIds=middle.map(x=>x[2]||'').join('|');
+    const walking=Array.isArray(modes)&&modes.length>0&&modes.every(x=>String(x||'').includes('🚶')||String(x||'').includes('🏬'));
     return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin[1])}${origin[2]?`&origin_place_id=${encodeURIComponent(origin[2])}`:''}&destination=${encodeURIComponent(destination[1])}${destination[2]?`&destination_place_id=${encodeURIComponent(destination[2])}`:''}${waypoints?`&waypoints=${encodeURIComponent(waypoints)}`:''}${middle.length&&middle.every(x=>x[2])?`&waypoint_place_ids=${encodeURIComponent(waypointIds)}`:''}${walking?'&travelmode=walking':''}`;
   }
   function shoppingRouteButton(dayKey){return SHOPPING_ROUTES[String(dayKey)]?`<button type="button" class="shopping-route-hero-button" onclick="openShoppingRouteMap()">🗺️ SHOPPING ROUTE MAP</button>`:'';}
@@ -378,7 +376,7 @@
     if(timelineFinalAirport(item)||timelineInfoOnly(item))return '';
     if(!next){
       const rawFinal=String(item&&item.route||'');
-      if(String(item&&item.id||'')==='aum-d4' || (!next && /(?:fusion|hotel|酒店|返(?:回)?\s*fusion)/i.test(rawFinal) && String(day)!=='5')){
+      if(String(item&&item.id||'')==='quince-d4' || (!next && /(?:fusion|hotel|酒店|返(?:回)?\s*fusion)/i.test(rawFinal) && String(day)!=='5')){
         next={id:'derived-return-hotel',title:'🏨 Fusion Original Saigon Centre',placeId:'fusion',dayId:'day'+day};
       }else return '';
     }
@@ -390,7 +388,7 @@
     else if(special){const m=parseMinutes(raw,'grab');lines.push(`🚐 Private transfer${m?' · '+fmtMinutes(m):''}`);}
     else if(walk&&walk.max<=15){lines.push(`🚶 Walk · ${fmtMinutes(walk)}`);lines.push(`🚕 Grab · ${fmtMinutes(grab||grabFromWalk(walk))}`);}
     else if(grab){lines.push(`🚕 Grab · ${fmtMinutes(grab)}`);}
-     else if(String(item&&item.id||'')==='aum-d4'){lines.push('🚕 Grab · Live ETA in Maps');}
+     else if(String(item&&item.id||'')==='quince-d4'){lines.push('🚕 Grab · Live ETA in Maps');}
     else {lines.push('🚕 Grab · Live ETA in Maps');}
     const directions=nextDirections(item,next);
     return `<div class="route-hint route-hint--derived"><strong>TO NEXT STOP</strong><span class="route-next-title">${esc(title)}</span><span class="route-next-modes">${lines.map(esc).join(' · ')}</span>${directions?`<a class="route-next-map" href="${esc(directions)}" target="_blank" rel="noopener">Directions ›</a>`:''}</div>`;
@@ -399,7 +397,7 @@
   // Presentation-only deadline anchors. Never mutate itinerary items or saved notes.
   function deadlineAnchor(item){
     const id=String(item&&item.id||'');
-    if(id==='ha-spa')return '<div class="timeline-deadline timeline-deadline--urgent"><strong>⏰ Leave Hạ Spa by 17:30</strong><span>Grab departure by 17:45 · airport arrival target 18:20 · flight 21:10</span></div>';
+    if(id==='ha-spa')return '<div class="timeline-deadline"><strong>⏰ Target: leave for airport around 18:00</strong><span>Quick dinner optional · 21:00 international flight · skip dinner if delayed</span></div>';
     return '';
   }
 
@@ -436,7 +434,7 @@
     const firstShoppingStop=isShoppingCard&&hasShoppingRoute?(shoppingSectionIndex===1?null:SHOPPING_ROUTES[String(day)].sections[shoppingSectionIndex]?.stops?.[0]):null;
     const firstShoppingMap=firstShoppingStop?timelineMapDirections((String(day)==='4'?'In The Mood Saigon, ':'')+firstShoppingStop[1]+', Ho Chi Minh City, Vietnam'):'';
     const shoppingArrivalActions=firstShoppingStop?`<a class="timeline-action timeline-action--map" href="${esc(firstShoppingMap)}" target="_blank" rel="noopener" title="${esc(firstShoppingStop[0])}">🧭 First Stop · ${esc(firstShoppingStop[0].replace(/ · .*/,''))}</a><button type="button" class="timeline-action timeline-action--copy" onclick="copyTimelineAddress(decodeURIComponent('${encodeURIComponent(firstShoppingStop[1]+', Ho Chi Minh City, Vietnam')}'),this)">📋 Copy Address</button>`:(isShoppingCard?mapHtml+copyAddressHtml:'');
-    const shoppingGuideAction=isShoppingCard?(String(day)==='5'&&String(item.id)==='takashimaya'?`<button type="button" class="timeline-action timeline-action--guide" onclick='openGuideGroupFromDay(${JSON.stringify(['marou'])},${JSON.stringify(item.id)})'>🍫 Maison Marou Guide</button>`:`<button type="button" class="timeline-action timeline-action--directory" onclick="openShoppingDirectoryView(${Number(day)||1})">📖 Area Guide</button>`):'';
+    const shoppingGuideAction=isShoppingCard?`<button type="button" class="timeline-action timeline-action--directory" onclick="openShoppingDirectoryView(${Number(day)||1})">📖 Area Guide</button>`:'';
     // Combined Day 4 Pink Church + Cong stop: two independently named guide actions.
     // Uses guide IDs from the card so published Timeline notes and other cards stay untouched.
     const isPinkChurchCong=String(day)==='4'&&String(item.id)==='pink-church'&&

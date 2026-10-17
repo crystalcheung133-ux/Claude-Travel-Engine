@@ -41,7 +41,7 @@
   }
   function mergeOverride(base,override){
     if(!override||typeof override!=='object')return clone(base);
-    if((override._userSavedAt&&Number.isFinite(Date.parse(override._userSavedAt)))||recordRevision(override)===masterRevision())return canonicalStatusRecord(Object.assign({},clone(base),clone(override)));
+    if(recordRevision(override)===masterRevision())return canonicalStatusRecord(Object.assign({},clone(base),clone(override)));
     return mergeStaleState(base,override);
   }
   function read(){
@@ -85,7 +85,7 @@
     const base=canonicalBase(id,source);
     if(!id||!base||!record||typeof record!=='object')return {ok:false,reason:'invalid-booking'};
     const current=resolvedSource(source)[id]||base;
-    const complete=canonicalStatusRecord(stamp(Object.assign({},current,clone(record),{id:id,_userSavedAt:new Date().toISOString()})));
+    const complete=canonicalStatusRecord(stamp(Object.assign({},current,clone(record),{id:id})));
     const state=read();
     state.overrides[id]=complete;
     state.deletedIds=(state.deletedIds||[]).filter(function(item){return item!==id;});
