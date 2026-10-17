@@ -171,6 +171,10 @@
     "status": "active",
     "note": "Guide content quality + Shopping Directory capability"
   },
+  "test-guide-to-days-navigation-contract.js": {
+    "status": "active",
+    "note": "Guide popup to Days navigation dismisses overlays and opens data-driven day menu"
+  },
   "test-guide-trip-navigation-capability.js": {
     "status": "active",
     "note": "config-driven Guide menu + Trip/Day navigation capability"
