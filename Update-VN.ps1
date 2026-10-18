@@ -42,7 +42,7 @@ try {
     $archive = [IO.Compression.ZipFile]::OpenRead((Resolve-Path -LiteralPath $ZipPath).Path)
     try {
       foreach ($entry in $archive.Entries) {
-        $name = $entry.FullName.Replace('\\','/')
+        $name = $entry.FullName.Replace([char]'\',[char]'/')
         if ($name.StartsWith('/') -or $name -match '(^|/)\.\.(/|$)' -or $name -match '^[A-Za-z]:') { throw "Unsafe ZIP path: $name" }
       }
     } finally { $archive.Dispose() }
@@ -51,11 +51,11 @@ try {
     $children = @(Get-ChildItem -LiteralPath $tmp)
     if ($children.Count -eq 1 -and $children[0].PSIsContainer -and -not (Test-Path (Join-Path $tmp 'index.html'))) { $root = $children[0].FullName }
     if (-not (Test-Path (Join-Path $root 'index.html'))) { throw 'ZIP does not contain index.html at expected root; stopped.' }
-    $files = @(Get-ChildItem -LiteralPath $root -File -Recurse | Where-Object { $_.FullName.Substring($root.Length).TrimStart('\\','/') -notmatch '^(\.git|\.github)([\\/]|$)' })
+    $files = @(Get-ChildItem -LiteralPath $root -File -Recurse | Where-Object { $_.FullName.Substring($root.Length).TrimStart([char]'\',[char]'/') -notmatch '^(\.git|\.github)([\\/]|$)' })
     if ($files.Count -lt 30) { throw "Only $($files.Count) files in ZIP. Refusing potentially incomplete update." }
     $changed = 0; $unchanged = 0
     foreach ($f in $files) {
-      $rel = $f.FullName.Substring($root.Length).TrimStart('\\','/')
+      $rel = $f.FullName.Substring($root.Length).TrimStart([char]'\',[char]'/')
       $dest = Join-Path $repo $rel
       if (Test-Path -LiteralPath $dest) {
         if ((Get-FileHash -LiteralPath $f.FullName -Algorithm SHA256).Hash -eq (Get-FileHash -LiteralPath $dest -Algorithm SHA256).Hash) { $unchanged++; continue }
