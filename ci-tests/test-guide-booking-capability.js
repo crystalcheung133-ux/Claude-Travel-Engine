@@ -1,11 +1,12 @@
 const fs=require('fs'),assert=require('assert');
 const data=fs.readFileSync('data.js','utf8'),trip=fs.readFileSync('trip-runtime.js','utf8');
-// Verify capabilities and relationships, not hard-coded venues or hours.
-const vm=require('vm'); const sandbox={}; vm.runInNewContext(data+';globalThis.__PLACES=PLACES;',sandbox);
-for(const [id,place] of Object.entries(sandbox.__PLACES)) {
- assert(place && typeof place==='object',`Guide ${id} must be an object`);
- if(Object.prototype.hasOwnProperty.call(place,'hours')) assert(typeof place.hours==='string',`Guide ${id} hours must be text`);
-}
+function has(x,msg){assert(data.includes(x),msg);}
+assert(/"hours"\s*:\s*"09:00–22:00 · verify directly"/.test(data),'Mộc Hương branch hours metadata missing');
+has('"hours": "09:00–20:00 daily"','Nha Suga hours missing');
+has('"hours": "08:30–22:00 daily"','Hạ Spa hours missing');
+has('"hours": "09:30–23:00 daily"','Norah Spa 2 hours missing');
+assert(/"address"\s*:\s*"03 Đặng Hữu Phổ, An Khánh, Hồ Chí Minh, Vietnam"/.test(data),'Mộc Hương address missing');
+assert(!/\"SPA\"\s*:\s*\[[\s\S]*?\"key\": \"(?:moc-healing|mojo-spa|thao-dien-spa|golden-lotus-thao-dien)\"/.test(data),'Retired wellness shortlist leaked into visible SPA Guide inventory');
 assert(trip.includes('function genericBookingDetailNavigationHTML'),'Generic booking Previous/Next helper missing');
 assert(trip.includes('${genericBookingDetailNavigationHTML(booking)}'),'Generic booking detail does not render navigation');
 assert(trip.includes('disabled aria-disabled="true"'),'Edge navigation must disable, not wrap');

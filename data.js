@@ -869,6 +869,26 @@ const PLACES={
       "不是每位朋友都會啱，可作分組自由逛。"
     ]
   },
+  "nha-suga": {
+    "title": "Spa Nhà Suga Premium Korea Headspa – Nguyễn Huệ",
+    "emoji": "🫧",
+    "cat": "SPA",
+    "sub": "Reference only · The Cafe Apartments",
+    "status": "optional",
+    "hours": "09:00–20:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Spa%20Nh%C3%A0%20Suga%20Premium%20Korea%20Headspa%20Nguyen%20Hue%2042%20Nguyen%20Hue%20Ho%20Chi%20Minh%20City",
+    "address": "8th Floor, The Café Apartment, 42 Nguyễn Huệ, District 1, Ho Chi Minh City, Vietnam",
+    "desc": "Reference-only head-spa entry inside The Cafe Apartments. It is no longer a planned or suggested Day 1 spa; Qspa is the canonical D1 recovery treatment.",
+    "signature": [
+      "Korean-style head spa / scalp care",
+      "Shoulder / neck relaxation"
+    ],
+    "worth": [
+      "Not planned on D1."
+    ],
+    "categoryLabel": "💆 Spa",
+    "transport": "Inside The Cafe Apartments"
+  },
   "moc-huong": {
     "title":"Mộc Hương Wellness · An Khánh","emoji":"🌿","cat":"SPA","sub":"越式 Wellness · 靜心放鬆",
     "hours":"09:00–22:00 · verify directly","address":"03 Đặng Hữu Phổ, An Khánh, Hồ Chí Minh, Vietnam",
@@ -1296,6 +1316,37 @@ const PLACES={
     "categoryLabel": "💆 Spa",
     "transport": "Route-friendly alternative near the Central D1 walking route"
   },
+  "moc-healing": {
+    "title": "Mộc Healing Spa",
+    "emoji": "🦶",
+    "cat": "SPA",
+    "sub": "Day 2 · Bến Thành Foot Reset",
+    "status": "planned",
+    "hours": "11:00–23:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Moc%20Healing%20Spa%2039%2041%20Thu%20Khoa%20Huan%20Ben%20Thanh%20Ho%20Chi%20Minh",
+    "address": "39–41 Thủ Khoa Huân, Bến Thành, Ho Chi Minh City, Vietnam",
+    "desc": "Pizza 4P’s 食完沿 Thủ Khoa Huân 行過來，不為按摩多叫一程車。這站放在下午 shopping 前，先把腳鬆開，再一路步行接 Bến Thành / Nguyễn Trãi 一帶的 local fashion。",
+    "signature": [
+      "Foot massage / body massage",
+      "與 Pizza 4P’s Bến Thành 同一條街",
+      "Spa 後直接開始步行 shopping corridor"
+    ],
+    "worth": [
+      "約 14:20 入場，目標 60 分鐘。",
+      "Hotline / Zalo：+84 28 3535 4436。"
+    ],
+    "categoryLabel": "💆 Spa",
+    "transport": "Walk from Pizza 4P’s Bến Thành",
+    "highlights": [
+      "Foot massage / body massage",
+      "與 Pizza 4P’s Bến Thành 同一條街",
+      "Spa 後直接開始步行 shopping corridor"
+    ],
+    "tips": [
+      "預約時確認 60 分鐘 foot-focused treatment。",
+      "做完不用叫 Grab，直接開始下午 shopping。"
+    ]
+  },
   "cu-chi": {
     "title": "Cu Chi Tunnels",
     "emoji": "🪖",
@@ -1387,6 +1438,51 @@ const PLACES={
       "Dinner 後直接返 Fusion。"
     ]
   },
+  "mojo-spa": {
+    "title": "Mojo Spa & Foot Massage",
+    "emoji": "🦶",
+    "cat": "SPA",
+    "sub": "Day 4 Open List · Easy walk-in reset",
+    "hours": "11:00–22:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Mojo%20Spa%20%26%20Foot%20Massage%202%20Le%20Van%20Mien%20Thao%20Dien%20Ho%20Chi%20Minh",
+    "address": "2 Lê Văn Miến, Thảo Điền, Ho Chi Minh City, Vietnam",
+    "desc": "最適合行街途中突然想停一停的一間。主打 foot massage，位置在 Thảo Điền 核心區，不需要為 Spa 特登離開 Open List 動線。",
+    "signature": ["Foot massage", "短休息容易插入", "核心區 walk-in fallback"],
+    "worth": ["行攰先去，不用預先把下午切成一節。", "四人未必即時同時有位；到附近才問最符合 Open Day 玩法。"],
+    "categoryLabel": "🦶 Spa",
+    "price": "$–$$",
+    "transport": "Walk-in option · 2 Lê Văn Miến"
+  },
+  "thao-dien-spa": {
+    "title": "Thao Dien Spa",
+    "emoji": "💆",
+    "cat": "SPA",
+    "sub": "Day 4 Open List · Massage fallback",
+    "hours": "09:00–21:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Thao%20Dien%20Spa%2047%2F1%2F13%20Quoc%20Huong%20Ho%20Chi%20Minh",
+    "address": "47/1/13 Quốc Hương, Thảo Điền, Ho Chi Minh City, Vietnam",
+    "desc": "傳統 massage fallback。比 Mộc Hương 更像『附近有位就入』的選擇；適合 Open List 行到 Quốc Hương 一帶時再決定。",
+    "signature": ["Body massage", "Established local spa", "Quốc Hương fallback"],
+    "worth": ["不需要為它改整日路線。", "如果四人想同時做，去到附近先問當刻 capacity。"],
+    "categoryLabel": "💆 Spa",
+    "price": "$–$$",
+    "transport": "Walk-in option · 47/1/13 Quốc Hương"
+  },
+  "golden-lotus-thao-dien": {
+    "title": "Golden Lotus Healing World",
+    "emoji": "♨️",
+    "cat": "SPA",
+    "sub": "Day 4 Open List · Big-capacity backup",
+    "hours": "09:00–00:00 daily",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Golden%20Lotus%20Healing%20World%2016A%20Street%2010%20Thao%20Dien%20Ho%20Chi%20Minh",
+    "address": "16A Street No. 10, Thảo Điền, Ho Chi Minh City, Vietnam",
+    "desc": "大型 Korean-style healing complex，massage 之外亦有 sauna、bathhouse、jjimjilbang。唔係 boutique spa 氣氛，但勝在規模大、開得夜，適合其他細 Spa 無四人位時做 backup。",
+    "signature": ["Massage", "Sauna / bathhouse", "Jjimjilbang · large complex"],
+    "worth": ["四人臨時想一起休息時，規模較大的實用後備。", "開到午夜，唔需要為它鎖死下午時間。"],
+    "categoryLabel": "♨️ Spa",
+    "price": "$$",
+    "transport": "Walk-in backup · 16A Street No. 10"
+}
 };
 
 const CATEGORIES={
@@ -1577,6 +1673,7 @@ const DAY_LINKS={
   ],
   "qspa": [["Day 1","day.html?day=1#qspa-d1"],["Day 2","day.html?day=2#qspa-d2"],["Day 3","day.html?day=3#qspa-d3"]],
   "maruco": [["Day 3","day.html?day=3#maruco"]],
+  "nha-suga": [],
   "omakase-tiger": [
     [
       "Day 1",
@@ -1686,6 +1783,7 @@ const DAY_LINKS={
       "day.html?day=1#shopping-nguyen-trai"
     ]
   ],
+  "moc-healing": [],
   "lune": [
     [
       "Day 2",
@@ -1762,6 +1860,9 @@ const DAY_LINKS={
     ]
   ],
 
+  "mojo-spa": [["Day 4","day.html?day=4#thao-dien-open-list"]],
+  "thao-dien-spa": [["Day 4","day.html?day=4#thao-dien-open-list"]],
+  "golden-lotus-thao-dien": [["Day 4","day.html?day=4#thao-dien-open-list"]]
 };
 
 const FRIENDS={
@@ -2769,7 +2870,6 @@ const ITINERARY_DATA={
             "dayId": "day5",
             "placeId": null,
             "bookingId": null,
-            "guideIds": ["takashimaya", "marou"],
             "nonPlace": true,
             "nonPlaceRole": "freeTime"
       },
