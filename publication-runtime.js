@@ -242,14 +242,14 @@
     const group=document.getElementById('tripStudioManagement');
     if(!group||document.getElementById('preparePublicationButton'))return;
     const button=document.createElement('button');
-    button.id='preparePublicationButton';button.type='button';button.className='trip-studio-action publication-prepare-btn';button.hidden=!(root.isAdminMode&&root.isAdminMode());
+    button.id='preparePublicationButton';button.type='button';button.className='trip-studio-action publication-prepare-btn';button.hidden=true;
     button.innerHTML='<span><strong>Publish Latest Trip</strong><small>'+publicationStatusText()+'</small></span><span aria-hidden="true">☁️</span>';
     button.addEventListener('click',publish);group.appendChild(button);
   }
   function reflectMode(){
     installButton();
     const button=document.getElementById('preparePublicationButton');
-    if(button)button.hidden=!(root.isAdminMode&&root.isAdminMode());
+    if(button)button.hidden=true;
   }
 
   root.TRIP_PUBLICATION=Object.freeze({saveAndSyncTimeline:saveAndSyncTimeline,timelineTransport:timelineTransport,buildPayload:buildPayload,validatePayload:payloadIntegrity,publish:publish,prepare:publish,getLastPublishedVersion:function(){return state.lastPublishedVersion;}});

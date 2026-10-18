@@ -403,10 +403,17 @@ def run_viewport(browser,base,viewport,label):
 
         page.evaluate("openBookingCategoryCard('Spa')")
         page.wait_for_selector('#tripModal.show')
-        spa_text=page.locator('#tripModalContent').inner_text()
-        check('Ghost Booking From A Removed Fixture' not in spa_text,label+': a stale override for a booking id no longer in canonical data resurrected content in the rendered Spa list')
-        check(canonical['spa']['title'] in spa_text,label+': rendered Spa list lost the deploy-master booking title to a stale override')
-        check(canonical['spa']['time'] in spa_text,label+': rendered Spa list lost the deploy-master booking time to a stale override')
+        # Check the booking authority and the exact row, not WebKit's inner_text()
+        # of a scrollable modal (which may omit offscreen mobile row content).
+        spa_text=page.locator('#tripModalContent').text_content() or ''
+        spa_actual=page.evaluate('(id) => BOOKING_AUTHORITY.get(id,PRODUCTION_BOOKINGS.byId)',canonical['spa']['id'])
+        check(spa_actual and spa_actual.get('time')==canonical['spa']['time'],label+': Spa authority time differs from deploy master: '+repr(spa_actual and spa_actual.get('time')))
+        spa_row=page.locator('#tripModalContent .booking-category-row').filter(has_text=canonical['spa']['title'])
+        check(spa_row.count()==1,label+': canonical Spa row missing or duplicated: '+str(spa_row.count()))
+        spa_row_text=spa_row.first.text_content() or ''
+        check('Ghost Booking From A Removed Fixture' not in spa_text,label+': removed booking resurrected in Spa list')
+        check(canonical['spa']['title'] in spa_row_text,label+': Spa row lost deploy-master title')
+        check(canonical['spa']['time'] in spa_row_text,label+': Spa row lost deploy-master time: '+repr(spa_row_text))
         check('Stale Cached Spa Name' not in spa_text,label+': stale spa title survived into rendered UI')
         check('23:59' not in spa_text,label+': stale spa time survived into rendered UI')
 
