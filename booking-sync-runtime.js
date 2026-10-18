@@ -152,7 +152,7 @@
     // Do not report a cross-device save until the canonical remote row contains the
     // exact user-edited Notes. Qspa exposed this because its older remote/local state can
     // be reconciled against deploy master data; ordinary bookings must obey the same rule.
-    // RC29.136: read-back verification covers every Booking-authoritative field the user saved
+    // RC29.137: read-back verification covers every Booking-authoritative field the user saved
     // (status/date/time/day/venue/reference), the committed revision, Notes and visits.
     const expectedNotes=normalizeNotes(record&&record.notes);
     const visitsExpected=Array.isArray(record&&record.plannedVisits)?stableJSON(record.plannedVisits):null;

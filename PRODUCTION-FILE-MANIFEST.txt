@@ -1,6 +1,6 @@
 Saigon Companion Production File Manifest
 Generated: 2026-10-18
-Base: VN Companion RC29.136 · Save & Sync Reliability
+Base: VN Companion RC29.137 · Guide Save Fix
 Reference trip: Vietnam
 
 Production root files:

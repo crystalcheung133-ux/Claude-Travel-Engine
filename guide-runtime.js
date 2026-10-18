@@ -552,7 +552,8 @@ function openGuideEdit(key){
 function saveGuideEdit(key){
  const form=$('guideEditForm');if(!form)return;const fd=new FormData(form);
  const patch={title:String(fd.get('title')||'').trim(),address:String(fd.get('address')||'').trim(),phone:String(fd.get('phone')||'').trim(),website:String(fd.get('website')||'').trim(),hours:String(fd.get('hours')||'').trim(),description:String(fd.get('description')||'').trim(),usefulInfo:String(fd.get('usefulInfo')||'').split(/\n+/).map(x=>x.trim()).filter(Boolean)};
- Object.assign(patch,{desc:'',sub:'',price:'',bookingNote:'',signature:[],highlights:[],worth:[],tips:[],notes:[],practical:[]});
+ /* RC29.137: the form only owns title/address/phone/website/hours/description/usefulInfo. Fields it does not
+    show (price, sub, bookingNote, worth star rating, notes, tips, highlights, signature, practical) are NOT touched. */
  const btn=form.querySelector('[type=submit],button:not([type=button])');if(btn){btn.disabled=true;}
  const run=window.GUIDE_SYNC&&GUIDE_SYNC.saveNow?GUIDE_SYNC.saveNow(key,patch):Promise.resolve((function(){const r=GUIDE_AUTHORITY.saveChecked?GUIDE_AUTHORITY.saveChecked(key,patch):{ok:true};return {ok:!!r.ok,reason:r.reason,label:'Saved ✓'}})());
  run.then(function(r){

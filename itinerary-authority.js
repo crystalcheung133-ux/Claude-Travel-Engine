@@ -174,7 +174,7 @@
       const entry=raw.dayChanges[day];
       if(entry&&Array.isArray(entry.items)){
         cleanChanges[String(day)]={items:normalizeItems(entry.items),baseItems:normalizeItems(Array.isArray(entry.baseItems)?entry.baseItems:((((root.ITINERARY_DATA||{})[String(day)]||{}).items)||[]))};
-        // RC29.136: keep Save & Sync bookkeeping across normalisation passes.
+        // RC29.137: keep Save & Sync bookkeeping across normalisation passes.
         ['baseVersion','dirtySync','syncedVersion'].forEach(function(f){if(entry[f]!==undefined)cleanChanges[String(day)][f]=entry[f];});
       }
     });
@@ -216,7 +216,7 @@
   function syncActiveVersion(){
     try{const st=root.TRIP_SYNC&&root.TRIP_SYNC.getState?root.TRIP_SYNC.getState():null;const v=Number(st&&st.activeVersion);return Number.isFinite(v)?v:null;}catch(_){return null;}
   }
-  /* RC29.136: checked commit. Returns {ok,store,days}. ok is true only if the saved store was
+  /* RC29.137: checked commit. Returns {ok,store,days}. ok is true only if the saved store was
      written AND read back identical, so callers never discard a draft that did not persist. */
   function commitDayChangesChecked(changes){
     const store=getValidatedStore();const days=[];

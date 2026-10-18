@@ -155,7 +155,7 @@
     }
   }
 
-  /* ===== RC29.136 automatic Timeline Save & Sync (no Publish step) =====
+  /* ===== RC29.137 automatic Timeline Save & Sync (no Publish step) =====
      Save → verified local commit (itinerary-authority) → durable queue entry → this transport.
      Reuses the existing publish_trip_snapshot RPC and the Trip Studio credential held ONLY in memory
      while Studio is unlocked; if Studio is locked the entry simply stays "Sync pending". */

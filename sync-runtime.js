@@ -146,7 +146,7 @@
      cause of stale itinerary titles surviving a master-file fix. This is a
      content-derived check (see itinerary-authority.js), not a build-version
      or one-time-clear check, so it stays correct across every future deploy. */
-  /* RC29.136: a publication from an older master that carries itineraryBase can be REBASED onto the
+  /* RC29.137: a publication from an older master that carries itineraryBase can be REBASED onto the
      current master (user edits replayed by item id) instead of being discarded, so published user
      edits survive website deployments on every device. */
   function isRebasablePublication(wrapper){

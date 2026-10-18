@@ -603,7 +603,7 @@ async function commitBookingSave(record,deps){
   if(!localResult||!localResult.ok)return {ok:false,committed:false,reason:(localResult&&localResult.reason)||'save-failed'};
   let booking=localResult.booking||record;
   if(!deps.syncEnabled)return {ok:true,committed:true,degraded:false,booking:booking};
-  // RC29.136: durable queue. The local commit is the safety boundary; the mutation is then
+  // RC29.137: durable queue. The local commit is the safety boundary; the mutation is then
   // persisted in the pending queue (read-back verified) and written to Supabase with read-back
   // verification. The editor waits a bounded time so the label is truthful:
   // 'Saved & Synced ✓' only after cloud verification, otherwise 'Saved locally · Sync pending'.

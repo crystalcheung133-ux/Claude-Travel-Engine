@@ -362,7 +362,7 @@
   window.saveAdminChanges=function(){
     if(!state.mode || !state.dirty) return true;
     const draft=ensureDraft();
-    /* RC29.136: listeners report persistence through detail.result. The draft is only cleared when
+    /* RC29.137: listeners report persistence through detail.result. The draft is only cleared when
        every listener confirmed a verified local commit; otherwise the editor stays dirty and the
        user keeps their edits. */
     const detail={draft:JSON.parse(JSON.stringify(draft)),result:{ok:true,failures:[]}};

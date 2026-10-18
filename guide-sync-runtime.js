@@ -1,4 +1,4 @@
-/* guide-sync-runtime.js — Engine 25.7.3 / RC29.136 Guide auto-sync.
+/* guide-sync-runtime.js — Engine 25.7.3 / RC29.137 Guide auto-sync.
    Save Guide writes locally first (checked + read back), enqueues a durable pending mutation in
    SAVE_SYNC, then writes to Supabase trip_guides with:
      - optimistic concurrency (conditional update on the remote updated_at the edit was based on),

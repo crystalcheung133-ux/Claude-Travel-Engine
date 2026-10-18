@@ -5,7 +5,7 @@ const day=fs.readFileSync('day.html','utf8');
 assert(guide.includes("f('Description / About','description'"),'Guide editor needs one Description field');
 assert(guide.includes("f('Useful info — one item per line','usefulInfo'"),'Guide editor needs one Useful info field');
 for(const old of ["f('Subtitle','sub'","f('Price','price'","f('Booking note','bookingNote'","f('Signature / highlights","f('Practical notes"]){assert(!guide.includes(old),`legacy Guide editor field remains: ${old}`)}
-assert(guide.includes("Object.assign(patch,{desc:'',sub:'',price:'',bookingNote:'',signature:[],highlights:[],worth:[],tips:[],notes:[],practical:[]})"),'Guide save must retire legacy duplicate fields');
+assert(!guide.includes("Object.assign(patch,{desc:'',sub:'',price:'',bookingNote:'',signature:[],highlights:[],worth:[],tips:[],notes:[],practical:[]})"),'Guide save must NOT wipe fields the form does not edit (worth/notes/price/...)');
 assert(guide.includes("Object.prototype.hasOwnProperty.call(g,'usefulInfo')"),'Explicit empty Useful info must not resurrect legacy content');
 assert(guide.includes("Object.prototype.hasOwnProperty.call(g,'description')"),'Explicit empty Description must not resurrect legacy content');
 assert(day.includes('const DAY_PLACE_BASE = JSON.parse(JSON.stringify(DAY_PRODUCTION.guide.places||{}));'),'Timeline must thaw the deeply-frozen production Place projection before wrapping it in a resolving Proxy');
