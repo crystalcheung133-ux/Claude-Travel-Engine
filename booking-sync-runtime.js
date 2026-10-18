@@ -30,6 +30,10 @@
   function mapRow(row){
     const payload=row&&row.payload&&typeof row.payload==='object'&&!Array.isArray(row.payload)?clone(row.payload):{};
     const record=Object.assign({},legacyRow(row||{}),payload,{id:(payload.id||payload.bookingId||row.booking_id),bookingId:(payload.bookingId||payload.id||row.booking_id)});
+    // Multi-visit bookings keep human-readable aggregate date/time in the payload,
+    // while the typed bookings columns receive one valid visit date/time for transport.
+    if(Object.prototype.hasOwnProperty.call(record,'_displayDate')){record.date=record._displayDate;delete record._displayDate;}
+    if(Object.prototype.hasOwnProperty.call(record,'_displayTime')){record.time=record._displayTime;delete record._displayTime;}
     {const rawStatus=String(record.status||'pending').toLowerCase();record.status=rawStatus==='confirmed'?'confirmed':(rawStatus==='planned'?'planned':'pending');}
     record._remoteVersion=Number(row.version||1);record._remoteDeletedAt=row.deleted_at||'';
     state.versions[record.id]=record._remoteVersion;
@@ -45,8 +49,20 @@
     const remoteRevision=Number(record&&((record._masterRevision!=null?record._masterRevision:record.masterRevision))||0);
     if(remoteRevision===currentRevision)return Object.assign({},master,record,{_masterRevision:currentRevision});
     const merged=Object.assign({},master);
+    if(Array.isArray(record._editedFields))record._editedFields.forEach(function(f){if(Object.prototype.hasOwnProperty.call(record,f))merged[f]=clone(record[f]);else delete merged[f];});
+    merged._editedFields=clone(record._editedFields);
     const editable=root.BOOKING_AUTHORITY.editableStateFields||[];
     editable.forEach(function(field){if(Object.prototype.hasOwnProperty.call(record,field))merged[field]=clone(record[field]);});
+    // Notes are deliberately not part of the generic stale local override allow-list.
+    // A remote row, however, carries server-authored updatedByPartyId/updatedAt evidence.
+    // Preserve that explicit collaborative Notes edit even when an older Qspa row lacks
+    // the current payload master revision; otherwise deploy-master Notes overwrite it.
+    // Booking Notes are collaborative server state. Some legacy Qspa rows pre-date the
+    // payload/master-revision column, so updatedByPartyId can be absent even though the
+    // canonical bookings.notes column contains the user's cross-device edit. Treat Notes
+    // from a real remote row as authoritative here only; local stale overrides still cannot
+    // override deploy-master Notes in booking-authority.js.
+    if(record&&Number(record._remoteVersion||0)>0&&Object.prototype.hasOwnProperty.call(record,'notes'))merged.notes=clone(record.notes);
     merged._masterRevision=currentRevision;
     return merged;
   }
@@ -75,6 +91,7 @@
     }catch(error){state.lastError=error&&error.message||String(error);console.error(LOG,error);throw error;}finally{state.pullPromise=null;}})();
     return state.pullPromise;
   }
+  const VERIFY_FIELDS=Object.freeze(['status','date','time','dayId','bookingName','title','reference','bookingReference','bookingMethod','bookingContact','bookingUrl']);
   function toPayload(record){
     const copy=clone(record)||{};
     delete copy._category;delete copy._status;delete copy._remoteVersion;delete copy._remoteDeletedAt;
@@ -83,8 +100,35 @@
     copy.updatedByPartyId=partyId();copy.updatedAt=new Date().toISOString();
     return copy;
   }
+  // Remote verification must compare JSON semantics, not key insertion order: Postgres jsonb
+  // (and any JSON round-trip) may re-order object keys. Object keys are order-insensitive,
+  // array element order stays significant (visit D1/D2/D3 sequence must match).
+  function stableJSON(value){
+    if(Array.isArray(value))return '['+value.map(function(item){return stableJSON(item);}).join(',')+']';
+    if(value&&typeof value==='object')return '{'+Object.keys(value).filter(function(key){return value[key]!==undefined;}).sort().map(function(key){return JSON.stringify(key)+':'+stableJSON(value[key]);}).join(',')+'}';
+    const text=JSON.stringify(value);return text===undefined?'null':text;
+  }
+  // Notes verification ignores line-ending style (CRLF/CR vs LF) and leading/trailing whitespace only;
+  // any other difference (text, interior whitespace) still fails verification.
+  function normalizeNotes(value){return String(value==null?'':value).replace(/\r\n?/g,'\n').trim();}
+  function visitTransportDate(value){
+    const text=String(value||'').trim();
+    const iso=text.match(/\b(20\d{2})-(\d{2})-(\d{2})\b/);if(iso)return iso[0];
+    const m=text.match(/\b(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]*\s+(20\d{2})\b/i);
+    if(!m)return '';const months={jan:'01',feb:'02',mar:'03',apr:'04',may:'05',jun:'06',jul:'07',aug:'08',sep:'09',oct:'10',nov:'11',dec:'12'};
+    return `${m[3]}-${months[m[2].slice(0,3).toLowerCase()]}-${String(m[1]).padStart(2,'0')}`;
+  }
+  function visitTransportTime(value){const m=String(value||'').match(/(?:^|[^0-9])(\d{1,2}):(\d{2})/);return m?`${String(m[1]).padStart(2,'0')}:${m[2]}`:'';}
+  function transportPayload(record){
+    const payload=toPayload(record);const visits=Array.isArray(record&&record.plannedVisits)?record.plannedVisits:[];
+    if(visits.length>1){
+      const date=visitTransportDate(visits[0]&&visits[0].date),time=visitTransportTime(visits[0]&&visits[0].time);
+      if(date&&time){payload._displayDate=record.date||'';payload._displayTime=record.time||'';payload.date=date;payload.time=time;}
+    }
+    return payload;
+  }
   function mutation(operation,record,baseVersion){
-    const value={mutationId:uuid(),tripId:tripId(),tripGeneration:Number((root.TRIP_CONFIG&&root.TRIP_CONFIG.tripGeneration)||1),schemaVersion:1,domain:'booking',recordId:record.id||record.bookingId,operation,payload:toPayload(record),createdAt:new Date().toISOString(),createdByPartyId:partyId(),retryCount:0,state:'queued'};
+    const value={mutationId:uuid(),tripId:tripId(),tripGeneration:Number((root.TRIP_CONFIG&&root.TRIP_CONFIG.tripGeneration)||1),schemaVersion:1,domain:'booking',recordId:record.id||record.bookingId,operation,payload:transportPayload(record),createdAt:new Date().toISOString(),createdByPartyId:partyId(),retryCount:0,state:'queued'};
     if(operation!=='create')value.baseVersion=Number(baseVersion);
     return value;
   }
@@ -104,9 +148,32 @@
     if(!result.response.ok||!result.body||!result.body.ok)throw new Error((result.body&&result.body.code)||`BOOKING_WRITE_${result.response.status}`);
     const row=result.body.record;if(row)applyRemote(row);
     state.lastSyncAt=new Date().toISOString();state.lastError='';
-    const booking=row?mapRow(row):clone(record);
+    let booking=row?mapRow(row):clone(record);
+    // Do not report a cross-device save until the canonical remote row contains the
+    // exact user-edited Notes. Qspa exposed this because its older remote/local state can
+    // be reconciled against deploy master data; ordinary bookings must obey the same rule.
+    // RC29.136: read-back verification covers every Booking-authoritative field the user saved
+    // (status/date/time/day/venue/reference), the committed revision, Notes and visits.
+    const expectedNotes=normalizeNotes(record&&record.notes);
+    const visitsExpected=Array.isArray(record&&record.plannedVisits)?stableJSON(record.plannedVisits):null;
+    const expectedVersion=Number(row&&row.version||0);
+    const remoteMatches=function(candidate){
+      if(!candidate)return false;
+      if(normalizeNotes(candidate.notes)!==expectedNotes)return false;
+      if(visitsExpected!==null&&stableJSON(candidate.plannedVisits)!==visitsExpected)return false;
+      return VERIFY_FIELDS.every(function(f){
+        if(!Object.prototype.hasOwnProperty.call(record,f))return true;
+        return String(record[f]==null?'':record[f]).trim()===String(candidate[f]==null?'':candidate[f]).trim();
+      });
+    };
+    if(operationHint!=='delete'){
+      const verifyRows=await fetchRows(record.id||record.bookingId);
+      const verified=verifyRows[0]?mapRow(verifyRows[0]):null;
+      if(!remoteMatches(verified)||(expectedVersion&&Number(verified._remoteVersion)<expectedVersion))throw new Error('BOOKING_REMOTE_VERIFY_FAILED');
+      booking=verified;applyRemote(verifyRows[0]);
+    }
     document.dispatchEvent(new CustomEvent('travelengine:bookingchange',{detail:{bookingId:booking.id,booking,remote:true}}));
-    return {ok:true,booking,remote:true};
+    return {ok:true,booking,remote:true,verified:true,remoteVersion:booking&&booking._remoteVersion};
   }
   async function remove(record){
     if(!enabled())return {ok:true,localOnly:true,id:record.id||record.bookingId};
@@ -120,6 +187,12 @@
     root.addEventListener('focus',safePull);root.addEventListener('online',safePull);document.addEventListener('visibilitychange',()=>{if(!document.hidden)safePull();});
     const interval=Math.max(5000,Number(syncConfig().pollIntervalMs||15000));root.setInterval(()=>{if(!document.hidden&&navigator.onLine)safePull();},interval);
   }
+  if(root.SAVE_SYNC)root.SAVE_SYNC.registerTransport('booking',async function(entry){
+    if(!enabled())return {verified:false,code:'BOOKING_SYNC_DISABLED'};
+    const record=entry.payload;
+    if(entry.operation==='delete'){const r=await push(Object.assign({},record,{deletedAt:new Date().toISOString()}),'delete');return {verified:!!(r&&r.ok),remoteVersion:null};}
+    const r=await push(record);return {verified:!!(r&&r.verified),remoteVersion:r&&r.remoteVersion};
+  });
   root.BOOKING_SYNC=Object.freeze({enabled,pull,push,remove,getStatus:status,start});
   start();
 })(globalThis);

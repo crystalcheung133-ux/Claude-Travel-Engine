@@ -289,7 +289,7 @@
         <div id="tripStudioDanger" class="trip-studio-group trip-studio-danger" hidden>
           <p class="trip-studio-label">DATA CONTROL</p>
           <button id="resetTripDataButton" class="reset-trip-data-btn" type="button">
-            <span><strong>Reset Trip Data</strong><small>Restore the original trip and remove all saved progress.</small></span><span aria-hidden="true">↺</span>
+            <span><strong>Clear Trip Records</strong><small>Delete Documents, Moments and Expenses only. Keep itinerary, bookings, Guide and trip settings.</small></span><span aria-hidden="true">↺</span>
           </button>
           <button id="exitTripStudioButton" class="exit-trip-studio-btn" type="button">
             <span><strong>Leave Studio Mode</strong><small>Return to traveller mode. The Studio PIN will be required next time.</small></span><span aria-hidden="true">Leave</span>
@@ -362,12 +362,22 @@
   window.saveAdminChanges=function(){
     if(!state.mode || !state.dirty) return true;
     const draft=ensureDraft();
-    document.dispatchEvent(new CustomEvent('travelengine:adminsave',{detail:{draft:JSON.parse(JSON.stringify(draft))}}));
+    /* RC29.136: listeners report persistence through detail.result. The draft is only cleared when
+       every listener confirmed a verified local commit; otherwise the editor stays dirty and the
+       user keeps their edits. */
+    const detail={draft:JSON.parse(JSON.stringify(draft)),result:{ok:true,failures:[]}};
+    document.dispatchEvent(new CustomEvent('travelengine:adminsave',{detail:detail}));
+    if(!detail.result.ok){
+      try{alert('Could not save your changes on this device ('+(detail.result.failures[0]||'storage error')+'). Your edits are still open — please try again.');}catch(_){}
+      updateUI();
+      return false;
+    }
     draft.changes={};
     draft.updatedAt=new Date().toISOString();
     STORAGE.local.writeJSON(DRAFT_KEY,draft);
     state.dirty=false;
     updateUI();
+    document.dispatchEvent(new CustomEvent('travelengine:adminsaved',{detail:{days:detail.result.days||[]}}));
     return true;
   };
 

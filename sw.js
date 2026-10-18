@@ -1,5 +1,5 @@
 importScripts('./theme-config.js', './asset-config.js', './locale-config.js', './formatter.js', './navigation-config.js', './trip-config.js', './storage-config.js');
-const CACHE_NAME = `travel-engine-${TRIP_CONFIG.storageNamespace}-${TRIP_CONFIG.version}-shared-documents`;
+const CACHE_NAME = `travel-engine-${TRIP_CONFIG.storageNamespace}-${TRIP_CONFIG.version}-rc29136-savesync`;
 const CRITICAL_EXTENSIONS = /\.(?:css|js)$/i;
 const ASSETS = [
   './',
@@ -13,6 +13,15 @@ const ASSETS = [
   './home-runtime.js',
   './script.js',
   './guide-runtime.js',
+  './guide-authority.js',
+  './save-sync-queue.js',
+  './guide-sync-runtime.js',
+  './generation-selection-adapter.js',
+  './expense-notification-runtime.js',
+  './shopping-directory-data.js',
+  './vendor-supabase-js-2.117.2.umd.js',
+  './vendor-pdfjs-3.11.174.min.js',
+  './vendor-pdfjs-worker-3.11.174.min.js',
   './guide-navigation-runtime.js',
   './expenses.js',
   './supabase-client-runtime.js',
@@ -56,6 +65,7 @@ const ASSETS = [
   './' + ASSET_CONFIG.icons.icon512,
   './' + ASSET_CONFIG.branding.secondaryMark,
   './' + ASSET_CONFIG.branding.splashLogo,
+  './' + ASSET_CONFIG.branding.splashMark,
   './guide.html',
   './itinerary.html',
   './memory.html',
@@ -125,27 +135,60 @@ async function cachedValidHtml(request) {
   return null;
 }
 
-async function navigationResponse(request) {
+// The installed PWA launches at the home document. Serve an already verified
+// home shell immediately, then refresh it in the background. Other HTML routes
+// retain network-first semantics to avoid stale booking/guide pages.
+function isHomeNavigation(request) {
+  const url = new URL(request.url);
+  const homePath = new URL('./index.html', self.location.href).pathname;
+  const directoryPath = new URL('./', self.location.href).pathname;
+  return url.pathname === homePath || url.pathname === directoryPath;
+}
+
+function reportNavigation(event, source, startedAt) {
+  if (!event || !event.clientId) return;
+  const durationMs = Math.round(performance.now() - startedAt);
+  event.waitUntil(self.clients.get(event.clientId).then(client => {
+    if (client) client.postMessage({ type: 'VN_STARTUP_NAV', source, durationMs });
+  }).catch(() => {}));
+}
+
+async function navigationResponse(request, event) {
+  const startedAt = performance.now();
   const cache = await caches.open(CACHE_NAME);
+  if (isHomeNavigation(request)) {
+    const cached = await cache.match('./index.html', { ignoreSearch: true });
+    if (await validateHtmlResponse(cached)) {
+      reportNavigation(event, 'home-cache', startedAt);
+      // Never hold up first paint for a network update or a cache write.
+      const refresh = fetchValidHtml(new Request(new URL('./index.html', self.location.href), {
+        credentials: 'same-origin', headers: { accept: 'text/html' }
+      })).then(async response => {
+        if (response) await cache.put('./index.html', response.clone());
+      }).catch(() => {});
+      if (event) event.waitUntil(refresh);
+      return cached;
+    }
+  }
+
   const direct = await fetchValidHtml(request);
   if (direct) {
+    reportNavigation(event, 'network', startedAt);
     await cache.put(request, direct.clone());
     return direct;
   }
 
   const indexRequest = new Request(new URL('./index.html', self.location.href), {
-    method: 'GET',
-    headers: { accept: 'text/html' },
-    cache: 'no-store',
-    credentials: 'same-origin',
-    redirect: 'follow'
+    method: 'GET', headers: { accept: 'text/html' }, cache: 'no-store',
+    credentials: 'same-origin', redirect: 'follow'
   });
   const indexResponse = await fetchValidHtml(indexRequest);
   if (indexResponse) {
+    reportNavigation(event, 'network-fallback', startedAt);
     await cache.put('./index.html', indexResponse.clone());
     return indexResponse;
   }
-
+  reportNavigation(event, 'offline-fallback', startedAt);
   return await cachedValidHtml(request) || new Response(
     '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Offline</title></head><body><p>This page is temporarily unavailable.</p></body></html>',
     { status: 503, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
@@ -189,7 +232,7 @@ self.addEventListener('fetch', event => {
 
   const acceptsHtml = event.request.headers.get('accept')?.includes('text/html');
   if (event.request.mode === 'navigate' || acceptsHtml) {
-    event.respondWith(navigationResponse(event.request));
+    event.respondWith(navigationResponse(event.request, event));
   } else if (CRITICAL_EXTENSIONS.test(url.pathname)) {
     event.respondWith(networkFirst(event.request));
   } else {

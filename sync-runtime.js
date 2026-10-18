@@ -146,7 +146,15 @@
      cause of stale itinerary titles surviving a master-file fix. This is a
      content-derived check (see itinerary-authority.js), not a build-version
      or one-time-clear check, so it stays correct across every future deploy. */
+  /* RC29.136: a publication from an older master that carries itineraryBase can be REBASED onto the
+     current master (user edits replayed by item id) instead of being discarded, so published user
+     edits survive website deployments on every device. */
+  function isRebasablePublication(wrapper){
+    const payload=wrapper&&wrapper.payload,data=payload&&payload.data;
+    return !!(data&&data.itineraryData&&data.itineraryBase&&root.ITINERARY_AUTHORITY&&typeof root.ITINERARY_AUTHORITY.rebasePublishedItinerary==='function');
+  }
   function isCompatiblePublication(wrapper){
+    if(isRebasablePublication(wrapper))return true;
     const payload=wrapper&&wrapper.payload;
     const currentRevision=root.MASTER_ITINERARY_REVISION||null;
     if(currentRevision){
@@ -166,6 +174,15 @@
     if(cfg&&storage){storage.remove(cfg.cacheKey);storage.remove(cfg.metadataKey);}
     activeSnapshot=null;
   }
+  function normalizeLegacyItineraryForHydration(value){
+    const out=value==null?value:JSON.parse(JSON.stringify(value));
+    if(!out||typeof out!=='object'||Array.isArray(out))return out;
+    Object.keys(out).forEach(function(dayKey){
+      const day=out[dayKey];if(!day||!Array.isArray(day.items))return;
+      day.items=day.items.map(function(item){const next=item==null?item:JSON.parse(JSON.stringify(item));if(next&&next.type==='custom'&&!String(next.placeId||'').trim()&&next.nonPlace!==true)next.nonPlace=true;return next;});
+    });
+    return out;
+  }
   function hydrateStaticData(targets){
     const wrapper=activeSnapshot||readCachedSnapshot();
     if(!wrapper)return {ok:false,reason:'no-snapshot',applied:[]};
@@ -174,8 +191,12 @@
       setState({hydrated:false,source:'local',activeVersion:null,error:null},'master-revision-mismatch');
       return {ok:false,reason:'master-revision-mismatch',applied:[]};
     }
-    const data=payloadData(wrapper);
+    let data=payloadData(wrapper);
     if(!data)return {ok:false,reason:'invalid-payload',applied:[]};
+    if(isRebasablePublication(wrapper)&&wrapper.payload.masterRevision!==(root.MASTER_ITINERARY_REVISION||null)){
+      const rebased=root.ITINERARY_AUTHORITY.rebasePublishedItinerary(data);
+      if(rebased)data=Object.assign({},data,{itineraryData:rebased});
+    }
     const integrity=validateHydrationData(data,targets);
     if(!integrity.ok){
       const entry={message:'Published snapshot is incomplete: '+integrity.missing.join(', '),time:new Date().toISOString()};
@@ -190,8 +211,10 @@
     ];
     const applied=[];
     map.forEach(function(entry){
-      const target=targets&&targets[entry[0]],next=select(data,entry[1]);
+      const target=targets&&targets[entry[0]];
+      let next=select(data,entry[1]);
       if(next===undefined)return;
+      if(entry[0]==='ITINERARY_DATA') next=(root.ITINERARY_AUTHORITY&&typeof root.ITINERARY_AUTHORITY.normalizeItineraryData==='function')?root.ITINERARY_AUTHORITY.normalizeItineraryData(next):normalizeLegacyItineraryForHydration(next);
       const changed=Array.isArray(target)?replaceArray(target,next):replaceObject(target,next);
       if(changed)applied.push(entry[0]);
     });

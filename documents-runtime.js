@@ -79,7 +79,25 @@ async function remove(id){
  if(configured()&&navigator.onLine)try{await cloudWrite(tombstone)}catch(e){}
  return true;
 }
-root.TRIP_DOCUMENTS=Object.freeze({read,add,sync,repair,update,remove,currentUser,isStudio,canManage,canLink,participantKeys,participantLabel,validFolder,folders});
+async function resetAll(){
+ if(!configured()||!navigator.onLine)throw new Error('Connect to the internet before clearing Documents.');
+ await root.SUPABASE.getSession();const c=root.SUPABASE.getClient();
+ // Remove uploaded files first. Files are stored under tripId/documentId/fileName.
+ const top=await c.storage.from(bucket).list(cfg.tripId,{limit:1000});if(top.error)throw top.error;
+ const paths=[];
+ for(const entry of (top.data||[])){
+  if(!entry?.name)continue;
+  const folder=`${cfg.tripId}/${entry.name}`;
+  const nested=await c.storage.from(bucket).list(folder,{limit:1000});if(nested.error)throw nested.error;
+  for(const f of (nested.data||[]))if(f?.name)paths.push(`${folder}/${f.name}`);
+ }
+ if(paths.length){const rm=await c.storage.from(bucket).remove(paths);if(rm.error)throw rm.error;}
+ const del=await c.from(table).delete().eq('trip_id',cfg.tripId);if(del.error)throw del.error;
+ write([]);
+ return true;
+}
+function clearLocal(){write([]);}
+root.TRIP_DOCUMENTS=Object.freeze({read,add,sync,repair,update,remove,resetAll,clearLocal,currentUser,isStudio,canManage,canLink,participantKeys,participantLabel,validFolder,folders});
 function backgroundSync(){Promise.resolve(sync()).catch(()=>{});}
 if(typeof document!=='undefined'){
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',backgroundSync,{once:true});

@@ -3,17 +3,61 @@
 (function(root){'use strict';
 const SAVED='travel_engine_guide_overrides_v2',LEGACY='travel_engine_guide_overrides_v1',DRAFT='travel_engine_guide_draft_v1';
 const read=k=>{try{return JSON.parse(localStorage.getItem(k)||'{}')||{}}catch(e){return {}}};
-const write=(k,v)=>localStorage.setItem(k,JSON.stringify(v||{}));
+const write=(k,v)=>{try{const text=JSON.stringify(v||{});localStorage.setItem(k,text);return localStorage.getItem(k)===text;}catch(e){return false}};
 const clone=v=>v==null?v:JSON.parse(JSON.stringify(v));
 function migrate(){if(Object.keys(read(SAVED)).length)return;const old=read(LEGACY),now=new Date().toISOString(),out={};Object.keys(old).forEach(k=>out[k]={patch:old[k],updatedAt:now});if(Object.keys(out).length)write(SAVED,out)}migrate();
 function records(){return read(SAVED)}
 function savedPatch(key){return records()[key]?.patch||{}}
-function resolve(key,base){return Object.assign({},clone(base||{}),clone(savedPatch(key)),read(DRAFT)[key]||{});}
+// One-place compatibility filter: previously saved Mộc Hương Guide copy contained
+// appointment details that belong exclusively to Booking. Do not delete saved
+// records or touch Timeline Publish; filter only obsolete Guide presentation fields.
+const SPA_COPY_FIELDS=['desc','sub','signature','highlights','worth','tips','notes','practical','bookingNote'];
+const SPA_BOOKING_COPY=/(?:15[:.]30|17[:.]30|120[ -]?(?:minute|min|分鐘)|4 guests|4 人|四人|pending|待確認|預約|booking|whatsapp|mochuongwellness\.vn\/booking|\+84\s?90\s?975\s?5877)/i;
+function spaGuidePatch(key,patch,base){
+ if(key!=='moc-huong'||!base)return clone(patch||{});
+ const out=clone(patch||{});
+ SPA_COPY_FIELDS.forEach(field=>{
+  if(!Object.prototype.hasOwnProperty.call(out,field))return;
+  const val=out[field];
+  if(Array.isArray(val)){
+   if(!val.some(line=>SPA_BOOKING_COPY.test(String(line))))return;
+   const kept=val.filter(line=>!SPA_BOOKING_COPY.test(String(line)));
+   if(kept.length)out[field]=kept;
+   else if(Object.prototype.hasOwnProperty.call(base,field))out[field]=clone(base[field]);
+   else delete out[field];
+  }else if(typeof val==='string'&&SPA_BOOKING_COPY.test(val)){
+   if(Object.prototype.hasOwnProperty.call(base,field))out[field]=clone(base[field]);
+   else delete out[field];
+  }
+ });
+ return out;
+}
+function resolve(key,base){return Object.assign({},clone(base||{}),spaGuidePatch(key,savedPatch(key),base),spaGuidePatch(key,read(DRAFT)[key],base));}
 function stage(key,patch){const d=read(DRAFT);d[key]=Object.assign({},d[key]||{},clone(patch||{}));write(DRAFT,d);root.markAdminDirty&&root.markAdminDirty('guide:'+key,{key});document.dispatchEvent(new CustomEvent('travelengine:guidechange',{detail:{key}}));return resolve(key,{});}
 function save(key,patch){const s=records(),now=new Date().toISOString();s[key]={patch:Object.assign({},s[key]?.patch||{},clone(patch||{})),updatedAt:now};write(SAVED,s);const d=read(DRAFT);delete d[key];write(DRAFT,d);document.dispatchEvent(new CustomEvent('travelengine:guidechange',{detail:{key}}));document.dispatchEvent(new CustomEvent('travelengine:guidesaved',{detail:{key,updatedAt:now}}));return resolve(key,{});}
-function mergeRemote(rows){const s=records();let changed=false;(rows||[]).forEach(r=>{if(!r?.id)return;const l=s[r.id];if(!l||String(r.updatedAt||'')>String(l.updatedAt||'')){s[r.id]={patch:clone(r.patch||{}),updatedAt:r.updatedAt||new Date().toISOString()};changed=true}});if(changed){write(SAVED,s);document.dispatchEvent(new CustomEvent('travelengine:guidechange',{detail:{remote:true}}))}return changed;}
+function saveChecked(key,patch){
+ const s=records(),prev=s[key],now=new Date().toISOString();
+ s[key]=Object.assign({},prev||{},{patch:Object.assign({},prev?.patch||{},clone(patch||{})),updatedAt:now});
+ if(!write(SAVED,s))return {ok:false,reason:'storage-failed'};
+ const d=read(DRAFT);delete d[key];write(DRAFT,d);
+ document.dispatchEvent(new CustomEvent('travelengine:guidechange',{detail:{key}}));
+ document.dispatchEvent(new CustomEvent('travelengine:guidesaved',{detail:{key,updatedAt:now}}));
+ return {ok:true,key,updatedAt:now,record:clone(s[key])};
+}
+/* After a verified cloud write: remember the remote state this device is based on. The local patch
+   is replaced by the merged remote patch only if the user has not edited again since it was sent. */
+function applySynced(key,mergedPatch,remoteUpdatedAt,sentUpdatedAt){
+ const s=records(),cur=s[key];if(!cur)return false;
+ const unchanged=String(cur.updatedAt||'')===String(sentUpdatedAt||'');
+ cur.base={patch:clone(mergedPatch||{}),updatedAt:remoteUpdatedAt||null};
+ if(unchanged){cur.patch=clone(mergedPatch||{});}
+ s[key]=cur;const ok=write(SAVED,s);
+ if(ok&&unchanged)document.dispatchEvent(new CustomEvent('travelengine:guidechange',{detail:{key,remote:true}}));
+ return ok;
+}
+function mergeRemote(rows){const s=records();let changed=false;(rows||[]).forEach(r=>{if(!r?.id)return;const l=s[r.id];if(l&&root.SAVE_SYNC&&root.SAVE_SYNC.hasPending('guide',r.id))return;if(!l||String(r.updatedAt||'')>String(l.updatedAt||'')){s[r.id]={patch:clone(r.patch||{}),updatedAt:r.updatedAt||new Date().toISOString(),base:{patch:clone(r.patch||{}),updatedAt:r.updatedAt||null}};changed=true}});if(changed){write(SAVED,s);document.dispatchEvent(new CustomEvent('travelengine:guidechange',{detail:{remote:true}}))}return changed;}
 function commit(){const d=read(DRAFT);Object.keys(d).forEach(k=>save(k,d[k]));write(DRAFT,{});}
 function discard(){write(DRAFT,{});document.dispatchEvent(new CustomEvent('travelengine:guidechange'));}
-function mergedPlaces(base){const out=clone(base||{});Object.keys(out).forEach(k=>out[k]=Object.assign({},out[k],savedPatch(k)));return out;}
-root.GUIDE_AUTHORITY=Object.freeze({resolve,stage,save,commit,discard,mergedPlaces,records,mergeRemote});
+function mergedPlaces(base){const out=clone(base||{});Object.keys(out).forEach(k=>out[k]=Object.assign({},out[k],spaGuidePatch(k,savedPatch(k),out[k])));return out;}
+root.GUIDE_AUTHORITY=Object.freeze({resolve,stage,save,saveChecked,applySynced,commit,discard,mergedPlaces,records,mergeRemote});
 })(globalThis);

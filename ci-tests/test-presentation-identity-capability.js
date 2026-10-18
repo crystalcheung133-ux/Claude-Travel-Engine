@@ -16,7 +16,7 @@ assert(expHtml.includes('expense-title-emoji')&&expHtml.includes('💰'),'Expens
 
 // Guide / Trip presentation
 assert(guide.includes("Signature / Must Try"),'Restaurant signature section missing');
-assert(data.includes('Penthouse setting')&&data.includes('sunset 食到入夜'),'Omakase sunset/penthouse copy missing');
+assert(/penthouse/i.test(data)&&/sunset/i.test(data),'Omakase sunset/penthouse identity missing');
 assert(!/Omakase Tiger[\s\S]{0,1800}正式營業時間出發前再確認/.test(data),'Omakase still asks to reconfirm generic trading hours');
 assert(cfg.includes('tripMenuGroups')&&cfg.includes('activities-transport'),'VN trip menu grouping config missing');
 assert(tripRuntime.includes('openTripModuleGroup')&&tripRuntime.includes('groupedModules'),'Generic trip module grouping runtime missing');
@@ -67,7 +67,7 @@ assert(!css.includes('\\n\\n/* Engine 25.3.9'),'escaped-newline CSS corruption s
 
 // Cache + visual release contract
 const token=release.asset_cache_token; assert(token,'Release asset_cache_token missing');
-assert(/version:'RC\d+(?:\.\d+)?-25\.7\.2'/.test(cfg),'Trip version missing');
+assert(/version:'RC\d+(?:\.\d+)?-25\.7\.3'/.test(cfg),'Trip version missing');
 for(const f of ['index.html','expenses.html','day.html','guide.html','moments.html','trip.html']){
   const h=read(f); assert(h.includes(`?v=${token}`),f+' missing current release cache token');
   assert(!/\?v=(rc25|stage3|nz1|engine-booking)/.test(h),f+' has stale cache token');

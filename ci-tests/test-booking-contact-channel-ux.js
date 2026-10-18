@@ -11,7 +11,7 @@ assert(!trip.includes('href="tel:'));
 assert(trip.includes("['Phone · reference'"));
 assert(trip.includes("const hasPlannedVisits=Array.isArray(booking.plannedVisits)"));
 assert(trip.includes('booking-shared-plan'),'compact shared-day summary missing');
-assert(trip.includes('>D${escapeTripHTML(rawDay)} Timeline</a>'));
+assert(trip.includes("bookingCrossLinkButton(`D${escapeTripHTML(rawDay)} Timeline`"));
 assert(css.includes('.generic-booking-detail .trip-action-btn--day'));
 assert(!q.includes('ONE venue planned across THREE days'));
 console.log('BOOKING CONTACT CHANNEL UX: PASS');

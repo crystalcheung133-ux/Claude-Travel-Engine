@@ -1,12 +1,11 @@
 Saigon Companion Production File Manifest
-Generated: 2026-09-21
-Base: VN Companion RC29.81 · Travel Engine 25.7.2 Frozen Place Projection Runtime Fix Root Candidate
+Generated: 2026-10-18
+Base: VN Companion RC29.136 · Save & Sync Reliability
 Reference trip: Vietnam
 
 Production root files:
 
 - .vercelignore
-- RELEASE.json
 - admin.js
 - analytics-runtime.js
 - app-runtime.js
@@ -63,6 +62,8 @@ Production root files:
 - publication-runtime.js
 - pwa.js
 - reset-runtime.js
+- save-sync-core.js
+- save-sync-queue.js
 - script.js
 - shopping-directory-data.js
 - storage-config.js
@@ -76,4 +77,8 @@ Production root files:
 - trip-config.js
 - trip-runtime.js
 - trip.html
+- vendor-html2pdf-0.10.1.bundle.min.js
+- vendor-pdfjs-3.11.174.min.js
+- vendor-pdfjs-worker-3.11.174.min.js
+- vendor-supabase-js-2.117.2.umd.js
 - vercel.json

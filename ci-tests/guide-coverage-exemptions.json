@@ -1,0 +1,4 @@
+{
+  "note": "Guide ids the OWNER has explicitly decided are reference-only (no Timeline entry required). Empty until decided.",
+  "guideIds": []
+}

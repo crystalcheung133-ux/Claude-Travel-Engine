@@ -10,7 +10,7 @@
   function master(){try{return typeof BOOKINGS_DATA!=='undefined'?BOOKINGS_DATA:(root.BOOKINGS_DATA||{});}catch(error){return root.BOOKINGS_DATA||{};}}
   const DEPLOY_MASTER=clone(master()||{});
   const EDITABLE_STATE_FIELDS=Object.freeze([
-    'status','bookingName',
+    'status','bookingName','plannedDays','plannedVisits',
     'depositPaid','depositAmount','depositCurrency','paymentStatus',
     'reference','referenceLabel','bookingReference',
     'totalAmount','cashbackAmount','netTotalAUD','price','paymentLabel'
@@ -39,9 +39,33 @@
     });
     return out;
   }
+  /* RC29.136: explicit user intent. save() records which fields differ from the deploy master
+     (including intentional blanks). When a later deploy bumps the master revision, ONLY those
+     fields are replayed over the new master, so a manual time/venue/notes edit survives a
+     deploy while untouched fields still follow the new master. */
+  const INTERNAL_FIELDS=['_masterRevision','masterRevision','_editedFields','_remoteVersion','_remoteDeletedAt','updatedAt','updatedBy','updatedByPartyId','id','bookingId','displayStatus'];
+  function sameValue(a,b){return JSON.stringify(a===undefined?null:a)===JSON.stringify(b===undefined?null:b);}
+  function editedFields(base,complete){
+    const out=[];const keys=new Set([...Object.keys(base||{}),...Object.keys(complete||{})]);
+    keys.forEach(function(k){if(INTERNAL_FIELDS.indexOf(k)>=0)return;if(!sameValue(base&&base[k],complete&&complete[k]))out.push(k);});
+    return out.sort();
+  }
+  function replayEdited(base,override){
+    const out=Object.assign({},canonicalStatusRecord(base));
+    (override._editedFields||[]).forEach(function(f){
+      if(INTERNAL_FIELDS.indexOf(f)>=0)return;
+      if(Object.prototype.hasOwnProperty.call(override,f))out[f]=clone(override[f]);else delete out[f];
+    });
+    out._masterRevision=masterRevision();
+    return canonicalStatusRecord(out);
+  }
   function mergeOverride(base,override){
     if(!override||typeof override!=='object')return clone(base);
+    if(recordRevision(override)!==masterRevision()&&Array.isArray(override._editedFields))return replayEdited(base,override);
     if(recordRevision(override)===masterRevision())return canonicalStatusRecord(Object.assign({},clone(base),clone(override)));
+    // Saved Studio edits carry a revision stamp. They remain authoritative
+    // across deploys; unstamped legacy cache entries retain safe fallback.
+    if(recordRevision(override)>0)return canonicalStatusRecord(Object.assign({},clone(base),clone(override)));
     return mergeStaleState(base,override);
   }
   function read(){
@@ -86,6 +110,7 @@
     if(!id||!base||!record||typeof record!=='object')return {ok:false,reason:'invalid-booking'};
     const current=resolvedSource(source)[id]||base;
     const complete=canonicalStatusRecord(stamp(Object.assign({},current,clone(record),{id:id})));
+    complete._editedFields=editedFields(canonicalStatusRecord(DEPLOY_MASTER[id]||base),complete);
     const state=read();
     state.overrides[id]=complete;
     state.deletedIds=(state.deletedIds||[]).filter(function(item){return item!==id;});

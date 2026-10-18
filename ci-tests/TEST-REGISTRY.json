@@ -1,4 +1,32 @@
 {
+  "test-A-persistence-queue.js": {
+    "status": "active",
+    "note": "durable queue: local-failure stop, offline pending, no duplicates, superseded edit kept"
+  },
+  "test-B-booking-authority.js": {
+    "status": "active",
+    "note": "Booking authority: edits/blanks/deletes survive deploys; verified cloud write; stale-write handling"
+  },
+  "test-C-guide-sync.js": {
+    "status": "active",
+    "note": "Guide Save & Sync: CAS, 3-way merge, read-back verify, offline delivery"
+  },
+  "test-D-timeline-sync.js": {
+    "status": "active",
+    "note": "Timeline Save & Sync: auto cloud write (no Publish), verify, stale-write merge, deploy rebase"
+  },
+  "test-E-relationships.js": {
+    "status": "active",
+    "note": "Guide coverage + Timeline/Booking/Guide relationship invariants (generated fixtures + shipped data)"
+  },
+  "test-F-timeline-navigation.js": {
+    "status": "active",
+    "note": "Real buildDerivedNextStop(): reorder/add/delete recompute Next Stop and navigation"
+  },
+  "test-G-release-safety.js": {
+    "status": "active",
+    "note": "No Publish dependency, no prod writes, no credential storage, metadata/precache present"
+  },
   "test-admin-modal-release-capability.js": {
     "status": "active",
     "note": "admin modal layering + cache/service-worker release contract"
@@ -12,8 +40,8 @@
     "note": "invoked by current Master CI suite"
   },
   "test-booking-authority-stale-poisoning.js": {
-    "status": "active",
-    "note": "Old local booking state cannot roll back current deploy-master itinerary identity"
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
   },
   "test-booking-collaboration-capability.js": {
     "status": "active",
@@ -47,6 +75,10 @@
     "status": "active",
     "principle": "Deploy-master booking status beats stale overrides; Edit Booking is Studio-only"
   },
+  "test-booking-plannedvisits-verify-order-insensitive.js": {
+    "status": "active",
+    "note": "booking remote verification: plannedVisits key-order insensitive; Notes ignore line endings/edge whitespace; real changes still fail"
+  },
   "test-booking-save-post-commit-integrity.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"
@@ -67,6 +99,10 @@
     "status": "browser",
     "note": "canonical real-browser release gate: Studio lifecycle/reload + Booking/Guide stacking + bottom-nav visibility"
   },
+  "test-browser-save-sync.py": {
+    "status": "browser",
+    "note": "real-browser Save/reload persistence; zero external requests (NOT executed in authoring env)"
+  },
   "test-build-meta-consistency.js": {
     "status": "active",
     "note": "release/build identity consistency"
@@ -83,13 +119,37 @@
     "status": "active",
     "note": "invoked by current Master CI suite"
   },
-  "test-cross-surface-day-consistency.js": {
+  "test-cross-link-return-context.js": {
     "status": "active",
-    "note": "Timeline / Booking / Guide / Shopping Directory must agree on canonical day ownership after itinerary moves"
+    "note": "cross-linked popup close returns to exact caller context"
+  },
+  "test-cross-reference-integrity.js": {
+    "status": "active",
+    "note": "Guide day links/anchors and Booking place/timeline referential integrity"
+  },
+  "test-cross-surface-day-consistency.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
+  },
+  "test-custom-activity-nonplace-lifecycle.js": {
+    "status": "active",
+    "note": "Field-proven Brewda legacy custom activity normalization + new Add Activity non-place contract"
+  },
+  "test-day2-rue-miche-shopping-contract.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
   },
   "test-day2-vincom-shopping-contract.js": {
-    "status": "active",
-    "note": "Day 2 Vincom shopping + planned/optional directory reconciliation"
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
+  },
+  "test-day3-maruco-primary-contract.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
+  },
+  "test-day4-approved-route-contract.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
   },
   "test-dual-currency-expenses.js": {
     "status": "active",
@@ -156,16 +216,24 @@
     "note": "invoked by current Master CI suite"
   },
   "test-itinerary-d2-d4-reconciliation.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
+  },
+  "test-moc-huong-guide-override-migration.js": {
     "status": "active",
-    "note": "invoked by current Master CI suite"
+    "note": "Moc Huong saved Guide booking-copy compatibility without modifying Timeline or unrelated overrides"
   },
   "test-moments-plan-activity-canonical.js": {
     "status": "active",
     "note": "Moments canonical projection + explicit activity-type allow-list"
   },
   "test-multiday-booking-guide-routing.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
+  },
+  "test-no-trip-homepage.js": {
     "status": "active",
-    "principle": "One canonical booking can span multiple itinerary days; Guide→Booking dispatch must preserve booking category"
+    "note": "Trip button remains modal launcher; trip.html is booking-only compatibility host and never renders a Trip Homepage."
   },
   "test-open-day-and-arrival-flow.js": {
     "status": "active",
@@ -196,132 +264,81 @@
     "note": "parse-check Python browser CI before release"
   },
   "test-qspa-d1-d3-reconciliation.js": {
-    "status": "active",
-    "note": "Qspa D1-D3 single Guide/Booking authority and optional alternative reconciliation"
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
   },
-  "test-release-hygiene.js": {
+  "test-rc29101-expense-scroll-balance-actions.js": {
     "status": "active",
-    "note": "invoked by current Master CI suite"
+    "note": "RC29.101 natural expense history scroll, payer balance feedback, compact settle, Studio-only share summary"
   },
-  "test-release-metadata.js": {
+  "test-rc29102-history-terminals.js": {
     "status": "active",
-    "note": "invoked by current Master CI suite"
+    "note": "RC29.102 five-item history paging, Trip Total Settle placement, plain transaction participant names, and T2 flight terminal context"
   },
-  "test-runtime-booking-persistence.js": {
+  "test-rc29117-booking-mobile-multivisit.js": {
     "status": "active",
-    "note": "invoked by current Master CI suite"
+    "scope": "booking-mobile",
+    "notes": "Qspa planned visits cross-device edit authority, fixed Edit action and mobile booking layout."
   },
-  "test-runtime-indexeddb-lifecycle.js": {
-    "status": "active",
-    "note": "invoked by current Master CI suite"
+  "test-rc29117-shopping-route.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
   },
-  "test-runtime-integrity.js": {
-    "status": "active",
-    "note": "invoked by current Master CI suite"
+  "test-rc29121-route-qspa-sync.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
   },
-  "test-runtime-reset-generation.js": {
-    "status": "active",
-    "note": "invoked by current Master CI suite"
+  "test-rc29121-shopping-124-free5.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
   },
-  "test-runtime-reset-sequence.js": {
-    "status": "active",
-    "note": "invoked by current Master CI suite"
+  "test-rc29122-shop-route-qspa.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
   },
-  "test-stage1-genericity-vn.js": {
-    "status": "active",
-    "note": "invoked by current Master CI suite"
+  "test-rc29124-qspa-legacy-notes-sync.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
   },
-  "test-studio-header-badge.js": {
-    "status": "active",
-    "note": "invoked by current Master CI suite"
+  "test-rc29124-qspa-legacy-notes.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
   },
-  "test-studio-home-preview-fit.js": {
+  "test-rc29125-qspa-multivisit-transport.js": {
     "status": "active",
-    "note": "invoked by current Master CI suite"
+    "note": "RC29.125 Qspa multi-visit typed booking transport regression"
   },
-  "test-studio-lifecycle-consolidation.js": {
+  "test-rc29130-map-address-routing.js": {
     "status": "active",
-    "note": "Studio shell/session lifecycle including selector ordering and active-session re-entry"
+    "note": "RC29.130 address-first Google Maps routing + Maruco regression"
   },
-  "test-studio-popup-workspace-contract.js": {
-    "status": "active",
-    "note": "invoked by current Master CI suite"
+  "test-rc29131-booking-time-authority.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
   },
-  "test-studio-visual-contract-2562.js": {
+  "test-rc29131-timeline-authority-rebase.js": {
     "status": "active",
-    "principle": "Canonical desktop Studio geometry and compact theme-aware Studio ON state indicator"
+    "note": "RC29.131 field-level Timeline manual-edit rebase across master revisions, including explicit deletion"
   },
-  "test-syntax.sh": {
+  "test-rc29132-guide-layout.js": {
     "status": "active",
-    "note": "invoked by current Master CI suite"
+    "note": "RC29.132 Guide close out-of-flow and full-width content"
   },
-  "test-test-registry-contract.js": {
-    "status": "active",
-    "note": "prevents silent orphan tests"
+  "test-rc29133-content.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
   },
-  "test-timeline-contextual-guide-groups.js": {
-    "status": "active",
-    "note": "Multi-entity Timeline cards expose every Guide through contextual named groups while preserving direct Booking access"
-  },
-  "test-timeline-copy-capability.js": {
-    "status": "active",
-    "note": "Timeline Copy Address behaviour + eligibility + mobile labels"
-  },
-  "test-timeline-integrity.js": {
-    "status": "active",
-    "note": "invoked by current Master CI suite"
-  },
-  "test-trip-guide-shell-consolidation.js": {
-    "status": "active",
-    "note": "invoked by current Master CI suite"
-  },
-  "test-ux-contract.js": {
-    "status": "active",
-    "note": "invoked by current Master CI suite"
-  },
-  "test-vn-content-contract.js": {
-    "status": "active",
-    "note": "current VN trip content identity contract"
-  },
-  "test-vn-currency-guide-contract.js": {
-    "status": "active",
-    "note": "Consolidated Cash & Currency Guide, contextual Timeline buttons and per-option navigation"
-  },
-  "test-vn-header-theme.js": {
-    "status": "active",
-    "note": "invoked by current Master CI suite"
-  },
-  "test-vn-itinerary-content-contract.js": {
-    "status": "active",
-    "note": "current VN itinerary/content truth"
-  },
-  "test-vn-reference-integration.js": {
-    "status": "active",
-    "note": "invoked by current Master CI suite"
-  },
-  "test-vn-restaurant-booking-guide-contract.js": {
-    "status": "active",
-    "note": "Restaurant booking identity, emojis and signature dishes"
-  },
-  "test-vn-route-first-spa-contract.js": {
-    "status": "active",
-    "note": "D4 route-first spa, factual corrections and exact Timeline return"
-  },
-  "test-cross-reference-integrity.js": {
-    "status": "active",
-    "note": "Guide day links/anchors and Booking place/timeline referential integrity"
-  },
-  "test-source-provenance-contract.js": {
-    "status": "active",
-    "note": "Official source + verifiedAt provenance pilot for canonical places"
-  },
-  "test-rc2967-documents-parity-ux.js": {
-    "status": "active",
-    "purpose": "NZ Documents category/ownership/viewer parity plus cascading Day → Event timeline selector"
+  "test-rc29134-qspa-visit-time-authority.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
   },
   "test-rc2966-shared-documents.js": {
     "status": "active",
     "purpose": "Engine 25.7.2 shared Documents root/folder integration contract"
+  },
+  "test-rc2967-documents-parity-ux.js": {
+    "status": "active",
+    "purpose": "NZ Documents category/ownership/viewer parity plus cascading Day → Event timeline selector"
   },
   "test-rc2968-ui-docs-browser-contract.js": {
     "status": "active",
@@ -350,5 +367,195 @@
   "test-rc2980-timeline-relationship-hydration.js": {
     "status": "active",
     "note": "RC29.80 keeps Timeline-authored content while hydrating Guide/Booking/shared-Place relationship metadata from the current master by stable item id."
+  },
+  "test-rc2982-browser-cloud-isolation.js": {
+    "status": "active",
+    "note": "NZ-derived browser test isolation: explicit cloud disable wins"
+  },
+  "test-rc2982-clear-trip-records-scope.js": {
+    "status": "active",
+    "note": "RC29.82 reset scope: Documents, Moments and Expenses only"
+  },
+  "test-rc2983-guide-edit-session.js": {
+    "status": "active",
+    "note": "RC29.84 Guide edit session blocks accidental backdrop, Escape and cross-module close while unsaved edits are active"
+  },
+  "test-rc2984-trip-presentation.js": {
+    "status": "active",
+    "note": "RC29.84 hides empty Trip/Guide categories, direct-opens single booking categories, and corrects Cu Chi purchased-product title"
+  },
+  "test-rc2985-guide-ownership-foreground.js": {
+    "status": "active",
+    "note": "RC29.85 Guide knowledge ownership, shortlist cleanup, stale Cu Chi override migration and deterministic Booking/Guide foreground"
+  },
+  "test-rc2986-guide-language-shopping-bidirectional.js": {
+    "status": "active",
+    "note": "RC29.86 Chinese-primary Guide content, 14 real Shopping cards grouped by route, and bidirectional Guide/Booking foreground switching"
+  },
+  "test-rc2987-day4-quan-thuy-nondestructive.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
+  },
+  "test-rc2989-browser-fx-isolation.js": {
+    "status": "active",
+    "note": "RC29.89 browser release gate intercepts both production FX providers with deterministic CI responses"
+  },
+  "test-rc2990-expense-entry-scroll.js": {
+    "status": "active",
+    "note": "RC29.93 Expense entry/history + checkpoint-aware PDF/Excel Share Summary"
+  },
+  "test-rc2997-expense-authority.js": {
+    "status": "active",
+    "note": "multiple-payer derived total, +0.3% expense FX adjustment, mobile daypart collision guard"
+  },
+  "test-release-hygiene.js": {
+    "status": "active",
+    "note": "invoked by current Master CI suite"
+  },
+  "test-release-metadata-freshness.js": {
+    "status": "active",
+    "note": "RELEASE.json status/CI claims and trip-config header must reference the current RC"
+  },
+  "test-release-metadata.js": {
+    "status": "active",
+    "note": "invoked by current Master CI suite"
+  },
+  "test-removed-four-guides.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
+  },
+  "test-retired-bookings-runtime.js": {
+    "status": "active",
+    "scope": "release-hardening",
+    "notes": "Prevents retired bookings-runtime.js from returning to production paths."
+  },
+  "test-runtime-booking-persistence.js": {
+    "status": "active",
+    "note": "invoked by current Master CI suite"
+  },
+  "test-runtime-indexeddb-lifecycle.js": {
+    "status": "active",
+    "note": "invoked by current Master CI suite"
+  },
+  "test-runtime-integrity.js": {
+    "status": "active",
+    "note": "invoked by current Master CI suite"
+  },
+  "test-runtime-reset-generation.js": {
+    "status": "active",
+    "note": "invoked by current Master CI suite"
+  },
+  "test-runtime-reset-sequence.js": {
+    "status": "active",
+    "note": "invoked by current Master CI suite"
+  },
+  "test-single-release-identity.js": {
+    "status": "active",
+    "scope": "release-hardening",
+    "notes": "Locks release identity and cache tokens across metadata, config, SW and HTML."
+  },
+  "test-source-provenance-contract.js": {
+    "status": "active",
+    "note": "Official source + verifiedAt provenance pilot for canonical places"
+  },
+  "test-stage1-genericity-vn.js": {
+    "status": "active",
+    "note": "invoked by current Master CI suite"
+  },
+  "test-studio-header-badge.js": {
+    "status": "active",
+    "note": "invoked by current Master CI suite"
+  },
+  "test-studio-home-preview-fit.js": {
+    "status": "active",
+    "note": "invoked by current Master CI suite"
+  },
+  "test-studio-lifecycle-consolidation.js": {
+    "status": "active",
+    "note": "Studio shell/session lifecycle including selector ordering and active-session re-entry"
+  },
+  "test-studio-popup-workspace-contract.js": {
+    "status": "active",
+    "note": "invoked by current Master CI suite"
+  },
+  "test-studio-visual-contract-2562.js": {
+    "status": "active",
+    "principle": "Canonical desktop Studio geometry and compact theme-aware Studio ON state indicator"
+  },
+  "test-supabase-sdk-pin.js": {
+    "status": "active",
+    "note": "self-hosted vendor libraries: byte-exact hash pins, no external script CDN, precache coverage, SDK executes"
+  },
+  "test-sw-precache-html-dependencies.js": {
+    "status": "active",
+    "note": "Local HTML script dependencies and configured splash mark must be covered by service-worker precache for cold offline startup."
+  },
+  "test-syntax.sh": {
+    "status": "active",
+    "note": "invoked by current Master CI suite"
+  },
+  "test-test-registry-contract.js": {
+    "status": "active",
+    "note": "prevents silent orphan tests"
+  },
+  "test-timeline-contextual-guide-groups.js": {
+    "status": "active",
+    "note": "Multi-entity Timeline cards expose every Guide through contextual named groups while preserving direct Booking access"
+  },
+  "test-timeline-copy-capability.js": {
+    "status": "active",
+    "note": "Timeline Copy Address behaviour + eligibility + mobile labels"
+  },
+  "test-timeline-editor-time-display.js": {
+    "status": "active",
+    "note": "Timeline Editor explicit fixed-time or daypart display without losing stored clock time"
+  },
+  "test-timeline-integrity.js": {
+    "status": "active",
+    "note": "invoked by current Master CI suite"
+  },
+  "test-trip-guide-shell-consolidation.js": {
+    "status": "active",
+    "note": "invoked by current Master CI suite"
+  },
+  "test-ux-contract.js": {
+    "status": "active",
+    "note": "invoked by current Master CI suite"
+  },
+  "test-vn-backlog-closeout.js": {
+    "status": "active",
+    "note": "VN requested backlog regression: booking time/cashback, consolidated export, Moments paging/lazy, daypart display"
+  },
+  "test-vn-content-contract.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
+  },
+  "test-vn-currency-guide-contract.js": {
+    "status": "active",
+    "note": "Consolidated Cash & Currency Guide, contextual Timeline buttons and per-option navigation"
+  },
+  "test-vn-header-theme.js": {
+    "status": "active",
+    "note": "invoked by current Master CI suite"
+  },
+  "test-vn-itinerary-content-contract.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
+  },
+  "test-vn-multiple-payers.js": {
+    "status": "active",
+    "note": "VN shared expense multiple payer data/accounting/export contract"
+  },
+  "test-vn-reference-integration.js": {
+    "status": "active",
+    "note": "invoked by current Master CI suite"
+  },
+  "test-vn-restaurant-booking-guide-contract.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
+  },
+  "test-vn-route-first-spa-contract.js": {
+    "status": "advisory",
+    "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
   }
 }

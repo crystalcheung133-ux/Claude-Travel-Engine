@@ -125,6 +125,14 @@ def guide_to_booking(page,day,item_id):
     tz=page.locator('#tripModal').evaluate("el=>Number(getComputedStyle(el).zIndex)||0")
     check(tz>gz,f'{item_id}: Booking z-index {tz} must exceed Guide {gz}')
     check(top_owner(page,'#tripModal .trip-sheet'),f'{item_id}: Guide→Booking sheet is not foreground hit-test owner')
+    # RC29.86: reverse switch must promote the already-open Guide above Booking.
+    reverse=page.locator('#tripModal .trip-action-btn--guide',has_text='View Guide')
+    check(reverse.count()>0,f'{item_id}: linked Booking has no View Guide action')
+    reverse.first.click()
+    check(top_owner(page,'#guideModal .guide-sheet'),f'{item_id}: Booking→Guide did not promote Guide to foreground')
+    check(page.locator('#tripModal').evaluate("el=>el.classList.contains('show')"),f'{item_id}: reverse Guide switch destroyed Booking stack')
+    page.locator('#guideModal button.utility-button',has_text='Booking').click()
+    check(top_owner(page,'#tripModal .trip-sheet'),f'{item_id}: Guide→Booking second switch did not restore Booking foreground')
     page.locator('#tripModal .trip-close').click()
     page.wait_for_function("!document.getElementById('tripModal').classList.contains('show')")
     check(page.locator('#guideModal').evaluate("el=>el.classList.contains('show')"),f'{item_id}: closing Booking did not return to Guide')
@@ -133,7 +141,35 @@ def guide_to_booking(page,day,item_id):
 
 def run_viewport(browser,base,viewport,label):
       context=browser.new_context(viewport=viewport)
+      context.add_init_script("window.TRAVEL_ENGINE_SUPABASE={enabled:false};")
+      # RC29.89: install the deterministic FX provider before any app script runs.
+      # This prevents WebKit from creating a cross-origin request lifecycle at all;
+      # production still uses the real providers because this exists only in CI.
+      context.add_init_script(r"""
+      (() => {
+        const nativeFetch = window.fetch.bind(window);
+        window.__CI_FX_FETCH_HITS = [];
+        window.fetch = function(input, init) {
+          const url = String(input && input.url ? input.url : input || '');
+          if (/api\.frankfurter\.dev\/v1\/latest/i.test(url)) {
+            window.__CI_FX_FETCH_HITS.push(url);
+            return Promise.resolve(new Response(JSON.stringify({amount:1,base:'VND',date:'2026-09-22',rates:{AUD:0.000057}}), {status:200,headers:{'Content-Type':'application/json'}}));
+          }
+          if (/latest\.currency-api\.pages\.dev\/v1\/currencies\/vnd\.json/i.test(url)) {
+            window.__CI_FX_FETCH_HITS.push(url);
+            return Promise.resolve(new Response(JSON.stringify({date:'2026-09-22',vnd:{aud:0.000057}}), {status:200,headers:{'Content-Type':'application/json'}}));
+          }
+          return nativeFetch(input, init);
+        };
+      })();
+      """)
       page=context.new_page()
+      production_fx_requests=[]
+      def observe_request(request):
+          u=request.url.lower()
+          if 'api.frankfurter.dev/' in u or 'latest.currency-api.pages.dev/' in u:
+              production_fx_requests.append(request.url)
+      page.on('request',observe_request)
       errors=[]
       page.on('pageerror',lambda e: errors.append(str(e)))
       try:
@@ -173,7 +209,8 @@ def run_viewport(browser,base,viewport,label):
         close_studio(page)
 
         # Studio-only Booking edit entry: while Studio session is active, Booking detail exposes Edit Booking.
-        page.goto(base+'/trip.html',wait_until='domcontentloaded')
+        page.goto(base+'/index.html',wait_until='domcontentloaded')
+        page.evaluate("document.getElementById('ccmvSplash')?.remove()")
         page.evaluate("openGenericBookingDetail('bk-transfer-in')")
         page.wait_for_selector('#tripModal.show')
         check(page.locator('#tripModalContent .booking-edit-btn',has_text='Edit Booking').count()==1,
@@ -319,13 +356,13 @@ def run_viewport(browser,base,viewport,label):
         check(canonical['transferReference'],label+': fixture bk-transfer-in has no reference to exercise the Change Effect Gate')
 
         page.evaluate("""(canonical) => {
-          const staleRevision=Number(canonical.masterRevision)-1;
+          // Legacy unstamped cache is not a saved Studio edit; stamped edits win across deploys.
           const stale={};
-          stale[canonical.spa.id]={id:canonical.spa.id,bookingId:canonical.spa.id,title:'Stale Cached Spa Name',time:'23:59',status:'pending',_masterRevision:staleRevision};
-          stale[canonical.restaurant.id]={id:canonical.restaurant.id,bookingId:canonical.restaurant.id,title:'Stale Cached Restaurant Name',time:'23:59',status:'pending',_masterRevision:staleRevision};
-          stale['bk-stale-removed-fixture']={id:'bk-stale-removed-fixture',bookingId:'bk-stale-removed-fixture',title:'Ghost Booking From A Removed Fixture',status:'pending',bookingCategory:'Spa',category:'Spa',_masterRevision:staleRevision};
-          stale['bk-transfer-in']={id:'bk-transfer-in',bookingId:'bk-transfer-in',title:'Stale Cached Transfer',status:'pending',displayStatus:'Pending',_masterRevision:staleRevision};
-          stale['bk-fusion-original']={id:'bk-fusion-original',bookingId:'bk-fusion-original',title:'Stale Cached Accommodation',status:'pending',displayStatus:'Pending',_masterRevision:staleRevision};
+          stale[canonical.spa.id]={id:canonical.spa.id,bookingId:canonical.spa.id,title:'Stale Cached Spa Name',time:'23:59',status:'pending'};
+          stale[canonical.restaurant.id]={id:canonical.restaurant.id,bookingId:canonical.restaurant.id,title:'Stale Cached Restaurant Name',time:'23:59',status:'pending'};
+          stale['bk-stale-removed-fixture']={id:'bk-stale-removed-fixture',bookingId:'bk-stale-removed-fixture',title:'Ghost Booking From A Removed Fixture',status:'pending',bookingCategory:'Spa',category:'Spa'};
+          stale['bk-transfer-in']={id:'bk-transfer-in',bookingId:'bk-transfer-in',title:'Stale Cached Transfer',status:'pending',displayStatus:'Pending'};
+          stale['bk-fusion-original']={id:'bk-fusion-original',bookingId:'bk-fusion-original',title:'Stale Cached Accommodation',status:'pending',displayStatus:'Pending'};
           STORAGE.local.writeJSON(BOOKING_AUTHORITY.key,{version:1,overrides:stale,deletedIds:[],updatedAt:'2026-08-01T00:00:00Z'});
         }""", canonical)
         page.reload(wait_until='domcontentloaded')
@@ -401,6 +438,9 @@ def run_viewport(browser,base,viewport,label):
         page.locator('#tripModal .trip-close').click()
 
         check(not errors,label+': Browser page errors: '+' | '.join(errors))
+        # The app may call fetch(), but the init-script provider must satisfy FX
+        # before Playwright sees any production-provider network request.
+        check(not production_fx_requests,label+': production FX network request escaped CI provider: '+' | '.join(production_fx_requests))
         print(f'BROWSER VIEWPORT {label}: PASS')
       finally:
         context.close()

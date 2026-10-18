@@ -167,7 +167,7 @@
         const height=window.visualViewport.height;
         if(active&&document.activeElement===active){
           scheduleInputVisibility(active);
-        }else if(height>=lastHeight){
+        }else if(focusOrigin && height>=lastHeight){
           requestAnimationFrame(restoreViewportPosition);
           setTimeout(restoreViewportPosition,120);
         }

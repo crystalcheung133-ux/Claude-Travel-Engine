@@ -52,7 +52,83 @@
   function draftKey(){ return (root.STORAGE_CONFIG&&root.STORAGE_CONFIG.keys&&root.STORAGE_CONFIG.keys.adminDraft)||'travel_engine_admin_draft_v1'; }
   function clone(value){ return value==null?value:JSON.parse(JSON.stringify(value)); }
 
+  const PRISTINE_MASTER=(function(){try{return root.ITINERARY_DATA?JSON.parse(JSON.stringify(root.ITINERARY_DATA)):null;}catch(_){return null;}})();
+  function getPristineMaster(){return PRISTINE_MASTER?clone(PRISTINE_MASTER):null;}
+  function getDayEntry(dayKey){const e=getValidatedStore().dayChanges[String(dayKey)];return e?clone(e):null;}
   function emptyStore(){ return {masterRevision:getMasterRevision(),dayChanges:{}}; }
+  function normalizeItems(items){
+    return (Array.isArray(items)?items:[]).map(function(item){
+      const next=clone(item);
+      if(next&&next.type==='custom'&&!String(next.placeId||'').trim()&&next.nonPlace!==true) next.nonPlace=true;
+      return next;
+    });
+  }
+  function normalizeItineraryData(data){
+    const out=clone(data||{});
+    Object.keys(out).forEach(function(day){if(out[day]&&Array.isArray(out[day].items))out[day].items=normalizeItems(out[day].items);});
+    return out;
+  }
+
+
+  /* RC29.131: Timeline edits are user intent, not disposable snapshots.
+     New saves carry the master baseline that the user edited. On a later deploy we
+     replay only the fields the user actually changed, including explicit empty values,
+     and preserve add/delete/order operations by stable item id. */
+  const USER_EDITABLE_FIELDS=['time','title','details','route'];
+  function same(a,b){return JSON.stringify(a)===JSON.stringify(b);}
+  function rebaseDay(savedItems,baseItems,currentItems){
+    const saved=normalizeItems(savedItems),base=normalizeItems(baseItems),current=normalizeItems(currentItems);
+    const baseBy=new Map(base.filter(x=>x&&x.id).map(x=>[String(x.id),x]));
+    const savedBy=new Map(saved.filter(x=>x&&x.id).map(x=>[String(x.id),x]));
+    const currentBy=new Map(current.filter(x=>x&&x.id).map(x=>[String(x.id),x]));
+    const deleted=new Set(base.filter(x=>x&&x.id&&!savedBy.has(String(x.id))).map(x=>String(x.id)));
+    const out=[];
+    saved.forEach(function(si){
+      if(!si||!si.id){out.push(clone(si));return;}
+      const id=String(si.id),bi=baseBy.get(id),ci=currentBy.get(id);
+      if(!bi){out.push(clone(si));return;} // user-added item
+      if(!ci){out.push(clone(si));return;} // manual edit wins even if deploy removed the card
+      const merged=clone(ci);
+      USER_EDITABLE_FIELDS.forEach(function(field){
+        const sHas=Object.prototype.hasOwnProperty.call(si,field),bHas=Object.prototype.hasOwnProperty.call(bi,field);
+        if(sHas!==bHas || (sHas&&!same(si[field],bi[field]))){
+          if(sHas)merged[field]=clone(si[field]); else delete merged[field];
+        }
+      });
+      out.push(merged);
+    });
+    /* Insert genuinely new master items without disturbing the user's saved order. */
+    current.forEach(function(ci,idx){
+      if(!ci||!ci.id)return;const id=String(ci.id);
+      if(baseBy.has(id)||savedBy.has(id)||deleted.has(id)||out.some(x=>x&&String(x.id)===id))return;
+      let at=out.length,placed=false;
+      for(let n=idx+1;n<current.length;n++){const next=current[n];if(next&&next.id){const found=out.findIndex(x=>x&&String(x.id)===String(next.id));if(found>=0){at=found;placed=true;break;}}}
+      if(!placed)for(let p=idx-1;p>=0;p--){const prev=current[p];if(prev&&prev.id){const found=out.findIndex(x=>x&&String(x.id)===String(prev.id));if(found>=0){at=found+1;break;}}}
+      out.splice(at,0,clone(ci));
+    });
+    return normalizeItems(out);
+  }
+  function legacyRebaseDay(savedItems,currentItems){
+    /* One-time bridge for pre-RC29.131 stores, which did not save a baseline.
+       Preserve the four fields Studio could actually edit plus user add/delete/order.
+       Relationship metadata still comes from current master via hydrateRelationships(). */
+    const saved=normalizeItems(savedItems),current=normalizeItems(currentItems);
+    const currentBy=new Map(current.filter(x=>x&&x.id).map(x=>[String(x.id),x]));
+    const out=[];
+    saved.forEach(function(si){
+      if(!si||!si.id){out.push(clone(si));return;}const ci=currentBy.get(String(si.id));
+      if(!ci){out.push(clone(si));return;}
+      const merged=Object.assign({},clone(ci),clone(si));out.push(merged);
+    });
+    current.forEach(function(ci,idx){
+      if(!ci||!ci.id||out.some(x=>x&&String(x.id)===String(ci.id)))return;
+      let at=out.length,placed=false;
+      for(let n=idx+1;n<current.length;n++){const next=current[n];if(next&&next.id){const found=out.findIndex(x=>x&&String(x.id)===String(next.id));if(found>=0){at=found;placed=true;break;}}}
+      if(!placed)for(let p=idx-1;p>=0;p--){const prev=current[p];if(prev&&prev.id){const found=out.findIndex(x=>x&&String(x.id)===String(prev.id));if(found>=0){at=found+1;break;}}}
+      out.splice(at,0,clone(ci));
+    });
+    return normalizeItems(out);
+  }
 
   /* Accepts any previously-saved shape and returns a store that is guaranteed
      to be {masterRevision, dayChanges:{day:{items:[...]}}} and bound to the
@@ -71,18 +147,36 @@
     if(!raw||typeof raw!=='object'||Array.isArray(raw)) return emptyStore();
     const hasRevisionShape=typeof raw.masterRevision==='string'&&raw.dayChanges&&typeof raw.dayChanges==='object'&&!Array.isArray(raw.dayChanges);
     if(!hasRevisionShape){
-      // Legacy flat shape (or anything unrecognised) — revision unknown, discard.
-      return emptyStore();
+      // Legacy flat saves are user edits, not disposable cache. Preserve every
+      // day and migrate without losing blanked notes, custom cards or deletions.
+      const dayChanges={};
+      Object.keys(raw).forEach(function(day){
+        if(!/^\d+$/.test(day)||!Array.isArray(raw[day]))return;
+        const masterItems=(((root.ITINERARY_DATA||{})[String(day)]||{}).items)||[];
+        dayChanges[String(day)]={items:legacyRebaseDay(raw[day],masterItems),baseItems:normalizeItems(masterItems)};
+      });
+      return {masterRevision:current,dayChanges:dayChanges};
     }
     if(raw.masterRevision!==current){
-      // Saved under a previous master — invalidate rather than let it mask
-      // whatever the current master says.
-      return emptyStore();
+      const rebased={masterRevision:current,dayChanges:{}};
+      Object.keys(raw.dayChanges||{}).forEach(function(day){
+        const entry=raw.dayChanges[day];if(!entry||!Array.isArray(entry.items))return;
+        const masterItems=(((root.ITINERARY_DATA||{})[String(day)]||{}).items)||[];
+        const items=Array.isArray(entry.baseItems)
+          ? rebaseDay(entry.items,entry.baseItems,masterItems)
+          : legacyRebaseDay(entry.items,masterItems);
+        rebased.dayChanges[String(day)]={items:items,baseItems:normalizeItems(masterItems)};
+      });
+      return rebased;
     }
     const cleanChanges={};
     Object.keys(raw.dayChanges).forEach(function(day){
       const entry=raw.dayChanges[day];
-      if(entry&&Array.isArray(entry.items)) cleanChanges[String(day)]={items:clone(entry.items)};
+      if(entry&&Array.isArray(entry.items)){
+        cleanChanges[String(day)]={items:normalizeItems(entry.items),baseItems:normalizeItems(Array.isArray(entry.baseItems)?entry.baseItems:((((root.ITINERARY_DATA||{})[String(day)]||{}).items)||[]))};
+        // RC29.136: keep Save & Sync bookkeeping across normalisation passes.
+        ['baseVersion','dirtySync','syncedVersion'].forEach(function(f){if(entry[f]!==undefined)cleanChanges[String(day)][f]=entry[f];});
+      }
     });
     return {masterRevision:current,dayChanges:cleanChanges};
   }
@@ -105,6 +199,12 @@
   function getDayOverrideItems(dayKey){
     const store=getValidatedStore();
     const entry=store.dayChanges[String(dayKey)];
+    if(entry&&entry.dirtySync===false&&entry.syncedVersion!=null&&!(root.SAVE_SYNC&&root.SAVE_SYNC.hasPending('timeline','itinerary'))){
+      // Our edit is already inside a published version that THIS device has hydrated: the cloud
+      // snapshot is the authority again, so another device's later edits are not masked here.
+      const st=root.TRIP_SYNC&&root.TRIP_SYNC.getState?root.TRIP_SYNC.getState():null;
+      if(st&&st.hydrated&&Number(st.activeVersion)>Number(entry.syncedVersion))return null;
+    }
     return entry&&Array.isArray(entry.items)?clone(entry.items):null;
   }
 
@@ -113,19 +213,62 @@
      CURRENT master revision. This is the only path that writes saved
      overrides — day.html's 'travelengine:adminsave' handler calls this
      instead of touching localStorage directly. */
-  function commitDayChanges(changes){
-    const store=getValidatedStore();
+  function syncActiveVersion(){
+    try{const st=root.TRIP_SYNC&&root.TRIP_SYNC.getState?root.TRIP_SYNC.getState():null;const v=Number(st&&st.activeVersion);return Number.isFinite(v)?v:null;}catch(_){return null;}
+  }
+  /* RC29.136: checked commit. Returns {ok,store,days}. ok is true only if the saved store was
+     written AND read back identical, so callers never discard a draft that did not persist. */
+  function commitDayChangesChecked(changes){
+    const store=getValidatedStore();const days=[];
     Object.keys(changes||{}).forEach(function(key){
       if(!key.startsWith('itineraryDay')) return;
       const change=changes[key];
       if(change&&Array.isArray(change.items)){
-        store.dayChanges[String(change.day)]={items:clone(change.items)};
+        const d=String(change.day),prev=store.dayChanges[d];
+        store.dayChanges[d]={items:normalizeItems(change.items),baseItems:normalizeItems(((((root.ITINERARY_DATA||{})[d]||{}).items)||[])),
+          baseVersion:(prev&&prev.baseVersion!=null&&prev.dirtySync)?prev.baseVersion:syncActiveVersion(),dirtySync:true};
+        days.push(d);
       }
     });
     store.masterRevision=getMasterRevision();
     const backing=localStore();
-    if(backing) backing.writeJSON(storageKey(),store);
-    return store;
+    if(!backing) return {ok:false,store:store,days:days,reason:'no-storage'};
+    let ok=false;try{ok=!!backing.writeJSON(storageKey(),store)&&JSON.stringify(backing.readJSON(storageKey(),null))===JSON.stringify(store);}catch(_){ok=false;}
+    return {ok:ok,store:store,days:days,reason:ok?'':'storage-failed'};
+  }
+  function commitDayChanges(changes){ return commitDayChangesChecked(changes).store; }
+  /* Called after a cloud write was verified: remember which published version contains the edit. */
+  function markSynced(days,version){
+    const store=getValidatedStore();let changed=false;
+    (days||Object.keys(store.dayChanges)).forEach(function(d){const e=store.dayChanges[String(d)];if(e){e.syncedVersion=version;e.dirtySync=false;changed=true;}});
+    const backing=localStore();if(changed&&backing)backing.writeJSON(storageKey(),store);
+    return changed;
+  }
+  /* Three-way merge of a remote itinerary (current) with our saved day (saved/base). Reports
+     fields edited on BOTH sides so the caller can surface them rather than overwrite silently. */
+  function mergeRemoteDay(savedItems,baseItems,remoteItems){
+    const merged=rebaseDay(savedItems,baseItems,remoteItems);
+    const baseBy=new Map(normalizeItems(baseItems).filter(x=>x&&x.id).map(x=>[String(x.id),x]));
+    const remBy=new Map(normalizeItems(remoteItems).filter(x=>x&&x.id).map(x=>[String(x.id),x]));
+    const savedBy=new Map(normalizeItems(savedItems).filter(x=>x&&x.id).map(x=>[String(x.id),x]));
+    const conflicts=[];
+    savedBy.forEach(function(si,id){const bi=baseBy.get(id),ri=remBy.get(id);if(!bi||!ri)return;
+      USER_EDITABLE_FIELDS.forEach(function(f){if(!same(si[f],bi[f])&&!same(ri[f],bi[f])&&!same(ri[f],si[f]))conflicts.push({id:id,field:f,remote:clone(ri[f]),local:clone(si[f])});});});
+    return {items:merged,conflicts:conflicts};
+  }
+  /* A snapshot published from an OLDER master is rebased onto the current master using the
+     itineraryBase it carries (the master items it was edited from). Snapshots with no base are
+     not rebased (they cannot be separated from stale master content) and stay incompatible. */
+  function rebasePublishedItinerary(data){
+    if(!data||!data.itineraryData||!data.itineraryBase)return null;
+    const out={};
+    Object.keys(data.itineraryData).forEach(function(day){
+      const entry=data.itineraryData[day]||{},cur=((root.ITINERARY_DATA||{})[day])||{};
+      const baseDay=data.itineraryBase[day];
+      out[day]=Object.assign({},clone(cur),{items:Array.isArray(baseDay)?rebaseDay(entry.items||[],baseDay,cur.items||[]):normalizeItems(cur.items||[])});
+    });
+    Object.keys(root.ITINERARY_DATA||{}).forEach(function(day){if(!out[day])out[day]=clone(root.ITINERARY_DATA[day]);});
+    return out;
   }
 
   function clearDayOverride(dayKey){
@@ -144,8 +287,8 @@
     const draft=typeof root.getAdminDraft==='function'?root.getAdminDraft():null;
     const pending=draft&&draft.changes?draft.changes['itineraryDay'+dayKey]:null;
     if(!pending||!Array.isArray(pending.items)) return null;
-    if(pending.masterRevision!==getMasterRevision()) return null;
-    return clone(pending.items);
+    // A manually saved pending edit remains authoritative across deploy revisions.
+    return normalizeItems(pending.items);
   }
 
   /* Removes only the itinerary-related entries of the persisted admin draft
@@ -163,8 +306,7 @@
       if(!key.startsWith('itineraryDay')) return;
       const change=raw.changes[key];
       if(change&&Array.isArray(change.items)&&change.masterRevision!==current){
-        delete raw.changes[key];
-        changed=true;
+        // Preserve user-owned draft edits even after a deploy.
       }
     });
     if(changed) backing.writeJSON(draftKey(),raw);
@@ -195,7 +337,7 @@
     if(pending) return hydrateRelationships(pending,masterItems);
     const saved=getDayOverrideItems(dayKey);
     if(saved) return hydrateRelationships(saved,masterItems);
-    return clone(masterItems||[]);
+    return normalizeItems(masterItems||[]);
   }
 
   /* Used by sync-runtime.js to decide whether a cached/fetched Supabase
@@ -209,12 +351,14 @@
 
   root.ITINERARY_AUTHORITY=Object.freeze({
     getMasterRevision,
+    commitDayChangesChecked,markSynced,getPristineMaster,getDayEntry,mergeRemoteDay,rebaseDay,rebasePublishedItinerary,
     resolveDayItems,
     getDayOverrideItems,
     getPendingDayItems,
     commitDayChanges,
     clearDayOverride,
     pruneStaleDraftItineraryChanges,
-    isCompatibleSnapshotPayload
+    isCompatibleSnapshotPayload,
+    normalizeItems,normalizeItineraryData
   });
 })(globalThis);
