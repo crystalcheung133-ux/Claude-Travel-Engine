@@ -557,5 +557,9 @@
   "test-vn-route-first-spa-contract.js": {
     "status": "advisory",
     "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
+  },
+  "test-day4-aum-booking-navigation.js": {
+    "status": "advisory",
+    "note": "Current Day 4 AUM booking/timeline/guide content snapshot; not a generic release gate"
   }
 }

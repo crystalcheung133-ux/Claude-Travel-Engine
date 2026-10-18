@@ -4,3 +4,7 @@ assert(html.includes("if(mode==='fixed')")&&html.includes("if(mode==='period')")
 assert(html.includes("base.time=document.getElementById('timelineEditTime').value.trim()"),'Time must remain stored independently');
 assert(html.indexOf("if(item&&item.bookingId)")<html.indexOf("const mode=String(item&&item.timeDisplayMode"),'Booking authority must override display mode');
 console.log('TIMELINE EDITOR TIME DISPLAY: PASS');
+
+// Timeline editor is one-save: do not reintroduce the old Apply label.
+const _editorHtml=require("fs").readFileSync("day.html","utf8");
+require("assert")(_editorHtml.includes("index>=0?'Edit activity':'Add activity','Save'"),"Timeline editor button must be labelled Save");
