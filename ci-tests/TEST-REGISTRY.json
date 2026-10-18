@@ -151,6 +151,10 @@
     "status": "advisory",
     "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
   },
+  "test-day4-aum-booking-navigation.js": {
+    "status": "advisory",
+    "note": "Current Day 4 AUM booking/timeline/guide content snapshot; not a generic release gate"
+  },
   "test-dual-currency-expenses.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"
@@ -429,6 +433,10 @@
     "scope": "release-hardening",
     "notes": "Prevents retired bookings-runtime.js from returning to production paths."
   },
+  "test-retired-spa-and-day2-shopping.js": {
+    "status": "active",
+    "note": "Gating regression: retired spas absent; Day 2 route, directory and navigation consistent"
+  },
   "test-runtime-booking-persistence.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"
@@ -557,9 +565,5 @@
   "test-vn-route-first-spa-contract.js": {
     "status": "advisory",
     "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
-  },
-  "test-day4-aum-booking-navigation.js": {
-    "status": "advisory",
-    "note": "Current Day 4 AUM booking/timeline/guide content snapshot; not a generic release gate"
   }
 }
