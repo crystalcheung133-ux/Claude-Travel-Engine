@@ -7,7 +7,7 @@ assert(B['bk-qspa']);assert.equal(B['bk-qspa'].status,'planned');assert.equal(B[
 assert.deepEqual(ids(1).slice(4,9),['shopping-nguyen-trai','qspa-d1','day1-hotel-reset','cafe-apartments-optional','omakase-tiger']);assert.equal(I['1'].items.find(x=>x.id==='qspa-d1').time,'12:30–14:30');assert(I['1'].items.some(x=>x.id==='cafe-apartments-evening'));
 assert.deepEqual(ids(2),['com-tam-moc','garmentory','shopping-tqd','pizza4ps','qspa-d2','post-office','vincom-new-playground','rue-miche-ledition','lune']);assert.equal(I['2'].items.find(x=>x.id==='qspa-d2').time,'14:30–16:30');
 assert.deepEqual(ids(3),['cu-chi','man-moi','war-museum','qspa-d3','maruco']);assert.equal(I['3'].items.find(x=>x.id==='qspa-d3').time,'16:30–18:30');
-assert.equal(P['norah-spa-2'].status,'optional');assert.equal(P['nara-spa'].status,'optional');assert.equal(P['nha-suga'].status,'optional');
+assert(!P['norah-spa-2']&&!P['nara-spa'],'Retired spas must be absent');assert(!P['nha-suga'],'Retired Nha Suga must be absent');
 for(const stale of ['"bk-norah-spa-2"','"bk-nara"','"bk-nha-suga"'])assert(!raw.includes(stale),`stale optional spa booking survived: ${stale}`);
 
 const shoppingRuntime=fs.readFileSync('guide-runtime.js','utf8');

@@ -68,20 +68,21 @@
     '2':{title:'Day 2 · Fashion Day',sections:[
       {label:'MORNING · LOCAL FASHION',stops:[
         ['11 Garmentory','117B Nguyễn Đình Chính, Phường Cầu Kiệu','ChIJD9X7YQApdTERE8ttTlPglDQ'],
+        ['BLACKORP','36 Đ. Trần Huy Liệu, Phú Nhuận, Hồ Chí Minh, Vietnam'],
+        ['The Box Icon','22 Đ. Trần Huy Liệu, Phú Nhuận, Hồ Chí Minh 700000, Vietnam'],
         ['AASTU','118/12 Trần Quang Diệu, Nhiêu Lộc','ChIJgdn81KgvdTER8LpMEfkjxA8'],
         ['RUBIES Studio','47–49 Trần Quang Diệu, Nhiêu Lộc','ChIJVbEpSPgvdTER6hMDTyZp11A'],
         ['Dalla Saigon','64 Trần Quang Diệu, Nhiêu Lộc','ChIJNdPj9wgvdTERKU4y2r5qCGM'],
         ['Lane Cì','27 Trần Quang Diệu, Nhiêu Lộc','ChIJq1glT9cvdTERRJ_LpAHfCk8'],
         ['Mì Workshop','29 Trần Quang Diệu, Nhiêu Lộc','ChIJYZTM5m4vdTER8y81sDLbWug'],
         ['Mozaic Space · OPTIONAL','31/23 Đ. Lê Văn Sỹ, Nhiêu Lộc, Hồ Chí Minh','ChIJBzF4_bgvdTERVhe6FULA9Z8']
-      ],modes:['🚶 5–7 min','🚶 1–2 min','🚶 2–3 min','🚶 4–5 min','🚶 1 min','🚶 5–7 min · optional']},
+      ],modes:['🚶 to BLACKORP','🚶 along street','🚶 along street','🚶 1–2 min','🚶 2–3 min','🚶 4–5 min','🚶 1 min','🚶 5–7 min · optional']},
       {label:'AFTERNOON · VINCOM',stops:[
         ['The New Playground','Vincom Center Đồng Khởi, 72 Lê Thánh Tôn, District 1'],
         ['PUSH PUSH · selected range','Vincom Center Đồng Khởi, 72 Lê Thánh Tôn, District 1'],
-        ['BLACKORP','Vincom Center Đồng Khởi, 72 Lê Thánh Tôn, District 1'],
-        ['Rue Miche L’Édition · Union Square B3','LL3 / Basement 3, Union Square, 171 Đồng Khởi, District 1'],
+                ['Rue Miche L’Édition · Union Square B3','LL3 / Basement 3, Union Square, 171 Đồng Khởi, District 1'],
         ['LÚNE · 19:00 CONFIRMED','17/14 Lê Thánh Tôn, District 1']
-      ],modes:['🏬 1–2 min · same complex','🏬 1–2 min · same complex','🚶 4–6 min','🚶 3–5 min']}
+      ],modes:['🏬 1–2 min · same complex','🚶 4–6 min','🚶 3–5 min']}
     ]},
     '4':{title:'Day 4 · Thảo Điền Shopping · 8 Stops',sections:[
       {label:'ONE SHOPPING ROUTE · SHOP TO SHOP · BEFORE 15:30 SPA',stops:[
@@ -431,7 +432,7 @@
     const hasShoppingRoute=!!SHOPPING_ROUTES[String(day)];
     const shoppingSectionIndex=String(day)==='2' && /vincom|rue-miche|playground|union square/i.test(String(item.id||'')+' '+String(item.title||''))?1:0;
     const shoppingRouteAction=isShoppingCard&&hasShoppingRoute?`<button type="button" class="timeline-action timeline-action--shopping-route" onclick="openShoppingRouteMap(${shoppingSectionIndex})">🗺️ Shopping Route</button>`:'';
-    const firstShoppingStop=isShoppingCard&&hasShoppingRoute?(shoppingSectionIndex===1?null:SHOPPING_ROUTES[String(day)].sections[shoppingSectionIndex]?.stops?.[0]):null;
+    const firstShoppingStop=isShoppingCard&&hasShoppingRoute?(shoppingSectionIndex===1?null:SHOPPING_ROUTES[String(day)].sections[shoppingSectionIndex]?.stops?.[String(day)==='2'&&String(item.id)==='shopping-tqd'?1:0]):null;
     const firstShoppingMap=firstShoppingStop?timelineMapDirections((String(day)==='4'?'In The Mood Saigon, ':'')+firstShoppingStop[1]+', Ho Chi Minh City, Vietnam'):'';
     const shoppingArrivalActions=firstShoppingStop?`<a class="timeline-action timeline-action--map" href="${esc(firstShoppingMap)}" target="_blank" rel="noopener" title="${esc(firstShoppingStop[0])}">🧭 First Stop · ${esc(firstShoppingStop[0].replace(/ · .*/,''))}</a><button type="button" class="timeline-action timeline-action--copy" onclick="copyTimelineAddress(decodeURIComponent('${encodeURIComponent(firstShoppingStop[1]+', Ho Chi Minh City, Vietnam')}'),this)">📋 Copy Address</button>`:(isShoppingCard?mapHtml+copyAddressHtml:'');
     const shoppingGuideAction=isShoppingCard&&String(day)!=='5'?`<button type="button" class="timeline-action timeline-action--directory" onclick="openShoppingDirectoryView(${Number(day)||1})">📖 Area Guide</button>`:'';

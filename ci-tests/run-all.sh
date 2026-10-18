@@ -7,6 +7,7 @@ run(){ echo "== $1 =="; shift; "$@" || failed=1; echo ""; }
 run "FOUNDATION" sh ci-tests/suites/01-foundation.sh
 run "DATA INTEGRITY" sh ci-tests/suites/02-data-integrity.sh
 run "VN PRODUCT CONTRACTS" sh ci-tests/suites/03-product-contracts.sh
+run "RETIRED SPA + DAY 2 SHOPPING REGRESSION" node ci-tests/test-retired-spa-and-day2-shopping.js
 run "ANALYTICS" sh ci-tests/suites/04-analytics.sh
 run "PORTABILITY" sh ci-tests/suites/05-portability.sh
 run "RUNTIME RELIABILITY" sh ci-tests/suites/06-runtime-reliability.sh

@@ -15,7 +15,7 @@ for(const [id,b] of Object.entries(B)){
 // Timeline owns day assignment; Guide owns place knowledge rather than repeating schedule.
 for(const id of ['pizza4ps','lune']) assert(!/Day 2/.test(String(P[id].sub||'')),`${id}: Guide must not repeat Timeline day assignment`);
 assert(!/D1|D2|D3/.test(String(P.qspa.sub||'')),'Qspa Guide must not repeat visit-day schedule');
-assert.equal(P['norah-spa-2'].status,'optional');assert.equal(P['nara-spa'].status,'optional');
+assert(!P['norah-spa-2']&&!P['nara-spa'],'Retired spas must be absent');
 
 // D4 Slow Lifestyle Guide ownership.
 for(const id of ['ohquao'])

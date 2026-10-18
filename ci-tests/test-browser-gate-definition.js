@@ -46,7 +46,7 @@ for(const token of [
 // phone-only "Call" action) that the runtime does not even implement. Those belong in
 // static Companion-content CI (see test-qspa-d1-d3-reconciliation.js), not here.
 for(const forbidden of [
- 'Norah Spa 2',
+ 
  "'14:00'",
  'tablecheck.com',
  'trip-action-btn--call',

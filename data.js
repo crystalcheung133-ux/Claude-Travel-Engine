@@ -2964,7 +2964,7 @@ const ITINERARY_DATA={
         "time": "11:30–12:30",
         "title": "🛍 Trần Quang Diệu · Fashion Walk",
         "details": [
-          "AASTU · 118/12 Trần Quang Diệu 為主看店；之後按實際步行方向經 RUBIES · 47–49、Dalla · 64、Lane Cì · 27、Mì Workshop · 29。唔需要每間都入。",
+          "先行 BLACKORP → The Box Icon → AASTU · 118/12 Trần Quang Diệu；之後按實際步行方向經 RUBIES · 47–49、Dalla · 64、Lane Cì · 27、Mì Workshop · 29。唔需要每間都入。",
           "OPTIONAL：行完 Mì Workshop 如果仲有時間／精神，步行約 5–7 min → Mozaic Space · 31/23 Đ. Lê Văn Sỹ；唔去就直接去 Pizza 4P’s。"
         ],
         "route": "🚶 Optional extension：Mì Workshop → Mozaic Space 約 5–7 min；skip Mozaic 就直接 Grab → Pizza 4P’s Hai Bà Trưng。",
@@ -3056,7 +3056,7 @@ const ITINERARY_DATA={
         "title": "🛍 Vincom Center Đồng Khởi · The New Playground",
         "details": [
           "Vincom 本地品牌購物。",
-          "The New Playground：PUSH PUSH、BLACKORP 等自由 browse"
+          "The New Playground：PUSH PUSH 等自由 browse"
         ],
         "route": "🚶 To next stop · 約 4–6 min：Vincom → Union Square B3 · Rue Miche L’Édition。",
         "map": "https://www.google.com/maps/search/?api=1&query=The%20New%20Playground%20Vincom%20Center%20Dong%20Khoi%2072%20Le%20Thanh%20Ton%20Ho%20Chi%20Minh%20City",
