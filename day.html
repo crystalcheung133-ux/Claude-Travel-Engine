@@ -625,7 +625,7 @@
     editorMode=index>=0?'edit':'add';
     editingIndex=index;
     const item=index>=0?workingItems[index]:{time:'',title:'',details:[],route:''};
-    showTimelineEditor(item,index>=0?'Edit activity':'Add activity','Save');
+    showTimelineEditor(item,index>=0?'Edit activity':'Add activity',index>=0?'Apply':'Add activity');
   };
   window.openTimelineDuplicate=function(index){
     if(!window.isAdminMode||!window.isAdminMode()||!workingItems[index])return;

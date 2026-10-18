@@ -342,8 +342,9 @@ def run_viewport(browser,base,viewport,label):
         # master — using values read live from the app's own canonical data, never a hardcoded
         # itinerary literal, so this survives any future change to the actual trip content.
         canonical=page.evaluate("""() => {
-          const pick=(cat)=>Object.values(BOOKINGS_DATA).find(b=>b&&b.status!=='optional'&&(b.bookingCategory===cat||b.category===cat));
-          const spa=pick('Spa'), restaurant=pick('Restaurants'), transfer=BOOKINGS_DATA['bk-transfer-in'];
+          const deploy=BOOKING_AUTHORITY.deployMaster();
+          const pick=(cat)=>Object.values(deploy).find(b=>b&&b.status!=='optional'&&(b.bookingCategory===cat||b.category===cat));
+          const spa=pick('Spa'), restaurant=pick('Restaurants'), transfer=deploy['bk-transfer-in'];
           return {
             spa: spa&&{id:spa.id,title:spa.title,time:spa.time},
             restaurant: restaurant&&{id:restaurant.id,title:restaurant.title,time:restaurant.time},

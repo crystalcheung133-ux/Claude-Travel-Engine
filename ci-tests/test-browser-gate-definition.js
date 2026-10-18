@@ -54,6 +54,7 @@ for(const forbidden of [
 ]) assert(!gate.includes(forbidden),`Browser smoke must not hard-code obsolete/itinerary-specific content: ${forbidden}`);
 assert(runner.includes('test-browser-release-smoke.py'),'Browser runner must execute the canonical release smoke');
 assert(gate.includes('BROWSER_BASE_URL'),'Browser smoke must support validating a deployed production URL');
+assert(gate.includes('BOOKING_AUTHORITY.deployMaster()'),'Browser smoke must use immutable deploy master, not potentially hydrated BOOKINGS_DATA, for stale-cache reconciliation');
 assert(!runner.includes('|| true'),'Browser runner must never convert a failed browser test into PASS');
 const workflow=fs.readFileSync('.github/workflows/browser-release-smoke.yml','utf8');
 assert(workflow.includes('sh ci-tests/run-browser.sh'),'GitHub browser workflow must execute canonical browser runner');
