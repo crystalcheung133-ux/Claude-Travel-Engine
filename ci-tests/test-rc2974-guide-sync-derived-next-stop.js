@@ -9,5 +9,5 @@ ok(day.includes('walk&&walk.max<=15')&&day.includes('🚶 Walk')&&day.includes('
 ok(day.includes("else if(grab){lines.push(`🚕 Grab")&&day.includes('Live ETA in Maps'),'Long/unknown walk Grab rule missing');
 ok(day.includes('www.google.com/maps/dir/?api=1&origin='),'Derived Directions map missing');
 ok(!day.includes('id="timelineEditRoute"') && !day.includes('base.route=document.getElementById'), 'Travel note editor field must be removed while derived transport remains');
-ok(day.includes("String(item&&item.id||'')==='quince-d4'") && day.includes("id:'derived-return-hotel'"),'Quince return-hotel fallback missing');
+ok(day.includes("String(item&&item.id||'')==='aum-d4'") && day.includes("id:'derived-return-hotel'"),'Farewell dinner return-hotel fallback missing');
 console.log('RC29.75 guide sync + derived next stop contract PASS');

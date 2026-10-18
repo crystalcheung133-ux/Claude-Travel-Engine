@@ -15,7 +15,7 @@ for(const [id,b] of Object.entries(B)){
   if(/\bonline\b|website|klook/i.test(String(b.bookingMethod||'')))
     assert(String(b.bookingUrl||'').trim(),id+': online/website method requires bookingUrl');
   if(/whatsapp/i.test(String(b.bookingMethod||'')))
-    assert(String(b.whatsapp||'').trim(),id+': WhatsApp method requires explicit verified whatsapp field');
+    assert(String(b.whatsapp||'').trim() || (String(b.bookingUrl||'').trim() && /WhatsApp/i.test(String(b.bookingHandoff||''))),id+': WhatsApp method needs verified contact OR website plus existing-chat handoff; never invent a WhatsApp number');
   if(b.timelineItemId){
     const day=String(b.day||String(b.dayId||'').replace(/\D/g,''));
     assert((I[day]?.items||[]).some(x=>x.id===b.timelineItemId),id+': Timeline anchor drift');

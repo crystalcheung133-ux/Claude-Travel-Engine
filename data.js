@@ -4,20 +4,18 @@
 const PLACES={
   "in-the-mood-d4": {"title":"In The Mood Saigon","emoji":"🎁","cat":"SHOP","sub":"Day 4 · First shopping stop","shoppingRoute":"Day 4 · Thảo Điền walk","hours":"10:00–19:00 · verify on the day","address":"32 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam","maps":"https://www.google.com/maps/search/?api=1&query=In%20The%20Mood%20Saigon%2032%20Tran%20Ngoc%20Dien","desc":"Day 4 第一站；越南設計、手工家品、飾物及特色手信。","categoryLabel":"🛍 Shopping","transport":"Walk / Grab","highlights":["Vietnamese design","Handmade gifts"]},
   "grade-b-d4": {"title":"Grade B","emoji":"🏺","cat":"SHOP","sub":"Day 4 · Second shopping stop","shoppingRoute":"Day 4 · Thảo Điền walk","address":"14 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam","maps":"https://www.google.com/maps/search/?api=1&query=Grade%20B%2014%20Tran%20Ngoc%20Dien%20Ho%20Chi%20Minh","desc":"第二站；設計陶瓷及生活選物。","categoryLabel":"🏺 Ceramics","transport":"Walk","highlights":["Ceramics","Lifestyle objects"]},
-  "quince": {
-    "title": "Quince Saigon",
+  "aum-saigon": {
+    "title": "aum. Saigon",
     "emoji": "🍽️",
     "cat": "RESTAURANTS",
-    "sub": "Modern Mediterranean · Wood-fired Dining",
-    "status": "confirmed",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Quince%20Saigon%2037bis%20Ky%20Con%20District%201",
-    "address": "37bis Ký Con, District 1, Ho Chi Minh City, Vietnam",
-    "desc": "Quince Saigon 主打現代地中海及歐陸料理，以柴火、炭烤與時令食材帶出煙燻香氣；開放式廚房與溫暖精緻的用餐氣氛，很適合四位朋友享受旅程最後一晚。菜單按季節調整，當日以餐廳菜單為準。",
-
-    "signature": ["Wood-fired / charcoal-grilled seasonal dishes", "Scallops 或當日海鮮料理（視菜單供應）", "Seasonal desserts"],
-    "worth": ["適合四人分享前菜，再各選主菜。", "可留意開放式柴火廚房及當日 specials。", "不飲酒亦可以專注食物與甜品。"],
+    "sub": "New Thai-inspired fusion bistro · French craft · Live fire",
+    "maps": "https://www.google.com/maps/search/?api=1&query=aum.%20Saigon%2071-73-75%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh",
+    "address": "71–73–75 Hai Bà Trưng, District 1, Ho Chi Minh City, Vietnam",
+    "desc": "aum. Saigon 係新開嘅泰式靈感 Fusion Bistro，結合法式廚藝、泰式調味同明火烹調。主廚 Julien Perraudin 亦係 Quince Saigon 主廚；新餐廳走更鮮明嘅 Thai fire × French craft 方向。",
+    "signature": ["Lamb Pot Pie · 酥皮羊肉批", "Duck Breast · 香脆鴨胸配泰式調味", "Seasonal Crab Dishes · 明火時令蟹料理"],
+    "worth": ["四位朋友最後一晚 Farewell Dinner，試下新開餐廳嘅 fusion 風格。", "菜式按季節供應；到店以當日菜單為準。"],
     "categoryLabel": "🍽️ Restaurant",
-    "transport": "Grab from Thảo Điền; allow traffic buffer"
+    "transport": "Grab from 0123 Complex; check live traffic before leaving"
   },
 
   "currency-guide": {
@@ -1411,7 +1409,7 @@ const CATEGORIES={
     },
   ],
   "RESTAURANTS": [
-    {"key":"quince"},
+    {"key":"aum-saigon"},
     {
       "key": "bep-me-in"
     },
@@ -1506,7 +1504,7 @@ const CATEGORIES={
 };
 
 const GUIDE_ORDER=[
-  "quince",
+  "aum-saigon",
   "currency-guide",
   "fusion",
   "cong",
@@ -1544,7 +1542,7 @@ const GUIDE_ORDER=[
 ];
 
 const DAY_LINKS={
-  "quince": [["Day 4","day.html?day=4#quince-d4"]],
+  "aum-saigon": [["Day 4","day.html?day=4#aum-d4"]],
   "fusion": [
     [
       "Day 1",
@@ -1784,16 +1782,16 @@ const BOOKINGS_DATA={
     "bookingHandoff":"Not confirmed. WhatsApp +84 90 975 5877 or book via official website; confirm availability, treatment, price and branch.",
     "placeId":"moc-huong"
   },
-  "bk-quince": {
-    "id": "bk-quince", "bookingId": "bk-quince", "eventId": "quince-d4", "timelineItemId": "quince-d4",
+  "bk-aum-d4": {
+    "id": "bk-aum-d4", "bookingId": "bk-aum-d4", "eventId": "aum-d4", "timelineItemId": "aum-d4",
     "day": 4, "dayId": "day4", "status": "confirmed", "date": "2026-11-02", "time": "19:00",
-    "bookingName": "Crystal Cheung", "bookingCategory": "Restaurants", "category": "Restaurants", "type": "restaurant",
-    "emoji": "🍽️", "title": "Quince Saigon · Dining Room", "bookingMethod": "Google / TableCheck",
-    "bookingWay": "Google / TableCheck", "platform": "TableCheck", "bookingUrl": "https://linktr.ee/quincesaigon", "guests": 4, "guestSummary": "4 guests",
-    "address": "37bis Ký Con, District 1, Ho Chi Minh City, Vietnam",
-    "notes": "Confirmed · Mon 2 Nov · 19:00 · 4 guests · Dining Room. No credit card requested. 可當日視 Thảo Điền 行程調整；取消或更改前先確認餐廳條款。",
-    "bookingHandoff": "Confirmed 19:00 for four via Google / TableCheck. No credit card requested; cancellation policy not independently verified. 如需改時間或取消，先確認餐廳條款。",
-    "placeId": "quince"
+    "bookingCategory": "Restaurants", "category": "Restaurants", "type": "restaurant",
+    "emoji": "🍽️", "title": "aum. Saigon · Farewell Dinner", "bookingMethod": "WhatsApp",
+    "bookingWay": "WhatsApp", "platform": "WhatsApp", "bookingUrl": "https://aumsaigon.com/", "guests": 4, "guestSummary": "4 guests",
+    "address": "71–73–75 Hai Bà Trưng, District 1, Ho Chi Minh City, Vietnam",
+    "notes": "2 Nov 2026 · 19:00 · 4 guests. Booking arranged via WhatsApp (user-reported).",
+    "bookingHandoff": "WhatsApp booking arranged by guest. Keep original WhatsApp conversation as confirmation and use it for changes.",
+    "placeId": "aum-saigon"
   },
 
   "bk-fusion-original": {
@@ -2709,17 +2707,17 @@ const ITINERARY_DATA={
       },
       {
         "id":"complex-0123-d4","time":"17:45–18:40","title":"🏘 0123 Complex · Evening Browse",
-        "details":["06 Đặng Hữu Phổ, An Khánh · beside Mộc Hương An Khánh.","18:40 → Quince 19:00 leaves only 20 minutes; check live traffic and leave earlier if necessary."],
-        "route":"🚕 Grab → Quince Saigon, 37bis Ký Con · 19:00 confirmed; check live ETA.",
+        "details":["06 Đặng Hữu Phổ, An Khánh · beside Mộc Hương An Khánh.","19:00 aum. Saigon Farewell Dinner · check live Grab ETA; leave 0123 Complex earlier if necessary."],
+        "route":"🚕 Grab → aum. Saigon, 71–73–75 Hai Bà Trưng · 19:00 booking; check live ETA.",
         "map":"https://www.google.com/maps/search/?api=1&query=0123%20Complex%2006%20Dang%20Huu%20Pho%20Ho%20Chi%20Minh%20City",
         "type":"experience","dayId":"day4","placeId":"complex-0123","bookingId":null,"guideIds":["complex-0123"]
       },
       {
-        "id": "quince-d4", "time": "19:00–20:45", "title": "🍽️ Quince Saigon · Farewell Dinner",
-        "details": ["Confirmed · Dining Room · 4 guests · Google / TableCheck", "可當日視 Thảo Điền 行程調整；如需更改或取消，先確認餐廳條款。", "18:40 從 0123 Complex 出發只得 20 分鐘；請提前查看交通，必要時提早離開 0123，19:00 Quince Booking 不變。"],
-        "route": "🚕 0123 Complex → Quince Saigon · 37bis Ký Con, District 1；18:40 出發時間緊迫，先查即時交通。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Quince%20Saigon%2037bis%20Ky%20Con%20District%201",
-        "type": "meal", "dayId": "day4", "placeId": "quince", "bookingId": "bk-quince", "guideIds": ["quince"]
+        "id": "aum-d4", "time": "19:00–20:45", "title": "🍽️ aum. Saigon · Farewell Dinner",
+        "details": ["19:00 · Farewell Dinner · 4 friends", "Booking arranged via WhatsApp."],
+        "route": "🚕 0123 Complex → aum. Saigon · 71–73–75 Hai Bà Trưng, District 1; check live ETA and leave earlier if necessary.",
+        "map": "https://www.google.com/maps/search/?api=1&query=aum.%20Saigon%2071-73-75%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh",
+        "type": "meal", "dayId": "day4", "placeId": "aum-saigon", "bookingId": "bk-aum-d4", "guideIds": ["aum-saigon"]
       }
     ],
     "dayId": "day4"
