@@ -144,6 +144,7 @@
   let studioShellSyncRaf=0;
   function syncStudioShellMetrics(){
     const root=document.documentElement;
+    const releaseFirstPaint=()=>root.classList.remove('home-card-first-paint-pending');
     const travellerHeader=document.querySelector('.site-nav');
     const travellerHeaderHeight=Math.ceil(travellerHeader?.getBoundingClientRect().height||68);
     root.style.setProperty('--studio-traveller-header-height',`${travellerHeaderHeight}px`);
@@ -153,6 +154,7 @@
     const desktop=window.matchMedia('(min-width:721px)').matches;
     if(!state.mode || !desktop || !main || !hero){
       root.style.setProperty('--engine-studio-home-fit-scale','1');
+      releaseFirstPaint();
       return;
     }
 
@@ -163,6 +165,8 @@
     const naturalHeight=Math.max(1,hero.offsetHeight);
     const fit=Math.min(1,availableWidth/naturalWidth,availableHeight/naturalHeight);
     root.style.setProperty('--engine-studio-home-fit-scale',String(Math.max(0.01,Math.floor(fit*1000)/1000)));
+    // Reveal only after Studio has calculated its final card size.
+    releaseFirstPaint();
   }
   function scheduleStudioShellMetrics(){
     cancelAnimationFrame(studioShellSyncRaf);
