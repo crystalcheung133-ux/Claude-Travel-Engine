@@ -1,12 +1,35 @@
 param([string]$ZipPath = "")
 $ErrorActionPreference = 'Stop'
 try {
-  $repo = (git -C $PSScriptRoot rev-parse --show-toplevel 2>$null).Trim()
+  # GitHub Desktop bundles Git even when git.exe is not on the Windows PATH.
+  $gitCommand = Get-Command git.exe -ErrorAction SilentlyContinue
+  if ($gitCommand) {
+    $gitExe = $gitCommand.Source
+  } else {
+    $candidates = @(
+      (Join-Path $env:ProgramFiles 'Git\cmd\git.exe'),
+      (Join-Path $env:ProgramFiles 'Git\bin\git.exe'),
+      (Join-Path ${env:ProgramFiles(x86)} 'Git\cmd\git.exe'),
+      (Join-Path $env:LOCALAPPDATA 'Programs\Git\cmd\git.exe')
+    ) | Where-Object { $_ -and (Test-Path -LiteralPath $_ -PathType Leaf) }
+    $desktopRoot = Join-Path $env:LOCALAPPDATA 'GitHubDesktop'
+    if (Test-Path -LiteralPath $desktopRoot) {
+      $candidates += @(Get-ChildItem -LiteralPath $desktopRoot -Directory -Filter 'app-*' -ErrorAction SilentlyContinue |
+        Sort-Object Name -Descending | ForEach-Object {
+          Join-Path $_.FullName 'resources\app\git\cmd\git.exe'
+          Join-Path $_.FullName 'resources\app\git\mingw64\bin\git.exe'
+        } | Where-Object { Test-Path -LiteralPath $_ -PathType Leaf })
+    }
+    $gitExe = @($candidates | Select-Object -First 1)[0]
+  }
+  if (-not $gitExe) { throw 'Git not found. Please send a screenshot; no files were changed.' }
+  Write-Host "Using Git: $gitExe"
+  $repo = (& $gitExe -C $PSScriptRoot rev-parse --show-toplevel 2>$null).Trim()
   if (-not $repo) { throw 'Place these scripts in the root of your local Git repository.' }
   if ((Resolve-Path $repo).Path -ne (Resolve-Path $PSScriptRoot).Path) { throw 'Scripts must be in the repository root.' }
-  $branch = (git -C $repo branch --show-current).Trim()
-  if ($branch -eq 'main' -or $branch -eq 'master') { throw "Current branch is '$branch'. Switch to test-vn-ci before running." }
-  $dirty = @(git -C $repo status --porcelain)
+  $branch = (& $gitExe -C $repo branch --show-current).Trim()
+  if ($branch -ne 'test-vn-ci') { throw "Current branch is '$branch'. Switch to test-vn-ci before running." }
+  $dirty = @(& $gitExe -C $repo status --porcelain)
   if ($dirty.Count -gt 0) { throw 'Uncommitted changes exist. Commit/stash them before running.' }
   if (-not $ZipPath) { $ZipPath = Read-Host 'Enter the full path of the new VN ZIP file (drag ZIP here)' }
   $ZipPath = $ZipPath.Trim(' ','"',"'")
