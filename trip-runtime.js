@@ -616,10 +616,11 @@ async function commitBookingSave(record,deps){
     const id=booking.id||booking.bookingId;
     const queued=SAVE_SYNC.enqueue('booking',id,booking,{});
     if(!queued.ok)return {ok:false,committed:true,persistedLocally:false,reason:queued.reason||'queue-failed'};
-    let flushed;
-    try{flushed=await SAVE_SYNC.flushEntry('booking',id,{timeoutMs:deps.timeoutMs==null?8000:deps.timeoutMs});}
-    catch(e){flushed={synced:false,label:SAVE_SYNC.labels.pending};}
-    return {ok:true,committed:true,degraded:!flushed.synced,booking:(flushed.result&&flushed.result.booking)||booking,label:flushed.label};
+    // Local write and durable queue are confirmed. Do not hold the editor open for cloud IO.
+    // Flush asynchronously; the queue owns retries and only confirms after remote read-back.
+    Promise.resolve().then(function(){return SAVE_SYNC.flushEntry('booking',id,{timeoutMs:deps.timeoutMs==null?8000:deps.timeoutMs});})
+      .catch(function(error){console.error('Booking background sync pending',error);});
+    return {ok:true,committed:true,degraded:true,booking:booking,label:SAVE_SYNC.labels.pending};
   }
   Promise.resolve().then(function(){return deps.syncPush(booking);}).then(function(remoteResult){
     if(remoteResult&&remoteResult.booking)booking=remoteResult.booking;
