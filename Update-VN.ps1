@@ -38,6 +38,7 @@ try {
   New-Item -ItemType Directory -Path $tmp | Out-Null
   try {
     Add-Type -AssemblyName System.IO.Compression
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
     $archive = [IO.Compression.ZipFile]::OpenRead((Resolve-Path -LiteralPath $ZipPath).Path)
     try {
       foreach ($entry in $archive.Entries) {
