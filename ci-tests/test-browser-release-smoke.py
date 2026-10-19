@@ -357,6 +357,17 @@ def run_viewport(browser,base,viewport,label):
           };
         }""")
         check(canonical['spa'],label+': no non-optional canonical Spa booking found to exercise the Change Effect Gate')
+        # Exercise a real saved user edit before stale-cache injection. This test
+        # must preserve that edit, even when the deploy-master time differs.
+        saved_spa=page.evaluate('''(spa) => {
+          const editedTime=spa.time==='15:00'?'15:30':'15:00';
+          const result=BOOKING_AUTHORITY.save(spa.id,{time:editedTime},PRODUCTION_BOOKINGS.byId);
+          if(!result.ok)throw new Error('Could not save Spa regression fixture');
+          return BOOKING_AUTHORITY.get(spa.id,PRODUCTION_BOOKINGS.byId);
+        }''',canonical['spa'])
+        check(saved_spa and saved_spa['time']!=canonical['spa']['time'],label+': saved Spa edit fixture did not change time')
+        canonical['spa']['time']=saved_spa['time']
+
         check(canonical['restaurant'],label+': no non-optional canonical Restaurant booking found to exercise the Change Effect Gate')
         check(canonical['transferReference'],label+': fixture bk-transfer-in has no reference to exercise the Change Effect Gate')
 
@@ -368,7 +379,9 @@ def run_viewport(browser,base,viewport,label):
           stale['bk-stale-removed-fixture']={id:'bk-stale-removed-fixture',bookingId:'bk-stale-removed-fixture',title:'Ghost Booking From A Removed Fixture',status:'pending',bookingCategory:'Spa',category:'Spa'};
           stale['bk-transfer-in']={id:'bk-transfer-in',bookingId:'bk-transfer-in',title:'Stale Cached Transfer',status:'pending',displayStatus:'Pending'};
           stale['bk-fusion-original']={id:'bk-fusion-original',bookingId:'bk-fusion-original',title:'Stale Cached Accommodation',status:'pending',displayStatus:'Pending'};
-          STORAGE.local.writeJSON(BOOKING_AUTHORITY.key,{version:1,overrides:stale,deletedIds:[],updatedAt:'2026-08-01T00:00:00Z'});
+          const previous=STORAGE.local.readJSON(BOOKING_AUTHORITY.key,{})||{};
+          const overrides=Object.assign({},stale,previous.overrides||{});
+          STORAGE.local.writeJSON(BOOKING_AUTHORITY.key,Object.assign({},previous,{version:previous.version||1,overrides,deletedIds:previous.deletedIds||[],updatedAt:previous.updatedAt||'2026-08-01T00:00:00Z'}));
         }""", canonical)
         page.reload(wait_until='domcontentloaded')
         page.evaluate("document.getElementById('ccmvSplash')?.remove()")

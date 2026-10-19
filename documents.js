@@ -125,30 +125,42 @@ async function renderPdfInto(url,wrap){
  }catch(e){wrap.innerHTML='<div class="doc-viewer-message"><strong>Could not preview this document.</strong><p>Try again while online.</p></div>'}
 }
 let openDocumentId='';
-root.shareOpenDocument=async()=>{
+let shareAttachment=null;
+let shareRequest=0;
+function setShareLabel(label){const b=$('docViewerShare');if(b)b.textContent=label;}
+async function prepareShareAttachment(d,url){
+ const request=++shareRequest;shareAttachment=null;
+ if(!url||!navigator.canShare||!navigator.share)return;
+ try{
+  const response=await fetch(url);if(!response.ok)return;
+  const blob=await response.blob();
+  const file=new File([blob],d.fileName||d.title||'Document',{type:d.mimeType||blob.type||'application/octet-stream'});
+  if(request===shareRequest&&navigator.canShare({files:[file]}))shareAttachment=file;
+ }catch(e){}
+}
+root.shareOpenDocument=()=>{
  const d=root.TRIP_DOCUMENTS.read().find(x=>x.id===openDocumentId);if(!d)return;
  const url=d.fileUrl||d.localObjectUrl||'';
  const title=d.title||d.fileName||'Document';
- // Prefer sharing the actual attachment where the browser supports file sharing.
  if(navigator.share){
+  let payload=shareAttachment?{title,files:[shareAttachment]}:url?{title,url}:{title};
   try{
-   if(url){
-    const response=await fetch(url);if(response.ok){
-     const blob=await response.blob();
-     const file=new File([blob],d.fileName||title,{type:d.mimeType||blob.type||'application/octet-stream'});
-     if(navigator.canShare?.({files:[file]})){await navigator.share({title,files:[file]});return;}
-    }
-   }
+   // Invoke share immediately within the user's tap activation.
+   Promise.resolve(navigator.share(payload)).catch(async e=>{
+    if(e?.name==='AbortError')return;
+    if(shareAttachment&&url){try{await navigator.share({title,url});return}catch(err){if(err?.name==='AbortError')return}}
+    copyDocumentLink(url);
+   });return;
   }catch(e){if(e?.name==='AbortError')return;}
-  try{await navigator.share(url?{title,url}:{title});return;}catch(e){if(e?.name==='AbortError')return;}
  }
- if(url){
-  try{await navigator.clipboard.writeText(url);alert('Document link copied.');return;}catch(e){}
-  window.open(url,'_blank','noopener');return;
- }
- alert('This document needs to finish syncing before it can be shared.');
+ copyDocumentLink(url);
 };
-root.openDocumentViewer=id=>{openDocumentId=id;const d=root.TRIP_DOCUMENTS.read().find(x=>x.id===id);if(!d)return;let url=d.fileUrl||d.localObjectUrl||'';if(d.embeddedBase64){try{const raw=atob(d.embeddedBase64),bytes=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);url=URL.createObjectURL(new Blob([bytes],{type:d.mimeType||'application/pdf'}));}catch(e){}}$('docViewerTitle').textContent=d.title||'Document';const body=$('docViewerBody');body.innerHTML='';
+async function copyDocumentLink(url){
+ if(!url){setShareLabel('Unavailable');return}
+ try{await navigator.clipboard.writeText(url);setShareLabel('Copied ✓');}
+ catch(e){window.open(url,'_blank','noopener');}
+}
+root.openDocumentViewer=id=>{openDocumentId=id;setShareLabel('↗ Share');shareAttachment=null;++shareRequest;const d=root.TRIP_DOCUMENTS.read().find(x=>x.id===id);if(!d)return;let url=d.fileUrl||d.localObjectUrl||'';if(d.embeddedBase64){try{const raw=atob(d.embeddedBase64),bytes=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);url=URL.createObjectURL(new Blob([bytes],{type:d.mimeType||'application/pdf'}));}catch(e){}}prepareShareAttachment(d,url);$('docViewerTitle').textContent=d.title||'Document';const body=$('docViewerBody');body.innerHTML='';
 if(d.linkType&&d.linkType!=='trip'&&d.linkLabel){const link=document.createElement('a');link.className='pill doc-viewer-linked-entity';link.href=routeForDocument(d,'viewer');link.textContent='🔗 '+d.linkLabel;link.onclick=function(event){return openDocumentLinkedEntity(d.id,'viewer',event)};body.appendChild(link)}
 if(!url){body.innerHTML='<div class="doc-viewer-message">This document is not available on this device yet.</div>'}else if((d.mimeType||'').startsWith('image/')){const img=document.createElement('img');img.src=url;img.alt=d.title||'Document';body.appendChild(img)}else if((d.mimeType||'').includes('pdf')||/\.pdf(?:$|\?)/i.test(url)){const wrap=document.createElement('div');wrap.className='pdf-pages';body.appendChild(wrap);renderPdfInto(url,wrap)}else{const wrap=document.createElement('div');wrap.className='doc-viewer-message';wrap.innerHTML='<strong>'+esc(d.fileName||d.title||'Document')+'</strong><p>This file type opens in its native viewer.</p><a class="pill" target="_blank" rel="noopener">Open original file</a>';wrap.querySelector('a').href=url;body.appendChild(wrap)}$('docViewer').classList.add('show');$('docViewer').setAttribute('aria-hidden','false');root.bringContentOverlayToFront?.($('docViewer'));document.body.style.overflow='hidden'};
 root.closeDocumentViewer=()=>{if(typeof root.dismissAllContentOverlays==='function')return root.dismissAllContentOverlays();const v=$('docViewer');v.classList.remove('show');v.setAttribute('aria-hidden','true');$('docViewerBody').innerHTML='';document.body.style.overflow='';return true};

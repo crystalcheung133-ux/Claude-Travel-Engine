@@ -35,7 +35,7 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc29137-guide-save",
+  "asset_cache_token": "rc29137-documents-share-fix",
   "release_status": "RC29.137 STATIC CI PASS — browser/mobile smoke pending",
   "changes": [
     "RC29.137: Homepage weather opens an in-app five-day Open-Meteo forecast; currency card defaults to 100,000 VND with larger text; viewport guard preserved.",

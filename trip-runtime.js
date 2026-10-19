@@ -255,10 +255,10 @@ function bookingContactSectionsHTML(booking,place){
 }
 
 function bookingDocumentsHTML(booking){
- if(!booking||!window.TRIP_DOCUMENTS)return '';
- const docs=TRIP_DOCUMENTS.read().filter(d=>d.linkType==='booking'&&String(d.linkId)===String(booking.id));
- if(!docs.length)return '';
- return `<section class="accommodation-section booking-documents"><h3>Documents</h3><div class="trip-action-row trip-action-row--booking-compact">${docs.map(d=>{const target=`documents.html?document=${encodeURIComponent(d.id)}&bookingId=${encodeURIComponent(booking.id)}`;return bookingCrossLinkButton(`📎 ${escapeTripHTML(d.title||'Document')}`,target,'booking-document-btn');}).join('')}</div></section>`;
+ if(!booking)return '';
+ const docs=window.TRIP_DOCUMENTS?TRIP_DOCUMENTS.read().filter(d=>d.linkType==='booking'&&String(d.linkId)===String(booking.id)):[];
+ const actions=docs.map(d=>{const target=`documents.html?document=${encodeURIComponent(d.id)}&bookingId=${encodeURIComponent(booking.id)}`;return bookingCrossLinkButton(`📎 ${escapeTripHTML(d.title||'Document')}`,target,'booking-document-btn');}).join('');
+ return `<section class="accommodation-section booking-documents" data-booking-documents="${escapeTripHTML(booking.id)}" ${docs.length?'':'hidden'}><h3>Documents</h3><div class="trip-action-row trip-action-row--booking-compact">${actions}</div></section>`;
 }
 function buildAccommodationDetailHTML(booking){
   if(!booking)return '<p class="timestamp">Accommodation booking not found.</p>';
@@ -707,22 +707,16 @@ function reopenSavedBooking(){
 }
 // Documents can arrive after the Booking sheet is first rendered (cloud sync).
 // Refresh only when the linked document list actually changes; preserve scroll.
-let activeBookingDocumentsSignature='';
 document.addEventListener('travelengine:documentschanged',function(){
-  if(!activeBookingDetail||bookingEditSession)return;
-  const modal=document.getElementById('tripModal');
-  if(!modal||!modal.classList.contains('show'))return;
-  const booking=getBookingById(activeBookingDetail.id);if(!booking)return;
-  const next=bookingDocumentsHTML(booking);
-  const existing=modal.querySelector('.booking-documents');
-  const signature=next;
-  if(signature===activeBookingDocumentsSignature && (!!existing===!!next))return;
-  activeBookingDocumentsSignature=signature;
-  if(existing){existing.remove();}
-  if(next){
-    const content=document.getElementById('tripModalContent');
-    if(content)content.insertAdjacentHTML('beforeend',next);
-  }
+ if(!activeBookingDetail||bookingEditSession)return;
+ const modal=document.getElementById('tripModal');
+ if(!modal||!modal.classList.contains('show'))return;
+ const booking=getBookingById(activeBookingDetail.id);if(!booking)return;
+ const existing=modal.querySelector('.booking-documents');
+ if(!existing)return;
+ const template=document.createElement('template');template.innerHTML=bookingDocumentsHTML(booking);
+ const updated=template.content.firstElementChild;
+ if(updated&&existing.outerHTML!==updated.outerHTML)existing.replaceWith(updated);
 });
 document.addEventListener('travelengine:bookingpermissionchange',function(){
   if(!activeBookingDetail)return;

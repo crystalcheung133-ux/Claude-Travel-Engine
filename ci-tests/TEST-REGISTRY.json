@@ -534,6 +534,10 @@
     "status": "active",
     "note": "VN requested backlog regression: booking time/cashback, consolidated export, Moments paging/lazy, daypart display"
   },
+  "test-vn-booking-documents-share-regression.js": {
+    "status": "active",
+    "note": "invoked by Master CI: linked Documents, Share UI and saved Spa edit regression"
+  },
   "test-vn-content-contract.js": {
     "status": "advisory",
     "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"

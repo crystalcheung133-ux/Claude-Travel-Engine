@@ -60,6 +60,7 @@ run "RC29.77 LIVE FX SAVE" node ci-tests/test-rc2977-live-fx-save.js
 echo "MASTER CI SUITE PASSED"
 
 
+run "VN BOOKING DOCUMENTS + SHARE REGRESSION" node ci-tests/test-vn-booking-documents-share-regression.js
 run "RC29.69 SHARED DOCUMENTS" node ci-tests/test-rc2966-shared-documents.js
 run "RC29.69 DOCUMENTS PARITY" node ci-tests/test-rc2967-documents-parity-ux.js
 run "RC29.69 UI + DOCUMENTS BROWSER" node ci-tests/test-rc2968-ui-docs-browser-contract.js
