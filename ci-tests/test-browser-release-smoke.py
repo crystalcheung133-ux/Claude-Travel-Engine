@@ -339,12 +339,16 @@ def run_viewport(browser,base,viewport,label):
 
         # Change Effect Gate: poison persisted booking state with pre-reconciliation-style stale
         # overrides, reload, then assert the rendered Booking UI still reflects the CURRENT deploy
-        # master — using values read live from the app's own canonical data, never a hardcoded
-        # itinerary literal, so this survives any future change to the actual trip content.
+        # master and previously saved edits — using effective booking authority before
+        # injecting legacy cache, never a hardcoded itinerary literal.
         canonical=page.evaluate("""() => {
           const deploy=BOOKING_AUTHORITY.deployMaster();
           const pick=(cat)=>Object.values(deploy).find(b=>b&&b.status!=='optional'&&(b.bookingCategory===cat||b.category===cat));
-          const spa=pick('Spa'), restaurant=pick('Restaurants'), transfer=deploy['bk-transfer-in'];
+          const spaMaster=pick('Spa'), restaurantMaster=pick('Restaurants'), transfer=deploy['bk-transfer-in'];
+          // Existing saved edits are valid booking authority. The test injects only
+          // unstamped legacy cache; it must not erase a previously saved time.
+          const spa=spaMaster&&BOOKING_AUTHORITY.get(spaMaster.id,PRODUCTION_BOOKINGS.byId);
+          const restaurant=restaurantMaster&&BOOKING_AUTHORITY.get(restaurantMaster.id,PRODUCTION_BOOKINGS.byId);
           return {
             spa: spa&&{id:spa.id,title:spa.title,time:spa.time},
             restaurant: restaurant&&{id:restaurant.id,title:restaurant.title,time:restaurant.time},
