@@ -705,6 +705,25 @@ function reopenSavedBooking(){
   STORAGE.session.remove('travel_engine_booking_reopen_v1');
   setTimeout(function(){returnToBookingDetail(marker.bookingId);},80);
 }
+// Documents can arrive after the Booking sheet is first rendered (cloud sync).
+// Refresh only when the linked document list actually changes; preserve scroll.
+let activeBookingDocumentsSignature='';
+document.addEventListener('travelengine:documentschanged',function(){
+  if(!activeBookingDetail||bookingEditSession)return;
+  const modal=document.getElementById('tripModal');
+  if(!modal||!modal.classList.contains('show'))return;
+  const booking=getBookingById(activeBookingDetail.id);if(!booking)return;
+  const next=bookingDocumentsHTML(booking);
+  const existing=modal.querySelector('.booking-documents');
+  const signature=next;
+  if(signature===activeBookingDocumentsSignature && (!!existing===!!next))return;
+  activeBookingDocumentsSignature=signature;
+  if(existing){existing.remove();}
+  if(next){
+    const content=document.getElementById('tripModalContent');
+    if(content)content.insertAdjacentHTML('beforeend',next);
+  }
+});
 document.addEventListener('travelengine:bookingpermissionchange',function(){
   if(!activeBookingDetail)return;
   const modal=document.getElementById('tripModal');if(!modal||!modal.classList.contains('show'))return;

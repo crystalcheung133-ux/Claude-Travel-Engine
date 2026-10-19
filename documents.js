@@ -124,7 +124,31 @@ async function renderPdfInto(url,wrap){
   }
  }catch(e){wrap.innerHTML='<div class="doc-viewer-message"><strong>Could not preview this document.</strong><p>Try again while online.</p></div>'}
 }
-root.openDocumentViewer=id=>{const d=root.TRIP_DOCUMENTS.read().find(x=>x.id===id);if(!d)return;let url=d.fileUrl||d.localObjectUrl||'';if(d.embeddedBase64){try{const raw=atob(d.embeddedBase64),bytes=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);url=URL.createObjectURL(new Blob([bytes],{type:d.mimeType||'application/pdf'}));}catch(e){}}$('docViewerTitle').textContent=d.title||'Document';const body=$('docViewerBody');body.innerHTML='';
+let openDocumentId='';
+root.shareOpenDocument=async()=>{
+ const d=root.TRIP_DOCUMENTS.read().find(x=>x.id===openDocumentId);if(!d)return;
+ const url=d.fileUrl||d.localObjectUrl||'';
+ const title=d.title||d.fileName||'Document';
+ // Prefer sharing the actual attachment where the browser supports file sharing.
+ if(navigator.share){
+  try{
+   if(url){
+    const response=await fetch(url);if(response.ok){
+     const blob=await response.blob();
+     const file=new File([blob],d.fileName||title,{type:d.mimeType||blob.type||'application/octet-stream'});
+     if(navigator.canShare?.({files:[file]})){await navigator.share({title,files:[file]});return;}
+    }
+   }
+  }catch(e){if(e?.name==='AbortError')return;}
+  try{await navigator.share(url?{title,url}:{title});return;}catch(e){if(e?.name==='AbortError')return;}
+ }
+ if(url){
+  try{await navigator.clipboard.writeText(url);alert('Document link copied.');return;}catch(e){}
+  window.open(url,'_blank','noopener');return;
+ }
+ alert('This document needs to finish syncing before it can be shared.');
+};
+root.openDocumentViewer=id=>{openDocumentId=id;const d=root.TRIP_DOCUMENTS.read().find(x=>x.id===id);if(!d)return;let url=d.fileUrl||d.localObjectUrl||'';if(d.embeddedBase64){try{const raw=atob(d.embeddedBase64),bytes=new Uint8Array(raw.length);for(let i=0;i<raw.length;i++)bytes[i]=raw.charCodeAt(i);url=URL.createObjectURL(new Blob([bytes],{type:d.mimeType||'application/pdf'}));}catch(e){}}$('docViewerTitle').textContent=d.title||'Document';const body=$('docViewerBody');body.innerHTML='';
 if(d.linkType&&d.linkType!=='trip'&&d.linkLabel){const link=document.createElement('a');link.className='pill doc-viewer-linked-entity';link.href=routeForDocument(d,'viewer');link.textContent='🔗 '+d.linkLabel;link.onclick=function(event){return openDocumentLinkedEntity(d.id,'viewer',event)};body.appendChild(link)}
 if(!url){body.innerHTML='<div class="doc-viewer-message">This document is not available on this device yet.</div>'}else if((d.mimeType||'').startsWith('image/')){const img=document.createElement('img');img.src=url;img.alt=d.title||'Document';body.appendChild(img)}else if((d.mimeType||'').includes('pdf')||/\.pdf(?:$|\?)/i.test(url)){const wrap=document.createElement('div');wrap.className='pdf-pages';body.appendChild(wrap);renderPdfInto(url,wrap)}else{const wrap=document.createElement('div');wrap.className='doc-viewer-message';wrap.innerHTML='<strong>'+esc(d.fileName||d.title||'Document')+'</strong><p>This file type opens in its native viewer.</p><a class="pill" target="_blank" rel="noopener">Open original file</a>';wrap.querySelector('a').href=url;body.appendChild(wrap)}$('docViewer').classList.add('show');$('docViewer').setAttribute('aria-hidden','false');root.bringContentOverlayToFront?.($('docViewer'));document.body.style.overflow='hidden'};
 root.closeDocumentViewer=()=>{if(typeof root.dismissAllContentOverlays==='function')return root.dismissAllContentOverlays();const v=$('docViewer');v.classList.remove('show');v.setAttribute('aria-hidden','true');$('docViewerBody').innerHTML='';document.body.style.overflow='';return true};
@@ -133,6 +157,10 @@ root.resetDocumentsView=()=>{try{root.closeDocumentViewer()}catch(e){};try{root.
 root.openAddDocument=()=>{root.TRIP_DOCUMENT_FOLDERS?.fillSelect($('docFiledUnder'),'all');setLinkEditor('doc','trip','');$('docModal').classList.add('show')};
 root.closeAddDocument=()=>{$('docModal').classList.remove('show');const f=$('docForm');if(f)f.reset();const save=$('docSave');if(save){save.disabled=false;save.textContent='Save Document'}};
 root.saveDocument=async()=>{const file=$('docFile').files[0];if(!file){alert('Choose a photo, PDF or Word document.');return}const title=$('docTitle').value.trim()||file.name;const link=root.TRIP_DOCUMENTS.canLink()?readLinkEditor('doc'):{linkType:'trip',linkId:'',linkLabel:'Trip-wide'};$('docSave').disabled=true;$('docSave').textContent='Saving…';await root.TRIP_DOCUMENTS.add({title,filedUnder:$('docFiledUnder')?.value||'all',category:$('docCategory').value,note:'',pinned:$('docPin').checked,...link},file);$('docSave').disabled=false;$('docSave').textContent='Save Document';$('docForm').reset();closeAddDocument();render()};
-document.addEventListener('DOMContentLoaded',()=>{wireLinkEditor('doc');wireLinkEditor('editDoc');renderTargets();render();const id=new URLSearchParams(location.search).get('document')||sessionStorage.getItem('travel_engine_return_document_v1')||sessionStorage.getItem('travel_engine_open_document_v1');if(id){sessionStorage.removeItem('travel_engine_open_document_v1');sessionStorage.removeItem('travel_engine_return_document_v1');setTimeout(async()=>{await root.openDocumentViewer(id);document.documentElement.classList.add('handoff-ready');document.documentElement.classList.remove('handoff-prepaint')},0)}else{document.documentElement.classList.add('handoff-ready');document.documentElement.classList.remove('handoff-prepaint')}});document.addEventListener('travelengine:documentschanged',render);document.addEventListener('travelengine:adminmodechange',()=>{renderTargets();render()});
+document.addEventListener('DOMContentLoaded',()=>{wireLinkEditor('doc');wireLinkEditor('editDoc');renderTargets();render();const id=new URLSearchParams(location.search).get('document')||sessionStorage.getItem('travel_engine_return_document_v1')||sessionStorage.getItem('travel_engine_open_document_v1');if(id){sessionStorage.removeItem('travel_engine_open_document_v1');sessionStorage.removeItem('travel_engine_return_document_v1');setTimeout(async()=>{await root.openDocumentViewer(id);document.documentElement.classList.add('handoff-ready');document.documentElement.classList.remove('handoff-prepaint')},0)}else{document.documentElement.classList.add('handoff-ready');document.documentElement.classList.remove('handoff-prepaint')}});document.addEventListener('travelengine:documentschanged',()=>{
+ render();
+ const id=new URLSearchParams(location.search).get('document');
+ if(id && !$('docViewer').classList.contains('show') && root.TRIP_DOCUMENTS.read().some(d=>d.id===id))root.openDocumentViewer(id);
+});document.addEventListener('travelengine:adminmodechange',()=>{renderTargets();render()});
 window.addEventListener('pageshow',()=>{if(document.visibilityState!=='visible')return;const q=new URLSearchParams(location.search);if(!q.get('document'))root.resetDocumentsView?.();});
 })(globalThis);
