@@ -87,13 +87,13 @@
     '4':{title:'Day 4 · Thảo Điền Shopping · 8 Stops',sections:[
       {label:'ONE SHOPPING ROUTE · SHOP TO SHOP · BEFORE 15:30 SPA',stops:[
         ['In The Mood Saigon','In The Mood Saigon, 32 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam'],
-        ['Grade B','14 Trần Ngọc Diện, An Khánh'],
-        ['YouOn Boutique','29 Thảo Điền, An Khánh','ChIJV4HOAyYndTER1M8IJAlO1Ik'],
-        ['Vina Design Store','111 Xuân Thủy, An Khánh','ChIJpb84JiXPrUMRmzdsERD4p4U'],
-        ['dakao quartier','83 Xuân Thủy, An Khánh','ChIJa-IuTm0ndTERApxeIWE9nTQ'],
-        ['Aurora Saigon · 925 SILVER','94 Xuân Thủy, An Khánh','ChIJL2kFlfIndTERLJaIne8M6XQ'],
-        ['Wicky Candle · SAME ADDRESS','94 Xuân Thủy, An Khánh','ChIJ-SEH6oUvdTERfmAqB6JNpZA'],
-        ['OHQUAO Living etc.','19 Đường Số 38, Thảo Điền','ChIJe3FM36wndTERMj73vdNI-dI']
+        ['Grade B','14 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam'],
+        ['YouOn Boutique','29 Thảo Điền, An Khánh, Hồ Chí Minh, Vietnam','ChIJV4HOAyYndTER1M8IJAlO1Ik'],
+        ['Vina Design Store','111 Xuân Thủy, An Khánh, Hồ Chí Minh, Vietnam','ChIJpb84JiXPrUMRmzdsERD4p4U'],
+        ['dakao quartier','83 Xuân Thủy, An Khánh, Hồ Chí Minh, Vietnam','ChIJa-IuTm0ndTERApxeIWE9nTQ'],
+        ['Aurora Saigon · 925 SILVER','94 Xuân Thủy, An Khánh, Hồ Chí Minh, Vietnam','ChIJL2kFlfIndTERLJaIne8M6XQ'],
+        ['Wicky Candle · SAME ADDRESS','94 Xuân Thủy, An Khánh, Hồ Chí Minh, Vietnam','ChIJ-SEH6oUvdTERfmAqB6JNpZA'],
+        ['OHQUAO Living etc.','19 Đường Số 38, Thảo Điền, Hồ Chí Minh, Vietnam','ChIJe3FM36wndTERMj73vdNI-dI']
       ],modes:['🚶 Walk · approx. 3–6 min','🚶 Walk · approx. 10–15 min','🚶 Walk · approx. 8–12 min','🚶 Walk · approx. 3–5 min','🚶 Walk · approx. 2–4 min','🏬 Same address · 0 min','🚕 Grab · check traffic']}
     ]}
   };
@@ -125,7 +125,7 @@
         const connector=next?`<a class="shopping-route-connector" href="${esc(mapsDirections(stop,next,modes[i]))}" target="_blank" rel="noopener"><span>${esc(modes[i]||'🧭 Directions')}</span><small>${esc(stop[0])} → ${esc(next[0])}</small></a>`:'';
         return `<div class="shopping-route-stop"><span class="shopping-route-dot"></span><div><strong>${esc(stop[0])}</strong><small>📍 ${esc(stop[1])}</small><a href="${esc(stopMap)}" target="_blank" rel="noopener" class="shopping-route-stop-nav">🧭 Navigate to this shop</a></div></div>${connector}`;
       }).join('');
-      return `<section class="shopping-route-section"><div class="shopping-route-section-head"><p>${esc(section.label)}</p>${stops.length>1?`<a href="${esc(mapsFullRoute(stops,section.modes))}" target="_blank" rel="noopener">🗺️ Open route</a>`:''}</div>${rows}</section>`;
+      return `<section class="shopping-route-section"><div class="shopping-route-section-head"><p>${esc(section.label)}</p>${stops.length>1?(()=>{const transferIndex=modes.findIndex(m=>String(m||'').includes('🚕'));const walkingStops=transferIndex>=0?stops.slice(0,transferIndex+1):stops;const walkModes=transferIndex>=0?modes.slice(0,transferIndex):modes;const walkLink=walkingStops.length>1?`<a href="${esc(mapsFullRoute(walkingStops,walkModes))}" target="_blank" rel="noopener">🗺️ Open walking route</a>`:'';const transferLink=transferIndex>=0&&stops[transferIndex+1]?` <a href="${esc(mapsDirections(stops[transferIndex],stops[transferIndex+1],modes[transferIndex]))}" target="_blank" rel="noopener">🚕 Open Grab leg</a>`:'';return walkLink+transferLink;})():''}</div>${rows}</section>`;
     }).join('');
     document.getElementById('shoppingRouteContent').innerHTML=`<p class="kicker">Shopping Route Map</p><h2>${esc(route.title)}</h2><p class="shopping-route-lead">Estimated travel times · tap any step for point-to-point directions.</p>${sectionHtml}`;
     const modal=document.getElementById('shoppingRouteModal');modal.classList.add('open');document.body.classList.add('modal-open');
