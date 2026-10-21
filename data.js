@@ -230,7 +230,7 @@ const PLACES={
     "title": "The Running Bean",
     "emoji": "☕",
     "cat": "CAFÉS",
-    "sub": "Day 2 · 09:00 · Bến Thành Breakfast & Coffee",
+    "sub": "Day 5 · Bến Thành Breakfast & Coffee",
     "status": "planned",
     "hours": "07:30–22:00 daily",
     "maps": "https://www.google.com/maps/search/?api=1&query=The%20Running%20Bean%205%20Nguyen%20Trung%20Truc%20Ben%20Thanh%20Ho%20Chi%20Minh%20City",
@@ -661,20 +661,20 @@ const PLACES={
     ]
   },
   "pizza4ps": {
-    "title": "Pizza 4P’s · Trần Ngọc Diện · Thảo Điền",
+    "title": "Pizza 4P’s Hai Bà Trưng",
     "emoji": "🍕",
     "cat": "RESTAURANTS",
     "sub": "自家製芝士 · 日越風味 Pizza",
     "status": "planned",
     "hours": "Mon–Fri 11:00–23:00 · Sat–Sun 10:00–23:00",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Pizza%204Ps%2044%20Tran%20Ngoc%20Dien%20Thao%20Dien%20Ho%20Chi%20Minh",
-    "address": "44 Trần Ngọc Diện, Thảo Điền, Hồ Chí Minh, Vietnam",
+    "maps": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20151B%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh%20City",
+    "address": "151B Hai Bà Trưng, Võ Thị Sáu, District 3, Ho Chi Minh City, Vietnam",
     "source": {
       "type": "official",
       "url": "https://pizza4ps.com/jp/location/935/?lang=english",
       "verifiedAt": "2026-09-18"
     },
-    "desc": "Pizza 4P’s 的特色是自家製芝士，再把意式 pizza 技巧和日本、越南風味放在一起。四人可以 share 幾款 pizza／pasta。",
+    "desc": "Pizza 4P’s 的特色是自家製芝士，再把意式 pizza 技巧和日本、越南風味放在一起。Hai Bà Trưng 分店有冷氣，四人 share 幾款 pizza／pasta 很舒服。",
     "signature": [
       "Crab tomato cream spaghetti｜近期評論反覆點名",
       "House-made 4-cheese pizza + honey｜4P’s 經典",
@@ -686,11 +686,11 @@ const PLACES={
     ],
     "categoryLabel": "🍽 Restaurant",
     "price": "$$",
-    "transport": "Grab from Push Push Official to Thảo Điền · then local shopping",
+    "transport": "Grab from Trần Quang Diệu · lunch at Hai Bà Trưng · then Grab to Qspa",
     "highlights": [
       "House-made cheese",
       "Burrata / 4-cheese pizza",
-      "食完開始 Thảo Điền Shopping Route"
+      "食完由 Hai Bà Trưng Grab 接 Qspa"
     ],
     "tips": [
       "Share pizzas and pasta across the table to try more dishes.",
@@ -1207,12 +1207,12 @@ const PLACES={
     "title": "Push Push Official",
     "emoji": "👖",
     "cat": "SHOP",
-    "sub": "Day 4 · After Pink Church + Cộng",
-    "shoppingRoute": "Day 4 · Tân Định",
+    "sub": "Day 4 · Optional if missed on Day 2",
+    "shoppingRoute": "Day 4 · Tân Định optional",
     "hours": "09:30–21:30",
     "maps": "https://www.google.com/maps/search/?api=1&query=Push%20Push%20Official%2020%20Nguy%E1%BB%85n%20V%C4%83n%20Nguy%E1%BB%85n%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
     "address": "20 Nguyễn Văn Nguyễn, Tân Định, Hồ Chí Minh 700000, Vietnam",
-    "desc": "粉紅教堂後前往 Push Push Official；年輕剪裁、寬鬆恤衫與街頭感單品適合快看一輪。",
+    "desc": "粉紅教堂一帶如果仍想行多一間本地 fashion，Push Push 可作順路 optional stop；年輕剪裁、寬鬆恤衫與街頭感單品適合快看一輪。",
     "signature": [
       "Streetwear / casual pants",
       "年輕感、寬鬆剪裁",
@@ -1812,18 +1812,6 @@ const PLACES={
     "tips": [
       "Dinner 後直接返 Fusion。"
     ]
-  },
-  "quan-cua-ca-mau": {
-    "title": "Quán Cua Cà Mau",
-    "emoji": "🦀",
-    "cat": "RESTAURANTS",
-    "sub": "Day 2 · 13:00 · Crab lunch",
-    "status": "planned",
-    "address": "243 Lê Văn Sỹ, Hồ Chí Minh City, Vietnam",
-    "maps": "https://www.google.com/maps/search/?api=1&query=Quan%20Cua%20Ca%20Mau%20243%20Le%20Van%20Sy%20Ho%20Chi%20Minh",
-    "desc": "Cà Mau 蟹料理及蟹粉午餐。",
-    "categoryLabel": "🍽 Restaurant",
-    "transport": "Grab to Qspa after lunch"
   }
 };
 
@@ -2094,10 +2082,16 @@ const DAY_LINKS={
       "day.html?day=1#late-night-supper"
     ]
   ],
+  "com-tam-moc": [
+    [
+      "Day 2",
+      "day.html?day=2#com-tam-moc"
+    ]
+  ],
   "garmentory": [
     [
       "Day 2",
-      "day.html?day=2#shopping-tqd"
+      "day.html?day=2#garmentory"
     ]
   ],
   "dalla-saigon": [
@@ -2126,8 +2120,8 @@ const DAY_LINKS={
   ],
   "pizza4ps": [
     [
-      "Day 4",
-      "day.html?day=4#pizza4ps"
+      "Day 2",
+      "day.html?day=2#pizza4ps"
     ]
   ],
   "libe": [
@@ -2174,8 +2168,8 @@ const DAY_LINKS={
   ],
   "running-bean": [
     [
-      "Day 2",
-      "day.html?day=2#running-bean"
+      "Day 5",
+      "day.html?day=5#running-bean"
     ]
   ],
   "new-playground": [
@@ -2230,12 +2224,6 @@ const DAY_LINKS={
     [
       "Day 4",
       "day.html?day=4#thao-dien-open-list"
-    ]
-  ],
-  "quan-cua-ca-mau": [
-    [
-      "Day 2",
-      "day.html?day=2#quan-cua-ca-mau-d2"
     ]
   ]
 };
@@ -2425,18 +2413,18 @@ const BOOKINGS_DATA={
     "bookingId": "bk-pizza4ps",
     "eventId": "pizza4ps",
     "timelineItemId": "pizza4ps",
-    "day": 4,
-    "dayId": "day4",
+    "day": 2,
+    "dayId": "day2",
     "status": "pending",
-    "date": "2026-11-02",
-    "time": "11:30",
+    "date": "2026-10-31",
+    "time": "12:45",
     "bookingName": "",
     "bookingCategory": "Restaurants",
     "category": "Restaurants",
     "type": "restaurant",
     "emoji": "🍕",
-    "title": "Pizza 4P’s · Trần Ngọc Diện · Thảo Điền",
-    "address": "44 Trần Ngọc Diện, Thảo Điền, Hồ Chí Minh, Vietnam",
+    "title": "Pizza 4P’s Hai Bà Trưng",
+    "address": "151B Hai Bà Trưng, Võ Thị Sáu, District 3, Ho Chi Minh City, Vietnam",
     "depositPaid": "",
     "depositAmount": "",
     "depositCurrency": "",
@@ -2697,29 +2685,6 @@ const BOOKINGS_DATA={
     "notes": "Confirmed Klook private tour for 4 with English guide. Operator has confirmed pickup can be 07:30 from Fusion Original Saigon Centre. Operator: SST Travel · +84 342260119 · operate@ssttravel.vn. Included: attraction admission, English-speaking guide, round-trip hotel / meet-up transfers. Not included: AK-47 shooting admission, meals and beverages, personal expenses, tips, insurance, holiday surcharge. Trip requests: skip tour lunch, no factory stop, and direct city drop at Mặn Mòi Tao Đàn, 34 Võ Văn Tần. Return is traffic-dependent; target arrival is about 13:30–14:00 rather than a fixed promise.",
     "bookingHandoff": "已訂。Klook booking TUM556012；operator 已確認可 1 Nov 07:30 由 Fusion Original Saigon Centre 出發，4人 Private Tour、English Guide。Operator: SST Travel。",
     "placeId": "cu-chi"
-  },
-  "bk-quan-cua-ca-mau": {
-    "id": "bk-quan-cua-ca-mau",
-    "bookingId": "bk-quan-cua-ca-mau",
-    "eventId": "quan-cua-ca-mau-d2",
-    "timelineItemId": "quan-cua-ca-mau-d2",
-    "day": 2,
-    "dayId": "day2",
-    "status": "planned",
-    "date": "2026-10-31",
-    "time": "13:00",
-    "guests": 4,
-    "bookingCategory": "Restaurants",
-    "category": "Restaurants",
-    "type": "restaurant",
-    "emoji": "🦀",
-    "title": "Quán Cua Cà Mau",
-    "address": "243 Lê Văn Sỹ, Hồ Chí Minh City, Vietnam",
-    "bookingMethod": "To arrange",
-    "bookingContact": "",
-    "bookingUrl": "",
-    "notes": "13:00 · 4 guests · Pending",
-    "placeId": "quan-cua-ca-mau"
   }
 };
 
@@ -2966,64 +2931,67 @@ const ITINERARY_DATA={
     ],
     "items": [
       {
-        "id": "running-bean",
-        "time": "09:00",
-        "timeDisplayMode": "fixed",
-        "title": "☕ The Running Bean · Bến Thành",
+        "id": "com-tam-moc",
+        "time": "09:00–09:45",
+        "title": "🍚 Cơm Tấm Mộc",
         "details": [
-          "09:00 早餐。"
+          "炭燒碎米飯早餐；09:00 開門。"
         ],
-        "route": "🚕 To next stop: 11 Garmentory.",
+        "route": "🚕 To next stop · 約 15–20 min：Grab → 11 Garmentory。",
+        "map": "https://www.google.com/maps/search/?api=1&query=C%C6%A1m%20T%E1%BA%A5m%20M%E1%BB%99c%2085%20L%C3%BD%20T%E1%BB%B1%20Tr%E1%BB%8Dng%20Ho%20Chi%20Minh",
         "type": "meal",
         "dayId": "day2",
-        "placeId": "running-bean",
-        "bookingId": null,
-        "guideIds": [
-          "running-bean"
-        ],
-        "map": "https://www.google.com/maps/search/?api=1&query=The%20Running%20Bean%205%20Nguyen%20Trung%20Truc%20Ben%20Thanh%20Ho%20Chi%20Minh%20City"
+        "placeId": "com-tam-moc",
+        "bookingId": null
       },
       {
-        "id": "shopping-tqd",
-        "time": "10:00–12:40",
-        "title": "🛍 Fashion Shopping · 11 Garmentory → Trần Quang Diệu",
+        "id": "garmentory",
+        "time": "10:15–11:15",
+        "title": "🧥 11 Garmentory",
         "details": [
-          "先行 BLACKORP → The Box Icon → AASTU · 118/12 Trần Quang Diệu；之後按實際步行方向經 RUBIES · 47–49、Dalla · 64、Lane Cì · 27、Mì Workshop · 29。唔需要每間都入。",
-          "OPTIONAL：行完 Mì Workshop 如果仲有時間／精神，步行約 5–7 min → Mozaic Space · 31/23 Đ. Lê Văn Sỹ；唔去就直接去 Quán Cua Cà Mau。"
+          "本地設計師服飾及選物。"
         ],
-        "route": "🚕 To next stop: Quán Cua Cà Mau · 243 Lê Văn Sỹ (13:00).",
+        "route": "🚶 Next：由 11 Garmentory 向 Trần Quang Diệu cluster 移動；以 AASTU 118/12 為必看，再沿街自由 browse。",
         "map": "https://www.google.com/maps/search/?api=1&query=11%20Garmentory%20117B%20Nguyen%20Dinh%20Chinh%20Ho%20Chi%20Minh",
         "type": "shoppingWindow",
         "dayId": "day2",
         "placeId": "garmentory",
         "bookingId": null,
-        "showShoppingDirectory": true,
-        "guideIds": [
-          "garmentory",
-          "aastu",
-          "rubies",
-          "dalla-saigon",
-          "lane-ci"
-        ],
-        "summary": "Start: 11 Garmentory · Shopping Directory for individual shops · Lunch 13:00"
+        "showShoppingDirectory": true
       },
       {
-        "id": "quan-cua-ca-mau-d2",
-        "time": "13:00–13:45",
-        "timeDisplayMode": "fixed",
-        "title": "🦀 Quán Cua Cà Mau · Lunch",
+        "id": "shopping-tqd",
+        "time": "11:30–12:30",
+        "title": "🛍 Trần Quang Diệu · Fashion Walk",
         "details": [
-          "13:00 午餐；13:45 出發 Grab 去 Qspa。"
+          "先行 BLACKORP → The Box Icon → AASTU · 118/12 Trần Quang Diệu；之後按實際步行方向經 RUBIES · 47–49、Dalla · 64、Lane Cì · 27、Mì Workshop · 29。唔需要每間都入。",
+          "OPTIONAL：行完 Mì Workshop 如果仲有時間／精神，步行約 5–7 min → Mozaic Space · 31/23 Đ. Lê Văn Sỹ；唔去就直接去 Pizza 4P’s。"
         ],
-        "route": "🚕 13:45 Grab → Qspa · 25/1 Trương Định；14:30 SPA。",
-        "map": "https://www.google.com/maps/search/?api=1&query=Quan%20Cua%20Ca%20Mau%20243%20Le%20Van%20Sy%20Ho%20Chi%20Minh",
+        "route": "🚶 Optional extension：Mì Workshop → Mozaic Space 約 5–7 min；skip Mozaic 就直接 Grab → Pizza 4P’s Hai Bà Trưng。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Dalla%20Saigon%2064%20Tran%20Quang%20Dieu%20Ho%20Chi%20Minh",
+        "type": "shoppingWindow",
+        "dayId": "day2",
+        "placeId": "dalla-saigon",
+        "bookingId": null,
+        "showShoppingDirectory": true
+      },
+      {
+        "id": "pizza4ps",
+        "time": "12:45–14:00",
+        "title": "🍕 Pizza 4P’s · Hai Bà Trưng",
+        "details": [
+          "Pizza + 自家芝士，午餐休息"
+        ],
+        "route": "🚕 To next stop · 約 10–15 min：Grab → Qspa · 25/1 Trương Định。",
+        "map": "https://www.google.com/maps/search/?api=1&query=Pizza%204P%27s%20151B%20Hai%20Ba%20Trung%20Ho%20Chi%20Minh",
         "type": "meal",
         "dayId": "day2",
-        "placeId": "quan-cua-ca-mau",
-        "bookingId": "bk-quan-cua-ca-mau",
+        "placeId": "pizza4ps",
+        "bookingId": "bk-pizza4ps",
         "guideIds": [
-          "quan-cua-ca-mau"
-        ]
+          "pizza4ps"
+        ],
+        "currencyGuide": true
       },
       {
         "id": "qspa-d2",
@@ -3040,8 +3008,7 @@ const ITINERARY_DATA={
         "bookingId": "bk-qspa",
         "guideIds": [
           "qspa"
-        ],
-        "timeDisplayMode": "fixed"
+        ]
       },
       {
         "id": "post-office",
@@ -3251,14 +3218,14 @@ const ITINERARY_DATA={
     "items": [
       {
         "id": "quan-thuy",
-        "time": "Optional",
+        "time": "09:00–09:40",
         "title": "🦀 Quán Thuý 94 · Crab Breakfast",
         "details": [
           "蟹肉粉絲／蟹料理；早餐後 Grab 去粉紅教堂。"
         ],
-        "route": "🚕 Optional breakfast → Pink Church + Cộng.",
+        "route": "🚕 Grab → Tân Định Pink Church。",
         "map": "https://www.google.com/maps/search/?api=1&query=Quan%20Thuy%2094%2084%20Dinh%20Tien%20Hoang%20Ho%20Chi%20Minh%20City",
-        "type": "optional",
+        "type": "meal",
         "dayId": "day4",
         "placeId": "quan-thuy",
         "bookingId": null,
@@ -3272,9 +3239,9 @@ const ITINERARY_DATA={
         "title": "🩷 Pink Church + Cộng Cà Phê",
         "details": [
           "先影 Tân Định Pink Church 外觀，再過馬路去 Cộng Cà Phê（274 Hai Bà Trưng）飲 Coconut Coffee；有時間可上樓影教堂景觀。",
-          "兩站相鄰，步行約 1–3 分鐘；之後去 Push Push Official。"
+          "兩站相鄰，步行約 1–3 分鐘；之後 Grab 去 Thảo Điền Shopping Route 第一站 In The Mood。"
         ],
-        "route": "🚕 Grab → Push Push Official.",
+        "route": "🚕 Grab → In The Mood Saigon，32 Trần Ngọc Diện。",
         "map": "https://www.google.com/maps/search/?api=1&query=Tan%20Dinh%20Pink%20Church%20Ho%20Chi%20Minh%20City",
         "type": "experience",
         "dayId": "day4",
@@ -3286,52 +3253,16 @@ const ITINERARY_DATA={
         ]
       },
       {
-        "id": "push-push-d4",
-        "time": "AM",
-        "timeDisplayMode": "period",
-        "title": "🛍 Push Push Official",
-        "details": [
-          "Pink Church + Cộng 後前往 Push Push Official。"
-        ],
-        "route": "🚕 Grab → Pizza 4P’s · 44 Trần Ngọc Diện · Thảo Điền (11:30).",
-        "map": "https://www.google.com/maps/search/?api=1&query=Push%20Push%20Official%2020%20Nguy%E1%BB%85n%20V%C4%83n%20Nguy%E1%BB%85n%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
-        "type": "shoppingWindow",
-        "dayId": "day4",
-        "placeId": "push-push",
-        "bookingId": null,
-        "guideIds": [
-          "push-push"
-        ]
-      },
-      {
-        "id": "pizza4ps",
-        "time": "11:30",
-        "title": "🍕 Pizza 4P’s · Thảo Điền",
-        "details": [
-          "Pizza + 自家芝士，午餐休息"
-        ],
-        "route": "🚶 To next stop: Thảo Điền Shopping Route · In The Mood.",
-        "map": "https://www.google.com/maps/search/?api=1&query=Pizza%204Ps%2044%20Tran%20Ngoc%20Dien%20Thao%20Dien%20Ho%20Chi%20Minh",
-        "type": "meal",
-        "dayId": "day4",
-        "placeId": "pizza4ps",
-        "bookingId": "bk-pizza4ps",
-        "guideIds": [
-          "pizza4ps"
-        ],
-        "timeDisplayMode": "fixed"
-      },
-      {
         "id": "thao-dien-open-list",
-        "time": "PM–15:10",
+        "time": "11:00–15:10",
         "title": "🎲 Thảo Điền · Open List",
         "summary": "八站 Shopping Route；15:30 前到 Mộc Hương An Khánh",
         "details": [
           "🛍 Shopping · In The Mood → Grade B → YouOn → Vina → dakao → Aurora → Wicky → OHQUAO；按興趣選店，15:10 左右離開前往 SPA",
           "🥐 Coffee / Sweet · Bakes，或者沿途見到想坐的 café",
-          "🍽 Eat · 已在 Pizza 4P’s 食午餐；下午按胃口加 café / snack"
+          "🍽 Eat · 已在 Quán Thuý 94 食早餐；下午按胃口加 café / snack"
         ],
-        "route": "🚶 First stop: In The Mood · 32 Trần Ngọc Diện；finish → Mộc Hương · 03 Đặng Hữu Phổ.",
+        "route": "🚕 第一站 In The Mood · 32 Trần Ngọc Diện；Shopping 結束後前往 Mộc Hương An Khánh · 03 Đặng Hữu Phổ。",
         "map": "https://www.google.com/maps/search/?api=1&query=In%20The%20Mood%20Saigon%2032%20Tran%20Ngoc%20Dien",
         "type": "openList",
         "dayId": "day4",
@@ -3433,16 +3364,34 @@ const ITINERARY_DATA={
     ],
     "items": [
       {
+        "id": "running-bean",
+        "time": "09:00",
+        "timeDisplayMode": "fixed",
+        "title": "☕ The Running Bean · Bến Thành",
+        "details": [
+          "09:00 早餐；Day 5 全日未預約，時間可彈性調整。"
+        ],
+        "route": "🚶 早餐後在市中心購物、買手信。",
+        "type": "meal",
+        "dayId": "day5",
+        "placeId": "running-bean",
+        "bookingId": null,
+        "guideIds": [
+          "running-bean"
+        ],
+        "map": "https://www.google.com/maps/search/?api=1&query=The%20Running%20Bean%205%20Nguyen%20Trung%20Truc%20Ben%20Thanh%20Ho%20Chi%20Minh%20City"
+      },
+      {
         "id": "day5-free-browse",
         "time": "AM",
         "timeDisplayMode": "period",
         "timeDisplayPeriod": "AM",
-        "title": "☀️ Easy Morning · Shopping & Souvenirs",
+        "title": "🛍 Shopping & Souvenirs",
         "details": [
-          "上午自由活動，在市中心行街、買最後一批手信。",
+          "Running Bean 後在市中心行街、買最後一批手信。",
           "11:30 前返回酒店，將戰利品執入行李。"
         ],
-        "route": "🚶 Return to Fusion Original for 12:00 check-out.",
+        "route": "🚶 回 Fusion Original Saigon Centre。",
         "type": "shoppingWindow",
         "dayId": "day5",
         "placeId": null,
