@@ -48,7 +48,7 @@
      these edits onto a newer master after a deployment instead of discarding them. */
   function pristineBase(){
     const authority=root.ITINERARY_AUTHORITY,master=authority&&authority.getPristineMaster?authority.getPristineMaster():null;
-    const out={};if(!master)return out;
+    const out={};if(!master||!Object.keys(master).length)return null;
     Object.keys(master).forEach(function(day){out[day]=(master[day]&&Array.isArray(master[day].items))?master[day].items:[];});
     return out;
   }
@@ -61,7 +61,7 @@
       tripOrder:data&&Array.isArray(data.tripOrder)?data.tripOrder.length:0,
       itineraryData:data&&data.itineraryData&&typeof data.itineraryData==='object'?Object.keys(data.itineraryData).length:0
     };
-    const ok=counts.places>0&&counts.guideOrder>0&&counts.tripData>0&&counts.tripOrder>0&&counts.itineraryData>0;
+    const ok=counts.places>0&&counts.guideOrder>0&&counts.tripData>0&&counts.tripOrder>0&&counts.itineraryData>0&&data.itineraryBase&&Object.keys(data.itineraryBase).length>0;
     return {ok:ok,counts:counts};
   }
   function currentRemoteVersion(){

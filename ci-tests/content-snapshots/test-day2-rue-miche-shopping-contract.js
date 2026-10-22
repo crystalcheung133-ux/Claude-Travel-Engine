@@ -3,7 +3,7 @@ const data=fs.readFileSync('data.js','utf8'),day=fs.readFileSync('day.html','utf
 assert(data.includes('"rue-miche-ledition": {'),'Rue Miche Guide record missing');
 assert(data.includes('LL3 / Basement 3, Union Square, 171 Đồng Khởi'),'Rue Miche exact Union Square B3 address missing');
 assert(data.includes('"id": "rue-miche-ledition"')&&data.includes('"time": "~17:55–18:25"'),'Day 2 Rue Miche Timeline stop missing');
-const v=data.indexOf('"id": "vincom-new-playground"'),r=data.indexOf('"id": "rue-miche-ledition"'),l=data.indexOf('"id":"lune"');
+const v=data.indexOf('"id": "vincom-new-playground"'),r=data.indexOf('"id": "rue-miche-ledition"'),l=data.search(/"id":\s*"lune"/);
 assert(v<r&&r<l,'Day 2 Timeline order must be Vincom → Rue Miche → LÚNE');
 assert(directory.includes('Rue Miche L’Édition')&&directory.includes('Day 2 · AFTERNOON'),'Rue Miche Day 2 Shopping Guide card missing');
 const d2=day.indexOf("'2':{title:'Day 2 · Fashion Day'"); const d4=day.indexOf("'4':{title:'Day 4",d2); const slice=day.slice(d2,d4);

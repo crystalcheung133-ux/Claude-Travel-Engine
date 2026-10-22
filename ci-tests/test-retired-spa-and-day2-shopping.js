@@ -10,7 +10,7 @@ for(const id of ['norah-spa-2','nara-spa','mara-spa']){
  assert(!Object.values(I).some(x=>JSON.stringify(x).toLowerCase().includes(id)),`retired ${id} resurfaced in timeline`);
 }
 assert(P.qspa&&P['ha-spa']&&P['moc-huong'],'active spas missing');
-assert(day.includes("String(item.id)==='shopping-tqd'?1:0"),'Fashion Walk first-stop index not independent');
+assert(day.includes('sections[shoppingSectionIndex]?.stops?.[0]')&&!day.includes("'shopping-tqd'?0:0"),'Fashion Walk First Stop is the first stop of its route (Garmentory; verified in the browser by test-browser-migration-render)');
 const section=day.split("{label:'MORNING · LOCAL FASHION',stops:[")[1].split('],modes:')[0];
 const seq=['11 Garmentory','BLACKORP','The Box Icon','AASTU','RUBIES Studio','Dalla Saigon','Lane Cì','Mì Workshop'];
 let previous=-1;for(const name of seq){const i=section.indexOf("['"+name+"'");assert(i>previous,`Day 2 shopping order wrong: ${name}`);previous=i;}

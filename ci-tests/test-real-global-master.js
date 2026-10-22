@@ -1,0 +1,12 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert');
+const c={console};c.globalThis=c;vm.createContext(c);
+vm.runInContext(fs.readFileSync('data.js','utf8'),c);
+assert.equal(c.ITINERARY_DATA,undefined,'lexical const must not be exposed as global');
+vm.runInContext(fs.readFileSync('itinerary-authority.js','utf8'),c);
+const a=c.ITINERARY_AUTHORITY;
+assert(Object.keys(a.getPristineMaster()||{}).length>=5,'browser-shaped pristine master missing');
+const change={itineraryDay5:{day:5,items:c.TRAVEL_DATASETS.ITINERARY_DATA['5'].items}};
+const disk={};c.STORAGE={local:{readJSON:(k,d)=>disk[k]===undefined?d:disk[k],writeJSON:(k,v)=>(disk[k]=JSON.parse(JSON.stringify(v)),true)}};
+const result=a.commitDayChangesChecked(change);
+assert(result.ok);assert(result.store.dayChanges['5'].baseItems.length===8,'saved baseline must have eight items');
+console.log('BROWSER-SHAPED LEXICAL MASTER + SAVED BASELINE: PASS');

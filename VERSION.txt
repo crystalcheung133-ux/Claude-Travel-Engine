@@ -1,1 +1,1 @@
-VN Companion RC29.137 · Guide Save Fix
+VN Companion RC29.138 · Timeline Migration + Hydration Fix

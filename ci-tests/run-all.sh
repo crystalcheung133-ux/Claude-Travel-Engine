@@ -55,9 +55,14 @@ run "SW PRECACHE HTML DEPENDENCIES" node ci-tests/test-sw-precache-html-dependen
 run "RC29.130 MAP ADDRESS ROUTING" node ci-tests/test-rc29130-map-address-routing.js
 run "RC29.131 TIMELINE AUTHORITY REBASE" node ci-tests/test-rc29131-timeline-authority-rebase.js
 run "MOC HUONG GUIDE OVERRIDE COMPATIBILITY" node ci-tests/test-moc-huong-guide-override-migration.js
-[ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
+run "test-day2-day4-migration.js" node ci-tests/test-day2-day4-migration.js
+run "test-day5-migration-safety.js" node ci-tests/test-day5-migration-safety.js
+run "test-day5-saved-override-revision.js" node ci-tests/test-day5-saved-override-revision.js
+run "RC29.138 BROWSER-SHAPED MASTER ACCESS + BASELINE" node ci-tests/test-real-global-master.js
+run "RC29.138 MIGRATION FIXTURES (browser-shaped globals)" node ci-tests/test-migration-fixtures.js
+run "RC29.138 APPROVED ITINERARY DAY 2/4/5" node ci-tests/test-approved-itinerary.js
 run "RC29.77 LIVE FX SAVE" node ci-tests/test-rc2977-live-fx-save.js
-echo "MASTER CI SUITE PASSED"
+
 
 
 run "VN BOOKING DOCUMENTS + SHARE REGRESSION" node ci-tests/test-vn-booking-documents-share-regression.js
@@ -69,9 +74,18 @@ run "TIMELINE EDITOR TIME DISPLAY" node ci-tests/test-timeline-editor-time-displ
 run "RC29.75 VN LOCATION + COMPACT TIMELINE" node ci-tests/test-rc2974-vn-location-compact-timeline.js
 [ "$failed" -eq 0 ] || { echo "POST-MASTER LEGACY SUITE FAILED"; exit 1; }
 
-printf "\n== RC29.132 GUIDE MOBILE LAYOUT ==\n"
-node ci-tests/test-rc29132-guide-layout.js
+run "RC29.132 GUIDE MOBILE LAYOUT" node ci-tests/test-rc29132-guide-layout.js
 
-printf "\n== RC29.133 CONTENT CONTRACT ==\n"
-printf '\n== RC29.134 QSPA VISIT TIME AUTHORITY ==\n'
 run "ADVISORY CONTENT SNAPSHOTS" sh ci-tests/suites/13-advisory-content-snapshots.sh
+
+# Real-browser gate (Chromium + WebKit, external services mocked). Gating: a failure fails CI.
+# ALLOW_BROWSER_SKIP=1 exists only for machines without Playwright; it can never produce a clean PASS.
+if [ "${ALLOW_BROWSER_SKIP:-0}" = "1" ]; then
+  echo "== BROWSER RELEASE GATE: SKIPPED (ALLOW_BROWSER_SKIP=1) =="
+  [ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
+  echo "MASTER CI SUITE (STATIC) PASSED - BROWSER GATE NOT RUN - NOT A RELEASE PASS"
+  exit 3
+fi
+run "BROWSER RELEASE GATE" sh ci-tests/run-browser.sh
+[ "$failed" -eq 0 ] || { echo "MASTER CI SUITE FAILED"; exit 1; }
+echo "MASTER CI SUITE PASSED"

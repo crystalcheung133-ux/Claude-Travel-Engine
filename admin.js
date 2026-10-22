@@ -358,6 +358,14 @@
   };
 
   window.getAdminDraft=function(){ return JSON.parse(JSON.stringify(ensureDraft())); };
+  /* RC29.138: lets itinerary-authority.js persist a migrated draft AND refresh the in-memory cache so a
+     stale cached draft can never be written back over the migration. */
+  window.replaceAdminDraft=function(next){
+    if(!next||typeof next!=='object'||!next.changes||typeof next.changes!=='object') return false;
+    state.draft=JSON.parse(JSON.stringify(next));
+    STORAGE.local.writeJSON(DRAFT_KEY,state.draft);
+    return true;
+  };
   window.isAdminMode=function(){ return state.mode && isUnlocked(); };
   window.isAdminUnlocked=function(){ return isUnlocked(); };
   window.getAdminPublishCredential=function(){ return isUnlocked() ? ADMIN_PIN : null; };

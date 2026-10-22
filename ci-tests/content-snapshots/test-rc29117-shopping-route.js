@@ -5,5 +5,5 @@ let last=-1;for(const x of order){const i=day.indexOf(x);assert(i>last,`Day 2 ro
 assert(day.includes('ChIJBzF4_bgvdTERVhe6FULA9Z8'),'Mozaic exact Google Place ID missing');
 assert(day.includes('destination_place_id'),'point-to-point maps must support exact Place IDs');
 assert(day.includes('111 Concept Store · OPTIONAL'),'Day 1 optional 111 must remain on Shopping Route Map');
-assert(data.includes('Mì Workshop → Mozaic Space 約 5–7 min'),'Day 2 itinerary still has stale Mozaic transfer');
+assert(!data.includes('Mì Workshop → Mozaic Space 約 5–7 min'),'approved Day 2 Timeline must not carry the retired Mozaic transfer (Mozaic stays an OPTIONAL Shopping Route stop)');
 console.log('RC29.121 SHOPPING ROUTE: PASS');

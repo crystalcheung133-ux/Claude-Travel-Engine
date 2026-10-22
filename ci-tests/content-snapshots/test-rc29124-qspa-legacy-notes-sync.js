@@ -15,5 +15,5 @@ assert(day.includes("{label:'AFTERNOON · VINCOM'"));
 assert(day.includes("['Dauple by Ka\\'s'")||day.includes('["Dauple by Ka\'s"'));
 assert(day.includes("['In The Mood Saigon'"));
 assert(day.includes("['OHQUAO Living etc.'"));
-assert(day.includes("'🚕 Grab · check traffic'"));
+assert(day.includes("'🚕 Grab · Live ETA in Maps'"),'derived Grab connector (live ETA) is the approved Timeline transport label');
 console.log('RC29.124 QSPA NOTES SYNC: PASS — Notes survive stale reconciliation, are verified remotely, carrier removed; D2 restored.');

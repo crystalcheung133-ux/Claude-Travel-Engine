@@ -141,6 +141,13 @@ def guide_to_booking(page,day,item_id):
 
 def run_viewport(browser,base,viewport,label):
       context=browser.new_context(viewport=viewport)
+      # RC29.138: external services (fonts, weather, FX, production Supabase ...) are MOCKED locally with 503 and
+      # never contacted. Only the served app (base) and data:/blob: URLs are allowed through.
+      def _mock_external(route):
+          u=route.request.url
+          if u.startswith(base) or u.startswith('data:') or u.startswith('blob:'): route.continue_()
+          else: route.fulfill(status=503,content_type='application/json',body='{"mocked":true}')
+      context.route('**/*',_mock_external)
       context.add_init_script("window.TRAVEL_ENGINE_SUPABASE={enabled:false};")
       # RC29.89: install the deterministic FX provider before any app script runs.
       # This prevents WebKit from creating a cross-origin request lifecycle at all;
@@ -478,6 +485,10 @@ def run():
       run_viewport(chromium,base,{'width':390,'height':844},'chromium-mobile-390x844')
     finally:
       chromium.close()
+    if os.environ.get('BROWSER_SKIP_WEBKIT')=='1':
+      # Explicit, loud opt-out for machines without a WebKit build. NEVER set in CI (see browser-release-smoke.yml).
+      print('BROWSER INTERACTION SMOKE: PASS for Chromium desktop/mobile. WEBKIT NOT TESTED (BROWSER_SKIP_WEBKIT=1) - not a full release gate.')
+      return
     webkit=pw.webkit.launch(headless=True)
     try:
       run_viewport(webkit,base,{'width':390,'height':844},'webkit-mobile-390x844')

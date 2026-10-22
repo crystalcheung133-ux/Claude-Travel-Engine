@@ -25,7 +25,7 @@ assert(ids(4).includes('moc-huong-d4') && B['bk-moc-huong-d4']?.day===4, 'Moc Hu
 
 assert(!B['bk-little-bear'],'Little Bear booking survived Monday closure');
 assert(!ids(4).includes('little-bear'),'Little Bear Timeline stop survived Monday closure');
-assert.deepEqual(ids(4),['quan-thuy','pink-church','thao-dien-open-list','moc-huong-d4','complex-0123-d4','aum-d4'],'D4 must have morning anchors + planned early lunch + one open list');
+assert.deepEqual(ids(4),['quan-thuy','pink-church','push-push-d4','pizza4ps','thao-dien-open-list','moc-huong-d4','complex-0123-d4','aum-d4'],'D4 must be the approved route: Pink Church → Push Push → Pizza 4P’s → one open Thảo Điền list → spa → 0123 → AUM');
 assert(!(C.RESTAURANTS||[]).some(x=>x.key==='little-bear'),'Little Bear must be removed from visible Guide inventory');
 assert(B['bk-moc-huong-d4']?.status==='pending','Mộc Hương must remain pending until confirmed');
 

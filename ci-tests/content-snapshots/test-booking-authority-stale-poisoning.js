@@ -33,11 +33,11 @@ assert.equal(tiger.bookingMethod,'WhatsApp');
 assert.equal(tiger.whatsapp,'+84 93 201 4124');
 
 let pizza=A.get('bk-pizza4ps');
-assert.equal(pizza.title,'Pizza 4P’s Hai Bà Trưng');
-assert.equal(pizza.time,'12:45');
-assert.equal(pizza.day,2);
+assert.equal(pizza.title,'Pizza 4P’s · Trần Ngọc Diện · Thảo Điền');
+assert.equal(pizza.time,'11:30');
+assert.equal(pizza.day,4);
 assert.equal(pizza.timelineItemId,'pizza4ps');
-assert(pizza.address.includes('151B Hai Bà Trưng'));
+assert(pizza.address.includes('44 Trần Ngọc Diện'));
 
 assert.equal(A.get('bk-moc-huong'),null,'obsolete Mộc Hương booking must not resurrect from stale state');
 
@@ -53,7 +53,7 @@ pizza=A.get('bk-pizza4ps');
 assert.equal(pizza.time,'13:15');
 assert.equal(pizza.bookingName,'Crystal');
 assert.equal(pizza.status,'confirmed');
-assert.equal(pizza.title,'Pizza 4P’s Hai Bà Trưng');
+assert.equal(pizza.title,'Pizza 4P’s · Trần Ngọc Diện · Thảo Điền');
 assert.equal(stored.overrides['bk-pizza4ps']._masterRevision,9);
 
 console.log('BOOKING AUTHORITY STALE-STATE POISONING: PASS');

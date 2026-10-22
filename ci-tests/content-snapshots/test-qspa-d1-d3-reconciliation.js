@@ -5,7 +5,7 @@ assert(P.qspa,'canonical Qspa Guide entity missing');assert.equal(Array.from(O).
 assert.equal(P.qspa.status,'planned');assert.equal(P.qspa.address,'25/1 Trương Định, Xuân Hòa, Hồ Chí Minh City');assert(!P.qspa.worth.some(x=>/5,000,000 VND|40,000,000 VND|Buy 10/.test(x)));
 assert(B['bk-qspa']);assert.equal(B['bk-qspa'].status,'planned');assert.equal(B['bk-qspa'].plannedVisits.length,3);assert(!B['bk-norah-spa-2']);assert(!B['bk-nara']);assert(!B['bk-nha-suga']);
 assert.deepEqual(ids(1).slice(4,9),['shopping-nguyen-trai','qspa-d1','day1-hotel-reset','cafe-apartments-optional','omakase-tiger']);assert.equal(I['1'].items.find(x=>x.id==='qspa-d1').time,'12:30–14:30');assert(I['1'].items.some(x=>x.id==='cafe-apartments-evening'));
-assert.deepEqual(ids(2),['com-tam-moc','garmentory','shopping-tqd','pizza4ps','qspa-d2','post-office','vincom-new-playground','rue-miche-ledition','lune']);assert.equal(I['2'].items.find(x=>x.id==='qspa-d2').time,'14:30–16:30');
+assert.deepEqual(ids(2),['running-bean','shopping-tqd','quan-cua-ca-mau-d2','qspa-d2','post-office','vincom-new-playground','rue-miche-ledition','lune']);assert.equal(I['2'].items.find(x=>x.id==='qspa-d2').time,'14:30–16:30');
 assert.deepEqual(ids(3),['cu-chi','man-moi','war-museum','qspa-d3','maruco']);assert.equal(I['3'].items.find(x=>x.id==='qspa-d3').time,'16:30–18:30');
 assert(!P['norah-spa-2']&&!P['nara-spa'],'Retired spas must be absent');assert(!P['nha-suga'],'Retired Nha Suga must be absent');
 for(const stale of ['"bk-norah-spa-2"','"bk-nara"','"bk-nha-suga"'])assert(!raw.includes(stale),`stale optional spa booking survived: ${stale}`);
@@ -20,7 +20,7 @@ for(const stale of [
 ]){
   assert(!raw.includes(stale)&&!shoppingRuntime.includes(stale)&&!shoppingData.includes(stale),`active stale pre-Qspa route prose survived: ${stale}`);
 }
-assert(shoppingRuntime.includes('Pizza 4P’s 後到 Qspa 做 Afternoon Reset'),'D2 Shopping Directory lead does not reflect Qspa canonical route');
+assert(shoppingRuntime.includes('Quán Cua Cà Mau 午餐後到 Qspa 做 Afternoon Reset'),'D2 Shopping Directory lead does not reflect Qspa canonical route');
 assert(shoppingData.includes('Qspa → Cathedral / Post Office / Book Street → Vincom'),'D2 Shopping Directory planned route not reconciled to Qspa');
 assert(raw.includes('看完直接去 Qspa 做 120 分鐘 War Day Recovery'),'War Museum Guide prose does not hand off to Qspa');
 

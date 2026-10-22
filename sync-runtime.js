@@ -151,7 +151,7 @@
      edits survive website deployments on every device. */
   function isRebasablePublication(wrapper){
     const payload=wrapper&&wrapper.payload,data=payload&&payload.data;
-    return !!(data&&data.itineraryData&&data.itineraryBase&&root.ITINERARY_AUTHORITY&&typeof root.ITINERARY_AUTHORITY.rebasePublishedItinerary==='function');
+    return !!(data&&data.itineraryData&&data.itineraryBase&&Object.keys(data.itineraryBase).length&&Object.keys(data.itineraryData).every(day=>Array.isArray(data.itineraryBase[day]))&&root.ITINERARY_AUTHORITY&&typeof root.ITINERARY_AUTHORITY.rebasePublishedItinerary==='function');
   }
   function isCompatiblePublication(wrapper){
     if(isRebasablePublication(wrapper))return true;

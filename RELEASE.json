@@ -1,9 +1,9 @@
 {
-  "engine_version": "25.7.3",
-  "artifact_version": "VN Companion RC29.137 · Guide Save Fix",
+  "engine_version": "25.7.4",
+  "artifact_version": "VN Companion RC29.138 · Timeline Migration + Hydration Fix",
   "baseline_engine": "25.5.2",
-  "release_date": "2026-10-18",
-  "release_type": "save-sync-reliability",
+  "release_date": "2026-10-22",
+  "release_type": "migration-and-hydration-fix",
   "runtime_behavior_change": true,
   "ci_entrypoint": "sh ci-tests/run-all.sh",
   "capabilities_changed": [
@@ -35,9 +35,10 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc29137-documents-share-fix",
-  "release_status": "RC29.137 STATIC CI PASS — browser/mobile smoke pending",
+  "asset_cache_token": "rc29138-timeline-migration-fix",
+  "release_status": "RC29.138 CI PASS (static + Chromium browser gate) — WebKit and real-device smoke NOT RUN; production migration NOT TESTED",
   "changes": [
+    "RC29.138: Cloud-hydrated Timeline is rendered (projection rebuilt after hydration); Saved Override, Pending Draft and publication share one legacy/cross-day migration (Day 2 Pizza → Day 4, Day 5 Running Bean → Day 2); new drafts store baseline + revision; Saved/Pending edits are layered, not masked.",
     "RC29.137: Homepage weather opens an in-app five-day Open-Meteo forecast; currency card defaults to 100,000 VND with larger text; viewport guard preserved.",
     "RC29.137: Concise itinerary and Guide copy; Guide close stays visible at upper-right while scrolling; Documents unchanged.",
     "RC29.137: Qspa three-visit time authority, 30-minute booking slots, compact mobile time rail and concise spa copy.",
@@ -106,17 +107,17 @@
     "RC29.137: Bottom Nav label Booking, Guide close visual parity, Qspa membership and confirmed address, concise LÜNE Timeline description."
   ],
   "validation": {
-    "static_master_ci": "RC29.137 PASS — complete local Master CI",
-    "browser_release_smoke": "RC29.137 PENDING — real mobile smoke not performed",
+    "static_master_ci": "RC29.138 PASS — sh ci-tests/run-all.sh exit 0 with BROWSER_SKIP_WEBKIT=1 (no WebKit build in the authoring sandbox)",
+    "browser_release_smoke": "RC29.138 PASS for Chromium desktop/mobile + migration/render + Save & Sync (external services mocked); WebKit NOT RUN; real-device NOT RUN",
     "scope_sanity": "Timeline is the only manual Publish authority; Guide/Booking/Documents/Expenses/Moments remain independent auto-sync flows."
   },
   "ci_hygiene_fix": "VN product-contract suite tail tests are now included in the suite failure accumulator; stale post-PASS false-green behavior removed.",
   "currency_guide": "RC29.48 consolidates VPBank, Hà Tâm, Hung Long, TPBank LiveBank and Takashimaya B2 into one Cash & Currency Guide with contextual Timeline Currency buttons and per-option navigation.",
-  "browser_validation": "DEFINED — GitHub browser gate must verify Chromium desktop/mobile and WebKit 390×844/430×932. The double-submit assertion now targets the original DOM button node across the full actionability window.",
+  "browser_validation": "GATING — run-all.sh invokes ci-tests/run-browser.sh (Chromium + WebKit smoke, migration/render, Save & Sync). All external services are mocked locally; production Supabase is never contacted.",
   "notes": [
     "RC29.81 runtime fix: day Timeline thaws the deeply-frozen production Place projection before applying the shared-Place resolving Proxy, avoiding the ECMAScript Proxy invariant TypeError that prevented D2 Timeline actions from rendering in real browsers."
   ],
-  "static_master_ci": "RC29.137 PASS — local Master CI and Guide layout regression",
+  "static_master_ci": "RC29.138 PASS — sh ci-tests/run-all.sh exit 0 with BROWSER_SKIP_WEBKIT=1 (no WebKit build in the authoring sandbox)",
   "vendored_assets": {
     "vendor-supabase-js-2.117.2.umd.js": {
       "package": "@supabase/supabase-js",
@@ -148,10 +149,11 @@
     }
   },
   "release_notes": [
+    "RC29.138: see CLAUDE_FIX_CHANGELOG.md. Booking-vs-Timeline time precedence is intentionally unchanged.",
     "RC29.131: Timeline Studio manual edits now survive itinerary master revisions through stable-ID field-level rebase; explicit deletions/empty Details are preserved.",
     "RC29.131: New Timeline saves retain the edited master baseline so future releases can distinguish user changes from untouched master fields.",
     "RC29.131: Booked Timeline cards render date/time authority from Booking Authority; LÜNE canonical booking and Day 2 route are aligned to confirmed 19:00.",
     "RC29.131: Removed friend-facing Rue Miche Boutique disambiguation/audit wording from Day 2 Timeline."
   ],
-  "browser_release_smoke": "NOT RUN — RC29.137 real-device smoke pending"
+  "browser_release_smoke": "RC29.138 PASS for Chromium desktop/mobile + migration/render + Save & Sync (external services mocked); WebKit NOT RUN; real-device NOT RUN"
 }
