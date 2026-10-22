@@ -27,5 +27,5 @@ const order=Array.from(auth.rebasePublishedItinerary(reordered)['4'].items,x=>x.
 assert(!order.includes('quan-thuy'),'retired crab breakfast removed');
 const staleSpa=JSON.parse(JSON.stringify(data));
 staleSpa.itineraryData['4'].items.find(x=>x.id==='moc-huong-d4').time='15:00';
-assert.equal(auth.rebasePublishedItinerary(staleSpa)['4'].items.find(x=>x.id==='moc-huong-d4').time,'15:30–17:30');
+assert.equal(auth.rebasePublishedItinerary(staleSpa)['4'].items.find(x=>x.id==='moc-huong-d4').time,'15:45–17:45');
 console.log('DAY2/DAY4 APPROVED STRUCTURAL REBASE: PASS');

@@ -33,7 +33,7 @@ eq(B['bk-pizza4ps'].day,4,'Pizza booking is Day 4');eq(B['bk-pizza4ps'].time,'11
 eq(B['bk-pizza4ps'].address,'44 Trần Ngọc Diện, Thảo Điền, Hồ Chí Minh, Vietnam','Pizza booking branch/address');
 eq(P.pizza4ps.address,'44 Trần Ngọc Diện, Thảo Điền, Hồ Chí Minh, Vietnam','Pizza guide address');
 eq(get('4','thao-dien-open-list').guideIds,['in-the-mood-d4','grade-b-d4','youon-thao-dien','vina-design-thao-dien','dakao-quartier','aurora-saigon','wicky-candle','ohquao'],'In The Mood → Grade B → YouOn → Vina → dakao → Aurora → Wicky → OHQUAO');
-eq(get('4','moc-huong-d4').time,'15:30–17:30','Mộc Hương 15:30–17:30');
+eq(get('4','moc-huong-d4').time,'15:45–17:45','Mộc Hương 15:45–17:45');
 eq(get('4','complex-0123-d4').time,'17:45–18:40','0123 Complex 17:45–18:40');
 ok(get('4','aum-d4').time.startsWith('19:00'),'AUM 19:00');
 ['heartburn','kokonic','dalaland','mieu'].forEach(k=>ok(!Object.keys(P).some(x=>x.includes(k))&&!JSON.stringify(I['4']).includes(k),'no standalone '+k+' activity/guide'));

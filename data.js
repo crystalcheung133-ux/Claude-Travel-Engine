@@ -2258,7 +2258,7 @@ const BOOKINGS_DATA={
     "dayId": "day4",
     "status": "pending",
     "date": "2026-11-02",
-    "time": "15:30",
+    "time": "15:45",
     "bookingName": "",
     "bookingCategory": "Spa",
     "category": "Spa",
@@ -2272,7 +2272,7 @@ const BOOKINGS_DATA={
     "guests": 4,
     "guestSummary": "4 guests · 120 minutes",
     "address": "03 Đặng Hữu Phổ, An Khánh, Hồ Chí Minh, Vietnam",
-    "notes": "PENDING — not booked. Request 2 Nov 15:30–17:30 for 4 people, 120 minutes, An Khánh branch at 03 Đặng Hữu Phổ.",
+    "notes": "PENDING — not booked. Request 2 Nov 15:45–17:45 for 4 people, 120 minutes, An Khánh branch at 03 Đặng Hữu Phổ.",
     "bookingHandoff": "Not confirmed. WhatsApp +84 90 908 7066 or book via official website; confirm availability, treatment, price and branch.",
     "placeId": "moc-huong"
   },
@@ -3330,10 +3330,10 @@ const ITINERARY_DATA={
       },
       {
         "id": "moc-huong-d4",
-        "time": "15:30–17:30",
+        "time": "15:45–17:45",
         "title": "🌿 Mộc Hương Wellness · An Khánh SPA",
         "details": [
-          "15:30 療程開始；17:30 結束，之後步行去 0123 Complex（17:45）。"
+          "15:45 療程開始；17:45 結束，之後步行去 0123 Complex（原定 17:45；需預留步行時間）。"
         ],
         "route": "🚶 Walk 1–3 min → 0123 Complex · 06 Đặng Hữu Phổ (17:45).",
         "map": "https://www.google.com/maps/search/?api=1&query=Moc%20Huong%20Wellness%2003%20Dang%20Huu%20Pho%20An%20Khanh",

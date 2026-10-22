@@ -500,7 +500,7 @@
     if(pubDays['2'])pubDays['2']=reconcileDay2Breakfast(pubDays['2'],pubSrc['2']&&pubSrc['2'].items,pubSrc['2']&&pubSrc['2'].baseItems);
     // Approved Day 4 spa time: replace only the retired 15:00 default; keep other user-entered times.
     if(pubDays['4'])pubDays['4'].forEach(function(item){
-      if(item&&item.id==='moc-huong-d4'&&String(item.time||'').trim()==='15:00')item.time='15:30–17:30';
+      if(item&&item.id==='moc-huong-d4'&&String(item.time||'').trim()==='15:00')item.time='15:45–17:45';
     });
     if(out['2'])out['2'].items=pubDays['2'];
     if(out['4'])out['4'].items=applyOct22Approvals('4',pubDays['4']);
