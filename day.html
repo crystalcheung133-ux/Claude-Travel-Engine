@@ -389,16 +389,17 @@
     const walk=parseMinutes(raw,'walk'),grab=parseMinutes(raw,'grab');const special=/🚐|private transfer|klook/i.test(raw);
     const lines=[];
     const d4SpaWalk=String(day)==='4'&&String(item&&item.id)==='moc-huong-d4'&&String(next&&next.id)==='complex-0123-d4';
+    const d4PizzaShoppingWalk=String(day)==='4'&&String(item&&item.id)==='pizza4ps'&&String(next&&next.id)==='thao-dien-open-list';
     if(d4SpaWalk){lines.push('🚶 Walk · approx. 1–3 min');}
+    else if(d4PizzaShoppingWalk){lines.push('🚶 Walk · approx. 1 min');}
     else if(special){const m=parseMinutes(raw,'grab');lines.push(`🚐 Private transfer${m?' · '+fmtMinutes(m):''}`);}
     else if(walk&&walk.max<=10){lines.push(`🚶 Walk · ${fmtMinutes(walk)}`);lines.push(`🚕 Grab · ${grab&&grab.max<=10?fmtMinutes(grab):'Live ETA in Maps'}`);}
     else if(walk){lines.push(`🚶 Walk · ${fmtMinutes(walk)}`);if(grab&&grab.max<=10)lines.push(`🚕 Grab · ${fmtMinutes(grab)}`);else lines.push('🚕 Grab · Live ETA in Maps');}
     else if(grab){lines.push(`🚕 Grab · ${fmtMinutes(grab)}`);}
-    else if(/🚶|walk|步行/i.test(raw)){lines.push('🚶 Walk · check Maps');lines.push('🚕 Grab · Live ETA in Maps');}
+    else if(/🚶|walk|步行/i.test(raw)){lines.push('🚶 Walk · time in Maps');}
     else {lines.push('🚕 Grab · Live ETA in Maps');}
     const directions=nextDirections(item,next);
-    const walking=(!special&&(walk||/🚶|walk|步行/i.test(raw)))?nextDirections(item,next,'walking'):'';
-    return `<div class="route-hint route-hint--derived"><strong>TO NEXT STOP</strong><span class="route-next-title">${esc(title)}</span><span class="route-next-modes">${lines.map(esc).join(' · ')}</span>${walking?`<a class="route-next-map" href="${esc(walking)}" target="_blank" rel="noopener">Walk ›</a>`:''}${directions?`<a class="route-next-map" href="${esc(directions)}" target="_blank" rel="noopener">${walking?'Grab / Directions ›':'Directions ›'}</a>`:''}</div>`;
+    return `<div class="route-hint route-hint--derived"><strong>TO NEXT STOP</strong><span class="route-next-title">${esc(title)}</span><span class="route-next-modes">${lines.map(esc).join(' · ')}</span>${directions?`<a class="route-next-map" href="${esc(directions)}" target="_blank" rel="noopener">Directions ›</a>`:''}</div>`;
   }
 
   // Presentation-only deadline anchors. Never mutate itinerary items or saved notes.
