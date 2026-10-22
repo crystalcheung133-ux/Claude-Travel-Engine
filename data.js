@@ -3222,7 +3222,7 @@ const ITINERARY_DATA={
     "dayEmoji": "🌿",
     "title": "Day 4 · Saigon Companion",
     "kicker": "Day 4 · 2 Nov • Monday",
-    "heading": "Thảo Điền Open Day",
+    "heading": "Thảo Điền Shopping & Spa",
     "areaLabel": "TÂN ĐỊNH → THẢO ĐIỀN",
     "legend": [
       "🌸 Tân Định Morning",

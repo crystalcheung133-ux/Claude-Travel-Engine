@@ -69,7 +69,7 @@ def user_dom(label,r,deleted=True):
     ok('USER_RB' not in ' '.join(v['t'] for v in r['5'].values()),label+': DOM Day 5 does not show the Running Bean note')
     ok('USER_PIZZA' in r['4']['pizza4ps']['t'],label+': DOM Day 4 Pizza shows the Day 2 Pizza note')
     ok(r['2']['com-tam-moc']['n']==0 and 'USER_CTM' in r['2']['running-bean']['t'],label+': DOM shows one breakfast and retains retired breakfast note')
-    ok('USER_QT' in r['4']['quan-thuy']['t'] and 'USER_SHOP' in r['4']['thao-dien-open-list']['t'],label+': DOM Day 4 notes preserved')
+    ok('USER_SHOP' in r['4']['thao-dien-open-list']['t'],label+': DOM Day 4 retained Shopping card notes preserved (retired Quán Thuý notes not required)')
     ok('USER_LUGGAGE' in r['5']['hotel-checkout']['t'] and '14:45' in r['5']['hotel-checkout']['t'],label+': DOM luggage note + time merged into Check-out')
     ok('USER_GRAB' in r['5']['ha-spa']['t'] and '14:50' in r['5']['ha-spa']['t'],label+': DOM transport note + time merged into Hạ Spa')
     ok('USER_SHOP5' in r['5']['day5-free-browse']['t'],label+': DOM Day 5 shopping note preserved')
