@@ -220,10 +220,20 @@ function guideActivityGroup(item){
  if(/track|hike|walk|blue lakes|deer park/.test(text)) return 'Walks & Outdoor';
  return 'Experiences & Attractions';
 }
+function guideDiningTime(item){
+ const key=String(item&&item.key||'');
+ const source=(window.ITINERARY_AUTHORITY&&typeof ITINERARY_AUTHORITY.resolveDayItems==='function')?Object.fromEntries(Object.keys(ITINERARY||{}).map(d=>[d,{items:ITINERARY_AUTHORITY.resolveDayItems(d)}])):((typeof ITINERARY!=='undefined')?ITINERARY:{});
+ for(const day of Object.values(source||{}))for(const row of (day&&day.items)||[]){
+  if(row&&String(row.placeId||'')===key){const m=String(row.time||'').match(/(?:^|\D)([01]?\d|2[0-3]):([0-5]\d)/);if(m)return Number(m[1])*60+Number(m[2]);}
+ }
+ const m=String(item&&item.sub||'').match(/(?:^|\D)([01]?\d|2[0-3]):([0-5]\d)/);
+ return m?Number(m[1])*60+Number(m[2]):9999;
+}
 function guideSortedCategoryItems(cat){
  const items=guideCategoryItems(cat).slice();
  const semantic=guideSemanticCategory(cat);
- if(semantic==='ATTRACTIONS'||semantic==='DINING'||semantic==='STAY') return items.sort((a,b)=>guideDayNumber(a)-guideDayNumber(b)||String(a.title||'').localeCompare(String(b.title||'')));
+ if(semantic==='DINING') return items.sort((a,b)=>guideDayNumber(a)-guideDayNumber(b)||guideDiningTime(a)-guideDiningTime(b)||String(a.title||'').localeCompare(String(b.title||'')));
+ if(semantic==='ATTRACTIONS'||semantic==='STAY') return items.sort((a,b)=>guideDayNumber(a)-guideDayNumber(b)||String(a.title||'').localeCompare(String(b.title||'')));
  if(semantic==='SHOP') return items.sort((a,b)=>guideDayNumber(a)-guideDayNumber(b));
  if(semantic==='EXPERIENCES') return items.sort((a,b)=>guideActivityGroup(a).localeCompare(guideActivityGroup(b))||String(a.title||'').localeCompare(String(b.title||'')));
  return items.sort((a,b)=>String(a.title||'').localeCompare(String(b.title||'')));

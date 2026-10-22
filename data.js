@@ -1857,6 +1857,9 @@ const CATEGORIES={
   ],
   "RESTAURANTS": [
     {
+      "key": "quan-cua-ca-mau"
+    },
+    {
       "key": "aum-saigon"
     },
     {
@@ -2981,7 +2984,7 @@ const ITINERARY_DATA={
           "dalla-saigon",
           "lane-ci"
         ],
-        "guideGroups": [{"label":"🛍 Shopping Guides","guideIds":["garmentory","aastu","rubies","dalla-saigon","lane-ci"]},{"label":"☕ Mozaic Space Guide","guideIds":["mozaic-space"]}],
+        "guideGroups": [{"label":"🏬 11 Garmentory Guide","guideIds":["garmentory"]},{"label":"🛍 Shopping Route Guides","guideIds":["aastu","rubies","dalla-saigon","lane-ci"]},{"label":"☕ Mozaic Space Guide","guideIds":["mozaic-space"]}],
         "summary": "Start: 11 Garmentory · Shopping Directory for individual shops · Lunch 13:00"
       },
       {

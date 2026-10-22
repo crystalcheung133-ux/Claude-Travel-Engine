@@ -442,6 +442,12 @@
     if(d==='2'){
       const bean=list.find(x=>x&&x.id==='running-bean');
       const garment=list.find(x=>x&&x.id==='garmentory');
+      const shopping=list.find(x=>x&&x.id==='shopping-tqd');
+      if(garment&&shopping){
+        const noteLines=(garment.details||[]).filter(t=>!/(?:11 Garmentory|Trần Quang Diệu|shopping)/i.test(String(t)));
+        if(noteLines.length)appendLines(shopping,noteLines);
+        removeById(list,'garmentory');
+      }
       if(bean&&garment&&list.indexOf(garment)<list.indexOf(bean)){
         list.splice(list.indexOf(bean),1);list.splice(list.indexOf(garment),0,bean);
       }
