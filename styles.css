@@ -3547,3 +3547,8 @@ body:has(:is(.guide-modal,.moments-modal,.unexpected-modal,.tools-modal,.mama-mo
   z-index:100010!important;
 }
 html[data-identity-selection-required="true"] .app-nav{pointer-events:none!important}
+
+/* Dining/Guide modal is foreground ABOVE persistent navigation, not inset above it. */
+#guideModal.show{position:fixed!important;inset:0!important;bottom:0!important;z-index:100020!important;padding:12px 12px max(12px,env(safe-area-inset-bottom,0px))!important;overflow-y:auto!important;box-sizing:border-box!important;}
+#guideModal.show>.guide-sheet{max-height:calc(100dvh - 24px - env(safe-area-inset-bottom,0px))!important;overflow-y:auto!important;overscroll-behavior:contain!important;}
+body:has(#guideModal.show) .app-nav{z-index:100010!important;pointer-events:none!important;}
