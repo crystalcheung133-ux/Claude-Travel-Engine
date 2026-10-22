@@ -1944,6 +1944,7 @@ const CATEGORIES={
 };
 
 const GUIDE_ORDER=[
+  "quan-cua-ca-mau",
   "aum-saigon",
   "currency-guide",
   "fusion",

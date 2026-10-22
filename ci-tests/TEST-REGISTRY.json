@@ -601,5 +601,8 @@
   "test-vn-route-first-spa-contract.js": {
     "status": "advisory",
     "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
+  },
+  "test-guide-timeline-entry-coverage.js": {
+    "status": "active"
   }
 }

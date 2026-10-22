@@ -3539,3 +3539,11 @@ body.home-bg .live-currency-card #currencyResult{font-size:16px!important}
 /* Document viewer: compact Companion action with stable label width. */
 body.documents-page .doc-viewer-share{grid-column:2;justify-self:center;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;width:100px;min-width:100px;max-width:100px;height:36px;min-height:36px;padding:0 8px;border-radius:999px;white-space:nowrap;line-height:1.1;font-size:13px;font-weight:600;cursor:pointer}
 body.documents-page .doc-viewer-head #docViewerTitle{text-align:left!important;min-width:0}
+
+/* RC29.144 popup navigation escape: visible bottom navigation must be actionable.
+   Preserve identity-gate and editor modal protections. */
+body:has(:is(.guide-modal,.moments-modal,.unexpected-modal,.tools-modal,.mama-modal,.trip-modal).show):not(.timeline-editor-open) .app-nav{
+  pointer-events:auto!important;
+  z-index:100010!important;
+}
+html[data-identity-selection-required="true"] .app-nav{pointer-events:none!important}
