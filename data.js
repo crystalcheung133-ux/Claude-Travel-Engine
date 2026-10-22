@@ -2047,10 +2047,6 @@ const DAY_LINKS={
     [
       "Day 1",
       "day.html?day=1#cafe-apartments-optional"
-    ],
-    [
-      "Day 1 · Evening",
-      "day.html?day=1#cafe-apartments-evening"
     ]
   ],
   "marou": [
@@ -2897,24 +2893,6 @@ const ITINERARY_DATA={
         "bookingId": "bk-omakase-tiger"
       },
       {
-        "id": "cafe-apartments-evening",
-        "time": "After Omakase · Optional",
-        "title": "🌃 Nguyễn Huệ / Cafe Apartments · Evening Wander",
-        "details": [
-          "有精神：Nguyễn Huệ / Cafe Apartments evening wander",
-          "攰：直接返 Fusion"
-        ],
-        "route": "🏨 Grab / 步行返回 Fusion。",
-        "map": "https://www.google.com/maps/search/?api=1&query=The%20Cafe%20Apartments%2042%20Nguy%E1%BB%85n%20Hu%E1%BB%87%2C%20District%201%2C%20Ho%20Chi%20Minh%20City%2C%20Vietnam",
-        "type": "optional",
-        "dayId": "day1",
-        "placeId": "cafe-apartments",
-        "bookingId": null,
-        "guideIds": [
-          "cafe-apartments"
-        ]
-      },
-      {
         "id": "late-night-supper",
         "time": "Optional",
         "title": "🌙 酒店宵夜",
@@ -3222,7 +3200,7 @@ const ITINERARY_DATA={
     "dayEmoji": "🌿",
     "title": "Day 4 · Saigon Companion",
     "kicker": "Day 4 · 2 Nov • Monday",
-    "heading": "Thảo Điền Shopping & Spa",
+    "heading": "Thảo Điền Slow Day",
     "areaLabel": "TÂN ĐỊNH → THẢO ĐIỀN",
     "legend": [
       "🌸 Tân Định Morning",
