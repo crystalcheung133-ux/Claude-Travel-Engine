@@ -1850,6 +1850,9 @@ const CATEGORIES={
     },
     {
       "key": "running-bean"
+    },
+    {
+      "key": "workshop-coffee"
     }
   ],
   "RESTAURANTS": [
@@ -1858,9 +1861,6 @@ const CATEGORIES={
     },
     {
       "key": "bep-me-in"
-    },
-    {
-      "key": "com-tam-moc"
     },
     {
       "key": "lune"
@@ -1879,9 +1879,6 @@ const CATEGORIES={
     },
     {
       "key": "man-moi"
-    },
-    {
-      "key": "quan-thuy"
     },
     {
       "key": "maruco"
@@ -1951,12 +1948,11 @@ const GUIDE_ORDER=[
   "marou",
   "cafe-apartments",
   "running-bean",
+  "workshop-coffee",
   "bep-me-in",
   "late-night-supper",
-  "com-tam-moc",
   "lune",
   "man-moi",
-  "quan-thuy",
   "omakase-tiger",
   "pho-sol",
   "pizza4ps",
@@ -1986,6 +1982,7 @@ const DAY_LINKS={
       "day.html?day=4#aum-d4"
     ]
   ],
+  "workshop-coffee": [["Day 1 · Optional","day.html?day=1#cafe-apartments-optional"]],
   "fusion": [
     [
       "Day 1",
@@ -2206,12 +2203,6 @@ const DAY_LINKS={
     [
       "Day 4",
       "day.html?day=4#push-push-d4"
-    ]
-  ],
-  "quan-thuy": [
-    [
-      "Day 4",
-      "day.html?day=4#pink-church"
     ]
   ],
   "saigon-concept": [
@@ -2883,7 +2874,8 @@ const ITINERARY_DATA={
         "bookingId": null,
         "guideIds": [
           "cafe-apartments"
-        ]
+        ],
+        "guideGroups": [{"label":"📖 Cafe Apartments Guide","guideIds":["cafe-apartments"]},{"label":"☕ Workshop Coffee Guide","guideIds":["workshop-coffee"]}]
       },
       {
         "id": "omakase-tiger",
@@ -2989,6 +2981,7 @@ const ITINERARY_DATA={
           "dalla-saigon",
           "lane-ci"
         ],
+        "guideGroups": [{"label":"🛍 Shopping Guides","guideIds":["garmentory","aastu","rubies","dalla-saigon","lane-ci"]},{"label":"☕ Mozaic Space Guide","guideIds":["mozaic-space"]}],
         "summary": "Start: 11 Garmentory · Shopping Directory for individual shops · Lunch 13:00"
       },
       {
@@ -3434,7 +3427,8 @@ const ITINERARY_DATA={
             "guideIds": [
               "marou"
             ]
-          }
+          },
+          {"label":"🏬 Takashimaya Guide","guideIds":["takashimaya"]}
         ]
       },
       {
