@@ -435,6 +435,33 @@
   /* A snapshot published from an OLDER master is rebased onto the current master using the
      itineraryBase it carries (the master items it was edited from). Snapshots with no base are
      not rebased (they cannot be separated from stale master content) and stay incompatible. */
+  // Explicit Oct 22 approvals. Only these named activities are normalised;
+  // other user-edited cards, notes and ordering remain untouched.
+  function applyOct22Approvals(day,items){
+    const list=normalizeItems(items), d=String(day);
+    if(d==='2'){
+      const bean=list.find(x=>x&&x.id==='running-bean');
+      const garment=list.find(x=>x&&x.id==='garmentory');
+      if(bean&&garment&&list.indexOf(garment)<list.indexOf(bean)){
+        list.splice(list.indexOf(bean),1);list.splice(list.indexOf(garment),0,bean);
+      }
+    }
+    if(d==='4'){
+      const crab=list.find(x=>x&&x.id==='quan-thuy');
+      const church=list.find(x=>x&&x.id==='pink-church');
+      if(crab&&church){
+        const meaningful=(crab.details||[]).filter(t=>!/蟹肉粉絲|蟹料理|早餐後 Grab/i.test(String(t)));
+        if(meaningful.length)appendLines(church,meaningful.map(t=>'Former Quán Thuý note: '+t));
+        removeById(list,'quan-thuy');
+      }
+      if(church)church.time='09:00–09:40';
+      const pizza=list.find(x=>x&&x.id==='pizza4ps');
+      if(pizza)pizza.time='11:00';
+      const push=list.find(x=>x&&x.id==='push-push-d4');
+      if(push&&typeof push.route==='string')push.route=push.route.replace(/11:30/g,'11:00');
+    }
+    return list;
+  }
   function rebasePublishedItinerary(data){
     if(!data||!data.itineraryData||!data.itineraryBase||!Object.keys(data.itineraryBase).length)return null;
     if(Object.keys(data.itineraryData).some(day=>!Array.isArray(data.itineraryBase[day])))return null;
@@ -459,7 +486,8 @@
       if(item&&item.id==='moc-huong-d4'&&String(item.time||'').trim()==='15:00')item.time='15:30–17:30';
     });
     if(out['2'])out['2'].items=pubDays['2'];
-    if(out['4'])out['4'].items=pubDays['4'];
+    if(out['4'])out['4'].items=applyOct22Approvals('4',pubDays['4']);
+    if(out['2'])out['2'].items=applyOct22Approvals('2',out['2'].items);
     return out;
   }
 
@@ -601,9 +629,9 @@
   }
   function resolveDayItems(dayKey,masterItems){
     const pending=getPendingDayItems(dayKey);
-    if(pending) return hydrateRelationships(pending,masterItems);
+    if(pending) return hydrateRelationships(applyOct22Approvals(dayKey,pending),masterItems);
     const saved=getDayOverrideItems(dayKey);
-    if(saved) return hydrateRelationships(String(dayKey)==='2'?reconcileDay2Breakfast(saved,saved,null):saved,masterItems);
+    if(saved) return hydrateRelationships(applyOct22Approvals(dayKey,String(dayKey)==='2'?reconcileDay2Breakfast(saved,saved,null):saved),masterItems);
     return normalizeItems(masterItems||[]);
   }
 

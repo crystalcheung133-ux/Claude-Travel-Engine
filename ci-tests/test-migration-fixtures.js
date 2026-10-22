@@ -41,7 +41,7 @@ function userContent(label,r,opts){
   ok(txt(card(r['4'],'pizza4ps')).includes('USER_PIZZA'),label+': Day 2 Pizza note moved to Day 4 Pizza');
   ok(txt(card(r['4'],'pizza4ps')).includes('USER_PIZZA_ROUTE'),label+': Day 2 Pizza route note moved too');
   ok(!card(r['2'],'com-tam-moc')&&txt(card(r['2'],'running-bean')).includes('USER_CTM'),label+': retired breakfast removed and manual note transferred to Running Bean');
-  ok(txt(card(r['4'],'quan-thuy')).includes('USER_QT'),label+': Quan Thuy note preserved');
+  ok(!card(r['4'],'quan-thuy')&&txt(card(r['4'],'pink-church')).includes('USER_QT'),label+': retired crab breakfast note preserved on Pink Church');
   ok(txt(card(r['4'],'thao-dien-open-list')).includes('USER_SHOP'),label+': shopping note preserved');
   ok(txt(card(r['5'],'day5-free-browse')).includes('USER_SHOP5'),label+': Day 5 shopping note preserved');
   ok(txt(card(r['5'],'hotel-checkout')).includes('USER_LUGGAGE'),label+': luggage note merged into Hotel Check-out');
@@ -77,7 +77,7 @@ function idem(label,mk){
 }
 // 1 fresh
 {const r=boot().all();commonStructure('1 fresh',r);ok(!txt(r).includes('USER_'),'1 fresh: nothing invented');
- ok(card(r['2'],'running-bean').time==='09:00'&&card(r['4'],'pizza4ps').time==='11:30','1 fresh: Running Bean 09:00, Pizza 11:30');}
+ ok(card(r['2'],'running-bean').time==='09:00'&&card(r['4'],'pizza4ps').time==='11:00','1 fresh: Running Bean 09:00, Pizza 11:00');}
 // 2 saved with baseline
 {const r=idem('2 saved+baseline',()=>boot({ovr:store(true)}));commonStructure('2 saved+baseline',r);userContent('2 saved+baseline',r,{deletionsHonoured:true});}
 // 3 legacy saved (revision shape, no baseline)

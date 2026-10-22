@@ -30,7 +30,7 @@
     set('2','pizza4ps',{details:['必食Pizza + 自家芝士，午餐休息','USER_PIZZA'],route:'USER_PIZZA_ROUTE'});
     set('2','qspa-d2',{time:'15:00–17:00'});
     edited['2']=edited['2'].filter(x=>x.id!=='rue-miche-ledition');           // user deleted
-    set('4','quan-thuy',{details:[...toLines(byId(edited['4'],'quan-thuy').details),'USER_QT']});
+    edited['4'].unshift({id:'quan-thuy',time:'09:00',title:'Legacy crab breakfast',details:['USER_QT'],type:'meal'});
     set('4','thao-dien-open-list',{details:[...toLines(byId(edited['4'],'thao-dien-open-list').details),'USER_SHOP']});
     set('4','aum-d4',{time:'19:30–20:45'});
     edited['4']=edited['4'].filter(x=>x.id!=='complex-0123-d4');             // user deleted

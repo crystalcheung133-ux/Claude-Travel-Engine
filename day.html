@@ -450,7 +450,9 @@
     const guideHtml=isShoppingCard?contextualGuideHtml:(isPinkChurchCong?pinkChurchCongGuides:contextualGuideHtml+primaryGuideHtml+alternativeGuideHtml);
     const parkingGuideId=!nonPlace&&item.parkingGuideId&&DAY_PLACES[item.parkingGuideId]?item.parkingGuideId:'';
     const parkingHtml=parkingGuideId?`<button class="timeline-action timeline-action--parking" onclick='openGuideGroupFromDay(${JSON.stringify([parkingGuideId])},${JSON.stringify(item.id)})'>🚗 Parking</button>`:'';
-    const tripInfoHtml=buildTripInfoButton(booking);
+    const isDay1Transfer=String(day)==='1'&&String(item.id)==='airport-transfer';
+    const hotelExtras=isDay1Transfer?`<button class="timeline-action timeline-action--trip" onclick="returnToBookingDetail('bk-fusion-original')">🏨 Hotel Booking</button><button class="timeline-action timeline-action--guide" onclick='openGuideGroupFromDay(["fusion"],"airport-transfer")'>📖 Hotel Guide</button>`:'';
+    const tripInfoHtml=buildTripInfoButton(booking)+hotelExtras;
     const bookingStatusLabel=booking?((()=>{const raw=String(booking.status||'pending').toLowerCase();return raw==='confirmed'?'CONFIRMED':(raw==='planned'?'PLANNED':'PENDING');})()):'';
     const bookingStatusHtml=booking?`<span class="timeline-booking-status timeline-booking-status--${esc(bookingStatusLabel.toLowerCase().replace(/\s+/g,'-'))}">${esc(bookingStatusLabel)}</span>`:'';
     const timelineDisplayTitle=booking?String(item.title||'').replace(/^✅\s*Booked\s*·\s*/i,''):item.title;

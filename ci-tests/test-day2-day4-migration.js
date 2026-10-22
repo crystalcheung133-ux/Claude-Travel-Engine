@@ -24,7 +24,7 @@ const movedAgain=auth.rebasePublishedItinerary(edited);
 assert(movedAgain['4'].items.find(x=>x.id==='pizza4ps').details.filter(x=>x==='USER MANUAL PIZZA NOTE').length===1,'idempotent note transfer');
 const reordered=JSON.parse(JSON.stringify(data));reordered.itineraryData['4'].items.reverse();
 const order=Array.from(auth.rebasePublishedItinerary(reordered)['4'].items,x=>x.id);
-assert(order.indexOf('aum-d4')<order.indexOf('quan-thuy'),'manual reorder preserved');
+assert(!order.includes('quan-thuy'),'retired crab breakfast removed');
 const staleSpa=JSON.parse(JSON.stringify(data));
 staleSpa.itineraryData['4'].items.find(x=>x.id==='moc-huong-d4').time='15:00';
 assert.equal(auth.rebasePublishedItinerary(staleSpa)['4'].items.find(x=>x.id==='moc-huong-d4').time,'15:30–17:30');

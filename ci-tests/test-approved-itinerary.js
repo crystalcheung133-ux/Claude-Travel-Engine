@@ -7,6 +7,10 @@ const c={};c.globalThis=c;vm.createContext(c);vm.runInContext(fs.readFileSync(pa
 const D=JSON.parse(JSON.stringify(c.TRAVEL_DATASETS)),I=D.ITINERARY_DATA,B=D.BOOKINGS_DATA,P=D.PLACES,L=D.DAY_LINKS; // JSON clone: avoids cross-realm deepStrictEqual prototype mismatch
 const get=(d,id)=>I[d].items.find(x=>x.id===id);const ids=d=>I[d].items.map(x=>x.id);
 let n=0;const eq=(a,b,m)=>{n++;assert.deepStrictEqual(a,b,m);};const ok=(v,m)=>{n++;assert.ok(v,m);};
+// ---- Day 1
+ok(get('1','airport-transfer').bookingId==='bk-transfer-in','transfer booking retained');
+ok(get('1','airport-transfer').guideIds.includes('fusion'),'hotel guide on transfer card');
+ok(require('fs').readFileSync(path.join(root,'day.html'),'utf8').includes('🏨 Hotel Booking'),'hotel booking action on transfer card');
 // ---- Day 2
 eq(ids('2'),['running-bean','shopping-tqd','quan-cua-ca-mau-d2','qspa-d2','post-office','vincom-new-playground','rue-miche-ledition','lune'],'Day 2 order');
 eq(get('2','running-bean').time,'09:00','Running Bean 09:00');
@@ -17,14 +21,15 @@ ok(/Grab/.test(get('2','quan-cua-ca-mau-d2').route)&&/Qspa/.test(get('2','quan-c
 ok(get('2','qspa-d2').time.startsWith('14:30'),'Qspa 14:30');
 ok(!ids('2').includes('pizza4ps'),'no Day 2 Pizza Timeline card');
 // ---- Day 4
-eq(ids('4'),['quan-thuy','pink-church','push-push-d4','pizza4ps','thao-dien-open-list','moc-huong-d4','complex-0123-d4','aum-d4'],'Day 4 order');
+eq(ids('4'),['pink-church','push-push-d4','pizza4ps','thao-dien-open-list','moc-huong-d4','complex-0123-d4','aum-d4'],'Day 4 order');
+eq(get('4','pink-church').time,'09:00–09:40','Pink Church starts 09:00');
 eq(get('4','pink-church').guideIds,['pink-church','cong'],'Pink Church + Cộng combined into one stop');
 eq(get('4','pink-church').placeId,'pink-church','Pink Church card navigates to Pink Church');
 ok(/Push Push/.test(get('4','pink-church').route),'Pink Church -> Push Push');
 eq(get('4','push-push-d4').placeId,'push-push','Push Push retained and navigates to itself');
 ok(/Grab/.test(get('4','push-push-d4').route)&&/Pizza 4P/.test(get('4','push-push-d4').route),'Push Push -> Grab -> Pizza 4P’s');
-eq(get('4','pizza4ps').time,'11:30','Pizza 11:30');
-eq(B['bk-pizza4ps'].day,4,'Pizza booking is Day 4');eq(B['bk-pizza4ps'].time,'11:30','Pizza booking 11:30');
+eq(get('4','pizza4ps').time,'11:00','Pizza 11:00');
+eq(B['bk-pizza4ps'].day,4,'Pizza booking is Day 4');eq(B['bk-pizza4ps'].time,'11:00','Pizza booking 11:00');
 eq(B['bk-pizza4ps'].address,'44 Trần Ngọc Diện, Thảo Điền, Hồ Chí Minh, Vietnam','Pizza booking branch/address');
 eq(P.pizza4ps.address,'44 Trần Ngọc Diện, Thảo Điền, Hồ Chí Minh, Vietnam','Pizza guide address');
 eq(get('4','thao-dien-open-list').guideIds,['in-the-mood-d4','grade-b-d4','youon-thao-dien','vina-design-thao-dien','dakao-quartier','aurora-saigon','wicky-candle','ohquao'],'In The Mood → Grade B → YouOn → Vina → dakao → Aurora → Wicky → OHQUAO');

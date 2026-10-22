@@ -2211,7 +2211,7 @@ const DAY_LINKS={
   "quan-thuy": [
     [
       "Day 4",
-      "day.html?day=4#quan-thuy"
+      "day.html?day=4#pink-church"
     ]
   ],
   "saigon-concept": [
@@ -2435,7 +2435,7 @@ const BOOKINGS_DATA={
     "dayId": "day4",
     "status": "pending",
     "date": "2026-11-02",
-    "time": "11:30",
+    "time": "11:00",
     "bookingName": "",
     "bookingCategory": "Restaurants",
     "category": "Restaurants",
@@ -2450,7 +2450,7 @@ const BOOKINGS_DATA={
     "bookingContact": "",
     "secondaryContact": "",
     "bookingUrl": "https://booking.pizza4ps.com/",
-    "notes": "Day 4 · Pizza 4P’s Thảo Điền branch · 44 Trần Ngọc Diện, Thảo Điền, Hồ Chí Minh。11:30 午餐，4 人；之後前往 Thảo Điền Shopping Route（In The Mood → Grade B → YouOn → Vina → dakao → Aurora → Wicky → OHQUAO）。",
+    "notes": "Day 4 · Pizza 4P’s Thảo Điền branch · 44 Trần Ngọc Diện, Thảo Điền, Hồ Chí Minh。11:00 午餐，4 人；之後前往 Thảo Điền Shopping Route（In The Mood → Grade B → YouOn → Vina → dakao → Aurora → Wicky → OHQUAO）。",
     "signatureDishes": [
       "Crab tomato cream spaghetti",
       "House-made 4-cheese pizza + honey",
@@ -2779,6 +2779,7 @@ const ITINERARY_DATA={
         "dayId": "day1",
         "placeId": "fusion",
         "bookingId": "bk-transfer-in",
+        "guideIds": ["fusion"],
         "currencyGuide": true
       },
       {
@@ -3233,25 +3234,8 @@ const ITINERARY_DATA={
     ],
     "items": [
       {
-        "id": "quan-thuy",
-        "time": "Optional",
-        "title": "🦀 Quán Thuý 94 · Crab Breakfast",
-        "details": [
-          "蟹肉粉絲／蟹料理；早餐後 Grab 去粉紅教堂。"
-        ],
-        "route": "🚕 Optional breakfast → Pink Church + Cộng.",
-        "map": "https://www.google.com/maps/search/?api=1&query=Quan%20Thuy%2094%2084%20Dinh%20Tien%20Hoang%20Ho%20Chi%20Minh%20City",
-        "type": "optional",
-        "dayId": "day4",
-        "placeId": "quan-thuy",
-        "bookingId": null,
-        "guideIds": [
-          "quan-thuy"
-        ]
-      },
-      {
         "id": "pink-church",
-        "time": "09:50–10:25",
+        "time": "09:00–09:40",
         "title": "🩷 Pink Church + Cộng Cà Phê",
         "details": [
           "先影 Tân Định Pink Church 外觀，再過馬路去 Cộng Cà Phê（274 Hai Bà Trưng）飲 Coconut Coffee；有時間可上樓影教堂景觀。",
@@ -3274,9 +3258,9 @@ const ITINERARY_DATA={
         "timeDisplayMode": "period",
         "title": "🛍 Push Push Official",
         "details": [
-          "Pink Church + Cộng 後前往 Push Push Official。"
+          "09:40 左右 Pink Church + Cộng 後前往 Push Push Official；預留時間 Grab 去 11:00 Pizza 4P’s。"
         ],
-        "route": "🚕 Grab → Pizza 4P’s · 44 Trần Ngọc Diện · Thảo Điền (11:30).",
+        "route": "🚕 Grab → Pizza 4P’s · 44 Trần Ngọc Diện · Thảo Điền (11:00).",
         "map": "https://www.google.com/maps/search/?api=1&query=Push%20Push%20Official%2020%20Nguy%E1%BB%85n%20V%C4%83n%20Nguy%E1%BB%85n%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
         "type": "shopping",
         "dayId": "day4",
@@ -3288,7 +3272,7 @@ const ITINERARY_DATA={
       },
       {
         "id": "pizza4ps",
-        "time": "11:30",
+        "time": "11:00",
         "title": "🍕 Pizza 4P’s · Thảo Điền",
         "details": [
           "Pizza + 自家芝士，午餐休息"
