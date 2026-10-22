@@ -2704,29 +2704,6 @@ const BOOKINGS_DATA={
     "bookingHandoff": "已訂。Klook booking TUM556012；operator 已確認可 1 Nov 07:30 由 Fusion Original Saigon Centre 出發，4人 Private Tour、English Guide。Operator: SST Travel。",
     "placeId": "cu-chi"
   },
-  "bk-quan-cua-ca-mau": {
-    "id": "bk-quan-cua-ca-mau",
-    "bookingId": "bk-quan-cua-ca-mau",
-    "eventId": "quan-cua-ca-mau-d2",
-    "timelineItemId": "quan-cua-ca-mau-d2",
-    "day": 2,
-    "dayId": "day2",
-    "status": "planned",
-    "date": "2026-10-31",
-    "time": "13:00",
-    "guests": 4,
-    "bookingCategory": "Restaurants",
-    "category": "Restaurants",
-    "type": "restaurant",
-    "emoji": "🦀",
-    "title": "Quán Cua Cà Mau",
-    "address": "243 Lê Văn Sỹ, Hồ Chí Minh City, Vietnam",
-    "bookingMethod": "To arrange",
-    "bookingContact": "",
-    "bookingUrl": "",
-    "notes": "13:00 · 4 guests · Pending",
-    "placeId": "quan-cua-ca-mau"
-  }
 };
 
 const TRIP_DATA={
@@ -3026,7 +3003,7 @@ const ITINERARY_DATA={
         "type": "meal",
         "dayId": "day2",
         "placeId": "quan-cua-ca-mau",
-        "bookingId": "bk-quan-cua-ca-mau",
+        "bookingId": null,
         "guideIds": [
           "quan-cua-ca-mau"
         ]

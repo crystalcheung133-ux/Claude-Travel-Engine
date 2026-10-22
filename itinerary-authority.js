@@ -454,7 +454,12 @@
     });
     applyCrossDayMoves(pubDays,pubSrc,null);
     if(pubDays['2'])pubDays['2']=reconcileDay2Breakfast(pubDays['2'],pubSrc['2']&&pubSrc['2'].items,pubSrc['2']&&pubSrc['2'].baseItems);
+    // Approved Day 4 spa time: replace only the retired 15:00 default; keep other user-entered times.
+    if(pubDays['4'])pubDays['4'].forEach(function(item){
+      if(item&&item.id==='moc-huong-d4'&&String(item.time||'').trim()==='15:00')item.time='15:30–17:30';
+    });
     if(out['2'])out['2'].items=pubDays['2'];
+    if(out['4'])out['4'].items=pubDays['4'];
     return out;
   }
 
@@ -598,7 +603,7 @@
     const pending=getPendingDayItems(dayKey);
     if(pending) return hydrateRelationships(pending,masterItems);
     const saved=getDayOverrideItems(dayKey);
-    if(saved) return hydrateRelationships(saved,masterItems);
+    if(saved) return hydrateRelationships(String(dayKey)==='2'?reconcileDay2Breakfast(saved,saved,null):saved,masterItems);
     return normalizeItems(masterItems||[]);
   }
 

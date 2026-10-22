@@ -267,6 +267,10 @@
     "status": "active",
     "note": "D1 reset/Cafe Apartment/sunset flow and D4 single Open List contract"
   },
+  "test-pizza-day4-booking-consistency.js": {
+    "status": "active",
+    "note": "Day 4 Pizza booking, place, notes, handoff point to Thao Dien"
+  },
   "test-portability-completeness.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"

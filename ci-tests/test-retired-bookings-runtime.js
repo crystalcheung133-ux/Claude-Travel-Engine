@@ -2,7 +2,7 @@ const fs=require('fs'),path=require('path'),assert=require('assert');
 const root=path.resolve(__dirname,'..');
 const retired='bookings-runtime.js';
 assert(!fs.existsSync(path.join(root,retired)),`${retired} must remain deleted`);
-const productionFiles=fs.readdirSync(root).filter(f=>/\.(html|js|json|txt)$/i.test(f) && !['RELEASE.json','VERSION.txt'].includes(f));
+const productionFiles=fs.readdirSync(root).filter(f=>/\.(html|js|json|txt)$/i.test(f) && !['RELEASE.json','VERSION.txt','SHA256SUMS.txt'].includes(f));
 const refs=[];
 for(const file of productionFiles){
   const s=fs.readFileSync(path.join(root,file),'utf8');

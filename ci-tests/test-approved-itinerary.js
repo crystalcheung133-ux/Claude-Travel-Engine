@@ -44,5 +44,5 @@ eq(get('5','airport-departure').time,'18:00','Airport 18:00');
 ok(JSON.stringify(get('5','day5-free-browse').guideGroups||[]).includes('"marou"'),'Shopping Nearby carries the Marou Guide');
 ['running-bean','hotel-luggage','grab-ha-spa'].forEach(id=>ok(!ids('5').includes(id),'no obsolete Day 5 '+id));
 // ---- Booking time authority is unchanged (owner decision): bookings keep deciding displayed time.
-ok(B['bk-aum-d4'].time==='19:00'&&B['bk-quan-cua-ca-mau'].time==='13:00','Booking times remain the display authority');
+ok(B['bk-aum-d4'].time==='19:00'&&!B['bk-quan-cua-ca-mau'],'Booking times remain the display authority');
 console.log('APPROVED ITINERARY: PASS ('+n+' checks)');
