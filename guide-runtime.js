@@ -210,7 +210,7 @@ function guideCategoryHeading(cat){
 }
 
 function guideDayNumber(item){
- const links=PRODUCTION_GUIDE.dayLinks[item.key]||[];
+ const links=(PRODUCTION_GUIDE.dayLinks&&PRODUCTION_GUIDE.dayLinks[item.key])||[];
  const numbers=links.map(link=>{const match=String(link&&link[0]||'').match(/Day\s*(\d+)/i);return match?Number(match[1]):null;}).filter(Number.isFinite);
  return numbers.length?Math.min(...numbers):999;
 }
@@ -220,19 +220,40 @@ function guideActivityGroup(item){
  if(/track|hike|walk|blue lakes|deer park/.test(text)) return 'Walks & Outdoor';
  return 'Experiences & Attractions';
 }
-function guideDiningTime(item){
+// A category must remain clickable even if a saved Timeline card is malformed.
+// Resolve each day once per category render, not once per dining entry/comparison.
+function guideDiningTime(item,dayTimes){
  const key=String(item&&item.key||'');
- const source=(window.ITINERARY_AUTHORITY&&typeof ITINERARY_AUTHORITY.resolveDayItems==='function')?Object.fromEntries(Object.keys(ITINERARY||{}).map(d=>[d,{items:ITINERARY_AUTHORITY.resolveDayItems(d)}])):((typeof ITINERARY!=='undefined')?ITINERARY:{});
- for(const day of Object.values(source||{}))for(const row of (day&&day.items)||[]){
-  if(row&&String(row.placeId||'')===key){const m=String(row.time||'').match(/(?:^|\D)([01]?\d|2[0-3]):([0-5]\d)/);if(m)return Number(m[1])*60+Number(m[2]);}
- }
+ if(dayTimes&&dayTimes.has(key))return dayTimes.get(key);
  const m=String(item&&item.sub||'').match(/(?:^|\D)([01]?\d|2[0-3]):([0-5]\d)/);
  return m?Number(m[1])*60+Number(m[2]):9999;
 }
+function guideDiningTimes(){
+ const result=new Map();
+ try{
+  const days=(typeof ITINERARY!=='undefined'&&ITINERARY)?Object.keys(ITINERARY):[];
+  for(const day of days){
+   let items=[];
+   try{
+    items=(window.ITINERARY_AUTHORITY&&typeof ITINERARY_AUTHORITY.resolveDayItems==='function')
+     ?ITINERARY_AUTHORITY.resolveDayItems(day)
+     :(ITINERARY[day]&&ITINERARY[day].items)||[];
+   }catch(err){console.warn('Guide dining: skipping unavailable day',day,err);continue;}
+   if(!Array.isArray(items))continue;
+   for(const row of items){
+    if(!row||!row.placeId)continue;
+    const m=String(row.time||'').match(/(?:^|\D)([01]?\d|2[0-3]):([0-5]\d)/);
+    if(m&&!result.has(String(row.placeId)))result.set(String(row.placeId),Number(m[1])*60+Number(m[2]));
+   }
+  }
+ }catch(err){console.warn('Guide dining: Timeline unavailable, using Guide fallback',err);}
+ return result;
+}
+
 function guideSortedCategoryItems(cat){
  const items=guideCategoryItems(cat).slice();
  const semantic=guideSemanticCategory(cat);
- if(semantic==='DINING') return items.sort((a,b)=>guideDayNumber(a)-guideDayNumber(b)||guideDiningTime(a)-guideDiningTime(b)||String(a.title||'').localeCompare(String(b.title||'')));
+ if(semantic==='DINING'){const times=guideDiningTimes();return items.sort((a,b)=>guideDayNumber(a)-guideDayNumber(b)||guideDiningTime(a,times)-guideDiningTime(b,times)||String(a.title||'').localeCompare(String(b.title||'')));}
  if(semantic==='ATTRACTIONS'||semantic==='STAY') return items.sort((a,b)=>guideDayNumber(a)-guideDayNumber(b)||String(a.title||'').localeCompare(String(b.title||'')));
  if(semantic==='SHOP') return items.sort((a,b)=>guideDayNumber(a)-guideDayNumber(b));
  if(semantic==='EXPERIENCES') return items.sort((a,b)=>guideActivityGroup(a).localeCompare(guideActivityGroup(b))||String(a.title||'').localeCompare(String(b.title||'')));
@@ -284,13 +305,20 @@ function openGuideCategory(cat){
  window.GUIDE_MODAL_ORIGIN='guide';
  const semantic=guideSemanticCategory(cat);
  saveGuideNavigationContext(semantic);
- const list=guideSortedCategoryItems(semantic);
+ let list;
+ try{list=guideSortedCategoryItems(semantic);}
+ catch(err){
+  console.error('Guide category ordering failed; opening unsorted category',semantic,err);
+  list=guideCategoryItems(semantic);
+ }
  // A single-entry category is already the destination; skip a redundant chooser.
  if(list.length===1){closeMiniMenus();openGuideModal(list[0].key);return;}
  if(semantic==='SHOP'){
   closeMiniMenus();openShoppingDirectoryView();return;
  }
- const rows=groupedGuideRows(semantic,list);
+ let rows;
+ try{rows=groupedGuideRows(semantic,list);}
+ catch(err){console.error('Guide grouping failed; opening flat list',semantic,err);rows=list.map(guideListRow).join('');}
  $('guideModalContent').innerHTML=`<p class="kicker">Guide</p><h2>${guideCategoryHeading(semantic)}</h2><div class="category-pop-list guide-category-grouped">${rows}</div>`;
  closeMiniMenus();$('guideModal').classList.add('show');
 }
