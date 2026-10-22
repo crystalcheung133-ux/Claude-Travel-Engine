@@ -448,9 +448,20 @@
         if(noteLines.length)appendLines(shopping,noteLines);
         removeById(list,'garmentory');
       }
-      if(bean&&garment&&list.indexOf(garment)<list.indexOf(bean)){
-        list.splice(list.indexOf(bean),1);list.splice(list.indexOf(garment),0,bean);
+      // The live cloud publication can carry the breakfast at the end after
+      // manual Add/Delete. Anchor only the two approved morning activities;
+      // preserve every other card's relative order and edited fields.
+      if(bean&&shopping){
+        const breakfastIndex=list.indexOf(bean);
+        const shoppingIndex=list.indexOf(shopping);
+        if(breakfastIndex>shoppingIndex){
+          list.splice(breakfastIndex,1);
+          list.splice(list.indexOf(shopping),0,bean);
+        }
       }
+      // A legacy standalone Garmentory may be present without shopping; do
+      // not discard it or rewrite user-authored content in that case.
+
     }
     if(d==='4'){
       const crab=list.find(x=>x&&x.id==='quan-thuy');

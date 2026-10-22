@@ -36,7 +36,7 @@
     "Studio translateY viewport positioning workarounds",
     "cold-white Saigon header treatment"
   ],
-  "asset_cache_token": "rc29138-timeline-migration-fix",
+  "asset_cache_token": "rc29143-day2-order-navigation-fix",
   "release_status": "RC29.143 ACCEPTANCE BUILD — targeted static tests PASS; full CI and browser smoke NOT RUN",
   "changes": [
     "RC29.138: Cloud-hydrated Timeline is rendered (projection rebuilt after hydration); Saved Override, Pending Draft and publication share one legacy/cross-day migration (Day 2 Pizza → Day 4, Day 5 Running Bean → Day 2); new drafts store baseline + revision; Saved/Pending edits are layered, not masked.",
