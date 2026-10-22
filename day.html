@@ -365,15 +365,16 @@
     const m=t.match(/(?:約|~)?\s*(\d+)\s*(?:[–—-]\s*(\d+)\s*)?min/i);if(!m)return null;return {min:Number(m[1]),max:Number(m[2]||m[1])};
   }
   function fmtMinutes(x){if(!x)return '';return x.min===x.max?`~${x.min} min`:`~${x.min}–${x.max} min`;}
-  function grabFromWalk(w){if(!w)return null;const max=w.max;if(max<=5)return {min:3,max:5};if(max<=10)return {min:5,max:8};return {min:5,max:10};}
-  function nextDirections(item,next){
+  // Never derive a driving duration from walking minutes: traffic and routes differ.
+
+  function nextDirections(item,next,mode){
     const from=timelineHostDestination(item).routeQuery,to=timelineHostDestination(next).routeQuery;
     if(!to)return '';
     // When a flexible/free-time card has no verified address, let Google Maps
     // resolve the origin from the device's current location. Never guess one.
     const d4SpaWalk=String(day)==='4'&&String(item&&item.id)==='moc-huong-d4'&&String(next&&next.id)==='complex-0123-d4';
     const namedTo=String(day)==='4'&&String(next&&next.id)==='thao-dien-open-list'?'In The Mood Saigon, 32 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam':to;
-    return `https://www.google.com/maps/dir/?api=1${from?`&origin=${encodeURIComponent(from)}`:''}&destination=${encodeURIComponent(namedTo)}&travelmode=${d4SpaWalk?'walking':'driving'}`;
+    return `https://www.google.com/maps/dir/?api=1${from?`&origin=${encodeURIComponent(from)}`:''}&destination=${encodeURIComponent(namedTo)}&travelmode=${mode|| (d4SpaWalk?'walking':'driving')}`;
   }
   function buildDerivedNextStop(item,index){
     let next=null;for(let n=index+1;n<workingItems.length;n++){if(isTimelineRenderable(workingItems[n])){next=workingItems[n];break;}}
@@ -390,12 +391,14 @@
     const d4SpaWalk=String(day)==='4'&&String(item&&item.id)==='moc-huong-d4'&&String(next&&next.id)==='complex-0123-d4';
     if(d4SpaWalk){lines.push('🚶 Walk · approx. 1–3 min');}
     else if(special){const m=parseMinutes(raw,'grab');lines.push(`🚐 Private transfer${m?' · '+fmtMinutes(m):''}`);}
-    else if(walk&&walk.max<=15){lines.push(`🚶 Walk · ${fmtMinutes(walk)}`);lines.push(`🚕 Grab · ${fmtMinutes(grab||grabFromWalk(walk))}`);}
+    else if(walk&&walk.max<=10){lines.push(`🚶 Walk · ${fmtMinutes(walk)}`);lines.push(`🚕 Grab · ${grab&&grab.max<=10?fmtMinutes(grab):'Live ETA in Maps'}`);}
+    else if(walk){lines.push(`🚶 Walk · ${fmtMinutes(walk)}`);if(grab&&grab.max<=10)lines.push(`🚕 Grab · ${fmtMinutes(grab)}`);else lines.push('🚕 Grab · Live ETA in Maps');}
     else if(grab){lines.push(`🚕 Grab · ${fmtMinutes(grab)}`);}
-     else if(String(item&&item.id||'')==='aum-d4'){lines.push('🚕 Grab · Live ETA in Maps');}
+    else if(/🚶|walk|步行/i.test(raw)){lines.push('🚶 Walk · check Maps');lines.push('🚕 Grab · Live ETA in Maps');}
     else {lines.push('🚕 Grab · Live ETA in Maps');}
     const directions=nextDirections(item,next);
-    return `<div class="route-hint route-hint--derived"><strong>TO NEXT STOP</strong><span class="route-next-title">${esc(title)}</span><span class="route-next-modes">${lines.map(esc).join(' · ')}</span>${directions?`<a class="route-next-map" href="${esc(directions)}" target="_blank" rel="noopener">Directions ›</a>`:''}</div>`;
+    const walking=(!special&&(walk||/🚶|walk|步行/i.test(raw)))?nextDirections(item,next,'walking'):'';
+    return `<div class="route-hint route-hint--derived"><strong>TO NEXT STOP</strong><span class="route-next-title">${esc(title)}</span><span class="route-next-modes">${lines.map(esc).join(' · ')}</span>${walking?`<a class="route-next-map" href="${esc(walking)}" target="_blank" rel="noopener">Walk ›</a>`:''}${directions?`<a class="route-next-map" href="${esc(directions)}" target="_blank" rel="noopener">${walking?'Grab / Directions ›':'Directions ›'}</a>`:''}</div>`;
   }
 
   // Presentation-only deadline anchors. Never mutate itinerary items or saved notes.
