@@ -40,7 +40,7 @@ function userContent(label,r,opts){
   ok(!txt(r['5']).includes('USER_RB'),label+': Running Bean note not duplicated on Day 5');
   ok(txt(card(r['4'],'pizza4ps')).includes('USER_PIZZA'),label+': Day 2 Pizza note moved to Day 4 Pizza');
   ok(txt(card(r['4'],'pizza4ps')).includes('USER_PIZZA_ROUTE'),label+': Day 2 Pizza route note moved too');
-  ok(txt(card(r['2'],'com-tam-moc')).includes('USER_CTM'),label+': edited retired Com Tam Moc note preserved (non-destructive)');
+  ok(!card(r['2'],'com-tam-moc')&&txt(card(r['2'],'running-bean')).includes('USER_CTM'),label+': retired breakfast removed and manual note transferred to Running Bean');
   ok(txt(card(r['4'],'quan-thuy')).includes('USER_QT'),label+': Quan Thuy note preserved');
   ok(txt(card(r['4'],'thao-dien-open-list')).includes('USER_SHOP'),label+': shopping note preserved');
   ok(txt(card(r['5'],'day5-free-browse')).includes('USER_SHOP5'),label+': Day 5 shopping note preserved');

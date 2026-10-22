@@ -2450,13 +2450,13 @@ const BOOKINGS_DATA={
     "bookingContact": "",
     "secondaryContact": "",
     "bookingUrl": "https://booking.pizza4ps.com/",
-    "notes": "Hai Bà Trưng branch · 151B Hai Bà Trưng, Võ Thị Sáu, District 3。Reserve lunch for 4 around 12:45；食完前往 Qspa 做 D2 Afternoon Reset。Norah Spa 2 只保留為 route-friendly optional alternative。",
+    "notes": "Day 4 · Pizza 4P’s Thảo Điền branch · 44 Trần Ngọc Diện, Thảo Điền, Hồ Chí Minh。11:30 午餐，4 人；之後前往 Thảo Điền Shopping Route（In The Mood → Grade B → YouOn → Vina → dakao → Aurora → Wicky → OHQUAO）。",
     "signatureDishes": [
       "Crab tomato cream spaghetti",
       "House-made 4-cheese pizza + honey",
       "Burrata / Parma ham pizza"
     ],
-    "bookingHandoff": "未訂。一定揀 Hai Bà Trưng branch · 151B Hai Bà Trưng, Võ Thị Sáu, District 3；4人，31 Oct 約12:45。用 Pizza 4P’s official reservation flow。",
+    "bookingHandoff": "如需訂位，選 Pizza 4P’s Thảo Điền · 44 Trần Ngọc Diện, Thảo Điền；2026-11-02（Day 4）11:30，4 人；用 Pizza 4P’s official reservation flow。",
     "placeId": "pizza4ps"
   },
   "bk-qspa": {

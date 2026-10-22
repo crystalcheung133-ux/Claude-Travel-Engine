@@ -155,11 +155,28 @@
     }
     return days;
   }
+  /* RC29.139: Cơm Tấm Mộc is a retired Day 2 breakfast, not a second stop.
+     Carry any non-default notes to Running Bean before removing the obsolete card.
+     This is intentionally ID-scoped; no other manually added meals are touched. */
+  function reconcileDay2Breakfast(items,rawItems,rawBase){
+    const list=normalizeItems(items), old=list.find(x=>x&&x.id==='com-tam-moc');
+    if(!old)return list;
+    const bean=list.find(x=>x&&x.id==='running-bean');
+    if(!bean)return list; // never drop a user's note without a destination
+    const source=(Array.isArray(rawItems)?rawItems:[]).find(x=>x&&x.id==='com-tam-moc')||old;
+    const base=(Array.isArray(rawBase)?rawBase:[]).find(x=>x&&x.id==='com-tam-moc')||null;
+    const notes=movedUserLines(source,base,'com-tam-moc','Day 2 Cơm Tấm Mộc');
+    if(source.time&&source.time!=='09:00'&&!base)notes.push('Previous Cơm Tấm Mộc time: '+source.time);
+    appendLines(bean,notes);
+    removeById(list,'com-tam-moc');
+    return list;
+  }
   /* Baseline-less data: merge over the master, retire UNEDITED default copies of retired cards. */
   function legacyMigrateDay(day,items,masterItems){
     let list=legacyRebaseDay(items,masterItems);
     const masterIds=new Set(normalizeItems(masterItems).filter(x=>x&&x.id).map(x=>String(x.id)));
     if(String(day)==='2')list=list.filter(x=>!(x&&x.id&&['com-tam-moc','garmentory','pizza4ps'].includes(x.id)&&!masterIds.has(x.id)&&isDefaultRetiredCard(x)));
+    if(String(day)==='2')list=reconcileDay2Breakfast(list,items,null);
     return String(day)==='5'?migrateDay5Presentation(list):list;
   }
   function moveAcrossStoreDays(dayChanges,src){
@@ -248,14 +265,14 @@
     const savedOrder=savedList.filter(x=>x&&x.id&&oldBy.has(String(x.id))).map(x=>String(x.id));
     const baseSurvivors=baseOrder.filter(id=>savedOrder.includes(id));
     const userReordered=!same(savedOrder,baseSurvivors);
-    if(userReordered)return normalizeItems(keep);
+    if(userReordered)return normalizeItems(d==='2'?reconcileDay2Breakfast(keep,savedList,baseline):keep);
     const masterRank=new Map(master.map((x,i)=>[String(x.id),i]));
     // Sort only master-owned cards. User-added or user-edited orphan cards retain
     // their relative placement; don't silently reorder custom activities.
     const slots=keep.map((x,i)=>masterRank.has(String(x&&x.id))?i:-1).filter(i=>i>=0);
     const sorted=slots.map(i=>keep[i]).sort((a,b)=>masterRank.get(String(a.id))-masterRank.get(String(b.id)));
     slots.forEach((index,i)=>{keep[index]=sorted[i];});
-    return normalizeItems(keep);
+    return normalizeItems(d==='2'?reconcileDay2Breakfast(keep,savedList,baseline):keep);
   }
   function rebaseDayForKey(day,saved,base,current){
     const migrated=rebaseApprovedDay(day,saved,base,current);
@@ -436,6 +453,8 @@
       pubSrc[d]={items:(data.itineraryData[d]&&data.itineraryData[d].items)||[],baseItems:Array.isArray(data.itineraryBase[d])?data.itineraryBase[d]:null};
     });
     applyCrossDayMoves(pubDays,pubSrc,null);
+    if(pubDays['2'])pubDays['2']=reconcileDay2Breakfast(pubDays['2'],pubSrc['2']&&pubSrc['2'].items,pubSrc['2']&&pubSrc['2'].baseItems);
+    if(out['2'])out['2'].items=pubDays['2'];
     return out;
   }
 
