@@ -2268,12 +2268,12 @@ const BOOKINGS_DATA={
     "bookingMethod": "WhatsApp / Official website",
     "bookingWay": "WhatsApp / Official website",
     "bookingUrl": "https://mochuongwellness.vn/booking/",
-    "whatsapp": "+84 90 975 5877",
+    "whatsapp": "+84 90 908 7066",
     "guests": 4,
     "guestSummary": "4 guests · 120 minutes",
     "address": "03 Đặng Hữu Phổ, An Khánh, Hồ Chí Minh, Vietnam",
     "notes": "PENDING — not booked. Request 2 Nov 15:30–17:30 for 4 people, 120 minutes, An Khánh branch at 03 Đặng Hữu Phổ.",
-    "bookingHandoff": "Not confirmed. WhatsApp +84 90 975 5877 or book via official website; confirm availability, treatment, price and branch.",
+    "bookingHandoff": "Not confirmed. WhatsApp +84 90 908 7066 or book via official website; confirm availability, treatment, price and branch.",
     "placeId": "moc-huong"
   },
   "bk-aum-d4": {

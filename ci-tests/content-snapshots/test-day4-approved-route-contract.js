@@ -16,7 +16,7 @@ assert.equal(spa.time,'15:30–17:30');assert.equal(spa.bookingId,'bk-moc-huong-
 assert.equal(complex.time,'17:45–18:40');assert.equal(complex.placeId,'complex-0123');
 assert.equal(dinner.bookingId,'bk-aum-d4');assert.equal(dinner.time,'19:00–20:45');
 const booking=B['bk-moc-huong-d4'];assert(booking&&booking.status==='pending');
-assert.equal(booking.guests,4);assert.equal(booking.whatsapp,'+84 90 975 5877');
+assert.equal(booking.guests,4);assert.equal(booking.whatsapp,'+84 90 908 7066');
 assert.equal(booking.bookingUrl,'https://mochuongwellness.vn/booking/');
 assert(booking.address.includes('03 Đặng Hữu Phổ'));assert(P['moc-huong'].address.includes('03 Đặng Hữu Phổ'));
 assert(B['bk-aum-d4'].status==='confirmed');assert.equal(B['bk-aum-d4'].time,'19:00');

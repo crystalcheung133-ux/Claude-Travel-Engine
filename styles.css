@@ -3552,3 +3552,10 @@ html[data-identity-selection-required="true"] .app-nav{pointer-events:none!impor
 #guideModal.show{position:fixed!important;inset:0!important;bottom:0!important;z-index:100020!important;padding:12px 12px max(12px,env(safe-area-inset-bottom,0px))!important;overflow-y:auto!important;box-sizing:border-box!important;}
 #guideModal.show>.guide-sheet{max-height:calc(100dvh - 24px - env(safe-area-inset-bottom,0px))!important;overflow-y:auto!important;overscroll-behavior:contain!important;}
 body:has(#guideModal.show) .app-nav{z-index:100010!important;pointer-events:none!important;}
+
+/* Booking details/editor must float over persistent bottom navigation. */
+#tripModal.show{position:fixed!important;inset:0!important;z-index:100030!important;overflow-y:auto!important;}
+#tripModal.show>.trip-sheet{max-height:calc(100dvh - 24px - env(safe-area-inset-bottom,0px))!important;overflow-y:auto!important;}
+body:has(#tripModal.show) .app-nav{z-index:100010!important;pointer-events:none!important;}
+/* When a Guide is intentionally foregrounded over Booking, keep that stacking contract. */
+body.guide-foreground-over-booking #guideModal.show{z-index:100040!important;}

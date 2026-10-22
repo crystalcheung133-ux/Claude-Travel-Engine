@@ -513,7 +513,7 @@ function bookingEditFields(booking){
     bookingField('Payment / deposit status','paymentStatus',booking.paymentStatus),
     ...(booking.type==='accommodation'?[]:[bookingField('Total / balance','price',booking.price)]),
     bookingField('Website / booking link','website',sharedWebsite,{wide:true,inputmode:'url'}),
-    bookingField('Phone','phone',sharedPhone),bookingField('Email','email',booking.email,{type:'email'}),
+    bookingField('Phone','phone',sharedPhone),bookingField('WhatsApp number','whatsapp',booking.whatsapp||'',{wide:true}),bookingField('Email','email',booking.email,{type:'email'}),
     bookingField('Notes / cancellation / important information','importantInfo',bookingImportantInfo(booking),{type:'textarea'})
   ];
   if(booking.type==='accommodation')common.splice(3,0,
@@ -688,6 +688,7 @@ async function saveBookingEdit(event,bookingId){
   clearBookingEditSession();
   if(current.placeId&&window.GUIDE_AUTHORITY){
     const placePatch={phone:String(next.phone||'').trim(),website:String(next.website||'').trim()};
+    if(current.type==='spa'&&formData.has('whatsapp'))placePatch.whatsapp=String(next.whatsapp||'').trim();
     if(current.type==='accommodation')placePatch.address=String(next.address||'').trim();
     GUIDE_AUTHORITY.save(current.placeId,placePatch);
   }

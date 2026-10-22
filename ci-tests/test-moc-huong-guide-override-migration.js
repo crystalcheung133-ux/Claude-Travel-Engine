@@ -1,6 +1,6 @@
 const assert=require('assert'),fs=require('fs'),vm=require('vm');
 const store={travel_engine_guide_overrides_v2:JSON.stringify({
- 'moc-huong':{patch:{desc:'指定 An Khánh 分店，15:30–17:30，4 人，120 分鐘，待確認。可用 WhatsApp 預約。',signature:['120-minute treatment','4 guests · pending confirmation'],worth:['SPA 完步行去 0123 Complex','WhatsApp +84 90 975 5877'],address:'03 Đặng Hữu Phổ, An Khánh, Hồ Chí Minh City'},updatedAt:'2026-10-15T00:00:00Z'},
+ 'moc-huong':{patch:{desc:'指定 An Khánh 分店，15:30–17:30，4 人，120 分鐘，待確認。可用 WhatsApp 預約。',signature:['120-minute treatment','4 guests · pending confirmation'],worth:['SPA 完步行去 0123 Complex','WhatsApp +84 90 908 7066'],address:'03 Đặng Hữu Phổ, An Khánh, Hồ Chí Minh City'},updatedAt:'2026-10-15T00:00:00Z'},
  'pink-church':{patch:{desc:'My own edited guide'},updatedAt:'2026-10-15T00:00:00Z'}
  })};
 const localStorage={getItem:k=>store[k]||null,setItem:(k,v)=>{store[k]=v}};
