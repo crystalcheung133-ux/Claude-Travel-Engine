@@ -1909,6 +1909,9 @@ const CATEGORIES={
   ],
   "SHOP": [
     {
+      "key": "ohquao-local-edit"
+    },
+    {
       "key": "ohquao"
     },
     {
@@ -1977,6 +1980,7 @@ const GUIDE_ORDER=[
   "omakase-tiger",
   "pho-sol",
   "pizza4ps",
+  "ohquao-local-edit",
   "ohquao",
   "new-playground",
   "rue-miche-ledition",

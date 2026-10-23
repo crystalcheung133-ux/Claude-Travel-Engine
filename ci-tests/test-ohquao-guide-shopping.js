@@ -1,0 +1,10 @@
+const fs=require('fs'),assert=require('assert'),vm=require('vm');
+const src=fs.readFileSync('data.js','utf8');
+const ctx={globalThis:{}};vm.runInNewContext(src,ctx);
+const d=ctx.globalThis.TRAVEL_DATASETS;
+assert(d.PLACES['ohquao-local-edit']);
+assert(d.CATEGORIES.SHOP.some(x=>x.key==='ohquao-local-edit'));
+assert(d.GUIDE_ORDER.includes('ohquao-local-edit'));
+assert(d.CATEGORIES.SHOP.some(x=>x.key==='ohquao'));
+assert(d.DAY_LINKS['ohquao-local-edit']);
+console.log('OHQUAO GUIDE SHOPPING: PASS');

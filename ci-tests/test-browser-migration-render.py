@@ -102,12 +102,12 @@ def main():
             ok(len(FRESH[d])>=1,'A fresh: Day %s renders cards'%d)
         # navigation destinations (real hrefs)
         page.goto(base+'/day.html?day=4',wait_until='load'); page.wait_for_timeout(300)
-        nav=page.evaluate("""()=>{const dest=id=>{const e=document.getElementById(id);const a=e&&Array.from(e.querySelectorAll('a')).filter(x=>(x.getAttribute('href')||'').includes('maps/dir'));return a&&a.map(x=>{const q=new URL(x.getAttribute('href')).searchParams;return {t:(x.innerText||'').trim(),o:q.get('origin')||'',d:q.get('destination')||''}})};
+        nav=page.evaluate("""()=>{const dest=id=>{const e=document.getElementById(id);const a=e&&Array.from(e.querySelectorAll('a')).filter(x=>(x.getAttribute('href')||'').includes('maps/dir'));return a&&a.map(x=>{const q=new URL(x.getAttribute('href')).searchParams;return {t:(x.innerText||'').trim(),o:q.get('origin')||'',d:q.get('destination')||'',mode:q.get('travelmode')||''}})};
           return {pink:dest('pink-church'),push:dest('push-push-d4'),pizza:dest('pizza4ps')}}""")
-        ok(any('20 Nguyễn Văn Nguyễn' in x['d'] for x in nav['pink']),'A nav: Pink Church directions go to Push Push (%r)'%nav['pink'])
+        ok(any('58/12 Phạm Ngọc Thạch' in x['d'] and x['mode']=='walking' for x in nav['pink']),'A nav: Pink Church directions walk to OHQUAO The Local Edit (%r)'%nav['pink'])
         ok(any('Tan Dinh Church' in x['d'] for x in nav['pink'] if x['t'].startswith('🧭')),'A nav: Pink Church Navigate opens Pink Church')
-        ok(any('20 Nguyễn Văn Nguyễn' in x['d'] for x in nav['push'] if x['t'].startswith('🧭')),'A nav: Push Push Navigate opens Push Push (%r)'%nav['push'])
-        ok(any('44 Trần Ngọc Diện' in x['d'] and '20 Nguyễn Văn Nguyễn' in x['o'] for x in nav['push']),'A nav: Push Push -> Grab directly to Pizza 4P\'s Thảo Điền, origin Push Push')
+        ok(any('58/12 Phạm Ngọc Thạch' in x['d'] for x in nav['push'] if x['t'].startswith('🧭')),'A nav: OHQUAO Navigate opens District 3 store (%r)'%nav['push'])
+        ok(any('44 Trần Ngọc Diện' in x['d'] and '58/12 Phạm Ngọc Thạch' in x['o'] and x['mode']!='walking' for x in nav['push']),'A nav: OHQUAO -> Grab to Pizza 4P\'s Thảo Điền, origin OHQUAO')
         ok(any('In The Mood' in x['d'] for x in nav['pizza']),'A nav: Pizza -> In The Mood')
         page.goto(base+'/day.html?day=2',wait_until='load'); page.wait_for_timeout(300)
         first=page.evaluate("""()=>{const e=document.getElementById('shopping-tqd');return Array.from(e.querySelectorAll('a')).map(a=>({t:(a.innerText||'').trim(),h:a.getAttribute('href')||''}))}""")

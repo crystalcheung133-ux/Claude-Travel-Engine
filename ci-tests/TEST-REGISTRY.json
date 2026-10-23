@@ -608,5 +608,9 @@
   "test-ohquao-spa-sync-contract.js": {
     "status": "active",
     "note": "Day 4 OHQUAO Guide and address; SPA retired time reconciliation across read, publication and export"
+  },
+  "test-ohquao-guide-shopping.js": {
+    "status": "active",
+    "note": "Local Edit Guide Shopping inclusion"
   }
 }
