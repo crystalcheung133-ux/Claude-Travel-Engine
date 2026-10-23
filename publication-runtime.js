@@ -23,6 +23,12 @@
       const override=authority&&typeof authority.getDayOverrideItems==='function'?authority.getDayOverrideItems(day):null;
       if(Array.isArray(override)) itinerary[day].items=override;
     });
+    // Retired SPA default can survive in the cloud on days not edited locally.
+    // Reconcile only the known stale value; do not rewrite other manual times.
+    const d4=itinerary['4'];
+    if(d4&&Array.isArray(d4.items))d4.items.forEach(function(item){
+      if(item&&item.id==='moc-huong-d4'&&String(item.time||'').trim()==='15:00')item.time='15:45–17:45';
+    });
     return itinerary;
   }
   function buildPayload(){
@@ -121,7 +127,12 @@
       const cfg=root.SYNC_CONFIG||{};
       const rpcName=cfg.rpc&&cfg.rpc.publishTrip?cfg.rpc.publishTrip:'publish_trip_snapshot';
       const payload=buildPayload();
-      const integrity=payloadIntegrity(payload);
+      // Remote unchanged days can still carry the retired SPA 15:00 value.
+    const spaDay=payload.data.itineraryData['4'];
+    if(spaDay&&Array.isArray(spaDay.items))spaDay.items.forEach(function(item){
+      if(item&&item.id==='moc-huong-d4'&&String(item.time||'').trim()==='15:00')item.time='15:45–17:45';
+    });
+    const integrity=payloadIntegrity(payload);
       if(!integrity.ok){
         throw new Error('Publication blocked: Trip or Guide dataset is incomplete. Reload the latest deploy before publishing.');
       }
@@ -200,6 +211,11 @@
         }
       });
     }
+    // Remote unchanged days can still carry the retired SPA 15:00 value.
+    const spaDay=payload.data.itineraryData['4'];
+    if(spaDay&&Array.isArray(spaDay.items))spaDay.items.forEach(function(item){
+      if(item&&item.id==='moc-huong-d4'&&String(item.time||'').trim()==='15:00')item.time='15:45–17:45';
+    });
     const integrity=payloadIntegrity(payload);
     if(!integrity.ok)return {verified:false,code:'PAYLOAD_INCOMPLETE'};
     const result=await root.SUPABASE.getClient().rpc((cfg.rpc&&cfg.rpc.publishTrip)||'publish_trip_snapshot',{

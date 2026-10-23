@@ -15,7 +15,9 @@
   function currentItems(dayNo,day){
     const authority=window.ITINERARY_AUTHORITY;
     const saved=authority&&typeof authority.getDayOverrideItems==='function'?authority.getDayOverrideItems(dayNo):null;
-    return Array.isArray(saved)?saved:(day.items||[]);
+    const items=JSON.parse(JSON.stringify(Array.isArray(saved)?saved:(day.items||[])));
+    if(String(dayNo)==='4')items.forEach(function(item){if(item&&item.id==='moc-huong-d4'&&String(item.time||'').trim()==='15:00')item.time='15:45–17:45';});
+    return items;
   }
   function returnToTripStudio(){
     closeTripExportCenter();

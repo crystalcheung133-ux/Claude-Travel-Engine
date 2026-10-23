@@ -1203,6 +1203,23 @@ const PLACES={
       "到埗前看當日 tenant / exhibition listings。"
     ]
   },
+  "ohquao-local-edit": {
+    "title": "OHQUAO Concept Store – The Local Edit",
+    "emoji": "🛍",
+    "cat": "SHOP",
+    "sub": "Day 4 · District 3 · After Pink Church",
+    "hours": "09:00–20:00",
+    "maps": "https://www.google.com/maps/search/?api=1&query=58%2F12%20Pham%20Ngoc%20Thach%20District%203%20Ho%20Chi%20Minh%20City",
+    "address": "58/12 Phạm Ngọc Thạch, District 3, Ho Chi Minh City, Vietnam",
+    "desc": "OHQUAO 由 Simon Phan 同 Hoa Pham 創立，集合越南本土創意設計、插畫、文具、印刷藝術、手作禮品同生活選物。The Local Edit 係 District 3 分店，唔係 Thảo Điền 嘅 OHQUAO Living etc.。",
+    "signature": ["越南設計師與插畫作品", "文具、明信片、Riso prints、陶瓷", "本地時裝、特色小禮物（款式不定期更換）"],
+    "worth": ["適合四人買越南特色設計紀念品", "09:45–10:25 快逛，10:25 左右叫 Grab 去 11:00 Pizza 4P’s"],
+    "categoryLabel": "🛍 Shopping",
+    "price": "Varies",
+    "transport": "From Cộng then Grab to Thảo Điền",
+    "highlights": ["越南在地創意", "特色紙品及禮物", "設計師品牌"],
+    "tips": ["留意 11:00 Pizza 4P’s 時間，按即時 Grab ETA 決定幾點離開。"]
+  },
   "push-push": {
     "title": "Push Push Official",
     "emoji": "👖",
@@ -2199,7 +2216,7 @@ const DAY_LINKS={
       "day.html?day=4#pink-church"
     ]
   ],
-  "push-push": [
+  "ohquao-local-edit": [
     [
       "Day 4",
       "day.html?day=4#push-push-d4"
@@ -3214,9 +3231,9 @@ const ITINERARY_DATA={
         "title": "🩷 Pink Church + Cộng Cà Phê",
         "details": [
           "先影 Tân Định Pink Church 外觀，再過馬路去 Cộng Cà Phê（274 Hai Bà Trưng）飲 Coconut Coffee；有時間可上樓影教堂景觀。",
-          "兩站相鄰，步行約 1–3 分鐘；之後去 Push Push Official。"
+          "兩站相鄰，步行約 1–3 分鐘；之後去 OHQUAO The Local Edit。"
         ],
-        "route": "🚕 Grab → Push Push Official.",
+        "route": "🚕 前往 OHQUAO The Local Edit · 58/12 Phạm Ngọc Thạch。",
         "map": "https://www.google.com/maps/search/?api=1&query=Tan%20Dinh%20Pink%20Church%20Ho%20Chi%20Minh%20City",
         "type": "experience",
         "dayId": "day4",
@@ -3229,20 +3246,20 @@ const ITINERARY_DATA={
       },
       {
         "id": "push-push-d4",
-        "time": "AM",
-        "timeDisplayMode": "period",
-        "title": "🛍 Push Push Official",
+        "time": "09:45–10:25",
+        "timeDisplayMode": "fixed",
+        "title": "🛍 OHQUAO Concept Store – The Local Edit",
         "details": [
-          "09:40 左右 Pink Church + Cộng 後前往 Push Push Official；預留時間 Grab 去 11:00 Pizza 4P’s。"
+          "09:45–10:25 OHQUAO The Local Edit · 58/12 Phạm Ngọc Thạch；10:25 左右 Grab 去 11:00 Pizza 4P’s。"
         ],
         "route": "🚕 Grab → Pizza 4P’s · 44 Trần Ngọc Diện · Thảo Điền (11:00).",
-        "map": "https://www.google.com/maps/search/?api=1&query=Push%20Push%20Official%2020%20Nguy%E1%BB%85n%20V%C4%83n%20Nguy%E1%BB%85n%2C%20T%C3%A2n%20%C4%90%E1%BB%8Bnh%2C%20H%E1%BB%93%20Ch%C3%AD%20Minh%20700000%2C%20Vietnam",
+        "map": "https://www.google.com/maps/search/?api=1&query=58%2F12%20Pham%20Ngoc%20Thach%20District%203%20Ho%20Chi%20Minh%20City",
         "type": "shopping",
         "dayId": "day4",
-        "placeId": "push-push",
+        "placeId": "ohquao-local-edit",
         "bookingId": null,
         "guideIds": [
-          "push-push"
+          "ohquao-local-edit"
         ]
       },
       {

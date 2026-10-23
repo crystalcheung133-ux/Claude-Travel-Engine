@@ -25,9 +25,10 @@ eq(ids('4'),['pink-church','push-push-d4','pizza4ps','thao-dien-open-list','moc-
 eq(get('4','pink-church').time,'09:00–09:40','Pink Church starts 09:00');
 eq(get('4','pink-church').guideIds,['pink-church','cong'],'Pink Church + Cộng combined into one stop');
 eq(get('4','pink-church').placeId,'pink-church','Pink Church card navigates to Pink Church');
-ok(/Push Push/.test(get('4','pink-church').route),'Pink Church -> Push Push');
-eq(get('4','push-push-d4').placeId,'push-push','Push Push retained and navigates to itself');
-ok(/Grab/.test(get('4','push-push-d4').route)&&/Pizza 4P/.test(get('4','push-push-d4').route),'Push Push -> Grab -> Pizza 4P’s');
+ok(/OHQUAO/.test(get('4','pink-church').route),'Pink Church -> OHQUAO');
+eq(get('4','push-push-d4').placeId,'ohquao-local-edit','OHQUAO Local Edit navigation');
+ok(/Grab/.test(get('4','push-push-d4').route)&&/Pizza 4P/.test(get('4','push-push-d4').route),'OHQUAO -> Grab -> Pizza 4P’s');
+eq(get('4','push-push-d4').time,'09:45–10:25','OHQUAO visit time');
 eq(get('4','pizza4ps').time,'11:00','Pizza 11:00');
 eq(B['bk-pizza4ps'].day,4,'Pizza booking is Day 4');eq(B['bk-pizza4ps'].time,'11:00','Pizza booking 11:00');
 eq(B['bk-pizza4ps'].address,'44 Trần Ngọc Diện, Thảo Điền, Hồ Chí Minh, Vietnam','Pizza booking branch/address');
@@ -37,7 +38,7 @@ eq(get('4','moc-huong-d4').time,'15:45–17:45','Mộc Hương 15:45–17:45');
 eq(get('4','complex-0123-d4').time,'17:45–18:40','0123 Complex 17:45–18:40');
 ok(get('4','aum-d4').time.startsWith('19:00'),'AUM 19:00');
 ['heartburn','kokonic','dalaland','mieu'].forEach(k=>ok(!Object.keys(P).some(x=>x.includes(k))&&!JSON.stringify(I['4']).includes(k),'no standalone '+k+' activity/guide'));
-eq(L['push-push'],[['Day 4','day.html?day=4#push-push-d4']],'Push Push Guide has a Day 4 link');
+eq(L['ohquao-local-edit'],[['Day 4','day.html?day=4#push-push-d4']],'OHQUAO Local Edit Guide has Day 4 link');
 ok(!/Pizza 4P[^"]{0,30}Hai B[àa] Tr[ưu]ng/.test(JSON.stringify(P['currency-guide'])),'Currency Guide has no Pizza 4P’s Hai Bà Trưng reference');
 ok(!/Day 2[^"]{0,60}Hai B[àa] Tr[ưu]ng lunch/.test(JSON.stringify(P['currency-guide'])),'Currency Guide Day 2 lunch wording removed');
 // ---- Day 5

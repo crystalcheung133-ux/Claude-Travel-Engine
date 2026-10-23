@@ -604,5 +604,9 @@
   },
   "test-guide-timeline-entry-coverage.js": {
     "status": "active"
+  },
+  "test-ohquao-spa-sync-contract.js": {
+    "status": "active",
+    "note": "Day 4 OHQUAO Guide and address; SPA retired time reconciliation across read, publication and export"
   }
 }

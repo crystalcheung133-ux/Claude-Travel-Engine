@@ -476,7 +476,26 @@
       const pizza=list.find(x=>x&&x.id==='pizza4ps');
       if(pizza)pizza.time='11:00';
       const push=list.find(x=>x&&x.id==='push-push-d4');
-      if(push&&typeof push.route==='string')push.route=push.route.replace(/11:30/g,'11:00');
+      if(push){
+        const old=String(push.placeId||'')==='push-push'||/Push Push/i.test(String(push.title||''));
+        if(old){
+          push.title='🛍 OHQUAO Concept Store – The Local Edit';
+          push.time='09:45–10:25';
+          push.timeDisplayMode='fixed';
+          push.placeId='ohquao-local-edit';
+          push.map='https://www.google.com/maps/search/?api=1&query=58%2F12%20Pham%20Ngoc%20Thach%20District%203%20Ho%20Chi%20Minh%20City';
+          push.guideIds=['ohquao-local-edit'];
+          push.details=(push.details||[]).filter(t=>!/Push Push|OPTIONAL/i.test(String(t)));
+          if(!push.details.length)push.details=['OHQUAO The Local Edit · 58/12 Phạm Ngọc Thạch · 09:45–10:25'];
+          push.route='🚕 Grab → Pizza 4P’s · Thảo Điền (11:00).';
+        }
+      }
+      if(church){
+        church.route=String(church.route||'').replace(/Push Push Official/g,'OHQUAO The Local Edit');
+        if(Array.isArray(church.details))church.details=church.details.map(t=>String(t).replace(/Push Push Official/g,'OHQUAO The Local Edit'));
+      }
+      const spa=list.find(x=>x&&x.id==='moc-huong-d4');
+      if(spa&&String(spa.time||'').trim()==='15:00')spa.time='15:45–17:45';
     }
     return list;
   }

@@ -61,6 +61,7 @@ run "test-day5-saved-override-revision.js" node ci-tests/test-day5-saved-overrid
 run "RC29.138 BROWSER-SHAPED MASTER ACCESS + BASELINE" node ci-tests/test-real-global-master.js
 run "RC29.138 MIGRATION FIXTURES (browser-shaped globals)" node ci-tests/test-migration-fixtures.js
 run "RC29.138 APPROVED ITINERARY DAY 2/4/5" node ci-tests/test-approved-itinerary.js
+run "DAY 4 OHQUAO + SPA SYNC CONTRACT" node ci-tests/test-ohquao-spa-sync-contract.js
 run "RC29.77 LIVE FX SAVE" node ci-tests/test-rc2977-live-fx-save.js
 
 
