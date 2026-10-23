@@ -63,6 +63,7 @@ run "RC29.138 MIGRATION FIXTURES (browser-shaped globals)" node ci-tests/test-mi
 run "RC29.138 APPROVED ITINERARY DAY 2/4/5" node ci-tests/test-approved-itinerary.js
 run "DAY 4 OHQUAO + SPA SYNC CONTRACT" node ci-tests/test-ohquao-spa-sync-contract.js
 run "OHQUAO GUIDE SHOPPING CONTRACT" node ci-tests/test-ohquao-guide-shopping.js
+node ci-tests/test-ohquao-shopping-directory.js
 run "RC29.77 LIVE FX SAVE" node ci-tests/test-rc2977-live-fx-save.js
 
 

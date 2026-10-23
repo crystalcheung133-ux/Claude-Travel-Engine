@@ -612,5 +612,9 @@
   "test-ohquao-guide-shopping.js": {
     "status": "active",
     "note": "Local Edit Guide Shopping inclusion"
+  },
+  "test-ohquao-shopping-directory.js": {
+    "status": "active",
+    "note": "Both OHQUAO branches visible in Shopping Directory"
   }
 }

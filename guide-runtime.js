@@ -136,10 +136,10 @@ function openShoppingDirectoryView(requestedDay){
  let grouped='';
  if(day===1){ grouped=section('PLANNED · Nguyễn Trãi Local Fashion Walk',planned(cards))+section('OPTIONAL · If Time / Near Hotel',optional(cards)); }
  else if(day===2){ grouped=section('PLANNED · Morning Run · 11 Garmentory + Trần Quang Diệu',planned(cards).filter(card=>/MORNING/i.test(card)))+section('PLANNED · Afternoon · Vincom Đồng Khởi + The New Playground',planned(cards).filter(card=>/AFTERNOON/i.test(card)))+section('OPTIONAL · Final Browse',optional(cards)); }
- else if(day===4){ grouped=section('PLANNED · Thảo Điền Lifestyle',planned(cards))+section('OPTIONAL',optional(cards)); }
+ else if(day===4){ grouped=section('PLANNED · District 3 Morning',planned(cards).filter(card=>/District 3 Morning/i.test(card)))+section('PLANNED · Thảo Điền Lifestyle',planned(cards).filter(card=>!/District 3 Morning/i.test(card)))+section('OPTIONAL',optional(cards)); }
  else if(day){ grouped=section(`PLANNED · Day ${day}`,planned(cards))+section('OPTIONAL',optional(cards)); }
  else{
-   grouped=section('PLANNED BY DAY · Day 1',planned(raw.filter(card=>shoppingDirectoryDay(card)===1)))+section('PLANNED BY DAY · Day 2',planned(raw.filter(card=>shoppingDirectoryDay(card)===2)))+section('PLANNED BY DAY · Day 4',planned(raw.filter(card=>shoppingDirectoryDay(card)===4)))+section('OPTIONAL / NEARBY',optional(raw));
+   grouped=section('PLANNED BY DAY · Day 1',planned(raw.filter(card=>shoppingDirectoryDay(card)===1)))+section('PLANNED BY DAY · Day 2',planned(raw.filter(card=>shoppingDirectoryDay(card)===2)))+section('PLANNED BY DAY · Day 4 · District 3 Morning',planned(raw.filter(card=>shoppingDirectoryDay(card)===4&&/District 3 Morning/i.test(card))))+section('PLANNED BY DAY · Day 4 · Thảo Điền',planned(raw.filter(card=>shoppingDirectoryDay(card)===4&&!/District 3 Morning/i.test(card))))+section('OPTIONAL / NEARBY',optional(raw));
  }
  const title=day?`🛍 Day ${day} Shopping Directory`:'🛍 Shopping Directory';
  const lead=day===1?'Nguyễn Trãi 是已定好的 Day 1 local-fashion line；主線與 optional extension 分開。':day===2?'上午走 11 Garmentory + Trần Quang Diệu；Quán Cua Cà Mau 午餐後到 Qspa 做 Afternoon Reset，再走 Cathedral / Post Office / Book Street sightseeing cluster，之後步行接 Vincom / The New Playground → Rue Miche L’Édition（Union Square B3）→ LÚNE。':day===4?'Day 4 只用一條 Shopping Route；每一段清楚標示 Grab、步行或同址，方便一眼看完整動線。':day===5?'Day 5 不設固定 Shopping Route；行完 Fine Arts Museum 後按前幾日漏逛的店自由決定。':'先看 PLANNED BY DAY；真正未排入 itinerary 的店才放 OPTIONAL。';
