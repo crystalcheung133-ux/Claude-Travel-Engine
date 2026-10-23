@@ -19,6 +19,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      # The official image includes browser binaries and OS libraries, but the
+      # Python Playwright module is not necessarily installed in /usr/bin/python.
+      # Install only the matching Python bindings; do not run install --with-deps.
+      - name: Install Python Playwright bindings
+        run: |
+          python -m pip install --no-cache-dir "playwright==1.56.0"
       - name: Verify preinstalled Playwright browsers
         run: |
           python -m playwright --version
