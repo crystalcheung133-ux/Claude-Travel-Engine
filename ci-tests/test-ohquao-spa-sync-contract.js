@@ -9,6 +9,8 @@ assert.deepStrictEqual(oh.guideIds,['ohquao-local-edit']);assert(oh.map.includes
 assert(d.PLACES['ohquao-local-edit'].address.includes('58/12 Phạm Ngọc Thạch'));
 assert.strictEqual(d.ITINERARY_DATA['4'].items[0].id,'pink-church');
 assert(d.ITINERARY_DATA['4'].items[0].route.includes('OHQUAO'));
+assert(d.ITINERARY_DATA['4'].items[0].route.includes('🚶'));
+assert(fs.readFileSync(path.join(root,'day.html'),'utf8').includes("d4ChurchOhquaoWalk"));
 assert(d.PLACES.ohquao.address.includes('Đường Số 38'));
 assert.strictEqual(spa.time,'15:45–17:45');
 for(const [file,fragments] of Object.entries({

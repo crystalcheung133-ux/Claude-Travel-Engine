@@ -1,5 +1,5 @@
 Saigon Companion Production File Manifest
-Generated: 2026-10-22
+Generated: 2026-10-23
 Base: VN Companion RC29.143 · Guide Timeline Entry Coverage
 Reference trip: Vietnam
 

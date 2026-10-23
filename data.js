@@ -1216,7 +1216,7 @@ const PLACES={
     "worth": ["適合四人買越南特色設計紀念品", "09:45–10:25 快逛，10:25 左右叫 Grab 去 11:00 Pizza 4P’s"],
     "categoryLabel": "🛍 Shopping",
     "price": "Varies",
-    "transport": "From Cộng then Grab to Thảo Điền",
+    "transport": "Walk from Pink Church / Cộng; Grab onward to Thảo Điền",
     "highlights": ["越南在地創意", "特色紙品及禮物", "設計師品牌"],
     "tips": ["留意 11:00 Pizza 4P’s 時間，按即時 Grab ETA 決定幾點離開。"]
   },
@@ -3233,7 +3233,7 @@ const ITINERARY_DATA={
           "先影 Tân Định Pink Church 外觀，再過馬路去 Cộng Cà Phê（274 Hai Bà Trưng）飲 Coconut Coffee；有時間可上樓影教堂景觀。",
           "兩站相鄰，步行約 1–3 分鐘；之後去 OHQUAO The Local Edit。"
         ],
-        "route": "🚕 前往 OHQUAO The Local Edit · 58/12 Phạm Ngọc Thạch。",
+        "route": "🚶 Walk → OHQUAO The Local Edit · 58/12 Phạm Ngọc Thạch（步行時間以 Maps 為準）。",
         "map": "https://www.google.com/maps/search/?api=1&query=Tan%20Dinh%20Pink%20Church%20Ho%20Chi%20Minh%20City",
         "type": "experience",
         "dayId": "day4",

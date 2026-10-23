@@ -372,8 +372,9 @@
     // When a flexible/free-time card has no verified address, let Google Maps
     // resolve the origin from the device's current location. Never guess one.
     const d4SpaWalk=String(day)==='4'&&String(item&&item.id)==='moc-huong-d4'&&String(next&&next.id)==='complex-0123-d4';
+    const d4ChurchOhquaoWalk=String(day)==='4'&&String(item&&item.id)==='pink-church'&&String(next&&next.id)==='push-push-d4';
     const namedTo=String(day)==='4'&&String(next&&next.id)==='thao-dien-open-list'?'In The Mood Saigon, 32 Trần Ngọc Diện, An Khánh, Hồ Chí Minh, Vietnam':to;
-    return `https://www.google.com/maps/dir/?api=1${from?`&origin=${encodeURIComponent(from)}`:''}&destination=${encodeURIComponent(namedTo)}&travelmode=${mode|| (d4SpaWalk?'walking':'driving')}`;
+    return `https://www.google.com/maps/dir/?api=1${from?`&origin=${encodeURIComponent(from)}`:''}&destination=${encodeURIComponent(namedTo)}&travelmode=${mode|| ((d4SpaWalk||d4ChurchOhquaoWalk)?'walking':'driving')}`;
   }
   function buildDerivedNextStop(item,index){
     let next=null;for(let n=index+1;n<workingItems.length;n++){if(isTimelineRenderable(workingItems[n])){next=workingItems[n];break;}}
@@ -388,8 +389,10 @@
     const walk=parseMinutes(raw,'walk'),grab=parseMinutes(raw,'grab');const special=/🚐|private transfer|klook/i.test(raw);
     const lines=[];
     const d4SpaWalk=String(day)==='4'&&String(item&&item.id)==='moc-huong-d4'&&String(next&&next.id)==='complex-0123-d4';
+    const d4ChurchOhquaoWalk=String(day)==='4'&&String(item&&item.id)==='pink-church'&&String(next&&next.id)==='push-push-d4';
     const d4PizzaShoppingWalk=String(day)==='4'&&String(item&&item.id)==='pizza4ps'&&String(next&&next.id)==='thao-dien-open-list';
-    if(d4SpaWalk){lines.push('🚶 Walk · approx. 1–3 min');}
+    if(d4ChurchOhquaoWalk){lines.push('🚶 Walk · time in Maps');}
+    else if(d4SpaWalk){lines.push('🚶 Walk · approx. 1–3 min');}
     else if(d4PizzaShoppingWalk){lines.push('🚶 Walk · approx. 1 min');}
     else if(special){const m=parseMinutes(raw,'grab');lines.push(`🚐 Private transfer${m?' · '+fmtMinutes(m):''}`);}
     else if(walk&&walk.max<=10){lines.push(`🚶 Walk · ${fmtMinutes(walk)}`);lines.push(`🚕 Grab · ${grab&&grab.max<=10?fmtMinutes(grab):'Live ETA in Maps'}`);}

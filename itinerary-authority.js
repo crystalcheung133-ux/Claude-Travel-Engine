@@ -492,6 +492,7 @@
       }
       if(church){
         church.route=String(church.route||'').replace(/Push Push Official/g,'OHQUAO The Local Edit');
+        if(push&&String(push.placeId||'')==='ohquao-local-edit')church.route='🚶 Walk → OHQUAO The Local Edit · 58/12 Phạm Ngọc Thạch（步行時間以 Maps 為準）。';
         if(Array.isArray(church.details))church.details=church.details.map(t=>String(t).replace(/Push Push Official/g,'OHQUAO The Local Edit'));
       }
       const spa=list.find(x=>x&&x.id==='moc-huong-d4');
