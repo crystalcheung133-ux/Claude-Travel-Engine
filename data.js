@@ -2812,12 +2812,12 @@ const ITINERARY_DATA={
         "time": "~10:00–12:00",
         "title": "🛍 Nguyễn Trãi · Local Fashion Walk",
         "details": [
-          "🚶 Phở SOL → Dauple → LÀMIN → Nguyễn Trãi：Clothes Bar 24 → Dot Dot Gem 29 → Bubbli 39/15 → Dear José 49A → KIDO 49B → LIBÉ 52",
+          "🚶 Phở SOL → Dauple → Clothes Bar 24 → Dot Dot Gem 29 → LIBÉ 52 → Dear José 49A → KIDO 49B → LÀMIN →（有時間先去）111 Concept",
           "💍 Dot Dot Gem 睇 contemporary jewellery；其餘 fashion shops 見啱先入，唔需要逐間完成",
-          "🧩 111 Concept：行完 LIBÉ 有時間先 Grab 過去；Route Map 保留佢，方便即場睇距離再決定",
+          "🧩 111 Concept：行完 LÀMIN 有時間先 Grab 過去；Route Map 保留佢，方便即場睇距離再決定",
           "沿 Nguyễn Trãi shopping 路線搵啲嘢食墊底，例如 Bánh mì、粉麵或輕食。"
         ],
-        "route": "🧩 LIBÉ 後：有時間就 Grab → 111 Concept；之後按時間去 Qspa / Fusion。唔去 111 就直接接 Qspa。",
+        "route": "🧩 LÀMIN 後：有時間就 Grab → 111 Concept；之後按時間去 Qspa / Fusion。唔去 111 就直接接 Qspa。",
         "map": "https://www.google.com/maps/search/?api=1&query=Clothes%20Bar%2024%20Nguyen%20Trai%20Ho%20Chi%20Minh%20City",
         "type": "shoppingWindow",
         "dayId": "day1",

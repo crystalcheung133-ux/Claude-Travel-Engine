@@ -11,3 +11,8 @@ PRODUCTION-FILE-MANIFEST.txt
 VERSION.txt
 RELEASE.json
 supabase/
+
+# Development-only audit and patch artifacts
+patch143.py
+audit-tests/
+*.py

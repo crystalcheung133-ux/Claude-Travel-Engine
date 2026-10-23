@@ -233,7 +233,7 @@
       if(!source||!dest)return;
       const content=[...(Array.isArray(source.details)?source.details:source.details?[String(source.details)]:[])];
       if(source.route)content.push(String(source.route));
-      if(source.time&&source.time!==dest.time)content.push('Previous '+sourceId+' time: '+String(source.time));
+      if(source.time&&source.time!==dest.time&&!(sourceId==='grab-ha-spa'&&String(source.time).trim()==='PM'))content.push('Previous '+sourceId+' time: '+String(source.time));
       if(content.length){
         const existing=Array.isArray(dest.details)?dest.details.slice():dest.details?[String(dest.details)]:[];
         content.forEach(function(line){if(!existing.includes(line))existing.push(line);});
@@ -241,6 +241,7 @@
       }
       const idx=out.indexOf(source);if(idx>=0)out.splice(idx,1);
     });
+    out.forEach(function(item){if(item&&item.id==='ha-spa'&&Array.isArray(item.details))item.details=item.details.filter(line=>!/^Previous grab-ha-spa time: PM$/.test(String(line).trim()));});
     const bean=byId.get('running-bean');
     if(bean){const idx=out.indexOf(bean);if(idx>=0)out.splice(idx,1);}
     return normalizeItems(out);
