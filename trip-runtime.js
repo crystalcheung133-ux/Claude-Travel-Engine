@@ -255,10 +255,10 @@ function bookingContactSectionsHTML(booking,place){
 }
 
 function bookingDocumentsHTML(booking){
- if(!booking||!window.TRIP_DOCUMENTS)return '';
- const docs=TRIP_DOCUMENTS.read().filter(d=>d.linkType==='booking'&&String(d.linkId)===String(booking.id));
- if(!docs.length)return '';
- return `<section class="accommodation-section booking-documents"><h3>Documents</h3><div class="trip-action-row trip-action-row--booking-compact">${docs.map(d=>{const target=`documents.html?document=${encodeURIComponent(d.id)}&bookingId=${encodeURIComponent(booking.id)}`;return bookingCrossLinkButton(`📎 ${escapeTripHTML(d.title||'Document')}`,target,'booking-document-btn');}).join('')}</div></section>`;
+ if(!booking)return '';
+ const docs=window.TRIP_DOCUMENTS?TRIP_DOCUMENTS.read().filter(d=>d.linkType==='booking'&&String(d.linkId)===String(booking.id)):[];
+ const actions=docs.map(d=>{const target=`documents.html?document=${encodeURIComponent(d.id)}&bookingId=${encodeURIComponent(booking.id)}`;return bookingCrossLinkButton(`📎 ${escapeTripHTML(d.title||'Document')}`,target,'booking-document-btn');}).join('');
+ return `<section class="accommodation-section booking-documents" data-booking-documents="${escapeTripHTML(booking.id)}" ${docs.length?'':'hidden'}><h3>Documents</h3><div class="trip-action-row trip-action-row--booking-compact">${actions}</div></section>`;
 }
 function buildAccommodationDetailHTML(booking){
   if(!booking)return '<p class="timestamp">Accommodation booking not found.</p>';
@@ -513,7 +513,7 @@ function bookingEditFields(booking){
     bookingField('Payment / deposit status','paymentStatus',booking.paymentStatus),
     ...(booking.type==='accommodation'?[]:[bookingField('Total / balance','price',booking.price)]),
     bookingField('Website / booking link','website',sharedWebsite,{wide:true,inputmode:'url'}),
-    bookingField('Phone','phone',sharedPhone),bookingField('Email','email',booking.email,{type:'email'}),
+    bookingField('Phone','phone',sharedPhone),bookingField('WhatsApp number','whatsapp',booking.whatsapp||'',{wide:true}),bookingField('Email','email',booking.email,{type:'email'}),
     bookingField('Notes / cancellation / important information','importantInfo',bookingImportantInfo(booking),{type:'textarea'})
   ];
   if(booking.type==='accommodation')common.splice(3,0,
@@ -688,6 +688,7 @@ async function saveBookingEdit(event,bookingId){
   clearBookingEditSession();
   if(current.placeId&&window.GUIDE_AUTHORITY){
     const placePatch={phone:String(next.phone||'').trim(),website:String(next.website||'').trim()};
+    if(current.type==='spa'&&formData.has('whatsapp'))placePatch.whatsapp=String(next.whatsapp||'').trim();
     if(current.type==='accommodation')placePatch.address=String(next.address||'').trim();
     GUIDE_AUTHORITY.save(current.placeId,placePatch);
   }
@@ -705,6 +706,19 @@ function reopenSavedBooking(){
   STORAGE.session.remove('travel_engine_booking_reopen_v1');
   setTimeout(function(){returnToBookingDetail(marker.bookingId);},80);
 }
+// Documents can arrive after the Booking sheet is first rendered (cloud sync).
+// Refresh only when the linked document list actually changes; preserve scroll.
+document.addEventListener('travelengine:documentschanged',function(){
+ if(!activeBookingDetail||bookingEditSession)return;
+ const modal=document.getElementById('tripModal');
+ if(!modal||!modal.classList.contains('show'))return;
+ const booking=getBookingById(activeBookingDetail.id);if(!booking)return;
+ const existing=modal.querySelector('.booking-documents');
+ if(!existing)return;
+ const template=document.createElement('template');template.innerHTML=bookingDocumentsHTML(booking);
+ const updated=template.content.firstElementChild;
+ if(updated&&existing.outerHTML!==updated.outerHTML)existing.replaceWith(updated);
+});
 document.addEventListener('travelengine:bookingpermissionchange',function(){
   if(!activeBookingDetail)return;
   const modal=document.getElementById('tripModal');if(!modal||!modal.classList.contains('show'))return;

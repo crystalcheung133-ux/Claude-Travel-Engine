@@ -52,8 +52,9 @@
   function draftKey(){ return (root.STORAGE_CONFIG&&root.STORAGE_CONFIG.keys&&root.STORAGE_CONFIG.keys.adminDraft)||'travel_engine_admin_draft_v1'; }
   function clone(value){ return value==null?value:JSON.parse(JSON.stringify(value)); }
 
-  const PRISTINE_MASTER=(function(){try{return root.ITINERARY_DATA?JSON.parse(JSON.stringify(root.ITINERARY_DATA)):null;}catch(_){return null;}})();
+  const PRISTINE_MASTER=(function(){try{return (root.TRAVEL_DATASETS&&root.TRAVEL_DATASETS.ITINERARY_DATA||root.ITINERARY_DATA)?JSON.parse(JSON.stringify(root.TRAVEL_DATASETS&&root.TRAVEL_DATASETS.ITINERARY_DATA||root.ITINERARY_DATA)):null;}catch(_){return null;}})();
   function getPristineMaster(){return PRISTINE_MASTER?clone(PRISTINE_MASTER):null;}
+  function currentMaster(){return PRISTINE_MASTER||((root.TRAVEL_DATASETS&&root.TRAVEL_DATASETS.ITINERARY_DATA)||root.ITINERARY_DATA||{});}
   function getDayEntry(dayKey){const e=getValidatedStore().dayChanges[String(dayKey)];return e?clone(e):null;}
   function emptyStore(){ return {masterRevision:getMasterRevision(),dayChanges:{}}; }
   function normalizeItems(items){
@@ -76,6 +77,118 @@
      and preserve add/delete/order operations by stable item id. */
   const USER_EDITABLE_FIELDS=['time','title','details','route'];
   function same(a,b){return JSON.stringify(a)===JSON.stringify(b);}
+
+  /* RC29.138 cross-day / legacy migration helpers ------------------------------------------------
+     Legacy (baseline-less) data cannot tell a default line from a user-written line. These fragments
+     fingerprint the DEFAULT text of cards that were retired or moved in this release. A line that matches a
+     fragment is treated as default; any other line is treated as user content and is preserved. */
+  const DEFAULT_LINE_FRAGMENTS={
+    'com-tam-moc':['炭燒碎米飯早餐'],
+    'garmentory':['本地設計師服飾'],
+    'pizza4ps':['必食Pizza','自家芝士'],
+    'running-bean':['步行4分鐘cafe','all day brunch']
+  };
+  function toLines(value){return Array.isArray(value)?value.map(String):(value?[String(value)]:[]);}
+  function normLine(v){return String(v||'').replace(/\s+/g,'').toLowerCase();}
+  function isDefaultLine(key,line){
+    const n=normLine(line);return (DEFAULT_LINE_FRAGMENTS[key]||[]).some(f=>n.includes(normLine(f)));
+  }
+  function isAutoRoute(route){return !route||/^\s*(🚶|🚕|🚐|🚌|🛍|To next stop)/.test(String(route));}
+  function isDefaultRetiredCard(item){
+    if(!item||!item.id||!DEFAULT_LINE_FRAGMENTS[item.id])return false;
+    return toLines(item.details).every(l=>isDefaultLine(item.id,l))&&isAutoRoute(item.route);
+  }
+  /* User-authored content of a moved/retired card, as note lines. With a baseline we diff against it;
+     without one we exclude lines that match the known default fragments. */
+  function movedUserLines(item,baseline,key,label){
+    const lines=[],details=toLines(item&&item.details);
+    if(baseline){
+      const old=toLines(baseline.details);
+      details.forEach(l=>{if(!old.includes(l))lines.push(l);});
+      if(item.route&&!same(item.route,baseline.route))lines.push(String(item.route));
+      if(item.time&&!same(item.time,baseline.time))lines.push('Previous '+label+' time: '+String(item.time));
+    }else{
+      details.forEach(l=>{if(!isDefaultLine(key,l))lines.push(l);});
+      if(item&&item.route&&!isAutoRoute(item.route))lines.push(String(item.route));
+    }
+    return lines;
+  }
+  function appendLines(target,lines){
+    if(!target||!lines||!lines.length)return false;
+    const existing=toLines(target.details);let changed=false;
+    lines.forEach(function(line){if(!existing.includes(line)){existing.push(line);changed=true;}});
+    if(changed)target.details=existing;
+    return changed;
+  }
+  function removeById(list,id){
+    if(!Array.isArray(list))return;
+    for(let i=list.length-1;i>=0;i--)if(list[i]&&list[i].id===id)list.splice(i,1);
+  }
+  /* Moves user content of cards that changed day in this release:
+       Day 2 Pizza 4P's        -> Day 4 Pizza 4P's (Day 2 card never survives when its content is carried over)
+       Day 5 Running Bean      -> Day 2 Running Bean (the Day 5 card is removed by migrateDay5Presentation)
+     days: {day: itemsArray}  (mutated in place) ; src: {day:{items,baseItems|null}} = the user's RAW data;
+     ensureDay(d): optional, returns the (possibly newly created) items array of a destination day. */
+  function applyCrossDayMoves(days,src,ensureDay){
+    const dest=function(d){return (ensureDay?ensureDay(d):days[d])||null;};
+    const s2=src&&src['2'];
+    const pizza=s2&&Array.isArray(s2.items)?s2.items.find(x=>x&&x.id==='pizza4ps'):null;
+    if(pizza&&days['2']){
+      const baseline=Array.isArray(s2.baseItems)?s2.baseItems.find(x=>x&&x.id==='pizza4ps'):null;
+      const lines=movedUserLines(pizza,baseline,'pizza4ps','Day 2 Pizza');
+      if(!lines.length){removeById(days['2'],'pizza4ps');}
+      else{
+        const day4=dest('4'),target=day4&&day4.find(x=>x&&x.id==='pizza4ps');
+        if(target){appendLines(target,lines);removeById(days['2'],'pizza4ps');}
+        /* else: Day 4 Pizza was deleted by the user -> keep the edited Day 2 card rather than lose the note. */
+      }
+    }
+    const s5=src&&src['5'];
+    const bean=s5&&Array.isArray(s5.items)?s5.items.find(x=>x&&x.id==='running-bean'):null;
+    if(bean){
+      const baseline=Array.isArray(s5.baseItems)?s5.baseItems.find(x=>x&&x.id==='running-bean'):null;
+      const lines=movedUserLines(bean,baseline,'running-bean','Day 5 Running Bean');
+      if(lines.length){
+        const day2=dest('2'),target=day2&&day2.find(x=>x&&x.id==='running-bean');
+        if(target)appendLines(target,lines);
+      }
+    }
+    return days;
+  }
+  /* RC29.139: Cơm Tấm Mộc is a retired Day 2 breakfast, not a second stop.
+     Carry any non-default notes to Running Bean before removing the obsolete card.
+     This is intentionally ID-scoped; no other manually added meals are touched. */
+  function reconcileDay2Breakfast(items,rawItems,rawBase){
+    const list=normalizeItems(items), old=list.find(x=>x&&x.id==='com-tam-moc');
+    if(!old)return list;
+    const bean=list.find(x=>x&&x.id==='running-bean');
+    if(!bean)return list; // never drop a user's note without a destination
+    const source=(Array.isArray(rawItems)?rawItems:[]).find(x=>x&&x.id==='com-tam-moc')||old;
+    const base=(Array.isArray(rawBase)?rawBase:[]).find(x=>x&&x.id==='com-tam-moc')||null;
+    const notes=movedUserLines(source,base,'com-tam-moc','Day 2 Cơm Tấm Mộc');
+    if(source.time&&source.time!=='09:00'&&!base)notes.push('Previous Cơm Tấm Mộc time: '+source.time);
+    appendLines(bean,notes);
+    removeById(list,'com-tam-moc');
+    return list;
+  }
+  /* Baseline-less data: merge over the master, retire UNEDITED default copies of retired cards. */
+  function legacyMigrateDay(day,items,masterItems){
+    let list=legacyRebaseDay(items,masterItems);
+    const masterIds=new Set(normalizeItems(masterItems).filter(x=>x&&x.id).map(x=>String(x.id)));
+    if(String(day)==='2')list=list.filter(x=>!(x&&x.id&&['com-tam-moc','garmentory','pizza4ps'].includes(x.id)&&!masterIds.has(x.id)&&isDefaultRetiredCard(x)));
+    if(String(day)==='2')list=reconcileDay2Breakfast(list,items,null);
+    return String(day)==='5'?migrateDay5Presentation(list):list;
+  }
+  function moveAcrossStoreDays(dayChanges,src){
+    const days={};Object.keys(dayChanges).forEach(function(d){days[d]=dayChanges[d].items;});
+    applyCrossDayMoves(days,src,function(d){
+      if(!dayChanges[d]){
+        const m=normalizeItems(((currentMaster()[d]||{}).items)||[]);
+        dayChanges[d]={items:m,baseItems:normalizeItems(m)};days[d]=dayChanges[d].items;
+      }
+      return days[d];
+    });
+  }
   function rebaseDay(savedItems,baseItems,currentItems){
     const saved=normalizeItems(savedItems),base=normalizeItems(baseItems),current=normalizeItems(currentItems);
     const baseBy=new Map(base.filter(x=>x&&x.id).map(x=>[String(x.id),x]));
@@ -87,7 +200,7 @@
       if(!si||!si.id){out.push(clone(si));return;}
       const id=String(si.id),bi=baseBy.get(id),ci=currentBy.get(id);
       if(!bi){out.push(clone(si));return;} // user-added item
-      if(!ci){out.push(clone(si));return;} // manual edit wins even if deploy removed the card
+      if(!ci){if(!same(si,bi))out.push(clone(si));return;} // retain only genuinely edited retired cards
       const merged=clone(ci);
       USER_EDITABLE_FIELDS.forEach(function(field){
         const sHas=Object.prototype.hasOwnProperty.call(si,field),bHas=Object.prototype.hasOwnProperty.call(bi,field);
@@ -107,6 +220,63 @@
       out.splice(at,0,clone(ci));
     });
     return normalizeItems(out);
+  }
+  /* Day 5 structural migration: preserve user-authored notes verbatim.
+     An absent destination is never recreated after a deliberate user deletion;
+     retain the source instead so content cannot be silently lost. */
+  function migrateDay5Presentation(items){
+    const out=normalizeItems(items);
+    const transfer={'hotel-luggage':'hotel-checkout','grab-ha-spa':'ha-spa'};
+    const byId=new Map(out.filter(x=>x&&x.id).map(x=>[String(x.id),x]));
+    Object.keys(transfer).forEach(function(sourceId){
+      const source=byId.get(sourceId),dest=byId.get(transfer[sourceId]);
+      if(!source||!dest)return;
+      const content=[...(Array.isArray(source.details)?source.details:source.details?[String(source.details)]:[])];
+      if(source.route)content.push(String(source.route));
+      if(source.time&&source.time!==dest.time)content.push('Previous '+sourceId+' time: '+String(source.time));
+      if(content.length){
+        const existing=Array.isArray(dest.details)?dest.details.slice():dest.details?[String(dest.details)]:[];
+        content.forEach(function(line){if(!existing.includes(line))existing.push(line);});
+        dest.details=existing;
+      }
+      const idx=out.indexOf(source);if(idx>=0)out.splice(idx,1);
+    });
+    const bean=byId.get('running-bean');
+    if(bean){const idx=out.indexOf(bean);if(idx>=0)out.splice(idx,1);}
+    return normalizeItems(out);
+  }
+  /* Day 2/4 migration: retire unchanged obsolete master cards, but NEVER
+     discard a user-edited orphan. Respect user order if it differs from baseline. */
+  function rebaseApprovedDay(day,saved,base,current){
+    const d=String(day), result=rebaseDay(saved,base,current);
+    if(d!=='2'&&d!=='4')return result;
+    const baseline=normalizeItems(base), savedList=normalizeItems(saved), master=normalizeItems(current);
+    const oldBy=new Map(baseline.filter(x=>x&&x.id).map(x=>[String(x.id),x]));
+    const masterIds=new Set(master.filter(x=>x&&x.id).map(x=>String(x.id)));
+    const retired=d==='2'?new Set(['com-tam-moc','garmentory','pizza4ps']):new Set();
+    const keep=result.filter(function(item){
+      if(!item||!retired.has(String(item.id))||masterIds.has(String(item.id)))return true;
+      const original=oldBy.get(String(item.id));
+      if(!original)return true; // never remove user-added cards
+      const savedItem=savedList.find(x=>x&&String(x.id)===String(item.id));
+      return USER_EDITABLE_FIELDS.some(f=>!same(savedItem&&savedItem[f],original[f]));
+    });
+    const baseOrder=baseline.filter(x=>x&&x.id).map(x=>String(x.id));
+    const savedOrder=savedList.filter(x=>x&&x.id&&oldBy.has(String(x.id))).map(x=>String(x.id));
+    const baseSurvivors=baseOrder.filter(id=>savedOrder.includes(id));
+    const userReordered=!same(savedOrder,baseSurvivors);
+    if(userReordered)return normalizeItems(d==='2'?reconcileDay2Breakfast(keep,savedList,baseline):keep);
+    const masterRank=new Map(master.map((x,i)=>[String(x.id),i]));
+    // Sort only master-owned cards. User-added or user-edited orphan cards retain
+    // their relative placement; don't silently reorder custom activities.
+    const slots=keep.map((x,i)=>masterRank.has(String(x&&x.id))?i:-1).filter(i=>i>=0);
+    const sorted=slots.map(i=>keep[i]).sort((a,b)=>masterRank.get(String(a.id))-masterRank.get(String(b.id)));
+    slots.forEach((index,i)=>{keep[index]=sorted[i];});
+    return normalizeItems(d==='2'?reconcileDay2Breakfast(keep,savedList,baseline):keep);
+  }
+  function rebaseDayForKey(day,saved,base,current){
+    const migrated=rebaseApprovedDay(day,saved,base,current);
+    return String(day)==='5'?migrateDay5Presentation(migrated):migrated;
   }
   function legacyRebaseDay(savedItems,currentItems){
     /* One-time bridge for pre-RC29.131 stores, which did not save a baseline.
@@ -149,31 +319,37 @@
     if(!hasRevisionShape){
       // Legacy flat saves are user edits, not disposable cache. Preserve every
       // day and migrate without losing blanked notes, custom cards or deletions.
-      const dayChanges={};
+      const dayChanges={},flatSrc={};
       Object.keys(raw).forEach(function(day){
         if(!/^\d+$/.test(day)||!Array.isArray(raw[day]))return;
-        const masterItems=(((root.ITINERARY_DATA||{})[String(day)]||{}).items)||[];
-        dayChanges[String(day)]={items:legacyRebaseDay(raw[day],masterItems),baseItems:normalizeItems(masterItems)};
+        const masterItems=(((currentMaster())[String(day)]||{}).items)||[];
+        dayChanges[String(day)]={items:legacyMigrateDay(day,raw[day],masterItems),baseItems:normalizeItems(masterItems)};
+        flatSrc[String(day)]={items:raw[day],baseItems:null};
       });
+      moveAcrossStoreDays(dayChanges,flatSrc);
       return {masterRevision:current,dayChanges:dayChanges};
     }
     if(raw.masterRevision!==current){
-      const rebased={masterRevision:current,dayChanges:{}};
+      const rebased={masterRevision:current,dayChanges:{}},rawSrc={};
       Object.keys(raw.dayChanges||{}).forEach(function(day){
         const entry=raw.dayChanges[day];if(!entry||!Array.isArray(entry.items))return;
-        const masterItems=(((root.ITINERARY_DATA||{})[String(day)]||{}).items)||[];
-        const items=Array.isArray(entry.baseItems)
-          ? rebaseDay(entry.items,entry.baseItems,masterItems)
-          : legacyRebaseDay(entry.items,masterItems);
-        rebased.dayChanges[String(day)]={items:items,baseItems:normalizeItems(masterItems)};
+        const masterItems=(((currentMaster())[String(day)]||{}).items)||[];
+        const hasBase=Array.isArray(entry.baseItems);
+        const items=hasBase?rebaseDayForKey(day,entry.items,entry.baseItems,masterItems):legacyMigrateDay(day,entry.items,masterItems);
+        const migratedEntry={items:items,baseItems:normalizeItems(masterItems)};
+        ['baseVersion','dirtySync','syncedVersion'].forEach(function(f){if(entry[f]!==undefined)migratedEntry[f]=entry[f];});
+        rebased.dayChanges[String(day)]=migratedEntry;
+        rawSrc[String(day)]={items:entry.items,baseItems:hasBase?entry.baseItems:null};
       });
+      // Cross-day moves must survive local Saved Overrides exactly as they survive cloud publications.
+      moveAcrossStoreDays(rebased.dayChanges,rawSrc);
       return rebased;
     }
     const cleanChanges={};
     Object.keys(raw.dayChanges).forEach(function(day){
       const entry=raw.dayChanges[day];
       if(entry&&Array.isArray(entry.items)){
-        cleanChanges[String(day)]={items:normalizeItems(entry.items),baseItems:normalizeItems(Array.isArray(entry.baseItems)?entry.baseItems:((((root.ITINERARY_DATA||{})[String(day)]||{}).items)||[]))};
+        cleanChanges[String(day)]={items:normalizeItems(entry.items),baseItems:normalizeItems(Array.isArray(entry.baseItems)?entry.baseItems:((((currentMaster())[String(day)]||{}).items)||[]))};
         // RC29.137: keep Save & Sync bookkeeping across normalisation passes.
         ['baseVersion','dirtySync','syncedVersion'].forEach(function(f){if(entry[f]!==undefined)cleanChanges[String(day)][f]=entry[f];});
       }
@@ -205,7 +381,7 @@
       const st=root.TRIP_SYNC&&root.TRIP_SYNC.getState?root.TRIP_SYNC.getState():null;
       if(st&&st.hydrated&&Number(st.activeVersion)>Number(entry.syncedVersion))return null;
     }
-    return entry&&Array.isArray(entry.items)?clone(entry.items):null;
+    return entry&&Array.isArray(entry.items)?(String(dayKey)==='5'?migrateDay5Presentation(entry.items):clone(entry.items)):null;
   }
 
   /* Commits a batch of admin-draft changes (as produced by admin.js's
@@ -225,7 +401,7 @@
       const change=changes[key];
       if(change&&Array.isArray(change.items)){
         const d=String(change.day),prev=store.dayChanges[d];
-        store.dayChanges[d]={items:normalizeItems(change.items),baseItems:normalizeItems(((((root.ITINERARY_DATA||{})[d]||{}).items)||[])),
+        store.dayChanges[d]={items:normalizeItems(change.items),baseItems:normalizeItems(((((currentMaster())[d]||{}).items)||[])),
           baseVersion:(prev&&prev.baseVersion!=null&&prev.dirtySync)?prev.baseVersion:syncActiveVersion(),dirtySync:true};
         days.push(d);
       }
@@ -259,15 +435,76 @@
   /* A snapshot published from an OLDER master is rebased onto the current master using the
      itineraryBase it carries (the master items it was edited from). Snapshots with no base are
      not rebased (they cannot be separated from stale master content) and stay incompatible. */
+  // Explicit Oct 22 approvals. Only these named activities are normalised;
+  // other user-edited cards, notes and ordering remain untouched.
+  function applyOct22Approvals(day,items){
+    const list=normalizeItems(items), d=String(day);
+    if(d==='2'){
+      const bean=list.find(x=>x&&x.id==='running-bean');
+      const garment=list.find(x=>x&&x.id==='garmentory');
+      const shopping=list.find(x=>x&&x.id==='shopping-tqd');
+      if(garment&&shopping){
+        const noteLines=(garment.details||[]).filter(t=>!/(?:11 Garmentory|Trần Quang Diệu|shopping)/i.test(String(t)));
+        if(noteLines.length)appendLines(shopping,noteLines);
+        removeById(list,'garmentory');
+      }
+      // The live cloud publication can carry the breakfast at the end after
+      // manual Add/Delete. Anchor only the two approved morning activities;
+      // preserve every other card's relative order and edited fields.
+      if(bean&&shopping){
+        const breakfastIndex=list.indexOf(bean);
+        const shoppingIndex=list.indexOf(shopping);
+        if(breakfastIndex>shoppingIndex){
+          list.splice(breakfastIndex,1);
+          list.splice(list.indexOf(shopping),0,bean);
+        }
+      }
+      // A legacy standalone Garmentory may be present without shopping; do
+      // not discard it or rewrite user-authored content in that case.
+
+    }
+    if(d==='4'){
+      const crab=list.find(x=>x&&x.id==='quan-thuy');
+      const church=list.find(x=>x&&x.id==='pink-church');
+      if(crab&&church){
+        const meaningful=(crab.details||[]).filter(t=>!/蟹肉粉絲|蟹料理|早餐後 Grab/i.test(String(t)));
+        if(meaningful.length)appendLines(church,meaningful.map(t=>'Former Quán Thuý note: '+t));
+        removeById(list,'quan-thuy');
+      }
+      if(church)church.time='09:00–09:40';
+      const pizza=list.find(x=>x&&x.id==='pizza4ps');
+      if(pizza)pizza.time='11:00';
+      const push=list.find(x=>x&&x.id==='push-push-d4');
+      if(push&&typeof push.route==='string')push.route=push.route.replace(/11:30/g,'11:00');
+    }
+    return list;
+  }
   function rebasePublishedItinerary(data){
-    if(!data||!data.itineraryData||!data.itineraryBase)return null;
+    if(!data||!data.itineraryData||!data.itineraryBase||!Object.keys(data.itineraryBase).length)return null;
+    if(Object.keys(data.itineraryData).some(day=>!Array.isArray(data.itineraryBase[day])))return null;
     const out={};
     Object.keys(data.itineraryData).forEach(function(day){
-      const entry=data.itineraryData[day]||{},cur=((root.ITINERARY_DATA||{})[day])||{};
+      const entry=data.itineraryData[day]||{},cur=((currentMaster())[day])||{};
       const baseDay=data.itineraryBase[day];
-      out[day]=Object.assign({},clone(cur),{items:Array.isArray(baseDay)?rebaseDay(entry.items||[],baseDay,cur.items||[]):normalizeItems(cur.items||[])});
+      out[day]=Object.assign({},clone(cur),{items:Array.isArray(baseDay)?rebaseDayForKey(day,entry.items||[],baseDay,cur.items||[]):normalizeItems(cur.items||[])});
     });
-    Object.keys(root.ITINERARY_DATA||{}).forEach(function(day){if(!out[day])out[day]=clone(root.ITINERARY_DATA[day]);});
+    Object.keys(currentMaster()).forEach(function(day){if(!out[day])out[day]=clone(currentMaster()[day]);});
+    /* Cross-day moves (Pizza Day 2 -> Day 4, Running Bean Day 5 -> Day 2) use the same helper as the
+       Saved Override and Pending Draft paths so all three behave identically. */
+    const pubDays={},pubSrc={};
+    Object.keys(out).forEach(function(d){pubDays[d]=out[d].items;});
+    Object.keys(data.itineraryData).forEach(function(d){
+      pubSrc[d]={items:(data.itineraryData[d]&&data.itineraryData[d].items)||[],baseItems:Array.isArray(data.itineraryBase[d])?data.itineraryBase[d]:null};
+    });
+    applyCrossDayMoves(pubDays,pubSrc,null);
+    if(pubDays['2'])pubDays['2']=reconcileDay2Breakfast(pubDays['2'],pubSrc['2']&&pubSrc['2'].items,pubSrc['2']&&pubSrc['2'].baseItems);
+    // Approved Day 4 spa time: replace only the retired 15:00 default; keep other user-entered times.
+    if(pubDays['4'])pubDays['4'].forEach(function(item){
+      if(item&&item.id==='moc-huong-d4'&&String(item.time||'').trim()==='15:00')item.time='15:45–17:45';
+    });
+    if(out['2'])out['2'].items=pubDays['2'];
+    if(out['4'])out['4'].items=applyOct22Approvals('4',pubDays['4']);
+    if(out['2'])out['2'].items=applyOct22Approvals('2',out['2'].items);
     return out;
   }
 
@@ -283,34 +520,109 @@
      'itineraryDay<N>' -> {day, items, masterRevision}. day.html stamps
      masterRevision when it marks a day dirty; this validates that stamp
      against the current master before ever trusting a pending edit. */
+  /* ---- Pending Draft lifecycle (RC29.138) ----------------------------------------------------------
+     A draft entry is {day, items, masterRevision, baseItems, basedOnItems}:
+       baseItems    = the MASTER items of masterRevision (what a future deploy is diffed against)
+       basedOnItems = the committed list (Saved Override or Master) the user started editing from.
+     Existing drafts without a baseline are migrated ONCE (and written back); ambiguity is documented in
+     CLAUDE_OUTSTANDING_ISSUES.md: without a baseline a deletion cannot be told from an omitted default. */
+  function readDraft(){
+    try{if(typeof root.getAdminDraft==='function'){const d=root.getAdminDraft();if(d)return d;}}catch(_){}
+    const backing=localStore();
+    try{return backing?backing.readJSON(draftKey(),null):null;}catch(_){return null;}
+  }
+  function persistDraft(draft){
+    try{if(typeof root.replaceAdminDraft==='function'){root.replaceAdminDraft(draft);return true;}}catch(_){}
+    const backing=localStore();
+    try{return !!(backing&&backing.writeJSON(draftKey(),draft));}catch(_){return false;}
+  }
+  function committedDayItems(dayKey){
+    const d=String(dayKey),saved=getDayOverrideItems(d);
+    return normalizeItems(saved||(((currentMaster()[d]||{}).items)||[]));
+  }
+  function migrateDraftObject(draft){
+    if(!draft||typeof draft!=='object'||!draft.changes||typeof draft.changes!=='object')return {draft:draft,changed:false};
+    const current=getMasterRevision(),stale=[],upgrade=[];
+    Object.keys(draft.changes).forEach(function(key){
+      const m=/^itineraryDay(\d+)$/.exec(key),c=draft.changes[key];
+      if(!m||!c||!Array.isArray(c.items))return;
+      if(String(c.masterRevision||'')!==String(current))stale.push(m[1]);
+      else if(!Array.isArray(c.baseItems)||!Array.isArray(c.basedOnItems))upgrade.push(m[1]);
+    });
+    if(!stale.length&&!upgrade.length)return {draft:draft,changed:false};
+    const out=clone(draft),days={},src={},created=new Set(),before={};
+    stale.forEach(function(d){
+      const c=draft.changes['itineraryDay'+d],master=((currentMaster()[d]||{}).items)||[];
+      const hasBase=Array.isArray(c.baseItems);
+      days[d]=hasBase?rebaseDayForKey(d,c.items,c.baseItems,master):legacyMigrateDay(d,c.items,committedDayItems(d));
+      src[d]={items:c.items,baseItems:hasBase?c.baseItems:null};
+    });
+    applyCrossDayMoves(days,src,function(d){
+      if(!days[d]){
+        const existing=draft.changes['itineraryDay'+d];
+        if(existing&&Array.isArray(existing.items)){days[d]=normalizeItems(existing.items);before[d]=JSON.stringify(days[d]);}
+        else{days[d]=committedDayItems(d);created.add(d);}
+      }
+      return days[d];
+    });
+    upgrade.forEach(function(d){
+      /* Current-revision draft written before baselines existed: nothing to rebase, but record the
+         baseline now so later deploys and saved edits can be layered correctly. */
+      if(days[d])return;
+      days[d]=normalizeItems(draft.changes['itineraryDay'+d].items);before[d]=JSON.stringify(days[d]);
+    });
+    Object.keys(days).forEach(function(d){
+      const isStale=stale.includes(d),isUpgrade=upgrade.includes(d);
+      if(!isStale&&!isUpgrade&&!created.has(d)&&before[d]===JSON.stringify(days[d]))return; // untouched current draft
+      const prev=draft.changes['itineraryDay'+d]||{};
+      out.changes['itineraryDay'+d]=Object.assign({},clone(prev),{
+        day:String(d),items:normalizeItems(days[d]),masterRevision:current,
+        baseItems:normalizeItems(((currentMaster()[d]||{}).items)||[]),
+        basedOnItems:committedDayItems(d)
+      });
+    });
+    out.updatedAt=out.updatedAt||new Date().toISOString();
+    return {draft:out,changed:true};
+  }
+  function getDraftMigrated(){
+    const raw=readDraft(),result=migrateDraftObject(raw);
+    if(result.changed)persistDraft(result.draft);
+    return result.draft;
+  }
+  /* Builds the payload day.html stores in the admin draft (baseline + revision included). */
+  function makeDraftPayload(dayKey,items){
+    const d=String(dayKey),current=getMasterRevision(),draft=readDraft();
+    const prev=draft&&draft.changes?draft.changes['itineraryDay'+d]:null;
+    const keep=prev&&String(prev.masterRevision||'')===String(current)&&Array.isArray(prev.basedOnItems);
+    return {
+      day:d,items:clone(items),masterRevision:current,
+      baseItems:normalizeItems(((currentMaster()[d]||{}).items)||[]),
+      basedOnItems:keep?clone(prev.basedOnItems):committedDayItems(d)
+    };
+  }
   function getPendingDayItems(dayKey){
-    const draft=typeof root.getAdminDraft==='function'?root.getAdminDraft():null;
-    const pending=draft&&draft.changes?draft.changes['itineraryDay'+dayKey]:null;
+    const d=String(dayKey),draft=getDraftMigrated();
+    const pending=draft&&draft.changes?draft.changes['itineraryDay'+d]:null;
     if(!pending||!Array.isArray(pending.items)) return null;
-    // A manually saved pending edit remains authoritative across deploy revisions.
-    return normalizeItems(pending.items);
+    let items=normalizeItems(pending.items);
+    if(d==='5')items=migrateDay5Presentation(items);
+    /* Saved Override and Pending Draft are both user edits. The draft is a layer over the committed
+       list it was started from: replay only what the draft changed on top of the CURRENT saved list so a
+       newer saved edit is never silently masked, while the draft's own edits/deletions still win. */
+    const saved=getDayOverrideItems(d);
+    const base=Array.isArray(pending.basedOnItems)?pending.basedOnItems:(Array.isArray(pending.baseItems)?pending.baseItems:null);
+    if(saved){
+      const merged=base?rebaseDay(items,base,saved):legacyRebaseDay(items,saved);
+      return d==='5'?migrateDay5Presentation(merged):merged;
+    }
+    return items;
   }
 
   /* Removes only the itinerary-related entries of the persisted admin draft
      that belong to a previous master, leaving every other pending change
      (and the draft itself) intact. Call once per page load — not on every
      render — since it performs a write. (Test D) */
-  function pruneStaleDraftItineraryChanges(){
-    const backing=localStore();
-    if(!backing) return;
-    const raw=backing.readJSON(draftKey(),null);
-    if(!raw||!raw.changes||typeof raw.changes!=='object') return;
-    const current=getMasterRevision();
-    let changed=false;
-    Object.keys(raw.changes).forEach(function(key){
-      if(!key.startsWith('itineraryDay')) return;
-      const change=raw.changes[key];
-      if(change&&Array.isArray(change.items)&&change.masterRevision!==current){
-        // Preserve user-owned draft edits even after a deploy.
-      }
-    });
-    if(changed) backing.writeJSON(draftKey(),raw);
-  }
+  function pruneStaleDraftItineraryChanges(){ getDraftMigrated(); }
 
   /* Single resolver used by every itinerary consumer:
      pending (validated) -> saved override (validated) -> master. */
@@ -334,9 +646,9 @@
   }
   function resolveDayItems(dayKey,masterItems){
     const pending=getPendingDayItems(dayKey);
-    if(pending) return hydrateRelationships(pending,masterItems);
+    if(pending) return hydrateRelationships(applyOct22Approvals(dayKey,pending),masterItems);
     const saved=getDayOverrideItems(dayKey);
-    if(saved) return hydrateRelationships(saved,masterItems);
+    if(saved) return hydrateRelationships(applyOct22Approvals(dayKey,String(dayKey)==='2'?reconcileDay2Breakfast(saved,saved,null):saved),masterItems);
     return normalizeItems(masterItems||[]);
   }
 
@@ -354,11 +666,27 @@
     commitDayChangesChecked,markSynced,getPristineMaster,getDayEntry,mergeRemoteDay,rebaseDay,rebasePublishedItinerary,
     resolveDayItems,
     getDayOverrideItems,
-    getPendingDayItems,
+    getPendingDayItems,makeDraftPayload,migrateDraftObject,applyCrossDayMoves,
     commitDayChanges,
     clearDayOverride,
     pruneStaleDraftItineraryChanges,
     isCompatibleSnapshotPayload,
     normalizeItems,normalizeItineraryData
   });
+  /* RC29.138 lifecycle: hydration must run after this authority exists (so an older publication can be
+     rebased) AND the production projection must be rebuilt afterwards. GenerationSelectionAdapter builds
+     PRODUCTION_PROJECTION when it loads, which is before this file; without the rebuild every page renders
+     the pre-hydration Master and cloud Timeline edits are invisible. */
+  (function hydrateThenRebuildProjection(){
+    if(!(root.TRIP_SYNC&&typeof root.TRIP_SYNC.hydrateStaticData==='function'&&root.TRAVEL_DATASETS))return;
+    let result=null;
+    try{result=root.TRIP_SYNC.hydrateStaticData(root.TRAVEL_DATASETS);}catch(error){result=null;}
+    const adapter=root.GenerationSelectionAdapter;
+    if(result&&result.ok&&result.applied&&result.applied.length&&adapter&&typeof adapter.rebuild==='function'&&root.TRIP_CONFIG){
+      try{adapter.rebuild(root.TRAVEL_DATASETS,root.TRIP_CONFIG);}
+      catch(error){try{console.warn('Production projection rebuild after hydration failed',error&&error.message,(error&&(error.validation||error.result||error.report))&&JSON.stringify(error.validation||error.result||error.report).slice(0,1200));}catch(_){}}
+    }
+  })();
+  /* Persist saved-store and draft migrations once, before admin.js caches the draft. */
+  try{getValidatedStore();getDraftMigrated();}catch(error){try{console.warn('Itinerary migration deferred',error);}catch(_){}}
 })(globalThis);

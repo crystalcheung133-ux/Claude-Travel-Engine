@@ -39,6 +39,10 @@
     "status": "active",
     "note": "invoked by current Master CI suite"
   },
+  "test-approved-itinerary.js": {
+    "status": "active",
+    "note": "GATING approved Day 2/4/5 itinerary contract (times, order, branch, shopping route, guide/booking wiring)"
+  },
   "test-booking-authority-stale-poisoning.js": {
     "status": "advisory",
     "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
@@ -95,13 +99,17 @@
     "status": "active",
     "note": "static guard ensuring canonical browser gate retains required interaction coverage"
   },
+  "test-browser-migration-render.py": {
+    "status": "browser",
+    "note": "real Chromium: migration preservation + RENDERED DOM (R1) for saved/pending/publication; Save&Sync payload; external services mocked"
+  },
   "test-browser-release-smoke.py": {
     "status": "browser",
     "note": "canonical real-browser release gate: Studio lifecycle/reload + Booking/Guide stacking + bottom-nav visibility"
   },
   "test-browser-save-sync.py": {
     "status": "browser",
-    "note": "real-browser Save/reload persistence; zero external requests (NOT executed in authoring env)"
+    "note": "real-browser Save/reload persistence; gating; external services mocked (never contacted)"
   },
   "test-build-meta-consistency.js": {
     "status": "active",
@@ -135,6 +143,10 @@
     "status": "active",
     "note": "Field-proven Brewda legacy custom activity normalization + new Add Activity non-place contract"
   },
+  "test-day2-day4-migration.js": {
+    "status": "active",
+    "note": "Migration safety regression; preserves user edits and checks approved day structure"
+  },
   "test-day2-rue-miche-shopping-contract.js": {
     "status": "advisory",
     "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
@@ -150,6 +162,18 @@
   "test-day4-approved-route-contract.js": {
     "status": "advisory",
     "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
+  },
+  "test-day4-aum-booking-navigation.js": {
+    "status": "advisory",
+    "note": "Current Day 4 AUM booking/timeline/guide content snapshot; not a generic release gate"
+  },
+  "test-day5-migration-safety.js": {
+    "status": "active",
+    "note": "Migration safety regression; preserves user edits and checks approved day structure"
+  },
+  "test-day5-saved-override-revision.js": {
+    "status": "active",
+    "note": "Migration safety regression; preserves user edits and checks approved day structure"
   },
   "test-dual-currency-expenses.js": {
     "status": "active",
@@ -219,6 +243,10 @@
     "status": "advisory",
     "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
   },
+  "test-migration-fixtures.js": {
+    "status": "active",
+    "note": "RC29.138 gating migration matrix: fresh, saved (baseline/legacy/flat), pending (baseline/legacy), saved+pending, publication, deletions, moved/merged notes, idempotence"
+  },
   "test-moc-huong-guide-override-migration.js": {
     "status": "active",
     "note": "Moc Huong saved Guide booking-copy compatibility without modifying Timeline or unrelated overrides"
@@ -238,6 +266,10 @@
   "test-open-day-and-arrival-flow.js": {
     "status": "active",
     "note": "D1 reset/Cafe Apartment/sunset flow and D4 single Open List contract"
+  },
+  "test-pizza-day4-booking-consistency.js": {
+    "status": "active",
+    "note": "Day 4 Pizza booking, place, notes, handoff point to Thao Dien"
   },
   "test-portability-completeness.js": {
     "status": "active",
@@ -408,6 +440,10 @@
     "status": "active",
     "note": "multiple-payer derived total, +0.3% expense FX adjustment, mobile daypart collision guard"
   },
+  "test-real-global-master.js": {
+    "status": "active",
+    "note": "Master is reachable without an injected globalThis.ITINERARY_DATA (browser-shaped); baseline is captured"
+  },
   "test-release-hygiene.js": {
     "status": "active",
     "note": "invoked by current Master CI suite"
@@ -428,6 +464,10 @@
     "status": "active",
     "scope": "release-hardening",
     "notes": "Prevents retired bookings-runtime.js from returning to production paths."
+  },
+  "test-retired-spa-and-day2-shopping.js": {
+    "status": "active",
+    "note": "Gating regression: retired spas absent; Day 2 route, directory and navigation consistent"
   },
   "test-runtime-booking-persistence.js": {
     "status": "active",
@@ -526,6 +566,10 @@
     "status": "active",
     "note": "VN requested backlog regression: booking time/cashback, consolidated export, Moments paging/lazy, daypart display"
   },
+  "test-vn-booking-documents-share-regression.js": {
+    "status": "active",
+    "note": "invoked by Master CI: linked Documents, Share UI and saved Spa edit regression"
+  },
   "test-vn-content-contract.js": {
     "status": "advisory",
     "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
@@ -557,5 +601,8 @@
   "test-vn-route-first-spa-contract.js": {
     "status": "advisory",
     "note": "pins current itinerary content; non-gating snapshot (real contract covered by ci-tests/invariants)"
+  },
+  "test-guide-timeline-entry-coverage.js": {
+    "status": "active"
   }
 }

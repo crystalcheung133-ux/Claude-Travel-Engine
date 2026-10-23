@@ -1,5 +1,5 @@
 importScripts('./theme-config.js', './asset-config.js', './locale-config.js', './formatter.js', './navigation-config.js', './trip-config.js', './storage-config.js');
-const CACHE_NAME = `travel-engine-${TRIP_CONFIG.storageNamespace}-${TRIP_CONFIG.version}-rc29137-guide-save`;
+const CACHE_NAME = `travel-engine-${TRIP_CONFIG.storageNamespace}-${TRIP_CONFIG.version}-rc29143-day2-order-navigation-fix`;
 const CRITICAL_EXTENSIONS = /\.(?:css|js)$/i;
 const ASSETS = [
   './',
@@ -178,19 +178,24 @@ async function navigationResponse(request, event) {
     return direct;
   }
 
-  const indexRequest = new Request(new URL('./index.html', self.location.href), {
-    method: 'GET', headers: { accept: 'text/html' }, cache: 'no-store',
-    credentials: 'same-origin', redirect: 'follow'
+  // A Day/Guide/Booking navigation must never silently become Homepage.
+  // On network failure, serve the cached document for that exact route only.
+  // The Day query (?day=N) is deliberately ignored for the shared day.html shell.
+  const url = new URL(request.url);
+  const routeFile = url.pathname.split('/').pop();
+  const routeRequest = new Request(new URL('./' + routeFile, self.location.href), {
+    headers: { accept: 'text/html' }
   });
-  const indexResponse = await fetchValidHtml(indexRequest);
-  if (indexResponse) {
-    reportNavigation(event, 'network-fallback', startedAt);
-    await cache.put('./index.html', indexResponse.clone());
-    return indexResponse;
+  const cachedRoute = await cache.match(routeRequest, { ignoreSearch: true });
+  if (await validateHtmlResponse(cachedRoute)) {
+    reportNavigation(event, 'route-cache-fallback', startedAt);
+    return cachedRoute;
   }
   reportNavigation(event, 'offline-fallback', startedAt);
-  return await cachedValidHtml(request) || new Response(
-    '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Offline</title></head><body><p>This page is temporarily unavailable.</p></body></html>',
+  const offline = await cache.match('./offline.html', { ignoreSearch: true });
+  if (await validateHtmlResponse(offline)) return offline;
+  return new Response(
+    '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Offline</title></head><body><p>This page is temporarily unavailable. Please retry.</p></body></html>',
     { status: 503, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
   );
 }

@@ -5,7 +5,9 @@ ok(gr.includes('GUIDE_SYNC.saveNow(key,patch)')&&ga.includes('function saveCheck
 ok(gs.includes("travelengine:guidesaved")&&(gs.includes('.update(')&&gs.includes('.insert('))&&gs.includes(".eq('trip_id',cfg.tripId)"),'Guide remote auto-sync lifecycle incomplete');
 ok(!pub.includes('GUIDE_AUTHORITY.mergedPlaces'),'Publication must not own Guide overrides');
 ok(day.includes('buildDerivedNextStop(item,index)')&&day.includes('publishedNextId(item.id)===next.id'),'Next stop is not derived from Timeline order');
-ok(day.includes('walk&&walk.max<=15')&&day.includes('🚶 Walk')&&day.includes('🚕 Grab'),'<=15 minute walk dual-mode rule missing');
+ok(day.includes('walk&&walk.max<=10')&&day.includes('🚶 Walk')&&day.includes('🚕 Grab'),'Walk and Grab travel estimates must be supported');
+ok(day.includes('d4PizzaShoppingWalk')&&day.includes('🚶 Walk · approx. 1 min'),'Day 4 Pizza to shopping walk hint missing');
+ok(day.includes('route-next-map')&&day.includes('>Directions ›</a>')&&!day.includes('>Walk ›</a>')&&!day.includes('>Grab / Directions ›</a>'),'Only one Directions link may be rendered in the next-stop hint');
 ok(day.includes("else if(grab){lines.push(`🚕 Grab")&&day.includes('Live ETA in Maps'),'Long/unknown walk Grab rule missing');
 ok(day.includes('www.google.com/maps/dir/?api=1&origin='),'Derived Directions map missing');
 ok(!day.includes('id="timelineEditRoute"') && !day.includes('base.route=document.getElementById'), 'Travel note editor field must be removed while derived transport remains');

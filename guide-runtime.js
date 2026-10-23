@@ -142,7 +142,7 @@ function openShoppingDirectoryView(requestedDay){
    grouped=section('PLANNED BY DAY · Day 1',planned(raw.filter(card=>shoppingDirectoryDay(card)===1)))+section('PLANNED BY DAY · Day 2',planned(raw.filter(card=>shoppingDirectoryDay(card)===2)))+section('PLANNED BY DAY · Day 4',planned(raw.filter(card=>shoppingDirectoryDay(card)===4)))+section('OPTIONAL / NEARBY',optional(raw));
  }
  const title=day?`🛍 Day ${day} Shopping Directory`:'🛍 Shopping Directory';
- const lead=day===1?'Nguyễn Trãi 是已定好的 Day 1 local-fashion line；主線與 optional extension 分開。':day===2?'上午走 11 Garmentory + Trần Quang Diệu；Pizza 4P’s 後到 Qspa 做 Afternoon Reset，再走 Cathedral / Post Office / Book Street sightseeing cluster，之後步行接 Vincom / The New Playground → Rue Miche L’Édition（Union Square B3）→ LÚNE。':day===4?'Day 4 只用一條 Shopping Route；每一段清楚標示 Grab、步行或同址，方便一眼看完整動線。':day===5?'Day 5 不設固定 Shopping Route；行完 Fine Arts Museum 後按前幾日漏逛的店自由決定。':'先看 PLANNED BY DAY；真正未排入 itinerary 的店才放 OPTIONAL。';
+ const lead=day===1?'Nguyễn Trãi 是已定好的 Day 1 local-fashion line；主線與 optional extension 分開。':day===2?'上午走 11 Garmentory + Trần Quang Diệu；Quán Cua Cà Mau 午餐後到 Qspa 做 Afternoon Reset，再走 Cathedral / Post Office / Book Street sightseeing cluster，之後步行接 Vincom / The New Playground → Rue Miche L’Édition（Union Square B3）→ LÚNE。':day===4?'Day 4 只用一條 Shopping Route；每一段清楚標示 Grab、步行或同址，方便一眼看完整動線。':day===5?'Day 5 不設固定 Shopping Route；行完 Fine Arts Museum 後按前幾日漏逛的店自由決定。':'先看 PLANNED BY DAY；真正未排入 itinerary 的店才放 OPTIONAL。';
  $('guideModalContent').innerHTML=`<p class="kicker">Shopping Directory</p><h2>${title}</h2><p class="lead">${lead}</p><div class="directory-grid">${grouped}</div>`;
  closeMiniMenus();$('guideModal').classList.add('show');
  const sheet=document.querySelector('#guideModal .guide-sheet');if(sheet)sheet.scrollTop=0;
@@ -210,7 +210,7 @@ function guideCategoryHeading(cat){
 }
 
 function guideDayNumber(item){
- const links=PRODUCTION_GUIDE.dayLinks[item.key]||[];
+ const links=(PRODUCTION_GUIDE.dayLinks&&PRODUCTION_GUIDE.dayLinks[item.key])||[];
  const numbers=links.map(link=>{const match=String(link&&link[0]||'').match(/Day\s*(\d+)/i);return match?Number(match[1]):null;}).filter(Number.isFinite);
  return numbers.length?Math.min(...numbers):999;
 }
@@ -220,10 +220,41 @@ function guideActivityGroup(item){
  if(/track|hike|walk|blue lakes|deer park/.test(text)) return 'Walks & Outdoor';
  return 'Experiences & Attractions';
 }
+// A category must remain clickable even if a saved Timeline card is malformed.
+// Resolve each day once per category render, not once per dining entry/comparison.
+function guideDiningTime(item,dayTimes){
+ const key=String(item&&item.key||'');
+ if(dayTimes&&dayTimes.has(key))return dayTimes.get(key);
+ const m=String(item&&item.sub||'').match(/(?:^|\D)([01]?\d|2[0-3]):([0-5]\d)/);
+ return m?Number(m[1])*60+Number(m[2]):9999;
+}
+function guideDiningTimes(){
+ const result=new Map();
+ try{
+  const days=(typeof ITINERARY!=='undefined'&&ITINERARY)?Object.keys(ITINERARY):[];
+  for(const day of days){
+   let items=[];
+   try{
+    items=(window.ITINERARY_AUTHORITY&&typeof ITINERARY_AUTHORITY.resolveDayItems==='function')
+     ?ITINERARY_AUTHORITY.resolveDayItems(day)
+     :(ITINERARY[day]&&ITINERARY[day].items)||[];
+   }catch(err){console.warn('Guide dining: skipping unavailable day',day,err);continue;}
+   if(!Array.isArray(items))continue;
+   for(const row of items){
+    if(!row||!row.placeId)continue;
+    const m=String(row.time||'').match(/(?:^|\D)([01]?\d|2[0-3]):([0-5]\d)/);
+    if(m&&!result.has(String(row.placeId)))result.set(String(row.placeId),Number(m[1])*60+Number(m[2]));
+   }
+  }
+ }catch(err){console.warn('Guide dining: Timeline unavailable, using Guide fallback',err);}
+ return result;
+}
+
 function guideSortedCategoryItems(cat){
  const items=guideCategoryItems(cat).slice();
  const semantic=guideSemanticCategory(cat);
- if(semantic==='ATTRACTIONS'||semantic==='DINING'||semantic==='STAY') return items.sort((a,b)=>guideDayNumber(a)-guideDayNumber(b)||String(a.title||'').localeCompare(String(b.title||'')));
+ if(semantic==='DINING'){const times=guideDiningTimes();return items.sort((a,b)=>guideDayNumber(a)-guideDayNumber(b)||guideDiningTime(a,times)-guideDiningTime(b,times)||String(a.title||'').localeCompare(String(b.title||'')));}
+ if(semantic==='ATTRACTIONS'||semantic==='STAY') return items.sort((a,b)=>guideDayNumber(a)-guideDayNumber(b)||String(a.title||'').localeCompare(String(b.title||'')));
  if(semantic==='SHOP') return items.sort((a,b)=>guideDayNumber(a)-guideDayNumber(b));
  if(semantic==='EXPERIENCES') return items.sort((a,b)=>guideActivityGroup(a).localeCompare(guideActivityGroup(b))||String(a.title||'').localeCompare(String(b.title||'')));
  return items.sort((a,b)=>String(a.title||'').localeCompare(String(b.title||'')));
@@ -274,13 +305,20 @@ function openGuideCategory(cat){
  window.GUIDE_MODAL_ORIGIN='guide';
  const semantic=guideSemanticCategory(cat);
  saveGuideNavigationContext(semantic);
- const list=guideSortedCategoryItems(semantic);
+ let list;
+ try{list=guideSortedCategoryItems(semantic);}
+ catch(err){
+  console.error('Guide category ordering failed; opening unsorted category',semantic,err);
+  list=guideCategoryItems(semantic);
+ }
  // A single-entry category is already the destination; skip a redundant chooser.
  if(list.length===1){closeMiniMenus();openGuideModal(list[0].key);return;}
  if(semantic==='SHOP'){
   closeMiniMenus();openShoppingDirectoryView();return;
  }
- const rows=groupedGuideRows(semantic,list);
+ let rows;
+ try{rows=groupedGuideRows(semantic,list);}
+ catch(err){console.error('Guide grouping failed; opening flat list',semantic,err);rows=list.map(guideListRow).join('');}
  $('guideModalContent').innerHTML=`<p class="kicker">Guide</p><h2>${guideCategoryHeading(semantic)}</h2><div class="category-pop-list guide-category-grouped">${rows}</div>`;
  closeMiniMenus();$('guideModal').classList.add('show');
 }
@@ -547,11 +585,11 @@ window.isGuideEditActive=isGuideEditActive;
 function openGuideEdit(key){
  const g=guidePlace(key);if(!g||!(window.isAdminMode&&window.isAdminMode()))return;
  const f=(label,name,value,area)=>`<label class="guide-edit-field"><span>${label}</span>${area?`<textarea name="${name}">${String(value||'').replace(/&/g,'&amp;').replace(/</g,'&lt;')}</textarea>`:`<input name="${name}" value="${String(value||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;')}">`}</label>`;
- $('guideModalContent').innerHTML=`<div class="guide-onepage guide-edit-form"><p class="kicker">TRIP STUDIO · GUIDE</p><h2>Edit Guide</h2><form id="guideEditForm" onsubmit="event.preventDefault();saveGuideEdit('${key}')">${f('Place name','title',g.title)}${f('Address','address',g.address)}${f('Phone','phone',g.phone)}${f('Website / link','website',g.website||g.url)}${f('Opening hours','hours',g.hours)}${f('Description / About','description',guideDescription(g),true)}${f('Useful info — one item per line','usefulInfo',guideUsefulInfoItems(g).join('\n'),true)}<div class="guide-edit-actions"><button class="pill" type="button" onclick="openGuideModal('${key}')">Cancel</button><button class="btn primary-action" type="submit">Save Guide</button></div></form></div>`;
+ $('guideModalContent').innerHTML=`<div class="guide-onepage guide-edit-form"><p class="kicker">TRIP STUDIO · GUIDE</p><h2>Edit Guide</h2><form id="guideEditForm" onsubmit="event.preventDefault();saveGuideEdit('${key}')">${f('Place name','title',g.title)}${f('Address','address',g.address)}${f('Phone','phone',g.phone)}${f('WhatsApp number','whatsapp',g.whatsapp||'')}${f('Website / link','website',g.website||g.url)}${f('Opening hours','hours',g.hours)}${f('Description / About','description',guideDescription(g),true)}${f('Useful info — one item per line','usefulInfo',guideUsefulInfoItems(g).join('\n'),true)}<div class="guide-edit-actions"><button class="pill" type="button" onclick="openGuideModal('${key}')">Cancel</button><button class="btn primary-action" type="submit">Save Guide</button></div></form></div>`;
 }
 function saveGuideEdit(key){
  const form=$('guideEditForm');if(!form)return;const fd=new FormData(form);
- const patch={title:String(fd.get('title')||'').trim(),address:String(fd.get('address')||'').trim(),phone:String(fd.get('phone')||'').trim(),website:String(fd.get('website')||'').trim(),hours:String(fd.get('hours')||'').trim(),description:String(fd.get('description')||'').trim(),usefulInfo:String(fd.get('usefulInfo')||'').split(/\n+/).map(x=>x.trim()).filter(Boolean)};
+ const patch={title:String(fd.get('title')||'').trim(),address:String(fd.get('address')||'').trim(),phone:String(fd.get('phone')||'').trim(),whatsapp:String(fd.get('whatsapp')||'').trim(),website:String(fd.get('website')||'').trim(),hours:String(fd.get('hours')||'').trim(),description:String(fd.get('description')||'').trim(),usefulInfo:String(fd.get('usefulInfo')||'').split(/\n+/).map(x=>x.trim()).filter(Boolean)};
  /* RC29.137: the form only owns title/address/phone/website/hours/description/usefulInfo. Fields it does not
     show (price, sub, bookingNote, worth star rating, notes, tips, highlights, signature, practical) are NOT touched. */
  const btn=form.querySelector('[type=submit],button:not([type=button])');if(btn){btn.disabled=true;}

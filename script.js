@@ -81,14 +81,14 @@ window.applyNearFitModal=applyNearFitModal;
     return el;
   };
   root.dismissAllContentOverlays=function(){
-    ['tripModal','guideModal','docViewer','expenseModal','momentsModal','unexpectedModal','mamaModal','weatherModal','clockModal','shoppingRouteModal','referenceViewerModal','expenseCalculatorModal','docModal','editDocModal','expenseNoticeModal','tripExportModal'].forEach(function(id){
+    ['tripModal','guideModal','docViewer','expenseModal','momentsModal','unexpectedModal','mamaModal','weatherModal','clockModal','shoppingRouteModal','referenceViewerModal','expenseCalculatorModal','docModal','editDocModal','expenseNoticeModal','tripExportModal','timelineEditorModal','timelineDeleteModal','timelineMoveModal'].forEach(function(id){
       const el=document.getElementById(id);if(!el)return;
       el.classList.remove('show','guide-backgrounded-for-booking','identity-required');
       el.setAttribute?.('aria-hidden','true');
       el.style.zIndex='';
     });
     const body=document.body;
-    body.classList.remove('guide-booking-stack-open','guide-foreground-over-booking','admin-overlay-open','expense-modal-open');
+    body.classList.remove('guide-booking-stack-open','guide-foreground-over-booking','admin-overlay-open','expense-modal-open','timeline-editor-open');
     body.style.top='';body.style.overflow='';
     try{document.getElementById('docViewerBody')?.replaceChildren();}catch(e){}
     try{window.GUIDE_MODAL_ORIGIN=null;window.TRIP_MODAL_RETURN_TO_GUIDE=false;}catch(e){}
@@ -96,6 +96,19 @@ window.applyNearFitModal=applyNearFitModal;
     return true;
   };
 })(globalThis);
+
+/* RC29.144: navigation is an escape route from a content popup.
+   Capture before legacy button handlers so stale overlays cannot trap the nav. */
+document.addEventListener('click',function(event){
+  const nav=event.target&&event.target.closest?.('.app-nav');
+  if(!nav)return;
+  const action=event.target.closest?.('a,button');
+  if(!action)return;
+  const openContent=['guideModal','tripModal','momentsModal','unexpectedModal','toolsModal','mamaModal','docViewer'];
+  if(openContent.some(id=>document.getElementById(id)?.classList.contains('show'))){
+    window.dismissAllContentOverlays?.();
+  }
+},true);
 
 /* Popup → page: close all overlays before following native internal page links.
    Does not interfere with in-page anchors, external links or new tabs. */

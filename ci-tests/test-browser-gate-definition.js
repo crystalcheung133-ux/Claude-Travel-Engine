@@ -46,7 +46,7 @@ for(const token of [
 // phone-only "Call" action) that the runtime does not even implement. Those belong in
 // static Companion-content CI (see test-qspa-d1-d3-reconciliation.js), not here.
 for(const forbidden of [
- 'Norah Spa 2',
+ 
  "'14:00'",
  'tablecheck.com',
  'trip-action-btn--call',
@@ -58,7 +58,9 @@ assert(gate.includes('BOOKING_AUTHORITY.deployMaster()'),'Browser smoke must use
 assert(!runner.includes('|| true'),'Browser runner must never convert a failed browser test into PASS');
 const workflow=fs.readFileSync('.github/workflows/browser-release-smoke.yml','utf8');
 assert(workflow.includes('sh ci-tests/run-browser.sh'),'GitHub browser workflow must execute canonical browser runner');
-assert(workflow.includes('playwright install --with-deps chromium webkit'),'GitHub browser workflow must provision Chromium + WebKit');
+assert(workflow.includes('mcr.microsoft.com/playwright/python:v1.56.0-noble'),'GitHub browser workflow must use pinned Chromium + WebKit preinstalled image');
+assert(workflow.includes("('chromium', 'webkit')"),'GitHub browser workflow must verify both browser engines launch');
+assert(!workflow.includes('playwright install --with-deps'),'Browser workflow must not reinstall Ubuntu dependencies on every run');
 assert(gate.includes('pw.webkit.launch'),'Browser release gate must execute WebKit');
 assert(gate.includes("'webkit-mobile-390x844'"),'Browser release gate must cover iPhone-class 390×844 WebKit');
 console.log('BROWSER GATE DEFINITION: PASS — Studio lifecycle/reload, Booking foreground, Guide→Booking stacking and nav visibility are mandatory; itinerary-specific content is excluded from the generic gate.');

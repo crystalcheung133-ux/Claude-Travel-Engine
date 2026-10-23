@@ -24,8 +24,12 @@ for(const [name,row] of Object.entries(registry)){
 
 
 const browserTests=Object.entries(registry).filter(([,r])=>r.status==='browser').map(([n])=>n);
-assert.deepStrictEqual(browserTests,['test-browser-release-smoke.py','test-browser-save-sync.py'],'Browser tests must be exactly the release smoke + Save & Sync persistence test');
+assert.deepStrictEqual(browserTests.slice().sort(),['test-browser-migration-render.py','test-browser-release-smoke.py','test-browser-save-sync.py'],'Browser tests must be exactly the release smoke + migration/render + Save & Sync persistence test');
 const browserRunner=fs.readFileSync(path.join(root,'run-browser.sh'),'utf8');
 browserTests.forEach(t=>assert(browserRunner.includes(t),'run-browser.sh must execute '+t));
+assert(!/non-gating|\|\| true|SAVE_SYNC_BROWSER_GATE/.test(browserRunner),'run-browser.sh steps must all be gating');
+assert(/test-browser-migration-render/.test(fs.readFileSync(path.join(root,'test-browser-migration-render.py'),'utf8').split('\n')[0]+'test-browser-migration-render'),'migration render test present');
+const runAll=fs.readFileSync(path.join(root,'run-all.sh'),'utf8');
+assert(runAll.includes('ci-tests/run-browser.sh'),'run-all.sh must invoke the browser gate');
 
 console.log('TEST REGISTRY / ORCHESTRATION: PASS');

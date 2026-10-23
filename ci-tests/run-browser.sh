@@ -1,21 +1,17 @@
 #!/bin/sh
+# Real-browser release gate. ALL steps are gating (RC29.138): a failing step fails the gate.
+# External services (fonts, weather, FX, production Supabase ...) are MOCKED locally by every test; nothing is sent.
 set -eu
-echo "== BROWSER RELEASE SMOKE =="
-python - <<'PY'
+python3 - <<'PY'
 try:
     import playwright
 except Exception as e:
     raise SystemExit("BROWSER GATE BLOCKED: Python Playwright is not installed: "+str(e))
 PY
-PYTHONDONTWRITEBYTECODE=1 python ci-tests/test-browser-release-smoke.py
+echo "== BROWSER RELEASE SMOKE =="
+PYTHONDONTWRITEBYTECODE=1 python3 ci-tests/test-browser-release-smoke.py
+echo "== BROWSER MIGRATION + RENDERED TIMELINE (R1) =="
+PYTHONDONTWRITEBYTECODE=1 python3 ci-tests/test-browser-migration-render.py
 echo "== BROWSER SAVE & SYNC PERSISTENCE =="
-# The Save & Sync browser test was authored without a browser available and has not yet had a first green run.
-# It is reported but non-gating until SAVE_SYNC_BROWSER_GATE=1 is set (flip it once CI shows it green).
-if PYTHONDONTWRITEBYTECODE=1 python ci-tests/test-browser-save-sync.py; then
-  echo "BROWSER SAVE & SYNC: ok"
-elif [ "${SAVE_SYNC_BROWSER_GATE:-0}" = "1" ]; then
-  echo "BROWSER SAVE & SYNC GATE FAILED"; exit 1
-else
-  echo "WARN: BROWSER SAVE & SYNC test failed (non-gating until SAVE_SYNC_BROWSER_GATE=1)"
-fi
+PYTHONDONTWRITEBYTECODE=1 python3 ci-tests/test-browser-save-sync.py
 echo "BROWSER RELEASE GATE PASSED"

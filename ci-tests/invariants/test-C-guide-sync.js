@@ -58,10 +58,10 @@ await h.test('Guide Save writes ONLY the fields the form edits (never wipes wort
   const src=h.fs.readFileSync(h.path.join(h.ROOT,'guide-runtime.js'),'utf8');
   const fn=src.slice(src.indexOf('function saveGuideEdit'),src.indexOf('window.openGuideEdit='));
   let sent=null;const form={querySelector(){return {disabled:false}},insertBefore(){},firstChild:null};
-  const ctx=h.vm.createContext({$:()=>form,FormData:function(){this.get=k=>({title:' T ',address:'',phone:'1',website:'',hours:'',description:'D',usefulInfo:'a\n\n b '})[k]},
+  const ctx=h.vm.createContext({$:()=>form,FormData:function(){this.get=k=>({title:' T ',address:'',phone:'1',whatsapp:'',website:'',hours:'',description:'D',usefulInfo:'a\n\n b '})[k]},
     GUIDE_SYNC:{saveNow:(k,p)=>{sent=p;return Promise.resolve({ok:true,label:'x'})}},GUIDE_AUTHORITY:{},openGuideModal(){},document:{createElement(){return {setAttribute(){}}}},alert(){}});
   ctx.window=ctx;h.vm.runInContext(fn,ctx);h.vm.runInContext("saveGuideEdit('k')",ctx);
-  assert.deepStrictEqual(Object.keys(sent).sort(),['address','description','hours','phone','title','usefulInfo','website']);
+  assert.deepStrictEqual(Object.keys(sent).sort(),['address','description','hours','phone','title','usefulInfo','website','whatsapp']);
   assert.strictEqual(sent.address,'');assert.deepStrictEqual(JSON.parse(JSON.stringify(sent.usefulInfo)),['a','b']);
 });
 h.done('C. guide');

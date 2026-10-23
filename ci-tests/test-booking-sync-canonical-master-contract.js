@@ -16,8 +16,8 @@ assert(sync.includes('remoteRevision===currentRevision'),'remote revision gate m
 assert(sync.includes('copy._masterRevision'),'outgoing remote payload must carry master revision');
 assert(trip.includes("if(booking&&booking.emoji)return String(booking.emoji)"),'Trip Booking must respect booking emoji');
 for(const x of [
- '"title": "Pizza 4P’s Hai Bà Trưng"',
- '"time": "12:45"',
+ '"title": "Pizza 4P’s · Trần Ngọc Diện · Thảo Điền"',
+ '"time": "11:00"',
  '"title": "Qspa · Rediscover Your Soul"',
  '"status": "planned"',
  '"emoji": "🥂"',

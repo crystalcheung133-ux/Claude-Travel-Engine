@@ -9,6 +9,7 @@
   function store(){return root.STORAGE&&root.STORAGE.local?root.STORAGE.local:null;}
   function master(){try{return typeof BOOKINGS_DATA!=='undefined'?BOOKINGS_DATA:(root.BOOKINGS_DATA||{});}catch(error){return root.BOOKINGS_DATA||{};}}
   const DEPLOY_MASTER=clone(master()||{});
+  const RETIRED_BOOKING_IDS=new Set(['bk-quan-cua-ca-mau']);
   const EDITABLE_STATE_FIELDS=Object.freeze([
     'status','bookingName','plannedDays','plannedVisits',
     'depositPaid','depositAmount','depositCurrency','paymentStatus',
@@ -59,6 +60,21 @@
     out._masterRevision=masterRevision();
     return canonicalStatusRecord(out);
   }
+  // Explicitly approved branch move: legacy cloud/local reservation metadata must not
+  // redirect Day 4 Pizza to the retired Day 2 Hai Ba Trung restaurant.
+  // Preserve unrelated user-authored reservation state (status, references, deposits).
+  function protectMovedPizza(base,merged){
+    if(!base||base.id!=='bk-pizza4ps'||!merged)return merged;
+    const out=clone(merged);
+    const obsolete=/Hai B[aà] Tr[ưựu]ng|151B Hai|2026-10-31|Day 2|Qspa|Norah/i;
+    ['day','dayId','eventId','timelineItemId','date','time','title','address','placeId'].forEach(function(f){
+      out[f]=clone(base[f]);
+    });
+    ['notes','bookingHandoff'].forEach(function(f){
+      if(obsolete.test(String(out[f]||'')))out[f]=clone(base[f]);
+    });
+    return out;
+  }
   function mergeOverride(base,override){
     if(!override||typeof override!=='object')return clone(base);
     if(recordRevision(override)!==masterRevision()&&Array.isArray(override._editedFields))return replayEdited(base,override);
@@ -80,13 +96,14 @@
     const output={};
     const ids=new Set([...Object.keys(source||{}),...Object.keys(DEPLOY_MASTER||{})]);
     ids.forEach(function(id){
+      if(RETIRED_BOOKING_IDS.has(id))return;
       const base=canonicalBase(id,source);
-      if(base)output[id]=base;
+      if(base)output[id]=protectMovedPizza(DEPLOY_MASTER[id]||base,base);
     });
     const state=read();
     Object.keys(state.overrides).forEach(function(id){
       if(!output[id]||!state.overrides[id]||typeof state.overrides[id]!=='object')return;
-      output[id]=Object.assign({},mergeOverride(output[id],state.overrides[id]),{id:id});
+      output[id]=protectMovedPizza(DEPLOY_MASTER[id]||output[id],Object.assign({},mergeOverride(output[id],state.overrides[id]),{id:id}));
     });
     (state.deletedIds||[]).forEach(function(id){delete output[id];});
     return output;

@@ -144,6 +144,7 @@
   let studioShellSyncRaf=0;
   function syncStudioShellMetrics(){
     const root=document.documentElement;
+    const releaseFirstPaint=()=>root.classList.remove('home-card-first-paint-pending');
     const travellerHeader=document.querySelector('.site-nav');
     const travellerHeaderHeight=Math.ceil(travellerHeader?.getBoundingClientRect().height||68);
     root.style.setProperty('--studio-traveller-header-height',`${travellerHeaderHeight}px`);
@@ -153,6 +154,7 @@
     const desktop=window.matchMedia('(min-width:721px)').matches;
     if(!state.mode || !desktop || !main || !hero){
       root.style.setProperty('--engine-studio-home-fit-scale','1');
+      releaseFirstPaint();
       return;
     }
 
@@ -163,6 +165,8 @@
     const naturalHeight=Math.max(1,hero.offsetHeight);
     const fit=Math.min(1,availableWidth/naturalWidth,availableHeight/naturalHeight);
     root.style.setProperty('--engine-studio-home-fit-scale',String(Math.max(0.01,Math.floor(fit*1000)/1000)));
+    // Reveal only after Studio has calculated its final card size.
+    releaseFirstPaint();
   }
   function scheduleStudioShellMetrics(){
     cancelAnimationFrame(studioShellSyncRaf);
@@ -354,6 +358,14 @@
   };
 
   window.getAdminDraft=function(){ return JSON.parse(JSON.stringify(ensureDraft())); };
+  /* RC29.138: lets itinerary-authority.js persist a migrated draft AND refresh the in-memory cache so a
+     stale cached draft can never be written back over the migration. */
+  window.replaceAdminDraft=function(next){
+    if(!next||typeof next!=='object'||!next.changes||typeof next.changes!=='object') return false;
+    state.draft=JSON.parse(JSON.stringify(next));
+    STORAGE.local.writeJSON(DRAFT_KEY,state.draft);
+    return true;
+  };
   window.isAdminMode=function(){ return state.mode && isUnlocked(); };
   window.isAdminUnlocked=function(){ return isUnlocked(); };
   window.getAdminPublishCredential=function(){ return isUnlocked() ? ADMIN_PIN : null; };

@@ -29,6 +29,7 @@ node ci-tests/content-snapshots/test-vn-content-contract.js >/tmp/adv.$$ 2>&1 &&
 node ci-tests/content-snapshots/test-vn-itinerary-content-contract.js >/tmp/adv.$$ 2>&1 && echo "  ok    test-vn-itinerary-content-contract" || { echo "  WARN  test-vn-itinerary-content-contract (itinerary content changed since this snapshot; not a contract failure)"; warn=$((warn+1)); }
 node ci-tests/content-snapshots/test-vn-restaurant-booking-guide-contract.js >/tmp/adv.$$ 2>&1 && echo "  ok    test-vn-restaurant-booking-guide-contract" || { echo "  WARN  test-vn-restaurant-booking-guide-contract (itinerary content changed since this snapshot; not a contract failure)"; warn=$((warn+1)); }
 node ci-tests/content-snapshots/test-vn-route-first-spa-contract.js >/tmp/adv.$$ 2>&1 && echo "  ok    test-vn-route-first-spa-contract" || { echo "  WARN  test-vn-route-first-spa-contract (itinerary content changed since this snapshot; not a contract failure)"; warn=$((warn+1)); }
+node ci-tests/content-snapshots/test-day4-aum-booking-navigation.js >/tmp/adv.$$ 2>&1 && echo "  ok    test-day4-aum-booking-navigation" || { echo "  WARN  test-day4-aum-booking-navigation (itinerary content changed; not a contract failure)"; warn=$((warn+1)); }
 rm -f /tmp/adv.$$
 echo "ADVISORY: $warn snapshot(s) differ from the shipped itinerary (non-gating)"
 exit 0

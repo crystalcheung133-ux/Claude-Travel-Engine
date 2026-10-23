@@ -23,6 +23,14 @@
     if(/track|hike|walk|blue lakes|deer park/.test(lower))return 'Walks & Outdoor';
     return 'Experiences & Attractions';
   }
+  function diningTime(item){
+    const source=root.ITINERARY_AUTHORITY&&typeof root.ITINERARY_AUTHORITY.resolveDayItems==='function'?Object.fromEntries(Object.keys(root.ITINERARY||{}).map(d=>[d,{items:root.ITINERARY_AUTHORITY.resolveDayItems(d)}])):root.ITINERARY;
+    for(const day of Object.values(source||{}))for(const row of (day&&day.items)||[]){
+      if(row&&row.placeId===item.key){const m=String(row.time||'').match(/(?:^|\D)([01]?\d|2[0-3]):([0-5]\d)/);if(m)return Number(m[1])*60+Number(m[2]);}
+    }
+    const m=String(item.sub||'').match(/(?:^|\D)([01]?\d|2[0-3]):([0-5]\d)/);
+    return m?Number(m[1])*60+Number(m[2]):9999;
+  }
   function categoryKeys(category){
     const guide=source(); if(!guide)return [];
     const skip=excluded();
@@ -31,6 +39,7 @@
     const keys=explicit.concat(inferred.filter(function(key){return !explicit.includes(key);}));
     const items=keys.map(function(key){return key&&guide.places[key]?Object.assign({key:key},guide.places[key]):null;}).filter(function(item){return item&&!skip.has(item.key);});
     if(category==='ATTRACTIONS')items.sort(function(a,b){return dayNumber(a.key)-dayNumber(b.key)||String(a.title||'').localeCompare(String(b.title||''));});
+    else if(['DINING','RESTAURANTS','CAFÉS','CAFES'].includes(category))items.sort(function(a,b){return dayNumber(a.key)-dayNumber(b.key)||diningTime(a)-diningTime(b)||String(a.title||'').localeCompare(String(b.title||''));});
     else if(category==='ACTIVITIES')items.sort(function(a,b){return activityGroup(a).localeCompare(activityGroup(b))||String(a.title||'').localeCompare(String(b.title||''));});
     else items.sort(function(a,b){return String(a.title||'').localeCompare(String(b.title||''));});
     return items.map(function(item){return item.key;});

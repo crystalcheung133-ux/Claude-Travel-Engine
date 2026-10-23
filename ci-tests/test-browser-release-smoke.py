@@ -141,6 +141,13 @@ def guide_to_booking(page,day,item_id):
 
 def run_viewport(browser,base,viewport,label):
       context=browser.new_context(viewport=viewport)
+      # RC29.138: external services (fonts, weather, FX, production Supabase ...) are MOCKED locally with 503 and
+      # never contacted. Only the served app (base) and data:/blob: URLs are allowed through.
+      def _mock_external(route):
+          u=route.request.url
+          if u.startswith(base) or u.startswith('data:') or u.startswith('blob:'): route.continue_()
+          else: route.fulfill(status=503,content_type='application/json',body='{"mocked":true}')
+      context.route('**/*',_mock_external)
       context.add_init_script("window.TRAVEL_ENGINE_SUPABASE={enabled:false};")
       # RC29.89: install the deterministic FX provider before any app script runs.
       # This prevents WebKit from creating a cross-origin request lifecycle at all;
@@ -339,12 +346,16 @@ def run_viewport(browser,base,viewport,label):
 
         # Change Effect Gate: poison persisted booking state with pre-reconciliation-style stale
         # overrides, reload, then assert the rendered Booking UI still reflects the CURRENT deploy
-        # master — using values read live from the app's own canonical data, never a hardcoded
-        # itinerary literal, so this survives any future change to the actual trip content.
+        # master and previously saved edits — using effective booking authority before
+        # injecting legacy cache, never a hardcoded itinerary literal.
         canonical=page.evaluate("""() => {
           const deploy=BOOKING_AUTHORITY.deployMaster();
           const pick=(cat)=>Object.values(deploy).find(b=>b&&b.status!=='optional'&&(b.bookingCategory===cat||b.category===cat));
-          const spa=pick('Spa'), restaurant=pick('Restaurants'), transfer=deploy['bk-transfer-in'];
+          const spaMaster=pick('Spa'), restaurantMaster=pick('Restaurants'), transfer=deploy['bk-transfer-in'];
+          // Existing saved edits are valid booking authority. The test injects only
+          // unstamped legacy cache; it must not erase a previously saved time.
+          const spa=spaMaster&&BOOKING_AUTHORITY.get(spaMaster.id,PRODUCTION_BOOKINGS.byId);
+          const restaurant=restaurantMaster&&BOOKING_AUTHORITY.get(restaurantMaster.id,PRODUCTION_BOOKINGS.byId);
           return {
             spa: spa&&{id:spa.id,title:spa.title,time:spa.time},
             restaurant: restaurant&&{id:restaurant.id,title:restaurant.title,time:restaurant.time},
@@ -353,6 +364,17 @@ def run_viewport(browser,base,viewport,label):
           };
         }""")
         check(canonical['spa'],label+': no non-optional canonical Spa booking found to exercise the Change Effect Gate')
+        # Exercise a real saved user edit before stale-cache injection. This test
+        # must preserve that edit, even when the deploy-master time differs.
+        saved_spa=page.evaluate('''(spa) => {
+          const editedTime=spa.time==='15:00'?'15:30':'15:00';
+          const result=BOOKING_AUTHORITY.save(spa.id,{time:editedTime},PRODUCTION_BOOKINGS.byId);
+          if(!result.ok)throw new Error('Could not save Spa regression fixture');
+          return BOOKING_AUTHORITY.get(spa.id,PRODUCTION_BOOKINGS.byId);
+        }''',canonical['spa'])
+        check(saved_spa and saved_spa['time']!=canonical['spa']['time'],label+': saved Spa edit fixture did not change time')
+        canonical['spa']['time']=saved_spa['time']
+
         check(canonical['restaurant'],label+': no non-optional canonical Restaurant booking found to exercise the Change Effect Gate')
         check(canonical['transferReference'],label+': fixture bk-transfer-in has no reference to exercise the Change Effect Gate')
 
@@ -364,7 +386,9 @@ def run_viewport(browser,base,viewport,label):
           stale['bk-stale-removed-fixture']={id:'bk-stale-removed-fixture',bookingId:'bk-stale-removed-fixture',title:'Ghost Booking From A Removed Fixture',status:'pending',bookingCategory:'Spa',category:'Spa'};
           stale['bk-transfer-in']={id:'bk-transfer-in',bookingId:'bk-transfer-in',title:'Stale Cached Transfer',status:'pending',displayStatus:'Pending'};
           stale['bk-fusion-original']={id:'bk-fusion-original',bookingId:'bk-fusion-original',title:'Stale Cached Accommodation',status:'pending',displayStatus:'Pending'};
-          STORAGE.local.writeJSON(BOOKING_AUTHORITY.key,{version:1,overrides:stale,deletedIds:[],updatedAt:'2026-08-01T00:00:00Z'});
+          const previous=STORAGE.local.readJSON(BOOKING_AUTHORITY.key,{})||{};
+          const overrides=Object.assign({},stale,previous.overrides||{});
+          STORAGE.local.writeJSON(BOOKING_AUTHORITY.key,Object.assign({},previous,{version:previous.version||1,overrides,deletedIds:previous.deletedIds||[],updatedAt:previous.updatedAt||'2026-08-01T00:00:00Z'}));
         }""", canonical)
         page.reload(wait_until='domcontentloaded')
         page.evaluate("document.getElementById('ccmvSplash')?.remove()")
@@ -461,6 +485,10 @@ def run():
       run_viewport(chromium,base,{'width':390,'height':844},'chromium-mobile-390x844')
     finally:
       chromium.close()
+    if os.environ.get('BROWSER_SKIP_WEBKIT')=='1':
+      # Explicit, loud opt-out for machines without a WebKit build. NEVER set in CI (see browser-release-smoke.yml).
+      print('BROWSER INTERACTION SMOKE: PASS for Chromium desktop/mobile. WEBKIT NOT TESTED (BROWSER_SKIP_WEBKIT=1) - not a full release gate.')
+      return
     webkit=pw.webkit.launch(headless=True)
     try:
       run_viewport(webkit,base,{'width':390,'height':844},'webkit-mobile-390x844')
