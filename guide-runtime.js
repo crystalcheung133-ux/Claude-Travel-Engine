@@ -137,16 +137,21 @@ function openShoppingDirectoryView(requestedDay){
  const parse=card=>{
    const node=document.createElement('div');node.innerHTML=card;
    const title=node.querySelector('h3')?.textContent?.trim()||'Store';
+   // Keep directory metadata in source for route/sync; hide only redundant display rows.
    const planned=/PLANNED ·/i.test(card);
    const optional=/OPTIONAL ·/i.test(card);
    const morning=/District 3 Morning/i.test(card);
-   return {card,title,planned,optional,morning,day:shoppingDirectoryDay(card)};
+   node.querySelectorAll('p').forEach(p=>{const label=p.querySelector('strong')?.textContent||'';if(/(?:Best with|Route)/i.test(label))p.remove();});
+   node.querySelectorAll('.directory-tag').forEach(tag=>tag.remove());
+   const cleanCard=node.innerHTML;
+   const emoji=/jewel|gem|aurora|silver|accessor/i.test(title)?'💎':/candle|wicky|scent/i.test(title)?'🕯️':/ohquao|vina|concept|dakao|grade b|box icon|playground|rue miche/i.test(title)?'🛍️':/bakes/i.test(title)?'🥐':'👗';
+   return {card:cleanCard,title,emoji,planned,optional,morning,day:shoppingDirectoryDay(card)};
  };
  const entries=raw.map(parse);
  const esc=value=>String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
  function group(title,items){
    if(!items.length)return '';
-   return `<section class="shopping-compact-group"><h3>${esc(title)}</h3>${items.map((entry,i)=>`<details class="shopping-compact-store"><summary><span class="shopping-compact-store-name">${esc(entry.title)}</span>${bangNames.test(entry.title)?bangBadge:''}<span class="shopping-compact-chevron" aria-hidden="true">›</span></summary><div class="shopping-compact-detail">${entry.card}</div></details>`).join('')}</section>`;
+   return `<section class="shopping-compact-group"><h3>${esc(title)}</h3>${items.map((entry,i)=>`<details class="shopping-compact-store"><summary><span class="shopping-compact-store-name"><span class="shopping-store-emoji" aria-hidden="true">${entry.emoji}</span> ${esc(entry.title)}</span>${bangNames.test(entry.title)?bangBadge:''}<span class="shopping-compact-chevron" aria-hidden="true">›</span></summary><div class="shopping-compact-detail">${entry.card}</div></details>`).join('')}</section>`;
  }
  const current=entries.filter(e=>e.day===day);
  let body='';

@@ -6,7 +6,7 @@ function record(key){
 }
 assert.match(home,/openGuideCategory\('SHOP'\)/,'Guide must expose Shopping');
 assert.doesNotMatch(home,/openGuideCategory\('PRACTICAL'\)/,'FX/cash must stay out of Guide menu');
-assert.match(guide,/Shopping Directory/,'Shopping directory must render in Guide modal');
+assert.match(guide,/shopping-day-tabs[\s\S]*shopping-compact-list/,'Shopping day tabs and compact directory must render in Guide modal');
 assert.match(guide,/BOOKED/,'Dining presentation supports Booked');
 assert.match(data,/"cash-backup"[\s\S]{0,250}"cat": "PRACTICAL"/,'Money backup must remain Practical data');
 assert.doesNotMatch(data,/"fusion"[\s\S]{0,220}"hours": "24 Hours"/,'Stay must not show 24 Hours');

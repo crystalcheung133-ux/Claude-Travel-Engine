@@ -3580,3 +3580,6 @@ body.guide-foreground-over-booking #guideModal.show{z-index:100040!important;}
 .shopping-bang-symbol:after{content:'';position:absolute;top:2px;left:4px;width:3px;height:5px;background:#f3f0e7;border-radius:0 0 3px 3px}
 
 .shopping-bang-logo{width:24px;height:24px;object-fit:contain;flex:none;border-radius:50%}
+
+/* Shopping guide: consistent with compact Attractions list */
+.shopping-store-emoji{display:inline-block;margin-right:.35em;font-size:1.05em;vertical-align:baseline}
