@@ -2729,7 +2729,7 @@ const TRIP_DATA={
   },
   "flights": {
     "title": "✈️ Flights",
-    "body": "<div class='fact-grid trip-facts-compact'><div class='fact'><strong>Outbound · Fri 30 Oct</strong>VietJet VJ082<br>MEL T2 01:30 → SGN T2 05:55<br>7kg carry-on · 20kg checked</div><div class='fact'><strong>Return · Tue 3 Nov</strong>Vietnam Airlines VN781<br>SGN T2 21:10 → MEL T2 09:25 +1<br>7kg carry-on · 20kg checked</div></div>"
+    "body": "<div class='fact-grid trip-facts-compact'><div class='fact'><strong>Outbound · Fri 30 Oct</strong>VietJet VJ082<br>MEL T2 01:30 → SGN T2 05:55<br>7kg carry-on · 20kg checked</div><div class='fact'><strong>Return · Tue 3 Nov</strong>Vietnam Airlines VN781<br>SGN T2 21:10 → MEL T2 09:25 +1<br>12kg combined carry-on + personal item (max 10kg per carry-on bag) · 1 × 23kg checked</div></div>"
   },
   "stay": {
     "title": "🏨 Stay",
