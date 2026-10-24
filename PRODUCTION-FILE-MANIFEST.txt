@@ -1,5 +1,5 @@
 Saigon Companion Production File Manifest
-Generated: 2026-10-23
+Generated: 2026-10-24
 Base: VN Companion RC29.143 · Guide Timeline Entry Coverage
 Reference trip: Vietnam
 
@@ -10,6 +10,7 @@ Production root files:
 - analytics-runtime.js
 - app-runtime.js
 - asset-config.js
+- bang-display-logo.png
 - booking-authority.js
 - booking-permissions.js
 - booking-sync-runtime.js

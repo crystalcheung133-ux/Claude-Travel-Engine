@@ -3559,3 +3559,24 @@ body:has(#guideModal.show) .app-nav{z-index:100010!important;pointer-events:none
 body:has(#tripModal.show) .app-nav{z-index:100010!important;pointer-events:none!important;}
 /* When a Guide is intentionally foregrounded over Booking, keep that stacking contract. */
 body.guide-foreground-over-booking #guideModal.show{z-index:100040!important;}
+
+/* Compact day-filtered Shopping Guide; directory details retained in each expandable row. */
+.shopping-day-tabs{display:flex;gap:8px;margin:12px 0 18px}
+.shopping-day-tab{flex:1;min-height:42px;border-radius:24px;border:1px solid #bdd7dc;background:#fffdf8;color:#087b8b;font:inherit;font-weight:700;cursor:pointer}
+.shopping-day-tab.active{background:#00869a;color:white;border-color:#00869a}
+.shopping-compact-group{margin:16px 0 20px}
+.shopping-compact-group>h3{font-size:12px;letter-spacing:1.3px;color:#00849a;background:#fbf7ef;padding:10px 9px;margin:0;font-weight:800}
+.shopping-compact-store{border-bottom:1px solid #d2e5e9}
+.shopping-compact-store>summary{display:flex;align-items:center;gap:8px;min-height:51px;padding:9px 4px;cursor:pointer;list-style:none}
+.shopping-compact-store>summary::-webkit-details-marker{display:none}
+.shopping-compact-store-name{font-size:14px;font-weight:700;flex:0 1 auto}
+.shopping-compact-chevron{margin-left:auto;font-size:22px;line-height:1}
+.shopping-compact-store[open] .shopping-compact-chevron{transform:rotate(90deg)}
+.shopping-compact-detail{padding:0 4px 12px}
+.shopping-compact-detail .directory-card{margin:0}
+.shopping-bang-badge{display:inline-flex;flex:none;align-items:center;justify-content:center;width:23px;height:23px;border-radius:50%;background:#f3f0e7;border:1px solid #e1e0db}
+.shopping-bang-symbol{display:block;width:11px;height:12px;position:relative;border-bottom-left-radius:8px;border-bottom-right-radius:8px;background:#236d60;margin-top:4px}
+.shopping-bang-symbol:before{content:'';position:absolute;top:-5px;left:0;width:11px;height:4px;background:#236d60}
+.shopping-bang-symbol:after{content:'';position:absolute;top:2px;left:4px;width:3px;height:5px;background:#f3f0e7;border-radius:0 0 3px 3px}
+
+.shopping-bang-logo{width:24px;height:24px;object-fit:contain;flex:none;border-radius:50%}

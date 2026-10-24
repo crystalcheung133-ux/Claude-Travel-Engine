@@ -128,22 +128,32 @@ function shoppingDirectoryDay(card){
 }
 function openShoppingDirectoryView(requestedDay){
  const raw=Array.isArray(globalThis.VN_SHOPPING_DIRECTORY_CARDS)?globalThis.VN_SHOPPING_DIRECTORY_CARDS:[];
- const day=Number(requestedDay)||0;
- const cards=day?raw.filter(card=>shoppingDirectoryDay(card)===day):raw;
- function section(label,rows){return rows.length?`<section class="directory-route-group"><h3>${label}</h3><div class="directory-route-grid">${rows.join('')}</div></section>`:'';}
- const planned=rows=>rows.filter(card=>/PLANNED ·/i.test(card));
- const optional=rows=>rows.filter(card=>/OPTIONAL ·/i.test(card));
- let grouped='';
- if(day===1){ grouped=section('PLANNED · Nguyễn Trãi Local Fashion Walk',planned(cards))+section('OPTIONAL · If Time / Near Hotel',optional(cards)); }
- else if(day===2){ grouped=section('PLANNED · Morning Run · 11 Garmentory + Trần Quang Diệu',planned(cards).filter(card=>/MORNING/i.test(card)))+section('PLANNED · Afternoon · Vincom Đồng Khởi + The New Playground',planned(cards).filter(card=>/AFTERNOON/i.test(card)))+section('OPTIONAL · Final Browse',optional(cards)); }
- else if(day===4){ grouped=section('PLANNED · District 3 Morning',planned(cards).filter(card=>/District 3 Morning/i.test(card)))+section('PLANNED · Thảo Điền Lifestyle',planned(cards).filter(card=>!/District 3 Morning/i.test(card)))+section('OPTIONAL',optional(cards)); }
- else if(day){ grouped=section(`PLANNED · Day ${day}`,planned(cards))+section('OPTIONAL',optional(cards)); }
- else{
-   grouped=section('PLANNED BY DAY · Day 1',planned(raw.filter(card=>shoppingDirectoryDay(card)===1)))+section('PLANNED BY DAY · Day 2',planned(raw.filter(card=>shoppingDirectoryDay(card)===2)))+section('PLANNED BY DAY · Day 4 · District 3 Morning',planned(raw.filter(card=>shoppingDirectoryDay(card)===4&&/District 3 Morning/i.test(card))))+section('PLANNED BY DAY · Day 4 · Thảo Điền',planned(raw.filter(card=>shoppingDirectoryDay(card)===4&&!/District 3 Morning/i.test(card))))+section('OPTIONAL / NEARBY',optional(raw));
+ const requested=[1,2,4].includes(Number(requestedDay))?Number(requestedDay):0;
+ const day=requested||Number(window.VN_SHOPPING_SELECTED_DAY)||1;
+ window.VN_SHOPPING_SELECTED_DAY=day;
+ const bangNames=/OHQUAO|Vina Design Store|Rue Miche|Dinh Design Store|111 Concept Store|NEO|Nay Mai|Gallery Medium/i;
+ // Logo is intentionally a compact CSS-drawn symbol, not an unrelated photo.
+ const bangBadge='<img class="shopping-bang-logo" src="bang-display-logo.png" alt="BANG display" title="BANG display" loading="lazy">';
+ const parse=card=>{
+   const node=document.createElement('div');node.innerHTML=card;
+   const title=node.querySelector('h3')?.textContent?.trim()||'Store';
+   const planned=/PLANNED ·/i.test(card);
+   const optional=/OPTIONAL ·/i.test(card);
+   const morning=/District 3 Morning/i.test(card);
+   return {card,title,planned,optional,morning,day:shoppingDirectoryDay(card)};
+ };
+ const entries=raw.map(parse);
+ const esc=value=>String(value).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+ function group(title,items){
+   if(!items.length)return '';
+   return `<section class="shopping-compact-group"><h3>${esc(title)}</h3>${items.map((entry,i)=>`<details class="shopping-compact-store"><summary><span class="shopping-compact-store-name">${esc(entry.title)}</span>${bangNames.test(entry.title)?bangBadge:''}<span class="shopping-compact-chevron" aria-hidden="true">›</span></summary><div class="shopping-compact-detail">${entry.card}</div></details>`).join('')}</section>`;
  }
- const title=day?`🛍 Day ${day} Shopping Directory`:'🛍 Shopping Directory';
- const lead=day===1?'Nguyễn Trãi 是已定好的 Day 1 local-fashion line；主線與 optional extension 分開。':day===2?'上午走 11 Garmentory + Trần Quang Diệu；Quán Cua Cà Mau 午餐後到 Qspa 做 Afternoon Reset，再走 Cathedral / Post Office / Book Street sightseeing cluster，之後步行接 Vincom / The New Playground → Rue Miche L’Édition（Union Square B3）→ LÚNE。':day===4?'Day 4 只用一條 Shopping Route；每一段清楚標示 Grab、步行或同址，方便一眼看完整動線。':day===5?'Day 5 不設固定 Shopping Route；行完 Fine Arts Museum 後按前幾日漏逛的店自由決定。':'先看 PLANNED BY DAY；真正未排入 itinerary 的店才放 OPTIONAL。';
- $('guideModalContent').innerHTML=`<p class="kicker">Shopping Directory</p><h2>${title}</h2><p class="lead">${lead}</p><div class="directory-grid">${grouped}</div>`;
+ const current=entries.filter(e=>e.day===day);
+ let body='';
+ if(day===4){body=group('DISTRICT 3',current.filter(e=>e.planned&&e.morning))+group('THẢO ĐIỀN',current.filter(e=>e.planned&&!e.morning))+group('OPTIONAL',current.filter(e=>e.optional));}
+ else{body=group(day===1?'NGUYỄN TRÃI':'DAY 2 · SHOPPING',current.filter(e=>e.planned))+group('OPTIONAL',current.filter(e=>e.optional));}
+ const tabs=[1,2,4].map(n=>`<button type="button" class="shopping-day-tab ${day===n?'active':''}" aria-pressed="${day===n}" onclick="openShoppingDirectoryView(${n})">Day ${n}</button>`).join('');
+ $('guideModalContent').innerHTML=`<p class="kicker">GUIDE</p><h2>SHOPPING</h2><nav class="shopping-day-tabs" aria-label="Shopping day">${tabs}</nav><div class="shopping-compact-list">${body}</div>`;
  closeMiniMenus();$('guideModal').classList.add('show');
  const sheet=document.querySelector('#guideModal .guide-sheet');if(sheet)sheet.scrollTop=0;
 }
