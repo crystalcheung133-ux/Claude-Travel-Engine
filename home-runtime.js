@@ -81,8 +81,22 @@
   }
  }
  function updateHomeDash(){
-  const now=new Date(); const diff=Math.ceil((target-now)/86400000); const c=document.getElementById('countdownText');
-  if(c){if(diff>7)c.textContent=`${diff} days to go`;else if(diff>1)c.textContent='One week to go';else if(diff===1)c.textContent='Pack your bags';else if(now>=target&&now<=tripEnd)c.textContent=TRIP_CONFIG.home.welcomeMessage;else c.textContent=TRIP_CONFIG.home.completedMessage;}
+  const now=new Date();
+  // Calendar-day countdown in Melbourne before departure; no 24-hour rounding or DST drift.
+  const parts=new Intl.DateTimeFormat('en-US',{timeZone:GEO_CONFIG.homeTimeZone||'Australia/Melbourne',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now);
+  const part=key=>Number(parts.find(item=>item.type===key).value);
+  const todayUtc=Date.UTC(part('year'),part('month')-1,part('day'));
+  const startUtc=Date.parse(TRIP_CONFIG.startDate+'T00:00:00Z');
+  const endUtc=Date.parse(TRIP_CONFIG.endDate+'T00:00:00Z');
+  const daysLeft=Math.round((startUtc-todayUtc)/86400000);
+  const c=document.getElementById('countdownText');
+  if(c){
+   if(daysLeft>1)c.textContent=`${daysLeft} days to go`;
+   else if(daysLeft===1)c.textContent='1 day to go';
+   else if(todayUtc===startUtc)c.textContent='Trip starts today!';
+   else if(todayUtc<=endUtc)c.textContent=TRIP_CONFIG.home.welcomeMessage;
+   else c.textContent=TRIP_CONFIG.home.completedMessage;
+  }
   const duringTrip=now>=target&&now<=tripEnd; const displayZone=duringTrip?GEO_CONFIG.homeTimeZone:TRIP_CONFIG.timeZone; const displayLabel=duringTrip?('Home · '+GEO_CONFIG.homeLabel):TRIP_CONFIG.home.clockLabel;
   const t=document.getElementById('hcmTime'); const label=document.getElementById('homeClockLabel'); const nz=document.getElementById('clockNzValue'); const mel=document.getElementById('clockMelValue');
   if(t)t.textContent=formatClock(now,displayZone); if(label)label.textContent=displayLabel; if(nz)nz.textContent=formatClock(now,TRIP_CONFIG.timeZone); if(mel)mel.textContent=formatClock(now,GEO_CONFIG.homeTimeZone);
