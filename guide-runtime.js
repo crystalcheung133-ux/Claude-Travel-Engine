@@ -144,7 +144,25 @@ function openShoppingDirectoryView(requestedDay){
    node.querySelectorAll('p').forEach(p=>{const label=p.querySelector('strong')?.textContent||'';if(/(?:Best with|Route)/i.test(label))p.remove();});
    node.querySelectorAll('.directory-tag').forEach(tag=>tag.remove());
    const cleanCard=node.innerHTML;
-   const emoji=/jewel|gem|aurora|silver|accessor/i.test(title)?'💎':/candle|wicky|scent/i.test(title)?'🕯️':/ohquao|vina|concept|dakao|grade b|box icon|playground|rue miche/i.test(title)?'🛍️':/bakes/i.test(title)?'🥐':'👗';
+   // Store-specific symbols make the compact list scannable without changing directory data.
+   const storeEmojis=[
+    [/dot dot gem|aurora saigon/i,'💎'],
+    [/wicky candle/i,'🕯️'],
+    [/bakes/i,'🥐'],
+    [/111 concept|ohquao/i,'🎨'],
+    [/vina design|dakao quartier|in the mood/i,'🏡'],
+    [/grade b/i,'🏺'],
+    [/the box icon/i,'🧢'],
+    [/blackorp|push push/i,'🧢'],
+    [/the new playground|mozaic space/i,'🏬'],
+    [/rue miche|11 garmentory/i,'🛍️'],
+    [/dear josé|lane cì|dalla saigon/i,'🌸'],
+    [/bubbli|rubies|mi workshop/i,'🎀'],
+    [/kido|aastu|libé|làmin|routine/i,'🧥'],
+    [/clothes bar|sibling house|lsoul/i,'👚'],
+    [/youon/i,'🌿']
+   ];
+   const emoji=storeEmojis.find(([pattern])=>pattern.test(title))?.[1]||'👗';
    return {card:cleanCard,title,emoji,planned,optional,morning,day:shoppingDirectoryDay(card)};
  };
  const entries=raw.map(parse);

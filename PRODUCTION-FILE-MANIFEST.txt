@@ -10,6 +10,7 @@ Production root files:
 - analytics-runtime.js
 - app-runtime.js
 - asset-config.js
+- bang-display-logo.png
 - booking-authority.js
 - booking-permissions.js
 - booking-sync-runtime.js
