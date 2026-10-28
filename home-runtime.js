@@ -81,8 +81,18 @@
   }
  }
  function updateHomeDash(){
-  const now=new Date(); const diff=Math.ceil((target-now)/86400000); const c=document.getElementById('countdownText');
-  if(c){if(diff>7)c.textContent=`${diff} days to go`;else if(diff>1)c.textContent='One week to go';else if(diff===1)c.textContent='Pack your bags';else if(diff===0)c.textContent=TRIP_CONFIG.home.welcomeMessage;else c.textContent=TRIP_CONFIG.home.completedMessage;}
+  const now=new Date(); const c=document.getElementById('countdownText');
+  // Compare calendar days, not elapsed 24-hour periods. Melbourne before departure;
+  // Saigon once the trip starts, so the counter cannot be off by one near midnight.
+  const localDateParts=new Intl.DateTimeFormat('en-GB',{timeZone:GEO_CONFIG.homeTimeZone,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(now);
+  const localPart=(name)=>localDateParts.find((part)=>part.type===name).value;
+  const todayUTC=Date.UTC(Number(localPart('year')),Number(localPart('month'))-1,Number(localPart('day')));
+  const startParts=TRIP_CONFIG.startDate.split('-').map(Number);
+  const endParts=TRIP_CONFIG.endDate.split('-').map(Number);
+  const startUTC=Date.UTC(startParts[0],startParts[1]-1,startParts[2]);
+  const endUTC=Date.UTC(endParts[0],endParts[1]-1,endParts[2]);
+  const diff=Math.round((startUTC-todayUTC)/86400000);
+  if(c){if(diff>1)c.textContent=`${diff} days to go`;else if(diff===1)c.textContent='1 day to go';else if(diff===0)c.textContent=TRIP_CONFIG.home.welcomeMessage;else if(todayUTC<=endUTC)c.textContent='Trip in progress';else c.textContent=TRIP_CONFIG.home.completedMessage;}
   const duringTrip=now>=target&&now<=tripEnd; const displayZone=duringTrip?GEO_CONFIG.homeTimeZone:TRIP_CONFIG.timeZone; const displayLabel=duringTrip?('Home · '+GEO_CONFIG.homeLabel):TRIP_CONFIG.home.clockLabel;
   const t=document.getElementById('hcmTime'); const homeMel=document.getElementById('homeMelTime'); const label=document.getElementById('homeClockLabel'); const nz=document.getElementById('clockNzValue'); const mel=document.getElementById('clockMelValue');
   if(t)t.textContent=formatClock(now,TRIP_CONFIG.timeZone); if(homeMel)homeMel.textContent=formatClock(now,GEO_CONFIG.homeTimeZone); if(label)label.textContent=displayLabel; if(nz)nz.textContent=formatClock(now,TRIP_CONFIG.timeZone); if(mel)mel.textContent=formatClock(now,GEO_CONFIG.homeTimeZone);
