@@ -11,7 +11,41 @@ function setZoom(next,cx=0,cy=0){const old=zoom;zoom=clamp(next,1,4);if(zoom===1
 async function render(){if(!pdf)return;let ticket=++renderSequence;if(renderTask){try{renderTask.cancel()}catch(e){}}load.hidden=false;const page=await pdf.getPage(pageNo);if(ticket!==renderSequence)return;const natural=page.getViewport({scale:1});const margin=12;const scale=Math.min((viewport.clientWidth-margin*2)/natural.width,(viewport.clientHeight-margin*2)/natural.height);const ratio=Math.min(window.devicePixelRatio||1,2);const vp=page.getViewport({scale:scale*ratio});baseWidth=Math.round(natural.width*scale);baseHeight=Math.round(natural.height*scale);shell.style.width=baseWidth+'px';shell.style.height=baseHeight+'px';canvas.width=Math.ceil(vp.width);canvas.height=Math.ceil(vp.height);const task=page.render({canvasContext:ctx,viewport:vp});renderTask=task;try{await task.promise}catch(e){if(e.name!=='RenderingCancelledException')console.error(e);return}if(ticket!==renderSequence)return;load.hidden=true;applyTransform();$('pageLabel').textContent=pageNo+' / '+pdf.numPages;$('prev').disabled=pageNo<=1;$('next').disabled=pageNo>=pdf.numPages;try{localStorage.setItem('saigon_memory_last_page',String(pageNo))}catch(e){}}
 function goto(n){if(!pdf)return;const next=clamp(n,1,pdf.numPages);if(next===pageNo)return;pageNo=next;zoom=1;panX=panY=0;render()}
 $('prev').onclick=()=>goto(pageNo-1);$('next').onclick=()=>goto(pageNo+1);$('zoomOut').onclick=()=>setZoom(zoom/1.35);$('zoomIn').onclick=()=>setZoom(zoom*1.35);$('fit').onclick=()=>setZoom(1);
-$('full').onclick=()=>{if(!document.fullscreenElement){document.documentElement.requestFullscreen?.().catch(()=>notify('Use browser full screen or rotate device'))}else document.exitFullscreen?.()};
+let immersive=false;
+function updateImmersive(){
+  document.body.classList.toggle('immersive',immersive);
+  $('full').setAttribute('aria-pressed',String(immersive));
+  $('full').textContent=immersive?'⤢':'⛶';
+  // Recalculate page fit after hiding/showing the reader chrome.
+  window.requestAnimationFrame(()=>{zoom=1;panX=panY=0;render()});
+}
+async function toggleImmersive(){
+  immersive=!immersive;updateImmersive();
+  if(immersive&&document.documentElement.requestFullscreen){
+    try{await document.documentElement.requestFullscreen()}catch(e){/* Safari iPhone: CSS immersive fallback */}
+  }else if(!immersive&&document.fullscreenElement){
+    try{await document.exitFullscreen()}catch(e){}
+  }
+}
+$('full').onclick=toggleImmersive;
+$('immersiveExit').onclick=()=>{if(immersive)toggleImmersive()};
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement&&immersive){immersive=false;updateImmersive()}});
+// Original instrumental track, only starts after a user gesture.
+const audio=$('memoryAudio');audio.volume=.22;
+let musicEnabled=false;
+function updateMusicUI(){
+  $('music').setAttribute('aria-pressed',String(musicEnabled));
+  $('music').innerHTML=(musicEnabled?'♫ <span>Pause</span>':'♫ <span>Music</span>');
+  $('immersiveMusic').textContent=musicEnabled?'♫ Pause':'♫ Music';
+}
+async function toggleMusic(){
+  if(musicEnabled){audio.pause();musicEnabled=false;updateMusicUI();return}
+  try{await audio.play();musicEnabled=true;updateMusicUI()}catch(e){notify('Tap again to start music')}
+}
+$('music').onclick=toggleMusic;$('immersiveMusic').onclick=toggleMusic;
+$('immersiveSave').onclick=()=>$('download').click();
+$('immersiveShare').onclick=()=>$('share').click();
+
 $('download').onclick=()=>{const link=document.createElement('a');link.href=URL_PDF;link.download='Saigon_Companion_The_Memory_Edition.pdf';document.body.appendChild(link);link.click();link.remove();};
 $('share').onclick=async()=>{const link=new URL('memory-book.html',location.href).href;try{if(navigator.share){await navigator.share({title:'Saigon Companion · Our Memories',text:'Our Saigon Story · The Memory Edition',url:link});return}}catch(e){if(e.name==='AbortError')return}try{await navigator.clipboard.writeText(link);notify('Book link copied')}catch(e){prompt('Copy your book link',link)}};
 viewport.addEventListener('pointerdown',e=>{viewport.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(pointers.size===1)gesture={startX:e.clientX,startY:e.clientY,lastX:e.clientX,lastY:e.clientY,panX,panY,moved:false};if(pointers.size===2){const a=[...pointers.values()];gesture={pinch:true,distance:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y),zoom,panX,panY}}});
@@ -19,7 +53,7 @@ viewport.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return
 function release(e){if(!pointers.has(e.pointerId))return;const last=gesture;pointers.delete(e.pointerId);if(pointers.size===0){if(last&&!last.pinch&&zoom===1){const dx=e.clientX-last.startX;if(Math.abs(dx)>65&&Math.abs(e.clientY-last.startY)<90)goto(pageNo+(dx<0?1:-1))}gesture=null}else if(pointers.size===1){const one=[...pointers.values()][0];gesture={startX:one.x,startY:one.y,panX,panY,pinch:false}}}
 viewport.addEventListener('pointerup',release);viewport.addEventListener('pointercancel',release);
 viewport.addEventListener('wheel',e=>{if(e.ctrlKey||e.metaKey){e.preventDefault();setZoom(zoom*(e.deltaY<0?1.12:0.89))}else if(zoom>1){e.preventDefault();panX-=e.deltaX;panY-=e.deltaY;applyTransform()}},{passive:false});
-document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea'))return;if(e.key==='ArrowRight')goto(pageNo+1);if(e.key==='ArrowLeft')goto(pageNo-1);if(e.key==='Escape'&&zoom>1)setZoom(1);if(e.key==='+'||e.key==='=')setZoom(zoom*1.35);if(e.key==='-')setZoom(zoom/1.35)});
+document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea'))return;if(e.key==='ArrowRight')goto(pageNo+1);if(e.key==='ArrowLeft')goto(pageNo-1);if(e.key==='Escape'&&immersive){immersive=false;updateImmersive()}else if(e.key==='Escape'&&zoom>1)setZoom(1);if(e.key==='+'||e.key==='=')setZoom(zoom*1.35);if(e.key==='-')setZoom(zoom/1.35)});
 let resizeTimeout;window.addEventListener('resize',()=>{clearTimeout(resizeTimeout);resizeTimeout=setTimeout(render,150)});
 (async()=>{try{if(!window.pdfjsLib)throw Error('PDF reader missing');pdfjsLib.GlobalWorkerOptions.workerSrc='vendor-pdfjs-worker-3.11.174.min.js';pdf=await pdfjsLib.getDocument({url:URL_PDF}).promise;try{pageNo=clamp(parseInt(localStorage.getItem('saigon_memory_last_page'),10)||1,1,pdf.numPages)}catch(e){}await render();$('state').textContent='45-page Memory Edition · Swipe or use arrows to turn pages'}catch(e){load.textContent='Unable to open the book. Please check your connection.';console.error(e);$('state').textContent='Reader unavailable';notify('PDF available using Save')}})();
 })();

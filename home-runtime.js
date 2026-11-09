@@ -126,15 +126,7 @@
       button.href='memory-book.html';
       button.textContent='📖 Our Memories';
       button.setAttribute('aria-label','Open the Saigon Companion Memory Book');
-      document.body.classList.add('home-memory-edition');
-      const liveGrid=document.querySelector('.home-live-grid');
-      if(liveGrid){
-        liveGrid.hidden=true;
-        const feature=document.createElement('div');
-        feature.className='home-memory-feature';
-        feature.innerHTML='<span class="memory-edition-label">✦ THE MEMORY EDITION ✦</span><strong>Our Saigon Story</strong><span>Four friends · Five days · 45 pages of memories</span><small>Travel Together · Capture Moments · Memories Forever</small>';
-        liveGrid.insertAdjacentElement('afterend',feature);
-      }
+      // Preserve the original four live dashboard cards after the trip.
     }else{
       button.href=NAVIGATION.build('day',{query:{day}});
       button.textContent=isWithin?`Let's go · Day ${day}`:`Let's go · Day 1`;
