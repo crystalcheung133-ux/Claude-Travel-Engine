@@ -123,9 +123,9 @@
   const button=document.getElementById('homeTodayButton');
   if(button){
     if(!isBefore && !isWithin){
-      button.href='memory-book.html';
+      button.href='https://heyzine.com/flip-book/1aeb62aaf8.html';
       button.textContent='📖 Our Memories';
-      button.setAttribute('aria-label','Open the Saigon Companion Memory Book');
+      button.setAttribute('aria-label','Open Our Memories flipbook');
       // Preserve the original four live dashboard cards after the trip.
     }else{
       button.href=NAVIGATION.build('day',{query:{day}});
