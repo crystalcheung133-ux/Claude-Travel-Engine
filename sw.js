@@ -1,9 +1,12 @@
 importScripts('./theme-config.js', './asset-config.js', './locale-config.js', './formatter.js', './navigation-config.js', './trip-config.js', './storage-config.js');
-const CACHE_NAME = `travel-engine-${TRIP_CONFIG.storageNamespace}-${TRIP_CONFIG.version}-rc29143-day2-order-navigation-fix`;
+const CACHE_NAME = `travel-engine-${TRIP_CONFIG.storageNamespace}-${TRIP_CONFIG.version}-rc29143-day2-order-navigation-fix-memory-edition-v1`;
 const CRITICAL_EXTENSIONS = /\.(?:css|js)$/i;
 const ASSETS = [
   './',
   './index.html',
+  './memory-book.html',
+  './memory-book.js',
+  './memory-book.css',
   './styles.css',
   './core-runtime.js',
   './trip-runtime.js',
@@ -234,6 +237,8 @@ self.addEventListener('fetch', event => {
 
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return;
+  // PDF.js may request byte ranges. Let the browser handle these natively; SW caches cannot store HTTP 206.
+  if (url.pathname.endsWith('/saigon-memory-book.pdf')) return;
 
   const acceptsHtml = event.request.headers.get('accept')?.includes('text/html');
   if (event.request.mode === 'navigate' || acceptsHtml) {
