@@ -12,3 +12,17 @@ body.immersive{height:100dvh}
 body.immersive #reader{height:100dvh}
 @media(max-width:700px){body.immersive .reader-controls{gap:4px}body.immersive .reader-controls button{min-width:30px}.immersive-tools button{padding:6px 7px;font-size:11px}}
 @media(max-height:440px){body.immersive .reader-controls{padding:2px 8px calc(2px + env(safe-area-inset-bottom));min-height:35px}body.immersive .reader-controls button{min-height:28px}}
+
+/* Sharing controls: keep all three operations reachable in iPhone portrait and landscape. */
+.toolbar .actions button:disabled{opacity:.6;cursor:wait}
+@media(max-width:700px){
+ .toolbar{gap:4px;padding-left:max(5px,env(safe-area-inset-left));padding-right:max(5px,env(safe-area-inset-right))}
+ .toolbar a,.toolbar button{font-size:11px;padding:7px 6px}
+ .toolbar .actions{gap:3px}
+ .toolbar .actions span{display:inline;font-size:10px}
+ .toolbar .back span{display:none}
+ .toolbar .brand small{display:none}
+ .toolbar .brand strong{font-size:clamp(12px,3.6vw,16px)}
+ .immersive-tools{flex-wrap:wrap;justify-content:flex-end;max-width:calc(100vw - 14px)}
+}
+@media(max-width:390px){.toolbar .actions span{font-size:9px}.toolbar .brand strong{font-size:12px}.toolbar a,.toolbar button{padding:7px 4px}}

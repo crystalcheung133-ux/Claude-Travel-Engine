@@ -3596,3 +3596,30 @@ body.home-memory-edition .home-memory-feature strong{font:600 clamp(26px,5vw,36p
 body.home-memory-edition .home-memory-feature span:not(.memory-edition-label){font-size:13px;color:#694c38}
 body.home-memory-edition .home-memory-feature small{font-size:11px;color:#80634d}
 body.home-memory-edition #homeTodayButton{min-height:45px;padding-inline:26px}
+
+/* RC29.145 — Create/Edit modals are always foreground of bottom navigation.
+   The nav escape rule from RC29.144 was hiding Save behind an interactive nav. */
+body:has(:is(#momentsModal,#unexpectedModal,#expenseModal).show) .app-nav{
+  z-index:100!important;pointer-events:none!important;
+}
+:is(#momentsModal,#unexpectedModal,#expenseModal).show{
+  position:fixed!important;inset:0!important;top:0!important;bottom:0!important;
+  z-index:100100!important;display:flex!important;align-items:flex-start!important;
+  justify-content:center!important;overflow:hidden!important;
+  padding:max(8px,env(safe-area-inset-top,0px)) 8px max(8px,env(safe-area-inset-bottom,0px))!important;
+}
+:is(#momentsModal,#unexpectedModal,#expenseModal).show > :is(.moments-sheet,.unexpected-sheet,.tools-sheet){
+  position:relative!important;box-sizing:border-box!important;
+  width:min(760px,100%)!important;margin:0 auto!important;
+  height:auto!important;min-height:0!important;
+  max-height:calc(100dvh - 16px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))!important;
+  overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch!important;scroll-padding-bottom:26px!important;
+  padding-bottom:calc(34px + env(safe-area-inset-bottom,0px))!important;
+}
+:is(#momentsModal,#unexpectedModal,#expenseModal) :is(#expenseSaveButton,.moments-form button[onclick*=saveMoments],.unexpected-sheet button[onclick*=saveUnexpected]){
+  position:relative!important;z-index:1!important;margin-bottom:12px!important;
+}
+.trip-export-modal.open{z-index:100100!important;align-items:flex-start!important;padding:max(10px,env(safe-area-inset-top,0px)) 10px 10px!important;}
+.trip-export-modal.open>.trip-export-sheet{margin:0 auto!important;max-height:calc(100dvh - 20px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))!important;overflow-y:auto!important;}
+.trip-export-group-actions{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))!important;}

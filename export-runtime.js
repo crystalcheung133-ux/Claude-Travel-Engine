@@ -36,7 +36,7 @@
   function buildModal(){
     if(document.getElementById('tripExportModal'))return;
     const modal=document.createElement('div');modal.id='tripExportModal';modal.className='trip-export-modal';modal.setAttribute('aria-hidden','true');
-    modal.innerHTML=`<div class="trip-export-sheet" role="dialog" aria-modal="true" aria-labelledby="tripExportTitle"><button class="trip-export-close" type="button" onclick="returnToTripStudio()" aria-label="Close">×</button><p class="kicker">TRIP OUTPUTS</p><h2 id="tripExportTitle">Export Trip</h2><p class="lead">Share through the iPhone or Android share sheet, or create a printable copy.</p><div class="trip-export-list"><section class="trip-export-group" aria-labelledby="tripExportItineraryTitle"><div class="trip-export-group-head"><span class="trip-export-icon">🗓️</span><span><strong id="tripExportItineraryTitle">Itinerary</strong><small>Schedule, addresses and notes.</small></span></div><div class="trip-export-group-actions"><button type="button" onclick="shareItineraryNative()"><span aria-hidden="true">📤</span><strong>Share</strong></button><button type="button" onclick="exportFinalItinerary()"><span aria-hidden="true">📄</span><strong>Printable</strong></button></div></section><section class="trip-export-group" aria-labelledby="tripExportExpensesTitle"><div class="trip-export-group-head"><span class="trip-export-icon">🧾</span><span><strong id="tripExportExpensesTitle">Expenses</strong><small>One expense summary for transactions, party totals and settlements.</small></span></div><div class="trip-export-group-actions"><button type="button" onclick="openExpenseSummaryFromExport()"><span aria-hidden="true">📤</span><strong>Open Summary</strong></button></div></section><button type="button" class="coming-soon" disabled><span class="trip-export-icon">📖</span><span><strong>Memory Book</strong><small>Coming Soon</small></span></button></div></div>`;
+    modal.innerHTML=`<div class="trip-export-sheet" role="dialog" aria-modal="true" aria-labelledby="tripExportTitle"><button class="trip-export-close" type="button" onclick="returnToTripStudio()" aria-label="Close">×</button><p class="kicker">TRIP OUTPUTS</p><h2 id="tripExportTitle">Export Trip</h2><p class="lead">Share through the iPhone or Android share sheet, or create a printable copy.</p><div class="trip-export-list"><section class="trip-export-group" aria-labelledby="tripExportItineraryTitle"><div class="trip-export-group-head"><span class="trip-export-icon">🗓️</span><span><strong id="tripExportItineraryTitle">Itinerary</strong><small>Schedule, addresses and notes.</small></span></div><div class="trip-export-group-actions"><button type="button" onclick="shareItineraryPDF()"><span aria-hidden="true">📤</span><strong>Share PDF</strong></button><button type="button" onclick="downloadItineraryPDF()"><span aria-hidden="true">📄</span><strong>Save PDF</strong></button><button type="button" onclick="exportFinalItinerary()"><span aria-hidden="true">🖨️</span><strong>Printable</strong></button></div></section><section class="trip-export-group" aria-labelledby="tripExportExpensesTitle"><div class="trip-export-group-head"><span class="trip-export-icon">🧾</span><span><strong id="tripExportExpensesTitle">Expenses</strong><small>One expense summary for transactions, party totals and settlements.</small></span></div><div class="trip-export-group-actions"><button type="button" onclick="openExpenseSummaryFromExport()"><span aria-hidden="true">📤</span><strong>Open Summary</strong></button></div></section><button type="button" class="coming-soon" disabled><span class="trip-export-icon">📖</span><span><strong>Memory Book</strong><small>Coming Soon</small></span></button></div></div>`;
     modal.addEventListener('click',event=>{if(event.target===modal)returnToTripStudio();});document.body.appendChild(modal);
   }
   function render(){buildControl();buildModal();const control=document.getElementById('tripExportControl');if(control)control.hidden=!isExportAdmin();if(!isExportAdmin())closeTripExportCenter();}
@@ -91,6 +91,76 @@
       alert('Sharing is not available right now. Use Printable Itinerary instead.');
     }
   };
+
+  // Direct PDF export uses the already bundled html2pdf library, also used by Expenses.
+  let itineraryPdfLoader=null;
+  function loadItineraryPdfLibrary(){
+    if(typeof window.html2pdf==='function')return Promise.resolve();
+    if(itineraryPdfLoader)return itineraryPdfLoader;
+    itineraryPdfLoader=new Promise((resolve,reject)=>{
+      const script=document.createElement('script');script.src='./vendor-html2pdf-0.10.1.bundle.min.js';
+      script.onload=()=>typeof window.html2pdf==='function'?resolve():reject(new Error('PDF generator unavailable'));
+      script.onerror=()=>reject(new Error('Unable to load PDF generator'));
+      document.head.appendChild(script);
+    }).catch(error=>{itineraryPdfLoader=null;throw error;});
+    return itineraryPdfLoader;
+  }
+  function itineraryPdfContent(){
+    const source=GenerationSelectionAdapter.view('export').itinerary;
+    const days=Object.keys(source).sort((a,b)=>Number(a)-Number(b));
+    if(!days.length)throw new Error('No itinerary data is available.');
+    const changedPlans=readObject(CHANGED_PLAN_KEY);
+    const title=(window.TRIP_CONFIG&&TRIP_CONFIG.tripName)||'Trip Itinerary';
+    const root=document.createElement('div');root.className='companion-pdf-document';
+    root.style.cssText='width:760px;background:#fff;color:#24342c;font:13px/1.45 Arial,sans-serif;padding:26px 34px;box-sizing:border-box';
+    root.innerHTML=`<header style="border-bottom:2px solid #24342c;padding-bottom:15px;margin-bottom:12px"><small style="letter-spacing:2px;color:#68756f">TRAVEL COMPANION</small><h1 style="font-size:26px;margin:5px 0">${escapeHtml(title)}</h1><small>Itinerary · ${escapeHtml(new Date().toLocaleDateString())}</small></header>`+days.map(dayNo=>{
+      const day=source[dayNo]||{},drive=day.drive||{};
+      const items=currentItems(dayNo,day).map(item=>{
+        const changed=changedPlans[String(item.id||'')];
+        const details=Array.isArray(item.details)?item.details:[];
+        return `<article style="display:flex;gap:12px;padding:9px 0;border-bottom:1px solid #e4e9e5;break-inside:avoid;page-break-inside:avoid"><strong style="width:92px;flex-shrink:0;color:#55705f">${escapeHtml(item.time||'')}</strong><div style="flex:1"><strong>${escapeHtml(item.title||'')}</strong>${details.map(detail=>`<p style="margin:3px 0">${escapeHtml(detail)}</p>`).join('')}${changed&&changed.instead?`<p style="background:#fff7ed;padding:7px;border-left:3px solid #c47a34">Changed plan: ${escapeHtml(changed.instead)}</p>`:''}</div></article>`;
+      }).join('');
+      return `<section style="padding-top:20px"><h2 style="font-size:19px;border-bottom:1px solid #cbd7cd;padding-bottom:6px;margin:0 0 10px">${escapeHtml(day.kicker||'Day '+dayNo)} — ${escapeHtml(day.heading||day.title||'')}</h2>${drive.route?`<p style="background:#f5f7f4;padding:8px">${escapeHtml(drive.route)} ${escapeHtml(drive.distance||'')} ${escapeHtml(drive.drivingTime||'')}</p>`:''}${items}</section>`;
+    }).join('');
+    return {root,title};
+  }
+  async function generateItineraryPdf(){
+    await loadItineraryPdfLibrary();
+    const {root,title}=itineraryPdfContent();
+    // Keep the node in the document while html2canvas captures it.
+    const host=document.createElement('div');host.style.cssText='position:fixed;top:0;left:-12000px;width:760px;z-index:-1;pointer-events:none';
+    host.appendChild(root);document.body.appendChild(host);
+    const filename=String(title).replace(/[^a-z0-9]+/gi,'_').replace(/^_+|_+$/g,'')+'_Itinerary.pdf';
+    try{
+      const blob=await window.html2pdf().set({margin:8,filename,image:{type:'jpeg',quality:.97},html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},pagebreak:{mode:['css','legacy']}}).from(root).outputPdf('blob');
+      if(!blob||!blob.size)throw new Error('PDF output was empty');
+      return {blob,filename,title};
+    }finally{host.remove();}
+  }
+  function downloadPdfBlob(blob,filename){
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),60000);
+  }
+  let pdfBusy=false;
+  async function runPdfAction(action){
+    if(!isExportAdmin())return alert('Enter Admin Mode to export the trip.');
+    if(pdfBusy)return;pdfBusy=true;
+    try{
+      const {blob,filename,title}=await generateItineraryPdf();
+      if(action==='share'&&navigator.share){
+        const file=new File([blob],filename,{type:'application/pdf'});
+        if(!navigator.canShare||navigator.canShare({files:[file]})){
+          try{await navigator.share({title,files:[file]});closeTripExportCenter();return;}
+          catch(error){if(error&&error.name==='AbortError')return;}
+        }
+      }
+      downloadPdfBlob(blob,filename);closeTripExportCenter();
+    }catch(error){console.error('[Export Centre] PDF failed',error);alert('PDF could not be generated on this device. Try Printable instead.');}
+    finally{pdfBusy=false;}
+  }
+  window.downloadItineraryPDF=function(){return runPdfAction('download');};
+  window.shareItineraryPDF=function(){return runPdfAction('share');};
 
   window.exportFinalItinerary=function(){
     if(!isExportAdmin())return alert('Enter Admin Mode to export the trip.');

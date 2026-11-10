@@ -1,5 +1,7 @@
 (()=>{'use strict';
 const URL_PDF='saigon-memory-book.pdf';
+const FLIPBOOK_URL='https://heyzine.com/flip-book/1aeb62aaf8.html';
+const PDF_FILENAME='Saigon_Companion_The_Memory_Edition.pdf';
 const $=id=>document.getElementById(id),canvas=$('pdfCanvas'),ctx=canvas.getContext('2d',{alpha:false});
 const viewport=$('viewport'),shell=$('pageShell'),load=$('loading');
 let pdf=null,pageNo=1,zoom=1,panX=0,panY=0,renderTask=null,renderSequence=0,baseWidth=0,baseHeight=0;
@@ -43,11 +45,77 @@ async function toggleMusic(){
   try{await audio.play();musicEnabled=true;updateMusicUI()}catch(e){notify('Tap again to start music')}
 }
 $('music').onclick=toggleMusic;$('immersiveMusic').onclick=toggleMusic;
-$('immersiveSave').onclick=()=>$('download').click();
-$('immersiveShare').onclick=()=>$('share').click();
-
-$('download').onclick=()=>{const link=document.createElement('a');link.href=URL_PDF;link.download='Saigon_Companion_The_Memory_Edition.pdf';document.body.appendChild(link);link.click();link.remove();};
-$('share').onclick=async()=>{const link=new URL('memory-book.html',location.href).href;try{if(navigator.share){await navigator.share({title:'Saigon Companion · Our Memories',text:'Our Saigon Story · The Memory Edition',url:link});return}}catch(e){if(e.name==='AbortError')return}try{await navigator.clipboard.writeText(link);notify('Book link copied')}catch(e){prompt('Copy your book link',link)}};
+// Sharing is intentionally separate from PDF rendering so the book remains usable offline.
+// navigator.share({files}) is available only in secure contexts on supported mobile devices.
+const pdfUrl=new URL(URL_PDF,location.href).href;
+let pdfBlobPromise=null;
+function getPdfBlob(){
+  if(!pdfBlobPromise){
+    pdfBlobPromise=fetch(pdfUrl,{credentials:'same-origin'}).then(response=>{
+      if(!response.ok)throw new Error('PDF HTTP '+response.status);
+      return response.blob();
+    }).then(blob=>{
+      if(!blob.size)throw new Error('PDF is empty');
+      return blob;
+    }).catch(error=>{pdfBlobPromise=null;throw error});
+  }
+  return pdfBlobPromise;
+}
+function savePdf(){
+  const a=document.createElement('a');a.href=pdfUrl;a.download=PDF_FILENAME;
+  document.body.appendChild(a);a.click();a.remove();
+  notify('Saving Memory Book PDF');
+}
+async function copyLink(url,label){
+  try{
+    await navigator.clipboard.writeText(url);notify(label+' copied');
+  }catch(e){window.prompt('Copy '+label,url)}
+}
+async function shareLink(url,title){
+  if(navigator.share){
+    try{await navigator.share({title,text:'Our Saigon Memory Book',url});return}
+    catch(e){if(e.name==='AbortError')return}
+  }
+  await copyLink(url,'Flipbook link');
+}
+async function sharePdf(){
+  const btn=$('sharePdf');
+  // Use a full-file share when supported, otherwise fall back to sharing a direct PDF URL.
+  // A transient sharing permission can expire during a large network fetch on iOS;
+  // retaining the direct URL fallback keeps sharing useful when that happens.
+  btn.disabled=true;
+  try{
+    notify('Preparing Memory Book PDF…');
+    if(navigator.share && navigator.canShare && typeof File!=='undefined'){
+      const blob=await getPdfBlob();
+      const file=new File([blob],PDF_FILENAME,{type:'application/pdf'});
+      const data={files:[file],title:'Our Saigon Memory Book'};
+      if(navigator.canShare(data)){
+        try{await navigator.share(data);return}
+        catch(e){if(e.name==='AbortError')return}
+      }
+    }
+    if(navigator.share){
+      try{await navigator.share({title:'Our Saigon Memory Book PDF',url:pdfUrl});return}
+      catch(e){if(e.name==='AbortError')return}
+    }
+    await copyLink(pdfUrl,'PDF link');
+    notify('PDF link copied — recipients can open and save it');
+  }catch(error){
+    console.warn('PDF sharing fallback',error);
+    if(navigator.share){
+      try{await navigator.share({title:'Our Saigon Memory Book PDF',url:pdfUrl});return}
+      catch(e){if(e.name==='AbortError')return}
+    }
+    await copyLink(pdfUrl,'PDF link');
+  }finally{btn.disabled=false}
+}
+$('download').onclick=savePdf;
+$('shareFlipbook').onclick=()=>shareLink(FLIPBOOK_URL,'Our Saigon Memory Book · Flipbook');
+$('sharePdf').onclick=sharePdf;
+$('immersiveSave').onclick=savePdf;
+$('immersiveFlipbook').onclick=()=>shareLink(FLIPBOOK_URL,'Our Saigon Memory Book · Flipbook');
+$('immersiveSharePdf').onclick=sharePdf;
 viewport.addEventListener('pointerdown',e=>{viewport.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(pointers.size===1)gesture={startX:e.clientX,startY:e.clientY,lastX:e.clientX,lastY:e.clientY,panX,panY,moved:false};if(pointers.size===2){const a=[...pointers.values()];gesture={pinch:true,distance:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y),zoom,panX,panY}}});
 viewport.addEventListener('pointermove',e=>{if(!pointers.has(e.pointerId))return;pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});if(!gesture)return;if(pointers.size===2){const a=[...pointers.values()];if(!gesture.pinch){gesture={pinch:true,distance:Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y),zoom}}const dist=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);setZoom(gesture.zoom*dist/Math.max(1,gesture.distance));return}if(pointers.size===1&&!gesture.pinch){const dx=e.clientX-gesture.startX,dy=e.clientY-gesture.startY;gesture.moved=Math.abs(dx)>6||Math.abs(dy)>6;if(zoom>1){panX=gesture.panX+dx;panY=gesture.panY+dy;applyTransform()}gesture.lastX=e.clientX;gesture.lastY=e.clientY}});
 function release(e){if(!pointers.has(e.pointerId))return;const last=gesture;pointers.delete(e.pointerId);if(pointers.size===0){if(last&&!last.pinch&&zoom===1){const dx=e.clientX-last.startX;if(Math.abs(dx)>65&&Math.abs(e.clientY-last.startY)<90)goto(pageNo+(dx<0?1:-1))}gesture=null}else if(pointers.size===1){const one=[...pointers.values()][0];gesture={startX:one.x,startY:one.y,panX,panY,pinch:false}}}
