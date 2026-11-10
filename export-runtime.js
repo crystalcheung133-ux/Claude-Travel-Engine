@@ -36,13 +36,59 @@
   function buildModal(){
     if(document.getElementById('tripExportModal'))return;
     const modal=document.createElement('div');modal.id='tripExportModal';modal.className='trip-export-modal';modal.setAttribute('aria-hidden','true');
-    modal.innerHTML=`<div class="trip-export-sheet" role="dialog" aria-modal="true" aria-labelledby="tripExportTitle"><button class="trip-export-close" type="button" onclick="returnToTripStudio()" aria-label="Close">×</button><p class="kicker">TRIP OUTPUTS</p><h2 id="tripExportTitle">Export Trip</h2><p class="lead">Share through the iPhone or Android share sheet, or create a printable copy.</p><div class="trip-export-list"><section class="trip-export-group" aria-labelledby="tripExportItineraryTitle"><div class="trip-export-group-head"><span class="trip-export-icon">🗓️</span><span><strong id="tripExportItineraryTitle">Itinerary</strong><small>Schedule, addresses and notes.</small></span></div><div class="trip-export-group-actions"><button type="button" onclick="shareItineraryPDF()"><span aria-hidden="true">📤</span><strong>Share PDF</strong></button><button type="button" onclick="downloadItineraryPDF()"><span aria-hidden="true">📄</span><strong>Save PDF</strong></button><button type="button" onclick="exportFinalItinerary()"><span aria-hidden="true">🖨️</span><strong>Printable</strong></button></div></section><section class="trip-export-group" aria-labelledby="tripExportExpensesTitle"><div class="trip-export-group-head"><span class="trip-export-icon">🧾</span><span><strong id="tripExportExpensesTitle">Expenses</strong><small>One expense summary for transactions, party totals and settlements.</small></span></div><div class="trip-export-group-actions"><button type="button" onclick="openExpenseSummaryFromExport()"><span aria-hidden="true">📤</span><strong>Open Summary</strong></button></div></section><button type="button" class="coming-soon" disabled><span class="trip-export-icon">📖</span><span><strong>Memory Book</strong><small>Coming Soon</small></span></button></div></div>`;
+    modal.innerHTML=`<div class="trip-export-sheet" role="dialog" aria-modal="true" aria-labelledby="tripExportTitle"><button class="trip-export-close" type="button" onclick="returnToTripStudio()" aria-label="Close">×</button><p class="kicker">TRIP OUTPUTS</p><h2 id="tripExportTitle">Export Trip</h2><p class="lead">Share through the iPhone or Android share sheet, or create a printable copy.</p><div class="trip-export-list"><section class="trip-export-group" aria-labelledby="tripExportItineraryTitle"><div class="trip-export-group-head"><span class="trip-export-icon">🗓️</span><span><strong id="tripExportItineraryTitle">Itinerary</strong><small>Schedule, addresses and notes.</small></span></div><div class="trip-export-group-actions"><button type="button" onclick="shareItineraryPDF()"><span aria-hidden="true">📤</span><strong>Share PDF</strong></button><button type="button" onclick="downloadItineraryPDF()"><span aria-hidden="true">📄</span><strong>Save PDF</strong></button><button type="button" onclick="exportFinalItinerary()"><span aria-hidden="true">🖨️</span><strong>Printable</strong></button></div></section><section class="trip-export-group" aria-labelledby="tripExportExpensesTitle"><div class="trip-export-group-head"><span class="trip-export-icon">🧾</span><span><strong id="tripExportExpensesTitle">Expenses</strong><small>One expense summary for transactions, party totals and settlements.</small></span></div><div class="trip-export-group-actions"><button type="button" onclick="openExpenseSummaryFromExport()"><span aria-hidden="true">📤</span><strong>Open Summary</strong></button></div></section><section class="trip-export-group" aria-labelledby="tripExportMemoryTitle"><div class="trip-export-group-head"><span class="trip-export-icon">📖</span><span><strong id="tripExportMemoryTitle">Memory Book</strong><small>Share the flipbook or the complete PDF.</small></span></div><div class="trip-export-group-actions"><button type="button" onclick="shareMemoryBookFlipbook()"><span aria-hidden="true">📖</span><strong>Share Flipbook</strong></button><button type="button" onclick="shareMemoryBookPDF()"><span aria-hidden="true">📤</span><strong>Share PDF</strong></button><button type="button" onclick="saveMemoryBookPDF()"><span aria-hidden="true">📄</span><strong>Save PDF</strong></button></div></section></div></div>`;
     modal.addEventListener('click',event=>{if(event.target===modal)returnToTripStudio();});document.body.appendChild(modal);
   }
   function render(){buildControl();buildModal();const control=document.getElementById('tripExportControl');if(control)control.hidden=!isExportAdmin();if(!isExportAdmin())closeTripExportCenter();}
   window.openTripExportCenter=function(){if(!isExportAdmin())return alert('Enter Admin Mode to export the trip.');if(typeof closeFriendModal==='function')closeFriendModal();buildModal();CCMV_MODAL.setOpen('tripExportModal',true,{openClass:'open'});};
   window.closeTripExportCenter=function(){CCMV_MODAL.setOpen('tripExportModal',false,{openClass:'open'});};
   window.openExpenseSummaryFromExport=function(){if(!isExportAdmin())return alert('Enter Admin Mode to export the trip.');closeTripExportCenter();if(typeof window.openExpenseShareSummary==='function')window.openExpenseShareSummary();else alert('Expense summary is not available on this page.');};
+  // Reuse the same published book/flipbook URLs as memory-book.js.
+  const MEMORY_BOOK_FLIPBOOK='https://heyzine.com/flip-book/1aeb62aaf8.html';
+  const MEMORY_BOOK_PDF=new URL('./saigon-memory-book.pdf',document.baseURI).href;
+  const MEMORY_BOOK_FILE='Saigon_Companion_The_Memory_Edition.pdf';
+  async function copyMemoryBookLink(url){
+    try{await navigator.clipboard.writeText(url);alert('Link copied. Paste it into WhatsApp or Messages.');}
+    catch(e){window.prompt('Copy link',url);}
+  }
+  async function shareMemoryBookLink(url,title){
+    if(navigator.share){
+      try{await navigator.share({title,url});return;}
+      catch(e){if(e&&e.name==='AbortError')return;}
+    }
+    await copyMemoryBookLink(url);
+  }
+  window.shareMemoryBookFlipbook=function(){
+    if(!isExportAdmin())return alert('Enter Admin Mode to export the trip.');
+    return shareMemoryBookLink(MEMORY_BOOK_FLIPBOOK,'Our Saigon Memory Book · Flipbook');
+  };
+  window.saveMemoryBookPDF=function(){
+    if(!isExportAdmin())return alert('Enter Admin Mode to export the trip.');
+    const a=document.createElement('a');a.href=MEMORY_BOOK_PDF;a.download=MEMORY_BOOK_FILE;
+    document.body.appendChild(a);a.click();a.remove();
+  };
+  let memoryBookShareBusy=false;
+  window.shareMemoryBookPDF=async function(){
+    if(!isExportAdmin())return alert('Enter Admin Mode to export the trip.');
+    if(memoryBookShareBusy)return;
+    memoryBookShareBusy=true;
+    try{
+      if(navigator.share&&navigator.canShare&&typeof File!=='undefined'){
+        const response=await fetch(MEMORY_BOOK_PDF,{credentials:'same-origin'});
+        if(!response.ok)throw new Error('Memory Book PDF unavailable: '+response.status);
+        const blob=await response.blob();
+        const file=new File([blob],MEMORY_BOOK_FILE,{type:'application/pdf'});
+        const payload={title:'Our Saigon Memory Book',files:[file]};
+        if(navigator.canShare(payload)){
+          try{await navigator.share(payload);return;}
+          catch(e){if(e&&e.name==='AbortError')return;}
+        }
+      }
+      await shareMemoryBookLink(MEMORY_BOOK_PDF,'Our Saigon Memory Book · PDF');
+    }catch(e){console.warn('[Export Centre] Memory Book share fallback',e);
+      await shareMemoryBookLink(MEMORY_BOOK_PDF,'Our Saigon Memory Book · PDF');
+    }finally{memoryBookShareBusy=false;}
+  };
   window.exportExpenseSummary=function(){if(!isExportAdmin())return alert('Enter Admin Mode to export the trip.');if(typeof window.exportExpenseData!=='function')return alert('Expense export is not available on this page.');window.exportExpenseData();returnToTripStudio();};
 
   function itineraryShareText(){
